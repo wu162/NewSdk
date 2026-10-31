@@ -4,7 +4,7 @@
 C# port of JPEXS FLA Convert **3.0.0**, tag `v3.0.0`,
 https://github.com/jindrapetrik/jpexs-fla-convert (LGPL-2.1-or-later).
 The decoder files retain their original notices. The port reads binary
-Flash 8 directly and does not invoke Java, COM or an installed Flash editor.
+Flash MX 2004 / Flash 8 directly and does not invoke Java, COM or an installed Flash editor.
 
 The reference attachment `ARSDK2_flash.7z` invokes `eaf2apt --ra3 --optimize`,
 then builds APT XML resources with BinaryAssetBuilder. Attached documents and

@@ -35,6 +35,7 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
         private HashSet<string> locals = new HashSet<string>(StringComparer.Ordinal);
         private As2Class classContext;
         private Func<string, As2Class> classResolver;
+        private bool staticInitialization;
         private ActionScriptCompiler(string source) { Lex(source); }
         internal static ActionProgram Compile(string source) { var c = new ActionScriptCompiler(source); c.Imports(null); while (!c.At("<eof>")) c.Statement(); return c.code.Finish(true); }
         private Token Current => tokens[Math.Min(cursor, tokens.Count - 1)];
@@ -247,13 +248,13 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
             if (n.Kind != "variable" || locals.Contains(n.Name)) return n;
             if (classContext != null && classContext.InstanceMembers.Contains(n.Name)) return new Node("member", null, null, new Node("variable", "this"), new Node("literal", null, n.Name));
             if (classContext != null && classContext.StaticMembers.Contains(n.Name)) return new Node("member", null, null, PathNode(classContext.Name), new Node("literal", null, n.Name));
-            if (aliases.TryGetValue(n.Name, out string qualified)) { if (classContext != null && qualified != classContext.Name) classResolver?.Invoke(qualified); return PathNode(qualified); } return n;
+            if (aliases.TryGetValue(n.Name, out string qualified)) { if (classContext != null && qualified != classContext.Name) { classResolver?.Invoke(qualified); if (staticInitialization) classContext.InitializerDependencies.Add(qualified); } return PathNode(qualified); } return n;
         }
         internal static As2Class CompileClass(string source, Func<string, As2Class> require, IReadOnlyDictionary<string, string> implicitTypes = null, Func<string, As2Class> requireBase = null)
         {
             var c = new ActionScriptCompiler(source); c.Imports(require); c.classResolver = require; if (implicitTypes != null) foreach (var type in implicitTypes) if (!c.aliases.ContainsKey(type.Key)) c.aliases.Add(type.Key, type.Value); c.Eat("dynamic"); c.Need("class"); string name = c.Qualified(), leaf = name.Substring(name.LastIndexOf('.') + 1); string parent = c.Eat("extends") ? c.Qualified() : "Object";
             if (c.aliases.TryGetValue(parent, out string qualified)) parent = qualified;
-            var baseClass = (requireBase ?? require)(parent); var result = new As2Class { Name = name }; if (baseClass != null) { result.InstanceMembers.UnionWith(baseClass.InstanceMembers); result.StaticMembers.UnionWith(baseClass.StaticMembers); }
+            var baseClass = (requireBase ?? require)(parent); var result = new As2Class { Name = name, BaseName = parent }; if (baseClass != null) { result.InstanceMembers.UnionWith(baseClass.InstanceMembers); result.StaticMembers.UnionWith(baseClass.StaticMembers); }
             if (parent == "MovieClip") result.InstanceMembers.UnionWith(new[] { "_x", "_y", "_alpha", "_width", "_height", "_visible", "_rotation", "_xscale", "_yscale", "_parent", "_root", "_name", "_currentframe", "_totalframes", "attachMovie", "createEmptyMovieClip", "removeMovieClip", "duplicateMovieClip", "swapDepths", "getDepth", "getNextHighestDepth", "localToGlobal", "globalToLocal", "hitTest", "startDrag", "stopDrag" });
             c.aliases[leaf] = name; c.classContext = result; c.Need("{");
             var functions = new List<Tuple<bool, string, int, string>>(); var fields = new List<Tuple<bool, string, Node>>();
@@ -286,6 +287,7 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
             foreach (var method in methods.Where(m => m.Item4.Length == 0)) { c.Assign(new Node("member", null, null, method.Item1 ? ctor : prototype, new Node("literal", null, method.Item2)), method.Item3, "="); c.code.Op(0x17); }
             foreach (var accessors in methods.Where(m => m.Item4.Length != 0).GroupBy(m => Tuple.Create(m.Item1, m.Item2)))
             { var get = accessors.Where(m => m.Item4 == "get").ToArray(); var set = accessors.Where(m => m.Item4 == "set").ToArray(); if (get.Length > 1 || set.Length > 1) throw c.Error("Duplicate AS2 accessor."); Node target = new Node("member", null, null, accessors.Key.Item1 ? ctor : prototype, new Node("literal", null, "addProperty")); var call = new Node("call", null, null, target, new Node("literal", null, accessors.Key.Item2), get.Length == 0 ? new Node("literal") : get[0].Item3, set.Length == 0 ? new Node("literal") : set[0].Item3); c.Call(call); c.code.Op(0x17); }
+            c.staticInitialization = true;
             foreach (var field in fields.Where(f => f.Item1)) { c.Assign(new Node("member", null, null, ctor, new Node("literal", null, field.Item2)), field.Item3, "="); c.code.Op(0x17); }
             c.code.Mark(done); result.Code = c.code.Finish(); return result;
         }

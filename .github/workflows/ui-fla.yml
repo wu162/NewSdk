@@ -36,6 +36,17 @@ jobs:
         run: |
           dotnet run --project ui/tests/UiCompiler.Tests.csproj -f net472 -c Release
           if($LASTEXITCODE -ne 0){throw 'UI component tests failed'}
+      - name: App discovery contracts and changed PowerShell syntax
+        shell: pwsh
+        run: |
+          foreach($path in @('BuildManagedFoundation','RestoreUiDependencies','TestCompilerUi','TestCompiler')) {
+            $tokens=$null;$errors=$null
+            $null=[Management.Automation.Language.Parser]::ParseFile((Resolve-Path "recovery/scripts/$path.ps1"),[ref]$tokens,[ref]$errors)
+            if($errors.Count){$errors|Format-List|Out-Host;throw "PowerShell syntax errors: $path"}
+          }
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/TestApp.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/ui-tests/app/$mode"
+          }
       - name: Build Debug and Release and verify clean five-file products
         id: product
         shell: pwsh
@@ -64,6 +75,9 @@ jobs:
         if: ${{ !cancelled() && steps.product.outcome == 'success' }}
         shell: pwsh
         run: ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/ui-product -OutputDirectory recovery/artifacts/ui-tests/sdk
+      - name: Package and verify the five-file runtime ZIPs
+        shell: pwsh
+        run: ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/ui-product -AcceptanceReceipt recovery/artifacts/ui-tests/cli/validation.json -OutputDirectory recovery/artifacts/ui-tests/release
       - uses: actions/upload-artifact@v4
         if: always()
         with:

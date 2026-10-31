@@ -30,6 +30,9 @@ internal static class LayoutDocument
         var text = new FlaRecord("CPicText"); text.set("textFlags", 1 | 2 | 16); text.set("bounds", new List<int> { 0, 2000, 0, 600 }); text.set("variableName", "status");
         var run = new FlaRecord("run"); var style = new FlaRecord("style"); style.set("fontFamily", "_sans"); style.set("fontSize", 240); style.set("alignment", 2); style.set("colorRgba", 0xff123456L); run.set("style", style); run.set("text", "Ready 中文"); text.set("runs", new List<FlaRecord> { run });
         doc.Pages["Panel"] = Page(Frame(text, Shape(1200, 800, true)));
+        // Old editor files can retain clip handlers on a button state frame;
+        // Flash publishes only its visual state records, with no frame actions.
+        doc.Pages["Button"].getChildren()[0].getChildren()[0].set("actions", Script("on(construct){_type=\"RenderImage\";} onClipEvent(load){trace(1);}"));
         var b = new FlaRecord("CLibButton"); b.set("libraryId", 1); b.set("streamName", "Button"); b.set("symbolType", 1);
         var movie = new FlaRecord("CLibSymbol"); movie.set("libraryId", 2); movie.set("streamName", "Panel"); var link = new FlaRecord("linkage"); link.set("flags", 1); link.set("identifier", "PanelExport"); link.set("className", "ui.Panel"); movie.set("linkage", link); doc.Contents.set("library", new List<FlaRecord> { b, movie });
         var media = new FlaRecord("CMediaBits"); media.set("mediaId", 7); media.set("streamName", "Pixels"); doc.Contents.set("media", new List<FlaRecord> { media });

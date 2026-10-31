@@ -89,7 +89,10 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
                 if (button)
                 {
                     if (t.Length > 4) throw new InvalidDataException("Button has more than four states.");
-                    foreach (var layer in document.Page(descriptor).getChildren()) foreach (var f in layer.getChildren()) if (!string.IsNullOrWhiteSpace(Source(f))) throw new NotSupportedException("Button states cannot contain frame scripts: " + descriptor.Text("name") + ": " + Source(f));
+                    // Button state frames are editor-only visual states, not a
+                    // movie timeline. Flash ignores archived frame scripts here;
+                    // instance on(...) handlers are compiled at placement. This
+                    // also preserves old buttons containing stale clip handlers.
                     var symbol = new ButtonSymbol { Id = id, Menu = menu };
                     for (int f = 0; f < t.Length; f++) foreach (var placement in t.Frame(f))
                     { RejectVisualEffects(placement.Record); if (Source(placement.Record).Length != 0) throw new NotSupportedException("Button child actions."); symbol.Parts.Add(new ButtonPart { State = 1 << f, SymbolId = placement.Id, Depth = placement.Depth, Matrix = CoordinateMath.Matrix(placement.Matrix), Color = Color(placement.Record) }); }

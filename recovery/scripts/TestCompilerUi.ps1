@@ -45,16 +45,16 @@ function InspectStreams([string]$Published){
         $name=[Text.Encoding]::ASCII.GetString($bytes,[int]$start,[int]($end-$start));Need ($names.Add($name)) "Duplicate generated asset: $name"
         $sizes+=[BitConverter]::ToUInt32($bytes,[int]($entry+32))
     }
-    foreach($movie in @('CoronaUIMain','enhancerApt')){foreach($part in @(@('AptAptData','apt'),@('AptConstData','const'),@('AptDatData','dat'))){Need ($names.Contains($part[0]+':'+$movie+'_'+$part[1])) "Missing generated $movie $($part[0])"}}
-    Need ($names.Contains('ArmorTemplate:UiMixedArmor')) 'Ordinary XML asset disappeared from UI stream'
-    Need (@($names|Where-Object{$_.StartsWith('AptGeometryData:')}).Count -gt 0 -and @($names|Where-Object{$_.StartsWith('Texture:')}).Count -gt 0) 'Real Enhancer geometry/texture siblings are missing'
+    foreach($movie in $script:expectedMovies){foreach($part in @(@('AptAptData','apt'),@('AptConstData','const'),@('AptDatData','dat'))){Need ($names.Contains($part[0]+':'+$movie+'_'+$part[1])) "Missing generated $movie $($part[0])"}}
+    if($script:expectArmor){Need ($names.Contains('ArmorTemplate:UiMixedArmor')) 'Ordinary XML asset disappeared from UI stream'}
+    if($script:expectedMovies -contains 'enhancerApt'){Need (@($names|Where-Object{$_.StartsWith('AptGeometryData:')}).Count -gt 0 -and @($names|Where-Object{$_.StartsWith('Texture:')}).Count -gt 0) 'Real Enhancer geometry/texture siblings are missing'}
     Need ((Get-Item -LiteralPath ($base+'.bin')).Length -eq 4+$sizes) 'Linked binary size differs from manifest entries'
     return @{assetCount=$count;names=@($names|Sort-Object);checksum=[BitConverter]::ToUInt32($bytes,4)}
 }
 function Run([string]$Name,[string]$Destination,[bool]$SessionCache=$true,[int]$Expected=0){
     $case=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     New-Item -ItemType Directory -Path $Destination -Force|Out-Null
-    $arguments=@('build','--mod',$script:mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content','base','--performance','detailed',('--sc='+$SessionCache.ToString().ToLowerInvariant()),'--bc=true','--iod',(Join-Path $script:modeWork 'intermediate'))
+    $arguments=@('build','--mod',$script:mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content',$script:content,'--performance','detailed',('--sc='+$SessionCache.ToString().ToLowerInvariant()),'--bc=true','--iod',(Join-Path $script:modeWork 'intermediate'))
     $events=Join-Path $Destination 'build.events.jsonl';$report=Join-Path $Destination 'build-report.json'
     @{exe=$script:exe;cwd=$script:runtime;arguments=$arguments;stdout=(Join-Path $case 'stdout.log');stderr=(Join-Path $case 'stderr.log');events=$events;cancel=$false;timeoutSeconds=$TimeoutSeconds}|ConvertTo-Json -Depth 5|Set-Content "$case/request.json"
     & $script:control "$case/request.json" "$case/control.json" *> "$case/controller.log"
@@ -98,8 +98,10 @@ try{
         foreach($movie in @('CoronaUIMain','EnhancerApt')){Copy-Item -LiteralPath "$root/recovery/fixtures/ui/$movie" -Destination "$mod/Data/Source" -Recurse}
         $xml='<AssetDeclaration xmlns="uri:ea.com:eala:asset"><ArmorTemplate id="UiMixedArmor" Default="72.5%"/><AptAptData id="CoronaUIMain_apt" File="Source/CoronaUIMain/CoronaUIMain.fla"/><AptAptData id="enhancerApt_apt" File="Source/EnhancerApt"/></AssetDeclaration>'
         [IO.File]::WriteAllText("$mod/Data/Mod.xml",$xml)
+        $script:content='base';$script:expectedMovies=@('CoronaUIMain','enhancerApt');$script:expectArmor=$true
         $destination=Join-Path $modeWork 'cached';$plain=Join-Path $modeWork 'plain'
         $cold=Run 'cold' $destination;$hot=Run 'hot' $destination;Equal $cold.files $hot.files
+        Need ($cold.report.cache.instanceCompile -gt 0 -and $hot.report.cache.instanceCompile -eq 0 -and $hot.report.cache.documentReuse -gt 0) 'UI hot session did not reuse all compiled siblings'
         $independent=Run 'independent-no-session' $plain $false;Equal $cold.files $independent.files
         $as="$mod/Data/Source/CoronaUIMain/CoronaUIMain.as";$stamp=[IO.File]::GetLastWriteTimeUtc($as);$before=[IO.File]::ReadAllBytes($as)
         $text=[IO.File]::ReadAllText($as);Need ($text.Contains('s_IsCorona: Boolean = true;')) 'AS mutation token absent'
@@ -109,6 +111,7 @@ try{
         Need ($index -ge 0 -and $needle.Length -eq $replacement.Length) 'Invalid equal-length AS mutation'
         [Array]::Copy($replacement,0,$before,$index,$replacement.Length);[IO.File]::WriteAllBytes($as,$before);[IO.File]::SetLastWriteTimeUtc($as,$stamp)
         $changed=Run 'as-same-size-mtime' $destination;Changed $hot.files $changed.files
+        Need ($changed.report.cache.instanceCompile -gt 0) 'Changed AS did not compile the generated group'
         $independent=Run 'as-no-session' $plain $false;Equal $changed.files $independent.files
         $timeline="$mod/Data/Source/EnhancerApt/enhancerApt.as";[IO.File]::WriteAllText($timeline,'trace("added-source-file");')
         $added=Run 'as-added' $destination;Changed $changed.files $added.files
@@ -124,6 +127,15 @@ try{
         $null=Run 'generated-identity-collision' $destination $true 4;Equal $retry.files (Snapshot $retry.published)
         [IO.File]::WriteAllText("$mod/Data/Mod.xml",$xml)
         $recovered=Run 'collision-retry' $destination;Equal $retry.files $recovered.files
+        $mixedMod=$script:mod;$script:mod=(New-Item -ItemType Directory -Path (Join-Path $modeWork 'bare')).FullName
+        New-Item -ItemType Directory -Path "$mod/Data/AptUI" -Force|Out-Null
+        Copy-Item -LiteralPath "$root/recovery/fixtures/ui/CoronaUIMain" -Destination "$mod/Data/AptUI" -Recurse
+        $script:content='auto';$script:expectedMovies=@('CoronaUIMain');$script:expectArmor=$false
+        $bare=Run 'bare-fla-auto' (Join-Path $modeWork 'bare-output')
+        Need (@($bare.report.plan.Tasks).Count -eq 1 -and $bare.report.plan.Tasks[0].Content -ceq 'apt') 'Bare FLA was not planned as one APT source task'
+        $bareHot=Run 'bare-fla-hot' (Join-Path $modeWork 'bare-output');Equal $bare.files $bareHot.files
+        Need ($bareHot.report.cache.instanceCompile -eq 0) 'Bare FLA hot build recompiled unchanged source'
+        $script:mod=$mixedMod
         $modeState.passed=$true
     }
     $state.succeeded=$true;Write-Host 'PASS direct UI production CLI, both attachments, mixed four streams, source invalidation and failure rollback'

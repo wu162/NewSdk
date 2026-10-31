@@ -1,4 +1,4 @@
-// Binary Flash 8 container decoding. Protocol derived from JPEXS FLA Convert 3.0.0.
+// Binary Flash MX 2004 / Flash 8 container decoding. Protocol derived from JPEXS FLA Convert 3.0.0.
 // LGPL-2.1-or-later; see licenses/JPEXS-LGPL-2.1.txt.
 using System;
 using System.Collections.Generic;

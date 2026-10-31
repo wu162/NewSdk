@@ -15,6 +15,7 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
         private readonly Dictionary<string, string> sourceCache = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         private readonly HashSet<string> compiling = new HashSet<string>(StringComparer.Ordinal);
         private readonly HashSet<string> pendingClasses = new HashSet<string>(StringComparer.Ordinal);
+        private bool resolvingPendingClasses;
         internal readonly List<string> Inputs = new List<string>();
         internal readonly List<As2Class> ClassOrder = new List<As2Class>();
         private static readonly Regex Include = new Regex(@"(?m)^[\t ]*#include[\t ]+[""']([^""'\r\n]+)[""'][\t ]*;?[\t ]*(?://[^\r\n]*)?\r?$", RegexOptions.CultureInvariant);
@@ -77,9 +78,27 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
             // Imports and method references may be mutual. Compile them after
             // the current inheritance chain is complete; only extends is a
             // strict dependency and must reject a cycle.
-            if (compiling.Count == 0)
-                while (pendingClasses.Count != 0)
-                { string next = pendingClasses.OrderBy(p => p, StringComparer.Ordinal).First(); pendingClasses.Remove(next); RequireClass(next); }
+            if (compiling.Count == 0 && !resolvingPendingClasses)
+            {
+                resolvingPendingClasses = true;
+                try
+                {
+                    while (pendingClasses.Count != 0)
+                    { string next = pendingClasses.OrderBy(p => p, StringComparer.Ordinal).First(); pendingClasses.Remove(next); RequireClass(next); }
+                    var ordered = new List<As2Class>(); var visiting = new HashSet<string>(StringComparer.Ordinal); var visited = new HashSet<string>(StringComparer.Ordinal);
+                    void Order(As2Class type)
+                    {
+                        if (visited.Contains(type.Name)) return;
+                        if (!visiting.Add(type.Name)) throw new InvalidDataException("Circular AS2 class initialization: " + type.Name);
+                        foreach (string dependency in new[] { type.BaseName }.Concat(type.InitializerDependencies.OrderBy(p => p, StringComparer.Ordinal)))
+                            if (dependency != null && compiledClasses.TryGetValue(dependency, out var required)) Order(required);
+                        visiting.Remove(type.Name); visited.Add(type.Name); ordered.Add(type);
+                    }
+                    foreach (var type in ClassOrder) Order(type);
+                    ClassOrder.Clear(); ClassOrder.AddRange(ordered);
+                }
+                finally { resolvingPendingClasses = false; }
+            }
             return result;
         }
         private As2Class ReferenceClass(string name)
@@ -126,7 +145,9 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
     internal sealed class As2Class
     {
         internal string Name;
+        internal string BaseName;
         internal ActionProgram Code;
+        internal readonly HashSet<string> InitializerDependencies = new HashSet<string>(StringComparer.Ordinal);
         internal readonly HashSet<string> InstanceMembers = new HashSet<string>(StringComparer.Ordinal);
         internal readonly HashSet<string> StaticMembers = new HashSet<string>(StringComparer.Ordinal);
         internal static bool IsBuiltin(string name) => new[] { "Object", "MovieClip", "Button", "TextField", "TextFormat", "Array", "String", "Number", "Boolean", "Date", "Math", "Color", "XML", "XMLNode", "Sound", "LoadVars", "Video", "MovieClipLoader", "LocalConnection", "SharedObject", "ContextMenu", "ContextMenuItem", "Error", "Key", "Mouse", "Stage", "System", "Selection", "AsBroadcaster" }.Contains(name, StringComparer.Ordinal) || name.StartsWith("flash.", StringComparison.Ordinal);

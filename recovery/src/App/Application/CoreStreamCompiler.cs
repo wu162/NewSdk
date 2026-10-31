@@ -233,7 +233,7 @@ namespace NewModCompiler.Application
         Settings StreamSettings(StreamContext context, string output)
         {
             Settings settings = ReadSettings();
-            settings.InputPath = Path.GetFullPath(context.Task.InputPath);
+            settings.InputPath = StreamInputPath(context);
             settings.SchemaPath = Path.Combine(sdkRoot, "Schemas", "xsd", "CnC3Types.xsd");
             settings.DataRoot = RootOption("dr", sdkRoot);
             settings.OutputDirectory = Path.Combine(output, "streams");
@@ -286,6 +286,28 @@ namespace NewModCompiler.Application
                 InputRootsReport = inputPreparation.Report;
             }
             return settings;
+        }
+
+        string StreamInputPath(StreamContext context)
+        {
+            string source = Path.GetFullPath(context.Task.InputPath);
+            if (!string.Equals(Path.GetExtension(source), ".fla", StringComparison.OrdinalIgnoreCase)) return source;
+            // A stable synthetic declaration lets the normal Core document and
+            // file-dependency caches own a bare FLA exactly like a hand-written
+            // AptAptData entry. Source projects are never changed by the host.
+            string directory = Path.Combine(outputRoot, ".NewModCompiler", "fla");
+            NewModCompiler.Diagnostics.DiagnosticDirectory.PrepareDirectory(directory, outputRoot);
+            string path = Path.Combine(directory, Path.GetFileNameWithoutExtension(source) + ".xml");
+            var document = new XmlDocument();
+            XmlElement root = document.CreateElement("AssetDeclaration", "uri:ea.com:eala:asset");
+            document.AppendChild(root);
+            XmlElement movie = document.CreateElement("AptAptData", root.NamespaceURI);
+            movie.SetAttribute("id", Path.GetFileNameWithoutExtension(source) + "_apt");
+            movie.SetAttribute("File", source);
+            root.AppendChild(movie);
+            string xml = document.OuterXml;
+            if (!File.Exists(path) || !string.Equals(File.ReadAllText(path), xml, StringComparison.Ordinal)) File.WriteAllText(path, xml);
+            return path;
         }
         static string InputSignature(BuildRequest candidate)
         {
@@ -467,8 +489,9 @@ namespace NewModCompiler.Application
             string output = Path.GetFullPath(context.OutputDirectory);
             if (!Paths.Contains(outputRoot, output) || Paths.Contains(output, outputRoot) || Paths.Contains(sdkRoot, output) || Paths.Contains(modRoot, output))
                 throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_INVALID", "The stream workspace must be beneath the isolated output root.");
-            if (string.IsNullOrEmpty(context.Task.InputPath) || !Path.IsPathRooted(context.Task.InputPath) || !Paths.Contains(modRoot, context.Task.InputPath) || !File.Exists(context.Task.InputPath) || !string.Equals(Path.GetExtension(context.Task.InputPath), ".xml", StringComparison.OrdinalIgnoreCase))
-                throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "The experimental backend requires an existing XML stream entry.");
+            if (string.IsNullOrEmpty(context.Task.InputPath) || !Path.IsPathRooted(context.Task.InputPath) || !Paths.Contains(modRoot, context.Task.InputPath) || !File.Exists(context.Task.InputPath) ||
+                !(string.Equals(Path.GetExtension(context.Task.InputPath), ".xml", StringComparison.OrdinalIgnoreCase) || context.Task.Content == "apt" && string.Equals(Path.GetExtension(context.Task.InputPath), ".fla", StringComparison.OrdinalIgnoreCase)))
+                throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "Core requires an existing XML stream entry or APT FLA source.");
             Settings previousSettings = Settings.Current;
             bool previousMetrics = MetricManager.Enabled;
             IDisposable hashes = null, tracing = null, report = null, processorState = null;

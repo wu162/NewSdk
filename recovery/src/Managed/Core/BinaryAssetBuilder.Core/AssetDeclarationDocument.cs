@@ -102,6 +102,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 		public List2<string> UiSourceDirectories;
 
+		public uint UiCompilerHash;
+
 		public uint IncludePathHash;
 
 		public List2<InclusionItem> InclusionItems;
@@ -124,6 +126,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			DependentFileHash = current.DependentFileHash;
 			DependentFiles = ((current.DependentFiles.Count > 0) ? new List2<string>(current.DependentFiles) : null);
 			UiSourceDirectories = current.UiSourceDirectories.Count > 0 ? new List2<string>(current.UiSourceDirectories) : null;
+			UiCompilerHash = current.UiCompilerHash;
 			OutputAssets = ((current.OutputAssets.Count > 0) ? new List2<OutputAsset>(current.OutputAssets) : null);
 			SelfDefines = ((current.SelfDefines.Count > 0) ? new List2<Definition>(current.SelfDefines) : null);
 			SelfInstances = ((current.SelfInstances.Count > 0) ? new List2<InstanceDeclaration>(current.SelfInstances) : null);
@@ -142,6 +145,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 		public LastState(XmlReader reader)
 		{
+			string uiCompiler = reader.GetAttribute("uiv");
+			if (uiCompiler != null) UiCompilerHash = Convert.ToUInt32(uiCompiler);
 			reader.MoveToAttribute("d");
 			string[] array = reader.Value.Split(';');
 			DocumentHash = Convert.ToUInt32(array[0]);
@@ -197,6 +202,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			writer.WriteStartElement("ad");
 			writer.WriteAttributeString("d", $"{DocumentHash};{DependentFileHash};{IncludePathHash}");
+			if (UiCompilerHash != 0) writer.WriteAttributeString("uiv", UiCompilerHash.ToString(System.Globalization.CultureInfo.InvariantCulture));
 			XmlHelper.WriteStringArrayElement(writer, "sf", (DependentFiles == null) ? null : DependentFiles.ToArray());
 			XmlHelper.WriteStringArrayElement(writer, "uidir", UiSourceDirectories == null ? null : UiSourceDirectories.ToArray());
 			XmlHelper.WriteStringArrayElement(writer, "dsf", (StreamHints == null) ? null : StreamHints.ToArray());
@@ -245,6 +251,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 		public List2<string> DependentFiles;
 
 		public List2<string> UiSourceDirectories;
+
+		public uint UiCompilerHash;
 
 		public List2<InclusionItem> InclusionItems;
 
@@ -326,6 +334,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			InclusionItems = ((last.InclusionItems != null) ? new List2<InclusionItem>(last.InclusionItems) : new List2<InclusionItem>());
 			DependentFiles = ((last.DependentFiles != null) ? new List2<string>(last.DependentFiles) : new List2<string>());
 			UiSourceDirectories = last.UiSourceDirectories != null ? new List2<string>(last.UiSourceDirectories) : new List2<string>();
+			UiCompilerHash = last.UiCompilerHash;
 			StreamHints = ((last.StreamHints != null) ? new List2<string>(last.StreamHints) : new List2<string>());
 			UsedDefines = new SortedDictionary<string, string>();
 			if (last.UsedDefines != null)
@@ -354,6 +363,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			InclusionItems = new List2<InclusionItem>();
 			DependentFiles = new List2<string>();
 			UiSourceDirectories = new List2<string>();
+			UiCompilerHash = 0;
 			UsedDefines = new SortedDictionary<string, string>();
 			SelfDefines = new List2<Definition>();
 			SelfInstances = new InstanceSet();
@@ -571,6 +581,12 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			text = "content changed";
 		}
+#if NEWSdk_MONOLITHIC
+		else if (_Current.UiCompilerHash != 0 && _Current.UiCompilerHash != UiCompilerInputHash())
+		{
+			text = "plugin output changed";
+		}
+#endif
 		else
 		{
 			UpdateDocumentHashes();
@@ -582,6 +598,16 @@ public class AssetDeclarationDocument : IXmlSerializable
 			{
 				foreach (InstanceDeclaration selfInstance in _Current.SelfInstances)
 				{
+#if NEWSdk_MONOLITHIC
+					// Older hosts treated .fla as an opaque AptAptData blob. Upgrade
+					// those cached declarations through the source expansion stage.
+					if (_Current.UiCompilerHash == 0 && selfInstance.Handle.TypeName == "AptAptData" &&
+						selfInstance.ReferencedFiles.Any(file => String.Equals(Path.GetExtension(file), ".fla", StringComparison.OrdinalIgnoreCase)))
+					{
+						text = "plugin output changed";
+						break;
+					}
+#endif
 					BinaryAsset binaryAsset = outputManager.GetBinaryAsset(selfInstance, isOutputAsset: false);
 					if (binaryAsset != null && binaryAsset.GetLocation(AssetLocation.All, AssetLocationOption.None) == AssetLocation.None)
 					{
@@ -1423,11 +1449,18 @@ public class AssetDeclarationDocument : IXmlSerializable
 	}
 
 #if NEWSdk_MONOLITHIC
+	private uint UiCompilerInputHash()
+	{
+		return HashProvider.GetTextHash(BinaryAssetBuilder.UiCompiler.UiCatalog.ProcessingHash,
+			_Current.DocumentProcessor.Plugins.GetPlugin(1816258268u).GetVersionNumber().ToString(System.Globalization.CultureInfo.InvariantCulture));
+	}
+
 	private void ExpandUiSources()
 	{
 		// Run after the ordinary schema/path validation, before dependency and
 		// instance hashes become cache keys. No output is committed until every
 		// source in this document has compiled successfully.
+		_Current.UiCompilerHash = 0;
 		var sources = new List<InstanceDeclaration>();
 		foreach (InstanceDeclaration instance in SelfInstances)
 			if (instance.Handle.TypeName == "AptAptData" &&
@@ -1437,7 +1470,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 			var compiler = _Current.DocumentProcessor.Plugins.GetPlugin(source.Handle.TypeId) as BinaryAssetBuilder.UiCompiler.IUiFileCompiler;
 			if (compiler == null) throw new InvalidOperationException("The AptAptData plugin does not support FLA expansion.");
 			var group = compiler.CompileUiFile(source, Settings.Current.TargetPlatform);
-			uint sourceHash = source.Handle.InstanceHash;
+			_Current.UiCompilerHash = UiCompilerInputHash();
+			uint sourceHash = HashProvider.GetTextHash(source.Handle.InstanceHash, _Current.UiCompilerHash.ToString(System.Globalization.CultureInfo.InvariantCulture));
 			string directory = Path.GetDirectoryName(source.XmlNode.Attributes["File"].Value);
 			foreach (string input in group.InputFiles)
 			{
