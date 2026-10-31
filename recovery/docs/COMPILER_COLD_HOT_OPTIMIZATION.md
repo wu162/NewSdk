@@ -1,6 +1,6 @@
 # 编译器冷、热缓存性能优化
 
-本轮从 `recovery/legacy-sdk-cache` / `665468cb` 拉出 `perf/compiler-cold-hot-cache`，范围是编译器冷缓存与热缓存的主要重复工作。第一轮生产源码 `4d732a14` 已完成验收与同机测量。深入分析后继续实现第二组，第二组 `d3b3150f` 也已完整验收。远端同期合入FLA支持后，已同步 `074bf768`，最终组合源码为 `e2dba3c321504752438b4e940d651bbfcdb58fff`，正在运行含真实FLA/AS的新组合验收；第一轮数据不代表最终组合收益。
+本轮从 `recovery/legacy-sdk-cache` / `665468cb` 拉出 `perf/compiler-cold-hot-cache`，范围是编译器冷缓存与热缓存的主要重复工作。第一轮生产源码 `4d732a14` 已完成验收与同机测量。深入分析后继续实现第二组，第二组 `d3b3150f` 也已完整验收。远端同期合入FLA支持后，已同步 `074bf768`，最终组合源码为 `e2dba3c321504752438b4e940d651bbfcdb58fff`，已通过含真实FLA/AS的完整组合验收；正在以最新UI基线进行最终同机计量，第一轮数据不代表最终组合收益。
 
 ## 优先级与实现
 
@@ -75,6 +75,21 @@
 
 所有修改都保持输入字节长度与mtime；各代两方发布原字节一致，修改后重新变热为0解析/0编译。较慢的候选热样本也保留，例如首场hot_before为464.57ms、基线444.80ms；不能由这批n=1短样本宣称所有编辑都稳定提速。第二组将重新测这组，并补未使用Define，以确认已有的精确使用集合，而非将全局Define文件任何变化当成全量资产失效。
 
+## 最终组合的六类增量诊断
+
+[41171625562](https://github.com/wu162/NewSdk/actions/runs/41171625562)在最新UI基线75d29895与组合e2dba3c3上完成38/38新进程，[原始计量与全部样本](../evidence/refactor/cache-paired/41171625562-1/measurement.json)、[原归档身份](../evidence/refactor/cache-paired/41171625562-1/archive.json)已下载核对。相同37文档/515个Armor输入增加一个未使用Define；这是每事件n=1的detailed诊断，不能与上轮或off吞吐横比。
+
+| 修改 | 基线/组合毫秒 | 两方解析/编译 | 结果 |
+| --- | ---: | --- | --- |
+| 大文档只改单资产 | 635.87 / 602.43 | 1 / 1 | 当前代原字节一致 |
+| 有效继承字段 | 612.67 / 604.24 | 2 / 2 | 当前代原字节一致 |
+| 父无关兄弟 | 596.10 / 580.85 | 2 / 1 | 发布内容不变 |
+| 已使用Define | 613.97 / 601.06 | 3 / 2 | 当前代原字节一致 |
+| 未使用Define | 545.42 / 547.13 | 1 / 0 | 仅定义文档重载，发布内容不变 |
+| 仅丢会话元数据 | 639.76 / 595.40 | 37 / 0 | 发布内容不变 |
+
+全部修改保持等长及mtime，再热均0解析/0编译。未使用Define样本稍慢，继承场景hot_after组合539.79ms、基线509.16ms也原样保留。结果证明当前失效与资产复用合同，不能用这些短n=1样本给出稳定编辑加速保证。
+
 ## 验收和第二组状态
 
 | 项目 | 当前状态 |
@@ -83,7 +98,7 @@
 | 较早检查点 | [41165381586](https://github.com/wu162/NewSdk/actions/runs/41165381586) success；随后补齐会话瞬态重置及专门重入回归，最终验收使用后一运行 |
 | 第二组源码 | `d3b3150fba886708cf3e34fcce3ec55d145e27a8`：512字符XML哈希缓冲、Schema事实预分类、删除纯写FileConfigs |
 | 第二组 Windows | [41167799236](https://github.com/wu162/NewSdk/actions/runs/41167799236) success；[原归档/十文件/两ZIP](../evidence/refactor/cache-paired/acceptance-41167799236/archive.json)重新下载核对 |
-| 最新分支组合 | 已同步FLA基线074bf768；组合e2dba3c3，[41169755141](https://github.com/wu162/NewSdk/actions/runs/41169755141)运行中，新增真实FLA/AS集成门槛 |
+| 最新分支组合 | 已同步FLA基线074bf768；组合e2dba3c3，[41169755141](https://github.com/wu162/NewSdk/actions/runs/41169755141)全success，含真实FLA/AS；[归档/十文件/两ZIP](../evidence/refactor/cache-paired/acceptance-41169755141/archive.json)已下载复算 |
 | 第二组同机最终收益 | 待新验收成功后，以相同负载重新配对，不沿用第一轮速度比例 |
 
 [深入源码分析](COMPILER_CACHE_SOURCE_ANALYSIS.md)记录新打点、优先级、已实施和暂缓方案、兼容边界及后续验证。失败/旧运行与所有较慢样本保留。未经用户明确批准不得合并，禁止强推。
