@@ -39,6 +39,7 @@ def make(out,repo):
             for loop in (False,True):add('c%d_s%d_l%d'%(channels,stream,loop),channels,stream=stream,loop=loop)
     for rate in (16000,24000,32000,44100,48000):add('rate%d'%rate,2,rate=rate,stream=True)
     for q in (0,100,None):add('quality%s'%q,2,quality=q)
+    add('quality075',2,quality='075')
     for channels in (1,2,4,6):add('aiff%d'%channels,channels,aiff=True,loop=True,stream=channels!=1)
     add('wave24',2,stream=True,bits=24)
     add('aiff24',2,stream=True,loop=True,aiff=True,bits=24)

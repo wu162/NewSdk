@@ -76,6 +76,7 @@ def run(root,decoder):
         # Meaningful quality behavior, not just accepted attributes.
         low=root/'Release/jobs1/quality0.cdata';high=root/'Release/jobs1/quality100.cdata'
         need(low.read_bytes()!=high.read_bytes() and high.stat().st_size>low.stat().st_size,'PCQuality did not change real compressed payload/bitrate')
+        need((root/'Release/jobs1/quality075.cdata').read_bytes()==(root/'Release/jobs1/qualityNone.cdata').read_bytes(), 'RA3 decimal quality/default semantics differ')
         receipt['passed']=True
     finally:
         (root/'validation.json').write_text(json.dumps(receipt,indent=2))

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Globalization;
 using System.Xml;
 using BinaryAssetBuilder.Core;
 
@@ -43,8 +44,7 @@ namespace BinaryAssetBuilder.AudioCompiler
             }
             // Quality is ignored for representations PCM(1) and XAS(29) by the
             // original. In particular, do not add a new [0,100] rejection here.
-            int quality = policy.SampleRepresentation == 31 && attrs["PCQuality"] != null ?
-                ParseCInt(attrs["PCQuality"].Value) : 75;
+            int quality = policy.SampleRepresentation == 31 ? Quality(attrs["PCQuality"]) : 75;
             policy.ValidateQuality(quality);
             PcmEncodingResult encoded = policy.SampleRepresentation == 31 ?
                 EaLayer3Encoder.EncodeSamples(input.Samples, input.Channels, input.SampleRate,
@@ -68,6 +68,17 @@ namespace BinaryAssetBuilder.AudioCompiler
             if (File.Exists(declaration.CustomDataPath)) File.Delete(declaration.CustomDataPath);
             File.WriteAllBytes(declaration.CustomDataPath, encoded.CustomData);
             return builder.Finish();
+        }
+
+        private static int Quality(XmlAttribute attr)
+        {
+            if (attr == null || attr.Value.Length == 0) return 75;
+            string value = attr.Value;
+            // jonwil's RA3 AudioFile marshaler uses decimal (including leading
+            // zeroes), or the full 0xXXXXXXXX SageInt form, not C octal parsing.
+            bool hex = value.Length == 10 && value[0] == '0' && value[1] == 'x';
+            return Int32.Parse(hex ? value.Substring(2) : value,
+                hex ? NumberStyles.HexNumber : NumberStyles.Integer, CultureInfo.InvariantCulture);
         }
 
         private static int? Compression(XmlAttribute attr)
