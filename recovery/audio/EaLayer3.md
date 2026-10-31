@@ -1,7 +1,7 @@
 # RA3 EALayer3 V1
 
 实现分支：`feature/ra3-ealayer3`，基线 `recovery/legacy-sdk-cache` / `eb503513`。
-当前为实现后的验证阶段；下表是实现范围，正式通过范围以本文末尾的 Windows 收据为准。
+实现及 Windows 验收已通过；[PR #34](https://github.com/wu162/NewSdk/pull/34)，未经用户批准不合并。
 
 ## 编码与来源
 
@@ -77,7 +77,31 @@ jonwil RA3 插件格式/解码信号对照、既有 NONE/XAS/MP3/PathMusic 原�
 专项通过后才运行正式 BAB 加载新 DLL、正常产品 D/R 构建、生产 CLI 缓存/并行/音频
 修改/独立重编译，最后集中执行一次现有完整 mymod SDK 验收。
 
-当前 Windows 验证仍在进行。早期失败保留于 Actions：输出路径引号、测试宿主路径/
-CLR 配置、上游静态 synthesis scratch 导致的并行差异，以及 AIFF 测试 end marker
-误用 inclusive 值。没有降低字节相等断言，没有把仅能解码标为游戏内播放通过。
-游戏内运行未执行。
+Windows [41149785200](https://github.com/wu162/NewSdk/actions/runs/41149785200) **success**，
+源码/二进制均为 `4ddac274b859be7fdb537df8d21d1e25e7ef8e06`；之后仅补文档与原收据归档。
+
+- 独立 DLL 的 Debug/Release × jobs1/4：44 输入 × 4 次实际编码共 176 个资产；
+  88 个候选产物逐一由 vgmstream 解码并检查源波形、声道顺序、SNR/SNS/运行时元数据、
+  Loop、块尺寸/填充/终止。每配置 jobs1/4 的完整三缓冲区和 CustomData 原字节一致。
+- 原 jonwil RA3 插件：29 条元数据/解码/差异测量；明确输出 V2，不声称跨变体波形等价。
+  显式 V1 参照：4 条有效 MPEG1/重采样 Loop 严格波形对照通过；25 条 LSF 不可用参照
+  的静音/起始采样及原始输出保留，没有把它们计为 V1 波形等价通过。
+- 既有格式每配置 521 条完整原字节比较通过：business/MP3/PathMusic 77、PCM8、XAS12、
+  真实输入8、WAVE Loop216、AIFF Loop200；另有每配置 12311 条元数据记录，仅允许明确的
+  插件版本/AudioFile ProcessingHash 更新，以及原有平台和输入边界拒绝检查。
+- 正式 BAB 加载新 AudioCompiler/原生 DLL，实际完成 44 个 AudioFile 回调；三缓冲区和
+  CustomData 与组件输出完全一致。
+- 正常生产 EXE Debug/Release 新构建成功，两个配置均保留五文件运行时。
+  生产 CLI 冷 jobs1/4 各编译44资产、全部输出原字节一致，实测最大 backend concurrency=4；
+  热态 xmlParse/instanceCompile 均0；修改1个 WAV 只编译1资产，与独立无缓存44资产重建
+  的全部输出一致，再次热态恢复0编译。没有新增音频缓存或外部编码进程。
+- 完整、未精简仓库 mymod 的 Debug/Release 均通过原 SDK 四流/CDATA、LoD、BIG/SKUDEF
+  原字节对照；输入未变，每配置0错误/82警告。该 MOD 实际只有 base/Mod，空的 APT/maps
+  继续为空，不据此声称额外 APT/map 语料或完整 Upheaval 新验收。
+
+两个 Actions ZIP 已下载并实际复算 SHA256。原始 JSON 收据、二进制/运行文件身份及
+[统一摘要](../evidence/audio/ealayer3-validation/41149785200-1/summary.json) 已归档。
+早期失败保留于 Actions：输出路径引号、测试宿主路径/CLR 配置、上游静态 synthesis
+scratch 的并行差异、AIFF fixture 的 end marker，以及新工作流缺少既有 dnfile 审计依赖。
+没有修改 Texture 生产代码或降低原审计要求。游戏内运行未执行，不能把解码成功视为
+游戏内播放验收。
