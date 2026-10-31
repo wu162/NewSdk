@@ -100,7 +100,7 @@ def run(args):
         source=git(repo,'rev-parse',args.candidate_source+'^{commit}')
         need(source==args.candidate_source,'Candidate source must be full SHA')
         subprocess.run(['git','-C',str(repo),'merge-base','--is-ancestor',BASELINE_HEAD,source],check=True)
-        closure=('SDK','recovery/src','recovery/build','recovery/probes','recovery/scripts/Build*','recovery/scripts/PrepareLegacyTexture.ps1')
+        closure=('SDK','recovery/src','recovery/build','recovery/probes','ui','recovery/scripts/Build*','recovery/scripts/PrepareLegacyTexture.ps1','recovery/scripts/RestoreUiDependencies.ps1')
         need(not git(repo,'diff','--name-only',BASELINE_BINARY_SOURCE,BASELINE_HEAD,'--',*closure),'Accepted baseline input closure changed')
         changes=git(repo,'diff','--name-only',BASELINE_HEAD,source,'--',*closure).splitlines()
         need(changes and all(p.startswith(('recovery/src/App/','recovery/src/Managed/Core/','recovery/src/Managed/Metrics/')) for p in changes),'Unexpected candidate production closure')

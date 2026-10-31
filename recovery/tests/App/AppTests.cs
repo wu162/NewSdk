@@ -145,6 +145,7 @@ namespace NewModCompiler.Tests
                 root=Path.GetFullPath(args.Length==0 ? Path.Combine(Path.GetTempPath(),"NewModCompiler-App-"+Guid.NewGuid().ToString("N")) : args[0]);
                 if (Directory.Exists(root)) Directory.Delete(root,true); Directory.CreateDirectory(root);
                 assertions += PerformanceTests.Run();
+                assertions += PlannerFlaTests.Run(Path.Combine(root,"fla-planner"));
 
                 assertions += EventBufferingTests.Run(Path.Combine(root,"event-buffering"));
 

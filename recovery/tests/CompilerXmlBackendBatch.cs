@@ -93,7 +93,9 @@ public static class CompilerXmlBackendBatch
         {
             foreach (var route in BuiltinCompilers.ExpectedRoutes)
             {
-                if (route.Family != "xml") continue;
+                // The UI source provider also preserves the original binary
+                // AptAptData backend, covered by this unchanged XML matrix.
+                if (route.Family != "xml" && route.TypeName != "AptAptData") continue;
                 bool certified = (bool)Policy.GetMethod("IsCertified").Invoke(null, new object[] { route.TypeId });
                 XmlNamespaceManager namespaces;
                 var declaration = Declaration(route.TypeName, plugin, out namespaces);

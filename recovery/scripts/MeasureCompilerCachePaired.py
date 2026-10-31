@@ -19,15 +19,15 @@ from HotCacheWorkload import (HISTORICAL, UPHEAVAL_TREE, add_include, allocate_i
                               reserved_instance_hashes, save_xml)
 from MeasureCompilerModScale import phases, sha, write
 
-BASELINE_HEAD = '665468cb686cc4bcd7a172465c2f7efcb7492dc2'
-BASELINE_BINARY_SOURCE = '1a3e4bc6d91a086404d51b6168c733366307e86e'
-BASELINE_RUN = '41152199159'
+BASELINE_HEAD = '074bf768fe58e042bfec3ea94d830156990823d6'
+BASELINE_BINARY_SOURCE = '75d29895be464d9a560f5f946d612e359bf4b396'
+BASELINE_RUN = '41165126334'
 BASELINE_FILES = {
-    'NewModCompiler.exe': '8b3ba88e9092f6850cbbc7101df499226a37f33a4011b01c8861e2f966f29f44',
+    'NewModCompiler.exe': 'd3893f1d6a8327755f89714bb7b85e322cfb3278d25247cfd80edaa5768b9892',
     'NewModCompiler.exe.config': '94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68',
     'antlr.runtime.dll': 'febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a',
     'BinaryAssetBuilder.TextureCompiler.dll': '076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48',
-    'BinaryAssetBuilder.TextureCompiler.dll.patch.json': '8100e0b32ab0a2cbe6f14997e43cd4379b2de8e44c095161783b729235fc5d56',
+    'BinaryAssetBuilder.TextureCompiler.dll.patch.json': '8101a936dee79718662c93f50a89735eabaa6d5601ea1e0a3da8b3f82c76794d',
 }
 
 
@@ -143,8 +143,9 @@ def run(args):
         source = git(repo, 'rev-parse', args.candidate_source + '^{commit}')
         need(source == args.candidate_source, 'Candidate source must be its full commit SHA')
         subprocess.run(['git', '-C', str(repo), 'merge-base', '--is-ancestor', BASELINE_HEAD, source], check=True)
-        closure = ('SDK', 'recovery/src', 'recovery/build', 'recovery/probes',
-                   'recovery/scripts/Build*', 'recovery/scripts/PrepareLegacyTexture.ps1')
+        closure = ('SDK', 'recovery/src', 'recovery/build', 'recovery/probes', 'ui',
+                   'recovery/scripts/Build*', 'recovery/scripts/PrepareLegacyTexture.ps1',
+                   'recovery/scripts/RestoreUiDependencies.ps1')
         need(not git(repo, 'diff', '--name-only', BASELINE_BINARY_SOURCE, BASELINE_HEAD, '--', *closure),
              'Pinned accepted baseline differs from requested base production inputs')
         changes = git(repo, 'diff', '--name-only', BASELINE_HEAD, source, '--', *closure).splitlines()

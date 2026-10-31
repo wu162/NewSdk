@@ -202,6 +202,10 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Current FLA integration with optimized Core and session caches
+        if: ${{ !cancelled() && env.CLI_REUSE != 'true' && steps.product.outputs.cliEnabled == 'true' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerUi.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/ui-integration/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Full certified backend production cache and jobs matrix
         if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
         shell: pwsh
@@ -328,6 +332,7 @@ jobs:
             recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/backend-parallel-performance/**
+            recovery/evidence/refactor/ui-integration/**
             recovery/evidence/refactor/backend-parallel/**
             recovery/artifacts/final-release/**
             recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}
