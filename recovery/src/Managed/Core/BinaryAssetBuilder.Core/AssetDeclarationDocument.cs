@@ -902,12 +902,16 @@ public class AssetDeclarationDocument : IXmlSerializable
 	{
 		using var performance = PerformanceScope.Measure("core.xml.validate");
 		_Current.SchemaValidated = false;
-		_Current.XmlDocument.Schemas.Add(_Current.DocumentProcessor.SchemaSet.Schemas);
-		_Current.XmlDocument.Validate(HandleValidationEvents);
+		// The processor owns one compiled schema snapshot. Validation only reads
+		// it; copying its global tables into every document repeats that work.
+		using (PerformanceScope.Measure("core.xml.schema.attach"))
+			_Current.XmlDocument.Schemas = _Current.DocumentProcessor.SchemaSet.Schemas;
+		using (PerformanceScope.Measure("core.xml.schema.validate"))
+			_Current.XmlDocument.Validate(HandleValidationEvents);
 		_Current.NodeSourceInfoSet.Clear();
 		_Current.NodeSourceInfoSet = null;
-		ValidateInstances();
-		UpdateDocumentHashes();
+		using (PerformanceScope.Measure("core.xml.instances.validate")) ValidateInstances();
+		using (PerformanceScope.Measure("core.xml.hashes")) UpdateDocumentHashes();
 		_Current.SchemaValidated = true;
 	}
 
@@ -1852,43 +1856,52 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public void PrepareOutputInstances(OutputManager outputManager)
 	{
-		_Current.OutputInstanceSet = new SortedDictionary<InstanceHandle, InstanceDeclaration>();
-		foreach (InstanceDeclaration instance in Instances)
+		using (PerformanceScope.Measure("core.output.reference-closure"))
 		{
-			AddOutputInstance(instance);
-		}
-		foreach (InstanceDeclaration value in _Current.OutputInstanceSet.Values)
-		{
-			BinaryAsset binaryAsset = outputManager.GetBinaryAsset(value, isOutputAsset: true);
-			if (binaryAsset != null)
+			_Current.OutputInstanceSet = new SortedDictionary<InstanceHandle, InstanceDeclaration>();
+			foreach (InstanceDeclaration instance in Instances)
 			{
-				AssetLocation location = binaryAsset.GetLocation(AssetLocation.All, AssetLocationOption.None);
-				if (location == AssetLocation.None)
-				{
-					location = binaryAsset.GetLocation(AssetLocation.Local | AssetLocation.Cache, AssetLocationOption.ForceUpdate);
-				}
-				if (location == AssetLocation.None)
-				{
-					throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Asset {0} not available.", value);
-				}
-				if ((location & AssetLocation.Output) == 0)
-				{
-					binaryAsset.Commit(location);
-				}
-				_Current.OutputInstances.Add(value);
-				if (Settings.Current.OutputAssetReport)
-				{
-					AssetReport.RecordAsset(value, binaryAsset);
-				}
-			}
+				AddOutputInstance(instance);
 		}
-		if (Settings.Current.StableSort)
+		}
+		using (PerformanceScope.Measure("core.output.availability"))
 		{
-			StableSort(outputManager);
+			foreach (InstanceDeclaration value in _Current.OutputInstanceSet.Values)
+			{
+				BinaryAsset binaryAsset = outputManager.GetBinaryAsset(value, isOutputAsset: true);
+				if (binaryAsset != null)
+				{
+					AssetLocation location = binaryAsset.GetLocation(AssetLocation.All, AssetLocationOption.None);
+					if (location == AssetLocation.None)
+					{
+						location = binaryAsset.GetLocation(AssetLocation.Local | AssetLocation.Cache, AssetLocationOption.ForceUpdate);
+					}
+					if (location == AssetLocation.None)
+					{
+						throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Asset {0} not available.", value);
+					}
+					if ((location & AssetLocation.Output) == 0)
+					{
+						binaryAsset.Commit(location);
+					}
+					_Current.OutputInstances.Add(value);
+					if (Settings.Current.OutputAssetReport)
+					{
+						AssetReport.RecordAsset(value, binaryAsset);
+					}
+				}
+		}
+		}
+		using (PerformanceScope.Measure("core.output.order"))
+		{
+			if (Settings.Current.StableSort)
+			{
+				StableSort(outputManager);
 		}
 		else
 		{
 			_Current.OutputInstances.Sort(new DependencyComparer());
+		}
 		}
 		MemoryStream memoryStream = new MemoryStream();
 		BinaryWriter binaryWriter = new BinaryWriter(memoryStream);

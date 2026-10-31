@@ -97,6 +97,33 @@ public static class CompilerStableSort
             Require(collision,"Legacy symbol-hash collision fixture no longer reproduces");
         }
     }
+    sealed class IdentityIndex : KeyedCollection2<InstanceHandle, KeyValuePair<InstanceHandle, int>>
+    {
+        protected override InstanceHandle GetKeyForItem(KeyValuePair<InstanceHandle, int> item) { return item.Key; }
+    }
+    static void IdentityIndexes()
+    {
+        // Distinct full identities can have the same legacy XOR hash. A hash
+        // index must preserve both, as well as the collection's insertion order.
+        var first = new InstanceHandle(0x100u, 0x201u);
+        var second = new InstanceHandle(0x101u, 0x200u);
+        Require(first.GetHashCode() == second.GetHashCode() && first.CompareTo(second) != 0, "Identity collision fixture");
+        var index = new IdentityIndex();
+        index.Add(new KeyValuePair<InstanceHandle, int>(second, 2));
+        index.Insert(0, new KeyValuePair<InstanceHandle, int>(first, 1));
+        Require(index.Select(value => value.Value).SequenceEqual(new[] {1, 2}), "Index changed collection insertion order");
+        Require(index[new InstanceHandle(first)].Value == 1 && index[new InstanceHandle(second)].Value == 2, "Hash collision lost a distinct identity");
+        bool duplicate = false;
+        try { index.Add(new KeyValuePair<InstanceHandle, int>(new InstanceHandle(first), 3)); }
+        catch (ArgumentException) { duplicate = true; }
+        Require(duplicate && index.Count == 2, "Equal identity must remain a duplicate");
+        index[0] = new KeyValuePair<InstanceHandle, int>(new InstanceHandle(first), 4);
+        Require(index[first].Value == 4, "Replacing a list entry did not update its identity index");
+        index.Remove(first);
+        Require(index.Count == 1 && !index.Contains(first) && index[second].Value == 2, "Removing one collision damaged the other identity");
+        index.Clear();
+        Require(index.Count == 0 && !index.Contains(second), "Clear retained identity entries");
+    }
     static object AppendWork()
     {
         const int size=1024;
@@ -129,9 +156,9 @@ public static class CompilerStableSort
         var culture=Thread.CurrentThread.CurrentCulture;
         try
         {
-            Graphs();object work=AppendWork();
+            Graphs();IdentityIndexes();object work=AppendWork();
             File.WriteAllText(args[1],new JavaScriptSerializer().Serialize(new {succeeded=true,sourceCommit=args[2],runId=args[3],checks,
-                tests=new[] {"frozen-legacy-order-DAGs-base-prefixes-null-empty-transitive-dependencies-culture-equal-names","append-workload-linear-comparisons"},cases,work}));
+                tests=new[] {"frozen-legacy-order-DAGs-base-prefixes-null-empty-transitive-dependencies-culture-equal-names","identity-index-collisions-insertion-replace-remove-clear","append-workload-linear-comparisons"},cases,work}));
             Console.WriteLine("PASS StableSort: "+cases+" order cases; "+checks+" checks");return 0;
         }
         catch(Exception error) {Console.Error.WriteLine(error);return 1;}

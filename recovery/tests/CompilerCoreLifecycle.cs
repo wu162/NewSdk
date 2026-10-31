@@ -173,6 +173,11 @@ internal static class CompilerCoreLifecycle
         AssetBuffer plain = Recovered.LogicCommandSetCompiler.CompileXml(invalid.DocumentElement,ns,false);
         Require(direct.InstanceData.SequenceEqual(plain.InstanceData) && direct.RelocationData.SequenceEqual(plain.RelocationData) &&
             direct.ImportsData.SequenceEqual(plain.ImportsData),"Plugin repeated Core schema validation or changed the payload");
+        string afterFailure = Write("schema-receipt/after-failure.xml",Asset("<LogicCommand id='AfterFailure'/>"));
+        Run(p,afterFailure); Clean(p,null,afterFailure);
+        AssetDeclarationDocument recovered; p.Cache.TryGetDocument(afterFailure,null,TargetPlatform.Win32,false,out recovered);
+        Require(recovered.HasValidatedSchema && p.SchemaSet.Schemas.IsCompiled,
+            "A rejected document damaged the processor's shared compiled schema snapshot");
         Tests.Add("Core-XSD-invalid-input-rejected-before-dispatch-plugin-serializes-without-repeating-schema-validation");
     }
     sealed class SaveFaultCache : SessionCache
