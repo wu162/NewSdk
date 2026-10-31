@@ -1,5 +1,7 @@
 # 热缓存编辑优化：当前结果与下一步
 
+当前状态：用户已要求回退本轮三项生产优化，五个Core文件及完整生产输入闭包恢复为已验收的 `e2dba3c3`，此前冷热优化保留。下述8e8实现、归因与建议保留为历史，不是当前生产能力或已批准的实施计划；当前入口见 [RESUME](../RESUME.md)。
+
 续接 [PR #38](https://github.com/wu162/NewSdk/pull/38)，仍未合并。已验收生产源码 `8e8cf766`，组合验收 [41178094135](https://github.com/wu162/NewSdk/actions/runs/41178094135) success。新增[完整Upheaval八类大改配对41181143063](https://github.com/wu162/NewSdk/actions/runs/41181143063) success，计量源 `a4682714`，272/272样本、每代发布原字节和192热检查0/0通过。每场景三off同机配对、detailed单列；后续测试/文档提交不代表新二进制。[完整真实编辑结果与原始数组](UPHEAVAL_LARGE_EDIT_COMPARISON.md)，[实现/既有验收](HOT_CACHE_EDIT_OPTIMIZATION.md)，上轮冷/纯热证据见[历史报告](COMPILER_COLD_HOT_OPTIMIZATION.md)。
 
 **已有缓存后减少了不必要前端，但完整真实MOD也没有普遍端到端编辑提速；局部 XML 仍整文档处理。** 完整MOD无关父兄弟16→1解析，中位少2.47%，三对均更快；Define16→12解析却中位多2.15%；有效父中位少4.29%但逐对方向混合。其余场景少0.35%至多2.08%。所有真实修改均未出现父快照hit/reloadAvoided，Define继承重载0→1；引用单次detailed减少工作，纯热无普遍改善。

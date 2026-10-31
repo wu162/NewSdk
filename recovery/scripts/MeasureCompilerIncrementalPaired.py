@@ -172,11 +172,10 @@ def run(args):
                         reason='cache.invalidation.'+('contentChanged' if scenario in ('single-in-large-document','inheritance-source','unrelated-parent-sibling') else 'definesChanged')
                         if performance=='detailed':need(counts.get(reason,0)>0,'Expected actual invalidation reason missing: '+reason)
                         if scenario=='single-in-large-document':need(report['cache']['instanceCompile']==1,'Single Armor edit recompiled unrelated siblings')
-                        if performance=='detailed' and scenario=='inheritance-source':
-                            reason='dependentFileChanged' if label=='baseline' else 'inheritanceChanged'
-                            need(counts.get('cache.invalidation.'+reason,0)>0,'Effective parent did not invalidate child: '+reason)
+                        if performance=='detailed' and scenario in ('inheritance-source','unrelated-parent-sibling'):
+                            need(counts.get('cache.invalidation.dependentFileChanged',0)>0,'Instance-include dependency did not trigger frontend propagation')
                         if scenario=='unrelated-parent-sibling':
-                            need(report['cache']['xmlParse']==(2 if label=='baseline' else 1),'Unrelated parent sibling did not narrow XML frontend work')
+                            need(report['cache']['xmlParse']==2,'Parent file dependency did not reload both documents')
                             need(report['cache']['instanceCompile']==1,'Parent sibling edit changed backend work')
                         if performance=='detailed' and scenario=='define-value':need(counts.get('cache.invalidation.inheritanceChanged',0)>0,'Define did not propagate through inheritance')
                 content=published(destination,report)

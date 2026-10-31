@@ -349,9 +349,10 @@ def run(args):
             if generation in ('xml', 'animation', 'inheritance', 'defines'):
                 need(counts.get('dependency.include.affectedDocuments', 0) > 0, 'Include change did not report propagation')
             if generation in ('inheritance', 'defines'):
-                # Instance Includes now propagate through the actual inherited
-                # closure after the parent has completed its own frontend.
-                need(counts.get('cache.invalidation.' + ('inheritanceChanged' if generation == 'inheritance' else 'definesChanged'), 0) > 0,
+                # Instance Includes retain whole-file content dependencies, so
+                # a changed parent file invalidates its consumers before the
+                # inheritance check. Definitions use their actual read values.
+                need(counts.get('cache.invalidation.' + ('dependentFileChanged' if generation == 'inheritance' else 'definesChanged'), 0) > 0,
                      'Missing dependency-driven reload reason: ' + generation)
                 need(counts.get('dependency.propagation.documents', 0) > 0, 'Missing dependency-invalidated documents')
                 if generation == 'defines':

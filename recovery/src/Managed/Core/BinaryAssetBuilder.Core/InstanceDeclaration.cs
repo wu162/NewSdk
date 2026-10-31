@@ -26,10 +26,6 @@ public class InstanceDeclaration : IXmlSerializable
 
 		public uint InheritFromXmlHash;
 
-		public uint InheritFromIdentity;
-
-		public bool HasInheritFromIdentity;
-
 		public uint PrevalidationXmlHash;
 
 		public bool IsInheritable;
@@ -47,16 +43,11 @@ public class InstanceDeclaration : IXmlSerializable
 			HasCustomData = current.HasCustomData;
 			InheritFromHandle = current.InheritFromHandle;
 			InheritFromXmlHash = current.InheritFromXmlHash;
-			InheritFromIdentity = current.InheritFromIdentity;
-			HasInheritFromIdentity = current.HasInheritFromIdentity;
 			PrevalidationXmlHash = current.PrevalidationXmlHash;
 		}
 
 		public LastState(XmlReader reader)
 		{
-			string identity = reader.GetAttribute("ii");
-			HasInheritFromIdentity = identity != null;
-			if (identity != null) InheritFromIdentity = Convert.ToUInt32(identity);
 			reader.MoveToAttribute("d");
 			string[] array = reader.Value.Split(';');
 			ProcessingHash = Convert.ToUInt32(array[0]);
@@ -85,7 +76,6 @@ public class InstanceDeclaration : IXmlSerializable
 		public void WriteXml(XmlWriter writer)
 		{
 			writer.WriteStartElement("id");
-			if (HasInheritFromIdentity) writer.WriteAttributeString("ii", InheritFromIdentity.ToString(System.Globalization.CultureInfo.InvariantCulture));
 			writer.WriteAttributeString("d", $"{ProcessingHash};{InheritFromXmlHash};{PrevalidationXmlHash};{IsInheritable};{HasCustomData}");
 			Handle.WriteXml(writer);
 			if (InheritFromHandle != null)
@@ -125,10 +115,6 @@ public class InstanceDeclaration : IXmlSerializable
 
 		public uint InheritFromXmlHash;
 
-		public uint InheritFromIdentity;
-
-		public bool HasInheritFromIdentity;
-
 		public uint PrevalidationXmlHash;
 
 		public List2<InstanceHandle> ValidatedReferencedInstances;
@@ -153,8 +139,6 @@ public class InstanceDeclaration : IXmlSerializable
 			HasCustomData = last.HasCustomData;
 			InheritFromHandle = last.InheritFromHandle;
 			InheritFromXmlHash = last.InheritFromXmlHash;
-			InheritFromIdentity = last.InheritFromIdentity;
-			HasInheritFromIdentity = last.HasInheritFromIdentity;
 			PrevalidationXmlHash = last.PrevalidationXmlHash;
 		}
 
@@ -170,68 +154,6 @@ public class InstanceDeclaration : IXmlSerializable
 
 	[NonSerialized]
 	private CurrentState _Current;
-
-	// Original finalized nodes preserve PSVI and schema defaults. They are read
-	// only inheritance sources; NodeJoiner writes into the child's document.
-	// Keep this separate from per-stream CurrentState and the XML session format.
-	private sealed class InheritanceSnapshot
-	{
-		internal readonly XmlNode Node;
-		internal readonly SchemaSet Schemas;
-		internal readonly string SchemaIdentity;
-		internal readonly uint PrevalidationHash, InstanceHash, TypeHash, ProcessingHash;
-
-		internal InheritanceSnapshot(CurrentState current, SchemaSet schemas)
-		{
-			Node = current.XmlNode;
-			Schemas = schemas;
-			SchemaIdentity = schemas.ContentIdentity;
-			PrevalidationHash = current.PrevalidationXmlHash;
-			InstanceHash = current.Handle.InstanceHash;
-			TypeHash = current.Handle.TypeHash;
-			ProcessingHash = current.ProcessingHash;
-		}
-	}
-
-	[NonSerialized]
-	private InheritanceSnapshot _InheritanceSnapshot;
-
-	[NonSerialized]
-	private bool _InheritanceSourceRequested;
-
-	internal bool HasInheritanceSnapshot(SchemaSet schemas)
-	{
-		var snapshot = _InheritanceSnapshot;
-		return snapshot != null && Object.ReferenceEquals(snapshot.Schemas, schemas) &&
-			snapshot.SchemaIdentity == schemas.ContentIdentity &&
-			snapshot.PrevalidationHash == _Current.PrevalidationXmlHash &&
-			snapshot.InstanceHash == _Current.Handle.InstanceHash &&
-			snapshot.TypeHash == _Current.Handle.TypeHash &&
-			snapshot.ProcessingHash == _Current.ProcessingHash;
-	}
-
-	internal XmlNode GetInheritanceSource()
-	{
-		_InheritanceSourceRequested = true;
-		if (_Current.Document.State == DocumentState.Complete) PublishInheritanceSnapshot();
-		return _Current.XmlNode;
-	}
-
-	internal void RestoreInheritanceSnapshot(SchemaSet schemas)
-	{
-		if (_Current.XmlNode == null && HasInheritanceSnapshot(schemas))
-			_Current.XmlNode = _InheritanceSnapshot.Node;
-	}
-
-	private void PublishInheritanceSnapshot()
-	{
-		if (!_InheritanceSourceRequested || !_Current.IsInheritable ||
-			_Current.XmlNode == null || !_Current.Document.HasValidatedSchema) return;
-		if (_InheritanceSnapshot != null && Object.ReferenceEquals(_InheritanceSnapshot.Node, _Current.XmlNode)) return;
-		_InheritanceSnapshot = new InheritanceSnapshot(_Current, _Current.Document.InheritanceSchemaSet);
-		_Current.Document.RecordInheritanceSnapshotPublished();
-		PerformanceScope.Count("cache.inheritanceSnapshot.publishedInstances");
-	}
 
 	public List2<InstanceHandle> ValidatedReferencedInstances
 	{
@@ -367,14 +289,6 @@ public class InstanceDeclaration : IXmlSerializable
 		}
 	}
 
-	public bool HasInheritFromIdentity => _Current.HasInheritFromIdentity;
-
-	public uint InheritFromIdentity
-	{
-		get { return _Current.InheritFromIdentity; }
-		set { _Current.InheritFromIdentity = value; _Current.HasInheritFromIdentity = true; }
-	}
-
 	public uint PrevalidationXmlHash
 	{
 		get
@@ -457,7 +371,6 @@ public class InstanceDeclaration : IXmlSerializable
 
 	public void MakeComplete()
 	{
-		PublishInheritanceSnapshot();
 		_Last = null;
 	}
 
