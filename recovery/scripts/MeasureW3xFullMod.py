@@ -1,4 +1,4 @@
-"""Two paired full Upheaval builds with only W3X production sources changed."""
+"""Paired full Upheaval builds with an exact production change allowlist."""
 import argparse
 import ctypes
 import filecmp
@@ -22,7 +22,14 @@ def main():
     parser.add_argument("--optimized-build", required=True, type=Path)
     parser.add_argument("--work", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--baseline-source", default=BASELINE)
+    parser.add_argument("--optimized-source", default=OPTIMIZED)
+    parser.add_argument("--production-file", action="append",
+                        help="Exact allowed production change; repeat for each file. Default retains the six-file W3X gate.")
+    parser.add_argument("--pairs", type=int, default=2)
     args = parser.parse_args()
+    if args.pairs < 1:
+        parser.error("--pairs must be positive")
     repo = Path(__file__).resolve().parents[2]
     os.chdir(repo)
     if os.name == "nt":
@@ -32,7 +39,7 @@ def main():
     out.mkdir(parents=True, exist_ok=False)
     builds = {"baseline": args.baseline_build.resolve(), "optimized": args.optimized_build.resolve()}
     binaries = {}
-    for label, source in (("baseline", BASELINE), ("optimized", OPTIMIZED)):
+    for label, source in (("baseline", args.baseline_source), ("optimized", args.optimized_source)):
         build = builds[label]
         receipt = json.loads((build / "build.json").read_text(encoding="utf-8-sig"))
         exe = build / "bin/NewModCompiler.exe"
@@ -40,8 +47,12 @@ def main():
             raise RuntimeError("Production source/binary identity differs: " + label)
         binaries[label] = exe
         write(out / (label + "-build.json"), receipt)
-    changes = git("diff", "--name-only", BASELINE, OPTIMIZED, "--", "SDK", "recovery/src").decode().splitlines()
-    if len(changes) != 6 or any(not p.startswith("recovery/src/Native/W3x/") for p in changes):
+    changes = git("diff", "--name-only", args.baseline_source, args.optimized_source, "--", "SDK", "recovery/src").decode().splitlines()
+    if args.production_file:
+        allowed = set(args.production_file)
+        if set(changes) != allowed or len(allowed) != len(args.production_file):
+            raise RuntimeError("Production comparison differs from exact file allowlist")
+    elif len(changes) != 6 or any(not p.startswith("recovery/src/Native/W3x/") for p in changes):
         raise RuntimeError("Production comparison gained unrelated changes")
     if git("rev-parse", HISTORICAL + ":SDK/Mods/Upheaval").decode().strip() != UPHEAVAL_TREE:
         raise RuntimeError("Historical full MOD tree changed")
@@ -54,16 +65,16 @@ def main():
     mod = work / "input/SDK/Mods/Upheaval"
     state = {"sourceCommit": git("rev-parse", "HEAD").decode().strip(), "runId": os.environ.get("GITHUB_RUN_ID"),
              "runAttempt": os.environ.get("GITHUB_RUN_ATTEMPT"), "succeeded": False,
-             "baselineBinarySource": BASELINE, "optimizedBinarySource": OPTIMIZED,
+             "baselineBinarySource": args.baseline_source, "optimizedBinarySource": args.optimized_source,
              "binarySha256": {k: sha(v) for k, v in binaries.items()}, "productionChanges": changes,
              "inputSource": HISTORICAL, "inputTree": UPHEAVAL_TREE, "jobs": 4,
-             "scope": "Complete historical Upheaval build, auto-discovered content, BIG/SKUDEF and Additional; two same-VM pairs, caches disabled, fresh output each time; raw published files compared. Not original BAB or game-runtime acceptance.",
-             "sampleCaution": "Two samples per implementation; order reversed in pair two, OS page cache uncontrolled; no warmup.",
+             "scope": "Complete historical Upheaval build, auto-discovered content, BIG/SKUDEF and Additional; same-VM pairs, caches disabled, fresh output each time; raw published files compared. Not original BAB or game-runtime acceptance.",
+             "sampleCaution": f"{args.pairs} samples per implementation; pair order alternates, OS page cache uncontrolled; no warmup.",
              "samples": []}
     write(out / "measurement.json", state)
     published = {}
-    for trial in range(2):
-        for label in (("baseline", "optimized") if trial == 0 else ("optimized", "baseline")):
+    for trial in range(args.pairs):
+        for label in (("baseline", "optimized") if trial % 2 == 0 else ("optimized", "baseline")):
             name = f"{label}-{trial}"
             evidence = out / name
             evidence.mkdir()

@@ -1,3 +1,7 @@
+# 当前插件优化入口
+
+用户已批准 [PR #33](https://github.com/wu162/NewSdk/pull/33) 合入 `recovery/legacy-sdk-cache`。已同步目标 `0d7b685c`，组合源码 `1a3e4bc6` 的新 [Windows/Core/SDK 41152199159](https://github.com/wu162/NewSdk/actions/runs/41152199159) 整体 success；未变插件/XML 组件复用独立成功范围。以 [RESUME](RESUME.md) 和[第二阶段报告](docs/TOKENIZER_NATIVE_STAGE2.md) 为准。禁止强推。
+
 # 当前：冗余安全清理完成，PR #28 待审
 
 `cleanup/redundant-defenses` 基于刷新后的 `b89fbadb`，生产/测试源码 `ecd2bf1d`。[Windows 41062149232](https://github.com/wu162/NewSdk/actions/runs/41062149232) 全部 success：Debug/Release、Core/CLI、SessionCache 108×2、两类原缓存/导入、Audio/Texture/W3X、BIG/SKUDEF/完整 mymod 原字节、并行/热态依赖/协议与 40 次配对输出均通过。后续仅文档/证据。

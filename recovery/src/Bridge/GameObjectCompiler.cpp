@@ -1,5 +1,6 @@
 #include <msclr/marshal_cppstd.h>
 #include <stdexcept>
+#include <utility>
 #include "XmlNodeAdapter.h"
 #include "../Native/GameObject.h"
 #include "../Native/ScalarParsing.h"
@@ -16,10 +17,6 @@ public ref class GameObjectCompiler abstract sealed {
             (attribute->NamespaceURI=="http://www.w3.org/XML/1998/namespace" &&
              (attribute->LocalName=="base" || attribute->LocalName=="lang"));
     }
-    static void NoStructuredText(XPathNavigator^ node) {
-        auto contents=node->SelectChildren(XPathNodeType::All);
-
-    }
     static Native::GameObjectChild ReadDependencyFilter(XPathNavigator^ node) {
         Native::GameObjectChild result;result.name="ObjectFilter";
 
@@ -33,9 +30,9 @@ public ref class GameObjectCompiler abstract sealed {
         while(nodes->MoveNext()) {
             auto child=nodes->Current;
 
-            Native::GameObjectChild thing;thing.name=marshal_as<std::string>(child->LocalName);thing.text=marshal_as<std::string>(child->Value);result.children.push_back(thing);
+            Native::GameObjectChild thing;thing.name=marshal_as<std::string>(child->LocalName);thing.text=marshal_as<std::string>(child->Value);result.children.push_back(std::move(thing));
         }
-        NoStructuredText(node);return result;
+        return result;
     }
     static Native::GameObjectChild ReadDependency(XPathNavigator^ node) {
         Native::GameObjectChild result;result.name="GameDependency";
@@ -55,11 +52,10 @@ public ref class GameObjectCompiler abstract sealed {
             if(child->LocalName=="ObjectFilter") {
                 result.children.push_back(ReadDependencyFilter(child));continue;
             }
-            ;
 
-            Native::GameObjectChild value;value.name=marshal_as<std::string>(child->LocalName);value.text=marshal_as<std::string>(child->Value);result.children.push_back(value);
+            Native::GameObjectChild value;value.name=marshal_as<std::string>(child->LocalName);value.text=marshal_as<std::string>(child->Value);result.children.push_back(std::move(value));
         }
-        NoStructuredText(node);return result;
+        return result;
     }
     static array<Byte>^ Copy(const std::vector<unsigned char>& source) {
         auto result=gcnew array<Byte>(static_cast<int>(source.size()));
@@ -83,28 +79,21 @@ public ref class GameObjectCompiler abstract sealed {
 
             if(!crusher) {
 
-                auto filter=ReadDependencyFilter(child);filter.name="AllowedObjectFilter";result.children.push_back(filter);continue;
+                auto filter=ReadDependencyFilter(child);filter.name="AllowedObjectFilter";result.children.push_back(std::move(filter));continue;
             }
-            ;
+
             Native::GameObjectChild level;level.name="ExtraCrushLevels";
             auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
                 if(IsXmlContextAttribute(attrs) || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
 
                 level.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
             } while(attrs->MoveToNextAttribute());
-            NoStructuredText(child);result.children.push_back(level);
+            result.children.push_back(std::move(level));
         }
-        NoStructuredText(node);return result;
+        return result;
     }
     static Native::GameObjectChild ReadGeometry(XPathNavigator^ node) {
         Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
-        auto name=node->LocalName;
-
-        if(name=="Geometry") ;
-        else if(name=="Shape" || name=="PlacementShape") ;
-        else if(name=="ContactPoint") ;
-        else if(name=="RotationAnchorOffset") ;
-        else ;
         auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
             if(IsXmlContextAttribute(a) || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
 
@@ -112,16 +101,14 @@ public ref class GameObjectCompiler abstract sealed {
         } while(a->MoveToNextAttribute());
         auto nodes=node->SelectChildren(XPathNodeType::Element);
         while(nodes->MoveNext()) {
-            auto child=nodes->Current;auto n=child->LocalName;
+            auto child=nodes->Current;
 
             result.children.push_back(ReadGeometry(child));
         }
-        NoStructuredText(node);return result;
+        return result;
     }
     static Native::GameObjectChild ReadAudioArray(XPathNavigator^ node) {
         Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
-        bool sound=node->LocalName=="AudioArraySound",voice=node->LocalName=="AudioArrayVoice";
-        auto a=node->Clone();
         auto nodes=node->SelectChildren(XPathNodeType::Element);
         while(nodes->MoveNext()) {
             auto child=nodes->Current;
@@ -132,9 +119,9 @@ public ref class GameObjectCompiler abstract sealed {
 
                 entry.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
             } while(attrs->MoveToNextAttribute());
-            NoStructuredText(child);result.children.push_back(entry);
+            result.children.push_back(std::move(entry));
         }
-        NoStructuredText(node);return result;
+        return result;
     }
     static Native::GameObjectChild ReadSkirmishAI(XPathNavigator^ node) {
         Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
@@ -145,12 +132,12 @@ public ref class GameObjectCompiler abstract sealed {
         } while(a->MoveToNextAttribute());
         auto nodes=node->SelectChildren(XPathNodeType::Element);
         while(nodes->MoveNext()) {
-            auto child=nodes->Current;auto n=child->LocalName;auto parent=node->LocalName;
+            auto child=nodes->Current;auto n=child->LocalName;
 
-            if(n=="ObjectFilter" || n=="DodgeWithUnits") {auto filter=ReadDependencyFilter(child);filter.name=marshal_as<std::string>(n);result.children.push_back(filter);}
+            if(n=="ObjectFilter" || n=="DodgeWithUnits") {auto filter=ReadDependencyFilter(child);filter.name=marshal_as<std::string>(n);result.children.push_back(std::move(filter));}
             else result.children.push_back(ReadSkirmishAI(child));
         }
-        NoStructuredText(node);return result;
+        return result;
     }
     static Native::GameObjectChild ReadSoundSelectorOverride(XPathNavigator^ node,unsigned kind) {
         Native::GameObjectChild result;result.name="Override";
@@ -165,15 +152,13 @@ public ref class GameObjectCompiler abstract sealed {
 
             bool audio=kind==16?name=="EvaEventArray":(name=="AudioArrayVoice" || name=="AudioArraySound");
             if(audio) {result.children.push_back(ReadAudioArray(child));continue;}
-            ;
 
-            Native::GameObjectChild entry;entry.name=marshal_as<std::string>(name);entry.text=marshal_as<std::string>(child->Value);result.children.push_back(entry);
+            Native::GameObjectChild entry;entry.name=marshal_as<std::string>(name);entry.text=marshal_as<std::string>(child->Value);result.children.push_back(std::move(entry));
         }
-        NoStructuredText(node);return result;
+        return result;
     }
     static Native::GameObjectChild ReadMotionMovement(XPathNavigator^ node) {
         Native::GameObjectChild result;result.name="Movement";
-        auto a=node->Clone();
         auto nodes=node->SelectChildren(XPathNodeType::Element);
         while(nodes->MoveNext()) {
             auto child=nodes->Current;
@@ -185,31 +170,27 @@ public ref class GameObjectCompiler abstract sealed {
             }while(attrs->MoveToNextAttribute());
             auto paths=child->SelectChildren(XPathNodeType::Element);while(paths->MoveNext()) {
                 auto path=paths->Current;
-                auto pa=path->Clone();
-                Native::GameObjectChild item;item.name="Path";item.text=marshal_as<std::string>(path->Value);move.children.push_back(item);
+                Native::GameObjectChild item;item.name="Path";item.text=marshal_as<std::string>(path->Value);move.children.push_back(std::move(item));
             }
-            NoStructuredText(child);result.children.push_back(move);
-        }
-        NoStructuredText(node);return result;
-    }
-    static Native::GameObjectChild ReadDrawShaderConstants(XPathNavigator^ node) {
-        Native::GameObjectChild result;result.name="Constants";
-        auto a=node->Clone();
-        NoStructuredText(node);auto rows=node->SelectChildren(XPathNodeType::Element);
-        while(rows->MoveNext()){
-            auto row=rows->Current;Native::GameObjectChild entry;entry.name=marshal_as<std::string>(row->LocalName);
-            auto attrs=row->Clone();if(attrs->MoveToFirstAttribute())do{if(IsXmlContextAttribute(attrs))continue;entry.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);}while(attrs->MoveToNextAttribute());
-            auto type=entry.attributes.find("TypeId");auto id=type==entry.attributes.end()?0:Native::ParseUnsigned(type->second);
-            NoStructuredText(row);auto values=row->SelectChildren(XPathNodeType::Element);while(values->MoveNext()){
-                auto value=values->Current;
-                auto va=value->Clone();
-                Native::GameObjectChild v;v.name="Value";v.text=marshal_as<std::string>(value->Value);entry.children.push_back(v);
-            }
-            result.children.push_back(entry);
+            result.children.push_back(std::move(move));
         }
         return result;
     }
-    static Native::GameObjectChild ReadModuleNode(XPathNavigator^ node,unsigned kind,std::string path) {
+    static Native::GameObjectChild ReadDrawShaderConstants(XPathNavigator^ node) {
+        Native::GameObjectChild result;result.name="Constants";
+        auto rows=node->SelectChildren(XPathNodeType::Element);
+        while(rows->MoveNext()){
+            auto row=rows->Current;Native::GameObjectChild entry;entry.name=marshal_as<std::string>(row->LocalName);
+            auto attrs=row->Clone();if(attrs->MoveToFirstAttribute())do{if(IsXmlContextAttribute(attrs))continue;entry.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);}while(attrs->MoveToNextAttribute());
+            auto values=row->SelectChildren(XPathNodeType::Element);while(values->MoveNext()){
+                auto value=values->Current;
+                Native::GameObjectChild v;v.name="Value";v.text=marshal_as<std::string>(value->Value);entry.children.push_back(std::move(v));
+            }
+            result.children.push_back(std::move(entry));
+        }
+        return result;
+    }
+    static Native::GameObjectChild ReadModuleNode(XPathNavigator^ node,unsigned kind,const std::string& path) {
         if(((kind==283 || kind==285) && path=="FXShader/Constants") || (kind>=286 && kind<=290 && path=="ModelConditionState/Material/Constants"))return ReadDrawShaderConstants(node);
         Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
         if(kind==80 && path=="Movement") return ReadMotionMovement(node);
@@ -225,15 +206,14 @@ public ref class GameObjectCompiler abstract sealed {
         }while(attrs->MoveToNextAttribute());
         auto children=node->SelectChildren(XPathNodeType::Element);
         while(children->MoveNext()) {
-            auto child=children->Current;auto subpath=path+"/"+marshal_as<std::string>(child->LocalName);unsigned subshape=Native::GameObjectModuleNodeKind(kind,subpath);
+            auto child=children->Current;auto subpath=path+"/"+marshal_as<std::string>(child->LocalName);
 
             result.children.push_back(ReadModuleNode(child,kind,subpath));
         }
-        if(shape==3 || shape==4) result.text=marshal_as<std::string>(node->Value);else NoStructuredText(node);return result;
+        if(shape==3 || shape==4) result.text=marshal_as<std::string>(node->Value);return result;
     }
     static Native::GameObjectChild ReadModules(XPathNavigator^ node) {
         Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
-        auto a=node->Clone();
         auto nodes=node->SelectChildren(XPathNodeType::Element);
         while(nodes->MoveNext()) {
             auto child=nodes->Current;Native::GameObjectChild item;item.name=marshal_as<std::string>(child->LocalName);
@@ -257,16 +237,16 @@ public ref class GameObjectCompiler abstract sealed {
                         item.children.push_back(ReadSoundSelectorOverride(value,kind));
                     }
                 }
-                NoStructuredText(child);result.children.push_back(item);continue;
+                result.children.push_back(std::move(item));continue;
             }
             if(unsigned kind=Native::GameObjectRecursiveModuleKind(typeId)) {
                 auto values=child->SelectChildren(XPathNodeType::Element);
                 while(values->MoveNext()) {
-                    auto value=values->Current;std::string path=marshal_as<std::string>(value->LocalName);unsigned shape=Native::GameObjectModuleNodeKind(kind,path);
+                    auto value=values->Current;std::string path=marshal_as<std::string>(value->LocalName);
 
                     item.children.push_back(ReadModuleNode(value,kind,path));
                 }
-                NoStructuredText(child);result.children.push_back(item);continue;
+                result.children.push_back(std::move(item));continue;
             }
             auto nested=child->SelectChildren(XPathNodeType::Element);
             while(nested->MoveNext()) {
@@ -274,25 +254,25 @@ public ref class GameObjectCompiler abstract sealed {
                 if(entry.name=="ObjectFilter" && value->NamespaceURI==child->NamespaceURI && Native::GameObjectModuleNestedSupported(typeId,entry.name)) {
                     item.children.push_back(ReadDependencyFilter(value));continue;
                 }
-                ;
 
                 auto a=value->Clone();if(a->MoveToFirstAttribute()) do {
                     if(IsXmlContextAttribute(a) || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
 
                     entry.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
                 } while(a->MoveToNextAttribute());
-                if(entry.name=="Key" || entry.name=="UpgradeRequired" || entry.name=="UpgradeForbidden" || entry.name=="TriggeredBy" || entry.name=="ConflictsWith") entry.text=marshal_as<std::string>(value->Value);else NoStructuredText(value);item.children.push_back(entry);
+                if(entry.name=="Key" || entry.name=="UpgradeRequired" || entry.name=="UpgradeForbidden" || entry.name=="TriggeredBy" || entry.name=="ConflictsWith") entry.text=marshal_as<std::string>(value->Value);
+                item.children.push_back(std::move(entry));
             }
-            NoStructuredText(child);result.children.push_back(item);
+            result.children.push_back(std::move(item));
         }
-        ;
-        NoStructuredText(node);return result;
+
+        return result;
     }
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
         if(node==nullptr) throw gcnew ArgumentNullException("node");
 
-        auto nav=node->CreateNavigator();auto attrs=nav->Clone();std::map<std::string,std::string> input;
+        auto nav=node->CreateNavigator();auto attrs=nav->Clone();Native::AttributeMap input;
         if(attrs->MoveToFirstAttribute()) do {
             if(IsXmlContextAttribute(attrs)) continue;
 
@@ -329,9 +309,8 @@ public:
                         if(va->LocalName!="TypeId") upgrade.attributes[marshal_as<std::string>(va->LocalName)]=marshal_as<std::string>(va->Value);
                     } while(va->MoveToNextAttribute());
 
-                    item.children.push_back(upgrade);
+                    item.children.push_back(std::move(upgrade));
                 }
-                ;
 
             }
             auto a=child->Clone();
@@ -345,7 +324,7 @@ public:
                 item.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
             } while(a->MoveToNextAttribute());
 
-            children.push_back(item);
+            children.push_back(std::move(item));
 
         }
         try {

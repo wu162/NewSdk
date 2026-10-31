@@ -1,4 +1,31 @@
-# 当前：RA3 EALayer3 V1（Windows 验收通过，PR 待审）
+# 当前：PR #33 组合验收通过，已获用户合入批准
+
+已同步 `recovery/legacy-sdk-cache` 的 `0d7b685c`（含已合入 PR #32、#34），只解决续接文档冲突，保留两边生产实现。组合源码 `1a3e4bc6`，[Windows 41152199159](https://github.com/wu162/NewSdk/actions/runs/41152199159) 整体 success：Debug/Release 新构建、Core/CLI/取消、64 worker/cache、完整缓存/载荷/输入根/BIG、完整 mymod 原 SDK、五文件 ZIP 及 Upheaval22样本原字节通过。归档已下载复算，十个运行文件/两个 ZIP 身份已核对。
+
+20个插件生产文件及63组 XML 组件依赖未变，复用下方独立组件矩阵；新组合产品没有冒用旧 EXE。新增组合收据与依赖身份见 [验收目录](evidence/refactor/tokenizer-native-stage2/41152199159/archive.json)，详细来源见 [第二阶段报告](docs/TOKENIZER_NATIVE_STAGE2.md)。用户已明确批准 PR #33 合入，无需再次确认；禁止强推。
+
+# 当前：六项插件原生优化已验收，PR #33 待审
+
+分支 `perf/gameobject-weapon-plugins` / [PR #33](https://github.com/wu162/NewSdk/pull/33)，最终生产源码 `d60904bc`。透明属性查找、member 地址索引、mask 范围解析、标量默认值预解码、Draw 子节点分组及最终缓冲直写均已接入。以 [第二阶段报告](docs/TOKENIZER_NATIVE_STAGE2.md) 为准。
+
+[七类组件 41146357838](https://github.com/wu162/NewSdk/actions/runs/41146357838) success，原 DLL/前后组件大小端三缓冲一致、真实退出0。相对上一阶段，Schema 默认 GO/Weapon 中位耗时减少25.14%/26.95%，32 Nuggets 减少57.37%；是插件负载，不是完整 MOD 收益。
+
+[最终产品 41146357892](https://github.com/wu162/NewSdk/actions/runs/41146357892) 整体 success：Debug/Release、GO/Weapon 完整四平台原字节/tokenizer、Core/CLI/取消/缓存/64 worker矩阵、完整 mymod 原 SDK、五文件包、Upheaval22样本通过。十个运行文件和两个ZIP身份已下载核对。
+
+[共享 XML63 41145352024](https://github.com/wu162/NewSdk/actions/runs/41145352024) 的路由及完整矩阵步骤 success（1,918,904样本/11,064,384比较）；后续重复产品检查停止，整体 cancelled。仅复用其独立 XML 范围，d457f99a→d60904bc 的63组依赖闭包和实际工具链/托管宿主身份未变；最终产品另取上面的完整成功运行。
+
+[完整 MOD 三轮配对 41148441137](https://github.com/wu162/NewSdk/actions/runs/41148441137) success，全部发布字节相同、六次0错误/1859警告；中位34.766→34.659秒（减少0.31%，基本持平），第二对稍慢。原始证据均已下载复算，较慢样本保留。未经批准不合并，禁止强推。
+
+# 当前：GameObject / Weapon 插件编译优化（验收通过，PR #33 待审）
+
+用户指定 `recovery/legacy-sdk-cache` / `8f854606`，成果在 `perf/gameobject-weapon-plugins` / [PR #33](https://github.com/wu162/NewSdk/pull/33)。移动嵌套输入树、只读模块索引、Weapon 单遍读取和枚举表复用已接入；仅五个插件 Bridge/Native 生产文件改变。原生 InitOnce 修复混合运行时关闭，失败均保留。
+
+组件源码 `25aedf8b`，[41138099602](https://github.com/wu162/NewSdk/actions/runs/41138099602) success；同生产源码的完整产品 `9f9d1767`，[41138338003](https://github.com/wu162/NewSdk/actions/runs/41138338003) success：Debug/Release、完整原字节/tokenizer、64 worker/cache、Core/CLI/缓存/取消、完整 mymod 原 SDK、两个五文件 ZIP、完整 Upheaval 22 样本通过。归档、十个运行文件及 ZIP 已下载复算。
+
+同 VM 完整 Upheaval 三轮前后配对 [41141062587](https://github.com/wu162/NewSdk/actions/runs/41141062587) success，全部发布字节相同；中位数 22.185→21.638 秒，耗时减少 2.47%，第三对较慢及 OS 页缓存边界保留。插件合成负载中空 GameObject 慢约 6%，复杂 GameObject/Weapon 改善；详见[实现与计量](docs/TOKENIZER_PLUGIN_PERFORMANCE.md)。
+
+追加的[深入源码研究](docs/TOKENIZER_PLUGIN_NEXT_OPTIMIZATIONS.md)保留原型与 Linux 算法数据；六个方向随后已实施，当前状态以上方第二阶段入口为准。未经用户批准不合并，禁止强推。
+# 当前：RA3 EALayer3 V1（Windows 验收通过，PR #34 已合入）
 
 用户指定基线 `recovery/legacy-sdk-cache` / `eb503513`；开发分支 `feature/ra3-ealayer3`，
 [PR #34](https://github.com/wu162/NewSdk/pull/34)。源码/二进制 `4ddac274`，
@@ -16,7 +43,7 @@ LSF 参照不可用的25条数据明确保留，只有4条可用 V1 参照计为
 [ealayer3 summary](evidence/audio/ealayer3-validation/41149785200-1/summary.json)。
 许可只在源码保留，不嵌入或加入部署包。后续提交仅文档/收据；禁止强推，未经用户批准不合并。
 
-# 当前：L8 热缓存 Benchmark（Common 通过，PR 待审）
+# 当前：L8 热缓存 Benchmark（Common 通过，PR #32 已合入）
 
 分支 `benchmark/l8-hot-cache`，基于 `recovery/legacy-sdk-cache` / `8f854606`；[PR #32](https://github.com/wu162/NewSdk/pull/32)。Benchmark 脚本/工作流已实施，未修改生产算法。Windows/Linux 各 33 项预检通过；[Common 41139062989](https://github.com/wu162/NewSdk/actions/runs/41139062989) success，测量源 `a286062f`、Release 源 `cc10391b`，整个 Windows job 18 分 20 秒，C00–C12 全部完成，75/75 正式样本 wall/elapsed 均 >8 秒，另有 3 个独立 detailed 样本。实际纯热态约 9.34 秒，未达 10–14 秒软目标，未把调参点当成绩。详见 [报告/原始计时/范围](docs/HOT_CACHE_BENCHMARK.md)。旧失败/预算耗尽结果保留，不作跨 VM A/B。Full 未运行，Environment 配置受集成权限限制，且 28 个扩展条件的双重复理论下限 >22.4 分钟、超过其 16 分钟阶段预算，不能声称整组完成。禁止强推，未经用户批准不合并。
 
