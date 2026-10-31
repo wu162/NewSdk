@@ -8,6 +8,11 @@ import shutil
 
 from UpheavalEditWorkload import xml_tags
 
+UNSUPPORTED_INSTANCES = {
+    ('AudioFile', 'FX_kanade_spell'): 'Source WAVE extensible input has 8 channels; the accepted reader supports 1/2/4/6.',
+    ('AudioEvent', 'FX_kanade_spell'): 'Unused event depends exclusively on the removed 8-channel AudioFile.',
+}
+
 
 def sha(data):
     return hashlib.sha256(data).hexdigest()
@@ -15,30 +20,37 @@ def sha(data):
 
 def prepare(mod, catalog, backup, output):
     excluded = {row['name'] for row in json.loads(catalog.read_text(encoding='utf-8'))['excluded']}
-    removed, xml_changes, tga_changes = [], [], []
+    previous = json.loads(output.read_text(encoding='utf-8')) if output.exists() else {}
+    if previous and previous['modRoot'] != str(mod):
+        raise ValueError('Adjustment receipt belongs to a different MOD directory')
+    removed = previous.get('removedAssets', [])
+    xml_changes = previous.get('xmlChanges', [])
+    tga_changes = previous.get('tgaHeaderNormalizations', [])
+    candidate_types = excluded | {kind for kind, name in UNSUPPORTED_INSTANCES}
     for path in sorted((mod / 'Data').rglob('*.xml')):
         relative = path.relative_to(mod)
         if relative.parts[1].lower() in ('aptui', 'additionalmaps'):
             continue
         data = path.read_bytes()
-        if not any(name.encode('ascii') in data for name in excluded):
+        if not any(name.encode('ascii') in data for name in candidate_types):
             continue
         spans = [tag for tag in xml_tags(data)
-                 if 'elementEnd' in tag and tag['topType'] in excluded and tag['topId']]
+                 if 'elementEnd' in tag and tag['topId'] and
+                 (tag['topType'] in excluded or (tag['topType'], tag['topId']) in UNSUPPORTED_INSTANCES)]
         if not spans:
             continue
         original = backup / relative
         original.parent.mkdir(parents=True, exist_ok=True)
-        if original.exists():
-            raise FileExistsError('Original source backup already exists: ' + str(original))
-        shutil.copy2(path, original)
+        if not original.exists():
+            shutil.copy2(path, original)
         changed = data
         for tag in reversed(spans):
             changed = changed[:tag['start']] + changed[tag['elementEnd']:]
         path.write_bytes(changed)
         xml_changes.append(dict(path=relative.as_posix(), originalSha256=sha(data),
                                 modifiedSha256=sha(changed), backup=str(original)))
-        removed.extend(dict(path=relative.as_posix(), type=tag['topType'], id=tag['topId']) for tag in spans)
+        removed.extend(dict(path=relative.as_posix(), type=tag['topType'], id=tag['topId'],
+            reason=UNSUPPORTED_INSTANCES.get((tag['topType'], tag['topId']), 'Excluded built-in XML compiler type')) for tag in spans)
     for path in sorted((mod / 'Data/AptUI').rglob('*')):
         if path.suffix.lower() != '.tga':
             continue
