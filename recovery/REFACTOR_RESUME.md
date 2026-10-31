@@ -6,6 +6,8 @@
 
 [实现/全部原始计量与限制](docs/COMPILER_COLD_HOT_OPTIMIZATION.md)、[深入源码优先级](docs/COMPILER_CACHE_SOURCE_ANALYSIS.md)、[上传热缓存文档对照](docs/HOT_CACHE_REFERENCE_RECONCILIATION.md)。共享schema/成功会话、原512字符/ANSI哈希缓冲、Schema事实缓存和纯查询/纯写索引精简已落地；继承粒度、父DOM与稳定排序的后续边界另列。未经用户批准不合并，禁止强推。
 
+下一轮优先优化修改后的前端范围：收窄instance依赖→请求内父实例快照→引用处理；[待办与验收](docs/HOT_CACHE_REFERENCE_RECONCILIATION.md)、[可直接使用的提示词](docs/HOT_CACHE_NEXT_ROUND_PROMPT.md)。无修改纯热态收益不代表编辑收益，现有增量诊断尚无稳定多样本提速结论。
+
 # 当前：FLA / AS 直接 MOD 四流插件（验收通过，PR #36 待审）
 
 用户指定 `recovery/legacy-sdk-cache` / `665468cb`；成果在 `feat/fla-direct-mod`，
