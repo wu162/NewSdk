@@ -227,6 +227,7 @@ def run(args):
                     reference = work / 'reference-published'
                     shutil.copytree(published, reference)
                 expected = {p.relative_to(reference).as_posix(): p for p in reference.rglob('*') if p.is_file()}
+                filecmp.clear_cache()
                 need(files.keys() == expected.keys() and all(filecmp.cmp(expected[k], files[k], shallow=False) for k in files),
                      'Raw published bytes differ across implementation/cache state: ' + name)
                 row.update(status='passed', rawPublishedIdentical=True, publishedBytes=sum(p.stat().st_size for p in files.values()))
