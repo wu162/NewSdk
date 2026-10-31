@@ -249,6 +249,13 @@ jobs:
         if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
         shell: pwsh
         run: ./recovery/scripts/TestTextureCommonFormats.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/texture/common-formats/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Preserve common texture results before the remaining production matrix
+        if: ${{ always() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: texture-common-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
       - name: Real production CLI, cold processes and actual CtrlBreak cancellation
         id: cli
         if: ${{ !cancelled() && (steps.reuse.outcome == 'success' || (steps.product.outcome == 'success' && steps.product.outputs.cliEnabled == 'true')) }}

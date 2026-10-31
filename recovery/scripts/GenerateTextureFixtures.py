@@ -26,9 +26,33 @@ def tga(width, height, rgba, rle=False):
     header = struct.pack('<BBBHHBHHHHBB', 0, 0, 10 if rle else 2, 0, 0, 0, 0, 0, width, height, 32, 0x28)
     bgra = b''.join(bytes((rgba[i + 2], rgba[i + 1], rgba[i], rgba[i + 3])) for i in range(0, len(rgba), 4))
     if rle:
-        bgra = b''.join(bytes((min(128, width * height - at) - 1,)) + bgra[at * 4:(at + 128) * 4]
-                        for at in range(0, width * height, 128))
+        # The legacy D3DX TGA reader requires every packet to stay in one row.
+        bgra = b''.join(bytes((min(128, width - x) - 1,)) +
+                        bgra[(y * width + x) * 4:(y * width + min(x + 128, width)) * 4]
+                        for y in range(height) for x in range(0, width, 128))
     return header + bgra
+
+
+def check_rle_tga(data, rgba):
+    width, height = struct.unpack_from('<HH', data, 12)
+    at = 18
+    pixels = bytearray()
+    for _ in range(height):
+        remaining = width
+        while remaining:
+            packet = data[at]
+            at += 1
+            count = (packet & 127) + 1
+            assert count <= remaining, 'TGA RLE packet crosses a scanline'
+            size = 4 if packet & 128 else count * 4
+            payload = data[at:at + size]
+            assert len(payload) == size, 'TGA RLE packet is truncated'
+            pixels.extend(payload * count if packet & 128 else payload)
+            at += size
+            remaining -= count
+    assert at == len(data), 'TGA RLE raster has trailing data'
+    expected = b''.join(bytes((rgba[i + 2], rgba[i + 1], rgba[i], rgba[i + 3])) for i in range(0, len(rgba), 4))
+    assert pixels == expected, 'TGA RLE decoded pixels differ'
 
 
 def bmp(width, height, rgba, dib=False):
@@ -95,6 +119,7 @@ def main():
     files = generate(args.destination)
     assert files['preserve.dds'][:4] == b'DDS '
     assert zlib.decompress(files['opaque.png'][41:-16]) == b''.join(b'\0' + pixels()[i:i + 64] for i in range(0, 1024, 64))
+    check_rle_tga(files['rle.tga'], files['opaque.rgba'])
     print('Generated %d deterministic texture fixtures' % len(files))
 
 
