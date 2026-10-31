@@ -77,13 +77,22 @@ jobs:
           New-Item -ItemType Directory -Force $probeDir|Out-Null
           $compiler="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
           $probe="$probeDir/NewWorldTextureSupport.exe"
-          & $compiler /nologo /platform:x86 /r:System.Web.Extensions.dll "/out:$probe" recovery/scripts/NewWorldTextureSupport.cs
+          $probeSource=(Resolve-Path -LiteralPath 'recovery/scripts/NewWorldTextureSupport.cs').Path
+          & $compiler /nologo /platform:x86 /r:System.Web.Extensions.dll "/out:$probe" $probeSource
           if($LASTEXITCODE -ne 0){throw 'TGA support probe compilation failed'}
           Copy-Item work/new-world-accepted/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe.config "$probe.config"
           & $probe work/new-world-accepted/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe 'SDK/Mods/The New World' "$out/unsupported-base-textures.json"
           if($LASTEXITCODE -ne 0){throw 'Accepted TGA input classification failed'}
           python recovery/scripts/PrepareNewWorld71Supported.py --mod 'SDK/Mods/The New World' --backup "$env:RUNNER_TEMP/new-world-original-source" --output "$out/source-adjustments.json" --unsupported-textures "$out/unsupported-base-textures.json"
           if($LASTEXITCODE -ne 0){throw 'Supported input preparation failed'}
+      - uses: actions/upload-artifact@v4
+        if: inputs.supported_fixture == true
+        with:
+          name: new-world-preparation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/source-adjustments.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/unsupported-base-textures.json
+          if-no-files-found: error
       - name: Preflight all 15 streams with the accepted new compiler before the long original cold build
         if: inputs.supported_fixture == true
         shell: pwsh
@@ -91,6 +100,12 @@ jobs:
           $out="recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           python recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/new-world-accepted/artifacts/core-lifecycle-product/Release --mod 'SDK/Mods/The New World' --mod-schema 'SDK/Mods/The New World/xsd' --content 'base,apt,global-metadata' --engine new --source-adjustments "$out/source-adjustments.json" --work "$env:RUNNER_TEMP/new-world-supported-preflight" --output "$out/preflight" --pairs 1 --skip-extra-uncached --timeout-seconds 900 --budget-seconds 1800
           if($LASTEXITCODE -ne 0){throw 'New compiler preflight failed; original long build was not started'}
+      - uses: actions/upload-artifact@v4
+        if: inputs.supported_fixture == true
+        with:
+          name: new-world-preflight-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/preflight/**
+          if-no-files-found: error
       - name: Compile all entries in selected content groups with paired cold hot and optional XML edit measurements
         shell: pwsh
         env:
