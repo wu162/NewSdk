@@ -53,6 +53,10 @@ jobs:
         with: {arch: x86}
       - uses: actions/setup-dotnet@v4
         with: {dotnet-version: '8.0.x'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install existing protected-PE and protocol audit dependencies
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
       - uses: actions/download-artifact@v4
         with:
           name: ealayer3-${{ github.run_id }}
