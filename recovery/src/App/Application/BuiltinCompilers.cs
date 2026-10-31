@@ -222,7 +222,7 @@ namespace NewModCompiler.Application
 
         // Version metadata is the original Win32 contract. Reading aggregate cache
         // versions must not initialize native providers for unrelated asset types.
-        private sealed class LazyPlugin : IAssetBuilderPlugin, IDisposable
+        private sealed class LazyPlugin : IAssetBuilderPlugin, IInstanceProcessingHash, IDisposable
         {
             readonly Func<IAssetBuilderPlugin> factory;
             readonly uint version;
@@ -247,6 +247,17 @@ namespace NewModCompiler.Application
                 }
             }
             internal IAssetBuilderPlugin Backend { get { return Value; } }
+            public uint GetProcessingHash(InstanceDeclaration declaration)
+            {
+                var policy = Value as IInstanceProcessingHash;
+                return policy != null ? policy.GetProcessingHash(declaration) : Value.GetExtendedTypeInformation(declaration.Handle.TypeId).ProcessingHash;
+            }
+            public bool IsProcessingHashCurrent(uint typeId, uint processingHash, bool compilerVersionChanged)
+            {
+                var policy = Value as IInstanceProcessingHash;
+                return policy != null ? policy.IsProcessingHashCurrent(typeId, processingHash, compilerVersionChanged) :
+                    processingHash == Value.GetExtendedTypeInformation(typeId).ProcessingHash;
+            }
             public void Initialize(object config, TargetPlatform target) { configuration = config; platform = target; }
             public void ReInitialize(object config, TargetPlatform target)
             {
@@ -279,3 +290,4 @@ namespace NewModCompiler.Application
     }
 }
 #endif
+

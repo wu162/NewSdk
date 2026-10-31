@@ -9,11 +9,17 @@ def run(a):
     repo=Path(a.repo).resolve();out=Path(a.output).resolve();out.mkdir(parents=True,exist_ok=True)
     work=Path(a.work).resolve();mod=work/'EALayer3Mod';data=mod/'Data';data.mkdir(parents=True)
     cases=make(mod/'Audio',repo)
-    shutil.copy2(mod/'Audio/assets.xml',data/'Mod.xml')
+    # Exercise legacy and EALayer3 identities in the same cached document.
+    root=ET.parse(mod/'Audio/assets.xml').getroot()
+    for compression in ('NONE','XAS'):
+        ET.SubElement(root,'{%s}AudioFile'%NS,{'id':'legacy_'+compression,
+            'File':str((mod/'Audio/c2_s1_l0.wav').resolve()),'PCCompression':compression,'IsStreamedOnPC':'true'})
+        cases.append({'id':'legacy_'+compression})
+    ET.ElementTree(root).write(data/'Mod.xml',encoding='utf-8',xml_declaration=True)
     state={'sourceCommit':os.environ.get('GITHUB_SHA'),'runId':os.environ.get('GITHUB_RUN_ID'),'passed':False,'cases':[]}
-    def invoke(name,destination,jobs,sc=True,bc=True):
+    def invoke(name,destination,jobs,sc=True,bc=True,exe=None):
         row={'name':name,'jobs':jobs};state['cases'].append(row)
-        command=[str(Path(a.exe).resolve()),'build','--mod',str(mod),'--sdk-root',str(repo/'SDK'),'--out',str(destination),'--jobs',str(jobs),'--performance','detailed','--sc='+str(sc).lower(),'--bc='+str(bc).lower(),'--package-content','base','--package-format','loose']
+        command=[str(Path(exe or a.exe).resolve()),'build','--mod',str(mod),'--sdk-root',str(repo/'SDK'),'--out',str(destination),'--jobs',str(jobs),'--performance','detailed','--sc='+str(sc).lower(),'--bc='+str(bc).lower(),'--package-content','base','--package-format','loose']
         caseout=out/name;caseout.mkdir()
         with (caseout/'stdout.log').open('wb') as stdout,(caseout/'stderr.log').open('wb') as stderr:
             result=subprocess.run(command,cwd=Path(a.exe).resolve().parent,stdout=stdout,stderr=stderr,timeout=180)
@@ -27,6 +33,8 @@ def run(a):
         row['customFiles']=len(cdata);row['outputs']={k:hashlib.sha256(v).hexdigest() for k,v in files.items()}
         row['passed']=True;return files,body
     try:
+        if a.previous_exe:
+            invoke('previous-session',work/'migration',4,exe=a.previous_exe)
         j1,b1=invoke('jobs1-cold',work/'j1',1)
         j4,b4=invoke('jobs4-cold',work/'j4',4)
         need(j1==j4,'Production jobs1/4 full artifacts differ')
@@ -35,6 +43,11 @@ def run(a):
         need(parallel['maxBackendConcurrency']>1,'AudioFile jobs4 was globally serialized')
         hot,h=invoke('jobs4-hot',work/'j4',4)
         need(hot==j4 and h['cache']['instanceCompile']==0 and h['cache']['xmlParse']==0,'Hot cache called backend or changed output')
+        if a.previous_exe:
+            migrated,m=invoke('previous-session-upgraded',work/'migration',4)
+            need(migrated==j4 and m['cache']['xmlParse']>0,'Previous type-wide AudioFile identity did not migrate')
+            warm_migration,mh=invoke('previous-session-upgraded-hot',work/'migration',4)
+            need(warm_migration==j4 and mh['cache']['xmlParse']==0 and mh['cache']['instanceCompile']==0,'Migrated mixed audio document did not become hot')
         source=mod/'Audio/c2_s1_l0.wav';raw=bytearray(source.read_bytes())
         # Change sustained signal, preserving a real valid PCM container.
         for at in range(44,len(raw)-1,2):
@@ -52,4 +65,6 @@ def run(a):
 if __name__=='__main__':
     p=argparse.ArgumentParser()
     for n in ('repo','exe','output','work'):p.add_argument('--'+n,required=True)
+    p.add_argument('--previous-exe')
     run(p.parse_args())
+

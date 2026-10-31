@@ -202,10 +202,13 @@ public class SessionCache : ISessionCache
 		}
 		set
 		{
+			AssetCompilersVersionChanged |= _Current.AssetCompilersVersion != value;
 			if (_Current.AssetCompilersVersion != value) HasChanges = true;
 			_Current.AssetCompilersVersion = value;
 		}
 	}
+
+	public bool AssetCompilersVersionChanged { get; private set; }
 
 	public virtual void LoadCache(string sessionCachePath)
 	{
@@ -278,6 +281,7 @@ public class SessionCache : ISessionCache
 			_Last = null;
 		}
 		HasChanges = false;
+		AssetCompilersVersionChanged = false;
 		_Current = new CurrentState();
 		_dirtyStreams = new List<string>();
 		checkFiles(knownChangedFiles);
@@ -487,3 +491,4 @@ public class SessionCache : ISessionCache
 		_Last.FromCurrent(_Current);
 	}
 }
+
