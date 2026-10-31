@@ -1,5 +1,17 @@
 name: Hot edit validation repair with unchanged production
 on:
+  push:
+    branches: [perf/compiler-cold-hot-cache]
+    paths:
+      - '.github/workflows/compiler-hot-edit-validation.yml'
+      - 'recovery/scripts/PrepareCompilerHotEditRepair.py'
+      - 'recovery/scripts/CompleteCompilerHotEditRepair.py'
+      - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
+      - 'recovery/scripts/TestCompilerPerformance.py'
+      - 'recovery/scripts/TestCompilerBackendBaseline.ps1'
+      - 'recovery/tests/CompilerInstanceIncludeCache.cs'
+      - 'recovery/tests/CompilerInheritanceSnapshot.cs'
+      - 'recovery/tests/CompilerReferenceSemantics.cs'
   workflow_dispatch:
     inputs:
       original_run_id:
@@ -18,12 +30,13 @@ concurrency:
   cancel-in-progress: false
 jobs:
   validate:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[hot-edit-repair]')
     runs-on: windows-2022
     timeout-minutes: 50
     env:
       GH_TOKEN: ${{ github.token }}
-      ORIGINAL_RUN: ${{ inputs.original_run_id }}
-      PRODUCTION_SOURCE: ${{ inputs.production_source }}
+      ORIGINAL_RUN: ${{ inputs.original_run_id || '41174952443' }}
+      PRODUCTION_SOURCE: ${{ inputs.production_source || '8e8cf766df1016c6095158b62ea18f48a5c37cfe' }}
       VALIDATION_SOURCE: ${{ github.sha }}
       COMPILER_TEST_SOURCE_COMMIT: ${{ github.sha }}
       PYTHONDONTWRITEBYTECODE: '1'
@@ -58,7 +71,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: ${{ steps.original.outputs.artifact }}
-          run-id: ${{ inputs.original_run_id }}
+          run-id: ${{ env.ORIGINAL_RUN }}
           github-token: ${{ github.token }}
           path: work/hot-edit-original
       - uses: actions/setup-dotnet@v4
