@@ -1,6 +1,7 @@
 """Original/new SDK comparison for every stream of the untouched full Upheaval."""
 import argparse
 import csv
+import collections
 import ctypes
 import json
 import os
@@ -56,6 +57,27 @@ def outputs(directory, selected):
             accepted.add(p)
     require(accepted == set(files), 'Unexpected unreported full MOD output members')
     return normalized, paths
+
+
+def cdata_diagnostic(left, right, left_paths, right_paths):
+    def identity(key):
+        return key.rsplit('/', 1)[0] + '/' + '.'.join(key.rsplit('/', 1)[-1].split('.')[:3])
+    a, b = collections.defaultdict(list), collections.defaultdict(list)
+    for mapping, groups in ((left, a), (right, b)):
+        for key in mapping:
+            if key.endswith('.cdata'):
+                groups[identity(key)].append(key)
+    equal = 0
+    for name in a.keys() & b.keys():
+        remaining = list(b[name])
+        for key in a[name]:
+            match = next((k for k in remaining if left[key] == right[k] and
+                          left_paths[key].read_bytes() == right_paths[k].read_bytes()), None)
+            if match is not None:
+                equal += 1
+                remaining.remove(match)
+    return {'originalCount': sum(map(len, a.values())), 'newCount': sum(map(len, b.values())),
+            'commonLogicalIdentities': len(a.keys() & b.keys()), 'equalPayloads': equal}
 
 
 def save(out, state):
@@ -205,6 +227,15 @@ def run(args):
             order = ('original', 'new') if pair_index % 2 == 0 else ('new', 'original')
             pair = {engine: sample(engine, phase, index) for engine in order}
             left, right = pair['original'], pair['new']
+            for engine in order:
+                current = pair[engine][0]['outputFiles']
+                if engine not in baselines:
+                    baselines[engine] = current
+                    for name, path in pair[engine][1].items():
+                        target = out / 'baseline-outputs' / engine / name
+                        target.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.copyfile(path, target)
+                require(current == baselines[engine], 'Full cold/hot output changed within engine: ' + engine)
             a, b = left[0]['outputFiles'], right[0]['outputFiles']
             equal = a == b
             if equal:
@@ -216,26 +247,8 @@ def run(args):
                               'changed': [k for k in sorted(a.keys() & b.keys()) if a[k] != b[k]]}
                 # Diagnostic only: compare CDATA payloads by type/processing/instance identity,
                 # retaining the original differing filenames and all raw bytes as failures.
-                def cdata_identity(key):
-                    return key.rsplit('/', 1)[0] + '/' + '.'.join(key.rsplit('/', 1)[-1].split('.')[:3])
-                ca = {cdata_identity(k): k for k in a if k.endswith('.cdata')}
-                cb = {cdata_identity(k): k for k in b if k.endswith('.cdata')}
-                require(len(ca) == sum(k.endswith('.cdata') for k in a) and
-                        len(cb) == sum(k.endswith('.cdata') for k in b), 'Ambiguous CDATA diagnostic identity')
-                common = ca.keys() & cb.keys()
-                difference['cdataDiagnostic'] = {'originalCount': len(ca), 'newCount': len(cb),
-                    'commonLogicalIdentities': len(common),
-                    'equalPayloads': sum(left[1][ca[k]].read_bytes() == right[1][cb[k]].read_bytes() for k in common)}
+                difference['cdataDiagnostic'] = cdata_diagnostic(a, b, left[1], right[1])
                 state.setdefault('outputDifferences', []).append(difference)
-            for engine in order:
-                current = pair[engine][0]['outputFiles']
-                if engine not in baselines:
-                    baselines[engine] = current
-                    for name, path in pair[engine][1].items():
-                        target = out / 'baseline-outputs' / engine / name
-                        target.parent.mkdir(parents=True, exist_ok=True)
-                        shutil.copyfile(path, target)
-                require(current == baselines[engine], 'Full cold/hot output changed within engine: ' + engine)
             for engine in order:
                 pair[engine][0]['status'] = 'passed'
             state['pairs'].append({'phase': phase, 'round': index, 'order': order, 'rawBytesEqual': equal})

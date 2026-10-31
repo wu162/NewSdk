@@ -3,11 +3,27 @@ import tempfile
 import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parents[1] / 'scripts'))
-from BenchmarkFullUpheaval import outputs, tasks
+from BenchmarkFullUpheaval import outputs, tasks, cdata_diagnostic
 from BenchmarkCompilerSdkComparison import compare_pair
 
 
 class FullUpheavalChecks(unittest.TestCase):
+    def test_cdata_diagnostic_keeps_multiple_variants_of_one_instance(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            metadata, paths = [], []
+            for engine, suffixes in (('old', ('aaaa', 'bbbb')), ('new', ('cccc', 'dddd'))):
+                mapping, sources = {}, {}
+                for index, suffix in enumerate(suffixes):
+                    key = 'base/mod/mod/cdata/166b084d.53c81e47.12345678.' + suffix + '.cdata'
+                    p = root / (engine + suffix)
+                    p.write_bytes(bytes([index]))
+                    mapping[key] = {'bytes': 1, 'sha256': str(index)}
+                    sources[key] = p
+                metadata.append(mapping)
+                paths.append(sources)
+            result = cdata_diagnostic(*metadata, *paths)
+            self.assertEqual(result, {'originalCount': 2, 'newCount': 2, 'commonLogicalIdentities': 1, 'equalPayloads': 2})
     def test_five_streams_cdata_versions_and_unknown_members(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
