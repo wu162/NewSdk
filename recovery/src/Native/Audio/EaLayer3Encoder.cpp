@@ -129,6 +129,7 @@ void segment(Bytes& output,const float* src,int frames,int channels,int rate,int
         size_t start=output.size();be32(output,0);be32(output,(unsigned)count);
         output.insert(output.end(),block.begin(),block.end());
         unsigned size=(unsigned)(output.size()-start);
+        if(size>0x00ffffffu) throw std::runtime_error("EALayer3 RAM segment exceeds the SNR 24-bit block size; use streamed audio");
         put32(output,start,size|((final&&streamed)?0x80000000u:0));
         emitted+=count;block.clear();blockFrames=0;
     };

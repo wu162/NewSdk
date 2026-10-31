@@ -9,7 +9,7 @@ def chunk(tag,data,be=False):
 def make(out,repo):
     out=Path(out);out.mkdir(parents=True,exist_ok=True)
     root=ET.Element('{%s}AssetDeclaration'%NS);cases=[]
-    def add(name,channels,rate=22050,quality=75,stream=False,loop=False,aiff=False,frames=8193,target=None):
+    def add(name,channels,rate=22050,quality=75,stream=False,loop=False,aiff=False,frames=8193,target=None,bits=16):
         samples=[int(11000*math.sin(2*math.pi*(337+173*c)*i/rate)+1700*math.sin(2*math.pi*97*i/rate)) for i in range(frames) for c in range(channels)]
         start,end=(frames//3,frames-113) if loop else (-1,frames-1)
         path=out/(name+('.aiff' if aiff else '.wav'))
@@ -17,16 +17,16 @@ def make(out,repo):
             # 22050Hz in AIFF's IEEE extended representation.
             exponent=rate.bit_length()-1
             extended=struct.pack('>HQ',16383+exponent,rate<<(63-exponent))
-            data=chunk(b'COMM',struct.pack('>hIh',channels,frames,16)+extended,True)
+            data=chunk(b'COMM',struct.pack('>hIh',channels,frames,bits)+extended,True)
             if loop:
-                markers=struct.pack('>H',2)+struct.pack('>hI',1,start)+b'\x01a'+struct.pack('>hI',2,end)+b'\x01b'
+                markers=struct.pack('>H',2)+struct.pack('>hI',1,start)+b'\x01a'+struct.pack('>hI',2,end+1)+b'\x01b'
                 data+=chunk(b'MARK',markers,True)
                 data+=chunk(b'INST',bytes([60,0,0,127,0,127])+struct.pack('>hHHHHHH',0,1,1,2,0,0,0),True)
-            data+=chunk(b'SSND',bytes(8)+struct.pack('>%dh'%len(samples),*samples),True)
+            data+=chunk(b'SSND',bytes(8)+(struct.pack('>%dh'%len(samples),*samples) if bits==16 else b''.join(((v<<8)&0xffffff).to_bytes(3,'big') for v in samples)),True)
             path.write_bytes(b'FORM'+struct.pack('>I',len(data)+4)+b'AIFF'+data)
         else:
-            data=chunk(b'fmt ',struct.pack('<HHIIHH',1,channels,rate,rate*channels*2,channels*2,16))
-            data+=chunk(b'data',struct.pack('<%dh'%len(samples),*samples))
+            data=chunk(b'fmt ',struct.pack('<HHIIHH',1,channels,rate,rate*channels*(bits//8),channels*(bits//8),bits))
+            data+=chunk(b'data',(struct.pack('<%dh'%len(samples),*samples) if bits==16 else b''.join(((v<<8)&0xffffff).to_bytes(3,'little') for v in samples)))
             if loop:data+=chunk(b'smpl',struct.pack('<15I',0,0,0,60,0,0,0,1,0,0,0,start,end,0,0))
             path.write_bytes(b'RIFF'+struct.pack('<I',len(data)+4)+b'WAVE'+data)
         attrs={'id':name,'File':str(path.resolve()),'PCCompression':'EALAYER3','IsStreamedOnPC':str(stream).lower(),'SubtitleStringName':'EAL3:'+name}
@@ -40,6 +40,8 @@ def make(out,repo):
     for rate in (16000,24000,32000,44100,48000):add('rate%d'%rate,2,rate=rate,stream=True)
     for q in (0,100,None):add('quality%s'%q,2,quality=q)
     for channels in (1,2,4,6):add('aiff%d'%channels,channels,aiff=True,loop=True,stream=channels!=1)
+    add('wave24',2,stream=True,bits=24)
+    add('aiff24',2,stream=True,loop=True,aiff=True,bits=24)
     add('resampleLoop',2,target=44100,loop=True,stream=True)
     for frames in (1,2,46,47,48,575,576,577,1105,1152):add('short%d'%frames,1,frames=frames,stream=True)
     for index in (0,1):

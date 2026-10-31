@@ -38,8 +38,6 @@ namespace BinaryAssetBuilder.AudioCompiler
         internal static unsafe PcmEncodingResult EncodeSamples(float[] samples, int channels,
             int rate, bool streamed, int quality, bool hasLoop, int loopStart, int loopEnd)
         {
-            if (quality < 0 || quality > 100)
-                throw new ArgumentOutOfRangeException("quality", "EALayer3 quality must be between 0 and 100");
             IntPtr data, error; int size, loopByteOffset;
             fixed (float* source = samples)
             {
