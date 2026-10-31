@@ -47,6 +47,7 @@ if (args.Length == 0)
         Check(first.InputFiles.Count == 4, "FLA and all AS dependencies");
         File.AppendAllText(Path.Combine(source, "setup.as"), "\ntrace(\"changed\");");
         var second = plugin.CompileFolder(source, output);
+        BaselineVerifier.Capture(second);
         Check(!first.Binary.SequenceEqual(second.Binary), "External AS change rebuilds the stream");
         Check(first.Assets.Count == 3, "Script-only movie still emits all three APT assets");
         StreamVerifier.Verify(second, Check);
@@ -82,6 +83,7 @@ foreach (string file in samples)
     Check(apt.Apt.Length > 16 && apt.Constants.Length > 16, "APT output");
     using var plugin = new Plugin(); plugin.Initialize(null, TargetPlatform.Win32);
     var streams = plugin.CompileMod(file, "UiTest");
+    BaselineVerifier.Capture(streams);
     Check(streams.Assets.Count == 3 + apt.Geometry.Count + apt.Textures.Count, "Complete asset group");
     Check(streams.Manifest[1] == 1 && streams.Manifest[2] == 6, "Linked manifest v6");
     Check(BitConverter.ToUInt32(streams.Manifest, 4) == BitConverter.ToUInt32(streams.Binary, 0), "Binary checksum");
