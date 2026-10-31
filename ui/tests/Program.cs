@@ -11,6 +11,7 @@ Check(SageHash.Symbol("AptGeometryData") == 1034587168u, "SAGE geometry type has
 Check(SageHash.Symbol("Texture") != 0, "Texture type ID");
 RuntimeFixture.VerifyArchitecture(Check);
 GeometryTests.Run(Check);
+RuntimeLayoutTests.Run(Check);
 void RunScript(string source, string expected)
 {
     var machine = new Avm1Machine(); machine.Run(BinaryAssetBuilder.UiCompiler.Compilation.ActionScriptCompiler.Compile(source));

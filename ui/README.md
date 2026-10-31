@@ -59,4 +59,4 @@ dotnet run --project ui/tests/UiCompiler.Tests.csproj -f net8.0
 
 最终资产编码依据附件工具对应的 SWF2APT 运行时布局；资产布局、类型哈希、重定位和 v6 四流逻辑依据指定 recovery 分支。固定来源、许可及移植修改见 [VENDOR.md](VENDOR.md)。自动化验证不能代替游戏内 UI 验收。
 
-回归测试直接解析最终 AssetBuffer 并执行其中的 AS 指令、检查几何孔洞/描边面积与四流布局；54 个最终资产的 SHA-256 与删除中间格式前的基线逐一比对。产品程序集不再包含 SwfLib、SWF 读写器或 SWF→APT 转换器。
+回归测试直接解析最终 AssetBuffer 并执行其中的 AS 指令、检查几何孔洞/描边面积与四流布局；62 个最终资产的 SHA-256 与删除中间格式前的基线逐一比对。产品程序集不再包含 SwfLib、SWF 读写器或 SWF→APT 转换器。

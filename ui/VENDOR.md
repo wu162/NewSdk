@@ -32,8 +32,12 @@ it does not execute the compiler's operation objects. The 54 digests in
 `tests/fixtures/legacy-assets.sha256` record final AssetBuffers from the old
 pipeline at `e235cededd385a6895895ceb354f46a6667caaa3` and cover the same
 FLA fixtures plus the main-script/include/class folder scenario in Program.cs.
-They include runtime roots and padding, so no intermediate encoders are
-needed for compatibility tests.
+The additional 8 digests in `tests/fixtures/legacy-layout-assets.sha256`
+use the same old source implementation with `tests/LayoutDocument.cs` to
+exercise button states/hit meshes, dynamic UTF-8 text, linked AS2 class
+initializers, clip/button events and decoded bitmap pixels. All digests
+include runtime roots and padding; compatibility tests need no intermediate
+encoders.
 
 NuGet runtime dependencies are pinned: LibTessDotNet **1.1.15** (package MIT
 metadata; retained upstream SGI Free Software License B notice),

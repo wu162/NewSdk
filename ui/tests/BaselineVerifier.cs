@@ -17,7 +17,8 @@ internal static class BaselineVerifier
             if (!Expected.TryGetValue(key, out string expected)) continue;
             Seen.Add(key);
             string hash = BitConverter.ToString(sha.ComputeHash(asset.Buffer.InstanceData)).Replace("-", "").ToLowerInvariant();
-            check(hash == expected, "Legacy final asset identity " + key + ": " + hash);
+            string detail = hash != expected && asset.TypeName == "AptGeometryData" && asset.Buffer.InstanceData.Length < 256 ? " "+System.Text.Encoding.UTF8.GetString(RuntimeFixture.Payload(asset)) : "";
+            check(hash == expected, "Legacy final asset identity " + key + ": " + hash + detail);
         }
     }
 }

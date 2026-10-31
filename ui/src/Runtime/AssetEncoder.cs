@@ -52,6 +52,10 @@ namespace BinaryAssetBuilder.UiCompiler.Runtime
                     }
                 }
             }
+            foreach (var mesh in scene.Symbols.Values.OfType<MeshSymbol>().Where(m => !hitShapes.Contains(m.Id) || referenced.Contains(m.Id)))
+                foreach (var batch in mesh.Batches)
+                    if (batch.Material.ImageId != 0 && (batch.Material.Matrix[1] != 0 || batch.Material.Matrix[2] != 0))
+                        ((ImageSymbol)scene.Symbols[batch.Material.ImageId]).NoPack = true;
         }
         private void PlanMovie(List<SceneFrame> frames, string key)
         {
@@ -204,7 +208,9 @@ namespace BinaryAssetBuilder.UiCompiler.Runtime
         {
             if (material.ImageId == 0) { uint c = material.Color; return "s:" + (c & 255) + ":" + (c >> 8 & 255) + ":" + (c >> 16 & 255) + ":" + (c >> 24); }
             double[] m = material.Matrix.Select(v => v / 20.0f).ToArray();
-            m[4] = (float)material.Matrix[4] / 20.0f; m[5] = (float)material.Matrix[5] / 20.0f;
+            // Array stores force the same Single rounding on the x86 CLR/x87.
+            float[] translation = { (float)material.Matrix[4] / 20.0f, (float)material.Matrix[5] / 20.0f };
+            m[4] = translation[0]; m[5] = translation[1];
             double det = m[0] * m[3] - m[1] * m[2];
             if (det == 0) throw new InvalidDataException("Singular bitmap matrix.");
             var inv = new[] { m[3] / det, -m[1] / det, -m[2] / det, m[0] / det, 0.0, 0.0 };

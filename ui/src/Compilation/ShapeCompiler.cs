@@ -56,7 +56,7 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
             else if ((flags & 0x10) != 0) image = GradientRasterizer.Compile(compiler, record, bounds, out matrix);
             else if ((flags & 0x20) != 0) throw new NotSupportedException("Extended fill style.");
             if (image == 0) return new Material { Color = unchecked((uint)record.Number("packedValue")) };
-            matrix = CoordinateMath.Matrix(matrix); var bitmap = (ImageSymbol)compiler.Model.Symbols[image]; bitmap.NoPack |= repeat || matrix[1] != 0 || matrix[2] != 0;
+            matrix = CoordinateMath.Matrix(matrix);
             return new Material { ImageId = image, Repeat = repeat, Matrix = matrix };
         }
         private static Point2 Point(FlaRecord record, string field) => new Point2(CoordinateMath.Round(record.Real(field + "X") / 256), CoordinateMath.Round(record.Real(field + "Y") / 256));

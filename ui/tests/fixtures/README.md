@@ -12,3 +12,9 @@ SWF/APT pipeline. Keys are `source-file:asset-type:asset-name`. The baseline
 covers all the Flash 8 fixtures plus the source-folder/include/AS2-class
 scenario in `Program.cs` after the include changes. Tests compare the direct
 compiler's final buffers without retaining the old intermediate encoders.
+
+`legacy-layout-assets.sha256` adds 8 final AssetBuffer digests captured from
+the same old implementation, with the in-memory source records described in
+`LayoutDocument.cs`. This covers button states/hit tests, dynamic Chinese
+text, a linked AS2 class, event handlers and a premultiplied source bitmap.
+Only final asset hashes are retained, not old conversion code or files.
