@@ -43,6 +43,8 @@ NewModCompiler.exe build --mod C:\Mods\CoronaUI --sdk-root C:\NewSdk\SDK --out C
 实例身份混合完整源内容和 UI 编译器版本；会话缓存记录 FLA/AS 依赖及目录成员，
 AS 修改、添加、删除和 UI 实现升级会使相关文档失效。生成资产保存在原缓存中，
 缺失输出按原重载路径重建。声明与生成资产同名时拒绝构建。
+失败沿原直接输出合同清理本次已开始流的四文件，保留可复用中间资产及允许的部分会话；
+修复源文件后重试重建完整四流。
 裸 FLA 的内部 XML 包装保存在输出目录 `.NewModCompiler/fla/`，不改源目录，
 不作为最终 MOD 文件发布。
 

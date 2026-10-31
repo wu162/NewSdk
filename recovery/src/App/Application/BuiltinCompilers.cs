@@ -215,7 +215,9 @@ namespace NewModCompiler.Application
         internal static IAssetBuilderPlugin ResolveBackendPlugin(IAssetBuilderPlugin plugin)
         {
             var lazyPlugin = plugin as LazyPlugin;
-            return lazyPlugin == null ? plugin : lazyPlugin.Backend;
+            plugin = lazyPlugin == null ? plugin : lazyPlugin.Backend;
+            var uiPlugin = plugin as UiAptPlugin;
+            return uiPlugin == null ? plugin : uiPlugin.BinaryBackend;
         }
 
         // Version metadata is the original Win32 contract. Reading aggregate cache

@@ -11,6 +11,7 @@ namespace NewModCompiler.Application
     {
         private readonly Plugin source = new Plugin();
         private readonly Recovered.XmlPriority.Plugin binary = new Recovered.XmlPriority.Plugin();
+        internal IAssetBuilderPlugin BinaryBackend { get { return binary; } }
         public void Initialize(object config, TargetPlatform platform)
         {
             UiEmbeddedDependencies.Initialize();

@@ -20,6 +20,10 @@ function Equal($Left,$Right){
     Need ($Left.Count -eq $Right.Count) 'Four-stream file counts differ'
     foreach($key in $Left.Keys){Need ($Right.ContainsKey($key) -and $Left[$key] -ceq $Right[$key]) "Final stream bytes differ: $key"}
 }
+function FailedStreamsCleaned($Previous,[string]$Published){
+    Need ($Previous.Count -eq 4) 'Failed-stream cleanup requires the previous complete four-file set'
+    foreach($key in $Previous.Keys){Need (!(Test-Path -LiteralPath (Join-Path $Published $key))) "Failed stream file was retained: $key"}
+}
 function Changed($Left,$Right){
     Need ($Left.Count -eq $Right.Count) 'A source edit changed the published file layout'
     Need (@($Left.Keys|Where-Object{$Left[$_] -cne $Right[$_]}).Count -gt 0) 'Source edit did not change any final stream bytes'
@@ -79,7 +83,7 @@ function Run([string]$Name,[string]$Destination,[bool]$SessionCache=$true,[int]$
         if(Test-Path -LiteralPath $events){Copy-Item -LiteralPath $events -Destination "$case/build.events.jsonl"}
     }
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production CLI direct binary MX2004/Flash8 FLA and AS to Core mixed MOD four streams; both unchanged user sources, file/folder routes, siblings, same-length/mtime AS edit, AS addition/deletion, duplicate generated identities and failure/retry. No SWF input, Flash process or in-game playback oracle.'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production CLI direct binary MX2004/Flash8 FLA and AS to Core mixed MOD four streams; both unchanged user sources, file/folder routes, siblings, same-length/mtime AS edit, AS addition/deletion, duplicate generated identities and failed-stream cleanup/retry. No SWF input, Flash process or in-game playback oracle.'}
 try{
     $control=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory (Join-Path $out 'controller')
     foreach($mode in @('Debug','Release')){
@@ -119,12 +123,14 @@ try{
         Remove-Item -LiteralPath $timeline
         $deleted=Run 'as-deleted' $destination;Equal $changed.files $deleted.files
         [IO.File]::WriteAllText($timeline,'#include "does-not-exist.as"')
-        $null=Run 'missing-include' $destination $true 4;Equal $deleted.files (Snapshot $deleted.published)
+        # Direct output removes the four files of a touched failed stream.
+        # Retry must reconstruct the bytes from the preceding successful build.
+        $null=Run 'missing-include' $destination $true 4;FailedStreamsCleaned $deleted.files $deleted.published
         Remove-Item -LiteralPath $timeline
         $retry=Run 'retry' $destination;Equal $deleted.files $retry.files
         [IO.File]::WriteAllBytes("$mod/Data/collision.bin",[byte[]](1,2,3,4))
         [IO.File]::WriteAllText("$mod/Data/Mod.xml",$xml.Replace('</AssetDeclaration>','<AptConstData id="CoronaUIMain_const" File="collision.bin"/></AssetDeclaration>'))
-        $null=Run 'generated-identity-collision' $destination $true 4;Equal $retry.files (Snapshot $retry.published)
+        $null=Run 'generated-identity-collision' $destination $true 4;FailedStreamsCleaned $retry.files $retry.published
         [IO.File]::WriteAllText("$mod/Data/Mod.xml",$xml)
         $recovered=Run 'collision-retry' $destination;Equal $retry.files $recovered.files
         $mixedMod=$script:mod;$script:mod=(New-Item -ItemType Directory -Path (Join-Path $modeWork 'bare')).FullName
@@ -140,7 +146,7 @@ try{
         $script:mod=$mixedMod
         $modeState.passed=$true
     }
-    $state.succeeded=$true;Write-Host 'PASS direct UI production CLI, both attachments, mixed four streams, source invalidation and failure rollback'
+    $state.succeeded=$true;Write-Host 'PASS direct UI production CLI, both attachments, mixed four streams, source invalidation and failed-stream cleanup/retry'
 }finally{
     $state|ConvertTo-Json -Depth 14|Set-Content (Join-Path $out 'summary.json')
     if(Test-Path -LiteralPath $work){Remove-Item -LiteralPath $work -Recurse -Force}

@@ -55,7 +55,7 @@ jobs:
             ./recovery/scripts/BuildManagedFoundation.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/ui-foundation/$mode"
           }
           ./recovery/scripts/TestCompiler.ps1 -FoundationDirectory recovery/artifacts/ui-foundation -BuildDirectory recovery/artifacts/ui-product -OutputDirectory recovery/artifacts/ui-tests/product
-      - name: Source FLA and AS through real MOD CLI, cache invalidation and rollback
+      - name: Source FLA and AS through real MOD CLI, cache invalidation and failure retry
         if: ${{ !cancelled() && steps.product.outcome == 'success' }}
         shell: pwsh
         run: ./recovery/scripts/TestCompilerUi.ps1 -CompilerDirectory recovery/artifacts/ui-product -OutputDirectory recovery/artifacts/ui-tests/fla
