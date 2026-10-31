@@ -24,7 +24,7 @@ import UpheavalEditWorkload as workload
 DETAIL_PHASES = ('core.xml.instance.hash', 'core.xml.instance.references', 'core.xml.schema.validate',
                 'core.xml.instances.validate', 'core.xml.overrides', 'core.xml.expressions',
                 'core.dependencies.inheritance.identity', 'core.xml.inheritance.frontend',
-                'core.output.references', 'core.output.reference-closure', 'core.output.sort')
+                'core.output.references', 'core.output.reference-closure', 'core.output.order')
 
 
 def summary(samples):

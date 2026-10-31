@@ -1,4 +1,8 @@
-# 当前：缓存后编辑的依赖/父快照/引用优化已验收，PR #38 待审
+# 当前：完整 Upheaval 大幅编辑热缓存比较运行中
+
+用户追加要求在大型MOD做常见开发的大幅修改。已保存计量源 `a4682714`，普通推送；[41181143063](https://github.com/wu162/NewSdk/actions/runs/41181143063) A/B独立组运行中。八场景覆盖GameObject/Weapon批改、共享父有效/无关兄弟、Define、资产真文件增删/重命名与引用、80媒体、32W3X。完整原MOD保留，SDK父本地覆盖与8个生命周期补充资产明确标注。生产二进制仍为下方已验收 `8e8cf766`，基线 `e2dba3c3`，不重建。每场景off三对、detailed单列，发布全原字节与再热0/0为硬门槛；结果未到，不标完成。[计量方案/来源/结果入口](docs/UPHEAVAL_LARGE_EDIT_COMPARISON.md)。
+
+# 上轮：缓存后编辑的依赖/父快照/引用优化已验收，PR #38 待审
 
 `perf/compiler-cold-hot-cache` / [PR #38](https://github.com/wu162/NewSdk/pull/38)，未合并。生产二进制 `8e8cf766`，后续仅测试/文档。组合验收 [41178094135](https://github.com/wu162/NewSdk/actions/runs/41178094135) success：原D/R与12既有Core/CLI/取消/缓存等有效组复用，Include D/R各140检查/4组、完整mymod原SDK、五文件ZIP、Upheaval22全通过；父快照/引用D/R成功结果按实际输入闭包复用。原失败终态和修复来源保留。
 

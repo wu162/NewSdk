@@ -1,6 +1,6 @@
 # 完整 Upheaval 大幅编辑的热缓存比较
 
-当前为计量实现检查点，尚未取得运行结果。生产代码未变，不重建二进制：优化前 `e2dba3c3` / 41169755141，优化后 `8e8cf766` / 41178094135；各自验收来源与运行文件身份按[上轮报告](HOT_CACHE_EDIT_OPTIMIZATION.md)复用。分支仍为 `perf/compiler-cold-hot-cache` / [PR #38](https://github.com/wu162/NewSdk/pull/38)，未经用户批准不合并，禁止强推。
+当前为计量实现检查点，尚未取得运行结果。[完整A/B运行41181143063](https://github.com/wu162/NewSdk/actions/runs/41181143063)，计量源 `a4682714`。生产代码未变，不重建二进制：优化前 `e2dba3c3` / 41169755141，优化后 `8e8cf766` / 41178094135；各自验收来源与运行文件身份按[上轮报告](HOT_CACHE_EDIT_OPTIMIZATION.md)复用。分支仍为 `perf/compiler-cold-hot-cache` / [PR #38](https://github.com/wu162/NewSdk/pull/38)，未经用户批准不合并，禁止强推。
 
 ## 输入和场景
 
@@ -8,11 +8,11 @@
 
 | 组 | 常见开发情况 | 修改范围 |
 | --- | --- | --- |
-| A | GameObject批量平衡 | 真实根属性、生命、移动等多文档/实例字段 |
-| A | Weapon/模块批改 | 射程、速度、DamageNugget等真实字段 |
-| A | 公共父有效字段 | 真实SDK BaseSoundEffect父字段及实际派生闭包 |
+| A | GameObject批量平衡 | 27文件、32实例、121个根属性/生命/移动等字段 |
+| A | Weapon/模块批改 | 20文件、82实例、157个射程/速度/DamageNugget等字段 |
+| A | 公共父有效字段 | 真实SDK BaseSoundEffect父字段；发布闭包301个AudioEvent，Reverb/Zoom有效影响301、MinRange影响294 |
 | A | 公共父无关兄弟 | 同文件BaseQuickChatDialog，本MOD实际继承闭包不使用 |
-| B | 公共Define批改 | SDK父库原生Define，分别记录实际使用/未使用 |
+| B | 公共Define批改 | SDK父库原生Define，实际语义使用26/10/0次，第三项未使用 |
 | B | 资产增删、重命名和引用更新 | 20个有语义引用的原生Weapon重命名；明确补充的8资产文件真删除、8资产新文件真添加，更新root Include及所有完整标识符引用 |
 | B | 外部素材批改 | 实际输入闭包中64 WAV与16 DDS，保留合法头/大小 |
 | B | W3X动画批改 | 32个真实动画文档FrameRate |
@@ -28,3 +28,5 @@
 缓存快照复制、输入编辑和发布比较在进程计时外。编译器仍按原行为每次正常打包BIG/SKUDEF，没有新增生产包缓存。每次新进程，OS页缓存未控；off与detailed分开报告。比较所有实际published文件原字节，包括BIG/SKUDEF/Additional；同修改代两实现与各trial必须一致，有效修改必须改变实际发布，无关兄弟必须保持原发布。
 
 独立场景集中收集失败；任何失败或不足3个off配对的场景不标完成。保留wall/report耗时、XML解析、继承重载、后端编译、相关阶段、原始较慢样本和来源身份。生产闭包与已验收产物不变，适用的既有生产/SDK验收复用；本轮只新增完整真实负载的编辑性能证据。
+
+本地九项廉价预检及完整MOD八场景prepare/mutate/XML解析/原字节与mtime恢复通过，不能替代真实编译。`core.xml.inheritance.frontend`与`dependency.inheritance.sourceIdentityBuilds`是候选新增归因项，基线没有该指标，不能将缺失视作零。继承重载的双侧比较使用已有`cache.reload.inheritanceTarget`。计量源便利字段误写`core.output.sort`，已改正为`core.output.order`；最终归因从原始report的正确entry读取，不因此重跑。
