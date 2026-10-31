@@ -16,6 +16,10 @@ on:
         description: 'Independently measure all APT and global-data entries when base hits an unsupported type'
         type: boolean
         default: false
+      supported_fixture:
+        description: 'Remove unsupported base declarations and normalize unused APT TGA headers, identically for both engines'
+        type: boolean
+        default: false
 permissions:
   contents: read
   actions: read
@@ -47,7 +51,7 @@ jobs:
         run: |
           $run=gh api repos/wu162/NewSdk/actions/runs/41244132060 | ConvertFrom-Json
           if($LASTEXITCODE -ne 0 -or $run.status -ne 'completed' -or $run.conclusion -ne 'success' -or $run.head_sha -cne '8050f22de81539c65aeca3903e9b48f53a572068' -or $run.run_attempt -ne 1){throw 'Accepted production source/run differs'}
-          python -m py_compile recovery/scripts/MeasureCompilerOriginalMod.py recovery/scripts/DownloadNewWorld71.py recovery/scripts/BenchmarkCompilerSdkComparison.py
+          python -m py_compile recovery/scripts/MeasureCompilerOriginalMod.py recovery/scripts/DownloadNewWorld71.py recovery/scripts/BenchmarkCompilerSdkComparison.py recovery/scripts/PrepareNewWorld71Supported.py
           if($LASTEXITCODE -ne 0){throw 'Measurement script syntax failed'}
       - uses: actions/download-artifact@v4
         with:
@@ -64,10 +68,24 @@ jobs:
           if($env:NEW_WORLD_SOURCE_URL){$arguments+=@('--source-url',$env:NEW_WORLD_SOURCE_URL)}
           python @arguments
           if($LASTEXITCODE -ne 0){throw 'Source download or extraction failed'}
+      - name: Prepare the same user-authorized supported input for both SDKs
+        if: inputs.supported_fixture == true
+        shell: pwsh
+        run: |
+          python recovery/scripts/PrepareNewWorld71Supported.py --mod 'SDK/Mods/The New World' --backup "$env:RUNNER_TEMP/new-world-original-source" --output "recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/source-adjustments.json"
+          if($LASTEXITCODE -ne 0){throw 'Supported input preparation failed'}
+      - name: Preflight all 15 streams with the accepted new compiler before the long original cold build
+        if: inputs.supported_fixture == true
+        shell: pwsh
+        run: |
+          $out="recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/new-world-accepted/artifacts/core-lifecycle-product/Release --mod 'SDK/Mods/The New World' --mod-schema 'SDK/Mods/The New World/xsd' --content 'base,apt,global-metadata' --engine new --source-adjustments "$out/source-adjustments.json" --work "$env:RUNNER_TEMP/new-world-supported-preflight" --output "$out/preflight" --pairs 1 --skip-extra-uncached --timeout-seconds 900 --budget-seconds 1800
+          if($LASTEXITCODE -ne 0){throw 'New compiler preflight failed; original long build was not started'}
       - name: Compile all entries in selected content groups with paired cold hot and optional XML edit measurements
         shell: pwsh
         env:
           NEW_WORLD_COMPONENTS_ONLY: ${{ inputs.components_only }}
+          NEW_WORLD_SUPPORTED_FIXTURE: ${{ inputs.supported_fixture }}
         run: |
           $out="recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/measurement"
           $contents=if($env:NEW_WORLD_COMPONENTS_ONLY -eq 'true'){@('apt','global-metadata')}else{@('base,apt,global-metadata')}
@@ -75,6 +93,9 @@ jobs:
           foreach($content in $contents){
             $currentOut=if($contents.Count -eq 1){$out}else{"$out/$content"}
             $arguments=@('recovery/scripts/MeasureCompilerOriginalMod.py','--accepted-build','work/new-world-accepted/artifacts/core-lifecycle-product/Release','--mod','SDK/Mods/The New World','--mod-schema','SDK/Mods/The New World/xsd','--content',$content,'--requested-head','c7647a130c779e84b3ec669cb7235599488048b2','--work',"$env:RUNNER_TEMP/new-world-benchmark-$content",'--output',$currentOut,'--skip-extra-uncached')
+            if($env:NEW_WORLD_SUPPORTED_FIXTURE -eq 'true'){
+              $arguments+=@('--source-adjustments',"recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/source-adjustments.json")
+            }
             if($env:NEW_WORLD_COMPONENTS_ONLY -eq 'true'){
               $arguments+=@('--pairs','3','--timeout-seconds','300','--budget-seconds','900')
             }else{

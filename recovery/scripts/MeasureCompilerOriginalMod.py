@@ -134,6 +134,12 @@ def report(out, state):
                   'The source copy is restored.']
     if state.get('schemaOverlay'):
         lines += ['', 'Shared runtime Schema overlay: ' + json.dumps(state['schemaOverlay'], ensure_ascii=False)]
+    if state.get('sourceAdjustments'):
+        changes = state['sourceAdjustments']
+        lines += ['', 'Supported-input variant: removed %d unsupported base declarations; normalized %d unused TGA headers. Same adjusted input for both engines.' %
+                  (changes['removedAssetCount'], changes['normalizedTgaCount'])]
+    if state.get('engineSelection') == 'new':
+        lines += ['', 'New-compiler preflight only. No original/new performance comparison is claimed.']
     (out / 'report.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
 
 
@@ -156,6 +162,8 @@ def main():
                         help='Independent changed-input rebuild: disable all caches or just session state')
     parser.add_argument('--skip-extra-uncached', action='store_true',
                         help='Omit the extra unchanged cache-disabled timing run for very large MODs')
+    parser.add_argument('--source-adjustments', type=Path)
+    parser.add_argument('--engine', choices=('both', 'new'), default='both')
     args = parser.parse_args()
     need(os.name == 'nt', 'Execution requires Windows')
     ctypes.WinDLL('kernel32', use_last_error=True).SetErrorMode(0x0001 | 0x0002 | 0x8000)
@@ -171,6 +179,9 @@ def main():
         scope='Complete mymod and untouched full historical Upheaval inputs, base loose stream only.',
         samples=[], pairs=[], errors=[], jobs=4, performance='off',
         fullContent=args.content != 'base', contentSelection=args.content)
+    state['engineSelection'] = args.engine
+    if args.source_adjustments:
+        state['sourceAdjustments'] = json.loads(args.source_adjustments.read_text(encoding='utf-8'))
     started = time.perf_counter()
     schema_backup = None
     edit_path = None
@@ -195,7 +206,9 @@ def main():
             shutil.copytree(mod, target)
             need(inventory(target) == inventory(mod), 'External MOD copy differs')
             selected = ((mod.name, target, None, None),)
-            state['scope'] = 'Complete downloaded ' + mod.name + ' source copy; no assets or includes removed.'
+            state['scope'] = ('Shared supported-input variant of ' + mod.name + '; source adjustments are recorded.'
+                              if args.source_adjustments else
+                              'Complete downloaded ' + mod.name + ' source copy; no assets or includes removed.')
         else:
             mymod = work / 'inputs/mymod'
             shutil.copytree(repo / 'SDK/Mods/mymod', mymod)
@@ -383,6 +396,8 @@ def main():
                     elif phase == 'restored':
                         edit_path.write_bytes(edit_original)
                     engines = ('original', 'new') if (trial + index) % 2 == 0 else ('new', 'original')
+                    if args.engine == 'new':
+                        engines = ('new',)
                     pair, failures = {}, []
                     for engine in engines:
                         try:
@@ -393,6 +408,9 @@ def main():
                             state['errors'].append(failure)
                             failures.append(failure)
                     need(not failures, 'Paired build failed: ' + json.dumps(failures))
+                    if args.engine == 'new':
+                        report(out, state)
+                        continue
                     a, b = pair['original'], pair['new']
                     differences = sorted(n for n in a[0]['outputFiles'].keys() | b[0]['outputFiles'].keys()
                         if a[0]['outputFiles'].get(n) != b[0]['outputFiles'].get(n))
@@ -433,7 +451,7 @@ def main():
         state['rootExistenceUnchanged'] = all(Path(p).is_dir() == v for p, v in root_before.items())
         need(all(state[k] for k in ('sdkUnchanged', 'modInputsUnchanged', 'runtimeUnchanged', 'rootExistenceUnchanged')),
              'Shared input or runtime changed')
-        state['status'] = 'passed' if all(p['rawBytesEqual'] for p in state['pairs']) else 'outputs-differ'
+        state['status'] = ('preflight-passed' if args.engine == 'new' else 'passed') if all(p['rawBytesEqual'] for p in state['pairs']) else 'outputs-differ'
     except Exception as error:
         state.update(status='failed', error=type(error).__name__ + ': ' + str(error))
         raise
@@ -446,7 +464,7 @@ def main():
             state['schemaRestored'] = True
         state['elapsedSeconds'] = time.perf_counter() - started
         report(out, state)
-    return 0 if state['status'] == 'passed' else 1
+    return 0 if state['status'] in ('passed', 'preflight-passed') else 1
 
 
 if __name__ == '__main__':
