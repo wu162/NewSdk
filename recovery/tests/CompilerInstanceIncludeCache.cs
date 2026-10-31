@@ -176,7 +176,7 @@ internal static class CompilerInstanceIncludeCache
         Need(cacheIdentity[1] == "19", "New narrowed dependency sessions must write format v19");
         cacheIdentity[1] = "18"; legacy.DocumentElement.SetAttribute("d", String.Join(";", cacheIdentity));
         foreach (XmlElement node in legacy.SelectNodes("//*[@iid or @ii]")) { node.RemoveAttribute("iid"); node.RemoveAttribute("ii"); }
-        legacy.Save(cache.CacheFileName);
+        using (var writer = XmlWriter.Create(cache.CacheFileName, new XmlWriterSettings { Indent = false, OmitXmlDeclaration = true })) legacy.WriteTo(writer);
         var imported = new SessionCache(); imported.LoadCache(cache.CacheFileName); imported.InitializeCache(new List<string>(), processor.SchemaSet.ContentIdentity);
         var migrated = Processor(plugins, processor.SchemaSet, imported); Run(migrated, root);
         Need(migrated.XmlParseCount >= 2, "Legacy instance dependency metadata was treated as proven safe");
@@ -225,8 +225,19 @@ internal static class CompilerInstanceIncludeCache
         {
             Need(args.Length == 5 && IntPtr.Size == 4, "Expected work result sourceCommit runId sdk (x86)");
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work); Configure("initialize");
+            var failures = new List<string>();
+            Action<string, Action> scenario = delegate(string name, Action action) {
+                try { action(); }
+                catch (Exception error) { failures.Add(name + ": " + error); Console.Error.WriteLine("FAIL " + name + ": " + error); }
+            };
             using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
-            { Chain(plugins); DualRole(plugins, false); DualRole(plugins, true); SearchRoot(plugins); }
+            {
+                scenario("chain", () => Chain(plugins));
+                scenario("dual-xinclude", () => DualRole(plugins, false));
+                scenario("dual-file", () => DualRole(plugins, true));
+                scenario("search-root", () => SearchRoot(plugins));
+            }
+            Need(failures.Count == 0, String.Join("\n", failures));
             result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks, tests=tests.ToArray(), scope="Real Core instance Include invalidation and persisted session boundaries; complete SDK remains separate" };
             Console.WriteLine("PASS InstanceIncludeCache: " + checks + " checks");
         }

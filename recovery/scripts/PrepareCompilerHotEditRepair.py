@@ -23,6 +23,7 @@ def main():
  for key in ('repo','original-root','output'):p.add_argument('--'+key,type=Path,required=True)
  for key in ('production-source','validation-source','original-run'):p.add_argument('--'+key,required=True)
  p.add_argument('--previous-repair-root',type=Path)
+ p.add_argument('--auxiliary-root',type=Path)
  a=p.parse_args();repo=a.repo.resolve();original=a.original_root.resolve();out=a.output.resolve()
  need(not out.exists(),'Repair preparation already exists');out.mkdir(parents=True)
  source,test=a.production_source,a.validation_source
@@ -90,6 +91,25 @@ def main():
   path=original/'evidence/refactor'/group/tag/filename;x=read(path)
   need(passed(x) and x.get('binarySourceCommit',x.get('sourceCommit'))==source,'Original reused scope did not pass current production: '+group)
   receipts[group]=dict(path=path.relative_to(original).as_posix(),sha256=sha(path),sourceCommit=source)
+ auxiliary=None;auxiliary_receipts={}
+ if a.auxiliary_root:
+  aux=a.auxiliary_root.resolve();arun=read(aux/'auxiliary-run.json');aart=read(aux/'auxiliary-artifact.json')
+  need(arun['status']=='completed' and arun['path']=='.github/workflows/compiler-hot-edit-validation.yml','Auxiliary repair run identity differs')
+  need(not git(repo,'diff','--name-only',source,arun['head_sha'],'--',*PRODUCTION),'Auxiliary repair changed production inputs')
+  need(not git(repo,'diff','--name-only',arun['head_sha'],test,'--','recovery/scripts/TestCompilerPerformance.py','recovery/scripts/TestCompilerBackendBaseline.ps1','recovery/scripts/ValidateAppProtocol.py','recovery/protocol','recovery/tests/CompilerBackendLifecycle.cs'),'Successful auxiliary gate inputs changed')
+  atag=str(arun['id'])+'-'+str(arun['run_attempt']);aprep=read(aux/'evidence/refactor/hot-edit-repair'/atag/'preparation.json')
+  need(aprep['binarySourceCommit']==source and aprep['originalArtifact']['id']==artifact['id'] and aprep['runtimeFiles']==runtime,'Auxiliary gates used a different original production artifact')
+  need(aart['workflow_run']['head_sha']==arun['head_sha'],'Auxiliary artifact source differs')
+  members={
+   'performance':('evidence/refactor/performance/'+atag+'/validation.json','recovery/evidence/refactor/performance/'+out.name+'/validation.json'),
+   'original-backend-Debug':('evidence/refactor/core-backend-baseline/'+atag+'/Debug/validation.json','recovery/evidence/refactor/core-backend-baseline/'+out.name+'/Debug/validation.json'),
+   'original-backend-Release':('evidence/refactor/core-backend-baseline/'+atag+'/Release/validation.json','recovery/evidence/refactor/core-backend-baseline/'+out.name+'/Release/validation.json'),
+   'original-core-protocol':('evidence/refactor/hot-edit-repair/'+atag+'/original-core-protocol.json','recovery/evidence/refactor/hot-edit-repair/'+out.name+'/original-core-protocol.json')}
+  for label,(member,target) in members.items():
+   path=aux/member;x=read(path);need(passed(x) and x.get('binarySourceCommit',x.get('sourceCommit'))==source,'Independent auxiliary gate did not pass: '+label)
+   destination=repo/target;destination.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(path,destination)
+   auxiliary_receipts[label]=dict(path=target,originalMember=member,sha256=sha(path))
+  auxiliary=dict(runId=str(arun['id']),runAttempt=str(arun['run_attempt']),conclusion=arun['conclusion'],testSourceCommit=arun['head_sha'],artifact=aart)
  # Save the exact completion helper before detaching the checkout at production.
  tools=repo/'work/hot-edit-repair-tools';tools.mkdir(parents=True,exist_ok=True)
  helper=repo/'recovery/scripts/CompleteCompilerHotEditRepair.py';shutil.copy2(helper,tools/helper.name)
@@ -116,10 +136,13 @@ def main():
             productionTrees={name:git(repo,'rev-parse',source+':'+name) for name in ('SDK','recovery/src','recovery/build','recovery/probes')},
             runtimeFiles=runtime,selectedFixtures=selected,reusedFixtures=reused,allFixtureNames=[row['name'] for row in core['fixtures']],
             previousRepair=prior,reusedSuccessfulRepairFixtures=prior_fixtures,reusedScopes=receipts,backendTransports=adapters,
+            auxiliaryRepair=auxiliary,reusedAuxiliaryGates=auxiliary_receipts,
             overlays={name:hashlib.sha256(content).hexdigest() for name,content in overlays.items()},originalRoot=str(original),productDirectory=str(product),
             scope='Exact original production and validation hosts; only named validation fixes overlaid; original failed terminal status remains unchanged')
  (out/'preparation.json').write_text(json.dumps(state,indent=2)+'\n')
  if os.getenv('GITHUB_OUTPUT'):
-  with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('fixtures='+','.join(selected)+'\n')
+  with open(os.environ['GITHUB_OUTPUT'],'a') as f:
+   f.write('fixtures='+','.join(selected)+'\n')
+   f.write('auxiliaryReused='+str(bool(auxiliary_receipts)).lower()+'\n')
  print(json.dumps({k:state[k] for k in ('binarySourceCommit','testSourceCommit','selectedFixtures','reusedFixtures')},indent=2))
 if __name__=='__main__':main()

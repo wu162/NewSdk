@@ -36,6 +36,8 @@ def main():
  need(len(measure['samples'])==22 and all(row['status']=='passed' for row in measure['samples']),'Complete Upheaval matrix did not finish')
  covered=set(prep['selectedFixtures'])|set(prep['reusedFixtures'])|set(prep['reusedSuccessfulRepairFixtures'])
  need(covered==set(prep['allFixtureNames']),'Composed Core acceptance omitted fixtures')
+ for label,row in prep['reusedAuxiliaryGates'].items():
+  need(sha(repo/row['path'])==row['sha256'],'Reused auxiliary gate receipt changed: '+label)
  reused={}
  with zipfile.ZipFile(out/'reused-original-receipts.zip','w',zipfile.ZIP_DEFLATED) as z:
   for label,row in prep['reusedScopes'].items():
@@ -59,6 +61,7 @@ def main():
             originalArtifact=prep['originalArtifact'],productionClosureUnchanged=True,productionTrees=prep['productionTrees'],
             runtimeFiles=prep['runtimeFiles'],overlays=prep['overlays'],selectedFixtures=prep['selectedFixtures'],reusedFixtures=prep['reusedFixtures'],
             previousRepair=prep['previousRepair'],reusedSuccessfulRepairFixtures=prep['reusedSuccessfulRepairFixtures'],
+            auxiliaryRepair=prep['auxiliaryRepair'],reusedAuxiliaryGates=prep['reusedAuxiliaryGates'],
             reusedScopes=reused,completedGates=completed,reusedReceiptArchiveSha256=sha(out/'reused-original-receipts.zip'),
             scope='Composed acceptance of the unchanged original production binary: successful original scopes reused, failed validation fixtures repaired, all missing original SDK/package/complete MOD gates completed; original failed run retained')
  (out/'repair.json').write_text(json.dumps(state,indent=2,ensure_ascii=False)+'\n');print(json.dumps({k:state[k] for k in ('status','binarySourceCommit','testSourceCommit','selectedFixtures','reusedFixtures')},indent=2))
