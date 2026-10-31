@@ -75,8 +75,8 @@ jobs:
           "artifact=refactor-core-lifecycle-$env:CANDIDATE_RUN-$($run.run_attempt)" | Add-Content $env:GITHUB_OUTPUT
       - uses: actions/download-artifact@v4
         with:
-          name: ui-fla-41165126334-1
-          run-id: 41165126334
+          name: ${{ inputs.measurement_mode == 'incremental' && 'refactor-core-lifecycle-41169755141-1' || 'ui-fla-41165126334-1' }}
+          run-id: ${{ inputs.measurement_mode == 'incremental' && '41169755141' || '41165126334' }}
           github-token: ${{ github.token }}
           path: work/cache-paired-baseline
       - uses: actions/download-artifact@v4
@@ -91,7 +91,7 @@ jobs:
         run: |
           $out="recovery/evidence/refactor/cache-paired/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           if($env:MEASUREMENT_MODE -eq 'incremental'){
-            python recovery/scripts/MeasureCompilerIncrementalPaired.py --baseline-build work/cache-paired-baseline/ui-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --work "$env:RUNNER_TEMP/cache-incremental" --output $out --budget 240 --timeout 30
+            python recovery/scripts/MeasureCompilerIncrementalPaired.py --baseline-build work/cache-paired-baseline/artifacts/core-lifecycle-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --pairs 3 --work "$env:RUNNER_TEMP/cache-incremental" --output $out --budget 240 --timeout 30
           }else{
           python recovery/scripts/MeasureCompilerCachePaired.py --baseline-build work/cache-paired-baseline/ui-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --armor-partitions $env:ARMOR_PARTITIONS --work "$env:RUNNER_TEMP/cache-paired" --output $out --budget 720 --timeout 180
           }

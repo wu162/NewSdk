@@ -1171,6 +1171,15 @@ public class AssetDeclarationDocument : IXmlSerializable
 		writer.Write(instance.ProcessingHash);
 		writer.Write(SourcePath.ToLowerInvariant());
 		writer.Write(_Current.ConfigurationName ?? String.Empty);
+		if (instance.InheritFromHandle != null)
+		{
+			FindLocation location;
+			InstanceDeclaration source = FindInstance(instance.InheritFromHandle,
+				instance.InheritFromHandle == instance.Handle ? FindLocation.Self : FindLocation.None, out location);
+			if (source == null) throw new BinaryAssetBuilderException(ErrorCode.InheritFromError,
+				"Instance {0} attempts to inherit from non-existing instance {1}.", instance, instance.InheritFromHandle);
+			writer.Write(source.Document.GetInheritanceSourceIdentity(source));
+		}
 		foreach (string file in instance.ReferencedFiles)
 		{
 			FileHashItem item;

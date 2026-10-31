@@ -128,7 +128,7 @@ public class SessionCache : ISessionCache
 				Files = null;
 			}
 			Created = current.Created;
-			Version = 18u;
+			Version = CacheVersion;
 			DocumentProcessorVersion = 11u;
 			_assetCompilersVersion = current.AssetCompilersVersion;
 			SchemaIdentity = current.SchemaIdentity;
@@ -160,7 +160,7 @@ public class SessionCache : ISessionCache
 	}
 
 	[NonSerialized]
-	private const uint CacheVersion = 18u;
+	private const uint CacheVersion = 19u;
 
 	[NonSerialized]
 	private Tracer _Tracer = Tracer.GetTracer("SessionCache", "Provides caching functionality");
@@ -306,10 +306,12 @@ public class SessionCache : ISessionCache
 		{
 			return;
 		}
-		if (_Last.Version != 18)
+		// Read legacy provenance conservatively per document. Older binaries
+		// reject v19 instead of treating narrowed instance dependencies as v18.
+		if (_Last.Version != CacheVersion && _Last.Version != 18u)
 		{
 			PerformanceScope.Count("cache.session.formatChanged");
-			_Tracer.TraceInfo("Session cache outdated. Version is {0}. Expected version is {1}.", _Last.Version, 18u);
+			_Tracer.TraceInfo("Session cache outdated. Version is {0}. Expected version is {1}.", _Last.Version, CacheVersion);
 			_Last = null;
 			return;
 		}
