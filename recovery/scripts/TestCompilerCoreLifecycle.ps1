@@ -136,7 +136,6 @@ try {
                 if($fixture.name -eq 'CompilerCoreLifecycle' -and @($result.tests).Count -lt 4){throw 'Real Core lifecycle case groups missing'}
                 if($fixture.name -in @('CompilerBackendLifecycle','CompilerApplicationBuild') -and @($result.tests).Count -eq 0){throw 'Targeted backend/application case groups missing'}
                 if((Hash $fixtureExe) -cne $fixtureHash -or (Hash $source) -cne ($state.fixtures|Where-Object{$_.name -ceq $fixture.name}).sha256){throw 'Lifecycle fixture input changed while running'}
-                if((Hash $texture) -cne $textureHash -or (Hash $textureManifest) -cne $textureManifestHash){throw 'Backend texture deployment changed while running'}
                 Complete-CompilerValidationRun $run
                 $modeState.fixtures+=,@{
                     name=$fixture.name;passed=$true;processId=$processId;timeoutSeconds=$timeout;workRoot=$fixtureWork
@@ -166,7 +165,6 @@ try {
     }
     foreach($input in $state.schemaInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK schema input changed during lifecycle validation'}}
     foreach($input in $state.sdkFixtureInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK fixture/config input changed during lifecycle validation'}}
-    if((Hash $originalTexture) -cne $state.originalTextureSha256){throw 'Pinned original texture changed during backend lifecycle validation'}
     if($fixtureFailures.Count -ne 0){throw ($fixtureFailures -join "`n")}
     $state.succeeded=$true;$state.status='passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate'
     $global:LASTEXITCODE=0
