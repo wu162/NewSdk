@@ -158,7 +158,5 @@ jobs:
         if: always()
         with:
           name: ${{ inputs.measurement_mode == 'upheaval-edits' && format('compiler-upheaval-edits-{0}-{1}-{2}', github.run_id, github.run_attempt, inputs.scenario_group) || format('compiler-cache-paired-{0}-{1}', github.run_id, github.run_attempt) }}
-          path: |
-            recovery/evidence/refactor/cache-paired/**
-            recovery/evidence/refactor/upheaval-edits/**
+          path: ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**', github.run_id, github.run_attempt) }}
           if-no-files-found: warn
