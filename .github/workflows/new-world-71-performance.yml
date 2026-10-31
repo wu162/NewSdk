@@ -72,7 +72,17 @@ jobs:
         if: inputs.supported_fixture == true
         shell: pwsh
         run: |
-          python recovery/scripts/PrepareNewWorld71Supported.py --mod 'SDK/Mods/The New World' --backup "$env:RUNNER_TEMP/new-world-original-source" --output "recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/source-adjustments.json"
+          $out="recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          $probeDir="$env:RUNNER_TEMP/new-world-tga-probe"
+          New-Item -ItemType Directory -Force $probeDir|Out-Null
+          $compiler="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
+          $probe="$probeDir/NewWorldTextureSupport.exe"
+          & $compiler /nologo /platform:x86 /r:System.Web.Extensions.dll "/out:$probe" recovery/scripts/NewWorldTextureSupport.cs
+          if($LASTEXITCODE -ne 0){throw 'TGA support probe compilation failed'}
+          Copy-Item work/new-world-accepted/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe.config "$probe.config"
+          & $probe work/new-world-accepted/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe 'SDK/Mods/The New World' "$out/unsupported-base-textures.json"
+          if($LASTEXITCODE -ne 0){throw 'Accepted TGA input classification failed'}
+          python recovery/scripts/PrepareNewWorld71Supported.py --mod 'SDK/Mods/The New World' --backup "$env:RUNNER_TEMP/new-world-original-source" --output "$out/source-adjustments.json" --unsupported-textures "$out/unsupported-base-textures.json"
           if($LASTEXITCODE -ne 0){throw 'Supported input preparation failed'}
       - name: Preflight all 15 streams with the accepted new compiler before the long original cold build
         if: inputs.supported_fixture == true

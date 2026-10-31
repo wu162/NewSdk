@@ -18,7 +18,7 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def prepare(mod, catalog, backup, output):
+def prepare(mod, catalog, backup, output, unsupported_textures=None):
     excluded = {row['name'] for row in json.loads(catalog.read_text(encoding='utf-8'))['excluded']}
     previous = json.loads(output.read_text(encoding='utf-8')) if output.exists() else {}
     if previous and previous['modRoot'] != str(mod):
@@ -26,8 +26,31 @@ def prepare(mod, catalog, backup, output):
     removed = previous.get('removedAssets', [])
     xml_changes = previous.get('xmlChanges', [])
     tga_changes = previous.get('tgaHeaderNormalizations', [])
-    candidate_types = excluded | {kind for kind, name in UNSUPPORTED_INSTANCES}
-    for path in sorted((mod / 'Data').rglob('*.xml')):
+    bad_textures = {str((mod / row['path']).resolve()).lower(): row['reason']
+                    for row in (json.loads(unsupported_textures.read_text(encoding='utf-8'))['unsupported']
+                                if unsupported_textures else [])}
+    lookup = {str(path.resolve()).lower(): path for path in mod.rglob('*') if path.is_file()} if bad_textures else {}
+    def texture_reason(path, tag):
+        if tag['topType'] not in ('Texture', 'OnDemandTexture') or not bad_textures:
+            return None
+        raw = tag['attributes'].get('File', b'').decode('utf-8').replace('\\', '/')
+        if not raw:
+            return None
+        prefix, separator, target = raw.partition(':')
+        if separator and prefix.lower() == 'art':
+            candidate = mod / 'Art' / target[:2] / target if '/' not in target else mod / 'Art' / target
+        elif separator and prefix.lower() == 'data':
+            candidate = mod / 'Data' / target
+        elif not separator:
+            candidate = path.parent / raw
+        else:
+            return None
+        key = str(candidate.resolve()).lower()
+        return bad_textures.get(key) if key in lookup else None
+    candidate_types = excluded | {kind for kind, name in UNSUPPORTED_INSTANCES} | ({'Texture', 'OnDemandTexture'} if bad_textures else set())
+    documents = sorted(path for folder in ('Data', 'Art') for path in (mod / folder).rglob('*')
+                       if path.suffix.lower() == '.xml')
+    for path in documents:
         relative = path.relative_to(mod)
         if relative.parts[1].lower() in ('aptui', 'additionalmaps'):
             continue
@@ -36,7 +59,7 @@ def prepare(mod, catalog, backup, output):
             continue
         spans = [tag for tag in xml_tags(data)
                  if 'elementEnd' in tag and tag['topId'] and
-                 (tag['topType'] in excluded or (tag['topType'], tag['topId']) in UNSUPPORTED_INSTANCES)]
+                 (tag['topType'] in excluded or (tag['topType'], tag['topId']) in UNSUPPORTED_INSTANCES or texture_reason(path, tag))]
         if not spans:
             continue
         original = backup / relative
@@ -50,7 +73,7 @@ def prepare(mod, catalog, backup, output):
         xml_changes.append(dict(path=relative.as_posix(), originalSha256=sha(data),
                                 modifiedSha256=sha(changed), backup=str(original)))
         removed.extend(dict(path=relative.as_posix(), type=tag['topType'], id=tag['topId'],
-            reason=UNSUPPORTED_INSTANCES.get((tag['topType'], tag['topId']), 'Excluded built-in XML compiler type')) for tag in spans)
+            reason=UNSUPPORTED_INSTANCES.get((tag['topType'], tag['topId'])) or texture_reason(path, tag) or 'Excluded built-in XML compiler type') for tag in spans)
     for path in sorted((mod / 'Data/AptUI').rglob('*')):
         if path.suffix.lower() != '.tga':
             continue
@@ -72,6 +95,8 @@ def prepare(mod, catalog, backup, output):
         excludedTypes=sorted(excluded), removedAssets=removed, xmlChanges=xml_changes,
         tgaHeaderNormalizations=tga_changes, removedAssetCount=len(removed),
         normalizedTgaCount=len(tga_changes), originalArchivePreserved=True)
+    if unsupported_textures:
+        result['baseTextureInputProbe'] = json.loads(unsupported_textures.read_text(encoding='utf-8'))
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(json.dumps({key: result[key] for key in ('removedAssetCount', 'normalizedTgaCount', 'scope')}, ensure_ascii=False))
@@ -84,8 +109,9 @@ def main():
     parser.add_argument('--catalog', type=Path, default=Path(__file__).resolve().parents[1] / 'catalog/XmlSdkTypes.json')
     parser.add_argument('--backup', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--unsupported-textures', type=Path)
     args = parser.parse_args()
-    prepare(args.mod.resolve(), args.catalog.resolve(), args.backup.resolve(), args.output.resolve())
+    prepare(args.mod.resolve(), args.catalog.resolve(), args.backup.resolve(), args.output.resolve(), args.unsupported_textures)
 
 
 if __name__ == '__main__':
