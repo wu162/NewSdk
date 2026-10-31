@@ -57,13 +57,25 @@ namespace NewModCompiler.Application
         public static bool TryPrepareWithReason(InstanceDeclaration original, IAssetBuilderPlugin plugin,
             long preparationBudget, out PreparedBackendWork prepared, out string reason)
         {
+            long estimatedBytes;
+            return TryPrepareForScheduling(original, plugin, preparationBudget, out prepared, out reason, out estimatedBytes);
+        }
+
+        // Preserve the estimate when parallel preparation refuses this input so
+        // owner compatibility can apply the same memory admission without a
+        // second XML walk or another external-input probe.
+        internal static bool TryPrepareForScheduling(InstanceDeclaration original, IAssetBuilderPlugin plugin,
+            long preparationBudget, out PreparedBackendWork prepared, out string reason, out long estimatedBytes)
+        {
             prepared = null;
             reason = null;
+            estimatedBytes = 0;
             string family;
             if (!Eligibility(original, plugin, out family, out reason)) return false;
 
             long nodes = 0;
             long preparationEstimate = EstimatePreparationBytes(original, ref nodes);
+            estimatedBytes = preparationEstimate;
             // Bound the bridge's native input, scratch and output allocation.
             // Sharing the DOM does not eliminate that per-call working set.
             if (preparationEstimate > preparationBudget) return Reject("preparation-budget-exceeded", out reason);
@@ -78,13 +90,16 @@ namespace NewModCompiler.Application
                 long retained = preparationEstimate;
                 if (family == "texture")
                 {
-                    if (!PrepareTexture(original, leases, retained, out retained, out reason)) return false;
+                    bool accepted = PrepareTexture(original, leases, retained, out retained, out reason);
+                    estimatedBytes = retained;
+                    if (!accepted) return false;
                 }
                 else if (family == "w3x") retained = W3xBudget(original.Node, nodes, retained);
                 else if (family == "xml") retained = ExternalReadBudget(leases, retained, 4L);
                 // Audio keeps per-call input, PCM and encoded buffers. Charge
                 // four input copies instead of the old 64-copy allowance.
                 else if (family == "audio") retained = ExternalReadBudget(leases, retained, 4L);
+                estimatedBytes = retained;
                 if (retained > preparationBudget) return Reject("preparation-budget-exceeded", out reason);
                 // The version is read-only before publication. A private state
                 // view captures document metadata and the CDATA pathname while

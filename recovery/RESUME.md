@@ -1,3 +1,7 @@
+# 当前：资产全流程并行已实现，PR #40 集中验证中
+
+分支 `feat/asset-pipeline-parallel`，基线 `1810fff`；[PR #40](https://github.com/wu162/NewSdk/pull/40) 为草稿，未合并。XML 资产纯计算、认证验证/编码、独立 IO、完成优先调度、物理去重及文档版本已接通。[实现和验收边界](docs/ASSET_PIPELINE_PARALLEL.md)。本地 Foundation/App/关键测试编译预检及合成调度/IO 行为通过；Windows 原生构建、完整原 SDK 和 Upheaval 冷/热旧新对照尚待新结果，不复用旧成功来代表新实现。禁止强推，合入仍需用户明确批准。
+
 # 当前：缓存优化与源码纹理组合验收通过，PR #38 已获合入批准
 
 已同步目标 `recovery/legacy-sdk-cache` / `53ace331`（PR #39源码Texture/原身份/三路并行），保留此前会话/Schema共享、XML哈希与冷热优化，以及用户要求的 `c85d4a97` 回退；父快照、窄instance依赖和新增引用去重保持撤回。组合生产源码 `b385337e463bddebdb267946d9edb1b3b6ee5f0a`，新的 [Windows验收41192817627](https://github.com/wu162/NewSdk/actions/runs/41192817627) 全success。

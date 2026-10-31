@@ -302,10 +302,11 @@ namespace NewModCompiler.Application
             PreparedBackendWork prepared = null;
             string reason = parallelCompilation ? "resource-capacity" : "frontend-expanded";
             bool accepted = false;
+            long preparationBytes = 0;
             if (parallelCompilation && capacity > 1)
             {
                 long start = Start();
-                try { accepted = PreparedBackendWork.TryPrepareWithReason(declaration, plugin, budget / 2, out prepared, out reason); }
+                try { accepted = PreparedBackendWork.TryPrepareForScheduling(declaration, plugin, budget / 2, out prepared, out reason, out preparationBytes); }
                 finally { metrics.PreparationTicks += Elapsed(start); }
             }
             if (accepted)
@@ -325,10 +326,21 @@ namespace NewModCompiler.Application
                 if (parallelCompilation) AdmitCpu();
                 if (reason == "uncertified-plugin") WaitPlugin(plugin, work);
                 PublishVerification(first, RunVerification(first));
+                if (parallelCompilation)
+                {
+                    if (preparationBytes == 0) preparationBytes = PreparedBackendWork.EstimatePreparationBytes(declaration);
+                    // An owner encoder competes with retained IO results just
+                    // like a worker. An oversized single item may run alone,
+                    // after the previous reservations have actually released.
+                    AdmitMemory(preparationBytes);
+                    work.ReservedBytes = preparationBytes; retained += preparationBytes;
+                    SampleState();
+                }
                 compileCompatibility();
                 work.Buffer = asset.Buffer;
                 work.Location = AssetLocation.Memory; work.State = WorkState.Ready; work.ReadySince = Start();
-                work.ReservedBytes = BufferBytes(work.Buffer); retained += work.ReservedBytes;
+                long resultBytes = BufferBytes(work.Buffer);
+                retained += resultBytes - work.ReservedBytes; work.ReservedBytes = resultBytes;
                 DrainReady(); return;
             }
             if (declaration.HasCustomData)
@@ -515,15 +527,17 @@ namespace NewModCompiler.Application
         public void DeferCompletion(AssetExecutionDocument document, Action complete)
         {
             Check();
-            if (document.IsCompleted) complete();
-            else document.Completions.Add(complete);
+            if (!document.IsCompleted) { document.Completions.Add(complete); return; }
+            try { complete(); }
+            catch { document.IsCompleted = false; document.IsFailed = true; Fail(); throw; }
         }
         void CompleteReady(AssetExecutionDocument document)
         {
             if (!document.IsClosed || document.IsCompleted || document.IsFailed || document.PendingAssetWorks != 0) return;
             document.IsCompleted = true;
             Action[] callbacks = document.Completions.ToArray(); document.Completions.Clear();
-            foreach (var complete in callbacks) complete();
+            try { foreach (var complete in callbacks) complete(); }
+            catch { document.IsCompleted = false; document.IsFailed = true; Fail(); throw; }
         }
         public void WaitDocument(AssetExecutionDocument document)
         {

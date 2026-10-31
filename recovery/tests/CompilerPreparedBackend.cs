@@ -851,6 +851,21 @@ public static class CompilerPreparedBackend
             finally { slowGate.Set(); cacheGate.Set(); }
         }
     }
+    static void SchedulerOwnerFailure(string work)
+    {
+        using(var fixture=new SchedulerFixture(Path.Combine(work,"owner-completion-failure"),2,CancellationToken.None))
+        {
+            var declaration=Declaration("AudioLOD","OwnerFailure",Namespaces());
+            var scope=fixture.Execution.BeginDocument(declaration.Document,fixture.Output);
+            var failure=new IOException("Controlled owner document completion failure");int later=0;
+            fixture.Execution.DeferCompletion(scope,()=>{throw failure;});
+            fixture.Execution.DeferCompletion(scope,()=>{later++;});
+            Exception observed=null;try{fixture.Execution.CompleteDocument(scope,null);}catch(Exception error){observed=error;}
+            Require(Object.ReferenceEquals(observed,failure),"Owner completion must preserve its first failure");
+            Require(scope.IsFailed && !scope.IsCompleted && later==0,"Failed owner callback must not report a successful document or run later callbacks");
+            lifecycleEvidence.Add(new{kind="owner-completion-failure",failedScopeNotCompleted=true,laterCallbacksSuppressed=true,originalFailurePreserved=true});
+        }
+    }
     static void SchedulerDrain(string work,bool cancel,bool textureFailure=false)
     {
         var plugin=new Recovered.Compiler.W3x.NativePlugin();plugin.Initialize(null,TargetPlatform.Win32);
@@ -946,7 +961,7 @@ public static class CompilerPreparedBackend
             run("apt-leases",()=>AptLeaseAndBorrow(args[0]));run("qualification",()=>ParallelQualification(args[0]));run("environment",()=>EnvironmentQualification(args[4]));
             run("resource-budget",()=>ResourceBudget(args[0]));run("w3x-budget",W3xBudget);run("schema-defaults",SchemaDefaults);run("preparation-budget",PreparationBudget);run("rejection-reasons",()=>PreparationRejectionReasons(args[0]));
             run("worker-buffers",()=>WorkerBuffers(args[0],args[4]));run("tokenizer-workers",()=>TokenizerWorkers(args[0]));run("texture-workers",()=>TextureWorkers(args[0]));run("texture-owner-diagnostics",()=>TextureOwnerDiagnostics(args[0]));
-            run("completion-driven",()=>SchedulerCompletion(args[0]));run("native-failure-drain",()=>SchedulerDrain(args[0],false));run("cancellation-drain",()=>SchedulerDrain(args[0],true));run("texture-failure-drain",()=>SchedulerDrain(args[0],false,true));
+            run("completion-driven",()=>SchedulerCompletion(args[0]));run("owner-completion-failure",()=>SchedulerOwnerFailure(args[0]));run("native-failure-drain",()=>SchedulerDrain(args[0],false));run("cancellation-drain",()=>SchedulerDrain(args[0],true));run("texture-failure-drain",()=>SchedulerDrain(args[0],false,true));
             File.WriteAllText(args[1],new JavaScriptSerializer().Serialize(new {
                 succeeded=failures.Count==0,sourceCommit=args[2],runId=args[3],checks,lifecycleEvidence,failures,
                 scope="Borrowed finalized XML/defaults/namespaces/metadata, Windows stable file leases, APT/W3X/Audio/Texture worker three-buffer equality, cold S3 gray-table overlap, isolated Audio/OnDemand CDATA, atlas source leases, native/texture failure cleanup, three tokenizers on four platforms, closed route qualification and resource budgets; component evidence only"

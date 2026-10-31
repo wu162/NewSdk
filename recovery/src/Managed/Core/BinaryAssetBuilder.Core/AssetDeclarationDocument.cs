@@ -1545,7 +1545,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			var input = new FrontendInput { Declaration = instance, Node = instance.XmlNode, Name = instance.Handle.Name,
 				TypeHash = metadata.TypeHash, ProcessingHash = metadata.ProcessingHash,
 				SchemaTypeName = instance.XmlNode.SchemaInfo.SchemaType.Name,
-				IsInheritable = derivedTypes != null && derivedTypes.Contains(instance.XmlNode.SchemaInfo.SchemaType.Name) };
+				IsInheritable = derivedTypes == null ? instance.IsInheritable : derivedTypes.Contains(instance.XmlNode.SchemaInfo.SchemaType.Name) };
 			var descendants = instance.XmlNode.CreateNavigator().SelectDescendants("", "uri:ea.com:eala:asset", matchSelf: true);
 			foreach (XPathNavigator navigator in descendants)
 			{
