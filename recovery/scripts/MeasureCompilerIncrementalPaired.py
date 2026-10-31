@@ -32,7 +32,7 @@ def prepare(work):
         (data / name).write_text(declaration(''.join(armor('Incremental_%02d_%d' % (doc, i)) for i in range(8))), encoding='utf-8')
         includes.append('<Include type="all" source="%s"/>' % name)
     (data / 'large.xml').write_text(declaration(''.join(armor('IncrementalLarge_%03d' % i) for i in range(256))), encoding='utf-8')
-    (data / 'defines.xml').write_text(declaration('<Defines><Define name="INCREMENTAL_SCALE" value="83.25"/></Defines>'), encoding='utf-8')
+    (data / 'defines.xml').write_text(declaration('<Defines><Define name="INCREMENTAL_SCALE" value="83.25"/><Define name="UNUSED_SCALE" value="95.25"/></Defines>'), encoding='utf-8')
     (data / 'base.xml').write_text(declaration(
         '<Includes><Include type="all" source="defines.xml"/></Includes>'
         '<ArmorTemplate id="IncrementalBase" Default="72.5%" DamageScalar="=$INCREMENTAL_SCALE"/>'
@@ -84,13 +84,13 @@ def run(args):
     work.mkdir(parents=True);out.mkdir(parents=True)
     if os.name=='nt':ctypes.windll.kernel32.SetErrorMode(0x0001|0x0002|0x8000)
     started=time.perf_counter()
-    scenarios=['single-in-large-document','inheritance-source','unrelated-parent-sibling','define-value','session-metadata-missing']
+    scenarios=['single-in-large-document','inheritance-source','unrelated-parent-sibling','define-value','unused-define-value','session-metadata-missing']
     state=dict(schemaVersion=1,status='preparing',sourceCommit=git(repo,'rev-parse','HEAD'),runId=os.getenv('GITHUB_RUN_ID'),
                runAttempt=os.getenv('GITHUB_RUN_ATTEMPT'),baselineHead=BASELINE_HEAD,baselineBinarySource=BASELINE_BINARY_SOURCE,
                baselineRunId=BASELINE_RUN,candidateSource=args.candidate_source,candidateRunId=args.candidate_run_id,
                measurementMode='incremental',performance='detailed',armorPartitions=0,pairCount=1,budgetSeconds=args.budget,scenarios=scenarios,samples=[],mutations=[],
                machine=dict(system=platform.platform(),runnerImage=os.getenv('ImageVersion')),
-               scope='Synthetic 512 Armor + three dependency assets, five representative warm-cache events; not full MOD or L8 Common')
+               scope='Synthetic 512 Armor + three dependency assets, six representative warm-cache events; not full MOD or L8 Common')
     references={}
     def remaining():
         seconds=args.budget-(time.perf_counter()-started)
@@ -145,6 +145,8 @@ def run(args):
                 if phase=='modified':
                     if scenario=='session-metadata-missing':
                         need(report['cache']['xmlParse']>0 and report['cache']['instanceCompile']==0,'Metadata loss must rebuild frontend without backend calls')
+                    elif scenario=='unused-define-value':
+                        need(report['cache']['xmlParse']==1 and report['cache']['instanceCompile']==0,'Unused Define must only reload its own definition document')
                     else:
                         need(report['cache']['xmlParse']>0,'Edit did not reload XML')
                         reason='cache.invalidation.'+('contentChanged' if scenario in ('single-in-large-document','inheritance-source','unrelated-parent-sibling') else 'definesChanged')
@@ -156,8 +158,8 @@ def run(args):
                 content=published(destination,report)
                 if generation not in references: references[generation]=content
                 need(content==references[generation],'Published bytes differ across implementation/generation: '+name)
-                if phase=='modified' and scenario in ('unrelated-parent-sibling','session-metadata-missing'):
-                    need(content==references[generation-1],'Unrelated sibling/metadata edit changed published assets')
+                if phase=='modified' and scenario in ('unrelated-parent-sibling','unused-define-value','session-metadata-missing'):
+                    need(content==references[generation-1],'Unrelated sibling/unused Define/metadata edit changed published assets')
                 if phase=='modified' and scenario in ('single-in-large-document','inheritance-source','define-value'):
                     need(content!=references[generation-1],'Effective asset edit did not change any published bytes')
                 row.update(status='passed',rawPublishedIdentical=True,publishedBytes=sum(map(len,content.values())))
@@ -188,7 +190,8 @@ def run(args):
                     'single-in-large-document':(data/'large.xml',b'72.5%',b'62.5%'),
                     'inheritance-source':(data/'base.xml',b'72.5%',b'62.5%'),
                     'unrelated-parent-sibling':(data/'base.xml',b'64.5%',b'54.5%'),
-                    'define-value':(data/'defines.xml',b'83.25',b'73.25')}[scenario]
+                    'define-value':(data/'defines.xml',b'83.25',b'73.25'),
+                    'unused-define-value':(data/'defines.xml',b'95.25',b'85.25')}[scenario]
                 mutation=same_stamp_edit(path,lambda b:b.replace(old,new,1));mutation['scenario']=scenario;state['mutations'].append(mutation)
             generation+=1
             for label in order:sample(label,scenario,'modified',generation)
