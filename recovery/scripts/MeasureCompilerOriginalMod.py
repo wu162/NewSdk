@@ -37,10 +37,14 @@ def git(repo, *args):
     return subprocess.check_output(['git', '-C', str(repo), *args], text=True).strip()
 
 
-def discover_tasks(mod):
-    tasks = [dict(id='base/Mod', content='base', inputPath=str(mod / 'Data/Mod.xml'), stem='Mod')]
+def discover_tasks(mod, contents='base,apt,global-metadata'):
+    selected = set(contents.replace('global-metadata', 'maps').split(','))
+    tasks = ([dict(id='base/Mod', content='base', inputPath=str(mod / 'Data/Mod.xml'), stem='Mod')]
+             if 'base' in selected else [])
     for content, directory, pattern in (('apt', 'Data/AptUI', '*.xml'),
                                         ('maps', 'Data/AdditionalMaps', 'MapMetaData_*.xml')):
+        if content not in selected:
+            continue
         entries = sorted((mod / directory).glob(pattern), key=lambda p: (str(p).casefold(), str(p)))
         need(entries, 'Requested content has no source entries: ' + content)
         tasks.extend(dict(id=content + '/' + p.stem, content=content, inputPath=str(p), stem=p.stem)
@@ -60,7 +64,7 @@ def full_inventory(directory, tasks):
 
 def stream_times(product, tasks):
     events = [json.loads(line) for line in (product / 'build.events.jsonl').read_text(encoding='utf-8-sig').splitlines()]
-    starts, result = {}, {group: 0 for group in ('base', 'apt', 'maps')}
+    starts, result = {}, {task['content']: 0 for task in tasks}
     expected = {task['id'] for task in tasks}
     completed = set()
     for event in events:
@@ -91,7 +95,7 @@ def report(out, state):
     write(out / 'measurement.json', state)
     lines = ['# Original SDK versus current compiler', '', 'Status: ' + state['status'], '',
         state['scope'],
-        ('All base, APT and global-data streams, loose output; no BIG/SKUDEF packaging.' if state.get('fullContent')
+        ('All entries in selected groups ' + state['contentSelection'] + ', loose output; no BIG/SKUDEF packaging.' if state.get('fullContent')
          else 'Base stream only, loose output. No BIG/SKUDEF, APT or global-metadata timing.'),
         'Same Windows VM, SDK, physical MOD input, Schema, cwd and ordered search roots. Separate caches.',
         'Fresh process per sample, process launch through exit includes CLI/report overhead. Hash checks excluded.',
@@ -147,7 +151,7 @@ def main():
     parser.add_argument('--timeout-seconds', type=float, default=180)
     parser.add_argument('--budget-seconds', type=float, default=900)
     parser.add_argument('--requested-head', default=HEAD)
-    parser.add_argument('--content', choices=('base', 'base,apt,global-metadata'), default='base')
+    parser.add_argument('--content', choices=('base', 'apt', 'global-metadata', 'base,apt,global-metadata', 'apt,global-metadata'), default='base')
     parser.add_argument('--rebuild-check', choices=('none', 'asset'), default='none',
                         help='Independent changed-input rebuild: disable all caches or just session state')
     parser.add_argument('--skip-extra-uncached', action='store_true',
@@ -234,8 +238,8 @@ def main():
             sourceCommit=source, sourceTree=tree) for name, mod, source, tree in selected]
         if state['fullContent']:
             for workload in workloads:
-                workload['tasks'] = discover_tasks(Path(workload['modRoot']))
-                workload['scope'] = 'All base, APT and global-data source entries, without source omissions'
+                workload['tasks'] = discover_tasks(Path(workload['modRoot']), args.content)
+                workload['scope'] = 'All source entries in selected groups ' + args.content
         prep = dict(succeeded=True, binarySourceCommit=SOURCE, sourceRunId=RUN,
             benchmarkSourceCommit=state['measurementSource'], sdkRoot=str(repo / 'SDK'),
             runtimeDirectory=str(runtime), runtimeFiles=file_rows(runtime, 'name'), workloads=workloads)
@@ -298,7 +302,7 @@ def main():
                 traceStringHashesLoaded=any(row.get('traceStringHashesLoaded') for row in rows),
                 traceAssetsCopiedFromCache=sum(row.get('traceAssetsCopiedFromCache', 0) for row in rows),
                 partWallMs={group: sum(row.get('wallMs', 0) for row in rows if row['content'] == group)
-                            for group in ('base', 'apt', 'maps')}, errors=failures)
+                            for group in sorted({task['content'] for task in w['tasks']})}, errors=failures)
             write(out / label / 'process.json', aggregate)
             need(not failures, 'Original SDK stream failures: ' + '; '.join(failures))
             return aggregate
@@ -311,7 +315,15 @@ def main():
                          'fresh-' + str(round_index), 'fresh-session-' + str(round_index)):
                 (profile / name).mkdir(parents=True, exist_ok=True)
             label = '%s-%d-%s-%s-%d-%s' % (w['name'], trial, mode, phase, round_index, engine)
-            row = execute(engine, w, mode, profile, round_index, label)
+            try:
+                row = execute(engine, w, mode, profile, round_index, label)
+            finally:
+                if engine == 'new':
+                    for name in ('build-report.json', 'build.events.jsonl'):
+                        generated = profile / 'product' / name
+                        if generated.is_file():
+                            (out / label).mkdir(parents=True, exist_ok=True)
+                            shutil.copy2(generated, out / label / name)
             row.update(engine=engine, workload=w['name'], trial=trial, mode=mode, phase=phase, round=round_index)
             state['samples'].append(row)
             report(out, state)
