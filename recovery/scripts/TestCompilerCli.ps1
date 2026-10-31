@@ -203,13 +203,21 @@ try {
                 Need ($runtimeIdentity.Count -eq 1 -and $runtimeIdentity[0].sha256 -ceq (Hash (Join-Path $runtime $file))) 'Historical runtime file differs from strict reuse receipt'
             }
         }
-        & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> "$modeOut/prepare-texture.log"
-        Need ($LASTEXITCODE -eq 0) 'Production EXE texture preparation failed'
-        $patchPath=Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll.patch.json';$patch=Get-Content $patchPath -Raw|ConvertFrom-Json
-        Need ($patch.targetExeSha256 -ceq $exeHash -and $patch.protectedPeAudit.status -ceq 'passed' -and $patch.patchedSha256 -ceq (Hash (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll'))) 'Texture deployment does not bind the actual production EXE'
-        Need (@(Get-ChildItem $runtime -File).Count -eq 5) 'Unexpected clean production runtime files'
-        $runtimeSnapshot=Snapshot $runtime;Copy-Item $patchPath "$modeOut/texture.patch.json"
-        $script:modeState=@{configuration=$mode;fixtureAssetScope='Known schema-valid Armor probes in base/APT/maps entry paths test orchestration; not new APT/map payload coverage';passed=$false;exeSha256=$exeHash;runtimeInputs=$runtimeSnapshot;textureDeployment=$patch;cases=@();baselineCases=@()};$state.modes+=,$modeState
+        if($reuse){
+            & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> "$modeOut/prepare-texture.log"
+            Need ($LASTEXITCODE -eq 0) 'Historical EXE texture preparation failed'
+            $patchPath=Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll.patch.json';$textureDeployment=Get-Content $patchPath -Raw|ConvertFrom-Json
+            Need ($textureDeployment.targetExeSha256 -ceq $exeHash -and $textureDeployment.protectedPeAudit.status -ceq 'passed' -and $textureDeployment.patchedSha256 -ceq (Hash (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll'))) 'Historical Texture deployment does not bind its EXE'
+            Need (@(Get-ChildItem $runtime -File).Count -eq 5) 'Unexpected historical production runtime files'
+            Copy-Item $patchPath "$modeOut/texture.patch.json"
+        }else{
+            $build=Get-Content -LiteralPath (Join-Path $CompilerDirectory "$mode/build.json") -Raw|ConvertFrom-Json
+            Need ($build.exeSha256 -ceq $exeHash -and $build.texturePlugin.implementation -ceq 'built-in-source' -and @($build.texturePlugin.externalRuntimeFiles).Count -eq 0) 'Production source texture build provenance differs'
+            Need (@(Get-ChildItem $runtime -Force).Count -eq 3) 'Unexpected clean production runtime files'
+            $textureDeployment=@{implementation='built-in-source';assemblySha256=$exeHash;externalRuntimeFiles=@()}
+        }
+        $runtimeSnapshot=Snapshot $runtime
+        $script:modeState=@{configuration=$mode;fixtureAssetScope='Known schema-valid Armor probes in base/APT/maps entry paths test orchestration; not new APT/map payload coverage';passed=$false;exeSha256=$exeHash;runtimeInputs=$runtimeSnapshot;textureDeployment=$textureDeployment;cases=@();baselineCases=@()};$state.modes+=,$modeState
         $sdk=(New-Item -ItemType Directory -Path (Join-Path $modeWork 's')).FullName
         New-Item -ItemType Directory -Path "$sdk/tools","$sdk/Schemas"|Out-Null
         Copy-Item -LiteralPath (Join-Path $sourceSdk 'Schemas/xsd') -Destination "$sdk/Schemas" -Recurse

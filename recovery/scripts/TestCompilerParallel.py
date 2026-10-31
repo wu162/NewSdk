@@ -83,6 +83,7 @@ def run(args):
     fixture(repo, mod)
     state = {'sourceCommit': args.source_commit, 'runId': os.environ.get('GITHUB_RUN_ID'),
              'succeeded': False, 'cases': [], 'scope': 'Current production mixed GameObject/Weapon/Armor/W3X/Texture/XML/APT/Audio, cache/jobs switches, raw output bytes; full MOD and component certification separate'}
+    serial_owner_threads = {}
 
     def invoke(mode, name, destination, jobs, sc=True, bc=True, extra=(), expected=0):
         exe = products / mode / 'bin/NewModCompiler.exe'
@@ -113,6 +114,10 @@ def run(args):
                 result[relative.as_posix()] = content
             need(len(result) >= 8, 'Mixed fixture omitted stream or Audio CDATA')
             parallel = body['cache']['parallel']
+            if str(jobs) == '1' and parallel['backendIntervals']:
+                owners = {interval['threadId'] for interval in parallel['backendIntervals']}
+                need(len(owners) == 1, 'Serial baseline executed backends on more than one owner thread')
+                serial_owner_threads[mode] = owners
             need(parallel['backendCalls'] == body['cache']['instanceCompile'], 'Reported backend call count differs from actual Core compile count')
             if name.startswith('sc') and '-hot' not in name:
                 need(parallel['backendCallsByType'].get('W3DHierarchy') == 1 and parallel['backendCallsByType'].get('Texture') == 1,
@@ -122,11 +127,15 @@ def run(args):
             if name.startswith('sc') and '-hot' not in name and jobs != '1' and parallel['minimumEffectiveJobs'] > 1:
                 need(parallel['prepareMs'] > 0 and parallel['maxBackendConcurrency'] > 1,
                      'Production misses admitted workers but executed no real overlapping backend calls')
-                owner_threads = {interval['threadId'] for interval in parallel['backendIntervals'] if interval['typeName'] == 'Texture'}
+                owner_threads = serial_owner_threads.get(mode)
+                need(owner_threads, 'Worker certification requires an observed jobs1 owner-thread baseline')
                 worker_types = {interval['typeName'] for interval in parallel['backendIntervals'] if interval['threadId'] not in owner_threads}
                 if parallel['minimumEffectiveJobs'] > 1 and owner_threads:
-                    need({'GameObject', 'WeaponTemplate', 'ArmorTemplate', 'W3DAnimation', 'W3DMesh', 'AudioFile', 'AptAptData', 'AptConstData', 'AptDatData', 'AptGeometryData', 'W3DHierarchy'} <= worker_types,
+                    need({'GameObject', 'WeaponTemplate', 'ArmorTemplate', 'W3DAnimation', 'W3DMesh', 'AudioFile', 'AptAptData', 'AptConstData', 'AptDatData', 'AptGeometryData', 'W3DHierarchy', 'Texture'} <= worker_types,
                          'An admitted certified family stayed behind the lazy production wrapper')
+                    texture_intervals = [interval for interval in parallel['backendIntervals'] if interval['typeName'] == 'Texture']
+                    need(texture_intervals and all(interval['threadId'] not in owner_threads for interval in texture_intervals),
+                         'Certified texture calls must execute on workers')
                     audio_intervals = [interval for interval in parallel['backendIntervals'] if interval['typeName'] == 'AudioFile']
                     need(len(audio_intervals) == 8 and all(interval['threadId'] not in owner_threads for interval in audio_intervals),
                          'Every AudioFile setting, including rate conversion and EALAYER3, must execute on a worker')

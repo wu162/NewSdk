@@ -75,9 +75,6 @@ try {
     $state.sdkFixtureInputs=@('Mods/mymod/Data/RecoveryArmorProbe.xml','tools/BinaryAssetBuilder.exe.config'|ForEach-Object{
         @{path=$_;sha256=(Hash (Join-Path $sdk $_))}
     })
-    $originalTexture=Join-Path $sdk 'tools/BinaryAssetBuilder.TextureCompiler.dll'
-    $state.originalTextureSha256=Hash $originalTexture
-    if($state.originalTextureSha256 -cne '4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e'){throw 'Backend texture input is not the pinned audited original'}
     # Match the App build's Roslyn/NET48 toolchain. The legacy Framework csc
     # silently assumes a much older C# language version and is not this recipe.
     $vswhere=Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
@@ -102,25 +99,13 @@ try {
         Copy-Item "$productBuild/link-inputs.json" "$modeOut/link-inputs.json"
         $runtimeOut=(New-Item -ItemType Directory (Join-Path $modeOut 'runtime')).FullName
         foreach($file in $run.runtimeFiles){Copy-Item (Join-Path $clean $file.name) $runtimeOut}
-        # Backend construction uses the real texture registration. Its patched
-        # dependency must bind to this validation EXE, never the production EXE.
-        & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $run.exe *> "$modeOut/prepare-texture.log"
-        if($LASTEXITCODE -ne 0){Get-Content "$modeOut/prepare-texture.log" -Tail 80|Out-Host;throw 'Backend validation-host texture preparation failed'}
-        $texture=Join-Path $clean 'BinaryAssetBuilder.TextureCompiler.dll'
-        $textureManifest="$texture.patch.json"
-        $patch=Get-Content $textureManifest -Raw|ConvertFrom-Json
-        $textureHash=Hash $texture;$textureManifestHash=Hash $textureManifest
-        if($patch.targetExeSha256 -cne $run.validationHostSha256 -or $patch.originalSha256 -cne $state.originalTextureSha256 -or
-            $patch.patchedSha256 -cne $textureHash -or $patch.protectedPeAudit.status -cne 'passed' -or $patch.protectedPeAudit.mode -cne 'redirect' -or
-            $patch.protectedPeAudit.originalSha256 -cne $state.originalTextureSha256 -or $patch.protectedPeAudit.outputSha256 -cne $textureHash){
-            throw 'Backend texture patch is not the audited validation-host deployment'
-        }
-        Copy-Item $textureManifest (Join-Path $runtimeOut 'texture.patch.json')
+        $product=Get-Content -LiteralPath "$productBuild/build.json" -Raw|ConvertFrom-Json
+        if($product.texturePlugin.implementation -cne 'built-in-source' -or @($product.texturePlugin.externalRuntimeFiles).Count -ne 0){throw 'Core lifecycle requires the built-in source texture plugin'}
         $modeState=@{
             configuration=$mode;passed=$false;productExeSha256=$run.productExeSha256
             validationHostSha256=$run.validationHostSha256;runtimeFiles=$run.runtimeFiles
             linkRecipeSha256=(Hash "$productBuild/link-inputs.json");fixtures=@()
-            textureDeployment=@{targetExeSha256=$run.validationHostSha256;patchedSha256=$textureHash;manifestSha256=$textureManifestHash;protectedPeAudit=$patch.protectedPeAudit;scope='Host-bound registration/lifecycle only; texture payload differential remains separate'}
+            textureDeployment=@{implementation='built-in-source';assemblySha256=$run.validationHostSha256;externalRuntimeFiles=@();scope='Source-linked registration/lifecycle; texture payload differential remains separate'}
         }
         $state.modes+=,$modeState
         $fixtureIndex=0
@@ -151,7 +136,6 @@ try {
                 if($fixture.name -eq 'CompilerCoreLifecycle' -and @($result.tests).Count -lt 4){throw 'Real Core lifecycle case groups missing'}
                 if($fixture.name -in @('CompilerBackendLifecycle','CompilerApplicationBuild') -and @($result.tests).Count -eq 0){throw 'Targeted backend/application case groups missing'}
                 if((Hash $fixtureExe) -cne $fixtureHash -or (Hash $source) -cne ($state.fixtures|Where-Object{$_.name -ceq $fixture.name}).sha256){throw 'Lifecycle fixture input changed while running'}
-                if((Hash $texture) -cne $textureHash -or (Hash $textureManifest) -cne $textureManifestHash){throw 'Backend texture deployment changed while running'}
                 Complete-CompilerValidationRun $run
                 $modeState.fixtures+=,@{
                     name=$fixture.name;passed=$true;processId=$processId;timeoutSeconds=$timeout;workRoot=$fixtureWork
@@ -181,7 +165,6 @@ try {
     }
     foreach($input in $state.schemaInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK schema input changed during lifecycle validation'}}
     foreach($input in $state.sdkFixtureInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK fixture/config input changed during lifecycle validation'}}
-    if((Hash $originalTexture) -cne $state.originalTextureSha256){throw 'Pinned original texture changed during backend lifecycle validation'}
     if($fixtureFailures.Count -ne 0){throw ($fixtureFailures -join "`n")}
     $state.succeeded=$true;$state.status='passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate'
     $global:LASTEXITCODE=0

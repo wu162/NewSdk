@@ -118,7 +118,8 @@
     "recovery/src/Native/Audio/EaLayer3/mpegl3base.cpp",
     "recovery/src/Native/Audio/EaLayer3/mpegpoly_c.cpp",
     "recovery/src/Native/Audio/EaLayer3Encoder.cpp",
-    "recovery/src/Native/Audio/EaLayer3/scalesamples.cpp"
+    "recovery/src/Native/Audio/EaLayer3/scalesamples.cpp",
+    "recovery/src/Native/Texture/PublicS3/s3_quant.cpp"
   ],
   "bridgeSources": [
     "recovery/src/Bridge/ArmorCompiler.cpp",
@@ -188,7 +189,8 @@
     "recovery/src/Bridge/XmlvisualsystemsCompiler.cpp",
     "recovery/src/Bridge/Xmlw3dCompiler.cpp",
     "recovery/src/Bridge/W3x/AnimationCompiler.cpp",
-    "recovery/src/Bridge/W3x/MeshCompiler.cpp"
+    "recovery/src/Bridge/W3x/MeshCompiler.cpp",
+    "recovery/src/Bridge/TextureCompiler.cpp"
   ],
   "applicationSources": [
     "recovery/src/Plugin/ArmorPlugin.cs",
@@ -198,6 +200,33 @@
     "recovery/src/Plugin/W3x/Plugin.cs",
     "recovery/src/Plugin/W3x/NativePlugin.cs",
     "recovery/src/Managed/W3x/W3xCatalog.cs",
-    "recovery/src/Managed/W3x/IW3xAssetCompiler.cs"
+    "recovery/src/Managed/W3x/IW3xAssetCompiler.cs",
+    "recovery/src/Plugin/Texture/Plugin.Atlas.cs",
+    "recovery/src/Plugin/Texture/Plugin.Dds.cs",
+    "recovery/src/Plugin/Texture/Plugin.Images.cs",
+    "recovery/src/Plugin/Texture/Plugin.Metadata.cs",
+    "recovery/src/Plugin/Texture/TextureAtlasDdsEncoder.cs",
+    "recovery/src/Plugin/Texture/TextureBlockCompression.cs",
+    "recovery/src/Plugin/Texture/TextureBmpDecoder.cs",
+    "recovery/src/Plugin/Texture/TextureCatalog.cs",
+    "recovery/src/Plugin/Texture/TextureDdsEncoder.cs",
+    "recovery/src/Plugin/Texture/TextureDibDecoder.cs",
+    "recovery/src/Plugin/Texture/TextureDxtBlockEncoder.cs",
+    "recovery/src/Plugin/Texture/TextureDxtSampleBlockEncoder.cs",
+    "recovery/src/Plugin/Texture/TextureImageLoader.cs",
+    "recovery/src/Plugin/Texture/TextureImageRules.cs",
+    "recovery/src/Plugin/Texture/TextureNpotRgba8Resampler.cs",
+    "recovery/src/Plugin/Texture/TextureNpotStorageResampler.cs",
+    "recovery/src/Plugin/Texture/TexturePacker.cs",
+    "recovery/src/Plugin/Texture/TexturePngDecoder.cs",
+    "recovery/src/Plugin/Texture/TextureRawDdsEncoder.cs",
+    "recovery/src/Plugin/Texture/TextureTgaAdditionalFormats.cs",
+    "recovery/src/Plugin/Texture/TextureTgaDecoder.cs",
+    "recovery/src/Plugin/Texture/TextureTgaMetadata.cs",
+    "recovery/src/Plugin/Texture/TextureTriangleMipEncoder.cs",
+    "recovery/src/Plugin/Texture/TextureVolume.cs",
+    "recovery/src/Plugin/Texture/TextureVolumeMipEncoder.cs",
+    "recovery/src/Plugin/Texture/TextureVolumeRawDdsEncoder.cs",
+    "recovery/src/Plugin/Texture/TextureIndexedBmpDecoder.cs"
   ]
 }
