@@ -22,7 +22,7 @@ namespace BinaryAssetBuilder.AudioCompiler
         public static uint Version(TargetPlatform platform)
         {
             RequireWin32(platform);
-            return 548405252u;
+            return 548405253u;
         }
 
         public static ExtendedTypeInformation PathMusicInformation(uint typeId, TargetPlatform platform)
@@ -63,7 +63,7 @@ namespace BinaryAssetBuilder.AudioCompiler
                     info.TypeName = "AudioFile";
                     info.TypeHash = 1405623879u;
                     info.HasCustomData = true;
-                    info.ProcessingHash = 2414318214u;
+                    info.ProcessingHash = 2414318215u;
                     break;
                 case Mp3PassthroughTypeId:
                     info.TypeName = "AudioFileMP3Passthrough";
