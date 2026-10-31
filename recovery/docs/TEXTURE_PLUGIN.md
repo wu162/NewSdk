@@ -43,6 +43,15 @@ DXT3/5 链接参考分支的公开 S3 源码及其兼容适配；DXT1/1A 使用�
 - Core lifecycle 工作流：Debug/Release、新生产对象、CLI/取消、缓存、完整
   mymod 原版差分和独立三文件 ZIP 验收。
 
-当前验收运行：[41178734603](https://github.com/wu162/NewSdk/actions/runs/41178734603)，
-源码 `20a367c0d`，运行中。DXT1A mip 的半透明边界另有待验收修正；未将构建预检
-表述为组件、完整 SDK 或游戏内验证通过。
+当前完整验收源码 `4c74bf64b`，运行
+[41180859852](https://github.com/wu162/NewSdk/actions/runs/41180859852) 进行中。
+本地 22 个独立像素/BC1/mip/NPOT 运行检查及 net48 编译通过；Windows
+Drawing、DXT3/5 和完整产品验收仍以本次运行的实际收据为准。
+
+此前 Windows 构建、三文件部署、Core/CLI/取消、缓存、原纹理三路字节及 BIG
+差分通过；整体运行因控制器残留变量、跨扫描行 RLE 测试输入及 indexed BMP
+颜色问题失败。控制器/生成器已修正；标准 1/4/8-bit BI_RGB 调色板改为显式读取，
+原 direct-color 解码器保留。原失败记录与已下载复算的归档身份见
+[evidence/texture/plugin-validation](../evidence/texture/plugin-validation)。
+常见格式矩阵现按独立用例集中收集失败，任一失败仍拒绝整组；没有降低像素阈值
+或原始四流/CDATA 差分要求。尚未标记本轮完整 SDK、独立 ZIP 或游戏内验收通过。
