@@ -1,3 +1,19 @@
+# 当前：完整 Upheaval 新旧 SDK 对照（计量完成，原字节差分未通过）
+
+[运行41165690314](https://github.com/wu162/NewSdk/actions/runs/41165690314) 完成7对/14次完整构建、42个实际进程，全部退出0；但严格新旧输出不同，整体failure，不是字节验收通过。完整历史Upheaval（2723文件/300900885字节），base/3个APT/全局地图元数据全部5流，loose，不含BIG/LoD打包。生产源665468cb / 完整验收41158645404，基准源9044738f。
+
+无缓存老→新91.495→34.269秒（-62.55%，n=2）；默认冷89.352→35.539秒（-60.23%，n=2）；默认热4.564→1.955秒（-57.17%，n=3）。新版峰值内存更高。1291个CDATA载荷相同，但1289音频文件身份尾码不同；base的bin/imp/relo各头4字节不同，manifest另有差异。双方各自冷/热输出稳定，新版热态零解析/编译。完整归档已下载复算并核对统计和原字节。
+
+[完整报告/原始计量/差异及失败记录](docs/SDK_BENCHMARK.md)。成果仍在 `benchmark/current-sdk-comparison` / [PR #37](https://github.com/wu162/NewSdk/pull/37)，未合入，禁止强推。
+
+# 当前：新编译器与原 SDK 配对性能（2026-10-31，已验证）
+
+基于 `recovery/legacy-sdk-cache` / `665468cb`，复用完整 Core 验收 `41158645404` 的精确 Release。基准源码 `f9ca739b`，[Windows 41164065611](https://github.com/wu162/NewSdk/actions/runs/41164065611) success：108 对/216 次计量及两次预热，全部输出原字节一致；归档已下载复算，统计及 109 份新版报告核对通过。修复仅在基准文件清单检查，生产未改。
+
+默认热态（n=5/边）mymod 556.49→540.75 ms（-2.83%）、Armor 子集 538.52→529.97 ms（-1.59%）、合成纹理16项 533.65→557.82 ms（+4.53%）。mymod 无缓存 844.52→730.81 ms（-13.47%，n=6），但累计 CPU 增加约21.2%。不利 XML 冷态单样本、完整六模式、来源及限制见 [SDK 对照报告](docs/SDK_BENCHMARK.md)。未测完整 Upheaval/BIG/编辑性能，不能概括为全场景更快。
+
+成果在 `benchmark/current-sdk-comparison` / [PR #37](https://github.com/wu162/NewSdk/pull/37)，未合入，禁止强推。
+
 # 当前：PR #33 组合验收通过，已获用户合入批准
 
 已同步 `recovery/legacy-sdk-cache` 的 `0d7b685c`（含已合入 PR #32、#34），只解决续接文档冲突，保留两边生产实现。组合源码 `1a3e4bc6`，[Windows 41152199159](https://github.com/wu162/NewSdk/actions/runs/41152199159) 整体 success：Debug/Release 新构建、Core/CLI/取消、64 worker/cache、完整缓存/载荷/输入根/BIG、完整 mymod 原 SDK、五文件 ZIP 及 Upheaval22样本原字节通过。归档已下载复算，十个运行文件/两个 ZIP 身份已核对。

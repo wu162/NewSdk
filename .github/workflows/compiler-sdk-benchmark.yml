@@ -9,12 +9,18 @@ on:
       - 'recovery/scripts/PrepareCompilerCacheBenchmark.py'
       - 'recovery/tests/test_sdk_benchmark.py'
       - 'recovery/tests/test_prepare_sdk_benchmark.py'
+      - 'recovery/scripts/BenchmarkFullUpheaval.py'
+      - 'recovery/tests/test_full_upheaval_benchmark.py'
   workflow_dispatch:
     inputs:
+      full_upheaval:
+        description: 'Measure all five streams of untouched full Upheaval instead of the bounded matrix'
+        type: boolean
+        default: false
       accepted_run:
         description: 'Successful full Core lifecycle run to measure; empty reuses the historical pinned Release'
         type: string
-        default: ''
+        default: '41158645404'
 permissions:
   contents: read
   actions: read
@@ -25,7 +31,7 @@ jobs:
   benchmark:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[sdk-benchmark]')
     runs-on: windows-2022
-    timeout-minutes: 10
+    timeout-minutes: 25
     env:
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
@@ -51,7 +57,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           # Measure this optimization's accepted production objects, never the old pinned build.
-          ACCEPTED_RUN: ${{ inputs.accepted_run || '40878062262' }}
+          ACCEPTED_RUN: ${{ inputs.accepted_run || '41158645404' }}
         run: |
           $accepted=@();if($env:ACCEPTED_RUN){$accepted=@('--accepted-run',$env:ACCEPTED_RUN)}
           python recovery/scripts/PrepareCompilerCacheBenchmark.py --repo . --candidate-commit $env:GITHUB_SHA --output "$env:RUNNER_TEMP/cb" @accepted
@@ -60,11 +66,12 @@ jobs:
           python recovery/scripts/PrepareCompilerSdkBenchmark.py --preparation "$env:RUNNER_TEMP/cb/preparation.json" --output "$env:RUNNER_TEMP/ob" --repo . --binary-source-commit $prepared.binarySourceCommit --source-run-id $prepared.sourceRunId
           if($LASTEXITCODE -ne 0){throw 'Original SDK/shared-input preparation failed'}
       - name: Paired original and new SDK cache matrix with strict budgets
-        timeout-minutes: 3
+        if: inputs.full_upheaval != true
+        timeout-minutes: 4
         shell: pwsh
         run: |
           $out="recovery/evidence/refactor/sdk-benchmark/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          python recovery/scripts/BenchmarkCompilerSdkComparison.py --preparation "$env:RUNNER_TEMP/cb/preparation.json" --original-preparation "$env:RUNNER_TEMP/ob/original-preparation.json" --output $out --work-directory "$env:RUNNER_TEMP/sbw" --timeout-seconds 20 --budget-seconds 120 --hot-runs 2
+          python recovery/scripts/BenchmarkCompilerSdkComparison.py --preparation "$env:RUNNER_TEMP/cb/preparation.json" --original-preparation "$env:RUNNER_TEMP/ob/original-preparation.json" --output $out --work-directory "$env:RUNNER_TEMP/sbw" --timeout-seconds 20 --budget-seconds 180 --hot-runs 5
           $comparisonExit=$LASTEXITCODE
           if(Test-Path $out){
             Copy-Item "$env:RUNNER_TEMP/cb/preparation.json" "$out/preparation.json"
@@ -72,8 +79,19 @@ jobs:
           }
           if(Test-Path "$out/comparison.md"){Get-Content "$out/comparison.md"|Add-Content $env:GITHUB_STEP_SUMMARY}
           if($comparisonExit -ne 0){throw 'Comparison failed or exceeded budget; original evidence retained'}
+      - name: Full untouched Upheaval paired compilation, all five streams
+        if: inputs.full_upheaval == true
+        timeout-minutes: 17
+        shell: pwsh
+        run: |
+          $out="recovery/evidence/refactor/sdk-benchmark/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/BenchmarkFullUpheaval.py --repo . --preparation "$env:RUNNER_TEMP/cb/preparation.json" --original-preparation "$env:RUNNER_TEMP/ob/original-preparation.json" --output $out --work-directory "$env:RUNNER_TEMP/fu" --cold-runs 2 --hot-runs 3 --timeout-seconds 180 --budget-seconds 900
+          $fullExit=$LASTEXITCODE
+          if(Test-Path "$out/full-upheaval.md"){Get-Content "$out/full-upheaval.md"|Add-Content $env:GITHUB_STEP_SUMMARY}
+          if($fullExit -ne 0){throw 'Full Upheaval comparison failed; original evidence retained'}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: compiler-sdk-benchmark-${{ github.run_id }}-${{ github.run_attempt }}
           path: recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**
+

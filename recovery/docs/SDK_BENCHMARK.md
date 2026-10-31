@@ -2,7 +2,65 @@
 
 工作流 `compiler-sdk-benchmark.yml` 新增可选 `accepted_run`：显式指定已成功完成全部 Core lifecycle 门槛的运行，可复用该运行的五文件 Release 测量后续优化；留空继续使用原固定来源。准备器从 GitHub 成功运行及产物 digest 确认来源，再校验发行收据、五文件内容和实际生产输入闭包。二进制和测试来源分别记录，未经完整验收的运行不能用于该选项。下文区分优化后新结果与优化前历史，不混用两轮来源。
 
-`BenchmarkCompilerSdkComparison.py` 在同一台 Windows VM 上交替执行原 `BinaryAssetBuilder.exe` 和已验收的新版 Win32 Release。比较独立进程从启动到退出的端到端成本、CPU 时间、峰值工作集及缓存占用；新版还承担报告、JSONL、独立 staging 和事务发布的成本，原工具直接写出流文件。结果用于比较实际命令行使用成本。
+`BenchmarkCompilerSdkComparison.py` 在同一台 Windows VM 上交替执行原 `BinaryAssetBuilder.exe` 和已验收的新版 Win32 Release。比较独立进程从启动到退出的端到端成本、CPU 时间、峰值工作集及缓存占用；当前新版承担报告、JSONL 和直接发布的成本，原工具直接写出流文件。历史版本的输出方式以对应源码及当轮记录为准。结果用于比较实际命令行使用成本。
+
+## 完整 Upheaval：计量完成，原字节差分未通过（2026-10-31）
+
+已加入 `full_upheaval=true` 测试入口。[最终运行41165690314](https://github.com/wu162/NewSdk/actions/runs/41165690314) 完成全部计量，但严格新旧输出不同，整体 **failure**；状态为 `timingCompleted=true / rawOutputEquality=false / output-differs`，**不能表述为原 SDK 字节验收成功**。生产未改，复用 `665468cb` / 完整Core验收 `41158645404` 的精确五文件Release，基准源 `9044738f08381000dd9b04eae1745be9db8e00b1`。
+
+完整未裁剪历史 Upheaval 来自 `bacfc69f` / tree `5551fc26a6f96b62613443e0d0fa2958c14cbce0`，**2723文件/300900885字节**，覆盖base/Mod、3个TacticalHUD APT UI、MapMetaData_Global全部5流及其资产。输出为loose；不包含BIG/LoD打包或游戏内运行。两边使用同一VM、同一物理输入/SDK/Schema/cwd及有序资源根，独立缓存。新版一次进程、默认jobs=auto；原SDK顺序启动5次BAB，墙钟/CPU取5次启动到退出之和，峰值内存取最大值。Python搬运/核验不计时，没有为loose额外生成APT版本标记。无预热，交替引擎顺序，OS页缓存未控。
+
+共 **7对/14次完整构建/42个实际进程**，全部退出0，计量循环541.910秒。墙钟中位数，单位秒；输出差异仍存在，这些计时不证明原字节兼容：
+
+| 状态 | n/边 | 老SDK | 新版 | 耗时变化 |
+| --- | ---: | ---: | ---: | ---: |
+| 无缓存 | 2 | 91.495 | 34.269 | -62.55% |
+| 默认双缓存冷态 | 2 | 89.352 | 35.539 | -60.23% |
+| 默认双缓存热态 | 3 | 4.564 | 1.955 | -57.17% |
+
+无缓存CPU 88.914→57.688秒，峰值177.65→219.03MiB；默认冷CPU 88.945→59.930秒，峰值175.75→208.80MiB；默认热CPU 4.438→1.859秒，峰值63.04→70.05MiB。新版峰值内存更高。七份新版计划均覆盖全部五流；三份热态报告零XML解析/零实例编译。双方各自所有缓存状态的输出均稳定。
+
+每边1311个输出文件：1289个AudioFile CDATA的文件名末段身份不同；base四流等长，bin/imp/relo各只有开头4字节不同，manifest有5115字节不同。共同的18个文件（APT/地图元数据四流及其CDATA）相同。按type/typehash/instance及多变体载荷多重集另行诊断，**1291/1291个CDATA实际载荷原字节相同**（1289音频+2APT、1283个身份分组）。原始文件名和字节完整保留，该诊断不豁免严格失败。源码AudioFile ProcessingHash曾由2414318214递增为2414318215，身份变化与这一已知修改相符；本轮未改生产身份来取得通过。
+
+Linux/Windows各27项预检通过。完整94605133字节归档已下载复算SHA256：`c4bd3836a660616d31824c6d42c789991d032887a972bd24dc272bf7a9a3c62c`，匹配GitHub digest。本地重算统计中位数/min/max、42进程退出码、七份五流计划、双方基线1311文件哈希、所有样本各自基线稳定性、1291载荷原字节及base实际差异。
+
+保留失败：[41165080041](https://github.com/wu162/NewSdk/actions/runs/41165080041) 首对编译完成但差分失败，且控制器额外生成3个不属于loose BAB的APT版本标记；随后移除。第二轮[41165427054](https://github.com/wu162/NewSdk/actions/runs/41165427054)因诊断错误假定每个CDATA实例唯一而失败；修复为多变体诊断并在诊断前保存双方基线。前两轮数据不混入最终统计。
+
+[来源/复核摘要](../evidence/refactor/sdk-benchmark/41165690314-1/summary.json) · [CSV](../evidence/refactor/sdk-benchmark/41165690314-1/full-upheaval.csv) · [完整原始JSON（XZ）](../evidence/refactor/sdk-benchmark/41165690314-1/full-upheaval.json.xz) · [自动生成表](../evidence/refactor/sdk-benchmark/41165690314-1/full-upheaval.md) · [Release收据](../evidence/refactor/sdk-benchmark/41165690314-1/preparation.json)。XZ为原JSON无损压缩，可用Python `lzma.open(path).read()` 解压。全部共享输入身份、逐次请求/日志/报告及双方原始输出在[完整归档](https://github.com/wu162/NewSdk/actions/runs/41165690314/artifacts/13029437657)。
+
+复现：`gh workflow run compiler-sdk-benchmark.yml --repo wu162/NewSdk --ref benchmark/current-sdk-comparison -f accepted_run=41158645404 -f full_upheaval=true`。成果在[PR #37](https://github.com/wu162/NewSdk/pull/37)，未合入。
+
+## 当前版本对照（2026-10-31）
+
+[Windows 运行 41164065611](https://github.com/wu162/NewSdk/actions/runs/41164065611) **success**，沿用既有三组输入，生产实现未修改。新版是当前分支源码 `665468cb686cc4bcd7a172465c2f7efcb7492dc2`，复用[完整 Core lifecycle 41158645404](https://github.com/wu162/NewSdk/actions/runs/41158645404) 验收的精确五文件 Release；基准源码为 `f9ca739be5192045cd742c16d4560d6a15f6e9a9`，后续仅归档。变更及证据在 [PR #37](https://github.com/wu162/NewSdk/pull/37)。
+
+Windows Server 2022、4 逻辑 CPU，同 VM 交替启动原 BinaryAssetBuilder 与新版，使用相同物理 MOD、SDK/Schema、cwd 和有序搜索根，各自独立缓存。新版使用默认 `jobs=auto`。测量进程启动到退出的墙钟、累计 CPU、峰值工作集和缓存大小；包括新版 JSONL/报告及直接输出成本，输入准备、哈希核验和输出对照在计时外。
+
+六种缓存模式，共 **108 对 / 216 次计量**，另有两次不计成绩的启动预热，计量循环共 **148.133 秒**。每工作量无缓存每边 n=6，各缓存冷态 n=1、热态 n=5。每对输出成员、长度、SHA256 与原始字节均一致，所有模式匹配各自无缓存基线。下载归档复算 SHA256 为 `f7d38c43793a85c791518692a4972b45fa48616e10d26d8494b6f2b6e4ea8175`，与 GitHub digest 相同；本地另行复算全部统计中位数/min/max、三组基线原字节及全部样本输出身份，核对 109 份新版报告和新旧运行文件来源。
+
+墙钟中位数，单位 ms，变化为新版相对老 SDK 的耗时变化：
+
+| 工作量 | 状态 | n/边 | 老 SDK | 当前新版 | 耗时变化 |
+| --- | --- | ---: | ---: | ---: | ---: |
+| mymod base，47 资产 | 无缓存 | 6 | 844.52 | 730.81 | -13.47% |
+| mymod base，47 资产 | 默认双缓存冷态 | 1 | 865.79 | 771.42 | -10.90% |
+| mymod base，47 资产 | 默认双缓存热态 | 5 | 556.49 | 540.75 | -2.83% |
+| Upheaval Armor 子集，12 资产 | 无缓存 | 6 | 572.85 | 567.21 | -0.99% |
+| Upheaval Armor 子集，12 资产 | 默认双缓存冷态 | 1 | 570.34 | 586.12 | +2.77% |
+| Upheaval Armor 子集，12 资产 | 默认双缓存热态 | 5 | 538.52 | 529.97 | -1.59% |
+| 合成 Texture ×16 | 无缓存 | 6 | 844.14 | 907.43 | +7.50% |
+| 合成 Texture ×16 | 默认双缓存冷态 | 1 | 886.11 | 910.55 | +2.76% |
+| 合成 Texture ×16 | 默认双缓存热态 | 5 | 533.65 | 557.82 | +4.53% |
+
+默认双缓存为 `/bc:true /sc:true /csc:true`。默认热态基本接近，mymod/Armor 略快，纹理仍较慢；小样本不声称统计显著或所有场景均更快。其余热模式中，纹理慢约 4.0%–8.6%，mymod 的仅资产模式快约 16.3%，但该类资产原 SDK 未启用资产缓存，不能把这个收益归于资产命中。全部会话热态的新版报告均为零 XML 解析、零实例编译，原版日志确认实际会话载入。
+
+默认热态 CPU 中位数为老→新：mymod 531.25→546.875 ms、Armor 531.25→531.25 ms、纹理 531.25→546.875 ms；峰值工作集分别为 44.11→42.98、44.11→42.24、44.16→42.60 MiB。mymod 无缓存墙钟减少，但累计 CPU 为 812.5→984.375 ms（增加约 21.2%），不能将墙钟改善表述为 CPU 成本降低。
+
+完整矩阵保留不利样本：mymod 的仅会话 XML 冷态老→新为 2042.30→3235.54 ms，各边仅一次；没有删除异常点或据此归因。冷态只指编译器缓存为空，OS 页缓存未控。mymod 输入完整复制但只测 base/loose；Armor 是 11 个原始 XML/12 资产子集，纹理为合成负载。**未测完整 Upheaval、APT/maps、BIG 打包或输入编辑性能**，不能将这组数据用于完整大型 MOD 的性能保证，也不跨 VM 推导历史优化的因果收益。
+
+原分支运行 [41158548537](https://github.com/wu162/NewSdk/actions/runs/41158548537) 和本轮首次运行 [41163962910](https://github.com/wu162/NewSdk/actions/runs/41163962910) 均在现有预检失败，未开始计量：基准辅助函数只返回报告成员，漏检实际多出的发布文件。恢复基准端实际文件清单比对后，Linux/Windows 各 24 项已有预检通过；未修改生产代码、放宽输出差分或重编译二进制。
+
+[来源及复核摘要](../evidence/refactor/sdk-benchmark/41164065611-1/summary.json) · [216 个原始样本 JSON](../evidence/refactor/sdk-benchmark/41164065611-1/comparison.json) · [全部 33 组统计 CSV](../evidence/refactor/sdk-benchmark/41164065611-1/comparison.csv) · [完整表](../evidence/refactor/sdk-benchmark/41164065611-1/comparison.md) · [Release 准备收据](../evidence/refactor/sdk-benchmark/41164065611-1/preparation.json) · [原 SDK 准备收据](../evidence/refactor/sdk-benchmark/41164065611-1/original-preparation.json)。逐次请求、完整日志/报告、共享输入逐文件清单和三组原始基线保存在[完整运行产物](https://github.com/wu162/NewSdk/actions/runs/41164065611/artifacts/13028119310)。
 
 ## 六项热态优化后的结果（2026-10-29）
 
