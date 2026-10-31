@@ -4,8 +4,8 @@
 
 ## 获取工具
 
-当前 Texture 实现保留原 DLL 的版本 `4202` 和三个 ProcessingHash，并已接入三种纹理路由的 worker 并行；本轮改动尚待新的 Windows 组件、生产 CLI、SDK 和 ZIP 验收。
-上一轮源码 `4c74bf64b` 的 [Windows 验收 41180859852](https://github.com/wu162/NewSdk/actions/runs/41180859852) 已通过，但不覆盖本轮身份恢复与并行改动。其[历史产物归档](https://github.com/wu162/NewSdk/actions/runs/41180859852/artifacts/13035436860)仍保留 `artifacts/final-release/41180859852-1/NewModCompiler-Win32-Release.zip`、Debug 包及哈希清单。历史 `compiler-main` 发行见[发行说明](recovery/COMPILER_RELEASE.md)。
+生产/测试源码 `8fe12ca9b` 的 [Windows 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818) 已整体通过：Debug/Release 构建、原元数据完整转录、组件与实际四 worker 并行、缓存、完整 mymod 原版对照、两个独立三文件 ZIP，以及完整 Upheaval 22 样本。插件版本 `4202` 和三个 ProcessingHash 保留原 DLL 值。
+[常见格式与并行 CLI 收据](recovery/evidence/texture/plugin-validation/41185772818-1/common-summary.json)已入库：D/R 各31组件结果与上一轮原字节相同，16个真实CLI用例通过。本轮 Debug/Release 包见[本轮产物归档](https://github.com/wu162/NewSdk/actions/runs/41185772818/artifacts/13037167160)；最终归档已下载复算，Debug/Release 六份运行文件及两个三文件 ZIP 均与生产构建和发布清单核对通过，详见[完整验收摘要](recovery/evidence/texture/plugin-validation/41185772818-1/full-summary.json)。上一轮 `4c74bf64b` 的[验收记录](https://github.com/wu162/NewSdk/actions/runs/41180859852)保留为历史，历史 `compiler-main` 发行见[发行说明](recovery/COMPILER_RELEASE.md)。
 
 本分支将 Texture 编译器源码内建到 EXE，新构建的工具 ZIP 只有三个运行文件：NewModCompiler.exe、NewModCompiler.exe.config、antlr.runtime.dll。SDK、MOD 源码和系统运行库单独准备。要求 Windows x86 兼容环境、.NET Framework 4.8 及与构建工具链匹配的 x86 VC 运行库；Texture 不再依赖原 DLL、VC80 或 DirectX 9/D3DX。先运行 doctor 检查环境。更早使用原 DLL 的历史包仍保留五文件布局；本次能力与边界见 [Texture 说明](recovery/docs/TEXTURE_PLUGIN.md)。
 

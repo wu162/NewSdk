@@ -1,5 +1,5 @@
 {
-  "scope": "Monolithic Win32/PC DXT3/5 source; per-thread-state candidate awaiting concurrency and exact-byte acceptance",
+  "scope": "Monolithic Win32/PC DXT3/5 source; per-thread state validated with exact-byte concurrency and unchanged common results",
   "blockSourceCommit": "cda610ed4ad1348eae7c1631824ce6d8c35a7e3c",
   "blockRunId": "40646658908",
   "files": [
@@ -43,7 +43,10 @@
       "origin": "owned bounded PC ABI; no encoder implementation callbacks",
       "sha256": "13a26e58d76e040ea2b774224dc9e99fbd5abfbb718fdbe4c9569f793f27b054",
       "blobSha": "46c4b05cf9967be24d6c5ecaaa79cfdc8af70567",
-      "bytes": 3145
+      "bytes": 3145,
+      "referenceOnly": true,
+      "monolithicReplacement": "recovery/src/Bridge/TextureCompiler.cpp",
+      "note": "Reference branch ABI fingerprint retained; this file is adapted into the monolithic bridge rather than copied locally."
     },
     {
       "file": "LegacyGray3.inl",
@@ -59,7 +62,7 @@
   ],
   "threadSafety": {
     "sourceRef": "wu162/NewSdk@b30dffac5aeb027cf37a6dac0cd47beafe9fbea0",
-    "status": "implementation ready; Windows exact-byte concurrency acceptance pending",
+    "status": "accepted in Windows Debug/Release: cold TLS, four overlapping workers, owner/worker buffers and private CDATA equal",
     "mutableStorage": "native thread_local; no shared mutable encoder scratch/cache",
     "scratchDoubleBytes": 11120,
     "gridBytes": 13824,
@@ -67,6 +70,13 @@
     "policyBytes": 4,
     "tlsPayloadBytesPerNativeThread": 24956,
     "estimatedAlignedTlsBytesPerNativeThread": 24960,
-    "scope": "STATIC and STATIC_ARR doubles, allSame grids/initFlags, LegacyInterpolationPolicy; immutable coefficients and fixed gray records remain shared const"
+    "scope": "STATIC and STATIC_ARR doubles, allSame grids/initFlags, LegacyInterpolationPolicy; immutable coefficients and fixed gray records remain shared const",
+    "validation": {
+      "productionSourceCommit": "8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d",
+      "runId": "41185772818",
+      "runUrl": "https://github.com/wu162/NewSdk/actions/runs/41185772818",
+      "receipt": "recovery/evidence/texture/plugin-validation/41185772818-1/full-summary.json",
+      "previousCommonResultsByteIdentical": true
+    }
   }
 }

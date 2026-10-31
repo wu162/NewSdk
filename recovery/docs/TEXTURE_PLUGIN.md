@@ -12,7 +12,8 @@
 编码在 worker 执行。S3 scratch、插值策略及懒初始化表改为线程局部存储，
 托管临时数组和 GDI+ 图像对象按调用独有；诊断按任务收集，由 owner 按提交顺序
 输出。租约不可用、头部无法识别或预算不足时回到 owner，不在编码阶段加全局锁。
-本轮身份恢复与并行改动尚待新的 Windows 组件、生产 CLI、SDK 和 ZIP 验收。
+本轮身份恢复与并行改动已通过新的 Windows 组件、生产 CLI、SDK 和 ZIP 验收，
+生产/测试源码为 `8fe12ca9b`。
 
 | 输入 | 处理 |
 | --- | --- |
@@ -60,8 +61,31 @@ DXT3/5 链接参考分支的公开 S3 源码及其兼容适配；DXT1/1A 使用�
 - Core lifecycle 工作流：Debug/Release、新生产对象、CLI/取消、缓存、完整
   mymod 原版差分和独立三文件 ZIP 验收。
 
+## 当前验收：原身份与并行
+
+[Windows 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818) 整体
+**success**，生产/测试源码 `8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d`：
+
+- Debug/Release 各31格式用例、532断言通过；结果与上一轮已验收的31用例原始
+  JSON全等，包括每份DDS哈希，TLS改动未改变这些既有编码结果。
+- 16个真实贴图CLI用例通过；两配置的jobs1/4/auto冷态输出全等，jobs4/auto
+  均实测4个任务重叠。热态切换jobs为零编译，单图同长同mtime修改仅重编1项。
+- 三路8资产worker波次比较三缓冲和私有CDATA，覆盖冷S3灰度表、图集输入租约；
+  owner诊断一次回放和贴图故障/取消后的完整join及临时文件回收通过。
+- 原三路4202完整转录逐字节相同，无oracle身份包装；64生产并行/缓存用例、
+  Core/CLI/取消、完整缓存矩阵、完整mymod原BAB四流/BIG/SKUDEF对照通过。
+- 两个独立三文件ZIP及完整Upheaval22样本通过；全部样本原输出一致。
+
+[常见格式及贴图CLI原始收据](../evidence/texture/plugin-validation/41185772818-1/common-summary.json)、
+[完整验收与归档复算](../evidence/texture/plugin-validation/41185772818-1/full-summary.json)
+记录二进制、原转录、线程区间与原始收据。
+[当前正式产物](https://github.com/wu162/NewSdk/actions/runs/41185772818/artifacts/13037167160)
+的 `artifacts/final-release/41185772818-1/` 提供 Debug/Release ZIP 与清单。
+未新增游戏内验收，不从样本推导通用加速比例。
+
+## 历史证据
+
 以下为上一轮产品证据，不覆盖本轮原身份恢复、TLS 与 worker 并行改动。
-当前实现尚待新的 Windows 验收，不复用旧 EXE 冒称已验证。
 
 上一轮生产/测试源码 `4c74bf64b`，
 [Windows 41180859852](https://github.com/wu162/NewSdk/actions/runs/41180859852) 整体 **success**。
@@ -76,11 +100,11 @@ Debug/Release 各31个常见格式组件用例、完整mip与半透明边界、�
 发布清单与common收据，原版/恢复版纹理转录按原字节压缩保存并去重。
 [下载归档](https://github.com/wu162/NewSdk/actions/runs/41180859852/artifacts/13035436860)中
 `artifacts/final-release/41180859852-1/` 含 Debug/Release ZIP 和身份清单。
-该归档保留上一轮运行文件；当前生产改动需要重新构建验证。未新增游戏内验收。
+该归档保留上一轮运行文件；当前版本使用上节的新构建和收据。
 此前 Windows 构建、三文件部署、Core/CLI/取消、缓存、原纹理三路字节及 BIG
 差分通过；整体运行因控制器残留变量、跨扫描行 RLE 测试输入及 indexed BMP
 颜色问题失败。控制器/生成器已修正；标准 1/4/8-bit BI_RGB 调色板改为显式读取，
 原 direct-color 解码器保留。原失败记录与已下载复算的归档身份见
 [evidence/texture/plugin-validation](../evidence/texture/plugin-validation)。
 常见格式矩阵现按独立用例集中收集失败，任一失败仍拒绝整组；没有降低像素阈值
-或原始四流/CDATA 差分要求。原失败不冒充成功；本轮最终验收须使用恢复原身份并启用并行后的新构建产品。
+或原始四流/CDATA 差分要求。原失败不冒充成功；本轮验收使用恢复原身份并启用并行后的新构建产品。

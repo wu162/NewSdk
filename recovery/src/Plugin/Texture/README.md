@@ -10,7 +10,21 @@ and encode on workers. S3 scratch, interpolation policy and lazy tables use nati
 thread-local storage; per-call managed buffers and GDI+ objects are not shared.
 Diagnostics are collected per work item and replayed by the owner in commit order.
 Unavailable leases, unrecognized image headers or insufficient budget fall back
-to the owner. This concurrency change awaits a new Windows acceptance run.
+to the owner.
+
+Production/test source `8fe12ca9b` passed the complete
+[Windows run 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818):
+Debug/Release builds, exact original metadata/transcripts, component and actual
+four-worker execution, cache matrices, complete mymod original comparison,
+independent three-file ZIP deployment and all 22 Upheaval samples. The
+[common-format receipt](../../../evidence/texture/plugin-validation/41185772818-1/common-summary.json)
+records 31 cases per configuration with byte-identical results to the prior
+accepted source and 16 actual CLI cases. Packages are listed in the
+[final artifact](https://github.com/wu162/NewSdk/actions/runs/41185772818/artifacts/13037167160);
+the final archive has been independently downloaded and its SHA256 verified.
+All six runtime files and both exact three-file ZIPs match the production build
+receipts and release manifests; see the
+[full validation summary](../../../evidence/texture/plugin-validation/41185772818-1/full-summary.json).
 
 Common input/output coverage:
 

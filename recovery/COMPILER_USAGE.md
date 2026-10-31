@@ -6,13 +6,13 @@
 
 `--jobs auto|<正整数>` 默认 auto，表示 CPU 和当前 Win32 可用内存共同约束的 worker 上限；`--jobs 1` 保留 owner 串行对照，`--jobs 4` 允许最多四个已认证后端任务。三个 profile、plan/build 和 `newmodcompiler.json` 的 `"jobs": "auto"` 或整数均支持。修改 jobs 不改变原缓存身份。
 
-并行路由包括 GameObject、WeaponTemplate、ArmorTemplate、W3DAnimation/W3DMesh、精确内建编码器的 NONE/XAS AudioFile（无显式 PCSampleRate）、MP3 passthrough、284 个认证 XML metadata TypeId、四类 APT，以及本轮接入的 `Texture`、`OnDemandTexture`、`TerrainTextureAtlas`。纹理在 owner 准备只读输入租约并按图像尺寸、DDS 长度或图集工作量计入预算，解码和编码在 worker 执行；S3 临时状态与懒初始化表按线程隔离。资源不足、输入租约失败、纹理头无法识别、APT 非 ASCII 路径或未认证后端回到 owner。Core XML 前端、验证、缓存、诊断与输出提交保持 owner 顺序；本轮纹理并行尚待新的 Windows 验收。
+并行路由包括 GameObject、WeaponTemplate、ArmorTemplate、W3DAnimation/W3DMesh、精确内建编码器的 NONE/XAS AudioFile（无显式 PCSampleRate）、MP3 passthrough、284 个认证 XML metadata TypeId、四类 APT，以及本轮接入的 `Texture`、`OnDemandTexture`、`TerrainTextureAtlas`。纹理在 owner 准备只读输入租约并按图像尺寸、DDS 长度或图集工作量计入预算，解码和编码在 worker 执行；S3 临时状态与懒初始化表按线程隔离。资源不足、输入租约失败、纹理头无法识别、APT 非 ASCII 路径或未认证后端回到 owner。Core XML 前端、验证、缓存、诊断与输出提交保持 owner 顺序。源码 `8fe12ca9b` 已通过 [Windows 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818) 的 Debug/Release 实际四 worker、原元数据完整转录、组件、缓存、完整 mymod、独立 ZIP 及 Upheaval 22 样本验收；[常见格式与16个CLI用例收据](evidence/texture/plugin-validation/41185772818-1/common-summary.json)已入库。
 
 默认 `/sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false` 不变，Texture 继续使用原 SDK 缓存布局，插件版本 `4202` 和三个 ProcessingHash 保留原 DLL 值。工具不会因切换实现自动清理缓存或更换身份；BC1 编码字节可能与既有产物不同，切换时可选择干净或独立的会话、资产及中间目录。无需关闭 SessionCache 来使用多 worker。`--sc=false --bc=false --jobs 1|4` 可作纯冷态吞吐对照。没有新增动作缓存、额外持久结果或文件哈希体系。
 
 ## 1. 安装与检查
 
-本分支新构建将 Texture 编译器源码内建到 EXE，ZIP 只有三个运行文件：`NewModCompiler.exe`、`NewModCompiler.exe.config`、`antlr.runtime.dll`。完整解压到单独目录，保留三个文件。本轮身份恢复与纹理并行尚待新 Windows 验收；上一轮已验收的[三文件产物归档](https://github.com/wu162/NewSdk/actions/runs/41180859852/artifacts/13035436860)中，Release 包位于 `artifacts/final-release/41180859852-1/NewModCompiler-Win32-Release.zip`（源码 `4c74bf64b`）；[范围与原收据](docs/TEXTURE_PLUGIN.md)。历史五文件包仍可从 [功能验收归档40915444929](https://github.com/wu162/NewSdk/actions/runs/40915444929/artifacts/12916669037) 内 `artifacts/final-release/40915444929-1/NewModCompiler-Win32-Release.zip` 获取（生产源码6d39f833）；该包使用原 Texture DLL 和补丁清单，保留其原布局。
+本分支新构建将 Texture 编译器源码内建到 EXE，ZIP 只有三个运行文件：`NewModCompiler.exe`、`NewModCompiler.exe.config`、`antlr.runtime.dll`。完整解压到单独目录，保留三个文件。本轮源码 `8fe12ca9b` 的完整 Windows 及独立 ZIP 验收已通过，Debug/Release 包见[本轮产物归档](https://github.com/wu162/NewSdk/actions/runs/41185772818/artifacts/13037167160)中的 `artifacts/final-release/41185772818-1/`，通常使用 `NewModCompiler-Win32-Release.zip`；最终归档已下载复算，六份运行文件和两个三文件 ZIP 已与生产构建、发布清单核对，见[完整验收摘要](evidence/texture/plugin-validation/41185772818-1/full-summary.json)。[范围与原收据](docs/TEXTURE_PLUGIN.md)。历史五文件包仍可从 [功能验收归档40915444929](https://github.com/wu162/NewSdk/actions/runs/40915444929/artifacts/12916669037) 内 `artifacts/final-release/40915444929-1/NewModCompiler-Win32-Release.zip` 获取（生产源码6d39f833）；该包使用原 Texture DLL 和补丁清单，保留其原布局。
 
 目标机器需要 Windows x86 兼容环境、.NET Framework 4.8，以及与编译工具链匹配的 x86 VC 运行库。新构建的 Texture 不再需要原 DLL、VC80 CRT 或 DirectX 9/D3DX；历史五文件包仍需要这些依赖。SDK 资源和 MOD 源码单独提供；工具 ZIP 不包含完整 SDK，也不下载游戏文件。
 

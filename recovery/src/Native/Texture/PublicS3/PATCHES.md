@@ -114,5 +114,10 @@ flags and 4 bytes of interpolation policy (about 24,960 with alignment). This is
 per native thread, separate from per-call managed image/block buffers; the
 Windows EXE TLS template also applies to threads that never call the codec. The
 unchanged pre-thread-local fingerprint and current source fingerprint are both
-recorded in `PROVENANCE.json`. This checkpoint requires Windows concurrent versus
-serial complete-payload comparisons in Debug/Release before being called accepted.
+recorded in `PROVENANCE.json`. Production/test source `8fe12ca9b` passed
+[Windows 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818):
+Debug/Release cold native worker tables, four overlapping texture tasks, all three
+routes' complete buffers and private CDATA versus owner execution, and owner-only
+diagnostic replay/failure drain. All 31 common-case result bytes, including DDS
+hashes, also match the previous accepted `4c74bf64b` build. Full CLI/cache/SDK,
+independent three-file ZIPs and 22 Upheaval samples passed in the same run.
