@@ -173,7 +173,7 @@ def measure(command, cwd, evidence, timeout, environment):
             process.kill()
             process.wait(timeout=5)
             row.update(status='timed-out', wallMs=(time.perf_counter() - tick) * 1000,
-                       exitCode=process.returncode)
+                       exitCode=process.returncode, **process_metrics(process))
             write_json(evidence / 'process.json', row)
             raise TimeoutError('Process exceeded strict budget: ' + evidence.name)
         row.update(wallMs=(time.perf_counter() - tick) * 1000, exitCode=process.returncode,

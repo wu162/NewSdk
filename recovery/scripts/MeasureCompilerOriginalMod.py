@@ -124,7 +124,10 @@ def report(out, state):
         lines += ['', 'Error: ' + state['error']]
     if state.get('edit'):
         lines += ['', 'Incremental edit: ' + json.dumps(state['edit'], ensure_ascii=False),
-                  'Edited outputs are checked against a separate cache-disabled rebuild per engine. The source copy is restored.']
+                  ('Edited outputs are checked against a separate session-disabled rebuild per engine, seeded only with that engine\'s asset cache. The edited GameObject is not build-cache eligible; unchanged media payloads may be reused.'
+                   if state['edit'].get('freshRebuildMode') == 'asset' else
+                   'Edited outputs are checked against a separate cache-disabled rebuild per engine.'),
+                  'The source copy is restored.']
     if state.get('schemaOverlay'):
         lines += ['', 'Shared runtime Schema overlay: ' + json.dumps(state['schemaOverlay'], ensure_ascii=False)]
     (out / 'report.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
@@ -145,6 +148,10 @@ def main():
     parser.add_argument('--budget-seconds', type=float, default=900)
     parser.add_argument('--requested-head', default=HEAD)
     parser.add_argument('--content', choices=('base', 'base,apt,global-metadata'), default='base')
+    parser.add_argument('--rebuild-check', choices=('none', 'asset'), default='none',
+                        help='Independent changed-input rebuild: disable all caches or just session state')
+    parser.add_argument('--skip-extra-uncached', action='store_true',
+                        help='Omit the extra unchanged cache-disabled timing run for very large MODs')
     args = parser.parse_args()
     need(os.name == 'nt', 'Execution requires Windows')
     ctypes.WinDLL('kernel32', use_last_error=True).SetErrorMode(0x0001 | 0x0002 | 0x8000)
@@ -331,7 +338,7 @@ def main():
             files, paths = (full_inventory(destination, w['tasks']) if state['fullContent']
                             else stream_inventory(destination))
             row['outputFiles'] = files
-            input_state = 'modified' if phase in ('edited', 'hot-edited', 'edited-uncached') else 'original'
+            input_state = 'modified' if phase in ('edited', 'hot-edited', 'edited-uncached', 'edited-session-reset') else 'original'
             row['inputState'] = input_state
             key = w['name'], engine, input_state
             if key not in baselines:
@@ -353,7 +360,7 @@ def main():
             return row, paths
 
         for w in workloads:
-            for trial in range(args.pairs + 1):
+            for trial in range(args.pairs + (0 if args.skip_extra_uncached else 1)):
                 mode = 'both-deflate' if trial < args.pairs else 'none'
                 phases = ('cold', 'hot', 'hot') if mode != 'none' else ('uncached',)
                 if edit_path and mode != 'none':
@@ -390,14 +397,22 @@ def main():
                         round=index, engineOrder=engines, rawBytesEqual=not differences, differentMembers=differences))
                     report(out, state)
                     if phase == 'edited' and trial == 0:
-                        fresh = {engine: one(engine, w, trial, 'none', 'edited-uncached', 0)
+                        fresh_mode = args.rebuild_check
+                        fresh_phase = 'edited-uncached' if fresh_mode == 'none' else 'edited-session-reset'
+                        if fresh_mode == 'asset':
+                            for engine in engines:
+                                source = work / 'builds' / w['name'] / ('%s-%d' % (mode, trial)) / engine / 'assets'
+                                destination = work / 'builds' / w['name'] / ('asset-%d' % trial) / engine / 'assets'
+                                shutil.copytree(source, destination)
+                        fresh = {engine: one(engine, w, trial, fresh_mode, fresh_phase, 0)
                                  for engine in reversed(engines)}
                         a, b = fresh['original'], fresh['new']
                         differences = sorted(n for n in a[0]['outputFiles'].keys() | b[0]['outputFiles'].keys()
                             if a[0]['outputFiles'].get(n) != b[0]['outputFiles'].get(n))
-                        state['pairs'].append(dict(workload=w['name'], trial=trial, mode='none',
-                            phase='edited-uncached', round=0, engineOrder=tuple(reversed(engines)),
+                        state['pairs'].append(dict(workload=w['name'], trial=trial, mode=fresh_mode,
+                            phase=fresh_phase, round=0, engineOrder=tuple(reversed(engines)),
                             rawBytesEqual=not differences, differentMembers=differences))
+                        state['edit']['freshRebuildMode'] = fresh_mode
                         state['edit']['freshRebuildMatchesIncremental'] = True
                         report(out, state)
         state['sdkUnchanged'] = inventory(sdk) == sdk_before

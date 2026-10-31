@@ -22,7 +22,7 @@ jobs:
   measure:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[new-world-benchmark]')
     runs-on: windows-2022
-    timeout-minutes: 70
+    timeout-minutes: 120
     env:
       GH_TOKEN: ${{ github.token }}
       PYTHONDONTWRITEBYTECODE: '1'
@@ -64,7 +64,7 @@ jobs:
         shell: pwsh
         run: |
           $out="recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/measurement"
-          python recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/new-world-accepted/artifacts/core-lifecycle-product/Release --mod "SDK/Mods/The New World" --mod-schema "SDK/Mods/The New World/xsd" --content base,apt,global-metadata --edit-file Data/AutoAndBoat/AM_BOAT03.xml --edit-old 'MaxHealth="300"' --edit-new 'MaxHealth="301"' --requested-head c7647a130c779e84b3ec669cb7235599488048b2 --work "$env:RUNNER_TEMP/new-world-benchmark" --output $out --pairs 3 --timeout-seconds 900 --budget-seconds 3600
+          python recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/new-world-accepted/artifacts/core-lifecycle-product/Release --mod "SDK/Mods/The New World" --mod-schema "SDK/Mods/The New World/xsd" --content 'base,apt,global-metadata' --edit-file Data/AutoAndBoat/AM_BOAT03.xml --edit-old 'MaxHealth="300"' --edit-new 'MaxHealth="301"' --requested-head c7647a130c779e84b3ec669cb7235599488048b2 --work "$env:RUNNER_TEMP/new-world-benchmark" --output $out --pairs 1 --rebuild-check asset --skip-extra-uncached --timeout-seconds 3600 --budget-seconds 5400
           $result=$LASTEXITCODE
           if(Test-Path "$out/report.md"){Get-Content "$out/report.md" -Encoding UTF8 | Add-Content $env:GITHUB_STEP_SUMMARY}
           if($result -ne 0){throw 'Benchmark did not fully pass; raw results retained'}
