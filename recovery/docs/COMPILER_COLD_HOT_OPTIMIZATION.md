@@ -1,6 +1,6 @@
 # 编译器冷、热缓存性能优化
 
-本轮从 `recovery/legacy-sdk-cache` / `665468cb` 拉出 `perf/compiler-cold-hot-cache`，范围是编译器冷缓存与热缓存的主要重复工作。第一轮生产源码 `4d732a14` 已完成验收与同机测量。深入分析后继续实现第二组，第二组 `d3b3150f` 也已完整验收。远端同期合入FLA支持后，已同步 `074bf768`，最终组合源码为 `e2dba3c321504752438b4e940d651bbfcdb58fff`，已通过含真实FLA/AS的完整组合验收；正在以最新UI基线进行最终同机计量，第一轮数据不代表最终组合收益。
+本轮从 `recovery/legacy-sdk-cache` / `665468cb` 拉出 `perf/compiler-cold-hot-cache`，范围是编译器冷缓存与热缓存的主要重复工作。第一轮生产源码 `4d732a14` 已完成验收与同机测量。深入分析后继续实现第二组，第二组 `d3b3150f` 也已完整验收。远端同期合入FLA支持后，已同步 `074bf768`，最终组合源码为 `e2dba3c321504752438b4e940d651bbfcdb58fff`，已通过含真实FLA/AS的完整组合验收；最新UI基线的最终同机吞吐已取得，原始MOD全通过；扩容正式吞吐完整、追加detailed因预算终止。第一轮数据单独保留。
 
 ## 最终组合实测（最新UI基线）
 
@@ -10,8 +10,10 @@
 | --- | --- | ---: | ---: | ---: |
 | 完整原始Upheaval | 冷态 | 36.723 | 33.501 | 8.78% |
 | 完整原始Upheaval | 热态 | 2.273 | 1.691 | 25.63% |
+| 完整Upheaval+49,152 Armor | 冷态 | 70.806 | 61.259 | 13.48% |
+| 完整Upheaval+49,152 Armor | 热态 | 10.099 | 6.594 | 34.71% |
 
-扩容最终组41171623163仍在运行；表格未借用旧基线结果。全部已完成样本发布原字节一致。另有无缓存冷单样本34.411→32.182秒，不混默认中位数。首个基线冷40.997秒及其他较慢样本保留；OS页缓存未控，有限样本不作通用保证。
+扩容[41171623163](https://github.com/wu162/NewSdk/actions/runs/41171623163)完成所有18个默认off正式样本与2个无缓存补充样本，发布原字节均一致；随后基线detailed冷态因剩余43.12秒预算超时，总720.03秒，运行整体failed、候选detailed与最终输入库存复查未执行。未降门槛或把整组标passed；[原计量](../evidence/refactor/cache-paired/41171623163-1/measurement.json)、[分范围审核](../evidence/refactor/cache-paired/41171623163-1/review.json)、[归档身份](../evidence/refactor/cache-paired/41171623163-1/archive.json)保留完整失败。上表扩容只引用已全部完成的off正式吞吐，输入按脚本只读合同保持同一树，不冒称补齐详细归因。另有无缓存冷单样本34.411→32.182秒，不混默认中位数。首个基线冷40.997秒及其他较慢样本保留；OS页缓存未控，有限样本不作通用保证。
 
 ## 优先级与实现
 
@@ -110,6 +112,6 @@
 | 第二组源码 | `d3b3150fba886708cf3e34fcce3ec55d145e27a8`：512字符XML哈希缓冲、Schema事实预分类、删除纯写FileConfigs |
 | 第二组 Windows | [41167799236](https://github.com/wu162/NewSdk/actions/runs/41167799236) success；[原归档/十文件/两ZIP](../evidence/refactor/cache-paired/acceptance-41167799236/archive.json)重新下载核对 |
 | 最新分支组合 | 已同步FLA基线074bf768；组合e2dba3c3，[41169755141](https://github.com/wu162/NewSdk/actions/runs/41169755141)全success，含真实FLA/AS；[归档/十文件/两ZIP](../evidence/refactor/cache-paired/acceptance-41169755141/archive.json)已下载复算 |
-| 第二组同机最终收益 | 待新验收成功后，以相同负载重新配对，不沿用第一轮速度比例 |
+| 最终组合吞吐 | 原始41171620746全通过；扩容41171623163正式off全部完成、额外detailed预算超时，运行failed保留；以上表为准 |
 
 [深入源码分析](COMPILER_CACHE_SOURCE_ANALYSIS.md)记录新打点、优先级、已实施和暂缓方案、兼容边界及后续验证。失败/旧运行与所有较慢样本保留。未经用户明确批准不得合并，禁止强推。

@@ -2,7 +2,7 @@
 
 本轮入口为 `recovery/legacy-sdk-cache` / `665468cb`，成果分支 `perf/compiler-cold-hot-cache`、[PR #38](https://github.com/wu162/NewSdk/pull/38)。先据真实计时定位，再决定改动；以下阶段耗时用于排序，不能直接当作可节省时间或端到端收益。
 
-第一轮生产源码 `4d732a14` 的 [Windows 41165490728](https://github.com/wu162/NewSdk/actions/runs/41165490728) 已完整成功。第二轮源码 `d3b3150f` 已提交，[Windows 41167799236](https://github.com/wu162/NewSdk/actions/runs/41167799236) 已完整success，原归档已复算；随后同步074bf768的组合e2dba3c3已通过[41169755141](https://github.com/wu162/NewSdk/actions/runs/41169755141)完整验收（含真实FLA/AS），最终同机计量进行中；不以第一轮成功替代第二轮验收。完整原始 MOD 与扩容 MOD 的同机测量也分别报告，详见[优化与计量说明](COMPILER_COLD_HOT_OPTIMIZATION.md)。
+第一轮生产源码 `4d732a14` 的 [Windows 41165490728](https://github.com/wu162/NewSdk/actions/runs/41165490728) 已完整成功。第二轮源码 `d3b3150f` 已提交，[Windows 41167799236](https://github.com/wu162/NewSdk/actions/runs/41167799236) 已完整success，原归档已复算；随后同步074bf768的组合e2dba3c3已通过[41169755141](https://github.com/wu162/NewSdk/actions/runs/41169755141)完整验收（含真实FLA/AS），最终同机原始MOD冷/热耗时减少8.78%/25.63%；扩容正式吞吐减少13.48%/34.71%，但追加detailed预算超时、整组failed保留，见主报告的范围审核；不以第一轮成功替代第二轮验收。完整原始 MOD 与扩容 MOD 的同机测量也分别报告，详见[优化与计量说明](COMPILER_COLD_HOT_OPTIMIZATION.md)。
 
 ## 当前主次与计时边界
 
