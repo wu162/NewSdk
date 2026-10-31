@@ -27,9 +27,7 @@ on:
       - 'recovery/scripts/TestCompilerTexture.ps1'
       - 'recovery/scripts/TestTextureCommonFormats.ps1'
       - 'recovery/scripts/GenerateTextureFixtures.py'
-      - 'recovery/scripts/PrepareTextureOracle.ps1'
       - 'recovery/tests/TextureCommonFormats.cs'
-      - 'recovery/tests/TextureOriginalIdentityPlugin.cs'
       - 'recovery/scripts/TestApp.ps1'
       - 'recovery/scripts/BuildApp.ps1'
       - 'recovery/tests/App/**'
@@ -110,15 +108,10 @@ jobs:
       - name: Install pinned mixed PE audit and App protocol dependencies
         shell: pwsh
         run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
-      - name: Preflight original texture identity oracle and common fixture generation
+      - name: Preflight common texture fixture generation
         if: ${{ env.CLI_REUSE != 'true' }}
         shell: pwsh
         run: |
-          . ./recovery/scripts/PrepareTextureOracle.ps1
-          $oracle=New-Item -ItemType Directory "$env:RUNNER_TEMP/texture-oracle-preflight"
-          foreach($name in @('Core','Utility','TextureCompiler')){Copy-Item "SDK/tools/BinaryAssetBuilder.$name.dll" $oracle}
-          [xml]$config=Get-Content SDK/tools/BinaryAssetBuilder.exe.config -Raw
-          $null=Enable-TextureOracleIdentity -Configuration $config -OracleDirectory $oracle.FullName -EvidenceDirectory "$env:RUNNER_TEMP/texture-oracle-preflight-evidence"
           python recovery/scripts/GenerateTextureFixtures.py "$env:RUNNER_TEMP/texture-common-preflight"
           if($LASTEXITCODE -ne 0){throw 'Common texture fixture preflight failed'}
       - name: Download and strictly verify accepted historical CLI runtimes
@@ -231,7 +224,7 @@ jobs:
         shell: pwsh
         run: |
           foreach($mode in @('Debug','Release')) {
-            ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerBackendLifecycle/result.json" -OutputDirectory "recovery/evidence/refactor/core-backend-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180 -AlignTextureIdentity
+            ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerBackendLifecycle/result.json" -OutputDirectory "recovery/evidence/refactor/core-backend-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180
           }
       - name: Validate actual application JSONL and reports against protocol schemas
         if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}

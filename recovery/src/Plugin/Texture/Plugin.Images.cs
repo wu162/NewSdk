@@ -8,7 +8,14 @@ namespace Recovered.Compiler.Texture
     public partial class Plugin
     {
         private static readonly Tracer ImageTracer = Tracer.GetTracer("TextureCompiler", "Provides Texture Processing");
-        private AssetBuffer CompileTexture(InstanceDeclaration declaration, bool onDemand)
+        // This method is called only by the owner for prepared worker messages.
+        internal void EmitPreparedTrace(bool warning, string message)
+        {
+            if (warning) ImageTracer.TraceWarning(message);
+            else ImageTracer.TraceInfo(message);
+        }
+        private AssetBuffer CompileTexture(InstanceDeclaration declaration, bool onDemand,
+            Action<string> warning, Action<string> information)
         {
             string file = declaration.XmlNode.Attributes["File"].Value;
             if (file.EndsWith(".dds", StringComparison.OrdinalIgnoreCase)) return CompileDds(declaration, onDemand);
@@ -28,13 +35,13 @@ namespace Recovered.Compiler.Texture
             AssetBuffer result = new AssetBuffer { InstanceData = new byte[onDemand ? 8 : 12],
                 RelocationData = new byte[0], ImportsData = new byte[0] };
             bool valid = TextureImageRules.IsValidTexture((uint)image.Width, (uint)image.Height,
-                declaration.Handle.InstanceName, delegate(string message) { ImageTracer.TraceWarning(message); });
+                declaration.Handle.InstanceName, warning);
             if (valid)
             {
                 byte[] rgba = ImageBytes(image);
                 format = TextureImageRules.GuessProperFormat((uint)image.Width, (uint)image.Height,
                     rgba, image.HasAlpha, format, declaration.Handle.InstanceName,
-                    delegate(string message) { ImageTracer.TraceInfo(message); });
+                    information);
                 switch (textureType)
                 {
                     case "CubeTexture":

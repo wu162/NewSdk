@@ -6,12 +6,10 @@ param(
     [ValidateRange(15,600)][int]$TimeoutSeconds=180,
     [ValidateRange(1,3)][int]$ExpectedCaseCount=2,
     [string]$CacheExportDirectory,
-    [switch]$CompressedCacheExport,
-    [switch]$AlignTextureIdentity
+    [switch]$CompressedCacheExport
 )
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/CompilerCliOutputs.ps1"
-. "$PSScriptRoot/PrepareTextureOracle.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $FixtureResult=(Resolve-Path -LiteralPath $FixtureResult).Path
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite original backend baseline evidence: $OutputDirectory"}
@@ -201,9 +199,6 @@ try {
             if(!$startup){$startup=$configuration.CreateElement('startup');$configuration.configuration.AppendChild($startup)|Out-Null}
             $startup.RemoveAll();$startup.SetAttribute('useLegacyV2RuntimeActivationPolicy','true')
             $runtime=$configuration.CreateElement('supportedRuntime');$runtime.SetAttribute('version','v4.0');$startup.AppendChild($runtime)|Out-Null
-            if($AlignTextureIdentity){
-                $caseState.textureIdentityAlignment=Enable-TextureOracleIdentity -Configuration $configuration -OracleDirectory $oracle -EvidenceDirectory (Join-Path $caseOut 'texture-identity')
-            }
             $configuration.Save($configPath)
             Copy-Item -LiteralPath $configPath -Destination (Join-Path $caseOut 'original-effective.config')
             New-Item -ItemType Directory -Path $streams,$intermediate,$hashes,$cache|Out-Null
@@ -224,7 +219,7 @@ try {
             $caseState.originalExeSha256=Hash $exe;$caseState.originalConfigSha256=Hash (Join-Path $tools 'BinaryAssetBuilder.exe.config')
             $caseState.effectiveConfigSha256=Hash $configPath
             $caseState.runtimeInputs=@(Inventory $oracle)
-            $caseState.effectiveSettings=@{schema=$schema;dataRoot=$dataRoot;defaultDataPaths=$data;defaultArtPaths=$art;defaultAudioPaths=$audio;targetPlatform='Win32';sessionCache=[bool]$CacheExportDirectory;buildCache=[bool]$CacheExportDirectory;partialSessionCache=[bool]$CacheExportDirectory;compressedSessionCache=([bool]$CacheExportDirectory -and [bool]$CompressedCacheExport);precompiled=$true;resident=$false;linked=$true;stableSort=$true;outputStringHashes=$false;outputAssetReport=$false;scope='Same normalized Core settings for this selected fixture stream; original built-in codecs/layout retained; optional source Texture identity override recorded separately'}
+            $caseState.effectiveSettings=@{schema=$schema;dataRoot=$dataRoot;defaultDataPaths=$data;defaultArtPaths=$art;defaultAudioPaths=$audio;targetPlatform='Win32';sessionCache=[bool]$CacheExportDirectory;buildCache=[bool]$CacheExportDirectory;partialSessionCache=[bool]$CacheExportDirectory;compressedSessionCache=([bool]$CacheExportDirectory -and [bool]$CompressedCacheExport);precompiled=$true;resident=$false;linked=$true;stableSort=$true;outputStringHashes=$false;outputAssetReport=$false;scope='Same normalized Core settings for this selected fixture stream; original built-in plugin routes, codec, layout and metadata retained'}
             $caseState.process=InvokeOriginal $exe $arguments $sdk $caseOut
             $actual=@(Get-ChildItem -LiteralPath $streams -File -Recurse)
             $expectedTextures=@($case.expectedTextures|Where-Object{$null -ne $_})

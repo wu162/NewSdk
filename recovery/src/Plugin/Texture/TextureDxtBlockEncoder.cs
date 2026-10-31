@@ -5,7 +5,6 @@ namespace Recovered.Compiler.Texture
     // Complete 4x4 PC Production=71 DXT3/DXT5 and transparent-block DXT1A. No DDS/image/plugin routing.
     public static class TextureDxtBlockEncoder
     {
-        internal static readonly object ColourLock = new object();
         public static byte[] EncodeBlock(byte[] rgba, string format)
         {
             if (rgba == null) throw new ArgumentNullException("rgba");

@@ -4,8 +4,13 @@
 implements `Texture`, `OnDemandTexture` and `TerrainTextureAtlas` without loading
 `BinaryAssetBuilder.TextureCompiler.dll` or any replacement codec DLL. The S3
 native implementation is linked into the same EXE and called through
-`recovery/src/Bridge/TextureCompiler.cpp`. Texture work remains serialized because
-the public S3 implementation contains process-wide mutable encoder state.
+`recovery/src/Bridge/TextureCompiler.cpp`. All three texture routes now prepare
+read-only input leases and a header-based memory budget on the owner, then decode
+and encode on workers. S3 scratch, interpolation policy and lazy tables use native
+thread-local storage; per-call managed buffers and GDI+ objects are not shared.
+Diagnostics are collected per work item and replayed by the owner in commit order.
+Unavailable leases, unrecognized image headers or insufficient budget fall back
+to the owner. This concurrency change awaits a new Windows acceptance run.
 
 Common input/output coverage:
 
@@ -30,8 +35,13 @@ DXT3/5 float and partial-block handling. Managed DXT1/DXT1A provide deterministi
 standard BC1 output for common opaque and alpha inputs, including blocks the
 reference recovery branch did not support. These new BC1 bytes and GDI+/PPM
 expanded inputs do not claim byte identity with the legacy native compiler.
-Plugin version `4300` and new processing hashes invalidate old texture cache
-entries while leaving runtime type hashes and asset layouts unchanged.
+The original plugin version `4202`, runtime type hashes and asset layouts are
+preserved. ProcessingHash values also remain exactly those of the original DLL:
+`Texture=2673862832`, `OnDemandTexture=4165508788`,
+`TerrainTextureAtlas=1182597302`. Switching implementations does not create a new
+cache identity or clear existing outputs. Use clean or independent session,
+asset-cache and intermediate directories when comparing implementations so
+existing BC1 results are not reused across different encoders.
 
 Source origin: [`recovery/texturecompiler-source` at
 `b30dffac5aeb027cf37a6dac0cd47beafe9fbea0`](https://github.com/wu162/NewSdk/tree/b30dffac5aeb027cf37a6dac0cd47beafe9fbea0/src/TextureCompiler).
@@ -44,7 +54,8 @@ BMP/DIB palette, packed indices, padded rows and top-down/bottom-up storage. Pub
 patch notes are preserved in `recovery/src/Native/Texture/PublicS3`.
 
 Build the S3 native translation unit with `/arch:SSE2 /fp:strict`. Windows x86
-Actions must validate the linked plugin, common formats and the existing legacy
+Actions must validate serial/parallel complete payloads, unchanged original
+metadata, the linked plugin, common formats and the existing legacy
 comparison/SDK checks; a successful source build alone is not a byte-comparison
 receipt. JPEG output depends on the Windows GDI+ codec and may differ from the
 reference IJG codec. No original-DLL fallback is present.

@@ -99,8 +99,11 @@
 #define STATIC 
 */
 
-#define STATIC_ARR static
-#define STATIC static
+// Retain static storage lifetime, zero initialization and addressable double
+// stores from the accepted scalar implementation. Each native worker owns its
+// scratch/cache; changing these to automatic storage would alter that contract.
+#define STATIC_ARR static thread_local
+#define STATIC static thread_local
 
 
 
@@ -139,7 +142,7 @@ extern void S3StageTrace(const char*, int, const double*);
 #else
 #define S3_TRACE(name,n,p) ((void)0)
 #endif
-static int LegacyInterpolationPolicy=0;
+static thread_local int LegacyInterpolationPolicy=0;
 void SetLegacyS3InterpolationPolicy(int policy){LegacyInterpolationPolicy=policy;}
 #define UNCLIPPED_ITERATION_LIMIT 16
 
@@ -1377,26 +1380,27 @@ static double allSame(int *nColors, int n, double (*q)[3], double weight[3],
 				   endpoint, one half, one third 
 				   representations 			    */
 
-    static struct gridPoint_ {
+    struct gridPoint_ {
 	unsigned char valid;	/* if set, the value (defined by first index)
 				   in the channel (defined by the second index)
 				   is represetable with the coefficient defined
 				   by the third index.			    */
 	unsigned char point[2];	/* endpoints to interpolate on, if the 
 				   value is represetable		    */
-    } grids[2][256][3][3];		/* first index	- value of the channel
+    };
+    static thread_local gridPoint_ grids[2][256][3][3];		/* first index	- value of the channel
 				   second index	- cannel (color), RGB
 				   third index	- representation type: 
 				   endpoint, one half, one third 	    */
     
     gridPoint_ (*grid)[3][3] = grids[LegacyInterpolationPolicy & 1];
-    static int initFlags[2]={0,0};
+    static thread_local int initFlags[2]={0,0};
     int &initFlag=initFlags[LegacyInterpolationPolicy & 1];
     /* set if the table has been initialized    */
-    static int size[3] = {5,6,5};   
+    static const int size[3] = {5,6,5};
 				/* with in bits of the RGB values for S3TC  
 				   endpoints				    */ 
-    static int intCoeff[3][4] =
+    static const int intCoeff[3][4] =
 	{{1, 0, 0, 1},{1, 1, 0, 2},{1, 2, 1, 3}};
 				/* array of interpolation coeffitients to get
 				   "endpoint", "one half", and "one third"
@@ -1592,7 +1596,7 @@ static double mapAndRoundMult(int *nColors, bool bForce4, int levelLimit, int n,
     double weight[3], double endPointIn[2][3], int endPointOut[2][3], 
     int index [MAX_PIXEL_PER_BLOCK]) {
 
-    static int	mapNumber[2][3] = 
+    static const int	mapNumber[2][3] =
 	{{2, 0, 0}, {6, 2, 0}} ;
 				/* Array holding number of additional different
 				   mappings of short ramps (2 and 3 colors) to 
@@ -1603,7 +1607,7 @@ static double mapAndRoundMult(int *nColors, bool bForce4, int levelLimit, int n,
 					        - 1 mapping to 4 level ramp	
 				   second index - <(input) nColors - 2>	    */
 
-    static double mapCoeff[2][2][6][2][2] =
+    static const double mapCoeff[2][2][6][2][2] =
 				/* Array of coefficients to generate endpoint
 				   colors for mapping short ramps (2 and 3 
 				   colors) to longer ramps.

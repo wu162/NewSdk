@@ -31,7 +31,7 @@ namespace Recovered.Compiler.Texture
             for(int i=0;i<count;i++)for(int c=0;c<3;c++)PutDouble(state,0x10+(i*3+c)*8,rgba[i*4+c]);
             // Original default block area stays 16 even for partial blocks.
             PutDouble(state,0x3010,16);PutDouble(state,0x3018,(double)0.3086f);PutDouble(state,0x3020,(double)0.6094f);PutDouble(state,0x3028,(double)0.082f);PutInt(state,0x3030,71);
-            lock(TextureDxtBlockEncoder.ColourLock){int status=Colour(state,state.Length,0);if(status!=0)throw new InvalidOperationException("Colour state rejected: "+status);}
+            int status=Colour(state,state.Length,0);if(status!=0)throw new InvalidOperationException("Colour state rejected: "+status);
             if(BitConverter.ToInt32(state,0x3034)!=4)throw new InvalidOperationException("DXT3/5 requires four colour levels.");
             ushort first=Pack565(state,0x3038),second=Pack565(state,0x3044);int[] indices=new int[count];
             for(int i=0;i<count;i++)indices[i]=BitConverter.ToInt32(state,0x3050+i*4);
@@ -78,7 +78,7 @@ namespace Recovered.Compiler.Texture
         private static byte[] InterpolatedAlpha(float[] rgba,int width,int height)
         {
             int count=width*height,numLevels;int[] endpoints=new int[2],resultIndices=new int[count];
-            lock(TextureDxtBlockEncoder.ColourLock){if(PublicAlpha(rgba,count,endpoints,resultIndices,out numLevels)!=0)throw new InvalidOperationException("Public S3 alpha input rejected.");}
+            if(PublicAlpha(rgba,count,endpoints,resultIndices,out numLevels)!=0)throw new InvalidOperationException("Public S3 alpha input rejected.");
             int low=endpoints[0],high=endpoints[1];
             if(low==high){high++;numLevels=6;Array.Clear(resultIndices,0,count);}
             bool swap=(low>high)==(numLevels==6);if(swap){int tmp=low;low=high;high=tmp;}

@@ -6,13 +6,13 @@
 
 `--jobs auto|<正整数>` 默认 auto，表示 CPU 和当前 Win32 可用内存共同约束的 worker 上限；`--jobs 1` 保留 owner 串行对照，`--jobs 4` 允许最多四个已认证后端任务。三个 profile、plan/build 和 `newmodcompiler.json` 的 `"jobs": "auto"` 或整数均支持。修改 jobs 不改变原缓存身份。
 
-并行资格包括 GameObject、WeaponTemplate、ArmorTemplate、W3DAnimation/W3DMesh、精确内建编码器的 NONE/XAS AudioFile（无显式 PCSampleRate）、MP3 passthrough、284 个认证 XML metadata TypeId 和四类 APT。资源不足、外部输入无法取得只读租约、APT 非 ASCII 路径，以及未认证后端均自动走原 owner 路径。Core XML 前端、验证、缓存及输出提交保持 owner 顺序。
+并行路由包括 GameObject、WeaponTemplate、ArmorTemplate、W3DAnimation/W3DMesh、精确内建编码器的 NONE/XAS AudioFile（无显式 PCSampleRate）、MP3 passthrough、284 个认证 XML metadata TypeId、四类 APT，以及本轮接入的 `Texture`、`OnDemandTexture`、`TerrainTextureAtlas`。纹理在 owner 准备只读输入租约并按图像尺寸、DDS 长度或图集工作量计入预算，解码和编码在 worker 执行；S3 临时状态与懒初始化表按线程隔离。资源不足、输入租约失败、纹理头无法识别、APT 非 ASCII 路径或未认证后端回到 owner。Core XML 前端、验证、缓存、诊断与输出提交保持 owner 顺序；本轮纹理并行尚待新的 Windows 验收。
 
-默认 `/sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false` 不变，Texture 继续使用原 SDK 缓存布局；新源码插件更新了处理身份，首次使用会重建旧纹理缓存，随后按原冷热/失效规则复用。无需关闭 SessionCache 来使用多 worker。`--sc=false --bc=false --jobs 1|4` 可作纯冷态吞吐对照。没有新增动作缓存、额外持久结果或文件哈希体系。
+默认 `/sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false` 不变，Texture 继续使用原 SDK 缓存布局，插件版本 `4202` 和三个 ProcessingHash 保留原 DLL 值。工具不会因切换实现自动清理缓存或更换身份；BC1 编码字节可能与既有产物不同，切换时可选择干净或独立的会话、资产及中间目录。无需关闭 SessionCache 来使用多 worker。`--sc=false --bc=false --jobs 1|4` 可作纯冷态吞吐对照。没有新增动作缓存、额外持久结果或文件哈希体系。
 
 ## 1. 安装与检查
 
-本分支新构建将 Texture 编译器源码内建到 EXE，ZIP 只有三个运行文件：`NewModCompiler.exe`、`NewModCompiler.exe.config`、`antlr.runtime.dll`。完整解压到单独目录，保留三个文件。已验收的[三文件产物归档](https://github.com/wu162/NewSdk/actions/runs/41180859852/artifacts/13035436860)中，Release 包位于 `artifacts/final-release/41180859852-1/NewModCompiler-Win32-Release.zip`（源码 `4c74bf64b`）；[范围与原收据](docs/TEXTURE_PLUGIN.md)。历史五文件包仍可从 [功能验收归档40915444929](https://github.com/wu162/NewSdk/actions/runs/40915444929/artifacts/12916669037) 内 `artifacts/final-release/40915444929-1/NewModCompiler-Win32-Release.zip` 获取（生产源码6d39f833）；该包使用原 Texture DLL 和补丁清单，保留其原布局。
+本分支新构建将 Texture 编译器源码内建到 EXE，ZIP 只有三个运行文件：`NewModCompiler.exe`、`NewModCompiler.exe.config`、`antlr.runtime.dll`。完整解压到单独目录，保留三个文件。本轮身份恢复与纹理并行尚待新 Windows 验收；上一轮已验收的[三文件产物归档](https://github.com/wu162/NewSdk/actions/runs/41180859852/artifacts/13035436860)中，Release 包位于 `artifacts/final-release/41180859852-1/NewModCompiler-Win32-Release.zip`（源码 `4c74bf64b`）；[范围与原收据](docs/TEXTURE_PLUGIN.md)。历史五文件包仍可从 [功能验收归档40915444929](https://github.com/wu162/NewSdk/actions/runs/40915444929/artifacts/12916669037) 内 `artifacts/final-release/40915444929-1/NewModCompiler-Win32-Release.zip` 获取（生产源码6d39f833）；该包使用原 Texture DLL 和补丁清单，保留其原布局。
 
 目标机器需要 Windows x86 兼容环境、.NET Framework 4.8，以及与编译工具链匹配的 x86 VC 运行库。新构建的 Texture 不再需要原 DLL、VC80 CRT 或 DirectX 9/D3DX；历史五文件包仍需要这些依赖。SDK 资源和 MOD 源码单独提供；工具 ZIP 不包含完整 SDK，也不下载游戏文件。
 
@@ -126,6 +126,8 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 `/sc` 按原文档、文件依赖、定义和继承复用解析与中间结果；`/bc` 按原类型/实例哈希复用资产，包括三种 Texture 路由。修改、新增、删除 MOD 输入均交由原 Core 判断，不再将整个 SDK/MOD 内容指纹作为冷失效开关。四流按原清单/流校验和原地复用；BIG 每次重新打包。
 
 `/csc:false` 使用原 `BinaryAssetBuilder.SessionCache.xml`，true 使用 `.xml.deflate`。默认会话目录为输出根，默认资产目录为输出根 `cache`，默认中间目录与旧 SDK 一样为输出根。`/scd`（别名 `/scp`）、`/bcd`（别名 `/bcp`）、`/iod` 可指定独立目录，支持读取原 SDK 格式；新宿主的 CDATA 状态保存在会话根 `.NewModCompiler/cdata`，可导入没有新侧车的旧目录。以上设置也可保存到项目预设。
+
+切换原 DLL 与源码纹理实现时，可选新的 `--out` 并保留默认缓存路径；若项目显式共享缓存，则用 `/scd`、`/bcd`、`/iod` 分别指定新的独立目录。原版本与 ProcessingHash 保持不变，既有 BC1 产物可能直接命中；干净目录可避免混用不同实现的编码结果。构建器不引入额外指纹、缓存代次或自动清理。
 
 `/psc:true` 允许中止后保留已完成的会话工作，失败或取消仍返回失败/取消。`/psc:false` 不在失败流中保存部分会话；成功流的会话保存与日志/报告输出解耦。`/fsc:true` 读取旧会话但不更新会话文件，资产与中间文件仍按原 Core 行为处理。`/atc:true` 即使复用中间资产也更新对应网络资产缓存文件的时间。详细实现与验证状态见 [原 SDK 缓存恢复说明](docs/LEGACY_INCREMENTAL_CACHE.md)。
 

@@ -10,14 +10,24 @@ namespace Recovered.Compiler.Texture
         // Original ProcessInstance switches on Handle.TypeId, never XML element name.
         public virtual AssetBuffer ProcessInstance(InstanceDeclaration declaration)
         {
+            return ProcessInstance(declaration,
+                delegate(string message) { EmitPreparedTrace(true, message); },
+                delegate(string message) { EmitPreparedTrace(false, message); });
+        }
+
+        // Worker callers collect diagnostics locally; the owner emits them after
+        // joining this call, before committing its asset or reporting its failure.
+        internal AssetBuffer ProcessInstance(InstanceDeclaration declaration,
+            Action<string> warning, Action<string> information)
+        {
             Alive();
             if (!initialized) throw new InvalidOperationException("Texture plugin must first be initialized.");
             if (declaration == null) throw new ArgumentNullException("declaration");
             TextureCatalog.RequireWin32(_Platform);
             switch (declaration.Handle.TypeId)
             {
-                case TextureCatalog.TextureTypeId: return CompileTexture(declaration, false);
-                case TextureCatalog.OnDemandTextureTypeId: return CompileTexture(declaration, true);
+                case TextureCatalog.TextureTypeId: return CompileTexture(declaration, false, warning, information);
+                case TextureCatalog.OnDemandTextureTypeId: return CompileTexture(declaration, true, warning, information);
                 case TextureCatalog.TerrainTextureAtlasTypeId:
                     return CompileAtlas(declaration);
                 default:

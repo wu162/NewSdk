@@ -21,7 +21,7 @@ namespace Recovered.Compiler.Texture
         public static uint Version(TargetPlatform platform)
         {
             RequireWin32(platform);
-            return 4300u;
+            return 4202u;
         }
 
         public static ExtendedTypeInformation TypeInformation(uint typeId, TargetPlatform platform)
@@ -35,18 +35,18 @@ namespace Recovered.Compiler.Texture
                 case TextureTypeId:
                     result.TypeName = "Texture";
                     result.TypeHash = 2673866970u;
-                    result.ProcessingHash = 2673862832u ^ 0x54580001u;
+                    result.ProcessingHash = 2673862832u;
                     break;
                 case OnDemandTextureTypeId:
                     result.TypeName = "OnDemandTexture";
                     result.TypeHash = 4165504734u;
-                    result.ProcessingHash = 4165508788u ^ 0x54580001u;
+                    result.ProcessingHash = 4165508788u;
                     result.HasCustomData = true;
                     break;
                 case TerrainTextureAtlasTypeId:
                     result.TypeName = "TerrainTextureAtlas";
                     result.TypeHash = 417928170u;
-                    result.ProcessingHash = 1182597302u ^ 0x54580001u;
+                    result.ProcessingHash = 1182597302u;
                     break;
             }
             return result;

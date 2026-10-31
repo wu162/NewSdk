@@ -7,8 +7,12 @@
 `Texture`、`OnDemandTexture`、`TerrainTextureAtlas` 直接编入 EXE。
 运行目录只有 `NewModCompiler.exe`、`NewModCompiler.exe.config` 和
 `antlr.runtime.dll`，不再生成或加载原纹理 DLL、补丁清单或独立纹理 codec DLL。
-原 `SDK/tools` 二进制保留为隔离对照输入。纹理处理仍在 owner 线程执行；S3
-源码有共享状态，未新增 worker 资格。
+原 `SDK/tools` 二进制保留为隔离对照输入。三种纹理路由现已接入 worker：owner
+只准备只读文件/目录租约并按输入头、DDS 长度及图集工作量预算，解码、过滤和
+编码在 worker 执行。S3 scratch、插值策略及懒初始化表改为线程局部存储，
+托管临时数组和 GDI+ 图像对象按调用独有；诊断按任务收集，由 owner 按提交顺序
+输出。租约不可用、头部无法识别或预算不足时回到 owner，不在编码阶段加全局锁。
+本轮身份恢复与并行改动尚待新的 Windows 组件、生产 CLI、SDK 和 ZIP 验收。
 
 | 输入 | 处理 |
 | --- | --- |
@@ -29,21 +33,37 @@ DXT3/5 链接参考分支的公开 S3 源码及其兼容适配；DXT1/1A 使用�
 来源、源文件指纹及原代码修改记录见
 [源码说明](../src/Plugin/Texture/README.md) 和相邻 `SOURCE.json`。
 
-插件版本改为 `4300`，三个 ProcessingHash 分别对原值异或 `0x54580001`，
-使旧纹理缓存失效；运行时 TypeHash 和资产布局保持原合同。完整流对照的隔离
-原版进程通过测试专用 wrapper 对齐这两个有意改变的身份字段，仍由固定原 DLL
-执行 `ProcessInstance`，四流和 CDATA 原字节比较不作归一化。wrapper、catalog、
-原 DLL 及 Core 的身份均记录在独立收据中，未写入 SDK 或生产产品。
+插件版本保留原 DLL 的 `4202`，运行时 TypeHash、资产布局及三个 ProcessingHash
+均保留原值：
+
+| 路由 | ProcessingHash |
+| --- | ---: |
+| Texture | 2673862832 |
+| OnDemandTexture | 4165508788 |
+| TerrainTextureAtlas | 1182597302 |
+
+原版隔离进程使用原始插件路由与元数据；Texture 组件对照比较含版本行的完整
+原始转录，四流和 CDATA 保持原字节比较。当前不再使用测试专用身份 wrapper。
+
+由于原身份保持不变，旧缓存中的 BC1 编码结果可能被直接复用。切换纹理实现
+或进行实现对照时，可使用干净的输出目录，或通过 `/scd`、`/bcd`、`/iod` 指定
+独立的会话、资产缓存和中间目录，避免混用不同编码实现的既有产物。没有新增
+缓存指纹、缓存代次或自动清理；正常冷热复用仍按原 Core 合同执行。
 
 ## 验证入口
 
-- `TestCompilerTexture.ps1`：三种路由的原版三缓冲/CDATA/错误对照，失败后复用。
+- `TestCompilerTexture.ps1`：三种路由的原版完整元数据/三缓冲/CDATA/错误对照，失败后复用。
 - `TestTextureCommonFormats.ps1`：常见输入、独立 DDS/BC 解码、全部 mip 层、
   中文路径、DDS 直通和真实七资产 CLI 冷热/单图失效/独立重建/缺图重试。
+- `CompilerPreparedBackend.cs` / `TestCompilerParallel.py`：三路纹理准备、输入租约、
+  预算回退、串行/并行完整输出、worker 执行及诊断顺序的生产对象验证。
 - Core lifecycle 工作流：Debug/Release、新生产对象、CLI/取消、缓存、完整
   mymod 原版差分和独立三文件 ZIP 验收。
 
-生产/测试源码 `4c74bf64b`，
+以下为上一轮产品证据，不覆盖本轮原身份恢复、TLS 与 worker 并行改动。
+当前实现尚待新的 Windows 验收，不复用旧 EXE 冒称已验证。
+
+上一轮生产/测试源码 `4c74bf64b`，
 [Windows 41180859852](https://github.com/wu162/NewSdk/actions/runs/41180859852) 整体 **success**。
 Debug/Release 各31个常见格式组件用例、完整mip与半透明边界、中文路径及
 12个真实CLI缓存/失效/失败重试用例通过；两份组件结果原字节相同。
@@ -56,11 +76,11 @@ Debug/Release 各31个常见格式组件用例、完整mip与半透明边界、�
 发布清单与common收据，原版/恢复版纹理转录按原字节压缩保存并去重。
 [下载归档](https://github.com/wu162/NewSdk/actions/runs/41180859852/artifacts/13035436860)中
 `artifacts/final-release/41180859852-1/` 含 Debug/Release ZIP 和身份清单。
-后续仅整理文档/收据；未新增游戏内验收。
+该归档保留上一轮运行文件；当前生产改动需要重新构建验证。未新增游戏内验收。
 此前 Windows 构建、三文件部署、Core/CLI/取消、缓存、原纹理三路字节及 BIG
 差分通过；整体运行因控制器残留变量、跨扫描行 RLE 测试输入及 indexed BMP
 颜色问题失败。控制器/生成器已修正；标准 1/4/8-bit BI_RGB 调色板改为显式读取，
 原 direct-color 解码器保留。原失败记录与已下载复算的归档身份见
 [evidence/texture/plugin-validation](../evidence/texture/plugin-validation)。
 常见格式矩阵现按独立用例集中收集失败，任一失败仍拒绝整组；没有降低像素阈值
-或原始四流/CDATA 差分要求。原失败不冒充成功，最终验收使用本次新构建产品。
+或原始四流/CDATA 差分要求。原失败不冒充成功；本轮最终验收须使用恢复原身份并启用并行后的新构建产品。

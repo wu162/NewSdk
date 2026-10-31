@@ -11,7 +11,7 @@ if(Test-Path $OutputDirectory){throw "Refusing to overwrite product texture evid
 $out=(New-Item -ItemType Directory $OutputDirectory).FullName
 $work=Join-Path ([IO.Path]::GetTempPath()) ('compiler-texture-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory $work|Out-Null
-$state=@{schemaVersion=2;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';configurations=@();scope='Built-in texture payload in test-only host using identical production objects; raw original buffers/CDATA/errors, with explicitly different cache version; not production CLI MOD compilation'}
+$state=@{schemaVersion=2;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';configurations=@();scope='Built-in texture payload in test-only host using identical production objects; raw original metadata/buffers/CDATA/errors, with identical plugin version and processing hashes; not production CLI MOD compilation'}
 $oldPath=$env:PATH
 function Invoke-Fixture([string]$Command,[string[]]$Arguments,[string]$Directory,[string]$Log){
     Push-Location $Directory
@@ -55,18 +55,18 @@ try{
         try{
             Invoke-Fixture $run.exe $arguments $clean "$evidence/runtime.log"
             Assert-TextureTranscript "$evidence/source.txt"
-            $originalLines=@(Get-Content -LiteralPath "$out/original.txt")
-            $sourceLines=@(Get-Content -LiteralPath "$evidence/source.txt")
-            if($originalLines[0] -cne 'metadata:1424942948:4202' -or $sourceLines[0] -cne 'metadata:1424942948:4300'){throw 'Unexpected original/source Texture catalog version'}
-            for($i=1;$i -lt $originalLines.Count;$i++){
-                if($sourceLines[$i] -cne $originalLines[$i]){throw "$mode raw texture buffers, CustomData or input error differs from original at case $i"}
+            $originalBytes=[IO.File]::ReadAllBytes("$out/original.txt")
+            $sourceBytes=[IO.File]::ReadAllBytes("$evidence/source.txt")
+            if((Get-Content -LiteralPath "$evidence/source.txt" -TotalCount 1) -cne 'metadata:1424942948:4202'){throw 'Unexpected source Texture catalog version'}
+            if(![Linq.Enumerable]::SequenceEqual[byte]($originalBytes,$sourceBytes)){
+                throw "$mode complete Texture transcript metadata, raw buffers, CustomData or input error differs from original"
             }
         }finally{$env:PATH=$oldPath}
         Complete-CompilerValidationRun $run
-        $state.configurations+=@{configuration=$mode;passed=$true;successes=6;invalidInputErrors=3;externalTextureDll=$false;singleDispose=$true;separateOracleProcess=$true;exeSha256=$run.productExeSha256;validationHostSha256=$run.validationHostSha256;originalVersion=4202;sourceVersion=4300;originalTranscriptSha256=$baseline;sourceTranscriptSha256=(Get-FileHash "$evidence/source.txt" -Algorithm SHA256).Hash.ToLowerInvariant();componentExecution='test-only host with identical production objects; source-linked texture';textureDeployment=@{implementation='built-in-source';externalRuntimeFiles=@()}}
+        $state.configurations+=@{configuration=$mode;passed=$true;successes=6;invalidInputErrors=3;externalTextureDll=$false;singleDispose=$true;separateOracleProcess=$true;exeSha256=$run.productExeSha256;validationHostSha256=$run.validationHostSha256;originalVersion=4202;sourceVersion=4202;originalTranscriptSha256=$baseline;sourceTranscriptSha256=(Get-FileHash "$evidence/source.txt" -Algorithm SHA256).Hash.ToLowerInvariant();componentExecution='test-only host with identical production objects; source-linked texture';textureDeployment=@{implementation='built-in-source';externalRuntimeFiles=@()}}
     }
     $state.status='passed'
     $global:LASTEXITCODE=0
-    Write-Host 'PASS production-object source Texture Debug/Release: original raw payload/CustomData/errors, reuse and single-close, no external texture runtime; cache version intentionally changed; not CLI MOD compilation.'
+    Write-Host 'PASS production-object source Texture Debug/Release: original raw payload/CustomData/errors, reuse and single-close, no external texture runtime; original cache version and processing hashes preserved; not CLI MOD compilation.'
 }catch{$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally{$env:PATH=$oldPath;$state|ConvertTo-Json -Depth 14|Set-Content "$out/validation.json" -Encoding utf8;Pop-Location}

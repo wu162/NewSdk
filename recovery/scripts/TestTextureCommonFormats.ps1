@@ -28,10 +28,10 @@ function Equal-TextureOutputs($Left,$Right){
     Need ($Left.Count -eq $Right.Count) 'Common-format CLI output file counts differ'
     foreach($name in $Left.Keys){Need ($Right.ContainsKey($name) -and $Left[$name] -ceq $Right[$name]) "Common-format CLI raw output bytes differ: $name"}
 }
-function Run-TextureCli([string]$Name,[string]$Destination,[bool]$Cache=$true,[int]$Expected=0){
+function Run-TextureCli([string]$Name,[string]$Destination,[bool]$Cache=$true,[int]$Expected=0,[string]$Jobs='1'){
     $case=(New-Item -ItemType Directory -Path (Join-Path $script:cliEvidence $Name)).FullName
     New-Item -ItemType Directory -Path $Destination -Force|Out-Null
-    $arguments=@('build','--mod',$script:cliMod,'--sdk-root',$script:cliSdk,'--out',$Destination,'--package-format','loose','--package-content','base','--performance','detailed',('--sc='+$Cache.ToString().ToLowerInvariant()),('--bc='+$Cache.ToString().ToLowerInvariant()),'--iod',($Destination+'-intermediate'))
+    $arguments=@('build','--mod',$script:cliMod,'--sdk-root',$script:cliSdk,'--out',$Destination,'--jobs',$Jobs,'--package-format','loose','--package-content','base','--performance','detailed',('--sc='+$Cache.ToString().ToLowerInvariant()),('--bc='+$Cache.ToString().ToLowerInvariant()),'--iod',($Destination+'-intermediate'))
     $events=Join-Path $Destination 'build.events.jsonl';$report=Join-Path $Destination 'build-report.json'
     @{exe=$script:cliExe;cwd=$script:cliRuntime;arguments=$arguments;stdout=(Join-Path $case 'stdout.log');stderr=(Join-Path $case 'stderr.log');events=$events;cancel=$false;timeoutSeconds=$TimeoutSeconds}|ConvertTo-Json -Depth 6|Set-Content "$case/request.json"
     & $script:cliControl "$case/request.json" "$case/control.json" *> "$case/controller.log"
@@ -129,19 +129,36 @@ try{
         $cached=Join-Path $modeWork 'cached';$fresh=Join-Path $modeWork 'fresh'
         $cold=Run-TextureCli 'cold' $cached
         Need ($cold.report.cache.instanceCompile -eq 7) 'Cold common-format build did not compile all seven declared assets'
-        $warm=Run-TextureCli 'warm' $cached;Equal-TextureOutputs $cold.files $warm.files
+        $ownerThreads=@($cold.report.cache.parallel.backendIntervals.threadId|Select-Object -Unique)
+        Need ($ownerThreads.Count -eq 1) 'Common-format jobs1 owner-thread baseline differs'
+        foreach($jobs in @('4','auto')){
+            $parallelCold=Run-TextureCli ('cold-jobs'+$jobs) (Join-Path $modeWork ('cold-jobs'+$jobs)) $true 0 $jobs
+            Equal-TextureOutputs $cold.files $parallelCold.files
+            $metrics=$parallelCold.report.cache.parallel
+            Need ($parallelCold.report.cache.instanceCompile -eq 7) 'Parallel cold common-format build omitted a texture'
+            if($metrics.minimumEffectiveJobs -gt 1){
+                $intervals=@($metrics.backendIntervals|Where-Object{$_.typeName -in @('Texture','OnDemandTexture')})
+                Need ($intervals.Count -eq 7 -and @($intervals|Where-Object{$_.threadId -in $ownerThreads}).Count -eq 0) 'Admitted common-format texture calls did not execute on workers'
+            }
+        }
+        $warm=Run-TextureCli 'warm-jobs-switch' $cached $true 0 '4';Equal-TextureOutputs $cold.files $warm.files
         Need ($warm.report.cache.instanceCompile -eq 0 -and $warm.report.cache.documentReuse -gt 0) 'Warm common-format build did not reuse compiled assets'
         $image="$cliMod/Data/opaque.tga";$stamp=[IO.File]::GetLastWriteTimeUtc($image);$before=[IO.File]::ReadAllBytes($image);$before[18]=$before[18] -bxor 127
         [IO.File]::WriteAllBytes($image,$before);[IO.File]::SetLastWriteTimeUtc($image,$stamp)
-        $changed=Run-TextureCli 'one-image-mutated' $cached
+        $changed=Run-TextureCli 'one-image-mutated' $cached $true 0 '4'
         Need ($changed.report.cache.instanceCompile -eq 1) 'Single image mutation must compile only its dependent texture'
+        $changedMetrics=$changed.report.cache.parallel
+        if($changedMetrics.minimumEffectiveJobs -gt 1){
+            $intervals=@($changedMetrics.backendIntervals)
+            Need ($intervals.Count -eq 1 -and $intervals[0].typeName -ceq 'Texture' -and $intervals[0].threadId -notin $ownerThreads) 'Single changed texture did not compile on a worker'
+        }
         Need (@($warm.files.Keys|Where-Object{$warm.files[$_] -cne $changed.files[$_]}).Count -gt 0) 'Image mutation did not change any final output'
         $plain=Run-TextureCli 'fresh-no-cache' $fresh $false;Equal-TextureOutputs $changed.files $plain.files
         Need ($plain.report.cache.instanceCompile -eq 7) 'Independent no-cache build did not compile every texture'
         Remove-Item -LiteralPath $image
-        $null=Run-TextureCli 'missing-image' $cached $true 4
+        $null=Run-TextureCli 'missing-image' $cached $true 4 '4'
         [IO.File]::WriteAllBytes($image,$before)
-        $retry=Run-TextureCli 'restored-retry' $cached;Equal-TextureOutputs $changed.files $retry.files
+        $retry=Run-TextureCli 'restored-retry' $cached $true 0 'auto';Equal-TextureOutputs $changed.files $retry.files
         $cliMode.passed=$true;$cliMode.schemaDefaultsExercised=$true;$cliMode.nonAsciiModPath=$true;$cliMode.onlyDependentTextureRecompiled=$true;$cliMode.failureRetryPassed=$true
         }catch{$cliMode.error=$_.Exception.ToString();Record-TextureFailure $mode 'production-cli' $cliMode.error}
     }

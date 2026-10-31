@@ -497,7 +497,7 @@ public static class CompilerPreparedBackend
                     maximum=Math.Max(maximum,overlap);
                     intervals.Add(new {type=item.Type,startTicks=item.Start,endTicks=item.End,threadId=item.ThreadId});
                 }
-                if(label=="audio" && count>1) Require(maximum>1,"Four substantial PCM encodes must show actual worker interval overlap on a multi-CPU host");
+                if((label=="audio" || label=="texture") && count>1) Require(maximum>1,"Substantial "+label+" backend calls must show actual worker interval overlap on a multi-CPU host");
                 lifecycleEvidence.Add(new {kind="prepared-worker-wave",family=label,workerCount=count,maximumConcurrency=maximum,intervals,clockFrequency=Stopwatch.Frequency});
             }
             finally
@@ -627,8 +627,115 @@ public static class CompilerPreparedBackend
         var mp3Owner=Declaration("AudioFileMP3Passthrough","WorkerMp3",Namespaces());((XmlElement)mp3Owner.Node).SetAttribute("File",mp3);
         WorkerWave(new List<BufferWork>{BufferItem(work,"mp3",audioPlugin,mp3Owner)},"mp3");
     }
+    sealed class UncertifiedTexturePlugin : Recovered.Compiler.Texture.Plugin { }
+    static void WriteTextureTga(string path,int width,int height,bool grayscale=false)
+    {
+        using(var writer=new BinaryWriter(File.Create(path)))
+        {
+            byte[] header=new byte[18];header[2]=2;header[12]=(byte)width;header[13]=(byte)(width>>8);
+            header[14]=(byte)height;header[15]=(byte)(height>>8);header[16]=32;header[17]=0x28;writer.Write(header);
+            for(int y=0;y<height;y++)for(int x=0;x<width;x++)
+            {byte level=(byte)(x*3+y*5);writer.Write(grayscale?level:(byte)(x^y));writer.Write(grayscale?level:(byte)(y*255/Math.Max(1,height-1)));writer.Write(grayscale?level:(byte)(x*255/Math.Max(1,width-1)));writer.Write((byte)(64+(x+y)%192));}
+        }
+    }
+    static InstanceDeclaration TextureDeclaration(string type,string id,string file,string format,bool mipmaps)
+    {
+        var owner=Declaration(type,id,Namespaces());var node=(XmlElement)owner.Node;
+        node.SetAttribute("File",file);node.SetAttribute("Type","StandardTexture");node.SetAttribute("OutputFormat",format);
+        node.SetAttribute("GenerateMipMaps",mipmaps?"true":"false");node.SetAttribute("AllowAutomaticResize","true");return owner;
+    }
+    static void TextureWorkers(string work)
+    {
+        string directory=Path.Combine(work,"texture-workers");Directory.CreateDirectory(directory);
+        string image=Path.Combine(directory,"worker.tga"),normal=Path.Combine(directory,"normal.tga"),gray=Path.Combine(directory,"gray.tga");
+        WriteTextureTga(image,256,256);WriteTextureTga(normal,256,256);WriteTextureTga(gray,256,256,true);
+        byte[] rgba=new byte[32*32*4];for(int i=0;i<rgba.Length;i++)rgba[i]=(byte)(i*73+19);
+        string dds=Path.Combine(directory,"快照.dds");File.WriteAllBytes(dds,Recovered.Compiler.Texture.TextureRawDdsEncoder.Encode(32,32,rgba,"D3DFMT_A8R8G8B8",false));
+        var plugin=new Recovered.Compiler.Texture.Plugin();plugin.Initialize(null,TargetPlatform.Win32);
+        var items=new List<BufferWork>();
+        try
+        {
+            var owner=TextureDeclaration("Texture","TextureLease",dds,"A8R8G8B8",false);Metadata(owner,plugin);
+            byte[] before=File.ReadAllBytes(dds);object prepared=Prepare(owner,plugin);
+            Require(prepared!=null,"Unicode DDS must be texture-worker eligible");
+            try
+            {
+                Require(Value<string>(prepared,"Family")=="texture" && Value<long>(prepared,"ExternalReadBytes")==before.Length,"Texture preparation must retain its actual input lease");
+                Denied(delegate{using(var writer=new FileStream(dds,FileMode.Open,FileAccess.Write,FileShare.ReadWrite)){}},"texture mutation");
+                Denied(delegate{File.Delete(dds);},"texture deletion");
+                EqualBuffers(plugin.ProcessInstance(owner),Execute(prepared),"leased-texture-dds");
+            }finally{((IDisposable)prepared).Dispose();}
+            DateTime stamp=File.GetLastWriteTimeUtc(dds);before[before.Length-1]^=127;File.WriteAllBytes(dds,before);File.SetLastWriteTimeUtc(dds,stamp);
+            prepared=Prepare(owner,plugin);Require(prepared!=null,"Released texture lease must admit a new equal-length/mtime version");
+            try{Require(Contains(Execute(prepared).InstanceData,before),"Texture worker consumed stale DDS bytes after a released lease");}finally{((IDisposable)prepared).Dispose();}
+            RejectedPreparation(owner,plugin,1,"preparation-budget-exceeded");
+            RejectedPreparation(owner,new UncertifiedTexturePlugin(),128L*1024L*1024L,"uncertified-plugin");
+            RejectedPreparation(Declaration("TestTexture","UnsupportedTextureRoot",Namespaces()),plugin,128L*1024L*1024L,"uncertified-texture-type");
+            var missing=TextureDeclaration("Texture","MissingTexture",Path.Combine(directory,"missing.tga"),"DXT5",true);
+            RejectedPreparation(missing,plugin,128L*1024L*1024L,"external-input-unavailable");
+            using(var writer=new FileStream(dds,FileMode.Open,FileAccess.Write,FileShare.None))Require(writer.CanWrite,"Texture rejection retained an input lease");
+
+            // Fresh LongRunning workers have never called S3: the first wave
+            // exercises concurrent lazy gray-table construction on four threads.
+            for(int i=0;i<4;i++)items.Add(BufferItem(directory,"texture-s3-"+i,plugin,
+                TextureDeclaration(i<2?"Texture":"OnDemandTexture","TextureS3"+i,gray,i%2==0?"DXT3":"DXT5",true)));
+            items.Add(BufferItem(directory,"texture-dds",plugin,TextureDeclaration("Texture","TextureDds",dds,"DXT1",true)));
+            items.Add(BufferItem(directory,"texture-raw",plugin,TextureDeclaration("Texture","TextureRaw",image,"R5G6B5",true)));
+            items.Add(BufferItem(directory,"texture-bc1",plugin,TextureDeclaration("Texture","TextureBc1",image,"DXT1A",true)));
+            var atlas=Declaration("TerrainTextureAtlas","WorkerAtlas",Namespaces());var atlasNode=(XmlElement)atlas.Node;
+            atlasNode.SetAttribute("AtlasSize","2048");atlasNode.SetAttribute("AllowLossyCompression","false");
+            var tile=atlasNode.OwnerDocument.CreateElement("Tile","uri:ea.com:eala:asset");tile.SetAttribute("TextureID","1");tile.SetAttribute("BaseTexture",image);tile.SetAttribute("NormalTexture",normal);atlasNode.AppendChild(tile);
+            var cell=atlasNode.OwnerDocument.CreateElement("Cell","uri:ea.com:eala:asset");cell.SetAttribute("IndexX","0");cell.SetAttribute("IndexY","0");tile.AppendChild(cell);
+            var atlasItem=BufferItem(directory,"texture-atlas",plugin,atlas);items.Add(atlasItem);
+            Denied(delegate{using(var writer=new FileStream(normal,FileMode.Open,FileAccess.Write,FileShare.ReadWrite)){}},"atlas normal mutation");
+            WorkerWave(items,"texture");
+            using(var writer=new FileStream(normal,FileMode.Open,FileAccess.Write,FileShare.None))Require(writer.CanWrite,"Atlas normal lease survived worker drain");
+            lifecycleEvidence.Add(new {kind="texture-parallel-settings",assets=items.Count,routes=new[]{"Texture","OnDemandTexture","TerrainTextureAtlas"},outputs=new[]{"DDS","A8R8G8B8","R5G6B5","DXT1A","DXT3","DXT5"},coldWorkerTables=true,unicodeInput=true,sameLengthMtimeLeaseRefresh=true,privateOnDemandOutputs=true});
+        }
+        finally{foreach(var item in items)((IDisposable)item.Prepared).Dispose();plugin.Dispose();}
+    }
+    static void TextureOwnerDiagnostics(string work)
+    {
+        string path=Path.Combine(work,"texture-owner-diagnostics.tga");WriteTextureTga(path,16,16);
+        var plugin=new Recovered.Compiler.Texture.Plugin();plugin.Initialize(null,TargetPlatform.Win32);
+        object prepared=null;
+        try
+        {
+            var declaration=TextureDeclaration("Texture","PreparedTraceDefault",path,"DXT1",false);Metadata(declaration,plugin);
+            prepared=Prepare(declaration,plugin);Require(prepared!=null,"Alpha-inference texture must prepare for diagnostic replay");
+            MethodInfo flush=contract.GetMethod("FlushDiagnostics",BindingFlags.Instance|BindingFlags.NonPublic);
+            Require(flush!=null,"Prepared work must expose the owner diagnostic flush");
+            int ownerThread=Thread.CurrentThread.ManagedThreadId,workerThread=0,calls=0,callbackThread=0;
+            string message=null;TraceEventType kind=0;
+            using(Tracer.BeginScope(delegate(string source,TraceEventType type,string text)
+            {
+                if(source!="TextureCompiler")return;
+                callbackThread=Thread.CurrentThread.ManagedThreadId;kind=type;message=text;Interlocked.Increment(ref calls);
+            },9))
+            {
+                Task<AssetBuffer> task=Task.Factory.StartNew(delegate
+                {
+                    workerThread=Thread.CurrentThread.ManagedThreadId;return Execute(prepared);
+                },CancellationToken.None,TaskCreationOptions.LongRunning,TaskScheduler.Default);
+                AssetBuffer result=task.GetAwaiter().GetResult();
+                Require(workerThread!=ownerThread,"Texture diagnostic fixture must execute on a real worker");
+                Require(result!=null && result.InstanceData.Length>100 && BitConverter.ToUInt32(result.InstanceData,96)==0x35545844u,
+                    "Alpha inference must actually produce DXT5 before replaying its information message");
+                Require(calls==0,"Texture worker must record messages privately without calling the owner tracer");
+                flush.Invoke(prepared,null);
+                Require(calls==1 && callbackThread==ownerThread && kind==TraceEventType.Information && message!=null &&
+                    message.Contains("PreparedTraceDefault") && message.StartsWith("Converting to DXT5",StringComparison.Ordinal),
+                    "Joined texture information must be delivered once, unchanged, on the owner thread");
+                flush.Invoke(prepared,null);
+                Require(calls==1,"A repeated owner flush must not duplicate the same texture diagnostic");
+                lifecycleEvidence.Add(new{kind="texture-owner-diagnostics",ownerThread,workerThread,callbacksBeforeFlush=0,callbacksAfterFlush=calls,
+                    callbackThread,information=message,workerJoinedBeforeFlush=task.IsCompleted,duplicateFlushSuppressed=true});
+            }
+        }
+        finally{if(prepared!=null)((IDisposable)prepared).Dispose();plugin.Dispose();}
+    }
     static Func<T> TypedSampler<T>(Func<object> sampler) { return delegate {return (T)sampler();}; }
-    static void SchedulerDrain(string work,bool cancel)
+    static void SchedulerDrain(string work,bool cancel,bool textureFailure=false)
     {
         var assembly=typeof(CoreStreamCompiler).Assembly;
         Type performanceType=assembly.GetType("NewModCompiler.Diagnostics.BuildPerformance",true);
@@ -643,6 +750,14 @@ public static class CompilerPreparedBackend
         var processor=(DocumentProcessor)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(DocumentProcessor));
         var plugin=new Recovered.Compiler.W3x.NativePlugin();plugin.Initialize(null,TargetPlatform.Win32);
         var xml=new Recovered.XmlPriority.Plugin();xml.Initialize(null,TargetPlatform.Win32);
+        var texture=new Recovered.Compiler.Texture.Plugin();texture.Initialize(null,TargetPlatform.Win32);
+        string textureInput=null,invalidTexture=null;
+        if(textureFailure)
+        {
+            textureInput=Path.Combine(work,"drain-texture.tga");invalidTexture=Path.Combine(work,"drain-invalid-texture.tga");
+            WriteTextureTga(textureInput,256,256);byte[] header=new byte[18];Buffer.BlockCopy(File.ReadAllBytes(textureInput),0,header,0,header.Length);File.WriteAllBytes(invalidTexture,header);
+        }
+        var privateTextureDirectories=new List<string>();
         var captured=new List<Task>(); int verified=0,committed=0,completed=0,activeAtRequest;
         string input=Path.Combine(work,cancel?"cancel-lease.bin":"failure-lease.bin");File.WriteAllBytes(input,new byte[1024*1024]);
         using(var cancellation=new CancellationTokenSource())
@@ -654,10 +769,10 @@ public static class CompilerPreparedBackend
             {
                 for(int i=0;i<4;i++)
                 {
-                    var declaration=Declaration(i==3?"AptAptData":"W3DAnimation","Drain"+i,Namespaces());
-                    IAssetBuilderPlugin selected=i==3?(IAssetBuilderPlugin)xml:plugin;
+                    var declaration=textureFailure && i<3?TextureDeclaration("OnDemandTexture","TextureDrain"+i,i==0?invalidTexture:textureInput,i%2==0?"DXT3":"DXT5",true):Declaration(i==3?"AptAptData":"W3DAnimation","Drain"+i,Namespaces());
+                    IAssetBuilderPlugin selected=i==3?(IAssetBuilderPlugin)xml:textureFailure?(IAssetBuilderPlugin)texture:plugin;
                     if(i==3) ((XmlElement)declaration.Node).SetAttribute("File",input);
-                    else
+                    else if(!textureFailure)
                     {
                         ((XmlElement)declaration.Node).SetAttribute("NumFrames","65536");((XmlElement)declaration.Node).SetAttribute("FrameRate","30");
                         // Keep the substantial native allocation/serialization,
@@ -671,7 +786,11 @@ public static class CompilerPreparedBackend
                         ()=>{verified++;},source=>{committed++;});
                 }
                 foreach(object entry in (System.Collections.IEnumerable)queue)
+                {
                     captured.Add((Task)entry.GetType().GetField("Worker",fields).GetValue(entry));
+                    string directory=(string)entry.GetType().GetField("Directory",fields).GetValue(entry);
+                    if(directory!=null)privateTextureDirectories.Add(directory);
+                }
                 Require(captured.Count==4 && captured.TrueForAll(t=>t!=null),"All four drain cases must be production worker tasks");
                 execution.DeferCompletion(()=>{completed++;});
                 object gate=metricsType.GetField("gate",fields).GetValue(metrics);
@@ -681,6 +800,7 @@ public static class CompilerPreparedBackend
                 try {execution.Flush();} catch(Exception error){observed=error;}
                 Require(observed!=null,"Failure or cancellation must reject the pending wave");
                 if(cancel)Require(observed is OperationCanceledException,"Cancellation must retain its original exception contract");
+                else if(textureFailure)Require(observed is BinaryAssetBuilderException,"Texture worker failure must preserve its original backend exception");
                 else Require(observed is NotSupportedException,"Native worker failure must preserve its original backend exception");
                 ((IDisposable)execution).Dispose();
                 Require(captured.TrueForAll(t=>t.IsCompleted),"Disposal must join every previously dispatched native worker");
@@ -694,24 +814,35 @@ public static class CompilerPreparedBackend
                 Require(verified==0 && committed==0 && completed==0,"Failed/uncommitted documents may not verify, commit or become complete");
                 using(var writer=new FileStream(input,FileMode.Open,FileAccess.Write,FileShare.None))
                     Require(writer.CanWrite,"All external leases must be released after native drain");
-                lifecycleEvidence.Add(new {kind=cancel?"scheduler-cancellation-drain":"scheduler-native-failure-drain",dispatched=captured.Count,
+                if(textureFailure)
+                {
+                    Require(privateTextureDirectories.Count==3,"Texture failure wave must isolate all three CDATA paths");
+                    foreach(string directory in privateTextureDirectories)Require(!Directory.Exists(directory),"Failed texture wave retained private CDATA output");
+                    using(var writer=new FileStream(textureInput,FileMode.Open,FileAccess.Write,FileShare.None))Require(writer.CanWrite,"Texture failure drain retained source lease");
+                    using(var writer=new FileStream(invalidTexture,FileMode.Open,FileAccess.Write,FileShare.None))Require(writer.CanWrite,"Texture failure drain retained failing source lease");
+                }
+                lifecycleEvidence.Add(new {kind=textureFailure?"scheduler-texture-failure-drain":cancel?"scheduler-cancellation-drain":"scheduler-native-failure-drain",dispatched=captured.Count,
                     activeAtRequest,allWorkersJoined=true,verified,committed,completed});
             }
-            finally {((IDisposable)execution).Dispose();}
+            finally {((IDisposable)execution).Dispose();texture.Dispose();}
         }
     }
     public static int Main(string[] args)
     {
+        var failures=new List<object>();
         try
         {
             Directory.CreateDirectory(args[0]);
-            AptLeaseAndBorrow(args[0]); ParallelQualification(args[0]); EnvironmentQualification(args[4]);
-            ResourceBudget(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); PreparationRejectionReasons(args[0]);
-            WorkerBuffers(args[0],args[4]); TokenizerWorkers(args[0]); SchedulerDrain(args[0],false); SchedulerDrain(args[0],true);
+            Action<string,Action> run=delegate(string name,Action action){try{action();}catch(Exception error){failures.Add(new{name,error=error.ToString()});Console.Error.WriteLine("FAIL prepared-backend "+name+": "+error);}};
+            run("apt-leases",()=>AptLeaseAndBorrow(args[0]));run("qualification",()=>ParallelQualification(args[0]));run("environment",()=>EnvironmentQualification(args[4]));
+            run("resource-budget",()=>ResourceBudget(args[0]));run("w3x-budget",W3xBudget);run("schema-defaults",SchemaDefaults);run("preparation-budget",PreparationBudget);run("rejection-reasons",()=>PreparationRejectionReasons(args[0]));
+            run("worker-buffers",()=>WorkerBuffers(args[0],args[4]));run("tokenizer-workers",()=>TokenizerWorkers(args[0]));run("texture-workers",()=>TextureWorkers(args[0]));run("texture-owner-diagnostics",()=>TextureOwnerDiagnostics(args[0]));
+            run("native-failure-drain",()=>SchedulerDrain(args[0],false));run("cancellation-drain",()=>SchedulerDrain(args[0],true));run("texture-failure-drain",()=>SchedulerDrain(args[0],false,true));
             File.WriteAllText(args[1],new JavaScriptSerializer().Serialize(new {
-                succeeded=true,sourceCommit=args[2],runId=args[3],checks,lifecycleEvidence,
-                scope="Borrowed finalized XML/defaults/namespaces/metadata, Windows stable file leases, APT/W3X/Audio worker three-buffer equality, isolated Audio CDATA pathname, three tokenizers on four platforms with shared DOM and concurrent trace, closed route qualification and resource budgets; component evidence only"
+                succeeded=failures.Count==0,sourceCommit=args[2],runId=args[3],checks,lifecycleEvidence,failures,
+                scope="Borrowed finalized XML/defaults/namespaces/metadata, Windows stable file leases, APT/W3X/Audio/Texture worker three-buffer equality, cold S3 gray-table overlap, isolated Audio/OnDemand CDATA, atlas source leases, native/texture failure cleanup, three tokenizers on four platforms, closed route qualification and resource budgets; component evidence only"
             }));
+            if(failures.Count!=0){Console.Error.WriteLine("PreparedBackendWork failed in "+failures.Count+" independent groups");return 1;}
             Console.WriteLine("PASS PreparedBackendWork: "+checks+" assertions"); return 0;
         }
         catch(Exception error) { Console.Error.WriteLine(error); return 1; }

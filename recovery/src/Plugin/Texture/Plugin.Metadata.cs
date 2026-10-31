@@ -13,6 +13,9 @@ namespace Recovered.Compiler.Texture
         {
             Alive(); TextureCatalog.RequireWin32(platform);
             if (initialized) throw new InvalidOperationException("Texture plugin is already initialized; use ReInitialize.");
+            // Registration uses Core's owner-only tracer dictionary. Complete
+            // it before prepared texture work can begin on background threads.
+            GC.KeepAlive(ImageTracer);
             _Platform = platform;
             initialized = true;
         }

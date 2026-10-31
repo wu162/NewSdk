@@ -96,3 +96,23 @@ consumer calls the experimental export. Complete initialized-state comparisons
 are required before any further claim; DDS/plugin/SDK remain separate gates.
 
 The opaque DXT1 format0 three-colour ramp includes its fourth opaque-black entry in final error/reindex; DXT1A format1 excludes its transparent entry. This general format rule applies to both continuous and quick candidates; it is not fixture selection.
+
+## Monolithic worker concurrency
+
+The monolithic codec now gives each native worker its own persistent scratch and
+lazy lookup state. `STATIC`/`STATIC_ARR` remain static storage and become
+`thread_local`; their original zero/constant initialization and addressable double
+stores are preserved. The interpolation policy, both `allSame` grids and their
+initialization flags are also thread-local. Read-only size, coefficient and
+mapping tables become shared `const`; fixed LegacyGray tables remain shared.
+No endpoint search, rounding, x87 instruction, block mapping or DDS layout changes.
+Managed Colour/Alpha calls no longer acquire a process-wide `ColourLock`.
+
+Native TLS template payload is 24,956 bytes per OS thread: 11,120 bytes of
+scratch doubles, 13,824 bytes of single-colour grids, 8 bytes of initialization
+flags and 4 bytes of interpolation policy (about 24,960 with alignment). This is
+per native thread, separate from per-call managed image/block buffers; the
+Windows EXE TLS template also applies to threads that never call the codec. The
+unchanged pre-thread-local fingerprint and current source fingerprint are both
+recorded in `PROVENANCE.json`. This checkpoint requires Windows concurrent versus
+serial complete-payload comparisons in Debug/Release before being called accepted.

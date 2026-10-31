@@ -4,16 +4,16 @@
 
 ## 获取工具
 
-本分支的源码 Texture 产品已通过 Windows Debug/Release、完整 mymod 原版对照及独立 ZIP 验收：[成功运行 41180859852](https://github.com/wu162/NewSdk/actions/runs/41180859852)。
-从[正式产物归档](https://github.com/wu162/NewSdk/actions/runs/41180859852/artifacts/13035436860)中取 `artifacts/final-release/41180859852-1/NewModCompiler-Win32-Release.zip`（通常使用 Release）；同目录有 Debug 包和哈希清单。生产/测试源码为 `4c74bf64b`，随后文档和收据提交不改变运行文件。历史 `compiler-main` 发行见[发行说明](recovery/COMPILER_RELEASE.md)。
+当前 Texture 实现保留原 DLL 的版本 `4202` 和三个 ProcessingHash，并已接入三种纹理路由的 worker 并行；本轮改动尚待新的 Windows 组件、生产 CLI、SDK 和 ZIP 验收。
+上一轮源码 `4c74bf64b` 的 [Windows 验收 41180859852](https://github.com/wu162/NewSdk/actions/runs/41180859852) 已通过，但不覆盖本轮身份恢复与并行改动。其[历史产物归档](https://github.com/wu162/NewSdk/actions/runs/41180859852/artifacts/13035436860)仍保留 `artifacts/final-release/41180859852-1/NewModCompiler-Win32-Release.zip`、Debug 包及哈希清单。历史 `compiler-main` 发行见[发行说明](recovery/COMPILER_RELEASE.md)。
 
-本分支将 Texture 编译器源码内建到 EXE，新构建的工具 ZIP 只有三个运行文件：NewModCompiler.exe、NewModCompiler.exe.config、antlr.runtime.dll。SDK、MOD 源码和系统运行库单独准备。要求 Windows x86 兼容环境、.NET Framework 4.8 及与构建工具链匹配的 x86 VC 运行库；Texture 不再依赖原 DLL、VC80 或 DirectX 9/D3DX。先运行 doctor 检查环境。历史验收包仍保留五文件布局；本次能力与边界见 [Texture 说明](recovery/docs/TEXTURE_PLUGIN.md)。
+本分支将 Texture 编译器源码内建到 EXE，新构建的工具 ZIP 只有三个运行文件：NewModCompiler.exe、NewModCompiler.exe.config、antlr.runtime.dll。SDK、MOD 源码和系统运行库单独准备。要求 Windows x86 兼容环境、.NET Framework 4.8 及与构建工具链匹配的 x86 VC 运行库；Texture 不再依赖原 DLL、VC80 或 DirectX 9/D3DX。先运行 doctor 检查环境。更早使用原 DLL 的历史包仍保留五文件布局；本次能力与边界见 [Texture 说明](recovery/docs/TEXTURE_PLUGIN.md)。
 
 ## 使用
 
 完整操作步骤见 [新编译器使用说明](recovery/COMPILER_USAGE.md)，开发和历史资料见 [文档入口](recovery/README.md)。
 
-本分支将 [Texture 编译插件](recovery/docs/TEXTURE_PLUGIN.md) 直接编入 EXE，覆盖常见图像输入及七种 SDK 输出格式；范围和验收收据见该文档。
+本分支将 [Texture 编译插件](recovery/docs/TEXTURE_PLUGIN.md) 直接编入 EXE，覆盖常见图像输入及七种 SDK 输出格式。`Texture`、`OnDemandTexture`、`TerrainTextureAtlas` 根据输入租约与内存预算进入 worker，S3 状态按线程隔离；资源不足或无法识别输入头时回到 owner 执行。切换纹理实现时可使用干净或独立的缓存、中间目录，避免复用具有相同原身份但 BC1 编码字节不同的既有产物；当前验收状态见该文档。
 
 本分支内建 [FLA/AS UI 编译插件](recovery/docs/FLA_UI_COMPILER.md)：可自动发现 `Data/AptUI/` 下的二进制 Flash MX 2004/8 FLA，与对应 AS 直接编译为 MOD 四流，也可由 `AptAptData` XML 声明与其他资产混合编译。
 
@@ -35,7 +35,7 @@
 
 ## 已完成与范围
 
-核心编译、单进程 base/apt/maps、日志/协议、构建与会话缓存、默认 BIG/SKUDEF、Additional、纯 C# MakeBig 入 EXE 和五文件包已有验收。中立修复已覆盖组件差分及生产零插入链，完整游戏插入不在已验证范围内。原工具的特定 LoD 来源表尾字节差异见 [说明](recovery/P7_LOD_ORIGINAL_TAIL.md)。
+核心编译、单进程 base/apt/maps、日志/协议、构建与会话缓存、默认 BIG/SKUDEF、Additional、纯 C# MakeBig 入 EXE 已有历史验收。当前源码 Texture 三文件产品及并行改动的状态见 [Texture 说明](recovery/docs/TEXTURE_PLUGIN.md)。中立修复已覆盖组件差分及生产零插入链，完整游戏插入不在已验证范围内。原工具的特定 LoD 来源表尾字节差异见 [说明](recovery/P7_LOD_ORIGINAL_TAIL.md)。
 
 AssetMerge 已按用户要求排除。WBData 下载、提取、读取器与依赖真实 WBData 的验收已取消，均不作为本次重构完成条件。完整 UI/runtime、中文纹理路径仍有未覆盖范围；原 SDK 缓存完整恢复的当前验证状态见 [缓存说明](recovery/docs/LEGACY_INCREMENTAL_CACHE.md)。
 

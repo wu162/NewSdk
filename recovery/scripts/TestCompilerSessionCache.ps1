@@ -206,7 +206,7 @@ function OriginalOracle($Case,[string]$Name,$OriginalTextureInformation=$null,[s
     }
     $fixture=Join-Path $script:modeOut "$Name.json"
     @{succeeded=$true;sourceCommit=$script:state.sourceCommit;runId=$env:GITHUB_RUN_ID;baselineCases=$baseline;scope='Session-cache Armor/include/define/inheritance and file-backed APT stream; not full SDK'}|ConvertTo-Json -Depth 9|Set-Content $fixture
-    & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult $fixture -OutputDirectory (Join-Path $script:modeOut $Name) -TimeoutSeconds $TimeoutSeconds -ExpectedCaseCount $baseline.Count -CacheExportDirectory $CacheExportDirectory -AlignTextureIdentity:($replayFiles.Count -eq 0)
+    & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult $fixture -OutputDirectory (Join-Path $script:modeOut $Name) -TimeoutSeconds $TimeoutSeconds -ExpectedCaseCount $baseline.Count -CacheExportDirectory $CacheExportDirectory
     Need ($LASTEXITCODE -eq 0) 'Build-cache independent original BAB oracle failed'
 }
 function Put([string]$Path,[string]$Text){New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($Path))|Out-Null;[IO.File]::WriteAllText($Path,$Text)}

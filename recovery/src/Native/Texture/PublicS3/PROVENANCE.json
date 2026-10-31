@@ -1,5 +1,5 @@
 {
-  "scope": "Experimental explicit force-three PC source; no production consumer accepted",
+  "scope": "Monolithic Win32/PC DXT3/5 source; per-thread-state candidate awaiting concurrency and exact-byte acceptance",
   "blockSourceCommit": "cda610ed4ad1348eae7c1631824ce6d8c35a7e3c",
   "blockRunId": "40646658908",
   "files": [
@@ -7,13 +7,16 @@
       "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
       "repository": "Team-Resurgent/RXDK-Libs",
       "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
-      "blobSha": "006f68a2034a4dd053d3b54558123690581a5d84",
-      "sha256": "9bb3c07a310ade0c9bb4ab70603a557893d9b6887b972d83df8ffcfedbbdfb7e",
-      "bytes": 94548,
+      "blobSha": "315790d5618adeeac2fefe2f80fe15420b43f554",
+      "sha256": "922a6f46cb23a550a71cfa478ab79328be310a85049b0071dc30224c48c515a0",
+      "bytes": 94887,
       "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
       "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
-      "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection; exact RGB all-same equality for normalized float domain; final wrapper uses owned inline x87 scoring/comparisons and extended intermediates; restore quick projection indices from the pre-scoring snapshot when quick wins; explicit mode3 with fixed original gray constants, three-point floor palette and opaque DXT1 black-index scoring (DXT1A excludes transparent index)",
-      "file": "s3_quant.cpp"
+      "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection; exact RGB all-same equality for normalized float domain; final wrapper uses owned inline x87 scoring/comparisons and extended intermediates; restore quick projection indices from the pre-scoring snapshot when quick wins; explicit mode3 with fixed original gray constants, three-point floor palette and opaque DXT1 black-index scoring (DXT1A excludes transparent index); preserve static scratch storage and initialization per native thread, thread-local interpolation policy and lazy single-colour grids; immutable coefficient tables shared const; no numerical algorithm or x87 changes",
+      "file": "s3_quant.cpp",
+      "previousBlobSha": "006f68a2034a4dd053d3b54558123690581a5d84",
+      "previousSha256": "9bb3c07a310ade0c9bb4ab70603a557893d9b6887b972d83df8ffcfedbbdfb7e",
+      "previousBytes": 94548
     },
     {
       "upstreamPath": "libs/libxgraphics/dxtc/S3_quant.h",
@@ -53,5 +56,17 @@
       "bytes": 6934,
       "blobSha": "160505d3cea649e811f9ace75991c7e0bb726a9f"
     }
-  ]
+  ],
+  "threadSafety": {
+    "sourceRef": "wu162/NewSdk@b30dffac5aeb027cf37a6dac0cd47beafe9fbea0",
+    "status": "implementation ready; Windows exact-byte concurrency acceptance pending",
+    "mutableStorage": "native thread_local; no shared mutable encoder scratch/cache",
+    "scratchDoubleBytes": 11120,
+    "gridBytes": 13824,
+    "initFlagBytes": 8,
+    "policyBytes": 4,
+    "tlsPayloadBytesPerNativeThread": 24956,
+    "estimatedAlignedTlsBytesPerNativeThread": 24960,
+    "scope": "STATIC and STATIC_ARR doubles, allSame grids/initFlags, LegacyInterpolationPolicy; immutable coefficients and fixed gray records remain shared const"
+  }
 }
