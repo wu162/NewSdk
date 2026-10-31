@@ -20,5 +20,8 @@
   "fullModPairedRun": 41148441137,
   "performanceScope": "Incremental versus accepted first phase; synthetic plugin timing separated from full MOD timing",
   "allRawArchivesDownloadedAndRehashed": true,
-  "merged": false
+  "userApprovedMerge": true,
+  "latestCombinedProductRun": 41152199159,
+  "latestCombinedProductSourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e",
+  "synchronizedBaseCommit": "0d7b685c09e443c3f782a6af48163c0a4a0b6c96"
 }

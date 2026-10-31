@@ -65,3 +65,11 @@
 完整编译中位耗时减少 **0.31%**，基本持平；第二对优化后慢约1.04%。不按插件合成负载外推完整 MOD 加速，也不与第一阶段不同 VM 的绝对秒数拼接。六次全部0错误/1859原警告，BIG/SKUDEF/Additional 的实际字节相同。只有每方三次样本、没有预热、OS 页缓存未控制，不作通用性能保证。
 
 814,673 字节原归档已下载复算；[原始 measurement](../evidence/refactor/tokenizer-native-stage2/41148441137/measurement.json)、六份报告和发布清单保存在 [original-evidence.zip](../evidence/refactor/tokenizer-native-stage2/41148441137/original-evidence.zip)。没有新增游戏内验收。
+
+## 同步最新目标后的组合验收
+
+用户批准合入后，目标已前进至 `0d7b685c`，包含 PR #32 Benchmark 与 PR #34 EALayer3。合并只有 RESUME 内容冲突，保留两边全部成果。插件20个生产文件与63组 XML 组件实际依赖均未变；组件证据继续分别使用上文来源。组合 EXE 输入已新增音频实现，因此重新构建产品并回归。
+
+组合源码 `1a3e4bc6` 的 [41152199159](https://github.com/wu162/NewSdk/actions/runs/41152199159) **整体 success**：Debug/Release 新链接、部署/路由元数据、Core/CLI/真实取消、64 worker/cache、全部缓存及载荷/输入根/BIG、完整 mymod 原 SDK、两个五文件包、完整 Upheaval22样本均通过，全部0错误/1859原警告且输出原字节相同。不重复运行输入未变的 GO/Weapon/XML 完整组件矩阵。
+
+164,598,490 字节原归档已下载复算 SHA256 `2ba381a049201eacf2de5ba6668e9f6061d81ccdf1eb878bda3af8d8d593138b`，十个运行文件与两个 ZIP 内容身份匹配。来源与复用范围在 [input-identity.json](../evidence/refactor/tokenizer-native-stage2/41152199159/input-identity.json)，原收据在 [original-receipts.zip](../evidence/refactor/tokenizer-native-stage2/41152199159/original-receipts.zip)。前面的配对性能数字仍属于 `d60904bc` 的独立旧组合，没有将它冒作新 EALayer3 组合的性能计量。
