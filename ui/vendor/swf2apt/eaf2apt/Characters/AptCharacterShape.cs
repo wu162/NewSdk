@@ -273,7 +273,9 @@ namespace eaf2apt.Characters
                         if (--guard < 0) throw new InvalidDataException("Cyclic shape contour.");
                         vertices.Add(new LibTessDotNet.ContourVertex { Position = new LibTessDotNet.Vec3 { X = (float)next.X, Y = (float)next.Y } });
                         int index = segments.FindIndex(e => e.Item1.Equals(next));
-                        if (index < 0) throw new InvalidDataException("Open SWF fill contour.");
+                        // SWF closes an open fill subpath implicitly. Stroke
+                        // paths remain open and are emitted separately below.
+                        if (index < 0) break;
                         next = segments[index].Item2; segments.RemoveAt(index);
                     }
                     if (vertices.Count >= 3) tess.AddContour(vertices.ToArray());

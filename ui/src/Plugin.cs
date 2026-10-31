@@ -12,7 +12,7 @@ namespace BinaryAssetBuilder.UiCompiler
     /// <summary>The host collects the whole sibling group before writing its manifest.</summary>
     public interface IUiAssetCollector
     {
-        void Collect(IReadOnlyList<CompiledUiAsset> assets);
+        void Collect(UiAssetGroup assets);
     }
     public sealed class UiCompilerConfiguration
     {
@@ -20,7 +20,7 @@ namespace BinaryAssetBuilder.UiCompiler
     }
     public interface IUiFileCompiler
     {
-        IReadOnlyList<CompiledUiAsset> CompileUiFile(InstanceDeclaration declaration, TargetPlatform platform);
+        UiAssetGroup CompileUiFile(InstanceDeclaration declaration, TargetPlatform platform);
     }
     /// <summary>AudioCompiler-compatible lifecycle plus a multi-asset FLA build entry.</summary>
     public class Plugin : IAssetBuilderPlugin, IUiFileCompiler, IDisposable
@@ -45,9 +45,9 @@ namespace BinaryAssetBuilder.UiCompiler
             var assets = CompileUiFile(declaration, TargetPlatform.Win32);
             // One AssetBuffer cannot contain sibling assets. The host explicitly
             // collects their real type IDs and buffers; no synthetic runtime type.
-            configuration.Collector.Collect(assets.Skip(1).ToArray()); return assets[0].Buffer;
+            configuration.Collector.Collect(new UiAssetGroup(assets.Skip(1).ToArray(), assets.InputFiles)); return assets[0].Buffer;
         }
-        public IReadOnlyList<CompiledUiAsset> CompileUiFile(InstanceDeclaration declaration, TargetPlatform platform)
+        public UiAssetGroup CompileUiFile(InstanceDeclaration declaration, TargetPlatform platform)
         {
             Ready(); RequireWin32(platform); if (declaration == null) throw new ArgumentNullException(nameof(declaration));
             if (declaration.Handle.TypeId != UiCatalog.Find("AptAptData").TypeId) throw new NotSupportedException("FLA source declaration must be AptAptData.");
@@ -62,9 +62,20 @@ namespace BinaryAssetBuilder.UiCompiler
         /// <summary>Compiles and writes only the final manifest/bin/relo/imp files.</summary>
         public ModStreams CompileMod(string flaPath, string movieName, string outputBase)
         { var streams = CompileMod(flaPath, movieName); streams.WriteTo(outputBase); return streams; }
-        private IReadOnlyList<CompiledUiAsset> CompileAssets(string path, string name)
+        /// <summary>Builds the FLA movies and their AS sources in one source folder.</summary>
+        public ModStreams CompileFolder(string sourceDirectory, string outputBase)
+        {
+            Ready(); string directory = Path.GetFullPath(sourceDirectory);
+            var files = Directory.GetFiles(directory).Where(f => Path.GetExtension(f).Equals(".fla", StringComparison.OrdinalIgnoreCase)).OrderBy(f => f, StringComparer.Ordinal).ToArray();
+            if (files.Length == 0) throw new InvalidDataException("No Flash 8 FLA found in " + directory);
+            var assets = new List<CompiledUiAsset>(); var inputs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (string file in files) { var group = CompileAssets(file, Path.GetFileNameWithoutExtension(file)); assets.AddRange(group); inputs.UnionWith(group.InputFiles); }
+            var streams = new ModStreams(new UiAssetGroup(assets, inputs.OrderBy(p => p, StringComparer.Ordinal).ToArray())); streams.WriteTo(outputBase); return streams;
+        }
+        private UiAssetGroup CompileAssets(string path, string name)
         {
             if (path == null) throw new ArgumentNullException(nameof(path));
+            if (Directory.Exists(path)) { string[] files = Directory.GetFiles(path).Where(p => Path.GetExtension(p).Equals(".fla", StringComparison.OrdinalIgnoreCase)).ToArray(); if (files.Length != 1) throw new InvalidDataException("A single movie declaration requires one FLA in the folder. Use CompileFolder for multiple movies."); path = files[0]; }
             if (!Path.GetExtension(path).Equals(".fla", StringComparison.OrdinalIgnoreCase)) throw new InvalidDataException("The UI plugin accepts binary Flash 8 .fla source files.");
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("A movie name is required.", nameof(name)); SageHash.Symbol(name);
             string source = Path.GetFileName(path); if (source.IndexOf('\0') >= 0) throw new ArgumentException("Invalid source path.", nameof(path));
@@ -72,14 +83,14 @@ namespace BinaryAssetBuilder.UiCompiler
             try
             {
                 System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-                var document = FlaDocument.Read(File.ReadAllBytes(path));
+                var document = FlaDocument.Read(File.ReadAllBytes(path)); var project = new SourceProject(Path.GetDirectoryName(Path.GetFullPath(path)));
                 // These are memory buffers only. The APT bytes are the game's
                 // runtime payload and go straight into the final linked .bin.
-                var movie = new eaf2apt.AptConverter().Convert(new FlaCompiler(document).Compile());
+                var movie = new eaf2apt.AptConverter().Convert(new FlaCompiler(document, project, path).Compile());
                 var assets = new List<CompiledUiAsset> { new CompiledUiAsset("AptAptData", name + "_apt", source, movie.Apt), new CompiledUiAsset("AptConstData", name + "_const", source, movie.Constants), new CompiledUiAsset("AptDatData", name + "_dat", source, movie.Dat) };
                 foreach (var geometry in movie.Geometry) assets.Add(new CompiledUiAsset("AptGeometryData", name + "_" + geometry.Key, source, geometry.Value, geometry.Key));
                 foreach (var texture in movie.Textures) assets.Add(new CompiledUiAsset("Texture", "apt_" + name + "_" + texture.Key, source, TextureBuilder.Dds(texture.Value)));
-                return assets.AsReadOnly();
+                return new UiAssetGroup(assets, new[] { Path.GetFullPath(path) }.Concat(project.Inputs).Distinct(StringComparer.OrdinalIgnoreCase).OrderBy(p => p, StringComparer.Ordinal).ToArray());
             }
             catch (Exception ex) when (ex is InvalidDataException || ex is NotSupportedException || ex is EndOfStreamException)
             { throw new InvalidDataException("Could not compile Flash 8 FLA '" + path + "': " + ex.Message, ex); }

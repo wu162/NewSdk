@@ -16,26 +16,32 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         private readonly Dictionary<string, int> symbols = new Dictionary<string, int>();
         private readonly HashSet<FlaRecord> compiling = new HashSet<FlaRecord>();
         private readonly Dictionary<FlaRecord, int> shapeIds = new Dictionary<FlaRecord, int>();
+        private readonly Dictionary<FlaRecord, int> textIds = new Dictionary<FlaRecord, int>();
         private readonly Dictionary<long, BitmapAsset> bitmaps = new Dictionary<long, BitmapAsset>();
         private readonly Dictionary<long, int> sounds = new Dictionary<long, int>();
         private readonly Dictionary<FlaRecord, Timeline> timelines = new Dictionary<FlaRecord, Timeline>();
         private int lastId;
-        internal FlaCompiler(FlaDocument document)
+        private readonly SourceProject project;
+        private readonly string flaPath;
+        internal FlaCompiler(FlaDocument document, SourceProject project = null, string flaPath = null)
         {
-            this.document = document; shapes = new ShapeCompiler(this);
+            this.document = document; this.project = project; this.flaPath = flaPath; shapes = new ShapeCompiler(this);
             library = document.Library.Where(d => d.get("streamName") != null).ToDictionary(d => d.Number("libraryId", -1));
             media = document.Media.Where(d => d.get("streamName") != null).ToDictionary(d => d.Number("mediaId", -1));
             if (library.ContainsKey(-1) || media.ContainsKey(-1)) throw new InvalidDataException("Missing library identifier.");
         }
         internal int NextId() { if (lastId == 65535) throw new InvalidDataException("SWF character limit."); return ++lastId; }
         internal void Define(int tag, SwfWriter writer) => definitions.tag(tag, writer);
+        internal int DefineBitmap(byte[] argb, int width, int height)
+        { int id = NextId(); var image = new SwfWriter(); image.u16(id); image.u8(5); image.u16(width); image.u16(height); image.bytes(SwfWriter.compress(argb)); Define(36, image); return id; }
         internal byte[] Compile(bool compressed = false)
         {
             var timeline = new SwfWriter(); var previous = new List<Placement>(); int count = 0;
+            string external = project?.TimelineScript(flaPath) ?? "";
             foreach (var scene in document.Scenes)
             {
                 var t = GetTimeline(scene);
-                for (int f = 0; f < t.Length; f++) { var current = t.Frame(f); Display(timeline, previous, current); t.Events(timeline, f); timeline.tag(1); previous = current; if (++count > 65535) throw new InvalidDataException("Too many frames."); }
+                for (int f = 0; f < t.Length; f++) { var current = t.Frame(f); Display(timeline, previous, current); if (count == 0 && external.Trim().Length > 0) timeline.tag(12, ActionScriptCompiler.Compile(external)); t.Events(timeline, f); timeline.tag(1); previous = current; if (++count > 65535) throw new InvalidDataException("Too many frames."); }
             }
             if (count == 0) throw new InvalidDataException("FLA contains no scene.");
             var exports = new List<KeyValuePair<string, int>>();
@@ -44,7 +50,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
                 var link = descriptor.Record("libraryMetadata")?.Record("linkage") ?? descriptor.Record("linkage");
                 if (link == null) continue; int flags = (int)link.Number("flags");
                 if ((flags & 2) != 0 || link.Text("url").Length != 0) throw new NotSupportedException("Runtime shared-library imports require an external library resolver.");
-                if (link.Text("className").Length != 0) throw new NotSupportedException("External AS2 class linkage requires a classpath compiler.");
+                if (link.Text("className").Length != 0) { if (project == null) throw new InvalidDataException("AS2 linkage requires the source folder."); project.RequireClass(link.Text("className")); }
                 if ((flags & 1) != 0) exports.Add(new KeyValuePair<string, int>(link.Text("identifier"), library.ContainsValue(descriptor) ? Symbol(descriptor, -1, descriptor.Number("symbolType") == 1) : descriptor.ClassName == "CMediaBits" ? Bitmap(descriptor.Number("mediaId")).Id : Sound(descriptor.Number("mediaId"))));
             }
             var body = new SwfWriter(); int[] bounds = document.Contents.Words("boundsWords", 4);
@@ -56,14 +62,15 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
             body.bytes(definitions.data());
             if (exports.Count > 0)
             { var e = new SwfWriter(); e.u16(exports.Count); var names = new HashSet<string>(StringComparer.Ordinal); foreach (var item in exports) { if (item.Key.Length == 0 || !names.Add(item.Key)) throw new InvalidDataException("Missing/duplicate linkage identifier."); e.u16(item.Value); e.text(item.Key); } body.tag(56, e); }
+            if (project != null && project.ClassOrder.Count > 0) { var bootstrap = new SwfWriter(); foreach (var cls in project.ClassOrder) bootstrap.bytes(cls.Code); bootstrap.u8(0); body.tag(12, bootstrap); }
             body.bytes(timeline.data()); body.tag(0); return SwfWriter.movie(body.data(), compressed);
         }
         private Timeline GetTimeline(FlaRecord descriptor)
         { if (!timelines.TryGetValue(descriptor, out Timeline result)) { result = new Timeline(this, document.Page(descriptor)); timelines.Add(descriptor, result); } return result; }
         private int Shape(FlaRecord record) { if (!shapeIds.TryGetValue(record, out int id)) shapeIds.Add(record, id = shapes.Shape(record)); return id; }
-        private int Symbol(FlaRecord descriptor, int frame = -1, bool button = false)
+        private int Symbol(FlaRecord descriptor, int frame = -1, bool button = false, bool menu = false)
         {
-            string key = descriptor.Number("libraryId") + ":" + frame + ":" + button;
+            string key = descriptor.Number("libraryId") + ":" + frame + ":" + button + ":" + menu;
             if (compiling.Contains(descriptor)) throw new NotSupportedException("Recursive symbol graph.");
             if (symbols.TryGetValue(key, out int id)) return id;
             if (descriptor.Record("component")?.Number("componentEnabled") != null && descriptor.Record("component").Number("componentEnabled") != 0) throw new NotSupportedException("Precompiled components require source symbols.");
@@ -73,7 +80,9 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
                 var t = GetTimeline(descriptor); var w = new SwfWriter(); w.u16(id);
                 if (button)
                 {
-                    if (t.Length > 4) throw new InvalidDataException("Button has more than four states."); w.u8(0); w.u16(0);
+                    if (t.Length > 4) throw new InvalidDataException("Button has more than four states.");
+                    foreach (var layer in document.Page(descriptor).getChildren()) foreach (var f in layer.getChildren()) if (!string.IsNullOrWhiteSpace(Source(f))) throw new NotSupportedException("Button states cannot contain frame scripts.");
+                    w.u8(menu ? 1 : 0); w.u16(0);
                     for (int f = 0; f < t.Length; f++) foreach (var p in t.Frame(f))
                     { RejectVisualEffects(p.Record); if (Source(p.Record).Length != 0) throw new NotSupportedException("Button child actions."); w.u8(1 << f); w.u16(p.Id); w.u16(p.Depth); w.matrix(p.Matrix); WriteColor(w, p.Record, true); }
                     w.u8(0); Define(34, w);
@@ -84,7 +93,10 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
                     for (int f = 0; f < length; f++) { var current = t.Frame(frame < 0 ? f : frame); Display(w, previous, current); t.Events(w, frame < 0 ? f : frame); if (frame >= 0) w.tag(12, ActionScriptCompiler.Compile("stop();")); w.tag(1); previous = current; }
                     w.tag(0); Define(39, w);
                 }
-                if (descriptor.Number("scaleGridEnabled") != 0) { var grid = new SwfWriter(); grid.u16(id); int[] b = descriptor.Words("scaleGridBounds", 4); grid.rect(b[0], b[1], b[2], b[3]); Define(78, grid); }
+                if (descriptor.Number("scaleGridEnabled") != 0) throw new NotSupportedException("Scale-9 grids are not supported by the RA3 APT runtime.");
+                var link = descriptor.Record("libraryMetadata")?.Record("linkage") ?? descriptor.Record("linkage"); string className = link?.Text("className") ?? "";
+                if (className.Length != 0)
+                { if (project == null) throw new InvalidDataException("Missing AS2 source folder for " + className); project.RequireClass(className); string identifier = link.Text("identifier"); if (identifier.Length == 0) throw new InvalidDataException("AS2 class linkage needs an export identifier."); var init = new SwfWriter(); init.u16(id); foreach (var cls in project.ClassOrder) init.bytes(cls.Code); string quoted = "\"" + identifier.Replace("\\", "\\\\").Replace("\"", "\\\"") + "\""; init.bytes(ActionScriptCompiler.Compile("Object.registerClass(" + quoted + ", _global." + className + ");")); Define(59, init); }
                 return id;
             }
             finally { compiling.Remove(descriptor); }
@@ -100,9 +112,9 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
                     bool graphic = r.ClassName == "CPicSymbol" || r.ClassName == "CPicShapeObj";
                     int frame = -1;
                     if (graphic) { int length = GetTimeline(descriptor).Length, first = (int)r.Number("firstFrame"), mode = (int)r.Number("loopMode"); if (first < 0 || first >= length || mode < 0 || mode > 2) throw new InvalidDataException("Invalid graphic playback settings."); frame = mode == 2 ? first : mode == 1 ? Math.Min(first + age, length - 1) : (first + age) % length; }
-                    id = Symbol(descriptor, frame, r.ClassName == "CPicButton"); break;
-                case "CPicBitmap": id = Bitmap(r.Number("mediaId", -1)).ShapeId; break;
-                case "CPicText": id = new TextCompiler(this).Compile(r); break;
+                    id = Symbol(descriptor, frame, r.ClassName == "CPicButton", r.Number("trackAsMenu") != 0); break;
+                case "CPicBitmap": if (r.Record("raster") != null) throw new NotSupportedException("Inline bitmap replacement."); id = Bitmap(r.Number("mediaId", -1)).ShapeId; break;
+                case "CPicText": if (!textIds.TryGetValue(r, out id)) textIds.Add(r, id = new TextCompiler(this).Compile(r)); break;
                 default: throw new NotSupportedException("Display object " + r.ClassName);
             }
             output.Add(new Placement(id, r));
@@ -121,7 +133,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         }
         private byte[] Place(Placement p, bool move, bool character)
         {
-            RejectVisualEffects(p.Record); string name = p.Record.Text("instanceName"); byte[] clips = ActionScriptCompiler.CompileHandlers(Source(p.Record), p.Record.ClassName == "CPicButton");
+            RejectVisualEffects(p.Record); string name = p.Record.Text("instanceName"); byte[] clips = ActionScriptCompiler.CompileHandlers(p.Record.ClassName == "CPicFrame" ? "" : SourceText(p.Record), p.Record.ClassName == "CPicButton");
             var color = Color(p.Record); var w = new SwfWriter(); w.u8((clips.Length > 0 ? 128 : 0) | (p.ClipDepth != 0 ? 64 : 0) | (name.Length > 0 ? 32 : 0) | (color != null ? 8 : 0) | 4 | (character ? 2 : 0) | (move ? 1 : 0));
             w.u16(p.Depth); if (character) w.u16(p.Id); w.matrix(p.Matrix); if (color != null) w.bytes(color); if (name.Length > 0) w.text(name); if (p.ClipDepth != 0) w.u16(p.ClipDepth); if (clips.Length > 0) w.bytes(clips); return w.data();
         }
@@ -140,6 +152,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         }
         internal static string Source(FlaRecord r)
         { var actions = r.Record("actions"); if (actions == null) return ""; if (actions.get("source") is string source) return source; if (actions.Records("commands").Count != 0 || actions.Record("compiledCommands") != null) throw new NotSupportedException("Archived editor-command actions need source reconstruction."); return ""; }
+        private string SourceText(FlaRecord r) => project?.Embedded(Source(r), flaPath) ?? Source(r);
         private sealed class Timeline
         {
             private readonly FlaCompiler compiler; private readonly List<FlaRecord> layers; private readonly int[] bases, capacities;
@@ -189,7 +202,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
                     foreach (var f in layer.getChildren())
                     {
                         if (index == start)
-                        { string label = f.Text("label"); if (label.Length > 0 && labels.Add(label)) { var l = new SwfWriter(); l.text(label); w.tag(43, l); } string source = Source(f); if (source.Trim().Length > 0) w.tag(12, ActionScriptCompiler.Compile(source)); if (f.Number("soundMediaId") != 0) compiler.SoundEvent(w, f); }
+                        { string label = f.Text("label"); if (label.Length > 0 && labels.Add(label)) { var l = new SwfWriter(); l.text(label); w.tag(43, l); } string source = compiler.SourceText(f); if (source.Trim().Length > 0) w.tag(12, ActionScriptCompiler.Compile(source)); if (f.Number("soundMediaId") != 0) compiler.SoundEvent(w, f); }
                         start += (int)f.Number("duration", 1);
                     }
                 }

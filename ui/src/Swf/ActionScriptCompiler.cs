@@ -46,8 +46,11 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         private sealed class Undefined { internal static readonly Undefined Value = new Undefined(); }
         private readonly List<Token> tokens = new List<Token>(); private int cursor;
         private Code code = new Code(); private readonly Stack<Tuple<int, int>> loops = new Stack<Tuple<int, int>>();
+        private readonly Dictionary<string, string> aliases = new Dictionary<string, string>(StringComparer.Ordinal);
+        private HashSet<string> locals = new HashSet<string>(StringComparer.Ordinal);
+        private As2Class classContext;
         private ActionScriptCompiler(string source) { Lex(source); }
-        internal static byte[] Compile(string source) { var c = new ActionScriptCompiler(source); while (!c.At("<eof>")) c.Statement(); return c.code.Finish(true); }
+        internal static byte[] Compile(string source) { var c = new ActionScriptCompiler(source); c.Imports(null); while (!c.At("<eof>")) c.Statement(); return c.code.Finish(true); }
         private Token Current => tokens[cursor];
         private bool At(string text) => Current.Text == text;
         private bool Eat(string text) { if (!At(text)) return false; cursor++; return true; }
@@ -56,6 +59,11 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         private string Identifier() { if (Current.Value != null || At("<eof>") || !(char.IsLetter(Current.Text[0]) || Current.Text[0] == '_' || Current.Text[0] == '$')) throw Error("Expected identifier."); return tokens[cursor++].Text; }
         private void Semicolon() { if (!Eat(";") && !At("}") && !At("<eof>") && (cursor == 0 || Current.Line == tokens[cursor - 1].Line)) throw Error("Expected ';'."); }
         private void TypeAnnotation() { if (Eat(":")) { Identifier(); while (Eat(".")) Identifier(); } }
+        private string Qualified() { string name = Identifier(); while (Eat(".")) name += "." + (Eat("*") ? "*" : Identifier()); return name; }
+        private void Imports(Func<string, As2Class> require)
+        {
+            while (Eat("import")) { string name = Qualified(); Need(";"); if (name.EndsWith(".*", StringComparison.Ordinal)) throw Error("Use explicit AS2 class imports."); require?.Invoke(name); string leaf = name.Substring(name.LastIndexOf('.') + 1); if (aliases.ContainsKey(leaf) && aliases[leaf] != name) throw Error("Ambiguous class import " + leaf); aliases[leaf] = name; }
+        }
         private void Statement()
         {
             if (Eat(";")) return;
@@ -79,7 +87,16 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         { do { string name = Identifier(); TypeAnnotation(); code.Push(name); if (Eat("=")) { Emit(Expression(2)); code.Op(0x3c); } else code.Op(0x41); } while (Eat(",")); }
         private void For()
         {
-            Need("("); if (!Eat(";")) { if (Eat("var")) Variables(); else { Emit(Expression()); code.Op(0x17); } Need(";"); }
+            Need("("); int saved = cursor; bool declaration = Eat("var");
+            Node iterator = declaration ? new Node("variable", Identifier()) : At(";") ? null : Expression(11); if (declaration) TypeAnnotation();
+            if (iterator != null && Eat("in"))
+            {
+                Emit(Expression()); Need(")"); code.Op(0x55); int next = code.Label(), cleanup = code.Label(), done = code.Label(); code.Mark(next); code.Op(0x4c); code.Push(null); code.Op(0x49); code.Jump(0x9d, cleanup);
+                code.Store(0); code.Op(0x17); iterator = Resolve(iterator); Target(iterator, false); code.Register(0); code.Op(iterator.Kind == "variable" ? 0x1d : 0x4f);
+                loops.Push(Tuple.Create(cleanup, next)); Statement(); loops.Pop(); code.Jump(0x99, next);
+                code.Mark(cleanup); code.Op(0x4c); code.Push(null); code.Op(0x49); code.Jump(0x9d, done); code.Op(0x17); code.Jump(0x99, cleanup); code.Mark(done); code.Op(0x17); return;
+            }
+            cursor = saved; if (!Eat(";")) { if (Eat("var")) Variables(); else { Emit(Expression()); code.Op(0x17); } Need(";"); }
             int begin = code.Label(), increment = code.Label(), end = code.Label(); code.Mark(begin);
             if (!Eat(";")) { Emit(Expression()); Need(";"); code.Op(0x12); code.Jump(0x9d, end); }
             Node step = Eat(")") ? null : Expression(); if (step != null) Need(")");
@@ -143,13 +160,18 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         private Node Function(string name)
         {
             Need("("); var parameters = new List<string>(); if (!Eat(")")) { do { parameters.Add(Identifier()); TypeAnnotation(); } while (Eat(",")); Need(")"); } TypeAnnotation();
-            Code outer = code; var savedLoops = loops.ToArray(); loops.Clear(); code = new Code(); Need("{"); while (!Eat("}")) { if (At("<eof>")) throw Error("Unclosed function."); Statement(); } code.Push(Undefined.Value); code.Op(0x3e); byte[] body = code.Finish(); code = outer; foreach (var loop in savedLoops.Reverse()) loops.Push(loop);
+            Code outer = code; var savedLoops = loops.ToArray(); var outerLocals = locals; locals = new HashSet<string>(outerLocals, StringComparer.Ordinal); locals.UnionWith(parameters); loops.Clear(); code = new Code(); Need("{");
+            // AVM1 locals have function scope, including declarations below a use.
+            int scan = cursor, depth = 1;
+            while (scan < tokens.Count && depth > 0) { string text = tokens[scan].Text; if (text == "{") depth++; else if (text == "}") depth--; else if (text == "var" && scan + 1 < tokens.Count) { int variable = scan + 1; locals.Add(tokens[variable].Text); int nesting = 0; for (int j = variable + 1; j < tokens.Count; j++) { string t = tokens[j].Text; if (t == "(" || t == "[" || t == "{") nesting++; else if (t == ")" || t == "]" || t == "}") { if (nesting == 0) break; nesting--; } if (nesting == 0 && t == ";") break; if (nesting == 0 && t == "," && j + 1 < tokens.Count) locals.Add(tokens[j + 1].Text); } } scan++; }
+            while (!Eat("}")) { if (At("<eof>")) throw Error("Unclosed function."); Statement(); } code.Push(Undefined.Value); code.Op(0x3e); byte[] body = code.Finish(); code = outer; locals = outerLocals; foreach (var loop in savedLoops.Reverse()) loops.Push(loop);
             return new Node("function", name, Tuple.Create(parameters, body));
         }
         private void EmitFunction(Node n)
         { var f = (Tuple<List<string>, byte[]>)n.Value; var w = new SwfWriter(); w.text(n.Name); w.u16(f.Item1.Count); foreach (string parameter in f.Item1) w.text(parameter); if (f.Item2.Length > 65535) throw Error("Function exceeds 64 KiB."); w.u16(f.Item2.Length); code.Op(0x9b, w.data()); code.Bytes.Write(f.Item2, 0, f.Item2.Length); }
         private void Emit(Node n)
         {
+            n = Resolve(n);
             switch (n.Kind)
             {
                 case "literal": code.Push(n.Value); return;
@@ -175,15 +197,16 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         }
         private void Target(Node target, bool read)
         {
+            target = Resolve(target);
             if (target.Kind == "variable") { code.Push(target.Name); if (read) { code.Op(0x4c); code.Op(0x1c); } }
             else if (target.Kind == "member") { Emit(target.Children[0]); Emit(target.Children[1]); if (read) { code.Store(2); code.Op(0x17); code.Store(1); code.Register(2); code.Register(1); code.Register(2); code.Op(0x4e); } }
             else throw Error("Expression cannot be assigned.");
         }
         private void Assign(Node target, Node value, string op)
-        { Target(target, op != "="); Emit(value); if (op != "=") Binary(op.Substring(0, op.Length - 1)); code.Store(0); code.Op(target.Kind == "variable" ? 0x1d : 0x4f); code.Register(0); }
+        { target = Resolve(target); Target(target, op != "="); Emit(value); if (op != "=") Binary(op.Substring(0, op.Length - 1)); code.Store(0); code.Op(target.Kind == "variable" ? 0x1d : 0x4f); code.Register(0); }
         private void Unary(Node n)
         {
-            Node value = n.Children[0];
+            Node value = Resolve(n.Children[0]);
             if (n.Name == "++" || n.Name == "--")
             { Target(value, true); if (n.Kind == "postfix") code.Store(3); code.Op(n.Name == "++" ? 0x50 : 0x51); code.Store(0); code.Op(value.Kind == "variable" ? 0x1d : 0x4f); code.Register(n.Kind == "postfix" ? 3 : 0); return; }
             if (n.Name == "delete") { if (value.Kind == "member") { Emit(value.Children[0]); Emit(value.Children[1]); code.Op(0x3a); } else if (value.Kind == "variable") { code.Push(value.Name); code.Op(0x3b); } else throw Error("Invalid delete operand."); return; }
@@ -192,7 +215,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         }
         private void Call(Node n)
         {
-            Node target = n.Children[0]; int count = n.Children.Count - 1; bool create = n.Kind == "new";
+            Node target = Resolve(n.Children[0]); int count = n.Children.Count - 1; bool create = n.Kind == "new";
             if (!create && target.Kind == "variable")
             {
                 string name = target.Name; var simple = new Dictionary<string, int> { { "stop", 7 }, { "play", 6 }, { "nextFrame", 4 }, { "prevFrame", 5 }, { "stopAllSounds", 9 }, { "getTimer", 0x34 } };
@@ -202,9 +225,59 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
                 if (name == "getURL" || name == "loadMovie" || name == "loadVariables") { if (count < 1 || count > 3) throw Error("Invalid URL arguments."); Emit(n.Children[1]); if (count >= 2) Emit(n.Children[2]); else code.Push(""); byte flags = (byte)(name == "loadMovie" ? 0x40 : name == "loadVariables" ? 0x80 : 0); if (count == 3) { if (n.Children[3].Value is string method) flags |= (byte)(method.ToUpperInvariant() == "POST" ? 2 : method.ToUpperInvariant() == "GET" ? 1 : 0); else throw Error("URL method must be a literal."); } code.Op(0x9a, new[] { flags }); code.Push(Undefined.Value); return; }
             }
             for (int i = n.Children.Count - 1; i >= 1; i--) Emit(n.Children[i]); code.Push(count);
-            if (target.Kind == "variable") { code.Push(target.Name); code.Op(create ? 0x40 : 0x3d); }
+            if (target.Kind == "variable" && target.Name == "super" && !create) { Emit(target); code.Push(""); code.Op(0x52); }
+            else if (target.Kind == "variable") { code.Push(target.Name); code.Op(create ? 0x40 : 0x3d); }
             else if (target.Kind == "member") { Emit(target.Children[0]); Emit(target.Children[1]); code.Op(create ? 0x53 : 0x52); }
             else { Emit(target); code.Push(""); code.Op(create ? 0x53 : 0x52); }
+        }
+        private static Node PathNode(string path)
+        { var parts = path.Split('.'); Node result = new Node("variable", "_global"); foreach (string part in parts) result = new Node("member", null, null, result, new Node("literal", null, part)); return result; }
+        private Node Resolve(Node n)
+        {
+            if (n.Kind != "variable" || locals.Contains(n.Name)) return n;
+            if (classContext != null && classContext.InstanceMembers.Contains(n.Name)) return new Node("member", null, null, new Node("variable", "this"), new Node("literal", null, n.Name));
+            if (classContext != null && classContext.StaticMembers.Contains(n.Name)) return new Node("member", null, null, PathNode(classContext.Name), new Node("literal", null, n.Name));
+            if (aliases.TryGetValue(n.Name, out string qualified)) return PathNode(qualified); return n;
+        }
+        internal static As2Class CompileClass(string source, Func<string, As2Class> require)
+        {
+            var c = new ActionScriptCompiler(source); c.Imports(require); c.Eat("dynamic"); c.Need("class"); string name = c.Qualified(), leaf = name.Substring(name.LastIndexOf('.') + 1); string parent = c.Eat("extends") ? c.Qualified() : "Object";
+            if (c.aliases.TryGetValue(parent, out string qualified)) parent = qualified;
+            var baseClass = require(parent); var result = new As2Class { Name = name }; if (baseClass != null) { result.InstanceMembers.UnionWith(baseClass.InstanceMembers); result.StaticMembers.UnionWith(baseClass.StaticMembers); }
+            if (parent == "MovieClip") result.InstanceMembers.UnionWith(new[] { "_x", "_y", "_alpha", "_width", "_height", "_visible", "_rotation", "_xscale", "_yscale", "_parent", "_root", "_name", "_currentframe", "_totalframes", "attachMovie", "createEmptyMovieClip", "removeMovieClip", "duplicateMovieClip", "swapDepths", "getDepth", "getNextHighestDepth", "localToGlobal", "globalToLocal", "hitTest", "startDrag", "stopDrag" });
+            c.aliases[leaf] = name; c.classContext = result; c.Need("{");
+            var functions = new List<Tuple<bool, string, int, string>>(); var fields = new List<Tuple<bool, string, Node>>();
+            while (!c.Eat("}"))
+            {
+                bool isStatic = false; while (c.At("public") || c.At("private") || c.At("static")) { if (c.Eat("static")) isStatic = true; else c.cursor++; }
+                if (c.Eat("var"))
+                { do { string field = c.Identifier(); c.TypeAnnotation(); var set = isStatic ? result.StaticMembers : result.InstanceMembers; if (!set.Add(field)) throw c.Error("Duplicate class member " + field); Node initial = c.Eat("=") ? c.Expression(2) : new Node("literal", null, Undefined.Value); fields.Add(Tuple.Create(isStatic, field, initial)); } while (c.Eat(",")); c.Semicolon(); }
+                else if (c.Eat("function"))
+                {
+                    string method = c.Identifier(), accessor = ""; if ((method == "get" || method == "set") && !c.At("(")) { accessor = method; method = c.Identifier(); }
+                    if (method != leaf) (isStatic ? result.StaticMembers : result.InstanceMembers).Add(method);
+                    int function = c.cursor, brace = c.cursor; while (brace < c.tokens.Count && c.tokens[brace].Text != "{") brace++; if (brace == c.tokens.Count) throw c.Error("Missing method body."); int depth = 1, end = brace + 1; while (end < c.tokens.Count && depth != 0) { if (c.tokens[end].Text == "{") depth++; if (c.tokens[end].Text == "}") depth--; end++; } if (depth != 0) throw c.Error("Unclosed class method."); functions.Add(Tuple.Create(isStatic, method, function, accessor)); c.cursor = end;
+                }
+                else throw c.Error("Expected AS2 field or method.");
+            }
+            c.Eat(";"); c.Need("<eof>"); var methods = new List<Tuple<bool, string, Node, string>>(); Node constructor = null;
+            foreach (var method in functions) { c.cursor = method.Item3; Node function = c.Function(""); if (method.Item2 == leaf) { if (method.Item1 || constructor != null || method.Item4.Length != 0) throw c.Error("Invalid constructor."); constructor = function; } else methods.Add(Tuple.Create(method.Item1, method.Item2, function, method.Item4)); }
+            // Instance field expressions execute per construction, never as shared prototype arrays.
+            c.code = new Code(); foreach (var field in fields.Where(f => !f.Item1)) { c.Assign(new Node("member", null, null, new Node("variable", "this"), new Node("literal", null, field.Item2)), field.Item3, "="); c.code.Op(0x17); }
+            byte[] initializer = c.code.Finish();
+            if (constructor == null) { c.code = new Code(); if (parent != "Object") { c.Call(new Node("call", null, null, new Node("variable", "super"))); c.code.Op(0x17); } c.code.Bytes.Write(initializer, 0, initializer.Length); c.code.Push(Undefined.Value); c.code.Op(0x3e); constructor = new Node("function", "", Tuple.Create(new List<string>(), c.code.Finish())); }
+            else { var f = (Tuple<List<string>, byte[]>)constructor.Value; constructor.Value = Tuple.Create(f.Item1, initializer.Concat(f.Item2).ToArray()); }
+            c.code = new Code(); Node ctor = PathNode(name), prototype = new Node("member", null, null, ctor, new Node("literal", null, "prototype"));
+            int done = c.code.Label(); c.Emit(ctor); c.code.Push(Undefined.Value); c.code.Op(0x66); c.code.Op(0x12); c.code.Jump(0x9d, done);
+            string[] parts = name.Split('.'); for (int i = 1; i < parts.Length; i++)
+            { Node package = PathNode(string.Join(".", parts.Take(i))); int exists = c.code.Label(); c.Emit(package); c.code.Push(Undefined.Value); c.code.Op(0x66); c.code.Op(0x12); c.code.Jump(0x9d, exists); c.Assign(package, new Node("object"), "="); c.code.Op(0x17); c.code.Mark(exists); }
+            c.Assign(ctor, constructor, "="); c.code.Op(0x17); c.Emit(ctor); c.Emit(PathNode(parent)); c.code.Op(0x69);
+            foreach (var field in fields.Where(f => !f.Item1)) { c.Assign(new Node("member", null, null, prototype, new Node("literal", null, field.Item2)), new Node("literal", null, Undefined.Value), "="); c.code.Op(0x17); }
+            foreach (var method in methods.Where(m => m.Item4.Length == 0)) { c.Assign(new Node("member", null, null, method.Item1 ? ctor : prototype, new Node("literal", null, method.Item2)), method.Item3, "="); c.code.Op(0x17); }
+            foreach (var accessors in methods.Where(m => m.Item4.Length != 0).GroupBy(m => Tuple.Create(m.Item1, m.Item2)))
+            { var get = accessors.Where(m => m.Item4 == "get").ToArray(); var set = accessors.Where(m => m.Item4 == "set").ToArray(); if (get.Length > 1 || set.Length > 1) throw c.Error("Duplicate AS2 accessor."); Node target = new Node("member", null, null, accessors.Key.Item1 ? ctor : prototype, new Node("literal", null, "addProperty")); var call = new Node("call", null, null, target, new Node("literal", null, accessors.Key.Item2), get.Length == 0 ? new Node("literal") : get[0].Item3, set.Length == 0 ? new Node("literal") : set[0].Item3); c.Call(call); c.code.Op(0x17); }
+            foreach (var field in fields.Where(f => f.Item1)) { c.Assign(new Node("member", null, null, ctor, new Node("literal", null, field.Item2)), field.Item3, "="); c.code.Op(0x17); }
+            c.code.Mark(done); result.Code = c.code.Finish(); return result;
         }
         internal static byte[] CompileHandlers(string source, bool button)
         {

@@ -121,6 +121,7 @@ namespace eaf2apt
                 }
                 foreach (var item in CharacterList)
                 {
+                    if (item is DefineSoundTag || item is DefineVideoStreamTag) throw new NotSupportedException("Embedded audio/video payloads are not supported by this RA3 UI asset converter.");
                     var id = item.TagID;
                     if (id > GlobalData.LastID)
                     {

@@ -1,0 +1,60 @@
+# Flash 8 UI 编译插件
+
+纯 C# 类库，源码、依赖来源、测试均在根目录 `ui/`。不需要安装 Flash 8、Java、Python，也不启动 eaf2apt、flasm 或 triangle 进程。
+
+输入是同一个素材目录里的二进制 Flash 8 `.fla` 和配套 `.as`。输出只有最终 Mod 的 `.manifest/.bin/.relo/.imp`。转换数据在进程内存中直接进入资产缓冲区；不生成 SWF、APT、const、dat、ru、TGA、DDS 或 XML 中间文件。贴图以 DDS 运行时数据嵌入 `.bin`，无需另建 cdata 文件。
+
+## 宿主入口
+
+`BinaryAssetBuilder.UiCompiler.Plugin` 实现与 AudioCompiler 相同的 `IAssetBuilderPlugin` 生命周期：`Initialize`、`ReInitialize`、`GetExtendedTypeInformation`、`ProcessInstance`、版本/类型哈希和 `Dispose`。
+
+目录直接编译入口：
+
+```csharp
+using BinaryAssetBuilder.Core;
+using BinaryAssetBuilder.UiCompiler;
+
+using (var plugin = new Plugin())
+{
+    plugin.Initialize(null, TargetPlatform.Win32);
+    // Main.fla、Main.as、其他 AS 类/包含文件都放在 sourceFolder 中。
+    // 顶层多个 FLA 会一起生成同一组最终四流。
+    ModStreams result = plugin.CompileFolder(sourceFolder, outputBase);
+}
+```
+
+`outputBase` 例如 `Mods/MyMod/data/ui`，最终文件为 `ui.manifest`、`ui.bin`、`ui.relo`、`ui.imp`。不是独立命令行程序。
+
+宿主已有整体 Mod 构建流程时，调用 `CompileUiFile(declaration, Win32)`，把返回的 `UiAssetGroup` 中所有真实资产加入宿主的收集阶段，并把 `InputFiles` 中所有 FLA/AS 文件纳入依赖跟踪。声明使用 `AptAptData`，`id="Main_apt"`，`File` 指向 FLA 或只含一个 FLA 的素材目录。
+
+标准 `ProcessInstance` 只能返回一个 `AssetBuffer`。因此该入口要求 `UiCompilerConfiguration.Collector`：主 AptAptData 通过返回值交回，其余 AptConstData、AptDatData、AptGeometryData、Texture 及源文件依赖一次性交给 `IUiAssetCollector`。缺少收集器会明确报错，防止少编译资产。旧宿主若没有多资产展开阶段，应使用目录入口。插件自身不复用旧文件或缓存；宿主缓存必须考虑全部 `InputFiles`。
+
+## AS 关联规则
+
+默认遵循 Flash 8 项目约定：
+
+- 同名 `Main.as` 中的时间轴代码加入 `Main.fla` 第一帧；如果同名 AS 声明的是类，则按类处理。
+- FLA 内的帧/实例脚本、同名主脚本及类文件中的 `#include` 相对其所属源文件解析；包含文件必须在素材目录内。
+- `import`、命名空间目录、元件的 AS2 链接类名解析目录中的类文件；支持显式导入和包通配导入。
+- AS 支持 UTF-8（有/无 BOM）和带 BOM 的 UTF-16。缺失类、缺失 include、循环依赖和语法错误会中止构建。
+
+支持常用 AS1/AS2 表达式、变量、函数、成员、数组/对象、条件、循环、for-in、switch、事件处理器，以及 AS2 类、继承、实例/静态成员和 getter/setter。不是 AS3 编译器。`try/with` 源语法、外部运行时共享库和完整 AS2 接口类型系统尚未实现，会明确拒绝。
+
+## 版本及能力边界
+
+只接受 OLE/CFB 二进制 FLA，Contents 修订号必须为 Flash 8 的 `0x3F`；拒绝 MX2004、CS3/CS4、ZIP/XFL 及改扩展名的 SWF。游戏目标是 Win32 RA3 APT。
+
+已实现矢量填充、孔洞、曲线、位图、Flash 8 渐变的贴图材料、时间轴/图层/蒙版、元件/按钮、常规运动与形状补间及文本。静态文字轮廓使用 Windows 字体，所需字体必须已安装；动态文字保留运行时字体名。
+
+尚未支持 Flash 滤镜/混合模式、九宫格、引导线运动、预编译组件、嵌套 SWF、嵌入音视频及部分过程化描边。遇到这些能力会失败，不会把转换缺项当成成功。此插件不等同于覆盖 Flash 8 编辑器的所有发布功能。
+
+## 构建与验证
+
+```text
+dotnet build ui/BinaryAssetBuilder.UiCompiler.csproj -c Release -f net472
+dotnet run --project ui/tests/UiCompiler.Tests.csproj
+```
+
+部署 `ui/bin/Release/net472/` 的插件、LibTessDotNet 和 StbImageSharp 到宿主目录。Core 由 SDK/宿主提供。`net8.0` 用于跨平台组件测试；字体轮廓测试需要 Windows。
+
+APT 序列化依据附件工具对应的 SWF2APT 源码；资产布局、类型哈希、重定位和 v6 四流逻辑依据指定 recovery 分支。固定来源、许可及移植修改见 [VENDOR.md](VENDOR.md)。自动化验证不能代替游戏内 UI 验收。

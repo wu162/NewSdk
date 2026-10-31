@@ -34,7 +34,7 @@ namespace BinaryAssetBuilder.UiCompiler
             Tuple.Create("Texture", SageHash.Symbol("Texture"), 2673866970u)
         };
         internal static ExtendedTypeInformation Find(string name)
-        { foreach (var t in Types) if (t.Item1 == name) return new ExtendedTypeInformation { TypeName = name, TypeId = t.Item2, TypeHash = t.Item3, ProcessingHash = ProcessingHash, UseBuildCache = true }; throw new NotSupportedException(name); }
+        { foreach (var t in Types) if (t.Item1 == name) return new ExtendedTypeInformation { TypeName = name, TypeId = t.Item2, TypeHash = t.Item3, ProcessingHash = ProcessingHash, UseBuildCache = false }; throw new NotSupportedException(name); }
         internal static ExtendedTypeInformation Find(uint id) { foreach (var t in Types) if (t.Item2 == id) return Find(t.Item1); return null; }
         internal static uint AllTypesHash { get { uint hash = ProcessingHash; foreach (var t in Types) hash = SageHash.Combine(hash, BitConverter.GetBytes(t.Item3)); return hash; } }
     }

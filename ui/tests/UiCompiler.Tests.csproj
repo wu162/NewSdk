@@ -7,4 +7,5 @@
   </PropertyGroup>
   <ItemGroup><ProjectReference Include="../BinaryAssetBuilder.UiCompiler.csproj" /></ItemGroup>
   <ItemGroup><Reference Include="BinaryAssetBuilder.Core"><HintPath>../../SDK/tools/BinaryAssetBuilder.Core.dll</HintPath></Reference></ItemGroup>
+  <ItemGroup><None Include="fixtures/**/*" CopyToOutputDirectory="PreserveNewest" /></ItemGroup>
 </Project>

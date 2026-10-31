@@ -19,7 +19,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
             int id = compiler.NextId(); var w = new SwfWriter(); w.u16(id); w.rect(minX - extent, maxX + extent, minY - extent, maxY + extent);
             // DefineShape3 is understood by the original EA converter. Flash 8's
             // cap/join/scale extensions are validated rather than silently dropped.
-            Count(w, fills.Count); foreach (var fill in fills) Fill(w, fill);
+            Count(w, fills.Count); foreach (var fill in fills) Fill(w, fill, new double[] { minX, maxX, minY, maxY });
             Count(w, strokes.Count); foreach (var stroke in strokes)
             {
                 if (stroke.Number("styleType") != 0 || (stroke.Record("paint")?.Number("flags") ?? 0) != 0) throw new NotSupportedException("Procedural/gradient strokes require outline expansion.");
@@ -41,19 +41,16 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         }
         private static int Coordinate(FlaRecord r, string key) => SwfWriter.Round(r.Real(key) / 256);
         private static void Count(SwfWriter w, int count) { if (count > 65535) throw new InvalidDataException("Too many styles."); w.u8(Math.Min(count, 255)); if (count >= 255) w.u16(count); }
-        private void Fill(SwfWriter w, FlaRecord r)
+        private void Fill(SwfWriter w, FlaRecord r, double[] bounds)
         {
             int flags = (int)r.Number("flags");
             if ((flags & 0x40) != 0)
-            { var bitmap = compiler.Bitmap((int)r.Number("bitmapMediaId")); w.u8(0x40 + ((flags & 2) != 0 ? 1 : 0) + ((flags & 4) != 0 ? 2 : 0)); w.u16(bitmap.Id); w.matrix(r.Matrix()); }
+            { var bitmap = compiler.Bitmap((int)r.Number("bitmapMediaId")); w.u8(0x40 | (flags & 3)); w.u16(bitmap.Id); w.matrix(r.Matrix()); }
             else if ((flags & 0x10) != 0)
             {
-                bool radial = (flags & 2) != 0; var stops = r.Records("stops"); if (stops.Count == 0 || stops.Count > 15) throw new InvalidDataException("Invalid gradient stop count.");
-                if (r.Number("focalPoint") != 0) throw new NotSupportedException("Focal gradients are not supported by the EA APT format.");
-                w.u8(radial ? 0x12 : 0x10); w.matrix(r.Matrix()); int gf = (int)r.Number("gradientFlags");
-                w.u8(((gf & 4) != 0 ? 64 : (gf & 8) != 0 ? 128 : 0) | ((gf & 1) != 0 ? 16 : 0) | stops.Count);
-                foreach (var stop in stops) { w.u8((int)stop.Number("ratio")); w.u32(stop.Number("colorRgba")); }
+                int bitmap = GradientRasterizer.Compile(compiler, r, bounds, out var matrix); w.u8(0x41); w.u16(bitmap); w.matrix(matrix);
             }
+            else if ((flags & 0x20) != 0) throw new NotSupportedException("Extended fill style.");
             else { w.u8(0); w.u32(r.Number("packedValue")); }
         }
         internal static void Line(SwfWriter w, int dx, int dy)

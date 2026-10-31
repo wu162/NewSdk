@@ -13,9 +13,10 @@ namespace BinaryAssetBuilder.UiCompiler
         public byte[] Relocations { get; }
         public byte[] Imports { get; }
         public IReadOnlyList<CompiledUiAsset> Assets { get; }
+        public IReadOnlyList<string> InputFiles { get; }
         internal ModStreams(IReadOnlyList<CompiledUiAsset> assets)
         {
-            Assets = assets;
+            Assets = assets; InputFiles = (assets as UiAssetGroup)?.InputFiles ?? Array.Empty<string>();
             var seen = new HashSet<ulong>(); foreach (var a in assets) if (!seen.Add((ulong)a.TypeId << 32 | a.InstanceId)) throw new InvalidDataException("Duplicate/colliding UI asset " + a.TypeName + ":" + a.Name);
             using (var names = new MemoryStream()) using (var sources = new MemoryStream()) using (var entries = new MemoryStream()) using (var writer = new BinaryWriter(entries, Encoding.UTF8, true))
             {
