@@ -73,7 +73,14 @@ namespace Recovered.Compiler.Texture
         internal static byte[] EncodeLevel(float[] samples, int width, int height, string format)
         {
             if (format != "DXT3" && format != "DXT5")
-                return TextureBlockCompression.Encode(ToBytes(samples), width, height, format);
+            {
+                byte[] rgba = ToBytes(samples);
+                // Keep the recovered <= 0.5 cut-off for filtered one-bit alpha;
+                // rounding a half-value to byte 128 would make it opaque.
+                if (format == "DXT1A")
+                    for (int i = 3; i < rgba.Length; i += 4) rgba[i] = samples[i] <= 0.5f ? (byte)0 : (byte)255;
+                return TextureBlockCompression.Encode(rgba, width, height, format);
+            }
             // Preserve the accepted native float inputs and partial-block mapping.
             int bw = Math.Min(4, width), bh = Math.Min(4, height);
             byte[] output = new byte[checked(((width + 3) / 4) * ((height + 3) / 4) * 16)];

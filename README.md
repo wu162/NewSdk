@@ -12,6 +12,8 @@
 
 完整操作步骤见 [新编译器使用说明](recovery/COMPILER_USAGE.md)，开发和历史资料见 [文档入口](recovery/README.md)。
 
+本分支将 [Texture 编译插件](recovery/docs/TEXTURE_PLUGIN.md) 直接编入 EXE，优先覆盖常见图像输入及七种 SDK 输出格式；新 Windows 产品验收状态见该文档。
+
 本分支内建 [FLA/AS UI 编译插件](recovery/docs/FLA_UI_COMPILER.md)：可自动发现 `Data/AptUI/` 下的二进制 Flash MX 2004/8 FLA，与对应 AS 直接编译为 MOD 四流，也可由 `AptAptData` XML 声明与其他资产混合编译。
 
 ```powershell

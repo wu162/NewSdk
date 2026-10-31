@@ -153,6 +153,16 @@ public static class TextureCommonFormats
         Pixels(File.ReadAllBytes(Path.Combine(Root, expectedPixels)), Decode(dds, format), colorLimit, alphaLimit, file + "/" + format);
         byte[] again = Compile(file, format, mipmaps, demand, "StandardTexture");
         Need(dds.SequenceEqual(again), "Nondeterministic output: " + file + "/" + format);
+        if (file == "binary-alpha.png" && format == "DXT1A" && mipmaps)
+        {
+            // This symmetric half-opaque source filters to alpha 0.5 in its
+            // final 1x1 mip. The original one-bit cutoff includes equality.
+            byte[] lastMip = new byte[136]; Buffer.BlockCopy(dds, 0, lastMip, 0, 128);
+            Buffer.BlockCopy(dds, dds.Length - 8, lastMip, 128, 8);
+            Buffer.BlockCopy(BitConverter.GetBytes(1), 0, lastMip, 12, 4);
+            Buffer.BlockCopy(BitConverter.GetBytes(1), 0, lastMip, 16, 4);
+            Need(Decode(lastMip, "DXT1A")[3] == 0, "DXT1A filtered alpha exactly 0.5 must remain transparent");
+        }
         Cases.Add(new { file, outputFormat = format, mipmaps, onDemand = demand, ddsSha256 = Hash(dds), bytes = dds.Length,
             decodedColorErrorLimit = colorLimit, decodedAlphaErrorLimit = alphaLimit });
     }
