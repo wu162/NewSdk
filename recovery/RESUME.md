@@ -1,6 +1,8 @@
-# 当前：资产全流程并行已实现，PR #40 集中验证中
+# 当前：资产全流程并行已验收，PR #40 待审
 
-分支 `feat/asset-pipeline-parallel`，基线 `1810fff`；[PR #40](https://github.com/wu162/NewSdk/pull/40) 为草稿，未合并。XML 资产纯计算、认证验证/编码、独立 IO、完成优先调度、物理去重及文档版本已接通。[实现和验收边界](docs/ASSET_PIPELINE_PARALLEL.md)。本地 Foundation/App/关键测试编译预检及合成调度/IO 行为通过；Windows 原生构建、完整原 SDK 和 Upheaval 冷/热旧新对照尚待新结果，不复用旧成功来代表新实现。禁止强推，合入仍需用户明确批准。
+分支 `feat/asset-pipeline-parallel`，基线 `1810fff`；[PR #40](https://github.com/wu162/NewSdk/pull/40) 待审，未合并。生产源码 `12c82011` 的 [Windows 41204304969](https://github.com/wu162/NewSdk/actions/runs/41204304969) 整体 success：Debug/Release 新构建、Core/CLI/取消、完整缓存/会话（各108用例，含部分保存重试）、原 SDK、BIG、两份三文件 ZIP 与完整 Upheaval 22样本均通过。XML 资产纯计算、认证验证/编码、独立 IO、完成优先调度、物理去重及文档版本已接通。[实现/身份/原始计量与范围](docs/ASSET_PIPELINE_PARALLEL.md)。
+
+两份正式归档、D/R三文件与两个ZIP已单次下载复算。[同机旧新配对 41206438783](https://github.com/wu162/NewSdk/actions/runs/41206438783) 24/24样本、1313个发布文件原字节相同；默认off冷n3：26.870→23.931秒（减少10.93%），热n6：1.368→1.381秒（增加0.92%）。单次detailed中XML阶段变慢、CPU成本及全部边界如实保留，不作为普遍提速结论。后续仅文档/证据，不代表再次构建。禁止强推，合入仍需用户明确批准。
 
 # 当前：缓存优化与源码纹理组合验收通过，PR #38 已获合入批准
 
