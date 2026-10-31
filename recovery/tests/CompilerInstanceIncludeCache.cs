@@ -65,6 +65,8 @@ internal static class CompilerInstanceIncludeCache
     }
     static void Run(DocumentProcessor processor, string root)
     {
+        // Each call is a new request: reset input observations after any edit.
+        ((SessionCache)processor.Cache).InitializeCache(new List<string>(), processor.SchemaSet.ContentIdentity);
         bool success; processor.ProcessDocument(root, true, false, out success); Need(success, "Core did not complete " + root);
     }
     static Dictionary<string, string> Outputs(string root)
@@ -98,7 +100,7 @@ internal static class CompilerInstanceIncludeCache
     }
     static void Next(SessionCache cache, DocumentProcessor processor)
     {
-        cache.SaveCache(false); cache.InitializeCache(new List<string>(), processor.SchemaSet.ContentIdentity);
+        cache.SaveCache(false);
     }
     static void Hot(SessionCache cache, DocumentProcessor processor, string root)
     {
@@ -134,17 +136,17 @@ internal static class CompilerInstanceIncludeCache
         Run(processor, root); var original = ColdControl(plugins, processor, root, "original"); Next(cache, processor);
         int parsed = processor.XmlParseCount;
         Edit(parent, "64.5%", "54.5%"); Run(processor, root);
-        Need(processor.XmlParseCount - parsed == 1, "Unrelated parent sibling reparsed its child/grandchild");
+        Need(processor.XmlParseCount - parsed == 1, "Unrelated parent sibling expected 1 parse; actual=" + (processor.XmlParseCount - parsed));
         Equal(original, ColdControl(plugins, processor, root, "sibling"), "Unrelated parent sibling"); Hot(cache, processor, root);
         Next(cache, processor); parsed = processor.XmlParseCount;
         Edit(parent, "72.5%", "62.5%"); Run(processor, root);
-        Need(processor.XmlParseCount - parsed == 3, "Effective parent content did not reparse the full used descendant chain");
+        Need(processor.XmlParseCount - parsed == 3, "Effective parent expected 3 parses; actual=" + (processor.XmlParseCount - parsed));
         var changed = ColdControl(plugins, processor, root, "effective"); Need(original.Any(pair => changed[pair.Key] != pair.Value), "Effective inherited edit changed no output"); Hot(cache, processor, root);
         Next(cache, processor); Edit(defs, "83.25", "73.25"); Run(processor, root);
         ColdControl(plugins, processor, root, "define-used"); Hot(cache, processor, root);
         Next(cache, processor); parsed = processor.XmlParseCount; var beforeUnused = Outputs(Settings.Current.OutputDirectory);
         Edit(defs, "95.25", "85.25"); Run(processor, root);
-        Need(processor.XmlParseCount - parsed == 1, "Unused Define invalidated inheriting documents");
+        Need(processor.XmlParseCount - parsed == 1, "Unused Define expected 1 parse; actual=" + (processor.XmlParseCount - parsed));
         Equal(beforeUnused, ColdControl(plugins, processor, root, "define-unused"), "Unused Define"); Hot(cache, processor, root);
         Next(cache, processor); Edit(xi, "63.25", "53.25"); Run(processor, root);
         ColdControl(plugins, processor, root, "xinclude"); Hot(cache, processor, root);

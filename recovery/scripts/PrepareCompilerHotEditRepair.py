@@ -64,7 +64,7 @@ def main():
  receipts={}
  for group,filename in REUSED.items():
   path=original/'evidence/refactor'/group/tag/filename;x=read(path)
-  need(passed(x) and x.get('sourceCommit')==source,'Original reused scope did not pass current production: '+group)
+  need(passed(x) and x.get('binarySourceCommit',x.get('sourceCommit'))==source,'Original reused scope did not pass current production: '+group)
   receipts[group]=dict(path=path.relative_to(original).as_posix(),sha256=sha(path),sourceCommit=source)
  # Save the exact completion helper before detaching the checkout at production.
  tools=repo/'work/hot-edit-repair-tools';tools.mkdir(parents=True,exist_ok=True)

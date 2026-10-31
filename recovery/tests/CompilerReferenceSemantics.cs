@@ -137,6 +137,18 @@ internal static class CompilerReferenceSemantics
     }
     static void ReferenceCases()
     {
+        // Both the original XPath handler and the DOM handler reject the
+        // untyped xsi:type metadata attribute. Do not advertise public support
+        // for input which the old frontend rejected.
+        XmlDocument publicDynamic = Document("<Dynamic xsi:type='OtherStrong'>OtherThing:Public</Dynamic>");
+        XmlAttribute xsiType = ((XmlElement)publicDynamic.DocumentElement.FirstChild).GetAttributeNode("type", "http://www.w3.org/2001/XMLSchema-instance");
+        Need(xsiType != null && xsiType.CreateNavigator().SchemaInfo?.SchemaType == null,
+            "The original XPath xsi:type attribute did not expose its untyped schema state");
+        bool publicRejected = false;
+        try { uint hash; References(publicDynamic, out hash); }
+        catch (BinaryAssetBuilderException error) { publicRejected = error.ErrorCode == ErrorCode.InternalError; }
+        Need(publicRejected, "Public xsi:type input stopped preserving the original untyped-attribute rejection");
+        tests.Add("production-reference-xsi-type-untyped-metadata-attribute-original-rejection-preserved");
         string body = "<Strong> DerivedThing:One </Strong><ByElement>Two</ByElement><Box><![CDATA[ BaseThing:Three ]]><!--tail--></Box>" +
             "<Dynamic xsi:type='OtherStrong'>OtherThing:Four</Dynamic><Weak>Gone:Weak</Weak>";
         uint plainHash;
@@ -145,6 +157,15 @@ internal static class CompilerReferenceSemantics
         for (int repeat = 0; repeat < 2; repeat++)
         {
             XmlDocument xml = Document(body, "AttributeStrong='BaseThing:Attribute'");
+            // Isolate the cache's actual-PSVI-type dimension after successful
+            // XSD validation. Removing only the metadata attribute avoids the
+            // public rejection above; this is not a public Core acceptance case.
+            var dynamicNode = (XmlElement)xml.GetElementsByTagName("Dynamic", Ns)[0];
+            XmlSchemaType actualType = dynamicNode.SchemaInfo.SchemaType;
+            Need(actualType != null && actualType.Name == "OtherStrong", "XSD did not retain the actual dynamic PSVI type");
+            dynamicNode.RemoveAttribute("type", "http://www.w3.org/2001/XMLSchema-instance");
+            Need(Object.ReferenceEquals(actualType, dynamicNode.SchemaInfo.SchemaType),
+                "Removing xsi:type metadata lost the validated actual PSVI type");
             uint hash; InstanceDeclaration instance = References(xml, out hash);
             Need(instance.ReferencedInstances.Count == 6 && instance.WeakReferencedInstances.Count == 1, "Strong/default/weak reference counts changed");
             string[] expected = { "BaseThing:Attribute", "BaseThing:Default", "DerivedThing:One", "BaseThing:Two", "BaseThing:Three", "OtherThing:Four" };
@@ -180,7 +201,7 @@ internal static class CompilerReferenceSemantics
         wrapper.AppendChild(strong); foreign.DocumentElement.AppendChild(wrapper);
         uint foreignHash; InstanceDeclaration crossed = References(foreign, out foreignHash);
         Need(crossed.ReferencedInstances.Count == 2 && crossed.ReferencedInstances[1].Name == "BaseThing:ThroughForeign", "Traversal did not cross a non-EA ancestor");
-        tests.Add("production-reference-traversal-strong-derived-explicit-inferred-weak-default-attribute-xsi-type-cache-ordered-hash-rejections-foreign-ancestor");
+        tests.Add("production-reference-traversal-strong-derived-explicit-inferred-weak-default-attribute-ordered-hash-rejections-foreign-ancestor-and-isolated-validated-PSVI-cache-probe");
     }
     public static int Main(string[] args)
     {

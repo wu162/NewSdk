@@ -87,8 +87,7 @@ internal static class CompilerInheritanceSnapshot
         settings.OutputDirectory=Path.Combine(work,"output"); settings.IntermediateOutputDirectory=Path.Combine(work,"intermediate");
         settings.SessionCacheDirectory=Path.Combine(work,"cache");
         settings.DefaultDataPaths=work; settings.DefaultArtPaths=work; settings.DefaultAudioPaths=work;
-        settings.TargetPlatform=TargetPlatform.Win32; settings.BuildCache=true; settings.SessionCache=true;
-        settings.BuildCacheDirectory=Path.Combine(work,"build-cache");
+        settings.TargetPlatform=TargetPlatform.Win32; settings.BuildCache=false; settings.SessionCache=true;
         settings.LinkedStreams=true; settings.OutputAssetReport=false; settings.OutputStringHashes=false;
         settings.ErrorLevel=1; settings.UsePrecompiled=false; settings.StreamHints=false; settings.StableSort=false;
         settings.MeasurePerformance=delegate(string name) {
@@ -157,8 +156,15 @@ internal static class CompilerInheritanceSnapshot
         Run(one,first); cache.SaveCache(false);
         string serializedFirst=Path.Combine(settings.SessionCacheDirectory,"first-state.xml");
         File.Copy(cache.CacheFileName,serializedFirst);
-        string controlBuildCache=Path.Combine(work,"control-build-cache");
-        CopyDirectory(settings.BuildCacheDirectory,controlBuildCache);
+        // Armor deliberately does not use BuildCache. A new stream still needs
+        // the already compiled parent/sibling bytes available before deciding
+        // whether source XML has to be restored. Seed both second-stream runs
+        // from exactly the same first-stream intermediate assets.
+        string firstAssets=Path.Combine(settings.IntermediateOutputDirectory,"streams","first","assets");
+        int seedAssetCount=Directory.GetFiles(firstAssets,"*.asset").Length;
+        Require(seedAssetCount==3,"First stream did not retain the expected parent/sibling/child backend assets");
+        CopyDirectory(firstAssets,Path.Combine(settings.IntermediateOutputDirectory,"streams","second","assets"));
+        CopyDirectory(firstAssets,Path.Combine(work,"control-intermediate","streams","second","assets"));
         var document=Document(cache,parent); var instance=document.SelfInstances[0];
         XmlNode source=instance.XmlNode;
         Require(Snapshot(instance)!=null && Count("cache.inheritanceSnapshot.publishedInstances")==1,"First inheritance source was not published on demand");
@@ -195,9 +201,8 @@ internal static class CompilerInheritanceSnapshot
         long candidatePublished=Count("cache.inheritanceSnapshot.publishedInstances"),candidateDocuments=Count("cache.inheritanceSnapshot.publishedDocuments");
         // Identical input and first-generation backend assets, but loading the
         // serialized metadata deliberately supplies no in-memory source snapshot.
-        string output=settings.OutputDirectory,intermediate=settings.IntermediateOutputDirectory,buildCache=settings.BuildCacheDirectory;
+        string output=settings.OutputDirectory,intermediate=settings.IntermediateOutputDirectory;
         settings.OutputDirectory=Path.Combine(work,"control-output"); settings.IntermediateOutputDirectory=Path.Combine(work,"control-intermediate");
-        settings.BuildCacheDirectory=controlBuildCache;
         Directory.CreateDirectory(settings.OutputDirectory); Directory.CreateDirectory(settings.IntermediateOutputDirectory);
         var controlCache=new SessionCache();
         controlCache.LoadCacheFrom(serializedFirst,Path.Combine(settings.SessionCacheDirectory,"control-session.xml"));
@@ -218,18 +223,17 @@ internal static class CompilerInheritanceSnapshot
                 xmlParseMs=candidateParseMs,prevalidatedLoadFrontendMs=candidateFrontendMs,parentPhasesMs=candidateParentMs,reloadsAvoided=candidateAvoided},
             serializedSessionControl=new {xmlParse=control.XmlParseCount,instanceCompile=control.InstanceCompileCount,wallMs=controlClock.Elapsed.TotalMilliseconds,
                 xmlParseMs=controlParseMs,prevalidatedLoadFrontendMs=controlFrontendMs,parentPhasesMs=controlParentMs,inheritanceTargetReloads=Count("cache.reload.inheritanceTarget")-controlReloadStart},
+            backendSeed=new {assetCount=seedAssetCount,source="First-stream intermediate assets copied identically into independent second-stream intermediate directories; Armor UseBuildCache=false"},
             publishedInstances=candidatePublished,publishedDocuments=candidateDocuments,retainedDocumentCount=1,retainedNodeCount=retainedNodes,
             retainedAttributeCount=retainedAttributes,retainedDocumentXmlCharacters=retainedCharacters,
             memoryScope="Original source node retains its OwnerDocument; counts describe this tiny fixture, not managed-memory bytes",
             timingScope="One detailed diagnostic pair with identical input and first-generation backend assets; parentPhasesMs uses the parent.xml traversal frame. prevalidatedLoadFrontendMs covers only PrevalidatedLoad, not Shallow Load. Not a stable throughput estimate"};
-        settings.OutputDirectory=output; settings.IntermediateOutputDirectory=intermediate; settings.BuildCacheDirectory=buildCache;
+        settings.OutputDirectory=output; settings.IntermediateOutputDirectory=intermediate;
         cache.SaveCache(false);
         // A fresh cache has no snapshot and provides the same-input byte oracle.
         settings.OutputDirectory=Path.Combine(work,"cold-output"); settings.IntermediateOutputDirectory=Path.Combine(work,"cold-intermediate");
         Directory.CreateDirectory(settings.OutputDirectory); Directory.CreateDirectory(settings.IntermediateOutputDirectory);
-        settings.BuildCache=false;
         Run(Processor(plugins,schemas,Cache(schemas,"cold")),second); Equal(expected,Four(settings.OutputDirectory,"second"));
-        settings.BuildCache=true;
         settings.OutputDirectory=output; settings.IntermediateOutputDirectory=intermediate;
         tests.Add("request-sequential-stream-parent-front-end-reload-avoided-original-PSVI-defaults-transient-reset-four-published-byte-oracle");
         // Changed source must rebuild, reject invalid XSD and publish no new snapshot.
