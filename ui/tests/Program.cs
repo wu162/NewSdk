@@ -7,6 +7,7 @@ void Check(bool condition, string message) { if (!condition) throw new Exception
 Check(SageHash.Symbol("AptAptData") == 1816258268u, "SAGE type hash");
 Check(SageHash.Symbol("AptGeometryData") == 1034587168u, "SAGE geometry type hash");
 Check(SageHash.Symbol("Texture") != 0, "Texture type ID");
+AptOracle.Verify(Check);
 void RunScript(string source, string expected)
 {
     var machine = new Avm1Machine(); machine.Run(BinaryAssetBuilder.UiCompiler.Swf.ActionScriptCompiler.Compile(source));

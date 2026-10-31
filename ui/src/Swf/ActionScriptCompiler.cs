@@ -165,7 +165,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
             // AVM1 locals have function scope, including declarations below a use.
             int scan = cursor, depth = 1;
             while (scan < tokens.Count && depth > 0) { string text = tokens[scan].Text; if (text == "{") depth++; else if (text == "}") depth--; else if (text == "var" && scan + 1 < tokens.Count) { int variable = scan + 1; locals.Add(tokens[variable].Text); int nesting = 0; for (int j = variable + 1; j < tokens.Count; j++) { string t = tokens[j].Text; if (t == "(" || t == "[" || t == "{") nesting++; else if (t == ")" || t == "]" || t == "}") { if (nesting == 0) break; nesting--; } if (nesting == 0 && t == ";") break; if (nesting == 0 && t == "," && j + 1 < tokens.Count) locals.Add(tokens[j + 1].Text); } } scan++; }
-            while (!Eat("}")) { if (At("<eof>")) throw Error("Unclosed function."); Statement(); } code.Push(Undefined.Value); code.Op(0x3e); byte[] body = code.Finish(); code = outer; locals = outerLocals; foreach (var loop in savedLoops.Reverse()) loops.Push(loop);
+            while (!Eat("}")) { if (At("<eof>")) throw Error("Unclosed function."); Statement(); } code.Push(Undefined.Value); code.Op(0x3e); byte[] body = code.Finish(); code = outer; locals = outerLocals; foreach (var loop in Enumerable.Reverse(savedLoops)) loops.Push(loop);
             return new Node("function", name, Tuple.Create(parameters, body));
         }
         private void EmitFunction(Node n)

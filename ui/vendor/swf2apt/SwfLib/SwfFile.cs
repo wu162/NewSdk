@@ -72,6 +72,7 @@ namespace SwfLib {
 
             MemoryStream memoryStream = new MemoryStream();
             SwfZip.Decompress(stream, memoryStream, info.Format);
+            memoryStream.Position = 0;
             return new SwfStreamReader(memoryStream);
         }
 
