@@ -1,3 +1,12 @@
+# 当前：RA3 EALayer3 V1（实现后验证中）
+
+用户指定基线 `recovery/legacy-sdk-cache` / `eb503513`；开发分支 `feature/ra3-ealayer3`。
+生产 AudioFile 已接入 representation31 / SNR codec5 的真实 V1 编码，复用必要的
+sagetools/LAME3.96 源码；保留现有输入、重采样、Loop、资产/缓存/worker 管线。
+Windows 专项和正式 BAB/CLI/SDK 验收正在进行，未标完成。范围、来源和限制见
+[audio/EaLayer3.md](audio/EaLayer3.md)。许可只保留在源码，不嵌入或加入部署包。
+禁止强推，创建指向基线分支的 PR 后仍须用户批准才能合并。
+
 # 当前：L8 热缓存 Benchmark（Common 通过，PR 待审）
 
 分支 `benchmark/l8-hot-cache`，基于 `recovery/legacy-sdk-cache` / `8f854606`；[PR #32](https://github.com/wu162/NewSdk/pull/32)。Benchmark 脚本/工作流已实施，未修改生产算法。Windows/Linux 各 33 项预检通过；[Common 41139062989](https://github.com/wu162/NewSdk/actions/runs/41139062989) success，测量源 `a286062f`、Release 源 `cc10391b`，整个 Windows job 18 分 20 秒，C00–C12 全部完成，75/75 正式样本 wall/elapsed 均 >8 秒，另有 3 个独立 detailed 样本。实际纯热态约 9.34 秒，未达 10–14 秒软目标，未把调参点当成绩。详见 [报告/原始计时/范围](docs/HOT_CACHE_BENCHMARK.md)。旧失败/预算耗尽结果保留，不作跨 VM A/B。Full 未运行，Environment 配置受集成权限限制，且 28 个扩展条件的双重复理论下限 >22.4 分钟、超过其 16 分钟阶段预算，不能声称整组完成。禁止强推，未经用户批准不合并。
