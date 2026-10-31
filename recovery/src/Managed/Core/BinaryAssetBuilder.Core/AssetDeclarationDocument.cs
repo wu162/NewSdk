@@ -106,6 +106,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 		public uint IncludePathHash;
 
+		public bool InstanceDependencyIdentity;
+
 		public List2<InclusionItem> InclusionItems;
 
 		public List2<OutputAsset> OutputAssets;
@@ -122,6 +124,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			DocumentHash = current.DocumentHash;
 			IncludePathHash = current.IncludePathHash;
+			InstanceDependencyIdentity = current.InstanceDependencyIdentity;
 			InclusionItems = ((current.InclusionItems.Count > 0) ? new List2<InclusionItem>(current.InclusionItems) : null);
 			DependentFileHash = current.DependentFileHash;
 			DependentFiles = ((current.DependentFiles.Count > 0) ? new List2<string>(current.DependentFiles) : null);
@@ -145,6 +148,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 		public LastState(XmlReader reader)
 		{
+			InstanceDependencyIdentity = reader.GetAttribute("iid") == "1";
 			string uiCompiler = reader.GetAttribute("uiv");
 			if (uiCompiler != null) UiCompilerHash = Convert.ToUInt32(uiCompiler);
 			reader.MoveToAttribute("d");
@@ -202,6 +206,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			writer.WriteStartElement("ad");
 			writer.WriteAttributeString("d", $"{DocumentHash};{DependentFileHash};{IncludePathHash}");
+			if (InstanceDependencyIdentity) writer.WriteAttributeString("iid", "1");
 			if (UiCompilerHash != 0) writer.WriteAttributeString("uiv", UiCompilerHash.ToString(System.Globalization.CultureInfo.InvariantCulture));
 			XmlHelper.WriteStringArrayElement(writer, "sf", (DependentFiles == null) ? null : DependentFiles.ToArray());
 			XmlHelper.WriteStringArrayElement(writer, "uidir", UiSourceDirectories == null ? null : UiSourceDirectories.ToArray());
@@ -230,6 +235,10 @@ public class AssetDeclarationDocument : IXmlSerializable
 		public uint DependentFileHash;
 
 		public uint IncludePathHash;
+
+		public bool InstanceDependencyIdentity;
+
+		public readonly Dictionary<InstanceDeclaration, uint> InheritanceSourceIdentities = new Dictionary<InstanceDeclaration, uint>();
 
 		public uint OutputChecksum;
 
@@ -355,11 +364,14 @@ public class AssetDeclarationDocument : IXmlSerializable
 			LastDocumentHash = last.DocumentHash;
 			LastIncludePathHash = last.IncludePathHash;
 			LastDependentFileHash = last.DependentFileHash;
+			InstanceDependencyIdentity = last.InstanceDependencyIdentity;
 			State = DocumentState.Shallow;
 		}
 
 		public void FromScratch()
 		{
+			InstanceDependencyIdentity = true;
+			InheritanceSourceIdentities.Clear();
 			InclusionItems = new List2<InclusionItem>();
 			DependentFiles = new List2<string>();
 			UiSourceDirectories = new List2<string>();
@@ -447,6 +459,27 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public bool HasValidatedSchema => _Current != null && _Current.SchemaValidated;
 
+	internal SchemaSet InheritanceSchemaSet => _Current.DocumentProcessor.SchemaSet;
+
+	[NonSerialized]
+	private bool _InheritanceSnapshotPublished;
+
+	internal void RecordInheritanceSnapshotPublished()
+	{
+		if (_InheritanceSnapshotPublished) return;
+		_InheritanceSnapshotPublished = true;
+		PerformanceScope.Count("cache.inheritanceSnapshot.publishedDocuments");
+	}
+
+	// Called only after the cached document's include, inheritance and Define
+	// checks succeed. Never expose old XML while those proofs are pending.
+	internal void RestoreInheritanceSnapshots()
+	{
+		if (State == DocumentState.Loaded) return;
+		foreach (InstanceDeclaration instance in SelfInstances)
+			instance.RestoreInheritanceSnapshot(InheritanceSchemaSet);
+	}
+
 	public XmlNamespaceManager NamespaceManager => _Current.NamespaceManager;
 
 	public string SourceDirectory => _Current.SourceDirectory;
@@ -512,6 +545,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 		case "plugin output changed": counter = "cache.invalidation.pluginChanged"; break;
 		case "inheritFrom target changed": counter = "cache.reload.inheritanceTarget"; break;
 		case "inheritFrom source changed": counter = "cache.invalidation.inheritanceChanged"; break;
+		case "instance dependency metadata changed": counter = "cache.invalidation.dependencyMetadataChanged"; break;
+		case "instance include path changed": counter = "cache.invalidation.includePathChanged"; break;
 		case "used definitions changed": counter = "cache.invalidation.definesChanged"; break;
 		default: counter = "cache.invalidation.other"; break;
 		}
@@ -581,6 +616,12 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			text = "content changed";
 		}
+		else if (!_Current.InstanceDependencyIdentity && HasInstanceDependencies())
+		{
+			// Old sessions mix instance Includes with XInclude/file dependencies.
+			// Rebuild their provenance once instead of dropping ambiguous entries.
+			text = "instance dependency metadata changed";
+		}
 #if NEWSdk_MONOLITHIC
 		else if (_Current.UiCompilerHash != 0 && _Current.UiCompilerHash != UiCompilerInputHash())
 		{
@@ -593,6 +634,10 @@ public class AssetDeclarationDocument : IXmlSerializable
 			if (_Current.LastDependentFileHash != _Current.DependentFileHash)
 			{
 				text = "dependent file changed";
+			}
+			else if (InstanceIncludePathChanged())
+			{
+				text = "instance include path changed";
 			}
 			else
 			{
@@ -642,6 +687,24 @@ public class AssetDeclarationDocument : IXmlSerializable
 		_Current.StreamHints.Clear();
 	}
 
+	private bool HasInstanceDependencies()
+	{
+		foreach (InclusionItem inclusion in InclusionItems)
+			if (inclusion.Type == InclusionType.Instance) return true;
+		foreach (InstanceDeclaration instance in SelfInstances)
+			if (instance.InheritFromHandle != null) return true;
+		return false;
+	}
+
+	private bool InstanceIncludePathChanged()
+	{
+		if (_Current.LastIncludePathHash == _Current.IncludePathHash) return false;
+		foreach (InclusionItem inclusion in InclusionItems)
+			if (inclusion.Type == InclusionType.Instance && !String.Equals(inclusion.PhysicalPath,
+				FileNameResolver.ResolvePath(SourceDirectory, inclusion.LogicalPath), StringComparison.OrdinalIgnoreCase)) return true;
+		return false;
+	}
+
 	public void ReloadIfRequired(InstanceHandleSet requiredOverrideSources)
 	{
 		string text = null;
@@ -655,6 +718,16 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 		if (instanceHandleSet.Count > 0)
 		{
+			bool hasSnapshots = true;
+			foreach (InstanceHandle item in instanceHandleSet)
+				if (!SelfInstances[item].HasInheritanceSnapshot(InheritanceSchemaSet)) { hasSnapshots = false; break; }
+			if (hasSnapshots)
+			{
+				foreach (InstanceHandle item in instanceHandleSet) requiredOverrideSources.Remove(item);
+				PerformanceScope.Count("cache.inheritanceSnapshot.hits", instanceHandleSet.Count);
+				PerformanceScope.Count("cache.inheritanceSnapshot.reloadAvoided");
+				return;
+			}
 			if (text == null)
 			{
 				text = "inheritFrom target changed";
@@ -1073,13 +1146,53 @@ public class AssetDeclarationDocument : IXmlSerializable
 			case FindLocation.Self:
 				break;
 			}
-			if (instanceDeclaration.PrevalidationXmlHash != selfInstance.InheritFromXmlHash)
+			if (!selfInstance.HasInheritFromIdentity || instanceDeclaration.Document.GetInheritanceSourceIdentity(instanceDeclaration) != selfInstance.InheritFromIdentity)
 			{
 				PerformanceScope.Count("dependency.inheritance.changes");
 				return false;
 			}
 		}
 		return true;
+	}
+
+	private uint GetInheritanceSourceIdentity(InstanceDeclaration instance)
+	{
+		uint identity;
+		if (_Current.InheritanceSourceIdentities.TryGetValue(instance, out identity)) return identity;
+		using var performance = PerformanceScope.Measure("core.dependencies.inheritance.identity");
+		PerformanceScope.Count("dependency.inheritance.sourceIdentityBuilds");
+		// This is the successfully processed instance closure, not its containing
+		// file: evaluated/merged/defaulted XML, schema/plugin type, source identity,
+		// and the physical bindings/content of files that instance actually uses.
+		using MemoryStream bytes = new MemoryStream();
+		using BinaryWriter writer = new BinaryWriter(bytes);
+		writer.Write(instance.Handle.InstanceHash);
+		writer.Write(instance.Handle.TypeHash);
+		writer.Write(instance.ProcessingHash);
+		writer.Write(SourcePath.ToLowerInvariant());
+		writer.Write(_Current.ConfigurationName ?? String.Empty);
+		foreach (string file in instance.ReferencedFiles)
+		{
+			FileHashItem item;
+			TryGetFileHashItem(file, out item);
+			writer.Write(item.Path.ToLowerInvariant());
+			writer.Write(item.Hash);
+		}
+		identity = FastHash.GetHashCode(bytes.ToArray());
+		_Current.InheritanceSourceIdentities.Add(instance, identity);
+		return identity;
+	}
+
+	private void UpdateSelfInheritanceIdentities()
+	{
+		foreach (InstanceDeclaration instance in SelfInstances)
+		{
+			if (instance.InheritFromHandle == null) continue;
+			FindLocation location;
+			InstanceDeclaration source = FindInstance(instance.InheritFromHandle,
+				instance.InheritFromHandle == instance.Handle ? FindLocation.Self : FindLocation.None, out location);
+			if (location == FindLocation.Self) instance.InheritFromIdentity = GetInheritanceSourceIdentity(source);
+		}
 	}
 
 	public void ProcessExpressions()
@@ -1144,7 +1257,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 				{
 					if (inclusionItem.Document == instanceDeclaration.Document)
 					{
-						xmlNode = instanceDeclaration.XmlNode;
+						xmlNode = instanceDeclaration.GetInheritanceSource();
 						break;
 					}
 				}
@@ -1154,7 +1267,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 				{
 					OverrideInstance(instanceDeclaration);
 				}
-				xmlNode = instanceDeclaration.XmlNode;
+				xmlNode = instanceDeclaration.GetInheritanceSource();
 				break;
 			case FindLocation.None:
 				throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0} attempts to inherit from an instance {1} which could not be found.", instance.Handle, instance.InheritFromHandle);
@@ -1171,6 +1284,9 @@ public class AssetDeclarationDocument : IXmlSerializable
 			parentNode.AppendChild(xmlNode2);
 			instance.XmlNode = xmlNode2;
 			instance.InheritFromXmlHash = instanceDeclaration.PrevalidationXmlHash;
+			// Self sources may still be before validation here. Their identity is
+			// finalized after all instances have acquired schema/reference hashes.
+			if (location != FindLocation.Self) instance.InheritFromIdentity = instanceDeclaration.Document.GetInheritanceSourceIdentity(instanceDeclaration);
 		}
 		XmlNode node = instance.XmlNode;
 		instance.PrevalidationXmlHash = HashProvider.GetXmlHash(ref node);
@@ -1357,15 +1473,16 @@ public class AssetDeclarationDocument : IXmlSerializable
 			string physicalPath = FileNameResolver.ResolvePath(SourceDirectory, text).ToLower();
 			InclusionItem inclusionItem = new InclusionItem(text, physicalPath, (InclusionType)Enum.Parse(typeof(InclusionType), item.GetAttribute("type", ""), ignoreCase: true));
 			_Current.InclusionItems.Add(inclusionItem);
-			if (inclusionItem.Type == InclusionType.Instance)
-			{
-				_Current.DependentFiles.Add(text);
-			}
+			// Instance content is checked after the included document has completed
+			// its frontend. XInclude and actual file references retain file hashes.
 		}
 	}
 
 	private void GatherUnvalidatedInstances()
 	{
+		// Declarations compare by handle. Reloading creates new objects with the
+		// same keys, so no identity from an earlier frontend pass may survive.
+		_Current.InheritanceSourceIdentities.Clear();
 		_ExpandedBuffers = null;
 		SelfInstances.Clear();
 		XmlNodeList xmlNodeList = _Current.XmlDocument.SelectNodes("/ea:AssetDeclaration/child::*", _Current.NamespaceManager);
@@ -1391,7 +1508,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	private void ValidateInstances()
 	{
-		StringCollection derivedTypes = _Current.DocumentProcessor.SchemaSet.GetDerivedTypes("BaseInheritableAsset");
+		var referencedFiles = new Dictionary<string, FileHashItem>(StringComparer.Ordinal);
+		SchemaSet schemaSet = _Current.DocumentProcessor.SchemaSet;
 		foreach (InstanceDeclaration selfInstance in _Current.SelfInstances)
 		{
 			ExtendedTypeInformation extendedTypeInformation = _Current.DocumentProcessor.Plugins.GetExtendedTypeInformation(selfInstance.Handle.TypeId);
@@ -1403,11 +1521,9 @@ public class AssetDeclarationDocument : IXmlSerializable
 				selfInstance.Handle.InstanceHash = HashProvider.GetXmlHash(textHash, ref node);
 			}
 			selfInstance.ProcessingHash = extendedTypeInformation.ProcessingHash;
-			if (derivedTypes != null)
-			{
-				selfInstance.IsInheritable = derivedTypes.Contains(selfInstance.XmlNode.SchemaInfo.SchemaType.Name);
-			}
-			if (selfInstance.Handle.TypeName != selfInstance.XmlNode.SchemaInfo.SchemaType.Name)
+			XmlSchemaType instanceType = selfInstance.XmlNode.SchemaInfo.SchemaType;
+			selfInstance.IsInheritable = schemaSet.GetInstanceTypeMetadata(instanceType).IsInheritable;
+			if (selfInstance.Handle.TypeName != instanceType.Name)
 			{
 				throw new BinaryAssetBuilderException(ErrorCode.SchemaValidation, "Type name and element name do not match for {0}.", selfInstance.Handle);
 			}
@@ -1421,41 +1537,14 @@ public class AssetDeclarationDocument : IXmlSerializable
 			}
 			using (PerformanceScope.Measure("core.xml.instance.references"))
 			{
-				XPathNavigator xPathNavigator = selfInstance.XmlNode.CreateNavigator();
-				XPathNodeIterator xPathNodeIterator = xPathNavigator.SelectDescendants("", "uri:ea.com:eala:asset", matchSelf: true);
-				MemoryStream memoryStream = new MemoryStream();
-				BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
-				foreach (XPathNavigator item2 in xPathNodeIterator)
-				{
-					HandleReferenceType(selfInstance, item2, binaryWriter);
-					if (item2.HasAttributes)
-					{
-						item2.MoveToFirstAttribute();
-						do
-						{
-							HandleReferenceType(selfInstance, item2, binaryWriter);
-						}
-						while (item2.MoveToNextAttribute());
-						item2.MoveToParent();
-					}
-					var schemaType = item2.SchemaInfo?.SchemaType;
-					if (schemaType != null && schemaType.Name != null)
-					{
-						item2.CreateAttribute("", "TypeId", "", _Current.DocumentProcessor.SchemaSet.GetInstanceTypeMetadata(schemaType).TypeIdText);
-					}
-				}
+				ReferenceHashBuffer referenceHash = new ReferenceHashBuffer();
+				ProcessInstanceReferences(selfInstance, ref referenceHash, referencedFiles);
 				foreach (string referencedFile in selfInstance.ReferencedFiles)
-				{
-					FileHashItem item = null;
-					TryGetFileHashItem(referencedFile, out item);
-					binaryWriter.Write(item.Hash);
-				}
-				if (memoryStream.Length > 0)
-				{
-					selfInstance.Handle.InstanceHash ^= FastHash.GetHashCode(memoryStream.GetBuffer());
-				}
+					referenceHash.Write(GetReferenceFileHashItem(referencedFile, referencedFiles).Hash);
+				selfInstance.Handle.InstanceHash ^= referenceHash.GetHash();
 			}
 		}
+		UpdateSelfInheritanceIdentities();
 	}
 
 	private static IEnumerable<string> EnumerateUiSources(string directory)
@@ -1588,33 +1677,91 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 	}
 
-	private void HandleReferenceType(InstanceDeclaration instance, XPathNavigator navigator, BinaryWriter refTypeIds)
+	private struct ReferenceHashBuffer
 	{
-		var type = navigator.SchemaInfo?.SchemaType;
-		if (type == null)
+		private MemoryStream _Bytes;
+		private BinaryWriter _Writer;
+
+		internal void Write(uint value)
 		{
-			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Element {0} in instance {1} doesn't have a schema type.", navigator.Name, instance);
+			if (_Writer == null)
+			{
+				_Bytes = new MemoryStream();
+				_Writer = new BinaryWriter(_Bytes);
+			}
+			_Writer.Write(value);
 		}
-		var kind = _Current.DocumentProcessor.SchemaSet.GetInstanceTypeMetadata(type).Kind;
-		if (kind == SchemaSet.InstanceValueKind.WeakReference || kind == SchemaSet.InstanceValueKind.AssetReference)
+
+		internal uint GetHash()
 		{
-			HandleAssetReferenceType(navigator, ref instance, refTypeIds, kind == SchemaSet.InstanceValueKind.AssetReference);
-		}
-		else if (kind == SchemaSet.InstanceValueKind.FileReference)
-		{
-			HandleFileReferenceType(navigator, ref instance);
-		}
-		else if (kind == SchemaSet.InstanceValueKind.Hashable)
-		{
-			HashProvider.RecordHash(type, navigator.Value);
+			// The original reference hash includes the buffer's unused capacity.
+			// Keep its default allocation/growth, but allocate only when written.
+			return _Bytes == null ? 0u : FastHash.GetHashCode(_Bytes.GetBuffer());
 		}
 	}
 
-	private void HandleFileReferenceType(XPathNavigator navigator, ref InstanceDeclaration instance)
+	private void ProcessInstanceReferences(InstanceDeclaration instance, ref ReferenceHashBuffer refTypeIds,
+		Dictionary<string, FileHashItem> referencedFiles)
 	{
-		string text = navigator.Value.Trim().ToLower();
+		XmlNode root = instance.XmlNode;
+		XmlNode node = root;
+		while (true)
+		{
+			if (node is XmlElement element && element.NamespaceURI == SchemaSet.XmlNamespace)
+			{
+				var metadata = HandleReferenceType(instance, element, element.SchemaInfo, ref refTypeIds, referencedFiles);
+				foreach (XmlAttribute attribute in element.Attributes)
+				{
+					// XPath's attribute axis excludes namespace declarations.
+					if (attribute.NamespaceURI != "http://www.w3.org/2000/xmlns/")
+						HandleReferenceType(instance, attribute, attribute.SchemaInfo, ref refTypeIds, referencedFiles);
+				}
+				if (metadata.TypeIdText != null) element.SetAttribute("TypeId", metadata.TypeIdText);
+			}
+			// Follow the live DOM in the same preorder as SelectDescendants.
+			// Reference rewriting may replace an element's text, so advance only
+			// after its own value/attributes and generated TypeId are finished.
+			if (node.FirstChild != null) node = node.FirstChild;
+			else
+			{
+				while (node != root && node.NextSibling == null) node = node.ParentNode;
+				if (node == root) break;
+				node = node.NextSibling;
+			}
+		}
+	}
+
+	private SchemaSet.InstanceTypeMetadata HandleReferenceType(InstanceDeclaration instance, XmlNode node,
+		IXmlSchemaInfo info, ref ReferenceHashBuffer refTypeIds, Dictionary<string, FileHashItem> referencedFiles)
+	{
+		var type = info?.SchemaType;
+		if (type == null)
+			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Element {0} in instance {1} doesn't have a schema type.", node.Name, instance);
+		var metadata = _Current.DocumentProcessor.SchemaSet.GetInstanceTypeMetadata(type);
+		if (metadata.Kind == SchemaSet.InstanceValueKind.WeakReference || metadata.Kind == SchemaSet.InstanceValueKind.AssetReference)
+			HandleAssetReferenceType(node, info, metadata, instance, ref refTypeIds, metadata.Kind == SchemaSet.InstanceValueKind.AssetReference);
+		else if (metadata.Kind == SchemaSet.InstanceValueKind.FileReference)
+			HandleFileReferenceType(node, instance, referencedFiles);
+		else if (metadata.Kind == SchemaSet.InstanceValueKind.Hashable)
+			HashProvider.RecordHash(type, node.InnerText);
+		return metadata;
+	}
+
+	private FileHashItem GetReferenceFileHashItem(string path, Dictionary<string, FileHashItem> referencedFiles)
+	{
+		if (!referencedFiles.TryGetValue(path, out var item))
+		{
+			TryGetFileHashItem(path, out item);
+			referencedFiles.Add(path, item);
+		}
+		return item;
+	}
+
+	private void HandleFileReferenceType(XmlNode node, InstanceDeclaration instance, Dictionary<string, FileHashItem> referencedFiles)
+	{
+		string text = node.InnerText.Trim().ToLower();
 #if NEWSdk_MONOLITHIC
-		if (instance.Handle.TypeName == "AptAptData" && navigator.LocalName == "File" &&
+		if (instance.Handle.TypeName == "AptAptData" && node.LocalName == "File" &&
 			_Current.DocumentProcessor.Plugins.GetPlugin(instance.Handle.TypeId) is BinaryAssetBuilder.UiCompiler.IUiFileCompiler)
 		{
 			string source = FileNameResolver.ResolvePath(SourceDirectory, text);
@@ -1626,77 +1773,43 @@ public class AssetDeclarationDocument : IXmlSerializable
 			}
 		}
 #endif
-		FileHashItem item = null;
-		TryGetFileHashItem(text, out item);
+		FileHashItem item = GetReferenceFileHashItem(text, referencedFiles);
 		string value = item.Path.ToLower();
 		_Current.DependentFiles.Add(text);
-		navigator.SetValue(value);
+		node.InnerText = value;
 		instance.ReferencedFiles.Add(text);
 	}
 
-	private void HandleAssetReferenceType(XPathNavigator navigator, ref InstanceDeclaration instance, BinaryWriter refTypeIds, bool isAssetRef)
+	private void HandleAssetReferenceType(XmlNode node, IXmlSchemaInfo info, SchemaSet.InstanceTypeMetadata typeMetadata,
+		InstanceDeclaration instance, ref ReferenceHashBuffer refTypeIds, bool isAssetRef)
 	{
-		string[] array = navigator.Value.Trim().Split('\\');
-		string text = array[0];
-		if (string.IsNullOrEmpty(text))
-		{
-			return;
-		}
+		string value = node.InnerText.Trim();
+		int suffix = value.IndexOf('\\');
+		string text = suffix < 0 ? value : value.Substring(0, suffix);
+		if (string.IsNullOrEmpty(text)) return;
 		InstanceHandle instanceHandle = new InstanceHandle(text);
-		string text2 = null;
-		var info = navigator.SchemaInfo;
 		var schemas = _Current.DocumentProcessor.SchemaSet;
-		if (info.SchemaElement != null)
-		{
-			text2 = schemas.GetReferenceTypeName(info.SchemaElement);
-		}
-		else if (info.SchemaAttribute != null)
-		{
-			text2 = schemas.GetReferenceTypeName(info.SchemaAttribute);
-		}
-		if (text2 == null && info.SchemaType != null)
-		{
-			text2 = schemas.GetReferenceTypeName(info.SchemaType);
-			if (text2 == null && info.SchemaType.DerivedBy == XmlSchemaDerivationMethod.Extension)
-			{
-				text2 = schemas.GetReferenceTypeName(info.SchemaType.BaseXmlSchemaType);
-			}
-		}
-		if (text2 == null)
-		{
+		var reference = schemas.GetInstanceReferenceMetadata(info, typeMetadata);
+		if (reference == null)
 			throw new BinaryAssetBuilderException(ErrorCode.ReferencingError, "Asset reference to '{0}' in '{1}' does not have type (xas:refType missing in schema).", text, instance);
-		}
-		refTypeIds.Write(HashProvider.GetCaseSensitiveSymbolHash(text2));
-		if (instanceHandle.TypeId == 0)
-		{
-			instanceHandle.TypeName = text2;
-		}
+		refTypeIds.Write(reference.TypeId);
+		if (instanceHandle.TypeId == 0) instanceHandle.TypeName = reference.TypeName;
 		else if (isAssetRef)
 		{
-			XmlSchemaType xmlType = _Current.DocumentProcessor.SchemaSet.GetXmlType(instanceHandle.TypeName);
-			XmlSchemaType xmlType2 = _Current.DocumentProcessor.SchemaSet.GetXmlType(text2);
-			if (xmlType2 == null)
-			{
-				throw new BinaryAssetBuilderException(ErrorCode.ReferencingError, "Unable to establish schema type of underlying reference type '{0}'. Make sure it is defined and included in the schema set.", text2);
-			}
+			XmlSchemaType xmlType = schemas.GetXmlType(instanceHandle.TypeName);
+			if (reference.XmlType == null)
+				throw new BinaryAssetBuilderException(ErrorCode.ReferencingError, "Unable to establish schema type of underlying reference type '{0}'. Make sure it is defined and included in the schema set.", reference.TypeName);
 			if (xmlType == null)
-			{
 				throw new BinaryAssetBuilderException(ErrorCode.ReferencingError, "Unable to establish schema type of referenced instance '{0}'. Make sure it is defined and included in the schema set.", instanceHandle.Name);
-			}
-			if (!XmlSchemaType.IsDerivedFrom(xmlType, xmlType2, XmlSchemaDerivationMethod.None))
-			{
-				throw new BinaryAssetBuilderException(ErrorCode.ReferencingError, "Type of instance '{0}' referenced from '{1}' does not appear to be equal to or derived from required reference type '{2}'.", instanceHandle.Name, instance.Handle.Name, text2);
-			}
+			if (!schemas.IsReferenceTypeCompatible(xmlType, reference.XmlType))
+				throw new BinaryAssetBuilderException(ErrorCode.ReferencingError, "Type of instance '{0}' referenced from '{1}' does not appear to be equal to or derived from required reference type '{2}'.", instanceHandle.Name, instance.Handle.Name, reference.TypeName);
 		}
 		if (isAssetRef)
 		{
 			instance.ReferencedInstances.Add(instanceHandle);
-			navigator.SetValue($"{text}\\{instance.ReferencedInstances.Count - 1}");
+			node.InnerText = $"{text}\\{instance.ReferencedInstances.Count - 1}";
 		}
-		else
-		{
-			instance.WeakReferencedInstances.Add(instanceHandle);
-		}
+		else instance.WeakReferencedInstances.Add(instanceHandle);
 	}
 
 	public InstanceDeclaration FindInstance(InstanceHandle handle, FindLocation skipLocation, out FindLocation location)

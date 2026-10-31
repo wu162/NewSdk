@@ -538,6 +538,7 @@ public class DocumentProcessor
 
 	private void ProcessDocumentContents(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, bool generateOutput)
 	{
+		using var inheritancePerformance = document.ReloadedForInheritance ? PerformanceScope.Measure("core.xml.inheritance.frontend") : null;
 		if (_PendingExecutionDocuments.Contains(document)) return;
 		string configuration = op.Configuration;
 		if (document.State != DocumentState.Loaded && !document.ValidateInheritFromSources())
@@ -550,6 +551,7 @@ public class DocumentProcessor
 			document.InplaceLoad("used definitions changed");
 			ProcessIncludedDocuments(document, outputManager, op, usePrecompiled: false);
 		}
+		document.RestoreInheritanceSnapshots();
 		if (document.State == DocumentState.Loaded)
 		{
 			DateTime now = DateTime.Now;

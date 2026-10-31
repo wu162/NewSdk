@@ -16,6 +16,15 @@ public class SchemaSet
 	{
 		internal InstanceValueKind Kind;
 		internal string TypeIdText;
+		internal bool IsInheritable;
+		internal Dictionary<XmlSchemaAnnotated, InstanceReferenceMetadata> References;
+	}
+
+	internal sealed class InstanceReferenceMetadata
+	{
+		internal string TypeName;
+		internal uint TypeId;
+		internal XmlSchemaType XmlType;
 	}
 
 	private class SchemaHashTable : SortedDictionary<XmlSchema, uint>
@@ -55,6 +64,8 @@ public class SchemaSet
 	private IDictionary<XmlSchemaType, bool> _HashableTypes;
 	private Dictionary<XmlSchemaType, InstanceTypeMetadata> _InstanceTypeMetadata;
 	private Dictionary<XmlSchemaAnnotated, string> _ReferenceTypeNames;
+	private Dictionary<string, XmlSchemaType> _XmlTypes;
+	private Dictionary<XmlSchemaType, Dictionary<XmlSchemaType, bool>> _ReferenceTypePairs;
 
 	private IDictionary<string, string> _SchemaPaths;
 
@@ -119,6 +130,7 @@ public class SchemaSet
 		else if (IsHashableType(type)) kind = InstanceValueKind.Hashable;
 		metadata = new InstanceTypeMetadata {
 			Kind = kind,
+			IsInheritable = GetDerivedTypes("BaseInheritableAsset")?.Contains(type.Name) ?? false,
 			TypeIdText = type.Name == null ? null : HashProvider.GetCaseSensitiveSymbolHash(type.Name).ToString()
 		};
 		_InstanceTypeMetadata.Add(type, metadata);
@@ -135,6 +147,44 @@ public class SchemaSet
 		// Absence is a schema fact too; do not rescan the same declaration.
 		_ReferenceTypeNames.Add(declaration, typeName);
 		return typeName;
+	}
+
+	internal InstanceReferenceMetadata GetInstanceReferenceMetadata(IXmlSchemaInfo info, InstanceTypeMetadata typeMetadata)
+	{
+		XmlSchemaAnnotated declaration = (XmlSchemaAnnotated)info.SchemaElement ?? info.SchemaAttribute ?? (XmlSchemaAnnotated)info.SchemaType;
+		if (typeMetadata.References == null)
+			typeMetadata.References = new Dictionary<XmlSchemaAnnotated, InstanceReferenceMetadata>();
+		if (typeMetadata.References.TryGetValue(declaration, out var metadata)) return metadata;
+		string name = GetReferenceTypeName(declaration);
+		if (name == null)
+		{
+			name = GetReferenceTypeName(info.SchemaType);
+			if (name == null && info.SchemaType.DerivedBy == XmlSchemaDerivationMethod.Extension)
+				name = GetReferenceTypeName(info.SchemaType.BaseXmlSchemaType);
+		}
+		// The actual PSVI type owns this lookup: one declaration may be used
+		// with several xsi:type values having different reference metadata.
+		if (name != null)
+			metadata = new InstanceReferenceMetadata { TypeName = name,
+				TypeId = HashProvider.GetCaseSensitiveSymbolHash(name), XmlType = GetXmlType(name) };
+		typeMetadata.References.Add(declaration, metadata);
+		return metadata;
+	}
+
+	internal bool IsReferenceTypeCompatible(XmlSchemaType actual, XmlSchemaType required)
+	{
+		if (actual == required) return true;
+		if (!_ReferenceTypePairs.TryGetValue(actual, out var requiredTypes))
+		{
+			requiredTypes = new Dictionary<XmlSchemaType, bool>();
+			_ReferenceTypePairs.Add(actual, requiredTypes);
+		}
+		if (!requiredTypes.TryGetValue(required, out bool compatible))
+		{
+			compatible = XmlSchemaType.IsDerivedFrom(actual, required, XmlSchemaDerivationMethod.None);
+			requiredTypes.Add(required, compatible);
+		}
+		return compatible;
 	}
 
 	private void ReadSchema(string baseDirectory, string schemaFile)
@@ -164,14 +214,11 @@ public class SchemaSet
 
 	public XmlSchemaType GetXmlType(string typeName)
 	{
-		try
-		{
-			return Schemas.GlobalTypes[new XmlQualifiedName(typeName, "uri:ea.com:eala:asset")] as XmlSchemaType;
-		}
-		catch (Exception)
-		{
-			return null;
-		}
+		if (typeName == null) return null;
+		if (_XmlTypes.TryGetValue(typeName, out var type)) return type;
+		type = Schemas.GlobalTypes[new XmlQualifiedName(typeName, XmlNamespace)] as XmlSchemaType;
+		_XmlTypes.Add(typeName, type);
+		return type;
 	}
 
 	private void BuildGrandchildren(DependencyList l)
@@ -382,6 +429,8 @@ public class SchemaSet
 		_HashableTypes = new Dictionary<XmlSchemaType, bool>();
 		_InstanceTypeMetadata = new Dictionary<XmlSchemaType, InstanceTypeMetadata>();
 		_ReferenceTypeNames = new Dictionary<XmlSchemaAnnotated, string>();
+		_XmlTypes = new Dictionary<string, XmlSchemaType>(StringComparer.Ordinal);
+		_ReferenceTypePairs = new Dictionary<XmlSchemaType, Dictionary<XmlSchemaType, bool>>();
 		try
 		{
 			previousPaths.Add(Path.GetFullPath(Settings.Current.SchemaPath));
