@@ -145,7 +145,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         private Node Primary()
         {
             if (Eat("(")) { Node value = Expression(); Need(")"); return value; }
-            if (Eat("function")) { string name = At("(") ? "" : Identifier(); return Function(name); }
+            if (Eat("function")) { if (!At("(")) throw Error("Named function expressions are unsupported; use a named declaration or anonymous function."); return Function(""); }
             if (Eat("[")) { var result = new Node("array"); if (!Eat("]")) { do { result.Children.Add(At(",") ? new Node("literal", null, Undefined.Value) : Expression(2)); } while (Eat(",") && !At("]")); Need("]"); } return result; }
             if (Eat("{")) { var result = new Node("object"); if (!Eat("}")) { do { string name = Current.Value != null ? Convert.ToString(tokens[cursor++].Value, CultureInfo.InvariantCulture) : Identifier(); Need(":"); result.Children.Add(new Node("literal", null, name)); result.Children.Add(Expression(2)); } while (Eat(",") && !At("}")); Need("}"); } return result; }
             if (Eat("true")) return new Node("literal", null, true); if (Eat("false")) return new Node("literal", null, false); if (Eat("null")) return new Node("literal"); if (Eat("undefined")) return new Node("literal", null, Undefined.Value);
@@ -164,10 +164,33 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
             Need("("); var parameters = new List<string>(); if (!Eat(")")) { do { parameters.Add(Identifier()); TypeAnnotation(); } while (Eat(",")); Need(")"); } TypeAnnotation();
             Code outer = code; var savedLoops = loops.ToArray(); var outerLocals = locals; locals = new HashSet<string>(outerLocals, StringComparer.Ordinal); locals.UnionWith(parameters); loops.Clear(); code = new Code(); Need("{");
             // AVM1 locals have function scope, including declarations below a use.
-            int scan = cursor, depth = 1;
-            while (scan < tokens.Count && depth > 0) { string text = tokens[scan].Text; if (text == "{") depth++; else if (text == "}") depth--; else if (text == "var" && scan + 1 < tokens.Count) { int variable = scan + 1; locals.Add(tokens[variable].Text); int nesting = 0; for (int j = variable + 1; j < tokens.Count; j++) { string t = tokens[j].Text; if (t == "(" || t == "[" || t == "{") nesting++; else if (t == ")" || t == "]" || t == "}") { if (nesting == 0) break; nesting--; } if (nesting == 0 && t == ";") break; if (nesting == 0 && t == "," && j + 1 < tokens.Count) locals.Add(tokens[j + 1].Text); } } scan++; }
+            CollectFunctionLocals();
             while (!Eat("}")) { if (At("<eof>")) throw Error("Unclosed function."); Statement(); } code.Push(Undefined.Value); code.Op(0x3e); byte[] body = code.Finish(); code = outer; locals = outerLocals; foreach (var loop in Enumerable.Reverse(savedLoops)) loops.Push(loop);
             return new Node("function", name, Tuple.Create(parameters, body));
+        }
+        private void CollectFunctionLocals()
+        {
+            int depth = 1;
+            for (int scan = cursor; scan < tokens.Count && depth > 0; scan++)
+            {
+                string text = tokens[scan].Text;
+                if (text == "function" && (scan == 0 || tokens[scan - 1].Text != "."))
+                {
+                    int body = scan + 1;
+                    if (body < tokens.Count && tokens[body].Text != "(") locals.Add(tokens[body].Text);
+                    while (body < tokens.Count && tokens[body].Text != "{") body++;
+                    int nested = 1; body++;
+                    while (body < tokens.Count && nested > 0) { if (tokens[body].Text == "{") nested++; else if (tokens[body].Text == "}") nested--; body++; }
+                    scan = body - 1; continue;
+                }
+                if (text == "{") depth++; else if (text == "}") depth--;
+                else if (text == "var" && scan + 1 < tokens.Count)
+                {
+                    locals.Add(tokens[scan + 1].Text); int nesting = 0;
+                    for (int j = scan + 2; j < tokens.Count; j++)
+                    { string token = tokens[j].Text; if (token == "(" || token == "[" || token == "{") nesting++; else if (token == ")" || token == "]" || token == "}") { if (nesting == 0) break; nesting--; } if (nesting == 0 && token == ";") break; if (nesting == 0 && token == "," && j + 1 < tokens.Count) locals.Add(tokens[j + 1].Text); }
+                }
+            }
         }
         private void EmitFunction(Node n)
         { var f = (Tuple<List<string>, byte[]>)n.Value; var w = new SwfWriter(); w.text(n.Name); w.u16(f.Item1.Count); foreach (string parameter in f.Item1) w.text(parameter); if (f.Item2.Length > 65535) throw Error("Function exceeds 64 KiB."); w.u16(f.Item2.Length); code.Op(0x9b, w.data()); code.Bytes.Write(f.Item2, 0, f.Item2.Length); }

@@ -35,11 +35,11 @@ if (args.Length == 0)
         File.Copy(fixture, Path.Combine(source, "Main.fla"));
         File.WriteAllText(Path.Combine(source, "Main.as"), "import logic.Controller;\n#include \"setup.as\"\nvar controller:Controller = new Controller(); controller.advance(2); stop();");
         File.WriteAllText(Path.Combine(source, "setup.as"), "var count:Number = 0; for(var i:Number=0;i<3;i++){count+=i;} trace(count);");
-        File.WriteAllText(Path.Combine(source, "logic", "Controller.as"), "class logic.Controller extends MovieClip { private var count:Number=0; public static var STEP:Number=2; function Controller(){super();} public function advance(count:Number):Number {this.count += count; return this.count;} public function get value():Number{return count;} public function set value(n:Number):Void{count=n;} }");
+        File.WriteAllText(Path.Combine(source, "logic", "Controller.as"), "class logic.Controller extends MovieClip { private var count:Number=0; public static var STEP:Number=2; function Controller(){super();} public function advance(count:Number):Number {this.count += count; return this.count;} public function get value():Number{return count;} public function set value(n:Number):Void{count=n;} public function inspect():Number {var f=function(){var count=42;}; return count;} }");
         var project = new BinaryAssetBuilder.UiCompiler.Swf.SourceProject(source);
         var cls = project.RequireClass("logic.Controller"); var vm = new Avm1Machine(); vm.Run(cls.Code);
-        vm.Run(BinaryAssetBuilder.UiCompiler.Swf.ActionScriptCompiler.Compile("import logic.Controller; var c=new Controller(); trace(c.advance(2)); c.value=9; trace(c.value); trace(Controller.STEP);"));
-        Check(string.Join(",", vm.Traces) == "2,9,2", "AS2 instance members, parameter shadowing, accessors and static fields");
+        vm.Run(BinaryAssetBuilder.UiCompiler.Swf.ActionScriptCompiler.Compile("import logic.Controller; var c=new Controller(); trace(c.advance(2)); c.value=9; trace(c.value); trace(Controller.STEP); trace(c.inspect());"));
+        Check(string.Join(",", vm.Traces) == "2,9,2,9", "AS2 members, parameter/nested local scopes, accessors and static fields");
         using var plugin = new Plugin(); plugin.Initialize(null, TargetPlatform.Win32);
         string output = Path.Combine(testRoot, "output", "Mod");
         var first = plugin.CompileFolder(source, output);
