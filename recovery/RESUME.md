@@ -1,8 +1,12 @@
-# 当前：音频身份修复完整验收通过，原 SDK 配对验证中
+# 当前：音频身份差异已修复，原 SDK 全输入配对通过，PR #41 待审
 
-`benchmark/original-sdk-current`，生产源码 `8050f22d`。[Windows 41244132060](https://github.com/wu162/NewSdk/actions/runs/41244132060) 整体 success：Debug/Release 新构建、Core/CLI/取消、后端/缓存/会话、Audio 混合 NONE/XAS/EALayer3 及旧会话升级、完整 mymod 原 SDK、两个三文件 ZIP、完整 Upheaval 22 样本均通过。正常音频恢复原 ProcessingHash，新 EALayer3 实例独立，旧会话迁移后可回到零解析/零编译热态。
+生产源码 `8050f22d`，[Windows 41244132060](https://github.com/wu162/NewSdk/actions/runs/41244132060) 整体 success：Debug/Release 新构建、Core/CLI/取消、后端/缓存/会话、混合音频与旧会话升级、完整 mymod 原 SDK、两个三文件 ZIP、完整 Upheaval 22 样本均通过。[正式归档/D/R/ZIP 单次下载复算](evidence/refactor/audio-identity/41244132060-1/accepted-summary.json) 已保存。
 
-[正式归档和 D/R/ZIP 单次下载复算](evidence/refactor/audio-identity/41244132060-1/accepted-summary.json) 已完成，Release EXE SHA256 `2e04db720b2860bf337a66557572eb7ad2bc667b950e5a2ec69d81181c222b43`。音频专项详细 JSON 未被初轮上传路径包含，原成功日志保留；已修正上传范围，并在 [原 SDK 配对 41245972797](https://github.com/wu162/NewSdk/actions/runs/41245972797) 用同一已验收二进制补收详细收据。该配对仍在运行，不能提前称 Upheaval 跨工具字节相同；旧 41212813051 的失败保持不变。后续仅测试/证据，不代表再次构建生产。[音频缓存规则](audio/EaLayer3.md)。[PR #41](https://github.com/wu162/NewSdk/pull/41) 未合并，禁止强推。
+[修复后原 SDK 对照 41245972797](https://github.com/wu162/NewSdk/actions/runs/41245972797) **success**，20 配对/40 构建全部原字节相同。完整 Upheaval 输入的 base 流共1295文件/75,093,395字节（含1289音频CDATA、四个链接流），mymod共4文件/219,199字节；冷/热/禁缓存及跨工具均一致。新归档已单次下载复算，并直接比较其中四流原始字节，没有归一化或放宽门槛。[全部计时与核验](evidence/refactor/original-mod/41245972797-1/summary.json)、[原始报告](evidence/refactor/original-mod/41245972797-1/report.md)、[原始归档](https://github.com/wu162/NewSdk/actions/runs/41245972797/artifacts/13059725013)。
+
+NONE/XAS/默认音频恢复原ProcessingHash 2414318214；仅EALayer3实例保留2414318215，EXE版本548405254按原有会话编译器版本迁移。9个混合音频用例收据已补收：46资产中44个EALayer3名称/负载哈希不变，升级仅重编译2个旧格式资产；升级后热态0解析/0编译，改WAV只重编3个依赖资产并与46资产独立重建相同。独立Audio DLL保留原BAB类型级策略，编码器未改。[音频缓存规则](audio/EaLayer3.md)。
+
+本次同VM默认冷n3/热n6中位秒：mymod 0.556325→0.458682（少17.55%）、热0.354725→0.362145（多2.09%）；Upheaval 50.839589→18.607911（少63.40%，2.73×）、热1.487778→0.866732（少41.74%，1.72×）。仅base loose计时，新版jobs4/原版串行，OS页缓存未控、无排除预热；与旧41212813051的VM不同，不能跨运行归因速度变化。旧失败保留为历史，不覆盖。后续仅测试/证据，没有再次重建。[PR #41](https://github.com/wu162/NewSdk/pull/41) 待审未合并，禁止强推。
 
 # 当前：原 SDK 与当前编译器 Benchmark 已执行，PR #41
 

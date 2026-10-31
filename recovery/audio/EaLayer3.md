@@ -74,7 +74,19 @@ EXE Audio 插件版本为 548405254：沿用会话中已有的 AssetCompilersVer
 只让缓存音频声明重新加载，以区分前一版统一哈希和原 SDK 的旧 EALayer3；新会话再次
 热构建可复用两种实例身份。其它资产继续按原 TypeHash/ProcessingHash 检查，不增加
 缓存格式或侧车。TypeHash、SessionCache18、DocumentProcessor11、编码算法及数据合同不改。
-本次修复的生产源码为 `8050f22d`，正在执行 [Windows 新验收 41244132060](https://github.com/wu162/NewSdk/actions/runs/41244132060)，完成后再更新正式结论。
+本次生产源码 `8050f22d` 的 [Windows 41244132060](https://github.com/wu162/NewSdk/actions/runs/41244132060)
+已整体成功；Debug/Release、Core/CLI/取消、缓存/会话、完整 SDK、两个 ZIP 和完整
+Upheaval 均通过。正式归档与 D/R 三文件、两份 ZIP 已下载核对。
+
+[原 SDK 修复后对照 41245972797](https://github.com/wu162/NewSdk/actions/runs/41245972797)
+也已 success：完整 mymod 与历史完整 Upheaval 输入，base loose 流、冷/热/禁缓存，
+20 配对/40 构建的所有文件名、长度、SHA256 和原始字节相同。Upheaval 的1289份
+AudioFile CDATA及四个链接流差异归零，没有替换原版元数据或归一化输出。
+旧会话升级实测只重编译2个 NONE/XAS 身份，44个 EALayer3 的名称与负载哈希不变；
+升级热态0解析/0编译，修改同一WAV只重编译3个依赖资产并与46资产独立重建原字节相同。
+[全部新收据和原始计时](../evidence/refactor/original-mod/41245972797-1/summary.json)
+包含本次补收的9个混合音频用例；初轮详细JSON未被上传路径包含，原成功日志保留。
+运行文件身份和四流原始文件已下载复算。未新增游戏内验收或其它平台支持。
 
 ## 验证
 
