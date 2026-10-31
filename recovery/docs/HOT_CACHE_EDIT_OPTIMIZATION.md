@@ -10,7 +10,19 @@
 - 请求内按需保存成功父实例的原验证节点，独立于跨流清理的 CurrentState，不持久化。保留 PSVI、默认属性、引用处理阶段；先检查依赖和 Define，再恢复只读继承源。为避免 CloneNode 丢失类型信息，节点仍持有原 OwnerDocument，因此可能保留整份父 DOM；尚无内存收益结论。
 - 引用处理改为等序 DOM 遍历，缓存编译 Schema 的引用元数据和显式强引用类型对；同次文档验证复用已解析文件，引用哈希缓冲首次写入时才分配，保留原 capacity 哈希字节。
 
-仅 `git diff --check` 和静态审查完成，尚不能把功能或性能标为验收通过。审查已修复重载后按 Handle 相等的身份字典残留问题。机制优先比较父有效字段和无关兄弟修改，再集中执行受影响的 Core/CLI/失败取消/缓存/SDK/原字节门槛和至少三组同机 off 编辑配对。
+首轮 D/R 产品构建、12 个既有 Core fixture 和热缓存扩展、FLA、64 worker、Texture、CLI、cache/root/payload/session/BIG 独立组通过，运行整体 failed 保留：三项新探针误用了请求生命周期、Armor 的 BuildCache 资格和 xsi:type 的既有拒绝行为；旧性能探针还要求早已删除的 identity.sha256 阶段。仅修测试，生产输入与十个运行文件保持 `8e8cf766`。首次归档身份及原失败结果见[首轮收据](../evidence/refactor/hot-edit/first-41174952443/archive.json)。
+
+[修复轮 41176937044](https://github.com/wu162/NewSdk/actions/runs/41176937044) 的父快照、引用探针 D/R 均通过；Include 无关兄弟已证明 1 次解析和独立冷控制原字节一致，随后热态探针仍因跨请求复用 DocumentProcessor 留下遍历需求而失败。测试已改成生产采用的每请求新处理器；[41177598230](https://github.com/wu162/NewSdk/actions/runs/41177598230) 仅补 Include 探针、复用已经通过的两项探针，并补此前未执行的 SDK/包/完整 MOD 门槛。整体和编辑性能仍待收口，不能标为完成。
+
+父快照 Release 微型诊断：[原结果](../evidence/refactor/hot-edit/repair-41176937044/Release/CompilerInheritanceSnapshot.json)。同输入、相同三份第一流中间资产，控制从序列化会话读入，候选保留请求内原节点；Armor 不走 BuildCache，两边仅用相同普通中间产物隔离父前端成本。
+
+| 工作 | 无快照控制 | 请求内快照 |
+| --- | ---: | ---: |
+| XML 解析 / 继承重载 / 后端编译 | 3 / 1 / 1 | 2 / 0 / 1 |
+| 父解析 / XSD / 继承合并 / 引用 ms | 0.0909 / 0.0478 / 0.0208 / 0.0044 | 全 0 |
+| 单次 detailed wall ms | 17.295 | 13.5745 |
+
+仅 n=1 机制诊断，不作为稳定吞吐或完整 MOD 收益。候选保留 1 份 OwnerDocument（4 节点、15 属性、228 XML 字符），这些是该微型输入的持有对象数量，不是托管内存字节；未测完整 MOD 快照内存开销。`core.xml.inheritance.frontend` 仅覆盖 PrevalidatedLoad 分支，Shallow Load 的父成本按父文档调用帧单独记录，不能把前一计时当全部继承重载成本。只有父依赖/类型/输出证据仍成立，才跳过取 DOM 的额外前端；缺少中间产物时仍按原路径加载。
 
 实例级前端仍按整份修改 XML 处理；本轮不恢复全图 Define 指纹、全树 SHA 扫描或 BIG/SKUDEF 包缓存。无修改纯热态收益继续与日常编辑收益分列。
 
