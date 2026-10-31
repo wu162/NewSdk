@@ -1,6 +1,6 @@
 # 编译器冷、热缓存性能优化
 
-本轮从 `recovery/legacy-sdk-cache` / `665468cb` 拉出 `perf/compiler-cold-hot-cache`，范围是编译器冷缓存与热缓存的主要重复工作。当前候选生产源码为 `4d732a1407a3547b5f47a3d7e0f37b76de747b56`；Windows 验收与同机性能结果尚未完成，本文不预报加速比例。
+本轮从 `recovery/legacy-sdk-cache` / `665468cb` 拉出 `perf/compiler-cold-hot-cache`，范围是编译器冷缓存与热缓存的主要重复工作。第一轮生产源码 `4d732a14` 已完成验收与同机测量。深入分析后继续实现第二组，最终候选生产源码为 `d3b3150fba886708cf3e34fcce3ec55d145e27a8`，正在运行新的完整 Windows 验收；第一轮数据不代表最终版本收益。
 
 ## 优先级与实现
 
@@ -28,7 +28,7 @@
 
 [已登记的 Benchmark 入口](../../.github/workflows/compiler-cache-benchmark.yml)在指定 `candidate_run_id` 后调用[配对工作流](../../.github/workflows/compiler-cache-paired.yml)和 [MeasureCompilerCachePaired.py](../scripts/MeasureCompilerCachePaired.py)，只有指定源码的 Core lifecycle 运行完整成功后才接受其候选 Release。基线复用 [41152199159](https://github.com/wu162/NewSdk/actions/runs/41152199159) 的已验收 Release，二进制源码为 `1a3e4bc6`；脚本核对它与本轮起点 `665468cb` 的生产输入闭包未变，并固定校验五个运行文件身份。
 
-- 同一 Windows VM、同一 SDK、同一份完整历史 Upheaval 输入；默认不扩容。可另跑可达 Armor 分区扩容，但各负载分别报告。
+- 每组配对在同一 Windows VM、同一 SDK、同一份完整历史 Upheaval 输入上固定 `--jobs 4`；默认不扩容。可另跑可达 Armor 分区扩容，但各负载分别报告。
 - 默认三组独立冷态配对，交替基线/候选先后顺序；每个全新输出/编译器缓存目录之后各跑两个全新热态进程。两个热态样本共用同一冷态命名空间，并非独立冷态重复。
 - 正式中位数只包含 `--performance off`：每实现冷态 n=3、热态 n=6。另有每实现一次双缓存关闭冷态，以及单独的 `detailed` 冷/热归因，均不混入正式中位数。
 - 冷态指编译器缓存与输出命名空间初始不存在；不控制操作系统页缓存。同一冷进程的后续流可以复用此前已完成流的文档。
@@ -37,17 +37,34 @@
 
 性能配对不替代生产验收；生命周期、非法 XSD、保存会话重入、碰撞/顺序、冷热/失效/冻结/取消、完整 mymod 原版字节及五文件包等仍以本轮 Windows 实际收据为准。
 
-## 本轮结果待填
+## 第一轮同机实测
 
-截至本初稿：
+第一轮生产 `4d732a14`，计量脚本 `d64f2dcc`。两组各24/24进程成功，发布文件原字节全部一致，归档已下载复算，基线与候选五文件身份在原计量中核对。正式吞吐只用 off，中位数按每实现冷态n=3、热态n=6；两次热态共享一个冷态命名空间。
+
+| 负载 | 模式 | 基线中位秒 | 第一轮中位秒 | 耗时减少 |
+| --- | --- | ---: | ---: | ---: |
+| 完整原始 Upheaval | 默认冷态 | 35.943 | 34.804 | 3.17% |
+| 完整原始 Upheaval | 默认热态 | 2.217 | 1.737 | 21.63% |
+| 完整 Upheaval +49,152 Armor | 默认冷态 | 52.163 | 48.445 | 7.13% |
+| 完整 Upheaval +49,152 Armor | 默认热态 | 7.649 | 5.050 | 33.98% |
+
+原始 MOD 为954份声明文档/3852资产声明、300,900,885输入字节；扩容为2491文档/53004声明、304,923,770字节。库存声明数不等于实际编译次数。每组各有一个无缓存冷样本：原始34.236→33.393秒、扩容48.377→43.721秒；n=1仅作补充，未混入默认中位数。
+
+- 原始 MOD：[运行41167387701](https://github.com/wu162/NewSdk/actions/runs/41167387701)，[完整计量](../evidence/refactor/cache-paired/41167387701-1/measurement.json)、[归档/来源](../evidence/refactor/cache-paired/41167387701-1/archive.json)，实际测量435.94秒。
+- 扩容：[运行41167389790](https://github.com/wu162/NewSdk/actions/runs/41167389790)，[完整计量](../evidence/refactor/cache-paired/41167389790-1/measurement.json)、[归档/来源](../evidence/refactor/cache-paired/41167389790-1/archive.json)，实际测量640.94秒。
+
+首个原始基线冷样本41.772秒、首个扩容基线59.505秒均保留；未用它们计算夸大的单点收益。输入只读、编译器冷缓存初始为空，OS页缓存未控；不从两台不同VM的两组结果计算互相的速度差。扩容属于本轮配对负载，不是L8 Common的重新验收。
+
+同机原始 MOD 的独立 detailed 样本：热态 `cache.load` 合计743.64→362.27ms，引用总段287.39→273.08ms；冷态 XML 校验总段14457.73→13384.65ms。后者拆为实际XSD5660.78ms、实例校验7673.63ms，其中大量XML哈希/引用重复工作仍在，故第二组优先针对它，而不继续放大约100ms排序段。
+
+## 验收和第二组状态
 
 | 项目 | 当前状态 |
 | --- | --- |
-| 候选源码 | `4d732a1407a3547b5f47a3d7e0f37b76de747b56` |
-| Windows Core/CLI/缓存/SDK/ZIP 验收 | [41165490728](https://github.com/wu162/NewSdk/actions/runs/41165490728) 正在运行，尚未验收通过 |
-| 首轮运行 | [41165381586](https://github.com/wu162/NewSdk/actions/runs/41165381586) 尚无最终状态；源码缺少本轮随后补齐的会话瞬态重置，不可当作最终候选验收 |
-| 同机冷/热配对运行及原始归档 | 待上述候选成功后取得并核验 |
-| 冷态/热态中位数、全部原始样本与较慢数据 | 待填，当前不报告收益 |
-| 新增 detailed 分段归因及覆盖限制 | 待填 |
+| 第一轮 Windows 全门槛 | [41165490728](https://github.com/wu162/NewSdk/actions/runs/41165490728) success；D/R、Core/CLI/缓存/SDK/ZIP与22个完整Upheaval样本通过；[归档及十运行文件/两个ZIP身份](../evidence/refactor/cache-paired/acceptance-41165490728/archive.json)已下载核对 |
+| 较早检查点 | [41165381586](https://github.com/wu162/NewSdk/actions/runs/41165381586) success；随后补齐会话瞬态重置及专门重入回归，最终验收使用后一运行 |
+| 第二组源码 | `d3b3150fba886708cf3e34fcce3ec55d145e27a8`：512字符XML哈希缓冲、Schema事实预分类、删除纯写FileConfigs |
+| 第二组 Windows | [41167799236](https://github.com/wu162/NewSdk/actions/runs/41167799236) 正在运行；第一轮成功不替代此版本验收 |
+| 第二组同机最终收益 | 待新验收成功后，以相同负载重新配对，不沿用第一轮速度比例 |
 
-后续应在此更新实际终态、源码/二进制/测试身份、下载归档与发布文件校验结果。失败与旧运行保留，不能把运行中或部分成功写成整体验收通过。未经用户明确批准不得合并，禁止强推。
+[深入源码分析](COMPILER_CACHE_SOURCE_ANALYSIS.md)记录新打点、优先级、已实施和暂缓方案、兼容边界及后续验证。失败/旧运行与所有较慢样本保留。未经用户明确批准不得合并，禁止强推。
