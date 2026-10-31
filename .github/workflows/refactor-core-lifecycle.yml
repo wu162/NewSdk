@@ -393,6 +393,7 @@ jobs:
             recovery/artifacts/big-fixture-preflight/**
             recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}

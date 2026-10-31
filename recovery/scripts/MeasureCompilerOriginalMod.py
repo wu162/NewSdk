@@ -16,14 +16,10 @@ from BenchmarkCompilerSdkComparison import (compare_pair, invocation, measure, s
 from HotCacheWorkload import HISTORICAL, UPHEAVAL_TREE, extract_upheaval
 from PrepareCompilerSdkBenchmark import prepare, inventory as file_rows
 
-SOURCE = '12c82011676d06047df4368b3c9058104eeffa34'
-RUN = '41204304969'
+SOURCE = '8050f22de81539c65aeca3903e9b48f53a572068'
+RUN = '41244132060'
 HEAD = '1a73017a5847a5657944866a0b25f4320c2ba00d'
-FILES = {
-    'NewModCompiler.exe': 'fd55309f0438a99b06b397af009d86f36060c5dafe261e90ec04233278563bae',
-    'NewModCompiler.exe.config': '94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68',
-    'antlr.runtime.dll': 'febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a',
-}
+FILES = {'NewModCompiler.exe': '2e04db720b2860bf337a66557572eb7ad2bc667b950e5a2ec69d81181c222b43', 'NewModCompiler.exe.config': '94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68', 'antlr.runtime.dll': 'febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a'}
 
 
 def need(value, message):
@@ -195,6 +191,13 @@ def main():
                     a, b = pair['original'], pair['new']
                     differences = sorted(n for n in a[0]['outputFiles'].keys() | b[0]['outputFiles'].keys()
                         if a[0]['outputFiles'].get(n) != b[0]['outputFiles'].get(n))
+                    if trial == 0 and phase == 'cold':
+                        for engine in ('original', 'new'):
+                            for member, path in pair[engine][1].items():
+                                if '/' not in member:
+                                    target = out / 'baseline-streams' / w['name'] / engine / member
+                                    target.parent.mkdir(parents=True, exist_ok=True)
+                                    shutil.copy2(path, target)
                     if not differences:
                         compare_pair(a[0]['outputFiles'], b[0]['outputFiles'], a[1], b[1])
                     state['pairs'].append(dict(workload=w['name'], trial=trial, mode=mode, phase=phase,

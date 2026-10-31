@@ -34,16 +34,27 @@ jobs:
       - name: Verify accepted current production run
         shell: pwsh
         run: |
-          $run=gh api repos/wu162/NewSdk/actions/runs/41204304969 | ConvertFrom-Json
-          if($LASTEXITCODE -ne 0 -or $run.status -ne 'completed' -or $run.conclusion -ne 'success' -or $run.head_sha -cne '12c82011676d06047df4368b3c9058104eeffa34' -or $run.run_attempt -ne 1){throw 'Current accepted production source/run differs'}
+          $run=gh api repos/wu162/NewSdk/actions/runs/41244132060 | ConvertFrom-Json
+          if($LASTEXITCODE -ne 0 -or $run.status -ne 'completed' -or $run.conclusion -ne 'success' -or $run.head_sha -cne '8050f22de81539c65aeca3903e9b48f53a572068' -or $run.run_attempt -ne 1){throw 'Current accepted production source/run differs'}
           python -m py_compile recovery/scripts/MeasureCompilerOriginalMod.py
           if($LASTEXITCODE -ne 0){throw 'Measurement script syntax failed'}
+      - uses: actions/download-artifact@v4
+        with:
+          name: refactor-core-lifecycle-41244132060-1
+          run-id: 41244132060
+          github-token: ${{ github.token }}
+          path: work/original-mod-accepted
       - uses: actions/download-artifact@v4
         with:
           name: refactor-core-lifecycle-41204304969-1
           run-id: 41204304969
           github-token: ${{ github.token }}
-          path: work/original-mod-accepted
+          path: work/audio-identity-previous
+      - name: Preserve mixed audio and prior-session migration receipts with accepted Release
+        shell: pwsh
+        run: |
+          python recovery/scripts/TestAudioEaLayer3Integration.py --repo . --exe work/original-mod-accepted/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe --previous-exe work/audio-identity-previous/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe --work "$env:RUNNER_TEMP/audio-identity-receipt" --output "recovery/evidence/refactor/audio-identity/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if($LASTEXITCODE -ne 0){throw 'Accepted mixed audio migration failed'}
       - name: Paired mymod and complete Upheaval base compilation
         shell: pwsh
         run: |
@@ -56,5 +67,7 @@ jobs:
         if: always()
         with:
           name: original-mod-performance-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**
+          path: |
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**
           if-no-files-found: error
