@@ -64,10 +64,29 @@ GPL/LGPL 的源码分发条件仍适用，分发二进制时应标明匹配的�
 独立 AudioCompiler csproj 自动构建、复制并 publish `NewSdk.EaLayer3.dll`；机器需
 正常 Windows MSVC x86 构建工具，不要求用户另装编码器。
 
-缓存：仅 AudioCatalog 插件版本 548405252→548405253、AudioFile ProcessingHash
-2414318214→2414318215。原 TypeHash/SessionCache18/DocumentProcessor11 不改。
-旧 AudioFile 缓存（包括旧 EALAYER3→PCM）通过现有 processing hash 比较失效；
-这会使旧 NONE/XAS AudioFile 也首次重编译。其它格式的编码算法和数据合同不改。
+缓存身份按宿主区分。独立 AudioCompiler DLL 供原 BAB 使用，仍保留插件版本
+548405253、类型级 AudioFile ProcessingHash 2414318215，原 BAB 无实例级扩展入口。
+
+单进程 EXE 让 NONE/XAS/默认压缩恢复原 ProcessingHash 2414318214；只有显式
+`PCCompression="EALAYER3"` 的实例使用 2414318215。Core 在 XSD/继承展开完成后选择
+实例身份，正常 CDATA 文件名与原 SDK 保持一致，新 EALayer3 不会命中旧 PCM 降级键。
+EXE Audio 插件版本为 548405254：沿用会话中已有的 AssetCompilersVersion，版本变化时
+只让缓存音频声明重新加载，以区分前一版统一哈希和原 SDK 的旧 EALayer3；新会话再次
+热构建可复用两种实例身份。其它资产继续按原 TypeHash/ProcessingHash 检查，不增加
+缓存格式或侧车。TypeHash、SessionCache18、DocumentProcessor11、编码算法及数据合同不改。
+本次生产源码 `8050f22d` 的 [Windows 41244132060](https://github.com/wu162/NewSdk/actions/runs/41244132060)
+已整体成功；Debug/Release、Core/CLI/取消、缓存/会话、完整 SDK、两个 ZIP 和完整
+Upheaval 均通过。正式归档与 D/R 三文件、两份 ZIP 已下载核对。
+
+[原 SDK 修复后对照 41245972797](https://github.com/wu162/NewSdk/actions/runs/41245972797)
+也已 success：完整 mymod 与历史完整 Upheaval 输入，base loose 流、冷/热/禁缓存，
+20 配对/40 构建的所有文件名、长度、SHA256 和原始字节相同。Upheaval 的1289份
+AudioFile CDATA及四个链接流差异归零，没有替换原版元数据或归一化输出。
+旧会话升级实测只重编译2个 NONE/XAS 身份，44个 EALayer3 的名称与负载哈希不变；
+升级热态0解析/0编译，修改同一WAV只重编译3个依赖资产并与46资产独立重建原字节相同。
+[全部新收据和原始计时](../evidence/refactor/original-mod/41245972797-1/summary.json)
+包含本次补收的9个混合音频用例；初轮详细JSON未被上传路径包含，原成功日志保留。
+运行文件身份和四流原始文件已下载复算。未新增游戏内验收或其它平台支持。
 
 ## 验证
 

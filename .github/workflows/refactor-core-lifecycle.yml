@@ -1,7 +1,7 @@
 name: MOD compiler Core lifecycle integration
 on:
   push:
-    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, recovery/legacy-sdk-cache, refactor/remove-plugin-schema-validation, perf/audiofile-parallel, perf/gameobject-weapon-plugins, feat/texture-plugin, feat/asset-pipeline-parallel]
+    branches: [benchmark/original-sdk-current, compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, recovery/legacy-sdk-cache, refactor/remove-plugin-schema-validation, perf/audiofile-parallel, perf/gameobject-weapon-plugins, feat/texture-plugin, feat/asset-pipeline-parallel]
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
@@ -284,6 +284,19 @@ jobs:
           $evidence="recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/cli-protocol.json"
           if($LASTEXITCODE -ne 0){throw 'Real production CLI protocol validation failed'}
+      - uses: actions/download-artifact@v4
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && github.ref == 'refs/heads/benchmark/original-sdk-current' }}
+        with:
+          name: refactor-core-lifecycle-41204304969-1
+          run-id: 41204304969
+          github-token: ${{ github.token }}
+          path: work/audio-identity-previous
+      - name: Mixed audio identities, EALayer3 hot cache and prior-session migration
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && github.ref == 'refs/heads/benchmark/original-sdk-current' }}
+        shell: pwsh
+        run: |
+          python recovery/scripts/TestAudioEaLayer3Integration.py --repo . --exe recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe --previous-exe work/audio-identity-previous/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe --work "$env:RUNNER_TEMP/audio-identity" --output "recovery/evidence/refactor/audio-identity/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if($LASTEXITCODE -ne 0){throw 'Audio identity and cache migration validation failed'}
       - name: Actual build-cache cold hot invalidation and retry matrix
         id: cache
         if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
@@ -380,6 +393,7 @@ jobs:
             recovery/artifacts/big-fixture-preflight/**
             recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}
@@ -403,3 +417,4 @@ jobs:
             recovery/artifacts/lifecycle-app/**/test-app.log
           include-hidden-files: true
           if-no-files-found: error
+
