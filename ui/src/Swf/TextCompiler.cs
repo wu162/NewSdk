@@ -64,7 +64,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
                             {
                                 float offset = c == 0 ? 0 : graphics.MeasureString(text.Substring(0, c), font, int.MaxValue, format).Width; offset += (float)style.Real("letterSpacing") / 20 * c;
                                 using (var path = new GraphicsPath())
-                                { path.AddString(text[c].ToString(), family, (int)fontStyle, size, new PointF(start + offset, y), format); path.Flatten(null, 0.05f); var points = path.PathPoints; var types = path.PathTypes; PointF previous = default(PointF), first = default(PointF); bool have = false;
+                                    { path.AddString(text[c].ToString(), family, (int)fontStyle, size, new PointF(start + offset, y), format); if (path.PointCount == 0) continue; path.Flatten(null, 0.05f); var points = path.PathPoints; var types = path.PathTypes; PointF previous = default(PointF), first = default(PointF); bool have = false;
                                   for (int p = 0; p < points.Length; p++) { if ((types[p] & 7) == 0) { first = previous = points[p]; have = true; } else if (have) { Edge(edges, previous, points[p], fills.Count); previous = points[p]; } if ((types[p] & 128) != 0 && have) { Edge(edges, previous, first, fills.Count); have = false; } } }
                             }
                             x = start + width; if (line + 1 < lines.Length) { x = b[0] / 20f; y += font.GetHeight(graphics) + (float)style.Real("lineSpacing") / 20; }

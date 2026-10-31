@@ -25,6 +25,12 @@ Flash 8 opcode path is tested independently. Unsupported source/runtime
 features fail explicitly. SWF 13+ LZMA code and the obsolete TGA/disk bridge
 are excluded.
 
+Flash 8 stroke caps, joins and gradient materials are expanded to filled
+outlines with the C# Clipper2 **1.5.4** library (Angus Johnson, Boost Software
+License 1.0). The SGI tessellator then preserves their contours/holes. The
+upstream `(0,0)` move-to batch heuristic and early return on an empty geometry
+batch were fixed; geometric area tests cover these cases.
+
 NuGet runtime dependencies are pinned: LibTessDotNet **1.1.15** (package MIT
 metadata; retained upstream SGI Free Software License B notice),
 StbImageSharp **2.30.15** (public domain or MIT, per upstream README).

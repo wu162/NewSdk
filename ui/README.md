@@ -55,6 +55,6 @@ dotnet build ui/BinaryAssetBuilder.UiCompiler.csproj -c Release -f net472
 dotnet run --project ui/tests/UiCompiler.Tests.csproj -f net8.0
 ```
 
-部署 `ui/bin/Release/net472/` 的插件、LibTessDotNet 和 StbImageSharp 到宿主目录。Core 由 SDK/宿主提供。`net8.0` 用于跨平台组件测试；字体轮廓测试需要 Windows。
+部署 `ui/bin/Release/net472/` 的插件、LibTessDotNet、Clipper2Lib 和 StbImageSharp 到宿主目录。Core 由 SDK/宿主提供。`net8.0` 用于跨平台组件测试；字体轮廓测试需要 Windows。`ui/build/Verify.ps1` 运行验证并在 `ui/artifacts/UiCompiler.zip` 打包部署文件。
 
 APT 序列化依据附件工具对应的 SWF2APT 源码；资产布局、类型哈希、重定位和 v6 四流逻辑依据指定 recovery 分支。固定来源、许可及移植修改见 [VENDOR.md](VENDOR.md)。自动化验证不能代替游戏内 UI 验收。

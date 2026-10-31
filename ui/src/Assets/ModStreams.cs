@@ -43,9 +43,21 @@ namespace BinaryAssetBuilder.UiCompiler
             if (string.IsNullOrWhiteSpace(outputBase)) throw new ArgumentException("An output basename is required.", nameof(outputBase));
             string path = Path.GetFullPath(outputBase); Directory.CreateDirectory(Path.GetDirectoryName(path));
             // All conversion and validation finish before touching an existing stream set.
-            string suffix = "." + Guid.NewGuid().ToString("N") + ".new"; string[] extensions = { ".bin", ".relo", ".imp", ".manifest" }; byte[][] data = { Binary, Relocations, Imports, Manifest };
-            try { for (int i = 0; i < extensions.Length; i++) File.WriteAllBytes(path + extensions[i] + suffix, data[i]); for (int i = 0; i < extensions.Length; i++) { string target = path + extensions[i]; if (File.Exists(target)) File.Replace(target + suffix, target, null); else File.Move(target + suffix, target); } }
-            finally { foreach (string extension in extensions) if (File.Exists(path + extension + suffix)) File.Delete(path + extension + suffix); }
+            string suffix = "." + Guid.NewGuid().ToString("N"); string[] extensions = { ".bin", ".relo", ".imp", ".manifest" }; byte[][] data = { Binary, Relocations, Imports, Manifest }; bool[] installed = new bool[4], replaced = new bool[4]; bool preserveBackups = false;
+            foreach (string extension in extensions) if (Directory.Exists(path + extension)) throw new IOException("Stream output is a directory: " + path + extension);
+            try
+            {
+                for (int i = 0; i < extensions.Length; i++) File.WriteAllBytes(path + extensions[i] + suffix + ".new", data[i]);
+                for (int i = 0; i < extensions.Length; i++) { string target = path + extensions[i]; if (File.Exists(target)) { File.Replace(target + suffix + ".new", target, target + suffix + ".old"); replaced[i] = true; } else File.Move(target + suffix + ".new", target); installed[i] = true; }
+            }
+            catch (Exception error)
+            {
+                var failures = new List<Exception> { error };
+                for (int i = extensions.Length - 1; i >= 0; i--) if (installed[i])
+                { string target = path + extensions[i]; try { if (replaced[i]) { if (File.Exists(target)) File.Replace(target + suffix + ".old", target, null); else File.Move(target + suffix + ".old", target); } else File.Delete(target); } catch (Exception rollback) { failures.Add(rollback); } }
+                if (failures.Count > 1) { preserveBackups = true; throw new AggregateException("Could not restore the previous stream set; retained .old backups.", failures); } throw;
+            }
+            finally { foreach (string extension in extensions) { string temporary = path + extension + suffix + ".new", backup = path + extension + suffix + ".old"; if (File.Exists(temporary)) File.Delete(temporary); if (!preserveBackups && File.Exists(backup)) File.Delete(backup); } }
         }
     }
 }

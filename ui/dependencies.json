@@ -19,6 +19,11 @@
       "id": "microsoft.netframework.referenceassemblies.net472",
       "version": "1.0.3",
       "sha256": "ffa0a5570a39f911399164d0581ffddef99b5e3dfbaa5f220e5ce22969bcf57c"
+    },
+    {
+      "id": "clipper2",
+      "version": "1.5.4",
+      "sha256": "f58657851828f3445419988af4f77196c744b5e53a8244d95c7adc4e8dfa30bb"
     }
   ]
 }

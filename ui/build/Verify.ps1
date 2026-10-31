@@ -16,7 +16,7 @@ try {
     $stage = Join-Path $repo "ui/artifacts/UiCompiler"
     if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
     New-Item $stage -ItemType Directory -Force | Out-Null
-    Get-ChildItem "ui/bin/$Configuration/net472" -Filter *.dll | Where-Object { $_.Name -in @("BinaryAssetBuilder.UiCompiler.dll", "LibTessDotNet.dll", "StbImageSharp.dll") } | Copy-Item -Destination $stage
+    Get-ChildItem "ui/bin/$Configuration/net472" -Filter *.dll | Where-Object { $_.Name -in @("BinaryAssetBuilder.UiCompiler.dll", "LibTessDotNet.dll", "Clipper2Lib.dll", "StbImageSharp.dll") } | Copy-Item -Destination $stage
     Copy-Item ui/README.md,ui/VENDOR.md -Destination $stage
     Copy-Item ui/licenses -Destination $stage -Recurse
     $revision = git rev-parse HEAD

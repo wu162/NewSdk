@@ -11,6 +11,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         internal int Shape(FlaRecord owner)
         {
             var data = owner.Record("shapeData"); if (data == null || data.Records("edges").Count == 0) return 0;
+            data = StrokeExpander.Expand(data);
             var edges = data.Records("edges"); var fills = data.Records("fills"); var strokes = data.Records("strokes");
             int minX = int.MaxValue, minY = int.MaxValue, maxX = int.MinValue, maxY = int.MinValue, extent = 0;
             foreach (var e in edges) foreach (string p in Equals(e.get("curve"), true) ? new[] { "start", "control", "end" } : new[] { "start", "end" })

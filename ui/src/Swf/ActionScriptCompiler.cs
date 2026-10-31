@@ -49,6 +49,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         private readonly Dictionary<string, string> aliases = new Dictionary<string, string>(StringComparer.Ordinal);
         private HashSet<string> locals = new HashSet<string>(StringComparer.Ordinal);
         private As2Class classContext;
+        private Func<string, As2Class> classResolver;
         private ActionScriptCompiler(string source) { Lex(source); }
         internal static byte[] Compile(string source) { var c = new ActionScriptCompiler(source); c.Imports(null); while (!c.At("<eof>")) c.Statement(); return c.code.Finish(true); }
         private Token Current => tokens[Math.Min(cursor, tokens.Count - 1)];
@@ -238,11 +239,11 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
             if (n.Kind != "variable" || locals.Contains(n.Name)) return n;
             if (classContext != null && classContext.InstanceMembers.Contains(n.Name)) return new Node("member", null, null, new Node("variable", "this"), new Node("literal", null, n.Name));
             if (classContext != null && classContext.StaticMembers.Contains(n.Name)) return new Node("member", null, null, PathNode(classContext.Name), new Node("literal", null, n.Name));
-            if (aliases.TryGetValue(n.Name, out string qualified)) return PathNode(qualified); return n;
+            if (aliases.TryGetValue(n.Name, out string qualified)) { if (classContext != null && qualified != classContext.Name) classResolver?.Invoke(qualified); return PathNode(qualified); } return n;
         }
-        internal static As2Class CompileClass(string source, Func<string, As2Class> require)
+        internal static As2Class CompileClass(string source, Func<string, As2Class> require, IReadOnlyDictionary<string, string> implicitTypes = null)
         {
-            var c = new ActionScriptCompiler(source); c.Imports(require); c.Eat("dynamic"); c.Need("class"); string name = c.Qualified(), leaf = name.Substring(name.LastIndexOf('.') + 1); string parent = c.Eat("extends") ? c.Qualified() : "Object";
+            var c = new ActionScriptCompiler(source); c.Imports(require); c.classResolver = require; if (implicitTypes != null) foreach (var type in implicitTypes) if (!c.aliases.ContainsKey(type.Key)) c.aliases.Add(type.Key, type.Value); c.Eat("dynamic"); c.Need("class"); string name = c.Qualified(), leaf = name.Substring(name.LastIndexOf('.') + 1); string parent = c.Eat("extends") ? c.Qualified() : "Object";
             if (c.aliases.TryGetValue(parent, out string qualified)) parent = qualified;
             var baseClass = require(parent); var result = new As2Class { Name = name }; if (baseClass != null) { result.InstanceMembers.UnionWith(baseClass.InstanceMembers); result.StaticMembers.UnionWith(baseClass.StaticMembers); }
             if (parent == "MovieClip") result.InstanceMembers.UnionWith(new[] { "_x", "_y", "_alpha", "_width", "_height", "_visible", "_rotation", "_xscale", "_yscale", "_parent", "_root", "_name", "_currentframe", "_totalframes", "attachMovie", "createEmptyMovieClip", "removeMovieClip", "duplicateMovieClip", "swapDepths", "getDepth", "getNextHighestDepth", "localToGlobal", "globalToLocal", "hitTest", "startDrag", "stopDrag" });

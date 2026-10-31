@@ -585,21 +585,13 @@ namespace eaf2apt.Characters
                         }
                         if (style.StateMoveTo)
                         {
-                            if (style.MoveDeltaX == 0 && style.MoveDeltaY == 0)
-                            {
-                                maketris = true;
-                                last2posvalid = false;
-                                last2pos = new();
-                                FloatVector v2 = new FloatVector { X = style.MoveDeltaX, Y = style.MoveDeltaY };
-                                lastpos = FindEarliestPoint(v2, points);
-                            }
-                            else
-                            {
-                                last2posvalid = false;
-                                last2pos = new();
-                                FloatVector v3 = new FloatVector { X = style.MoveDeltaX, Y = style.MoveDeltaY };
-                                lastpos = FindEarliestPoint(v3, points);
-                            }
+                            // (0,0) is an ordinary SWF subpath origin, not a
+                            // batch delimiter. Flushing there lost holes and
+                            // prefixed the shape with an empty geometry batch.
+                            last2posvalid = false;
+                            last2pos = new();
+                            FloatVector origin = new FloatVector { X = style.MoveDeltaX, Y = style.MoveDeltaY };
+                            lastpos = FindEarliestPoint(origin, points);
                         }
                         break;
                     case StraightEdgeShapeRecord straight:
@@ -744,6 +736,7 @@ namespace eaf2apt.Characters
             }
             foreach (var ishape in shapes)
             {
+                if (ishape.triangles.Count == 0 && ishape.lines.Count == 0) continue;
                 Dictionary<string, List<string>> tridata = new();
                 List<string> trikeys = new();
                 ru.Write("c\r\n");
@@ -1040,6 +1033,7 @@ namespace eaf2apt.Characters
                     return System.Text.Encoding.UTF8.GetBytes(ru.ToString());
                 }
             }
+            if (ru.GetStringBuilder().Length == 0) ru.Write("c\r\ns s:0:0:0:0\r\nt 0:0:0:0:0:0\r\n");
             return System.Text.Encoding.UTF8.GetBytes(ru.ToString());
         }
 

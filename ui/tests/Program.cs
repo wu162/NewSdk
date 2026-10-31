@@ -4,10 +4,13 @@ using BinaryAssetBuilder.Core;
 
 int passed = 0;
 void Check(bool condition, string message) { if (!condition) throw new Exception(message); passed++; }
+void Reject(Action action, string message)
+{ bool failed = false; try { action(); } catch (Exception ex) when (ex is InvalidDataException || ex is FileNotFoundException || ex is IOException || ex is NotSupportedException || ex is InvalidOperationException) { failed = true; } Check(failed, message); }
 Check(SageHash.Symbol("AptAptData") == 1816258268u, "SAGE type hash");
 Check(SageHash.Symbol("AptGeometryData") == 1034587168u, "SAGE geometry type hash");
 Check(SageHash.Symbol("Texture") != 0, "Texture type ID");
 AptOracle.Verify(Check);
+GeometryTests.Run(Check);
 void RunScript(string source, string expected)
 {
     var machine = new Avm1Machine(); machine.Run(BinaryAssetBuilder.UiCompiler.Swf.ActionScriptCompiler.Compile(source));
@@ -47,6 +50,22 @@ if (args.Length == 0)
         Check(!first.Binary.SequenceEqual(second.Binary), "External AS change rebuilds the stream");
         Check(first.Assets.Count == 3, "Script-only movie still emits all three APT assets");
         StreamVerifier.Verify(second, Check);
+#if NETFRAMEWORK
+        LegacyAbiTests.Verify(source, second, Check);
+#endif
+        byte[] previous = File.ReadAllBytes(output + ".bin");
+        string main = Path.Combine(source, "Main.as"), savedScript = File.ReadAllText(main);
+        File.WriteAllText(main, "#include \"missing.as\"");
+        Reject(() => plugin.CompileFolder(source, output), "missing AS include fails");
+        Check(previous.SequenceEqual(File.ReadAllBytes(output + ".bin")), "failed compile preserves previous final streams");
+        File.WriteAllText(main, "#include \"loop.as\""); File.WriteAllText(Path.Combine(source, "loop.as"), "#include \"Main.as\"");
+        Reject(() => plugin.CompileFolder(source, output), "include cycle fails");
+        File.Delete(Path.Combine(source, "loop.as")); File.WriteAllText(main, savedScript);
+        string collision = Path.Combine(testRoot, "collision"); File.WriteAllBytes(collision + ".bin", new byte[] { 1, 2, 3 }); Directory.CreateDirectory(collision + ".relo");
+        Reject(() => second.WriteTo(collision), "invalid stream destination fails");
+        Check(File.ReadAllBytes(collision + ".bin").SequenceEqual(new byte[] { 1, 2, 3 }), "destination failure preserves existing binary");
+        foreach (string rejected in Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "fixtures", "rejected"), "*.fla")) Reject(() => FlaDocument.Read(File.ReadAllBytes(rejected)), "non-Flash-8 FLA rejected");
+        Reject(() => FlaDocument.Read(new byte[512]), "renamed non-CFB input rejected");
         Console.WriteLine("Folder/AS/include/class/four-stream checks passed.");
     }
     finally { if (Directory.Exists(testRoot)) Directory.Delete(testRoot, true); }

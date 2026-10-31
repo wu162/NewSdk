@@ -66,7 +66,9 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
             try
             {
                 string source = Prepare(Expand(Read(path), path, new HashSet<string>(StringComparer.OrdinalIgnoreCase)), path);
-                var result = ActionScriptCompiler.CompileClass(source, RequireClass); if (result.Name != name) throw new InvalidDataException("AS2 class name mismatch.");
+                string prefix = name.LastIndexOf('.') < 0 ? "" : name.Substring(0, name.LastIndexOf('.') + 1);
+                var implicitTypes = classes.Keys.Where(k => k.StartsWith(prefix, StringComparison.Ordinal) && k.IndexOf('.', prefix.Length) < 0).ToDictionary(k => k.Substring(prefix.Length), k => k, StringComparer.Ordinal);
+                var result = ActionScriptCompiler.CompileClass(source, RequireClass, implicitTypes); if (result.Name != name) throw new InvalidDataException("AS2 class name mismatch.");
                 compiledClasses.Add(name, result); ClassOrder.Add(result); return result;
             }
             finally { compiling.Remove(name); }
