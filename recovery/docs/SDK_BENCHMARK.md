@@ -4,6 +4,32 @@
 
 `BenchmarkCompilerSdkComparison.py` 在同一台 Windows VM 上交替执行原 `BinaryAssetBuilder.exe` 和已验收的新版 Win32 Release。比较独立进程从启动到退出的端到端成本、CPU 时间、峰值工作集及缓存占用；当前新版承担报告、JSONL 和直接发布的成本，原工具直接写出流文件。历史版本的输出方式以对应源码及当轮记录为准。结果用于比较实际命令行使用成本。
 
+## 完整 Upheaval：计量完成，原字节差分未通过（2026-10-31）
+
+已加入 `full_upheaval=true` 测试入口。[最终运行41165690314](https://github.com/wu162/NewSdk/actions/runs/41165690314) 完成全部计量，但严格新旧输出不同，整体 **failure**；状态为 `timingCompleted=true / rawOutputEquality=false / output-differs`，**不能表述为原 SDK 字节验收成功**。生产未改，复用 `665468cb` / 完整Core验收 `41158645404` 的精确五文件Release，基准源 `9044738f08381000dd9b04eae1745be9db8e00b1`。
+
+完整未裁剪历史 Upheaval 来自 `bacfc69f` / tree `5551fc26a6f96b62613443e0d0fa2958c14cbce0`，**2723文件/300900885字节**，覆盖base/Mod、3个TacticalHUD APT UI、MapMetaData_Global全部5流及其资产。输出为loose；不包含BIG/LoD打包或游戏内运行。两边使用同一VM、同一物理输入/SDK/Schema/cwd及有序资源根，独立缓存。新版一次进程、默认jobs=auto；原SDK顺序启动5次BAB，墙钟/CPU取5次启动到退出之和，峰值内存取最大值。Python搬运/核验不计时，没有为loose额外生成APT版本标记。无预热，交替引擎顺序，OS页缓存未控。
+
+共 **7对/14次完整构建/42个实际进程**，全部退出0，计量循环541.910秒。墙钟中位数，单位秒；输出差异仍存在，这些计时不证明原字节兼容：
+
+| 状态 | n/边 | 老SDK | 新版 | 耗时变化 |
+| --- | ---: | ---: | ---: | ---: |
+| 无缓存 | 2 | 91.495 | 34.269 | -62.55% |
+| 默认双缓存冷态 | 2 | 89.352 | 35.539 | -60.23% |
+| 默认双缓存热态 | 3 | 4.564 | 1.955 | -57.17% |
+
+无缓存CPU 88.914→57.688秒，峰值177.65→219.03MiB；默认冷CPU 88.945→59.930秒，峰值175.75→208.80MiB；默认热CPU 4.438→1.859秒，峰值63.04→70.05MiB。新版峰值内存更高。七份新版计划均覆盖全部五流；三份热态报告零XML解析/零实例编译。双方各自所有缓存状态的输出均稳定。
+
+每边1311个输出文件：1289个AudioFile CDATA的文件名末段身份不同；base四流等长，bin/imp/relo各只有开头4字节不同，manifest有5115字节不同。共同的18个文件（APT/地图元数据四流及其CDATA）相同。按type/typehash/instance及多变体载荷多重集另行诊断，**1291/1291个CDATA实际载荷原字节相同**（1289音频+2APT、1283个身份分组）。原始文件名和字节完整保留，该诊断不豁免严格失败。源码AudioFile ProcessingHash曾由2414318214递增为2414318215，身份变化与这一已知修改相符；本轮未改生产身份来取得通过。
+
+Linux/Windows各27项预检通过。完整94605133字节归档已下载复算SHA256：`c4bd3836a660616d31824c6d42c789991d032887a972bd24dc272bf7a9a3c62c`，匹配GitHub digest。本地重算统计中位数/min/max、42进程退出码、七份五流计划、双方基线1311文件哈希、所有样本各自基线稳定性、1291载荷原字节及base实际差异。
+
+保留失败：[41165080041](https://github.com/wu162/NewSdk/actions/runs/41165080041) 首对编译完成但差分失败，且控制器额外生成3个不属于loose BAB的APT版本标记；随后移除。第二轮[41165427054](https://github.com/wu162/NewSdk/actions/runs/41165427054)因诊断错误假定每个CDATA实例唯一而失败；修复为多变体诊断并在诊断前保存双方基线。前两轮数据不混入最终统计。
+
+[来源/复核摘要](../evidence/refactor/sdk-benchmark/41165690314-1/summary.json) · [CSV](../evidence/refactor/sdk-benchmark/41165690314-1/full-upheaval.csv) · [完整原始JSON（XZ）](../evidence/refactor/sdk-benchmark/41165690314-1/full-upheaval.json.xz) · [自动生成表](../evidence/refactor/sdk-benchmark/41165690314-1/full-upheaval.md) · [Release收据](../evidence/refactor/sdk-benchmark/41165690314-1/preparation.json)。XZ为原JSON无损压缩，可用Python `lzma.open(path).read()` 解压。全部共享输入身份、逐次请求/日志/报告及双方原始输出在[完整归档](https://github.com/wu162/NewSdk/actions/runs/41165690314/artifacts/13029437657)。
+
+复现：`gh workflow run compiler-sdk-benchmark.yml --repo wu162/NewSdk --ref benchmark/current-sdk-comparison -f accepted_run=41158645404 -f full_upheaval=true`。成果在[PR #37](https://github.com/wu162/NewSdk/pull/37)，未合入。
+
 ## 当前版本对照（2026-10-31）
 
 [Windows 运行 41164065611](https://github.com/wu162/NewSdk/actions/runs/41164065611) **success**，沿用既有三组输入，生产实现未修改。新版是当前分支源码 `665468cb686cc4bcd7a172465c2f7efcb7492dc2`，复用[完整 Core lifecycle 41158645404](https://github.com/wu162/NewSdk/actions/runs/41158645404) 验收的精确五文件 Release；基准源码为 `f9ca739be5192045cd742c16d4560d6a15f6e9a9`，后续仅归档。变更及证据在 [PR #37](https://github.com/wu162/NewSdk/pull/37)。

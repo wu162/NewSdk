@@ -1,0 +1,146 @@
+{
+  "status": "output-differs",
+  "timingCompleted": true,
+  "rawOutputEquality": false,
+  "runId": "41165690314",
+  "runAttempt": "1",
+  "binarySourceCommit": "665468cb686cc4bcd7a172465c2f7efcb7492dc2",
+  "benchmarkSourceCommit": "9044738f08381000dd9b04eae1745be9db8e00b1",
+  "sourceRunId": "41158645404",
+  "inputSourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+  "inputTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0",
+  "inputFiles": 2723,
+  "inputBytes": 300900885,
+  "fullModInputCopy": true,
+  "inputsUnchanged": true,
+  "elapsedSeconds": 541.9104022999999,
+  "summary": [
+    {
+      "phase": "uncached",
+      "nPerEngine": 2,
+      "originalWallMsMedian": 91495.26759999986,
+      "originalCpuMsMedian": 88914.0625,
+      "originalPeakWorkingSetBytesMedian": 186279936.0,
+      "originalWallMsMin": 88994.00919999971,
+      "originalWallMsMax": 93996.52600000001,
+      "newWallMsMedian": 34268.65650000002,
+      "newCpuMsMedian": 57687.5,
+      "newPeakWorkingSetBytesMedian": 229668864.0,
+      "newWallMsMin": 33633.94949999997,
+      "newWallMsMax": 34903.363500000065,
+      "newWallChangePercent": -62.545979263303366
+    },
+    {
+      "phase": "cold",
+      "nPerEngine": 2,
+      "originalWallMsMedian": 89352.49950000003,
+      "originalCpuMsMedian": 88945.3125,
+      "originalPeakWorkingSetBytesMedian": 184287232.0,
+      "originalWallMsMin": 89319.23210000014,
+      "originalWallMsMax": 89385.76689999992,
+      "newWallMsMedian": 35539.41505000011,
+      "newCpuMsMedian": 59929.6875,
+      "newPeakWorkingSetBytesMedian": 218941440.0,
+      "newWallMsMin": 35458.875700000135,
+      "newWallMsMax": 35619.9544000001,
+      "newWallChangePercent": -60.22560616784973
+    },
+    {
+      "phase": "hot",
+      "nPerEngine": 3,
+      "originalWallMsMedian": 4563.889500000187,
+      "originalCpuMsMedian": 4437.5,
+      "originalPeakWorkingSetBytesMedian": 66097152,
+      "originalWallMsMin": 4523.484300000064,
+      "originalWallMsMax": 4580.726099999993,
+      "newWallMsMedian": 1954.628400000047,
+      "newCpuMsMedian": 1859.375,
+      "newPeakWorkingSetBytesMedian": 73449472,
+      "newWallMsMin": 1953.6982999998145,
+      "newWallMsMax": 1987.9694999999629,
+      "newWallChangePercent": -57.1718728071754
+    }
+  ],
+  "limitations": [
+    "OS page cache uncontrolled; compiler cold means empty compiler caches",
+    "Small sample counts on one Windows VM",
+    "New default jobs=auto versus original sequential BAB",
+    "Original total sums process launch-to-exit times; Python bookkeeping excluded",
+    "No game-runtime or BIG/LoD packaging timings; no warmup"
+  ],
+  "samples": 14,
+  "pairs": 7,
+  "processes": 42,
+  "baselineOutputCounts": {
+    "original": 1311,
+    "new": 1311
+  },
+  "cdataDiagnostic": {
+    "originalCount": 1291,
+    "newCount": 1291,
+    "commonLogicalIdentities": 1283,
+    "equalPayloads": 1291
+  },
+  "localVerification": {
+    "baselineHashesRecomputed": true,
+    "allSamplesMatchOwnEngineBaseline": true,
+    "allProcessExitCodesZero": true,
+    "allSummaryStatisticsRecomputed": true,
+    "allFiveNewPlanTasksVerified": true,
+    "cdataPayloadMultisetComparedAsRawBytes": true
+  },
+  "priorRuns": [
+    41165080041,
+    41165427054
+  ],
+  "artifactId": 13029437657,
+  "artifactBytes": 94605133,
+  "artifactSha256": "c4bd3836a660616d31824c6d42c789991d032887a972bd24dc272bf7a9a3c62c",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/41165690314",
+  "rawDifferences": {
+    "onlyOriginal": 1289,
+    "onlyNew": 1289,
+    "changed": [
+      "base/mod/mod.bin",
+      "base/mod/mod.imp",
+      "base/mod/mod.manifest",
+      "base/mod/mod.relo"
+    ],
+    "baseByteDifferences": [
+      {
+        "name": "base/mod/mod.bin",
+        "originalBytes": 32604736,
+        "newBytes": 32604736,
+        "differentBytes": 4,
+        "firstDifference": 0
+      },
+      {
+        "name": "base/mod/mod.imp",
+        "originalBytes": 29656,
+        "newBytes": 29656,
+        "differentBytes": 4,
+        "firstDifference": 0
+      },
+      {
+        "name": "base/mod/mod.manifest",
+        "originalBytes": 396723,
+        "newBytes": 396723,
+        "differentBytes": 5115,
+        "firstDifference": 4
+      },
+      {
+        "name": "base/mod/mod.relo",
+        "originalBytes": 655048,
+        "newBytes": 655048,
+        "differentBytes": 4,
+        "firstDifference": 0
+      }
+    ]
+  },
+  "audioProcessingHash": {
+    "previousRecoveredSource": "8f854606",
+    "previous": 2414318214,
+    "current": 2414318215,
+    "note": "Known source metadata change; strict output differences are retained, not normalized into acceptance."
+  }
+}
