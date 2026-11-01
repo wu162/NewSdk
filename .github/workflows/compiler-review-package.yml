@@ -2,7 +2,7 @@ name: Prepare compiler runtime package for user review
 on:
   push:
     branches: [release/compiler-2026.11.01-harness]
-    paths: ['.github/workflows/compiler-review-package.yml']
+    paths: ['.github/workflows/compiler-review-package.yml', '.github/scripts/**']
 permissions:
   contents: read
   actions: read

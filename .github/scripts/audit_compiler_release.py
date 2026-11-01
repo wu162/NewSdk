@@ -55,7 +55,10 @@ def main():
     require(read_json(evidence / "backend-parallel" / (args.replay_run + "-1") / "validation.json")["succeeded"] is True, "Parallel/cache acceptance failed")
     sdk = read_json(evidence / "sdk-mymod" / (args.run + "-1") / "validation.json")
     require(sdk["succeeded"] is True and sdk["inputsUnchanged"] is True and len(sdk["modes"]) == 2, "Corrected full SDK differential or input audit failed")
-    require(all(mode["succeeded"] and mode["big"]["succeeded"] for mode in sdk["modes"]), "A full SDK configuration failed")
+    for mode in sdk["modes"]:
+        big_values = mode["big"] if isinstance(mode["big"], list) else [mode["big"]]
+        big_receipts = [value for value in big_values if isinstance(value, dict) and value.get("succeeded") is True]
+        require(mode["succeeded"] is True and len(big_receipts) == 1 and big_receipts[0]["comparison"]["succeeded"] is True, "A full SDK configuration failed")
     upheaval = read_json(evidence / "backend-parallel-performance" / (args.run + "-1") / "measurement.json")
     require(upheaval["status"] == "passed" and len(upheaval["samples"]) == 22, "Full Upheaval matrix incomplete")
     require(all(item["status"] == "passed" and item["rawOutputIdentical"] for item in upheaval["samples"]), "Upheaval sample failed")
