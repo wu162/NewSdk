@@ -48,7 +48,7 @@ jobs:
           if($LASTEXITCODE -ne 0){throw 'Cannot select production source'}
           git restore --source=$env:COMPILER_TEST_SOURCE_COMMIT -- recovery/scripts/TestCompilerBig.ps1 recovery/scripts/MeasureCompilerParallel.py recovery/tests/CompilerXmlBackendBatch.cs
           if($LASTEXITCODE -ne 0){throw 'Cannot select current validation scripts'}
-          New-Item -ItemType Directory -Force recovery/artifacts recovery/evidence/refactor/core-cli|Out-Null
+          New-Item -ItemType Directory -Force -Path @('recovery/artifacts','recovery/evidence/refactor/core-cli')|Out-Null
           Copy-Item work/original-acceptance/artifacts/core-lifecycle-product recovery/artifacts/ -Recurse
           Copy-Item "work/original-acceptance/evidence/refactor/core-cli/$env:BINARY_RUN-1" recovery/evidence/refactor/core-cli/ -Recurse
       - name: Complete unchanged 284-route worker matrix and exact sixteen owner routes
