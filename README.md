@@ -19,16 +19,18 @@
 
 ```powershell
 ./NewModCompiler.exe doctor --sdk-root C:\NewSdk\SDK
-./NewModCompiler.exe plan --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example
-./NewModCompiler.exe build --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example
+./NewModCompiler.exe plan --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --mod-version 1.0
+./NewModCompiler.exe build --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --mod-version 1.0
 ```
 
-`--mod` 指向 MOD 文件夹。默认自动发现 base、APT UI、全局元数据，输出 BIG + SKUDEF 并包含 Additional；需要松散流时显式使用 `--package-format loose`。`--package-content global-metadata` 兼容旧名 `maps`。成功构建的最终文件位于输出根下 `published`，默认 BIG/SKUDEF 名称为 `<MOD目录名>_1.0`。构建同时输出日志、JSONL 事件及最终报告，适合后续界面调用；不启动旧 GUI 或 BAB 子进程。
+`--mod` 指向 MOD 文件夹。默认自动发现 base、APT UI、全局元数据，输出 BIG + SKUDEF 并包含 Additional；需要松散流时显式使用 `--package-format loose`。`--package-content global-metadata` 兼容旧名 `maps`。成功构建的最终文件位于输出根下 `published`，上例显式传入版本 `1.0`，BIG/SKUDEF 名称为 `<MOD目录名>_1.0`。构建同时输出日志、JSONL 事件及最终报告，适合后续界面调用；不启动旧 GUI 或 BAB 子进程。
 
 普通帮助 `--help` 列出 MOD/SDK/输出路径、内容与格式、Additional、MOD 版本、SKUDEF 名称、并行任务数及性能统计共 10 个参数。`--jobs auto`、`--performance off` 为默认值。
 
-- `--mod-version 2.7-beta`、`--skudef-name ExampleLauncher`：设置 BIG/SKUDEF 身份，默认版本为 `1.0`，名称为 MOD 目录名。
+- `--mod-version 2.7-beta`、`--skudef-name ExampleLauncher`：设置 BIG/SKUDEF 身份。最终格式为 BIG 的 `build`/`plan` 每次必须在命令行显式传入版本，项目预设不能代替；名称默认为 MOD 目录名。
 - `--include-additional=false`：关闭默认 Additional；开启时先取 SDK/Additional，再由 MOD/Additional 覆盖，排除 `.asset`，覆盖冲突记录警告。
+
+loose（包括兼容 development 派生的 loose）和 `doctor` 不要求显式版本；显式 loose 仍保留原包身份校验。
 
 高级能力仍可直接使用，通过 `--help-advanced` 和[高级选项说明](recovery/COMPILER_USAGE.md#6-高级选项)查看。`--profile` 仅保留旧脚本兼容行为，详见[参数兼容表](recovery/CLI_COMPATIBILITY.md)。
 

@@ -95,9 +95,9 @@ namespace NewModCompiler.Tests
             checks=0;string mod=Path.Combine(root,"package-mod");
             Put(Path.Combine(mod,"Data","AptUI","One.xml"),"<AssetDeclaration/>");Put(Path.Combine(mod,"Data","AdditionalMaps","MapMetaData_One.xml"),"<AssetDeclaration/>");
             foreach(string mode in new[]{"success","automatic","terminal","close","report","cancel","unexpected"}) {
-                string output=Path.Combine(root,mode);var request=Options.Parse(new[]{"build","--mod",mod,"--sdk-root",sdk,"--out",output,"--package-content","apt,maps","--package-format","big"});
+                string output=Path.Combine(root,mode);var request=Options.Parse(new[]{"build","--mod",mod,"--sdk-root",sdk,"--out",output,"--package-content","apt,maps","--package-format","big","--mod-version","1.0"});
                 bool success=mode=="success" || mode=="automatic";
-                if(mode=="automatic") request=Options.Parse(new[]{"build","--mod",mod,"--sdk-root",sdk,"--out",output});
+                if(mode=="automatic") request=Options.Parse(new[]{"build","--mod",mod,"--sdk-root",sdk,"--out",output,"--mod-version","1.0"});
                 string previous=Path.Combine(output,"published","previous.txt");Put(previous,"previous");
                 using(var cancellation=new CancellationTokenSource()) {
                     ExitCode code=Run(request,mode=="automatic"?"success":mode,cancellation);
@@ -134,7 +134,7 @@ namespace NewModCompiler.Tests
             }
             Put(Path.Combine(mod,"Data","Mod.xml"),"<AssetDeclaration/>");
             foreach(string selection in new[]{"base","base,apt,maps"}) {
-                var request=Options.Parse(new[]{"build","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"lod-"+selection.Replace(',','-')),"--package-content",selection,"--package-format","big"});
+                var request=Options.Parse(new[]{"build","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"lod-"+selection.Replace(',','-')),"--package-content",selection,"--package-format","big","--mod-version","1.0"});
                 using(var cancellation=new CancellationTokenSource())Check(Run(request,"success",cancellation)==ExitCode.Success,"Base LoD packaging failed");
                 string[] names=Names(Path.Combine(request.OutputRoot,"published","package-mod_1.0.big"));
                 Check(names.Length==(selection=="base"?12:22),"Base LoD archive has an incomplete or stale member set");
@@ -162,7 +162,7 @@ namespace NewModCompiler.Tests
             try {Options.Parse(new[]{"build","--mod",unicode,"--sdk-root",sdk,"--out",Path.Combine(root,"unicode-big"),"--package-content","apt","--package-format","big"});throw new Exception("Unicode BIG filename accepted without game evidence");}
             catch(BuildFailure failure){Check(failure.Code=="PACKAGE_NAME_UNSUPPORTED","BIG ASCII filename boundary lost its explicit diagnostic");}
             string empty=Path.Combine(root,"empty-mod");Directory.CreateDirectory(empty);
-            var optional=Options.Parse(new[]{"build","--mod",empty,"--sdk-root",sdk,"--out",Path.Combine(root,"empty-output"),"--package-content","apt,maps","--package-format","big"});
+            var optional=Options.Parse(new[]{"build","--mod",empty,"--sdk-root",sdk,"--out",Path.Combine(root,"empty-output"),"--package-content","apt,maps","--package-format","big","--mod-version","1.0"});
             string retained=Path.Combine(optional.OutputRoot,"published","previous.txt");Put(retained,"previous");
             using(var cancellation=new CancellationTokenSource())Check(Run(optional,"success",cancellation)==ExitCode.Success,"Empty optional BIG selection failed");
             Check(File.ReadAllText(retained)=="previous" && Directory.GetFiles(Path.GetDirectoryName(retained)).Length==1,"Empty BIG selection replaced prior publication with an empty package");

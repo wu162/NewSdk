@@ -4,7 +4,7 @@
 
 ## 普通入口
 
-保留 `build`、`plan`、`doctor`、`--help`、`-h` 和 `--help-advanced`。`doctor` 仍只要求 SDK 路径，不附加 MOD 或输出目录要求。普通帮助只展示以下 10 个参数：
+保留 `build`、`plan`、`doctor`、`--help`、`-h` 和 `--help-advanced`。`doctor` 仍只要求 SDK 路径，不附加 MOD、输出目录或显式 MOD 版本要求。普通帮助只展示以下 10 个参数：
 
 | 参数 | 默认值 / 用途 |
 | --- | --- |
@@ -14,12 +14,12 @@
 | `--package-content` | `auto`，或 `base,apt,global-metadata` 的组合 |
 | `--package-format` | `big`，可选 `loose` |
 | `--include-additional` | BIG 默认 true，loose 默认 false |
-| `--mod-version` | `1.0` |
+| `--mod-version` | 最终格式为 BIG 的 build/plan 每次必须在 CLI 显式指定；项目预设不能代替 |
 | `--skudef-name` | MOD 目录名 |
 | `--jobs` | `auto` 或正整数，默认 `auto` |
 | `--performance` | `off\|summary\|detailed`，默认 `off` |
 
-默认自动发现 base/APT/global-metadata，输出 BIG + SKUDEF 并包含 Additional。Win32 与 LinkedStreams 固定，正常编译无需显式填写平台、格式或缓存参数。布尔值接受 `--include-additional=false`、旧式 `/pc:false` 或裸开关启用；不接受空格分隔的布尔值。
+默认自动发现 base/APT/global-metadata，输出 BIG + SKUDEF 并包含 Additional。Win32 与 LinkedStreams 固定，正常编译无需显式填写平台、格式或缓存参数。最终格式为 BIG 的 `build`/`plan` 每次必须在命令行显式传入 `--mod-version`，项目预设与旧默认值不能代替。loose（包括 development 派生的 loose）不要求显式版本，显式 loose 的原包身份校验继续保留。布尔值接受 `--include-additional=false`、旧式 `/pc:false` 或裸开关启用；不接受空格分隔的布尔值。
 
 ## 高级能力
 
@@ -63,10 +63,10 @@
 
 `newmodcompiler.json` 既有键继续有效，完整列表为：`jobs`、`profile`、`sdk-root`、`out`、`package-content`、`package-format`、`include-additional`、`fix-neutral-assets`、`mod-version`、`game-version`、`skudef-name`、`tp`、`ss`、`pc`、`slowclean`、`sc`、`bc`、`csc`、`psc`、`fsc`、`atc`、`session-cache-directory`（`scd`/`scp` 别名）、`build-cache-directory`（`bcd`/`bcp` 别名）和 `iod`。`od` 仍为 `out` 的别名；不扩充配置格式。
 
-优先级保持命令行 ＞ 项目预设 ＞ 默认值，同一来源同一参数指定冲突值时报错。JSON 相对路径以 MOD 目录为基准，命令行路径以调用目录为基准；生效值及来源进入报告与事件。SDK 的 `buildCache` 仅覆盖未显式指定的 `/bc` 默认值。
+优先级保持命令行 ＞ 项目预设 ＞ 默认值，同一来源同一参数指定冲突值时报错。`mod-version` 项目键继续被识别，但 BIG 的必填要求只能由本次 CLI 显式版本满足，须用命令行覆盖项目版本。JSON 相对路径以 MOD 目录为基准，命令行路径以调用目录为基准；生效值及来源进入报告与事件。SDK 的 `buildCache` 仅覆盖未显式指定的 `/bc` 默认值。
 
 ```json
 {"package-content":"base,apt,global-metadata","mod-version":"2.7-beta","skudef-name":"ExampleLauncher"}
 ```
 
-上例 MOD 目录名为 Example 时，默认发布 `Example_2.7-beta.big` 和 `ExampleLauncher_2.7-beta.skudef`；SKUDEF 精确包含 ASCII/CRLF 的 `mod-game 1.12` 与 `add-big Example_2.7-beta.big`。MOD 版本允许 ASCII 字母、数字、点、下划线及连字符；游戏版本为点分十进制；SKUDEF 名称为单个 ASCII 文件基名。均不能注入目录或换行指令。APT 内部 `.version` 仍为原脚本的空格+CRLF，与 MOD 包版本不同。
+使用上例项目预设并在 BIG `build`/`plan` 命令行显式传入 `--mod-version 2.7-beta`，MOD 目录名为 Example 时发布 `Example_2.7-beta.big` 和 `ExampleLauncher_2.7-beta.skudef`；SKUDEF 精确包含 ASCII/CRLF 的 `mod-game 1.12` 与 `add-big Example_2.7-beta.big`。MOD 版本允许 ASCII 字母、数字、点、下划线及连字符；游戏版本为点分十进制；SKUDEF 名称为单个 ASCII 文件基名。均不能注入目录或换行指令。APT 内部 `.version` 仍为原脚本的空格+CRLF，与 MOD 包版本不同。
