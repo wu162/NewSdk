@@ -232,4 +232,5 @@ Release Core/application fixtures, actual redirected CtrlBreak exit 6/retry, mal
     if($env:GITHUB_STEP_SUMMARY){$summary|Add-Content $env:GITHUB_STEP_SUMMARY}
     Need ($overhead -le 1) "Progress overhead target exceeded: $overhead%"
     $state.status='passed'
-} catch {$state.status=
+} catch {$state.status='failed';$state.error=$_.Exception.ToString();throw}
+finally {$env:NEWSDK_PROGRESS=$oldProgress;SaveState}

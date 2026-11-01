@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using System.Text;
 using NewModCompiler.Application;
 using NewModCompiler.Diagnostics;
 
@@ -11,6 +12,8 @@ namespace NewModCompiler.Cli
     {
         public static int Main(string[] args)
         {
+            // Progress uses Chinese labels on both redirected and real consoles.
+            try { Console.OutputEncoding = new UTF8Encoding(false); } catch (IOException) { }
 #if NEWSdk_MONOLITHIC
             BinaryAssetBuilder.UiCompiler.UiEmbeddedDependencies.Initialize();
 #endif
@@ -63,10 +66,10 @@ namespace NewModCompiler.Cli
                     Console.CancelKeyPress += handler;
                     BuildSession session = null;
                     IStreamCompiler compiler = null;
-    #if NEWSdk_MONOLITHIC
+#if NEWSdk_MONOLITHIC
                     if (request.Command == "build")
                         compiler = new CoreStreamCompiler((source,eventType,message) => session.RecordCoreTrace(source,eventType,message),progress);
-    #endif
+#endif
                     session = new BuildSession(request,compiler,events,progress:progress);
                     try { return (int)session.Run(cancellation.Token); }
                     finally { Console.CancelKeyPress -= handler; }
