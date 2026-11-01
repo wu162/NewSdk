@@ -19,15 +19,29 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
         internal readonly List<string> Inputs = new List<string>();
         internal readonly List<As2Class> ClassOrder = new List<As2Class>();
         private static readonly Regex Include = new Regex(@"(?m)^[\t ]*#include[\t ]+[""']([^""'\r\n]+)[""'][\t ]*;?[\t ]*(?://[^\r\n]*)?\r?$", RegexOptions.CultureInvariant);
-        internal SourceProject(string directory)
+        internal SourceProject(string directory, IEnumerable<string> sourceFiles = null)
         {
             root = Path.GetFullPath(directory).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
-            foreach (string file in Directory.EnumerateFiles(root, "*", SearchOption.AllDirectories).Where(p => Path.GetExtension(p).Equals(".as", StringComparison.OrdinalIgnoreCase)).OrderBy(p => p, StringComparer.Ordinal))
+            IEnumerable<string> selected = sourceFiles == null
+                ? Directory.EnumerateFiles(root, "*", SearchOption.AllDirectories).Where(p => Path.GetExtension(p).Equals(".as", StringComparison.OrdinalIgnoreCase))
+                : sourceFiles.Select(ResolveSource);
+            foreach (string file in selected.OrderBy(p => p, StringComparer.Ordinal))
             {
                 string relative = file.Substring(root.Length).Replace('\\', '/'); if (files.ContainsKey(relative)) throw new InvalidDataException("Ambiguous AS path: " + relative); files.Add(relative, file);
                 string source = Read(file); string masked = Mask(source); var match = Regex.Match(masked, @"\b(?:class|interface)\s+([\w.$]+)", RegexOptions.CultureInvariant);
                 if (match.Success) { string name = match.Groups[1].Value; if (classes.ContainsKey(name)) throw new InvalidDataException("Duplicate AS2 class " + name); classes.Add(name, file); }
             }
+        }
+        private string ResolveSource(string relative)
+        {
+            if (string.IsNullOrWhiteSpace(relative) || Path.IsPathRooted(relative) || relative.IndexOf(':') >= 0)
+                throw new InvalidDataException("Project AS sources must be relative to the source root.");
+            string path = Path.GetFullPath(Path.Combine(root, relative.Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar)));
+            var comparison = Path.DirectorySeparatorChar == '\\' ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            if (!path.StartsWith(root, comparison)) throw new InvalidDataException("Project AS source is outside the source root: " + relative);
+            if (!Path.GetExtension(path).Equals(".as", StringComparison.OrdinalIgnoreCase)) throw new InvalidDataException("Project source must be an AS file: " + relative);
+            if (!File.Exists(path)) throw new FileNotFoundException("Missing project AS source: " + relative, path);
+            return path;
         }
         private string Read(string path)
         { if (sourceCache.TryGetValue(path, out string cached)) return cached; if (!Inputs.Contains(path, StringComparer.OrdinalIgnoreCase)) Inputs.Add(path); byte[] bytes = File.ReadAllBytes(path); string text; if (bytes.Length >= 2 && (bytes[0] == 255 && bytes[1] == 254 || bytes[0] == 254 && bytes[1] == 255)) text = (bytes[0] == 255 ? Encoding.Unicode : Encoding.BigEndianUnicode).GetString(bytes, 2, bytes.Length - 2); else { int offset = bytes.Length >= 3 && bytes[0] == 239 && bytes[1] == 187 && bytes[2] == 191 ? 3 : 0; text = new UTF8Encoding(false, true).GetString(bytes, offset, bytes.Length - offset); } sourceCache.Add(path, text); return text; }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using BinaryAssetBuilder.UiCompiler.Fla;
+using BinaryAssetBuilder.UiCompiler.Projects;
 
 namespace BinaryAssetBuilder.UiCompiler.Compilation
 {
@@ -14,6 +15,7 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
         private readonly List<SceneControl> initializers = new List<SceneControl>();
         private readonly ShapeCompiler shapes;
         private readonly Dictionary<long, FlaRecord> library, media;
+        private readonly IReadOnlyList<FlaRecord> orderedLibrary, orderedMedia;
         private readonly Dictionary<string, int> symbols = new Dictionary<string, int>();
         private readonly HashSet<FlaRecord> compiling = new HashSet<FlaRecord>();
         private readonly Dictionary<FlaRecord, int> shapeIds = new Dictionary<FlaRecord, int>();
@@ -23,12 +25,45 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
         private int lastId;
         private readonly SourceProject project;
         private readonly string flaPath;
-        internal FlaCompiler(FlaDocument document, SourceProject project = null, string flaPath = null)
+        private readonly UiProjectMovie projectMovie;
+        private readonly Dictionary<string, FlaRecord> projectLinkages;
+        internal FlaCompiler(FlaDocument document, SourceProject project = null, string flaPath = null, UiProjectMovie projectMovie = null)
         {
-            this.document = document; this.project = project; this.flaPath = flaPath; shapes = new ShapeCompiler(this);
-            library = document.Library.Where(d => d.get("streamName") != null).ToDictionary(d => d.Number("libraryId", -1));
-            media = document.Media.Where(d => d.get("streamName") != null).ToDictionary(d => d.Number("mediaId", -1));
+            this.document = document; this.project = project; this.flaPath = flaPath; this.projectMovie = projectMovie; shapes = new ShapeCompiler(this);
+            orderedLibrary = Select(document.Library, projectMovie?.LibraryOrder, "library").Where(d => d.get("streamName") != null).ToArray();
+            orderedMedia = Select(document.Media, projectMovie?.MediaOrder, "media").Where(d => d.get("streamName") != null).ToArray();
+            library = orderedLibrary.ToDictionary(d => d.Number("libraryId", -1));
+            media = orderedMedia.ToDictionary(d => d.Number("mediaId", -1));
             if (library.ContainsKey(-1) || media.ContainsKey(-1)) throw new InvalidDataException("Missing library identifier.");
+            if (projectMovie != null)
+            {
+                projectLinkages = new Dictionary<string, FlaRecord>(StringComparer.Ordinal);
+                var items = new HashSet<string>(orderedLibrary.Concat(orderedMedia).Select(d => d.Text("name")), StringComparer.Ordinal);
+                foreach (var binding in projectMovie.Linkages)
+                {
+                    if (binding == null || string.IsNullOrWhiteSpace(binding.ItemName) || !items.Contains(binding.ItemName)) throw new InvalidDataException("Project linkage refers to an unselected item.");
+                    var link = new FlaRecord("linkage"); link.set("flags", binding.Flags); link.set("identifier", binding.Identifier ?? ""); link.set("className", binding.ClassName ?? ""); link.set("url", "");
+                    if (projectLinkages.ContainsKey(binding.ItemName)) throw new InvalidDataException("Duplicate project linkage: " + binding.ItemName);
+                    projectLinkages.Add(binding.ItemName, link);
+                }
+            }
+        }
+        private static IEnumerable<FlaRecord> Select(IEnumerable<FlaRecord> source, IList<string> order, string kind)
+        {
+            if (order == null) return source;
+            var named = source.ToDictionary(d => d.Text("name"), StringComparer.Ordinal); var selected = new List<FlaRecord>(); var seen = new HashSet<string>(StringComparer.Ordinal);
+            foreach (string name in order)
+            {
+                if (name == null || !seen.Add(name)) throw new InvalidDataException("Duplicate project " + kind + " item: " + name);
+                if (!named.TryGetValue(name, out var item)) throw new InvalidDataException("Missing project " + kind + " item: " + name);
+                selected.Add(item);
+            }
+            return selected;
+        }
+        private FlaRecord Linkage(FlaRecord descriptor)
+        {
+            if (projectLinkages != null) return projectLinkages.TryGetValue(descriptor.Text("name"), out var link) ? link : null;
+            return descriptor.Record("libraryMetadata")?.Record("linkage") ?? descriptor.Record("linkage");
         }
         internal int NextId() { if (lastId == 65535) throw new InvalidDataException("Too many library symbols."); return ++lastId; }
         internal void Define(SceneSymbol symbol) => Model.Symbols.Add(symbol.Id, symbol);
@@ -40,8 +75,16 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
         }
         internal SceneModel Compile()
         {
-            var previous = new List<Placement>(); string external = project?.TimelineScript(flaPath) ?? "";
-            foreach (var scene in document.Scenes)
+            var previous = new List<Placement>(); string external = projectMovie == null ? project?.TimelineScript(flaPath) ?? "" : "";
+            var scenes = document.Scenes;
+            if (projectMovie != null)
+            {
+                var roots = document.Library.Where(d => d.Text("name") == projectMovie.EntrySymbol).ToArray();
+                if (roots.Length != 1) throw new InvalidDataException("Project entry symbol must identify exactly one library item: " + projectMovie.EntrySymbol);
+                if (library.Values.Contains(roots[0])) throw new InvalidDataException("The project entry symbol must not be included in its dependency library order.");
+                scenes = roots;
+            }
+            foreach (var scene in scenes)
             {
                 var timeline = GetTimeline(scene);
                 for (int f = 0; f < timeline.Length; f++)
@@ -54,9 +97,9 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
             }
             if (Model.Frames.Count == 0) throw new InvalidDataException("FLA contains no scene.");
             var names = new HashSet<string>(StringComparer.Ordinal);
-            foreach (var descriptor in library.Values.Concat(media.Values))
+            foreach (var descriptor in orderedLibrary.Concat(orderedMedia))
             {
-                var link = descriptor.Record("libraryMetadata")?.Record("linkage") ?? descriptor.Record("linkage"); if (link == null) continue;
+                var link = Linkage(descriptor); if (link == null) continue;
                 int flags = (int)link.Number("flags"); if ((flags & 2) != 0 || link.Text("url").Length != 0) throw new NotSupportedException("Runtime shared-library imports require an external library resolver.");
                 if (link.Text("className").Length != 0) { if (project == null) throw new InvalidDataException("AS2 linkage requires the source folder."); project.RequireClass(link.Text("className")); }
                 if ((flags & 1) == 0) continue;
@@ -64,10 +107,10 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
                 int id = library.ContainsValue(descriptor) ? Symbol(descriptor, -1, descriptor.Number("symbolType") == 1) : descriptor.ClassName == "CMediaBits" ? Bitmap(descriptor.Number("mediaId")).Id : Sound(descriptor.Number("mediaId"));
                 Model.Exports.Add(new KeyValuePair<string, int>(name, id));
             }
-            int[] bounds = document.Contents.Words("boundsWords", 4); Model.WidthTwips = bounds[1] - bounds[0]; Model.HeightTwips = bounds[3] - bounds[2]; double rate = document.Contents.Real("frameRateWord") / 65536;
+            int[] bounds = document.Contents.Words("boundsWords", 4); Model.WidthTwips = projectMovie?.WidthTwips ?? bounds[1] - bounds[0]; Model.HeightTwips = projectMovie?.HeightTwips ?? bounds[3] - bounds[2]; double rate = projectMovie?.FrameRate ?? document.Contents.Real("frameRateWord") / 65536;
             if (Model.WidthTwips <= 0 || Model.HeightTwips <= 0 || rate <= 0 || rate >= 256) throw new InvalidDataException("Invalid stage dimensions/frame rate.");
             Model.FrameRate = CoordinateMath.Round(rate * 256) / 256.0;
-            var prologue = new List<SceneControl> { new SceneControl { Kind = ControlKind.Background, Background = unchecked((uint)document.Contents.Number("backgroundColorRgba", 0xffffffffL)) | 0xff000000u } };
+            var prologue = new List<SceneControl> { new SceneControl { Kind = ControlKind.Background, Background = (projectMovie?.BackgroundColor ?? unchecked((uint)document.Contents.Number("backgroundColorRgba", 0xffffffffL))) | 0xff000000u } };
             prologue.AddRange(initializers);
             if (project != null && project.ClassOrder.Count > 0) prologue.Add(new SceneControl { Kind = ControlKind.Actions, Actions = End(ActionProgram.Join(project.ClassOrder.Select(c => c.Code).ToArray())) });
             Model.Frames[0].Controls.InsertRange(0, prologue); return Model;
@@ -105,7 +148,7 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
                     Define(symbol);
                 }
                 if (descriptor.Number("scaleGridEnabled") != 0) throw new NotSupportedException("Scale-9 grids are not supported by the RA3 APT runtime.");
-                var link = descriptor.Record("libraryMetadata")?.Record("linkage") ?? descriptor.Record("linkage"); string className = link?.Text("className") ?? "";
+                var link = Linkage(descriptor); string className = link?.Text("className") ?? "";
                 if (className.Length != 0)
                 {
                     if (project == null) throw new InvalidDataException("Missing AS2 source folder for " + className); project.RequireClass(className); string identifier = link.Text("identifier"); if (identifier.Length == 0) throw new InvalidDataException("AS2 class linkage needs an export identifier.");

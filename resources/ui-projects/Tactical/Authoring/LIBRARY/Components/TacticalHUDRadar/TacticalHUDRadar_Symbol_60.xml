@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_60" itemID="6ae70000-00000092" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_60">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#c605e2" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <RadialGradient focalPointRatio="0">
+                                                            <matrix>
+                                                                 <Matrix tx="3.75" ty="3.75" a="0.004638671875" d="0.004638671875" />
+                                                            </matrix>
+                                                            <GradientEntry color="#ffffff" ratio="0.0" />
+                                                            <GradientEntry color="#ffffff" ratio="0.38431373" />
+                                                            <GradientEntry color="#ffcc00" ratio="1.0" />
+                                                       </RadialGradient>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 0 75[ 0 44 22 22[ 44 0 75 0[ 106 0 128 22[ 150 44 150 75[ 150 106 128 128[ 106 150 75 150[ 44 150 22 128[ 0 106 0 75" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,8 @@
+{
+  "baseCommit": "66c5866070896bebc37fe5e9bdafba42a8822b9d",
+  "branch": "resources/tactical-editing-project",
+  "protectedOriginalPath": "resources/ra3-ui",
+  "protectedOriginalGitTree": "53dddf9509736adb148ff834eaa290e60295c28d",
+  "protection": "The entire previously recovered resource tree is read-only. This project adds new authoring files outside that tree.",
+  "scope": "Tactical authoring pilot: master FLA with independently published movie roots and shared editable source. Not a claim to reproduce EA's original source layout."
+}

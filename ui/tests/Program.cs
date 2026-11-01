@@ -12,6 +12,7 @@ Check(SageHash.Symbol("Texture") != 0, "Texture type ID");
 RuntimeFixture.VerifyArchitecture(Check);
 ClassDependencyTests.Run(Check);
 MarkerInterfaceTests.Run(Check);
+UiProjectTests.Run(Check);
 GeometryTests.Run(Check);
 RuntimeLayoutTests.Run(Check);
 void RunScript(string source, string expected)

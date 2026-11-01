@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_Symbol_121" itemID="6ae70000-0000006e" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_Symbol_121">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#fcd3f0">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDBuildQueuePage/subTabs/subTabs_frame_0001_define_GetTabButtonIndex.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#5d83e9">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_Symbol_120" name="spinLeftButton" centerPoint3DX="17.0" centerPoint3DY="11.0">
+                                             <matrix>
+                                                  <Matrix tx="8.0" ty="2.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#bb73b8">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_Symbol_108" name="spinRightButton" centerPoint3DX="180.0" centerPoint3DY="11.0">
+                                             <matrix>
+                                                  <Matrix tx="171.0" ty="2.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#a3dc7a">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_Symbol_96" name="tabOutline" centerPoint3DX="90.0" centerPoint3DY="9.5">
+                                             <matrix>
+                                                  <Matrix tx="-2.0" ty="-2.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#cbcf26" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_Symbol_74" name="buttons" centerPoint3DX="26.0" centerPoint3DY="2.0">
+                                             <matrix>
+                                                  <Matrix tx="26.0" ty="2.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

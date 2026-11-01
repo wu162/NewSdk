@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_84" itemID="6ae70000-000000a6" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_84">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#f26fd3">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDRadar/panel/panel_frame_0001_define_OnContentLoaded.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#fa3cab">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_SimpleRenderingSurface" name="viewBoxSurface" centerPoint3DX="50.0" centerPoint3DY="50.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="1.9599609375" d="1.9600372314453125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#b68555">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_83" name="pingSurface" centerPoint3DX="97.95" centerPoint3DY="97.95">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="1.0" d="0.999725341796875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#7ba2ad">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_SimpleRenderingSurface" name="telestratorSurface" centerPoint3DX="50.0" centerPoint3DY="50.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="1.9599609375" d="1.9600372314453125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#ae8c5a">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_82" name="beaconStage" centerPoint3DX="97.95" centerPoint3DY="97.95">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="1.0" d="0.999725341796875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6" color="#b2728a">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_80" name="coOpAITargetLayer" centerPoint3DX="0.0" centerPoint3DY="0.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 7" color="#a5d8f2">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_80" name="objectiveStage" centerPoint3DX="0.0" centerPoint3DY="0.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 8" color="#fb6a4d">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_81" name="buildQueueStage" centerPoint3DX="97.95" centerPoint3DY="97.95">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="1.0" d="0.999725341796875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 9" color="#f5a584">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_SimpleRenderingSurface" name="shroudSurface" centerPoint3DX="50.0" centerPoint3DY="50.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="1.959991455078125" d="1.9600067138671875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 10" color="#9eb2e5">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_80" name="hotSpotLayer" centerPoint3DX="0.0" centerPoint3DY="0.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 11" color="#888bcd">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_SimpleRenderingSurface" name="objectsSurface" centerPoint3DX="50.0" centerPoint3DY="50.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="1.959991455078125" d="1.9600067138671875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 12" color="#29f9d9">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_80" name="bridgeLayerMC" centerPoint3DX="0.0" centerPoint3DY="0.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 13" color="#eabec0">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_SimpleRenderingSurface" name="terrainSurface" centerPoint3DX="50.0" centerPoint3DY="50.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="1.959991455078125" d="1.9600067138671875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 14" color="#b28bff">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_78" name="back" centerPoint3DX="97.95" centerPoint3DY="98.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 15" color="#cf4b92" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_77" name="inputCatcher" centerPoint3DX="50.0" centerPoint3DY="50.9">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="1.96014404296875" d="1.924560546875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

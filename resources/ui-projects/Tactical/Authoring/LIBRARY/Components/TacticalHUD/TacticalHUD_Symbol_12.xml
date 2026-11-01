@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/TacticalHUD/TacticalHUD_Symbol_12" itemID="6ae70000-00000008" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/TacticalHUD/TacticalHUD_Symbol_12">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#f55d7c" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_9" centerPoint3DX="50.0" centerPoint3DY="50.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.319976806640625" d="0.7299652099609375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUD/voiceChatControl/voiceChatControl_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

@@ -7,3 +7,6 @@ resources/ra3-ui/converted/**/*.fla -text
 resources/ra3-ui/converted/**/*.as text eol=lf
 resources/ra3-ui/**/*.json text eol=lf
 resources/ra3-ui/tooling/*.zip -text
+resources/ui-projects/**/*.fla -text
+resources/ui-projects/**/*.as text eol=lf
+resources/ui-projects/**/*.json text eol=lf

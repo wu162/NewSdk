@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_5" itemID="6ae70000-00000070" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_5">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#9fe08c">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="_Str" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728" name="_Def" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="6" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728" name="_Inf" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="11" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="15" keyMode="9728" name="_Veh" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="16" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" keyMode="9728" name="_Air" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#aecb44">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDRadar/BuildQueueIndicator/BuildQueueIndicator_frame_0001_gotoAndPlay_label_Str.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="3" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDRadar/BuildQueueIndicator/BuildQueueIndicator_frame_0005_stop_label_Str.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="5" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDRadar/BuildQueueIndicator/BuildQueueIndicator_frame_0010_stop_label_Def.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="14" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDRadar/BuildQueueIndicator/BuildQueueIndicator_frame_0015_stop_label_Inf.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="15" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="19" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDRadar/BuildQueueIndicator/BuildQueueIndicator_frame_0020_stop_label_Veh.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="29" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDRadar/BuildQueueIndicator/BuildQueueIndicator_frame_0030_stop_label_Air.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#943ee8" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="30" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/TacticalHUDRadar/TacticalHUDRadar_Bitmap_3.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="-6.0" ty="-6.0" a="20.0" d="20.0" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! -120 -120| 120 -120| 120 120| -120 120| -120 -120" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

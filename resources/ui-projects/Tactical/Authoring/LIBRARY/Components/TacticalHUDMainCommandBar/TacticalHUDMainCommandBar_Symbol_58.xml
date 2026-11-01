@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_58" itemID="6ae70000-0000003c" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_58">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#a9bff3" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_57" symbolType="button">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.2700042724609375" d="0.25" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDMainCommandBar/ButtonContact/ButtonContact_frame_0001_press.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

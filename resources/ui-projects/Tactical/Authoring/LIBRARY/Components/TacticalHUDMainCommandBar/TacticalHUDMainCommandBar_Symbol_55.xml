@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_55" itemID="6ae70000-00000039" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_55">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#bec4d2">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="_off" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728" name="_on" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#f5d8ab">
+                         <frames>
+                              <DOMFrame index="0" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDMainCommandBar/flashClip/flashClip_frame_0005_stop_label_off.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="5" duration="29" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="34" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDMainCommandBar/flashClip/flashClip_frame_0035_gotoAndStop_label_on.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#70a2f5" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="5" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="11" index="5" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_54" centerPoint3DX="50.0" centerPoint3DY="50.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.2700042724609375" d="0.25" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="15" index="16" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_54" centerPoint3DX="50.0" centerPoint3DY="50.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.2700042724609375" d="0.25" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.75" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="31" duration="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_54" centerPoint3DX="50.0" centerPoint3DY="50.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.2700042724609375" d="0.25" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

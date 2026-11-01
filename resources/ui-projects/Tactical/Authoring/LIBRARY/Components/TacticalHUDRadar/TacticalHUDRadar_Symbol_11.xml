@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_11" itemID="6ae70000-00000072" lastModified="1631891428" symbolType="graphic">
+     <timeline>
+          <DOMTimeline name="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_11" currentFrame="0">
+               <layers>
+                    <DOMLayer name="Layer 1">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/TacticalHUDRadar/TacticalHUDRadar_Bitmap_9.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="-1.0" ty="-96.3" a="-160.56732177734375" d="-9.9822998046875" b="278.10577392578125" c="-17.28424072265625" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! -20 -1926| -2428 2246| -2981 1926| -573 -2245| -20 -1926" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/TacticalHUDRadar/TacticalHUDRadar_Bitmap_9.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="-120.15" ty="113.6" a="321.57470703125" d="19.9798583984375" b="-0.001220703125" c="0.0018310546875" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! 2421 2912| -2403 2912| -2403 2272| 2421 2272| 2421 2912" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/TacticalHUDRadar/TacticalHUDRadar_Bitmap_10.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="178.5" ty="110.65" a="-9.95941162109375" d="-9.95941162109375" b="17.2509765625" c="-17.2509765625" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! 2070 2819| 2708 1715| 3570 2213| 2933 3317| 2070 2819" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/TacticalHUDRadar/TacticalHUDRadar_Bitmap_10.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="-147.55" ty="163.95" a="-9.97955322265625" d="-9.97955322265625" b="-17.2857666015625" c="17.2857666015625" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! -2951 3279| -3589 2173| -2725 1674| -2086 2780| -2951 3279" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/TacticalHUDRadar/TacticalHUDRadar_Bitmap_9.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="27.95" ty="-112.2" a="160.80657958984375" d="9.9896240234375" b="278.5406494140625" c="-17.303466796875" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! 559 -2244| 2971 1934| 2418 2254| 6 -1924| 559 -2244" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/TacticalHUDRadar/TacticalHUDRadar_Bitmap_10.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="-31.25" ty="-145.3" a="20.0" d="20.0" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! 655 -1906| -625 -1906| -625 -2906| 655 -2906| 655 -1906" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

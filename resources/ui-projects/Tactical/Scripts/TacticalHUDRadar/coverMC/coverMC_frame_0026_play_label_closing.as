@@ -1,0 +1,2 @@
+_visible = true;
+play();

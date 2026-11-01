@@ -1,0 +1,40 @@
+{
+  "sourceMovies": [
+    "TacticalHUD",
+    "TacticalHUDMainCommandBar",
+    "TacticalHUDBuildQueuePage",
+    "TacticalHUDRadar"
+  ],
+  "sharedGraphs": [
+    {
+      "identifier": "SimpleRenderingSurface",
+      "fingerprint": "15823bd7453b81fc0fe24b09ae52af7cba6327d8e22386c0debe1e3a5675e754",
+      "movies": [
+        "TacticalHUD",
+        "TacticalHUDRadar"
+      ]
+    },
+    {
+      "identifier": "WhiteRectangle",
+      "fingerprint": "0fcbcf871f01e927fb94ae917e9b117f7dc67ebd9b343bc76c0b76d9957010f4",
+      "movies": [
+        "TacticalHUD",
+        "TacticalHUDRadar"
+      ]
+    },
+    {
+      "identifier": "HelpBoxSite",
+      "fingerprint": "b45025a87a3f6184dba489fd2604eb9657259813b61074bc158d9c7707ad8a26",
+      "movies": [
+        "TacticalHUD",
+        "TacticalHUDMainCommandBar",
+        "TacticalHUDBuildQueuePage"
+      ]
+    }
+  ],
+  "sourceSymbolCount": 187,
+  "masterSymbolCount": 182,
+  "sharedDescriptorGroups": 6,
+  "scriptFiles": 289,
+  "originalAssetsModified": false
+}

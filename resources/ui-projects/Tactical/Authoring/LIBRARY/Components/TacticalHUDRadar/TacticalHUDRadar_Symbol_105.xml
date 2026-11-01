@@ -1,0 +1,1962 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_105" itemID="6ae70000-000000af" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_105">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#82fe2f">
+                         <frames>
+                              <DOMFrame index="0" duration="21" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="21" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDRadar/TacticalHUDRadar/TacticalHUDRadar_frame_0022_stop.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#48bf9f">
+                         <frames>
+                              <DOMFrame index="0" duration="3" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="182.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="174.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" duration="22" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#88f2c8">
+                         <frames>
+                              <DOMFrame index="0" duration="3" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="191.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="184.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" duration="22" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#bd69a0">
+                         <frames>
+                              <DOMFrame index="0" duration="2" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.9" centerPoint3DY="244.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.9" ty="237.2" a="-0.99945068359375" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.9" centerPoint3DY="142.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.9" ty="134.7" a="-0.999725341796875" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" duration="22" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#e565f1">
+                         <frames>
+                              <DOMFrame index="0" duration="2" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="162.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="155.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="147.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="140.2" a="0.999725341796875" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" duration="22" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6" color="#69c956">
+                         <frames>
+                              <DOMFrame index="0" duration="2" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="159.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="152.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="145.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="138.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" duration="22" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 7" color="#962eca">
+                         <frames>
+                              <DOMFrame index="0" duration="2" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="200.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="193.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="152.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="144.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" duration="22" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 8" color="#5cdc50">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="252.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="245.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="134.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="127.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.4" centerPoint3DY="180.75">
+                                             <matrix>
+                                                  <Matrix tx="-627.4" ty="173.25" a="-1.00494384765625" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" duration="3" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="7" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="189.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="181.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="8" duration="18" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 9" color="#f1f5da">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="142.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="134.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="131.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="123.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.9" centerPoint3DY="222.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.9" ty="214.7" a="-0.999725341796875" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="186.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="179.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="6" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="190.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="182.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="7" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="191.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="183.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="8" duration="18" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 10" color="#7d2fda">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.5" centerPoint3DY="120.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.5" ty="113.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="242.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="234.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="228.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="221.2" a="0.999725341796875" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="188.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="181.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="190.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="183.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="6" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="183.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="175.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="7" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="187.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="179.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="8" duration="18" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 11" color="#779ab8">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="259.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="252.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="238.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="230.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="140.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="133.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="182.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="175.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="182.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="174.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="6" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="188.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="180.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="7" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-755.75" centerPoint3DY="185.7">
+                                             <matrix>
+                                                  <Matrix tx="-846.75" ty="178.2" a="1.202880859375" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="8" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="184.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="176.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="16" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 12" color="#f18ca7">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="181.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="173.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="100.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="92.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="153.25">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="145.75" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="184.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="177.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="187.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="180.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="6" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="186.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="179.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="7" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="206.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="198.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="199.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="191.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="16" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 13" color="#f0ae01">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="264.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="256.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="265.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="258.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="249.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="241.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="134.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="126.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="143.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="135.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="6" duration="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-755.85" centerPoint3DY="179.2">
+                                             <matrix>
+                                                  <Matrix tx="-846.85" ty="171.7" a="1.202880859375" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="184.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="176.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="12" duration="14" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 14" color="#09aad5">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="103.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="96.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="132.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="125.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="119.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="111.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="214.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="207.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="198.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="190.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="6" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="154.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="146.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="7" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="157.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="149.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="8" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="166.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="159.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-755.85" centerPoint3DY="179.2">
+                                             <matrix>
+                                                  <Matrix tx="-846.85" ty="171.7" a="1.202880859375" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="12" duration="14" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 15" color="#f9c759">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="114.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="107.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="235.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="227.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="225.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="218.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="173.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="166.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="150.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="142.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="6" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="161.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="154.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="7" duration="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="169.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="161.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="173.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="165.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="11" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="189.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="182.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="12" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="185.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="178.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="13" duration="13" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 16" color="#e9dcb1">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-537.4" centerPoint3DY="271.15">
+                                             <matrix>
+                                                  <Matrix tx="-628.4" ty="263.65" a="-0.99395751953125" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="257.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="249.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="233.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="226.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="232.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="224.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="186.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="179.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="6" duration="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="210.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="203.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="193.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="185.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="203.7">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="196.2" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="11" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="176.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="168.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="12" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="190.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="182.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="14" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-535.85" centerPoint3DY="193.7">
+                                             <matrix>
+                                                  <Matrix tx="-626.85" ty="186.2" a="-1.010986328125" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="15" duration="11" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 17" color="#79ee23">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.2" centerPoint3DY="100.15">
+                                             <matrix>
+                                                  <Matrix tx="-809.2" ty="92.65" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="112.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="105.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="129.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="121.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="131.75">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="124.25" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="145.75">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="138.25" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-536.85" centerPoint3DY="215.2">
+                                             <matrix>
+                                                  <Matrix tx="-627.85" ty="207.7" a="-1.0" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="6" duration="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="200.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="192.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="201.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="194.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="200.2">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="192.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="13" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_103" centerPoint3DX="-718.85" centerPoint3DY="193.7">
+                                             <matrix>
+                                                  <Matrix tx="-809.85" ty="186.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="15" duration="11" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 18" color="#84a9f2">
+                         <frames>
+                              <DOMFrame index="0" duration="8" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="8" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.2" centerPoint3DY="368.8">
+                                             <matrix>
+                                                  <Matrix tx="-629.2" ty="264.8" a="-1.52587890625E-5" d="7.62939453125E-5" b="-0.4106597900390625" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.25" centerPoint3DY="368.8">
+                                             <matrix>
+                                                  <Matrix tx="-629.25" ty="264.8" a="-1.52587890625E-5" d="3.0517578125E-5" b="-0.4106597900390625" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.5546875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.25" centerPoint3DY="368.8">
+                                             <matrix>
+                                                  <Matrix tx="-629.25" ty="264.8" a="-1.52587890625E-5" d="3.0517578125E-5" b="-0.4106597900390625" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.890625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="11" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.2" centerPoint3DY="368.8">
+                                             <matrix>
+                                                  <Matrix tx="-629.2" ty="264.8" a="-1.52587890625E-5" d="7.62939453125E-5" b="-0.4106597900390625" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="12" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.95" centerPoint3DY="351.95">
+                                             <matrix>
+                                                  <Matrix tx="-628.95" ty="247.95" a="0.0" d="1.52587890625E-5" b="-0.3246307373046875" c="-0.8645172119140625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.734375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="13" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.8" centerPoint3DY="337.6">
+                                             <matrix>
+                                                  <Matrix tx="-628.8" ty="233.6" a="0.0" d="1.52587890625E-5" b="-0.2518310546875" c="-0.864501953125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.51171875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="14" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.65" centerPoint3DY="325.9">
+                                             <matrix>
+                                                  <Matrix tx="-628.65" ty="221.9" a="0.0" d="1.52587890625E-5" b="-0.1922607421875" c="-0.864471435546875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.328125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="15" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.45" centerPoint3DY="316.75">
+                                             <matrix>
+                                                  <Matrix tx="-628.45" ty="212.75" a="0.0" d="3.0517578125E-5" b="-0.14593505859375" c="-0.8644561767578125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.18359375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="16" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.4" centerPoint3DY="310.25">
+                                             <matrix>
+                                                  <Matrix tx="-628.4" ty="206.25" a="0.0" d="1.52587890625E-5" b="-0.11285400390625" c="-0.8644256591796875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.08203125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="17" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.35" centerPoint3DY="306.35">
+                                             <matrix>
+                                                  <Matrix tx="-628.35" ty="202.35" a="0.0" d="3.0517578125E-5" b="-0.0930023193359375" c="-0.864410400390625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.01953125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="18" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.25" centerPoint3DY="305.05">
+                                             <matrix>
+                                                  <Matrix tx="-628.25" ty="201.05" a="0.0" d="7.62939453125E-5" b="-0.0863800048828125" c="-0.8644256591796875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="19" duration="7" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 19" color="#e0f6d4">
+                         <frames>
+                              <DOMFrame index="0" duration="8" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="8" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.2" centerPoint3DY="209.95">
+                                             <matrix>
+                                                  <Matrix tx="-629.2" ty="105.95" a="0.0" d="3.0517578125E-5" b="0.408966064453125" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.25" centerPoint3DY="209.95">
+                                             <matrix>
+                                                  <Matrix tx="-629.25" ty="105.95" a="0.0" d="1.52587890625E-5" b="0.408966064453125" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.5546875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.25" centerPoint3DY="209.95">
+                                             <matrix>
+                                                  <Matrix tx="-629.25" ty="105.95" a="0.0" d="1.52587890625E-5" b="0.408966064453125" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.890625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="11" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.2" centerPoint3DY="209.95">
+                                             <matrix>
+                                                  <Matrix tx="-629.2" ty="105.95" a="0.0" d="3.0517578125E-5" b="0.408966064453125" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="12" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.95" centerPoint3DY="229.0">
+                                             <matrix>
+                                                  <Matrix tx="-628.95" ty="125.0" a="0.0" d="1.52587890625E-5" b="0.31622314453125" c="-0.8645172119140625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.734375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="13" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.8" centerPoint3DY="245.15">
+                                             <matrix>
+                                                  <Matrix tx="-628.8" ty="141.15" a="0.0" d="1.52587890625E-5" b="0.2377471923828125" c="-0.864501953125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.51171875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="14" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.65" centerPoint3DY="258.35">
+                                             <matrix>
+                                                  <Matrix tx="-628.65" ty="154.35" a="0.0" d="1.52587890625E-5" b="0.1735382080078125" c="-0.864471435546875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.328125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="15" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.45" centerPoint3DY="268.55">
+                                             <matrix>
+                                                  <Matrix tx="-628.45" ty="164.55" a="0.0" d="1.52587890625E-5" b="0.12359619140625" c="-0.8644561767578125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.18359375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="16" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.4" centerPoint3DY="275.9">
+                                             <matrix>
+                                                  <Matrix tx="-628.4" ty="171.9" a="0.0" d="1.52587890625E-5" b="0.087921142578125" c="-0.8644256591796875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.08203125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="17" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.35" centerPoint3DY="280.3">
+                                             <matrix>
+                                                  <Matrix tx="-628.35" ty="176.3" a="0.0" d="1.52587890625E-5" b="0.0665130615234375" c="-0.864410400390625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.01953125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="18" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.25" centerPoint3DY="281.75">
+                                             <matrix>
+                                                  <Matrix tx="-628.25" ty="177.75" a="0.0" d="3.0517578125E-5" b="0.05938720703125" c="-0.8644256591796875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="19" duration="7" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 20" color="#ae7a77">
+                         <frames>
+                              <DOMFrame index="0" duration="8" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="8" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.2" centerPoint3DY="368.8">
+                                             <matrix>
+                                                  <Matrix tx="-629.2" ty="264.8" a="-1.52587890625E-5" d="7.62939453125E-5" b="-0.4106597900390625" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.25" centerPoint3DY="368.8">
+                                             <matrix>
+                                                  <Matrix tx="-629.25" ty="264.8" a="-1.52587890625E-5" d="3.0517578125E-5" b="-0.4106597900390625" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.5546875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.25" centerPoint3DY="368.8">
+                                             <matrix>
+                                                  <Matrix tx="-629.25" ty="264.8" a="-1.52587890625E-5" d="3.0517578125E-5" b="-0.4106597900390625" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.890625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="11" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.2" centerPoint3DY="368.8">
+                                             <matrix>
+                                                  <Matrix tx="-629.2" ty="264.8" a="-1.52587890625E-5" d="7.62939453125E-5" b="-0.4106597900390625" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="12" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.95" centerPoint3DY="351.95">
+                                             <matrix>
+                                                  <Matrix tx="-628.95" ty="247.95" a="0.0" d="1.52587890625E-5" b="-0.3246307373046875" c="-0.8645172119140625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.734375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="13" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.8" centerPoint3DY="337.6">
+                                             <matrix>
+                                                  <Matrix tx="-628.8" ty="233.6" a="0.0" d="1.52587890625E-5" b="-0.2518310546875" c="-0.864501953125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.51171875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="14" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.65" centerPoint3DY="325.9">
+                                             <matrix>
+                                                  <Matrix tx="-628.65" ty="221.9" a="0.0" d="1.52587890625E-5" b="-0.1922607421875" c="-0.864471435546875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.328125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="15" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.45" centerPoint3DY="316.75">
+                                             <matrix>
+                                                  <Matrix tx="-628.45" ty="212.75" a="0.0" d="3.0517578125E-5" b="-0.14593505859375" c="-0.8644561767578125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.18359375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="16" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.4" centerPoint3DY="310.25">
+                                             <matrix>
+                                                  <Matrix tx="-628.4" ty="206.25" a="0.0" d="1.52587890625E-5" b="-0.11285400390625" c="-0.8644256591796875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.08203125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="17" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.35" centerPoint3DY="306.35">
+                                             <matrix>
+                                                  <Matrix tx="-628.35" ty="202.35" a="0.0" d="3.0517578125E-5" b="-0.0930023193359375" c="-0.864410400390625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.01953125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="18" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.25" centerPoint3DY="305.05">
+                                             <matrix>
+                                                  <Matrix tx="-628.25" ty="201.05" a="0.0" d="7.62939453125E-5" b="-0.0863800048828125" c="-0.8644256591796875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="19" duration="7" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 21" color="#a05fc7" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="8" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="8" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.2" centerPoint3DY="209.95">
+                                             <matrix>
+                                                  <Matrix tx="-629.2" ty="105.95" a="0.0" d="3.0517578125E-5" b="0.408966064453125" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.25" centerPoint3DY="209.95">
+                                             <matrix>
+                                                  <Matrix tx="-629.25" ty="105.95" a="0.0" d="1.52587890625E-5" b="0.408966064453125" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.5546875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.25" centerPoint3DY="209.95">
+                                             <matrix>
+                                                  <Matrix tx="-629.25" ty="105.95" a="0.0" d="1.52587890625E-5" b="0.408966064453125" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.890625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="11" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-529.2" centerPoint3DY="209.95">
+                                             <matrix>
+                                                  <Matrix tx="-629.2" ty="105.95" a="0.0" d="3.0517578125E-5" b="0.408966064453125" c="-0.86456298828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="12" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.95" centerPoint3DY="229.0">
+                                             <matrix>
+                                                  <Matrix tx="-628.95" ty="125.0" a="0.0" d="1.52587890625E-5" b="0.31622314453125" c="-0.8645172119140625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.734375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="13" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.8" centerPoint3DY="245.15">
+                                             <matrix>
+                                                  <Matrix tx="-628.8" ty="141.15" a="0.0" d="1.52587890625E-5" b="0.2377471923828125" c="-0.864501953125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.51171875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="14" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.65" centerPoint3DY="258.35">
+                                             <matrix>
+                                                  <Matrix tx="-628.65" ty="154.35" a="0.0" d="1.52587890625E-5" b="0.1735382080078125" c="-0.864471435546875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.328125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="15" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.45" centerPoint3DY="268.55">
+                                             <matrix>
+                                                  <Matrix tx="-628.45" ty="164.55" a="0.0" d="1.52587890625E-5" b="0.12359619140625" c="-0.8644561767578125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.18359375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="16" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.4" centerPoint3DY="275.9">
+                                             <matrix>
+                                                  <Matrix tx="-628.4" ty="171.9" a="0.0" d="1.52587890625E-5" b="0.087921142578125" c="-0.8644256591796875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.08203125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="17" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.35" centerPoint3DY="280.3">
+                                             <matrix>
+                                                  <Matrix tx="-628.35" ty="176.3" a="0.0" d="1.52587890625E-5" b="0.0665130615234375" c="-0.864410400390625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.01953125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="18" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDRadar/TacticalHUDRadar_Symbol_100" centerPoint3DX="-528.25" centerPoint3DY="281.75">
+                                             <matrix>
+                                                  <Matrix tx="-628.25" ty="177.75" a="0.0" d="3.0517578125E-5" b="0.05938720703125" c="-0.8644256591796875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="19" duration="7" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,7 @@
+tools/**/bin/
+tools/**/obj/
+tests/**/bin/
+tests/**/obj/
+**/__pycache__/
+Build/
+artifacts/

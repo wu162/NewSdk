@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/TacticalHUD/TacticalHUD_Symbol_27" itemID="6ae70000-00000013" lastModified="1631891428" symbolType="graphic">
+     <timeline>
+          <DOMTimeline name="Components/TacticalHUD/TacticalHUD_Symbol_27" currentFrame="0">
+               <layers>
+                    <DOMLayer name="Layer 1">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#00ffff" />
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="1" fillStyle1="0" strokeStyle="0" edges="! -5301 720| -5141 880| -5141 1560| -5221 1480| -5221 3080| -5141 3000| -5141 4480| -4701 4720| -4701 5800| -4581 5920| -2 5920| -2 0| -5301 0| -5301 720" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>
