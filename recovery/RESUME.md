@@ -1,10 +1,8 @@
-# 本轮：The New World 7.1 全15流冷编译通过，热缓存失败保留，PR #42
+# 当前：7.1全15流冷性能已完成，TGA/8声道修复验证中
 
-用户要求源码放 SDK/Mods，必须编译基础、全部 APT 和全局数据，并先删不支持的基础数据。下载原包 MD5 `7baeedd038574044e977c6495564665a`；保留原包和备份，共剔除94条声明（89 Joypad、八声道 AudioFile及其唯一依赖AudioEvent、3个不支持TGA的Texture）；234张APT TGA只规范化未使用色表头字段，像素负载不变。本地与Windows调整前后哈希全部一致，15个入口保留。
+[同机41256811133](https://github.com/wu162/NewSdk/actions/runs/41256811133) 两边15流均成功：原1457.887秒→新286.933秒（少80.32%，5.08倍）；各4057文件。整体outputs-differ：只base/mod/mod.bin不同，已定位330个DXT1 Texture的BC1压缩块，其他4056文件及全部其他类型相同。n1、OS页缓存未控、不含BIG；输入双方相同supported94裁剪版，生产8050f22d未改。完整[报告/边界/证据](docs/NEW_WORLD_71_SDK_COMPARISON.md)，热继承缓存失败仍未修复。
 
-复用生产 `8050f22d` / Release `41244132060`，生产闭包未变。[41255726294](https://github.com/wu162/NewSdk/actions/runs/41255726294) 新版冷编译全部15流成功，344.285秒、4057输出文件；随后热编译在AlliedLegionnaireInfantry→BaseInfantry继承时丢失源XML，退出1。两次调用配置相同；冷编译已成功的步兵数据不继续删除。该运行整体failure、仅新版预检，**没有新旧同机速度比，也没有热态通过结果**。[摘要/失败记录](evidence/refactor/new-world-71/41255726294-1/summary.json)。
-
-下一步用相同94条剔除输入继续同机原版/新版全15流冷编译对照；新增显式cold-only选择，原热失败保留，不改生产EXE。结果必须区分耗时、原字节相同与否及未验证的热缓存/编辑；不跨VM或跨输入拼速度比。[草稿PR #42](https://github.com/wu162/NewSdk/pull/42)，禁止强推，未经用户明确批准不合并。
+用户最新要求：codec修复无需完整MOD测试；组件确认后已明确授权将[PR #43](https://github.com/wu162/NewSdk/pull/43)合入本性能分支，再对修复版运行性能。修复分支fix/new-world-texture-audio-codecs的24f83d2b正在新组件/小CLI验证，先前41259222360按用户指示取消；全MOD/mymod额外验证控制器已删除。修复只解决实证TGA头/扩展与Wave8完整PC链，既有BC1字节边界保留。PR #42仍待审，用户未授权其合入legacy分支。禁止强推。
 
 # 当前：音频身份差异已修复，原 SDK 全输入配对通过（PR #41）
 
