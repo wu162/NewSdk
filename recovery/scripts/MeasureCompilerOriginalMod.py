@@ -18,10 +18,10 @@ from BenchmarkCompilerSdkComparison import (compare_pair, invocation, measure, s
 from HotCacheWorkload import HISTORICAL, UPHEAVAL_TREE, extract_upheaval
 from PrepareCompilerSdkBenchmark import prepare, inventory as file_rows
 
-SOURCE = '8050f22de81539c65aeca3903e9b48f53a572068'
-RUN = '41244132060'
+SOURCE = '24f83d2b53c0ad14c7bfc17db643dc035e769639'
+RUN = '41260620635'
 HEAD = '1a73017a5847a5657944866a0b25f4320c2ba00d'
-FILES = {'NewModCompiler.exe': '2e04db720b2860bf337a66557572eb7ad2bc667b950e5a2ec69d81181c222b43', 'NewModCompiler.exe.config': '94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68', 'antlr.runtime.dll': 'febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a'}
+FILES = {'NewModCompiler.exe': '5aa008d05ca4288265f7b51a15b09c01a1d10be305fbdf9616ec4946468cd4db', 'NewModCompiler.exe.config': '94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68', 'antlr.runtime.dll': 'febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a'}
 
 
 def need(value, message):

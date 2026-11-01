@@ -17,13 +17,13 @@ on:
         type: boolean
         default: false
       supported_fixture:
-        description: 'Remove unsupported base declarations and normalize unused APT TGA headers, identically for both engines'
+        description: 'Remove excluded Joypad declarations only; preserve original texture and audio media'
         type: boolean
-        default: false
+        default: true
       cold_only:
-        description: 'Measure complete cold builds only; keep observed warm-cache failure evidence separately'
+        description: 'Measure one complete cold build per engine; preserve the separate warm-cache failure evidence'
         type: boolean
-        default: false
+        default: true
 permissions:
   contents: read
   actions: read
@@ -53,14 +53,14 @@ jobs:
       - name: Verify accepted Release source and measurement syntax
         shell: pwsh
         run: |
-          $run=gh api repos/wu162/NewSdk/actions/runs/41244132060 | ConvertFrom-Json
-          if($LASTEXITCODE -ne 0 -or $run.status -ne 'completed' -or $run.conclusion -ne 'success' -or $run.head_sha -cne '8050f22de81539c65aeca3903e9b48f53a572068' -or $run.run_attempt -ne 1){throw 'Accepted production source/run differs'}
+          $run=gh api repos/wu162/NewSdk/actions/runs/41260620635 | ConvertFrom-Json
+          if($LASTEXITCODE -ne 0 -or $run.status -ne 'completed' -or $run.conclusion -ne 'success' -or $run.head_sha -cne '24f83d2b53c0ad14c7bfc17db643dc035e769639' -or $run.run_attempt -ne 1){throw 'Accepted production source/run differs'}
           python -m py_compile recovery/scripts/MeasureCompilerOriginalMod.py recovery/scripts/DownloadNewWorld71.py recovery/scripts/BenchmarkCompilerSdkComparison.py recovery/scripts/PrepareNewWorld71Supported.py
           if($LASTEXITCODE -ne 0){throw 'Measurement script syntax failed'}
       - uses: actions/download-artifact@v4
         with:
-          name: refactor-core-lifecycle-41244132060-1
-          run-id: 41244132060
+          name: new-world-codecs-41260620635-1
+          run-id: 41260620635
           github-token: ${{ github.token }}
           path: work/new-world-accepted
       - name: Download and verify complete 7.1 source under SDK Mods
@@ -77,21 +77,7 @@ jobs:
         shell: pwsh
         run: |
           $out="recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          $probeDir="$env:RUNNER_TEMP/new-world-tga-probe"
-          New-Item -ItemType Directory -Force $probeDir|Out-Null
-          $compiler="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
-          $probe="$probeDir/NewWorldTextureSupport.exe"
-          $probeSource=(Resolve-Path -LiteralPath 'recovery/scripts/NewWorldTextureSupport.cs').Path
-          $decoder=(Resolve-Path -LiteralPath 'recovery/src/Plugin/Texture/TextureTgaDecoder.cs').Path
-          $metadata=(Resolve-Path -LiteralPath 'recovery/src/Plugin/Texture/TextureTgaMetadata.cs').Path
-          git diff --exit-code 8050f22de81539c65aeca3903e9b48f53a572068 HEAD -- recovery/src/Plugin/Texture/TextureTgaDecoder.cs recovery/src/Plugin/Texture/TextureTgaMetadata.cs
-          if($LASTEXITCODE -ne 0){throw 'Decoder source differs from accepted production inputs'}
-          & $compiler /nologo /platform:x86 /r:System.Web.Extensions.dll "/out:$probe" $probeSource $decoder $metadata
-          if($LASTEXITCODE -ne 0){throw 'TGA support probe compilation failed'}
-          Copy-Item work/new-world-accepted/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe.config "$probe.config"
-          & $probe work/new-world-accepted/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe 'SDK/Mods/The New World' "$out/unsupported-base-textures.json"
-          if($LASTEXITCODE -ne 0){throw 'Accepted TGA input classification failed'}
-          python recovery/scripts/PrepareNewWorld71Supported.py --mod 'SDK/Mods/The New World' --backup "$env:RUNNER_TEMP/new-world-original-source" --output "$out/source-adjustments.json" --unsupported-textures "$out/unsupported-base-textures.json"
+          python recovery/scripts/PrepareNewWorld71Supported.py --mod 'SDK/Mods/The New World' --backup "$env:RUNNER_TEMP/new-world-original-source" --output "$out/source-adjustments.json" --preserve-media
           if($LASTEXITCODE -ne 0){throw 'Supported input preparation failed'}
       - uses: actions/upload-artifact@v4
         if: inputs.supported_fixture == true
@@ -99,27 +85,8 @@ jobs:
           name: new-world-preparation-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/source-adjustments.json
-            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/unsupported-base-textures.json
           if-no-files-found: error
-      - name: Preflight all 15 cold streams with the accepted new compiler before the long original build
-        if: inputs.supported_fixture == true
-        shell: pwsh
-        run: |
-          $out="recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          python recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/new-world-accepted/artifacts/core-lifecycle-product/Release --mod 'SDK/Mods/The New World' --mod-schema 'SDK/Mods/The New World/xsd' --content 'base,apt,global-metadata' --requested-head 'c7647a130c779e84b3ec669cb7235599488048b2' --engine new --cold-only --source-adjustments "$out/source-adjustments.json" --work "$env:RUNNER_TEMP/new-world-supported-preflight" --output "$out/preflight" --pairs 1 --skip-extra-uncached --timeout-seconds 900 --budget-seconds 1800
-          if($LASTEXITCODE -ne 0){throw 'New compiler preflight failed; original long build was not started'}
-      - uses: actions/upload-artifact@v4
-        if: inputs.supported_fixture == true
-        with:
-          name: new-world-preflight-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/preflight/**
-          if-no-files-found: error
-      - name: Release uploaded preflight temporary copies and caches
-        if: inputs.supported_fixture == true
-        shell: pwsh
-        run: |
-          Remove-Item -LiteralPath "$env:RUNNER_TEMP/new-world-supported-preflight" -Recurse -Force
-      - name: Compile all entries in selected content groups with paired cold hot and optional XML edit measurements
+      - name: Measure selected streams once per engine with original media and a new-first cold pair
         shell: pwsh
         env:
           NEW_WORLD_COMPONENTS_ONLY: ${{ inputs.components_only }}
@@ -131,7 +98,7 @@ jobs:
           $results=@()
           foreach($content in $contents){
             $currentOut=if($contents.Count -eq 1){$out}else{"$out/$content"}
-            $arguments=@('recovery/scripts/MeasureCompilerOriginalMod.py','--accepted-build','work/new-world-accepted/artifacts/core-lifecycle-product/Release','--mod','SDK/Mods/The New World','--mod-schema','SDK/Mods/The New World/xsd','--content',$content,'--requested-head','c7647a130c779e84b3ec669cb7235599488048b2','--work',"$env:RUNNER_TEMP/new-world-benchmark-$content",'--output',$currentOut,'--skip-extra-uncached')
+            $arguments=@('recovery/scripts/MeasureCompilerOriginalMod.py','--accepted-build','work/new-world-accepted/artifacts/new-world-codecs-product/Release','--mod','SDK/Mods/The New World','--mod-schema','SDK/Mods/The New World/xsd','--content',$content,'--requested-head','c7647a130c779e84b3ec669cb7235599488048b2','--work',"$env:RUNNER_TEMP/new-world-benchmark-$content",'--output',$currentOut,'--skip-extra-uncached','--first-engine','new')
             if($env:NEW_WORLD_SUPPORTED_FIXTURE -eq 'true'){
               $arguments+=@('--source-adjustments',"recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/source-adjustments.json")
             }
