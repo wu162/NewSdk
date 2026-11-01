@@ -34,7 +34,7 @@ def make(out,repo):
         if target:attrs['PCSampleRate']=str(target)
         ET.SubElement(root,'{%s}AudioFile'%NS,attrs)
         cases.append(dict(id=name,channels=channels,rate=target or rate,sourceRate=rate,frames=frames,quality=75 if quality is None else quality,stream=stream,loop=loop,loopStart=start,loopEnd=end,aiff=aiff,file=str(path.resolve())))
-    for channels in (1,2,4,6):
+    for channels in (1,2,4,6,8):
         for stream in (False,True):
             for loop in (False,True):add('c%d_s%d_l%d'%(channels,stream,loop),channels,stream=stream,loop=loop)
     for rate in (16000,24000,32000,44100,48000):add('rate%d'%rate,2,rate=rate,stream=True)
@@ -44,6 +44,8 @@ def make(out,repo):
     add('wave24',2,stream=True,bits=24)
     add('aiff24',2,stream=True,loop=True,aiff=True,bits=24)
     add('resampleLoop',2,target=44100,loop=True,stream=True)
+    add('wave24c8',8,loop=True,bits=24)
+    add('resampleLoop8',8,target=44100,loop=True,stream=True)
     for frames in (1,2,46,47,48,575,576,577,1105,1152):add('short%d'%frames,1,frames=frames,stream=True)
     for index in (0,1):
         name='real%d'%index;source=Path(repo)/('recovery/fixtures/audio/main/real-%d.wav'%index)

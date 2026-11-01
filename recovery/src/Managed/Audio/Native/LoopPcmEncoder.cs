@@ -77,7 +77,7 @@ namespace BinaryAssetBuilder.AudioCompiler
             int sampleRate, bool streamed, int loopStart, int loopEnd, bool xas)
         {
             if (samples == null) throw new ArgumentNullException("samples");
-            if ((channels != 1 && channels != 2 && channels != 4 && channels != 6) || samples.Length % channels != 0)
+            if ((channels != 1 && channels != 2 && channels != 4 && channels != 6 && channels != 8) || samples.Length % channels != 0)
                 throw new ArgumentOutOfRangeException("channels");
             int sourceFrames = samples.Length / channels;
             if (loopStart < 0 || loopEnd < loopStart || loopEnd >= sourceFrames)

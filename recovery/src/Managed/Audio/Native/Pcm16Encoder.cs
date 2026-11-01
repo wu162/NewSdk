@@ -63,8 +63,8 @@ namespace BinaryAssetBuilder.AudioCompiler
                 else if (tag == "smpl") throw new NotSupportedException("WAVE loop metadata is not supported by this entry point");
                 at = next + (size & 1);
             }
-            if (format != 1 || (bits != 8 && bits != 16) || (channels != 1 && channels != 2 && channels != 4 && channels != 6))
-                throw new NotSupportedException("Only 1/2/4/6-channel PCM8/16 WAVE is supported by this entry point");
+            if (format != 1 || (bits != 8 && bits != 16) || (channels != 1 && channels != 2 && channels != 4 && channels != 6 && channels != 8))
+                throw new NotSupportedException("Only 1/2/4/6/8-channel PCM8/16 WAVE is supported by this entry point");
             int bytesPerSample = bits / 8;
             if (rate <= 0 || rate > 0x3ffff || align != channels * bytesPerSample || dataOffset < 0 || dataLength % align != 0)
                 throw new InvalidDataException("Invalid PCM WAVE format");
@@ -94,6 +94,8 @@ namespace BinaryAssetBuilder.AudioCompiler
         // Original ProcessInstance oracle40249960201 confirms output->input
         // [0,1,3,2] and [0,2,1,4,5,3] for PCM8/16/24. SIMEX changes
         // destination track pointers before import; these are inverse maps.
+        // Original eight-channel oracle41258221174 confirms identity order.
+        // WAVE_EXTENSIBLE speaker masks do not request another remapping.
         internal static void RemapWaveChannels(float[] samples, int channels)
         {
             if (channels != 4 && channels != 6) return;
@@ -110,7 +112,7 @@ namespace BinaryAssetBuilder.AudioCompiler
         public static PcmEncodingResult EncodeSamples(float[] interleaved, int channels, int sampleRate, bool streamed)
         {
             if (interleaved == null) throw new ArgumentNullException("interleaved");
-            if ((channels != 1 && channels != 2 && channels != 4 && channels != 6) || interleaved.Length % channels != 0)
+            if ((channels != 1 && channels != 2 && channels != 4 && channels != 6 && channels != 8) || interleaved.Length % channels != 0)
                 throw new ArgumentOutOfRangeException("channels");
             if (sampleRate <= 0 || sampleRate > 0x3ffff) throw new ArgumentOutOfRangeException("sampleRate");
             int frames = interleaved.Length / channels;

@@ -1,5 +1,16 @@
 # RA3 EALayer3 V1
 
+## 本轮：真实8声道WAVE兼容性（实现中，尚未验收）
+
+从 `benchmark/new-world-71-sdk` / `6aeb8a8` 拉出 `fix/new-world-texture-audio-codecs`。原版
+[41258221174](https://github.com/wu162/NewSdk/actions/runs/41258221174) 的72个PCM8/16/24、
+127/128/129帧、NONE/XAS、RAM/streamed样例全部成功，8声道导入保持原序。
+候选已接通WAVE8标准/EXTENSIBLE读取、PCM/XAS、循环、重采样和四对EALayer3编码；
+AIFF/AIFC继续限原有1/2/4/6声道，ADP4继续仅mono/stereo。
+真实 `FX_kanade_spell.wav` 的SHA256为 `153891dd0a249385207c22a5bdf0962d706ad8bbc59d226d03d9de08a69f703e`。
+组件原三缓冲/CDATA、独立EALayer3解码和新生产EXE/SDK验证尚待本轮Windows结果，
+不以旧1/2/4/6声道证据冒充新8声道验收。性能41256811133继续使用原已验收8050f22d，不被本修复替换。
+
 实现分支：`feature/ra3-ealayer3`，基线 `recovery/legacy-sdk-cache` / `eb503513`。
 实现及 Windows 验收已通过；[PR #34](https://github.com/wu162/NewSdk/pull/34)，未经用户批准不合并。
 
