@@ -1,0 +1,102 @@
+name: The New World original SDK versus content-parallel Release
+on:
+  push:
+    branches: [feat/single-process-content-parallel]
+    paths:
+      - '.github/workflows/new-world-content-sdk-performance.yml'
+      - 'recovery/scripts/MeasureCompilerOriginalMod.py'
+      - 'recovery/tests/test_measure_compiler_original_mod.py'
+  workflow_dispatch:
+    inputs:
+      source_url:
+        description: 'Optional fresh official mirror URL; source archive hashes stay pinned'
+        type: string
+        required: false
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: new-world-content-sdk-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  compare:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[tnw-sdk-performance]')
+    runs-on: windows-2022
+    timeout-minutes: 120
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Verify unchanged production inputs and reuse one accepted Release archive
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $source='1b9da37a00beb639c8c56590417ef51bb210c3cb'
+          $runId=41287090604; $artifactId=13075808496
+          $archiveSha='7541c94bc3fb1d43555f6ab58f6b4a84688b1ce29a5a514631dfde7795e4acd6'
+          git merge-base --is-ancestor $source HEAD
+          if($LASTEXITCODE -ne 0){throw 'Accepted source is not an ancestor'}
+          git diff --exit-code $source HEAD -- SDK recovery/src recovery/build recovery/probes ui .gitattributes recovery/scripts/Build*.ps1 recovery/scripts/PrepareLegacyTexture.ps1 recovery/scripts/RestoreUiDependencies.ps1
+          if($LASTEXITCODE -ne 0){throw 'Production, SDK or build input closure changed; accepted binary cannot be reused'}
+          python -m py_compile recovery/scripts/MeasureCompilerOriginalMod.py recovery/scripts/DownloadNewWorld71.py recovery/scripts/PrepareCompilerSdkBenchmark.py
+          if($LASTEXITCODE -ne 0){throw 'Measurement preflight failed'}
+          python -m unittest discover -s recovery/tests -p 'test_measure_compiler_original_mod.py'
+          if($LASTEXITCODE -ne 0){throw 'Measurement controller contracts failed'}
+          $run=gh api "repos/$env:GITHUB_REPOSITORY/actions/runs/$runId"|ConvertFrom-Json
+          if($LASTEXITCODE -ne 0 -or $run.head_sha -cne $source -or $run.conclusion -cne 'success' -or $run.run_attempt -ne 1){throw 'Accepted Release run identity differs'}
+          $artifact=gh api "repos/$env:GITHUB_REPOSITORY/actions/artifacts/$artifactId"|ConvertFrom-Json
+          if($LASTEXITCODE -ne 0 -or $artifact.expired -or $artifact.workflow_run.id -ne $runId -or $artifact.digest -cne ('sha256:'+$archiveSha)){throw 'Accepted artifact provenance differs'}
+          $null=New-Item -ItemType Directory -Force work/new-world-content
+          $archive=(Join-Path $PWD 'work/new-world-content/accepted.zip')
+          if($PSVersionTable.PSVersion -lt [Version]'7.4'){throw 'Binary archive download requires PowerShell 7.4+'}
+          gh api "repos/$env:GITHUB_REPOSITORY/actions/artifacts/$artifactId/zip" > $archive
+          if($LASTEXITCODE -ne 0 -or (Get-FileHash $archive -Algorithm SHA256).Hash.ToLowerInvariant() -cne $archiveSha){throw 'Accepted archive SHA differs'}
+          Expand-Archive -LiteralPath $archive -DestinationPath work/new-world-content/accepted
+          $product=(Resolve-Path work/new-world-content/accepted/content-product).Path
+          . ./recovery/scripts/CompilerValidation.Common.ps1
+          $identity=Initialize-CompilerValidationRun $product (Join-Path $PWD 'work/new-world-content/runtime-check') 'Release' $source
+          Complete-CompilerValidationRun $identity
+          $files=@{'NewModCompiler.exe'='6df773d0f9101713a53f42b36266c36d43d276513bcf62934626564e8f899680';'NewModCompiler.exe.config'='94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68';'antlr.runtime.dll'='febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a'}
+          @{sourceCommit=$source;runId=[string]$runId;runtimeFiles=$files}|ConvertTo-Json -Depth 5|Set-Content work/new-world-content/binary-manifest.json
+          @{sourceCommit=$source;runId=$runId;artifactId=$artifactId;archiveSha256=$archiveSha;productExeSha256=$identity.productExeSha256;benchmarkSourceCommit=(git rev-parse HEAD).Trim()}|ConvertTo-Json|Set-Content work/new-world-content/reuse.json
+      - name: Download and hash the complete unmodified The New World 7.1 source
+        shell: pwsh
+        env:
+          NEW_WORLD_SOURCE_URL: ${{ inputs.source_url }}
+        run: |
+          $out="recovery/evidence/benchmark/new-world-content-sdk/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          $arguments=@('recovery/scripts/DownloadNewWorld71.py','--sdk-root','SDK','--archive',"$env:RUNNER_TEMP/The_New_World_7.1Source_Code.7z",'--output',"$out/source.json")
+          if($env:NEW_WORLD_SOURCE_URL){$arguments+=@('--source-url',$env:NEW_WORLD_SOURCE_URL)}
+          python @arguments
+          if($LASTEXITCODE -ne 0){throw 'Official source download or checksum verification failed'}
+          $source=Get-Content "$out/source.json" -Raw|ConvertFrom-Json
+          if($source.sha256 -cne '0c59ed425b1ab55d926bfec858c6f60a0186a5d46e4cb5b295e42891a5ecdb41' -or $source.files -ne 13391 -or $source.unpackedBytes -ne 3254494799){throw 'Complete original source identity differs'}
+          # All Joypad declarations and original texture/audio media stay intact.
+      - name: Compare original SDK and new Release on all fifteen streams, cold and hot
+        shell: pwsh
+        run: |
+          $out="recovery/evidence/benchmark/new-world-content-sdk/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python -u recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/new-world-content/accepted/content-product --binary-manifest work/new-world-content/binary-manifest.json --mod 'SDK/Mods/The New World' --mod-schema 'SDK/Mods/The New World/xsd' --content 'base,apt,global-metadata' --expected-streams 15 --requested-head $env:GITHUB_SHA --work "$env:RUNNER_TEMP/new-world-original-current" --output "$out/measurement" --pairs 1 --hot-rounds 1 --skip-extra-uncached --first-engine new --continue-on-build-failure --timeout-seconds 3600 --budget-seconds 6500
+          $result=$LASTEXITCODE
+          if(Test-Path "$out/measurement/report.md"){Get-Content "$out/measurement/report.md" -Encoding UTF8|Add-Content $env:GITHUB_STEP_SUMMARY}
+          if($result -ne 0){throw 'Comparison retained failures or raw output differences; inspect the report'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: new-world-content-sdk-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/benchmark/new-world-content-sdk/${{ github.run_id }}-${{ github.run_attempt }}/
+            work/new-world-content/binary-manifest.json
+            work/new-world-content/reuse.json
+          if-no-files-found: error

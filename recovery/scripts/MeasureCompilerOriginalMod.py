@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import shutil
 import statistics
 import subprocess
@@ -14,7 +15,7 @@ import time
 
 from BenchmarkCompilerCache import inventory, output_inventory, validate_sample
 from BenchmarkCompilerSdkComparison import (compare_pair, invocation, measure, summaries,
-    stream_inventory, validate_shared_report)
+    stream_inventory, validate_shared_report, cache_profile, sdk_source_inventory)
 from HotCacheWorkload import HISTORICAL, UPHEAVAL_TREE, extract_upheaval
 from PrepareCompilerSdkBenchmark import prepare, inventory as file_rows
 
@@ -35,6 +36,58 @@ def write(path, body):
 
 def git(repo, *args):
     return subprocess.check_output(['git', '-C', str(repo), *args], text=True).strip()
+
+
+def binary_identity(manifest=None):
+    identity = (json.loads(Path(manifest).read_text(encoding='utf-8-sig')) if manifest else
+                dict(sourceCommit=SOURCE, runId=RUN, runtimeFiles=FILES.copy()))
+    source, run, files = identity.get('sourceCommit'), identity.get('runId'), identity.get('runtimeFiles')
+    need(isinstance(source, str) and re.fullmatch(r'[0-9a-f]{40}', source), 'Binary source must be a full commit SHA')
+    need(str(run).isdigit() and int(run) > 0, 'Binary run identity is missing')
+    need(isinstance(files, dict) and set(files) == set(FILES), 'Expected the accepted three-file runtime manifest')
+    need(all(isinstance(value, str) and re.fullmatch(r'[0-9a-f]{64}', value) for value in files.values()),
+         'Binary runtime identities must be SHA256 values')
+    return dict(sourceCommit=source, runId=str(run), runtimeFiles=files)
+
+
+def stream_timing_summary(product, tasks, build_report):
+    execution = build_report.get('contentExecution')
+    if execution is not None:
+        intervals = [dict(streamId=row['streamId'], startedMs=row['startedMs'], completedMs=row['completedMs'])
+                     for group in execution['groups'] for row in group['streams']]
+        boundary = 'Owner Compile intervals; initialization/disposal excluded'
+    else:
+        starts, intervals = {}, []
+        for line in (product / 'build.events.jsonl').read_text(encoding='utf-8-sig').splitlines():
+            event = json.loads(line)
+            if event['eventType'] == 'StreamStarted':
+                starts[event['streamId']] = event['elapsedMs']
+            elif event['eventType'] == 'StreamCompleted':
+                need(event['payload']['status'] == 'succeeded', 'Failed stream in successful sample')
+                intervals.append(dict(streamId=event['streamId'], startedMs=starts[event['streamId']],
+                                      completedMs=event['elapsedMs']))
+        boundary = 'StreamStarted/StreamCompleted elapsedMs; includes stream initialization'
+    expected = {task['id'] for task in tasks}
+    need(len(intervals) == len(expected) and {row['streamId'] for row in intervals} == expected,
+         'Missing or duplicate timed MOD streams')
+    parts, points = {}, []
+    for row in intervals:
+        need(row['completedMs'] >= row['startedMs'], 'Negative stream interval')
+        group = row['streamId'].split('/')[0]
+        parts[group] = parts.get(group, 0) + row['completedMs'] - row['startedMs']
+        if row['completedMs'] > row['startedMs']:
+            points.extend(((row['startedMs'], 1), (row['completedMs'], -1)))
+    active = peak = 0
+    covered = 0.0
+    previous = None
+    for tick, delta in sorted(points):
+        if previous is not None and active:
+            covered += tick - previous
+        active += delta
+        peak = max(peak, active)
+        previous = tick
+    return dict(partWallMs=parts, streamIntervals=intervals, streamTimingBoundary=boundary,
+                streamIntervalUnionMs=covered, peakConcurrentStreams=peak)
 
 
 def discover_tasks(mod, contents='base,apt,global-metadata'):
@@ -60,24 +113,6 @@ def full_inventory(directory, tasks):
         result.update({prefix + name: row for name, row in files.items()})
         paths.update({prefix + name: path for name, path in sources.items()})
     return result, paths
-
-
-def stream_times(product, tasks):
-    events = [json.loads(line) for line in (product / 'build.events.jsonl').read_text(encoding='utf-8-sig').splitlines()]
-    starts, result = {}, {task['content']: 0 for task in tasks}
-    expected = {task['id'] for task in tasks}
-    completed = set()
-    for event in events:
-        if event['eventType'] == 'StreamStarted':
-            starts[event['streamId']] = event['elapsedMs']
-        elif event['eventType'] == 'StreamCompleted':
-            stream = event['streamId']
-            need(stream in expected and stream not in completed and event['payload']['status'] == 'succeeded',
-                 'Incomplete or duplicate full-MOD stream event')
-            result[stream.split('/')[0]] += event['elapsedMs'] - starts[stream]
-            completed.add(stream)
-    need(completed == expected, 'Not all requested streams completed')
-    return result
 
 
 def report(out, state):
@@ -111,7 +146,7 @@ def report(out, state):
             100 * (r['newOverOriginalWallRatio'] - 1)))
     if state.get('fullContent'):
         lines += ['', 'Original total/parts sum each sequential BAB process launch-to-exit; new total is one complete CLI process.',
-            'New parts use normal StreamStarted/StreamCompleted monotonic elapsedMs events. Shared startup/disposal/report overhead is included only in the new total.',
+            'New parts use Owner Compile intervals when available, otherwise StreamStarted/StreamCompleted events. Parallel group durations overlap and must not be added to obtain total wall time. Shared overhead subtracts the interval union, never the sum of overlapping groups.',
             '', '| Mode | Phase | Content | n/engine | Original seconds | New stream seconds |',
             '| --- | --- | --- | ---: | ---: | ---: |']
         for row in state['partSummary']:
@@ -125,6 +160,9 @@ def report(out, state):
         if not p['rawBytesEqual']:
             lines.append('- Output mismatch: %s trial %s %s %s: %s' % (
                 p['workload'], p['trial'], p['mode'], p['phase'], ', '.join(p['differentMembers'][:8])))
+    for failure in state.get('errors', []):
+        lines.append('- Failed sample: %s trial %s %s %s: %s' % (
+            failure['engine'], failure['trial'], failure['mode'], failure['phase'], failure['error']))
     if state.get('error'):
         lines += ['', 'Error: ' + state['error']]
     if state.get('edit'):
@@ -151,6 +189,13 @@ def report(out, state):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--accepted-build', type=Path, required=True)
+    parser.add_argument('--binary-manifest', type=Path,
+                        help='Explicit accepted {sourceCommit,runId,runtimeFiles:{name:sha256}}; historical default remains pinned')
+    parser.add_argument('--hot-rounds', type=int, choices=range(3), default=2,
+                        help='Hot samples per cold namespace, default 2')
+    parser.add_argument('--expected-streams', type=int, help='Require the exact selected full-MOD stream count before timing')
+    parser.add_argument('--continue-on-build-failure', action='store_true',
+                        help='Retain independent engine/phase failures and continue other samples; final status still fails')
     parser.add_argument('--work', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--pairs', type=int, choices=range(1, 4), default=3)
@@ -174,6 +219,8 @@ def main():
     parser.add_argument('--cold-only', action='store_true',
                         help='Measure complete cold builds only; leave warm-cache failures as separate evidence')
     args = parser.parse_args()
+    identity = binary_identity(args.binary_manifest)
+    accepted_source, accepted_run, accepted_files = identity['sourceCommit'], identity['runId'], identity['runtimeFiles']
     need(not (args.cold_only and args.edit_file), 'Cold-only selection cannot include an edit workload')
     need(os.name == 'nt', 'Execution requires Windows')
     ctypes.WinDLL('kernel32', use_last_error=True).SetErrorMode(0x0001 | 0x0002 | 0x8000)
@@ -181,7 +228,7 @@ def main():
     out, work = args.output.resolve(), args.work.resolve()
     out.mkdir(parents=True, exist_ok=False)
     work.mkdir(parents=True, exist_ok=False)
-    state = dict(status='preparing', binarySourceCommit=SOURCE, sourceRunId=RUN,
+    state = dict(status='preparing', binarySourceCommit=accepted_source, sourceRunId=accepted_run,
         requestedHead=args.requested_head, measurementSource=git(repo, 'rev-parse', 'HEAD'),
         runId=os.environ.get('GITHUB_RUN_ID'), runAttempt=os.environ.get('GITHUB_RUN_ATTEMPT'),
         machine=dict(platform=platform.platform(), processor=platform.processor(),
@@ -192,6 +239,12 @@ def main():
     state['engineSelection'] = args.engine
     state['firstEngine'] = args.first_engine
     state['coldOnly'] = args.cold_only
+    state['hotRounds'] = args.hot_rounds
+    state['continueOnBuildFailure'] = args.continue_on_build_failure
+    state['progressEnvironment'] = os.environ.get('NEWSDK_PROGRESS', 'default')
+    state['binaryIdentity'] = identity
+    if args.binary_manifest:
+        shutil.copy2(args.binary_manifest, out / 'binary-manifest.json')
     if args.source_adjustments:
         state['sourceAdjustments'] = json.loads(args.source_adjustments.read_text(encoding='utf-8'))
     started = time.perf_counter()
@@ -199,17 +252,17 @@ def main():
     edit_path = None
     edit_original = None
     try:
-        subprocess.run(['git', '-C', str(repo), 'merge-base', '--is-ancestor', SOURCE, 'HEAD'], check=True)
+        subprocess.run(['git', '-C', str(repo), 'merge-base', '--is-ancestor', accepted_source, 'HEAD'], check=True)
         closure = ('SDK', 'recovery/src', 'recovery/build', 'recovery/probes', 'ui',
             'recovery/scripts/Build*', 'recovery/scripts/PrepareLegacyTexture.ps1',
             'recovery/scripts/RestoreUiDependencies.ps1')
-        need(not git(repo, 'diff', '--name-only', SOURCE, 'HEAD', '--', *closure),
+        need(not git(repo, 'diff', '--name-only', accepted_source, 'HEAD', '--', *closure),
              'Accepted binary production/SDK closure differs')
         receipt = json.loads((args.accepted_build / 'build.json').read_text(encoding='utf-8-sig'))
-        need(receipt['sourceCommit'] == SOURCE and receipt['configuration'] == 'Release', 'Build source differs')
+        need(receipt['sourceCommit'] == accepted_source and receipt['configuration'] == 'Release', 'Build source differs')
         runtime = args.accepted_build.resolve() / 'bin'
         actual = inventory(runtime)
-        need({n: r['sha256'] for n, r in actual.items()} == FILES, 'Accepted three runtime files differ')
+        need({n: r['sha256'] for n, r in actual.items()} == accepted_files, 'Accepted three runtime files differ')
         shutil.copy2(args.accepted_build / 'build.json', out / 'accepted-build.json')
         if args.mod:
             mod = args.mod.resolve()
@@ -226,7 +279,7 @@ def main():
             shutil.copytree(repo / 'SDK/Mods/mymod', mymod)
             need(inventory(mymod) == inventory(repo / 'SDK/Mods/mymod'), 'mymod copy differs')
             upheaval = extract_upheaval(repo, work)
-            selected = (('mymod', mymod, SOURCE, None), ('upheaval', upheaval, HISTORICAL, UPHEAVAL_TREE))
+            selected = (('mymod', mymod, accepted_source, None), ('upheaval', upheaval, HISTORICAL, UPHEAVAL_TREE))
         if args.mod_schema:
             need(args.mod is not None, 'Schema overlay requires an external MOD')
             schema = repo / 'SDK/Schemas/xsd'
@@ -265,16 +318,18 @@ def main():
             for workload in workloads:
                 workload['tasks'] = discover_tasks(Path(workload['modRoot']), args.content)
                 workload['scope'] = 'All source entries in selected groups ' + args.content
-        prep = dict(succeeded=True, binarySourceCommit=SOURCE, sourceRunId=RUN,
+                if args.expected_streams is not None:
+                    need(len(workload['tasks']) == args.expected_streams, 'Selected MOD stream count differs from the pinned workload')
+        prep = dict(succeeded=True, binarySourceCommit=accepted_source, sourceRunId=accepted_run,
             benchmarkSourceCommit=state['measurementSource'], sdkRoot=str(repo / 'SDK'),
             runtimeDirectory=str(runtime), runtimeFiles=file_rows(runtime, 'name'), workloads=workloads)
         write(out / 'preparation.json', prep)
-        original_path = prepare(out / 'preparation.json', work / 'original', repo, SOURCE, RUN)
+        original_path = prepare(out / 'preparation.json', work / 'original', repo, accepted_source, accepted_run)
         original = json.loads(original_path.read_text(encoding='utf-8'))
         shutil.copy2(original_path, out / 'original-preparation.json')
         workloads = original['workloads']
         sdk = repo / 'SDK'
-        sdk_before = inventory(sdk)
+        sdk_before = sdk_source_inventory(sdk, workloads)
         inputs_before = {w['name']: inventory(w['modRoot']) for w in workloads}
         old_before = inventory(original['originalRuntimeDirectory'])
         root_before = {p: Path(p).is_dir() for w in workloads for key in ('dataPaths', 'artPaths', 'audioPaths')
@@ -334,14 +389,79 @@ def main():
 
         def one(engine, w, trial, mode, phase, round_index):
             profile = work / 'builds' / w['name'] / ('%s-%d' % (mode, trial)) / engine
+            storage = cache_profile(engine, w, profile, prep)
             if phase in ('cold', 'uncached', 'edited-uncached'):
-                need(not profile.exists(), 'Cold namespace already exists')
+                need(not profile.exists() and not storage.exists(), 'Cold namespace already exists')
             for name in ('assets', 'session', 'streams', 'product', 'intermediate',
                          'fresh-' + str(round_index), 'fresh-session-' + str(round_index)):
                 (profile / name).mkdir(parents=True, exist_ok=True)
             label = '%s-%d-%s-%s-%d-%s' % (w['name'], trial, mode, phase, round_index, engine)
+            row = dict(engine=engine, workload=w['name'], trial=trial, mode=mode, phase=phase,
+                       round=round_index, status='started', cacheDirectory=str(storage))
+            state['samples'].append(row)
+            report(out, state)
             try:
-                row = execute(engine, w, mode, profile, round_index, label)
+                row.update(execute(engine, w, mode, profile, round_index, label))
+                if engine == 'new':
+                    build_report = json.loads((profile / 'product/build-report.json').read_text(encoding='utf-8-sig'))
+                    validation_phase = 'hot' if phase == 'hot-edited' else ('uncached' if phase == 'cold' else phase)
+                    validate_sample(build_report, mode, validation_phase)
+                    validate_shared_report(build_report, w, sdk)
+                    output_inventory(profile / 'product', build_report)
+                    row.update(cache=build_report['cache'], reportElapsedMs=build_report['elapsedMs'])
+                    if state['fullContent']:
+                        row.update(stream_timing_summary(profile / 'product', w['tasks'], build_report))
+                        row['sharedOverheadMs'] = row['wallMs'] - row['streamIntervalUnionMs']
+                        if 'contentExecution' in build_report:
+                            row['contentExecution'] = build_report['contentExecution']
+                    if phase in ('hot', 'hot-edited'):
+                        need(row['cache']['xmlParse'] == 0, 'Hot build unexpectedly parsed XML')
+                    if phase == 'edited':
+                        need(row['cache']['instanceCompile'] > 0, 'Edited XML did not recompile an asset')
+                elif phase in ('hot', 'hot-edited'):
+                    need(row['traceSessionLoaded'], 'Original hot process did not load session')
+                elif mode == 'none':
+                    need(not row['traceStringHashesLoaded'], 'No-session original reused string hashes')
+                destination = profile / ('product/published' if engine == 'new' else 'streams')
+                files, paths = (full_inventory(destination, w['tasks']) if state['fullContent']
+                                else stream_inventory(destination))
+                row['outputFiles'] = files
+                input_state = 'modified' if phase in ('edited', 'hot-edited', 'edited-uncached', 'edited-session-reset') else 'original'
+                row['inputState'] = input_state
+                key = w['name'], engine, input_state
+                if key not in baselines:
+                    reference = work / 'reference' / w['name'] / engine / input_state
+                    copied = {}
+                    for name, path in paths.items():
+                        target = reference / name
+                        target.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.copy2(path, target)
+                        copied[name] = target
+                    baselines[key] = files, copied
+                compare_pair(baselines[key][0], files, baselines[key][1], paths)
+                if phase == 'edited':
+                    need(files != baselines[(w['name'], engine, 'original')][0], 'XML edit did not change output')
+                if trial == 0 and phase == 'cold':
+                    for member, path in paths.items():
+                        if '/' not in member or state['fullContent'] and '/cdata/' not in member:
+                            target = out / 'baseline-streams' / w['name'] / engine / member
+                            target.parent.mkdir(parents=True, exist_ok=True)
+                            shutil.copy2(path, target)
+                row.update(status='passed', cacheBytes=sum(p.stat().st_size for name in ('assets', 'session', 'intermediate')
+                    for p in (storage / name).rglob('*') if p.is_file()))
+                return row, paths
+            except Exception as error:
+                process_receipt = out / label / 'process.json'
+                if process_receipt.is_file():
+                    row.update(json.loads(process_receipt.read_text(encoding='utf-8')))
+                row.update(status='failed', error=type(error).__name__ + ': ' + str(error))
+                if engine == 'new':
+                    failed_report = profile / 'product/build-report.json'
+                    if failed_report.is_file():
+                        body = json.loads(failed_report.read_text(encoding='utf-8-sig'))
+                        row.update(cache=body.get('cache'), diagnosticCounts=body.get('diagnosticCounts'),
+                                   reportStatus=body.get('status'), reportElapsedMs=body.get('elapsedMs'))
+                raise
             finally:
                 if engine == 'new':
                     for name in ('build-report.json', 'build.events.jsonl'):
@@ -349,57 +469,13 @@ def main():
                         if generated.is_file():
                             (out / label).mkdir(parents=True, exist_ok=True)
                             shutil.copy2(generated, out / label / name)
-            row.update(engine=engine, workload=w['name'], trial=trial, mode=mode, phase=phase, round=round_index)
-            state['samples'].append(row)
-            report(out, state)
-            if engine == 'new':
-                build_report = json.loads((profile / 'product/build-report.json').read_text(encoding='utf-8-sig'))
-                write(out / label / 'build-report.json', build_report)
-                validation_phase = 'hot' if phase == 'hot-edited' else ('uncached' if phase == 'cold' else phase)
-                validate_sample(build_report, mode, validation_phase)
-                validate_shared_report(build_report, w, sdk)
-                output_inventory(profile / 'product', build_report)
-                row.update(cache=build_report['cache'], reportElapsedMs=build_report['elapsedMs'])
-                if state['fullContent']:
-                    row['partWallMs'] = stream_times(profile / 'product', w['tasks'])
-                    row['sharedOverheadMs'] = row['wallMs'] - sum(row['partWallMs'].values())
-                if phase in ('hot', 'hot-edited'):
-                    need(row['cache']['xmlParse'] == 0, 'Hot build unexpectedly parsed XML')
-                if phase == 'edited':
-                    need(row['cache']['instanceCompile'] > 0, 'Edited XML did not recompile an asset')
-            elif phase in ('hot', 'hot-edited'):
-                need(row['traceSessionLoaded'], 'Original hot process did not load session')
-            elif mode == 'none':
-                need(not row['traceStringHashesLoaded'], 'No-session original reused string hashes')
-            destination = profile / ('product/published' if engine == 'new' else 'streams')
-            files, paths = (full_inventory(destination, w['tasks']) if state['fullContent']
-                            else stream_inventory(destination))
-            row['outputFiles'] = files
-            input_state = 'modified' if phase in ('edited', 'hot-edited', 'edited-uncached', 'edited-session-reset') else 'original'
-            row['inputState'] = input_state
-            key = w['name'], engine, input_state
-            if key not in baselines:
-                reference = work / 'reference' / w['name'] / engine / input_state
-                copied = {}
-                for name, path in paths.items():
-                    target = reference / name
-                    target.parent.mkdir(parents=True, exist_ok=True)
-                    shutil.copy2(path, target)
-                    copied[name] = target
-                baselines[key] = files, copied
-            compare_pair(baselines[key][0], files, baselines[key][1], paths)
-            if phase == 'edited':
-                need(files != baselines[(w['name'], engine, 'original')][0], 'XML edit did not change output')
-            row.update(status='passed', cacheBytes=sum(p.stat().st_size for name in ('assets', 'session', 'intermediate')
-                for p in (profile / name).rglob('*') if p.is_file()))
-            print(json.dumps({k: row[k] for k in ('engine', 'workload', 'trial', 'mode', 'phase', 'wallMs')}), flush=True)
-            report(out, state)
-            return row, paths
+                print(json.dumps({k: row.get(k) for k in ('engine', 'workload', 'trial', 'mode', 'phase', 'wallMs', 'status')}), flush=True)
+                report(out, state)
 
         for w in workloads:
             for trial in range(args.pairs + (0 if args.skip_extra_uncached else 1)):
                 mode = 'both-deflate' if trial < args.pairs else 'none'
-                phases = ('cold', 'hot', 'hot') if mode != 'none' else ('uncached',)
+                phases = ('cold',) + ('hot',) * args.hot_rounds if mode != 'none' else ('uncached',)
                 if args.cold_only and mode != 'none':
                     phases = ('cold',)
                 if edit_path and mode != 'none':
@@ -424,23 +500,19 @@ def main():
                             state['errors'].append(failure)
                             failures.append(failure)
                             if (args.engine == 'both' and args.first_engine == 'new' and trial == 0
-                                    and phase == 'cold' and engine == 'new'):
+                                    and phase == 'cold' and engine == 'new' and not args.continue_on_build_failure):
                                 state['stoppedAfterFirstNewColdFailure'] = True
                                 break
-                    need(not failures, 'Paired build failed: ' + json.dumps(failures))
+                    if failures:
+                        report(out, state)
+                        need(args.continue_on_build_failure, 'Paired build failed: ' + json.dumps(failures))
+                        continue
                     if args.engine == 'new':
                         report(out, state)
                         continue
                     a, b = pair['original'], pair['new']
                     differences = sorted(n for n in a[0]['outputFiles'].keys() | b[0]['outputFiles'].keys()
                         if a[0]['outputFiles'].get(n) != b[0]['outputFiles'].get(n))
-                    if trial == 0 and phase == 'cold':
-                        for engine in ('original', 'new'):
-                            for member, path in pair[engine][1].items():
-                                if '/' not in member or state['fullContent'] and '/cdata/' not in member:
-                                    target = out / 'baseline-streams' / w['name'] / engine / member
-                                    target.parent.mkdir(parents=True, exist_ok=True)
-                                    shutil.copy2(path, target)
                     if not differences:
                         compare_pair(a[0]['outputFiles'], b[0]['outputFiles'], a[1], b[1])
                     state['pairs'].append(dict(workload=w['name'], trial=trial, mode=mode, phase=phase,
@@ -465,13 +537,17 @@ def main():
                         state['edit']['freshRebuildMode'] = fresh_mode
                         state['edit']['freshRebuildMatchesIncremental'] = True
                         report(out, state)
-        state['sdkUnchanged'] = inventory(sdk) == sdk_before
+        state['sdkUnchanged'] = sdk_source_inventory(sdk, workloads) == sdk_before
         state['modInputsUnchanged'] = all(inventory(w['modRoot']) == inputs_before[w['name']] for w in workloads)
         state['runtimeUnchanged'] = inventory(runtime) == actual and inventory(original['originalRuntimeDirectory']) == old_before
         state['rootExistenceUnchanged'] = all(Path(p).is_dir() == v for p, v in root_before.items())
         need(all(state[k] for k in ('sdkUnchanged', 'modInputsUnchanged', 'runtimeUnchanged', 'rootExistenceUnchanged')),
              'Shared input or runtime changed')
-        state['status'] = ('preflight-passed' if args.engine == 'new' else 'passed') if all(p['rawBytesEqual'] for p in state['pairs']) else 'outputs-differ'
+        state['outputComparisonStatus'] = ('outputs-differ' if any(not p['rawBytesEqual'] for p in state['pairs'])
+                                           else 'equal' if state['pairs'] else 'not-compared')
+        state['status'] = ('failed' if state['errors'] else 'outputs-differ'
+                           if state['outputComparisonStatus'] == 'outputs-differ' else
+                           'preflight-passed' if args.engine == 'new' else 'passed')
     except Exception as error:
         state.update(status='failed', error=type(error).__name__ + ': ' + str(error))
         raise
