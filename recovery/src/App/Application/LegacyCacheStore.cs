@@ -6,7 +6,9 @@ using System.Threading;
 namespace NewModCompiler.Application
 {
     // BAB owns session serialization and its native asset cache. This adapter
-    // only imports immutable CDATA and holds the shared session lock.
+    // only imports immutable CDATA in CacheLayout.Session and holds a separate
+    // session-file lock. The partition lock belongs to the full build lifetime,
+    // so disposing Core cannot release protection during packaging or export.
     public sealed class LegacyCacheStore : IDisposable
     {
         public const string SessionName = "BinaryAssetBuilder.SessionCache.xml";

@@ -30,6 +30,8 @@ namespace NewModCompiler.Application
         public string ModRoot { get; set; }
         public string SdkRoot { get; set; }
         public string OutputRoot { get; set; }
+        public CacheLayout CacheLayout { get; internal set; }
+        internal CacheLock BuildCacheLock;
         public string EventsPath { get; set; }
         public string ReportPath { get; set; }
         public string LogPath { get; set; }

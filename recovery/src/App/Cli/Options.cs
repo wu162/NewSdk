@@ -197,6 +197,7 @@ namespace NewModCompiler.Cli
             BigPackage.ValidateRequest(request);
             if (request.Command != "doctor" && request.PackageFormat == "big" && !commandLine.ContainsKey("mod-version"))
                 throw Bad("CLI_MOD_VERSION", "--mod-version is required on the command line for BIG build/plan.");
+            CacheLayout.ForRequest(request);
             return request;
         }
         static void Default(BuildRequest request, string key, string value) { if (!request.Options.ContainsKey(key)) request.Options[key] = new EffectiveOption { Value = value, Source = "default" }; }
@@ -264,7 +265,7 @@ namespace NewModCompiler.Cli
             "  --fix-neutral-assets=<true|false>   Default false; requires base content in BIG and existing extracted reference streams, including Worldbuilder.\n" +
             "  --game-version <version>           Default 1.12; changes only the SKUDEF field.\n" +
             "Cache: /sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false; each accepts true|false. SDK buildCache config can override the default /bc.\n" +
-            "Cache directories: /scd:<directory> (/scp alias), /bcd:<directory> (/bcp alias), /iod:<directory>.\n" +
+            "Caches: <sdk-root>/SuperCompilerCache/<ModKey>. /scd:<directory> (/scp alias), /bcd:<directory> (/bcp alias), /iod:<directory> must stay inside that MOD partition.\n" +
             "Legacy script controls: /ss:true /pc:true /slowclean:true; each also accepts false.\n" +
             "Resource roots: /dr:<directory> /data:<search-paths> /art:<search-paths> /audio:<search-paths>.\n" +
             "Diagnostics: /tl:0..9 (default 3), --log <file>, --events <file>, --report <file>.\n" +

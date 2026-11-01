@@ -40,6 +40,8 @@ namespace NewModCompiler.Application
         bool compressedSessionCache = true, partialSessionCache = true, freezeSessionCache, alwaysTouchCache;
         int partialSessionsSaved;
         LegacyCacheStore legacyStore;
+        CacheLayout cacheLayout;
+        CacheLock ownedCacheLock;
         SessionCache savedSessionCache;
         int buildCacheHits, buildCacheMisses, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile;
         public object InputRootsReport { get; private set; }
@@ -74,6 +76,10 @@ namespace NewModCompiler.Application
                     throw new BuildFailure(ExitCode.Environment, "CORE_INPUT_ROOT_MISSING", "The SDK and MOD directories must exist.");
                 if (Paths.Contains(sdkRoot, outputRoot) || Paths.Contains(outputRoot, sdkRoot) || Paths.Contains(modRoot, outputRoot) || Paths.Contains(outputRoot, modRoot))
                     throw new BuildFailure(ExitCode.Arguments, "CORE_OUTPUT_OVERLAP", "Core output must be separate from SDK and MOD inputs.");
+                cacheLayout = CacheLayout.ForRequest(request);
+                // BuildSession owns this lock through packaging/export. Standalone
+                // Core hosts acquire the same partition lock for their lifetime.
+                if (request.BuildCacheLock == null) ownedCacheLock = CacheLock.Acquire(cacheLayout.CacheRoot);
                 inputPreparation = request.InputPreparation;
                 if (inputPreparation != null && inputPreparation.Signature == InputSignature(request))
                     configurationSettings = inputPreparation.Configuration;
@@ -91,7 +97,8 @@ namespace NewModCompiler.Application
             }
             catch (Exception error)
             {
-                lock (LeaseGate) { initializing = false; ReleaseLease(); }
+                try { if (ownedCacheLock != null) { ownedCacheLock.Dispose(); ownedCacheLock = null; } }
+                finally { lock (LeaseGate) { initializing = false; ReleaseLease(); } }
                 if (error is BuildFailure || error is OperationCanceledException) throw;
                 throw Failure(ExitCode.Environment, "CORE_INITIALIZE_FAILED", error);
             }
@@ -225,9 +232,11 @@ namespace NewModCompiler.Application
             settings.SchemaPath = Path.Combine(sdkRoot, "Schemas", "xsd", "CnC3Types.xsd");
             settings.DataRoot = RootOption("dr", sdkRoot);
             settings.OutputDirectory = Path.Combine(output, "streams");
-            settings.IntermediateOutputDirectory = RootOption("iod", outputRoot);
-            settings.SessionCacheDirectory = RootOption("session-cache-directory", outputRoot);
-            settings.BuildCacheDirectory = RootOption("build-cache-directory", string.IsNullOrEmpty(settings.BuildCacheDirectory) ? Path.Combine(outputRoot, "cache") : Path.GetFullPath(settings.BuildCacheDirectory));
+            settings.IntermediateOutputDirectory = cacheLayout.Intermediate;
+            settings.SessionCacheDirectory = cacheLayout.Session;
+            // SDK buildCacheRoot is configuration input, never a writable override
+            // of the current SDK/MOD partition. CLI overrides were bounded once.
+            settings.BuildCacheDirectory = cacheLayout.BuildCache;
             settings.DefaultDataPaths = RootOption("data", () => Prepend(Path.Combine(modRoot, "Data"), settings.DefaultDataPaths));
             settings.DefaultArtPaths = RootOption("art", () => Prepend(Path.Combine(modRoot, "Art"), settings.DefaultArtPaths));
             settings.DefaultAudioPaths = RootOption("audio", () => Prepend(Path.Combine(modRoot, "Audio"), settings.DefaultAudioPaths));
@@ -276,10 +285,10 @@ namespace NewModCompiler.Application
             if (string.Equals(Path.GetExtension(context.Task.InputPath), ".fla", StringComparison.OrdinalIgnoreCase))
             {
                 // Keep a stable DATA:movie.xml source name in the manifest.
-                // The wrapper lives under the output root, so its physical
-                // pathname must not become the published source identity.
-                // Copy the array to leave shared preparation unchanged.
-                settings.DataPaths = settings.DataPaths.Concat(new[] { Path.GetDirectoryName(settings.InputPath) }).ToArray();
+                // The wrapper now lives inside the SDK. Its exact DATA root must
+                // precede SDK roots so no cache partition enters source identity.
+                // Only this FLA stream changes priority; shared inputs stay intact.
+                settings.DataPaths = new[] { Path.GetDirectoryName(settings.InputPath) }.Concat(settings.DataPaths).ToArray();
             }
             return settings;
         }
@@ -291,8 +300,8 @@ namespace NewModCompiler.Application
             // A stable synthetic declaration lets the normal Core document and
             // file-dependency caches own a bare FLA exactly like a hand-written
             // AptAptData entry. Source projects are never changed by the host.
-            string directory = Path.Combine(outputRoot, ".NewModCompiler", "fla");
-            NewModCompiler.Diagnostics.DiagnosticDirectory.PrepareDirectory(directory, outputRoot);
+            string directory = Path.Combine(cacheLayout.Generated, "fla");
+            cacheLayout.PrepareDirectory(directory);
             string path = Path.Combine(directory, Path.GetFileNameWithoutExtension(source) + ".xml");
             var document = new XmlDocument();
             XmlElement root = document.CreateElement("AssetDeclaration", "uri:ea.com:eala:asset");
@@ -302,6 +311,7 @@ namespace NewModCompiler.Application
             movie.SetAttribute("File", source);
             root.AppendChild(movie);
             string xml = document.OuterXml;
+            NewModCompiler.Diagnostics.DiagnosticFiles.RejectReparseFile(path);
             if (!File.Exists(path) || !string.Equals(File.ReadAllText(path), xml, StringComparison.Ordinal)) File.WriteAllText(path, xml);
             return path;
         }
@@ -397,11 +407,13 @@ namespace NewModCompiler.Application
                 var probe = new CoreStreamCompiler(); probe.request = candidate;
                 probe.sdkRoot = Path.GetFullPath(candidate.SdkRoot); probe.modRoot = Path.GetFullPath(candidate.ModRoot);
                 probe.outputRoot = Path.GetFullPath(candidate.OutputRoot);
+                probe.cacheLayout = CacheLayout.ForRequest(candidate);
                 // Preflight protects input bytes before output sinks open. Cache
                 // coverage rejection belongs to the backend/report lifecycle.
                 probe.buildCacheEnabled = false;
                 probe.LoadSdkConfiguration();
-                probe.StreamSettings(new StreamContext { Task = new BuildTask { InputPath = Path.Combine(probe.modRoot, "Data", "mod.xml") } }, Path.Combine(probe.outputRoot, ".input-preflight"));
+                var task = new BuildTask { Content = "base", InputPath = Path.Combine(probe.modRoot, "Data", "mod.xml") };
+                probe.StreamSettings(new StreamContext { Task = task }, probe.cacheLayout.StreamDirectory(task));
                 candidate.InputPreparation = probe.inputPreparation;
             }
             catch (BuildFailure) { throw; }
@@ -483,8 +495,7 @@ namespace NewModCompiler.Application
             if (string.IsNullOrEmpty(context.OutputDirectory) || !Path.IsPathRooted(context.OutputDirectory))
                 throw new BuildFailure(ExitCode.Arguments, "CORE_OUTPUT_INVALID", "The stream workspace must be an absolute directory.");
             string output = Path.GetFullPath(context.OutputDirectory);
-            if (!Paths.Contains(outputRoot, output) || Paths.Contains(output, outputRoot) || Paths.Contains(sdkRoot, output) || Paths.Contains(modRoot, output))
-                throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_INVALID", "The stream workspace must be beneath the isolated output root.");
+            cacheLayout.ValidateStreamDirectory(context.Task, output);
             if (string.IsNullOrEmpty(context.Task.InputPath) || !Path.IsPathRooted(context.Task.InputPath) || !Paths.Contains(modRoot, context.Task.InputPath) || !File.Exists(context.Task.InputPath) ||
                 !(string.Equals(Path.GetExtension(context.Task.InputPath), ".xml", StringComparison.OrdinalIgnoreCase) || context.Task.Content == "apt" && string.Equals(Path.GetExtension(context.Task.InputPath), ".fla", StringComparison.OrdinalIgnoreCase)))
                 throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "Core requires an existing XML stream entry or APT FLA source.");
@@ -501,7 +512,10 @@ namespace NewModCompiler.Application
             compiling = true;
             try
             {
-                NewModCompiler.Diagnostics.DiagnosticDirectory.PrepareDirectory(output, outputRoot);
+                cacheLayout.PrepareDirectory(output);
+                cacheLayout.PrepareDirectory(cacheLayout.Session);
+                cacheLayout.PrepareDirectory(cacheLayout.BuildCache);
+                cacheLayout.PrepareDirectory(cacheLayout.Intermediate);
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
                 Settings settings;
@@ -729,7 +743,10 @@ namespace NewModCompiler.Application
                 try {
                     savedSessionCache = null;
                     if (legacyStore != null) legacyStore.Dispose();
-                } finally { ReleaseLease(); }
+                } finally {
+                    try { if (ownedCacheLock != null) { ownedCacheLock.Dispose(); ownedCacheLock = null; } }
+                    finally { ReleaseLease(); }
+                }
             }
         }
         void DisposeProviders()
