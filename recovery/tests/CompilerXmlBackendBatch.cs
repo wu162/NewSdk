@@ -126,10 +126,15 @@ public static class CompilerXmlBackendBatch
                 // initialization. Core leaves borrowed input unchanged until join.
                 work.Add(new Work { TypeName = route.TypeName, Family = (string)Policy.GetMethod("FamilyFor").Invoke(null, new object[] { route.TypeId }), Envelope = envelope, Control = control });
             }
-            var expectedOwners = new HashSet<string>(new[] { "AptAptData", "AptConstData", "AptDatData", "AptGeometryData", "TestTexture" }, StringComparer.Ordinal);
-            Need(retainedOwners.Count == 5 && expectedOwners.SetEquals(retainedOwners), "Only the four explicitly closed-read APT routes and TestTexture may remain outside the metadata matrix");
+            // Joypad roots were added after the closed parallel registry audit.
+            // They remain owner-only until their reentry contracts are reviewed.
+            var expectedOwners = new HashSet<string>(new[] { "AptAptData", "AptConstData", "AptDatData", "AptGeometryData", "TestTexture",
+                "UIJoypadCommandBarMixedGroup", "UIJoypadCommandBarHomogenousGroup", "UIJoypadCommandBarCoopCommunicator",
+                "JoypadCommandBarButtonTemplate", "UIJoypadCommandBarStances", "JoypadCommandBarTemplate", "UIJoypadCommandBarTopMenu",
+                "UIJoypadCommandBarPlayerPowers", "UIJoypadCommandBarButtonBuild", "UIJoypadCommandBarControlGroups", "UIJoypadCommandBarSingleUnit" }, StringComparer.Ordinal);
+            Need(retainedOwners.Count == expectedOwners.Count && expectedOwners.SetEquals(retainedOwners), "Only four APT routes, TestTexture and the eleven uncertified Joypad roots may remain outside the metadata matrix");
             Need(work.Count == (int)Policy.GetProperty("TypeCount").GetValue(null, null), "Batch must execute every reviewed registry route present in the built-in XML set");
-            Need(work.Count == 295, "The current reviewed metadata source closure, including eleven Joypad roots, must contain exactly 295 registered routes");
+            Need(work.Count == 284, "The current reviewed metadata source closure must contain exactly 284 registered routes");
             Need(!(bool)Policy.GetMethod("IsCertified").Invoke(null, new object[] { UInt32.MaxValue }), "An unknown root ID must remain outside the closed metadata registry");
             int next = -1; active = 0; maximum = 0;
             int workerCount = Math.Max(1, Math.Min(4, Environment.ProcessorCount));

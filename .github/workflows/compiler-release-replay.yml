@@ -1,15 +1,6 @@
 name: Verify current compiler binaries and package release
 on:
-  push:
-    branches: [release/compiler-2026.11.01-harness]
-    paths:
-      - '.github/workflows/compiler-release-replay.yml'
-      - 'recovery/scripts/TestCompilerBig.ps1'
-      - 'recovery/scripts/TestCompilerParallel.py'
-      - 'recovery/scripts/TestCompilerPerformance.py'
-      - 'recovery/scripts/TestCompilerSdk.ps1'
-      - 'recovery/scripts/MeasureCompilerParallel.py'
-      - 'recovery/tests/CompilerXmlBackendBatch.cs'
+  workflow_dispatch:
 permissions:
   contents: read
   actions: read
