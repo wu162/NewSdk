@@ -242,7 +242,10 @@ def main():
             case = out / name
             destination = destination or work / name
             command = [executable, 'build', '--mod', mod, '--sdk-root', sdk,
-                       '--out', destination, '--mod-version', '1.0', *extra]
+                       '--out', destination]
+            if '--package-format' not in extra or extra[extra.index('--package-format') + 1] != 'loose':
+                command += ['--mod-version', '1.0']
+            command += list(extra)
             process = run(command, runtime, case, expected)
             report = json.loads((destination / 'build-report.json').read_text(encoding='utf-8-sig'))
             need(report['exitCode'] == expected, 'Build report exit code differs: ' + name)
