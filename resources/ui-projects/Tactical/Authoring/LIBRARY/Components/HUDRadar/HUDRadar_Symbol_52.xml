@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDRadar/HUDRadar_Symbol_52" itemID="6ae70000-0000014b" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDRadar/HUDRadar_Symbol_52">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#e4d18a">
+                         <frames>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="9" index="0" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_51" centerPoint3DX="6.6" centerPoint3DY="6.35">
+                                             <matrix>
+                                                  <Matrix tx="0.6" ty="0.35" a="1.271881103515625" d="1.271881103515625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="10" index="9" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_51" centerPoint3DX="6.6" centerPoint3DY="6.35">
+                                             <matrix>
+                                                  <Matrix tx="0.6" ty="0.35" a="1.271881103515625" d="1.271881103515625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="19" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_51" centerPoint3DX="6.6" centerPoint3DY="6.35">
+                                             <matrix>
+                                                  <Matrix tx="0.6" ty="0.35" a="1.271881103515625" d="1.271881103515625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#f2d495" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="20" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/HUDRadar/HUDRadar_Bitmap_47.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="-1.0" ty="-0.75" a="20.0" d="20.0" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! -20 -15| 300 -15| 300 305| -20 305| -20 -15" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

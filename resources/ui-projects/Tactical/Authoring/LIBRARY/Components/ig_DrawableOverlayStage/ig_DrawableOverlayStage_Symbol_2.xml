@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/ig_DrawableOverlayStage/ig_DrawableOverlayStage_Symbol_2" itemID="6ae70000-000002b1" lastModified="1631891426">
+     <timeline>
+          <DOMTimeline name="Components/ig_DrawableOverlayStage/ig_DrawableOverlayStage_Symbol_2">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#9fe08c">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/ig_DrawableOverlayStage/ig_DrawableOverlayStage/ig_DrawableOverlayStage_frame_0001_stop.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#aecb44" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ig_DrawableOverlayStage/ig_DrawableOverlayStage_LayerClip" centerPoint3DX="0.0" centerPoint3DY="0.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

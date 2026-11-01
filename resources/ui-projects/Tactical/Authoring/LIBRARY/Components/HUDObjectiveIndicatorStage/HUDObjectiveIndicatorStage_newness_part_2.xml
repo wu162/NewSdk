@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_newness_part_2" itemID="6ae70000-0000010e" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_newness_part_2">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#b0dff4">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728" name="_play" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728" name="_loop" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#b3af88">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObjectiveIndicatorStage/newness/newness_frame_0001_stop_occurrence_02.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObjectiveIndicatorStage/newness/newness_frame_0002_play_label_play_occurrence_02.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="2" duration="19" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="21" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObjectiveIndicatorStage/newness/newness_frame_0022_gotoAndStop_label_loop_occurrence_02.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="22" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObjectiveIndicatorStage/newness/newness_frame_0023_stop_label_loop_occurrence_02.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#c894fc" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_Symbol_44" centerPoint3DX="20.0" centerPoint3DY="31.15">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="-1.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="8" index="3" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_Symbol_44" centerPoint3DX="20.0" centerPoint3DY="31.15">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="-1.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0546875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="10" index="11" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_Symbol_44" centerPoint3DX="20.0" centerPoint3DY="31.15">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="-1.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.5" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="21" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_Symbol_44" centerPoint3DX="20.0" centerPoint3DY="31.15">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="-1.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="22" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

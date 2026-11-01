@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_lineWidths" itemID="6ae70000-000001ef" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_lineWidths">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#e4d18a">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_Symbol_28" name="1" centerPoint3DX="42.45" centerPoint3DY="14.25">
+                                             <matrix>
+                                                  <Matrix tx="-5.0" ty="9.25" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDTelestratorControlPanel/lineWidths/lineWidths_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#ae7bab">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_Symbol_28" name="0" centerPoint3DX="42.45" centerPoint3DY="1.75">
+                                             <matrix>
+                                                  <Matrix tx="-5.0" ty="-3.25" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDTelestratorControlPanel/lineWidths/lineWidths_frame_0001_load_occurrence_02.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#a551b9">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills />
+                                             <strokes>
+                                                  <StrokeStyle index="1">
+                                                       <SolidStroke scaleMode="normal" weight="1.0">
+                                                            <fill>
+                                                                 <SolidColor color="#000000" />
+                                                            </fill>
+                                                       </SolidStroke>
+                                                  </StrokeStyle>
+                                             </strokes>
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="0" strokeStyle="1" edges="! 1871 -28| 1871 503| -70 503| -70 -28| 1871 -28" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#b6b0be" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_Symbol_10" centerPoint3DX="22.65" centerPoint3DY="13.55">
+                                             <matrix>
+                                                  <Matrix tx="-3.35" ty="-1.55" a="1.855072021484375" d="0.875946044921875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.328125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

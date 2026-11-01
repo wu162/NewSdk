@@ -1,9 +1,44 @@
 {
   "sourceMovies": [
+    "TacticalEndGameDialog",
     "TacticalHUD",
-    "TacticalHUDMainCommandBar",
+    "TacticalHUDBeaconStage",
     "TacticalHUDBuildQueuePage",
-    "TacticalHUDRadar"
+    "TacticalHUDCoOpAIOrderPanel",
+    "TacticalHUDCommandListBox",
+    "TacticalHUDCommandModeBar",
+    "TacticalHUDEnergyMeter",
+    "TacticalHUDExperiencePanel",
+    "TacticalHUDMainCommandBar",
+    "TacticalHUDObjectiveIndicatorStage",
+    "TacticalHUDObserverControlPanel",
+    "TacticalHUDPlayerPowersBar",
+    "TacticalHUDRadar",
+    "TacticalHUDSelectionDetails",
+    "TacticalHUDSelectionRefinementPage",
+    "TacticalHUDSpecialPowerTimers",
+    "TacticalHUDTelestratorControlPanel",
+    "TacticalMissionHotSpotPopUp",
+    "TacticalMpBeaconDialog",
+    "TacticalObjectiveIcon",
+    "TacticalObjectiveIndicatorPopUp",
+    "TacticalObjectiveIntroPopUp",
+    "TacticalPlayerPowerCommandButton",
+    "TacticalPlayerStatusDialog",
+    "TacticalQuickChatDialog",
+    "TacticalTextChatDialog",
+    "ig_DrawableOverlayStage",
+    "igm_GadgetFlashStage",
+    "HelpBox",
+    "HUDTickerPanel",
+    "igm_replayControlPanel",
+    "HUDVoiceChatControlPanel",
+    "VerticalScrollBar",
+    "ig_RadarObjectivesLayer",
+    "ig_RadarCoOpAITargetLayer",
+    "ig_missionMapHotSpotLayer",
+    "ig_RadarBridgeLayer",
+    "InGameCheckbox"
   ],
   "sharedGraphs": [
     {
@@ -19,7 +54,12 @@
       "fingerprint": "0fcbcf871f01e927fb94ae917e9b117f7dc67ebd9b343bc76c0b76d9957010f4",
       "movies": [
         "TacticalHUD",
-        "TacticalHUDRadar"
+        "TacticalHUDCommandListBox",
+        "TacticalHUDEnergyMeter",
+        "TacticalHUDRadar",
+        "TacticalHUDSelectionDetails",
+        "TacticalHUDTelestratorControlPanel",
+        "HelpBox"
       ]
     },
     {
@@ -27,14 +67,687 @@
       "fingerprint": "b45025a87a3f6184dba489fd2604eb9657259813b61074bc158d9c7707ad8a26",
       "movies": [
         "TacticalHUD",
+        "TacticalHUDBuildQueuePage",
+        "TacticalHUDCoOpAIOrderPanel",
+        "TacticalHUDCommandListBox",
+        "TacticalHUDCommandModeBar",
+        "TacticalHUDExperiencePanel",
         "TacticalHUDMainCommandBar",
-        "TacticalHUDBuildQueuePage"
+        "TacticalHUDObjectiveIndicatorStage",
+        "TacticalHUDPlayerPowersBar",
+        "TacticalHUDSelectionDetails",
+        "TacticalHUDSpecialPowerTimers",
+        "igm_replayControlPanel",
+        "HUDVoiceChatControlPanel"
+      ]
+    },
+    {
+      "identifier": "LoadMovieStage",
+      "fingerprint": "f55679241893685474a98c2a1cd23f0e1fcca6ca89aec54004adb43f0fe8f0da",
+      "movies": [
+        "TacticalHUD",
+        "TacticalHUDObjectiveIndicatorStage",
+        "TacticalHUDPlayerPowersBar",
+        "TacticalHUDSelectionDetails",
+        "TacticalObjectiveIcon"
+      ]
+    },
+    {
+      "identifier": "RenderImage",
+      "fingerprint": "0502b71d3082e7413fef3abfb4294b27d48519d808bfc2b685166b186abf35e7",
+      "movies": [
+        "TacticalHUDCoOpAIOrderPanel",
+        "TacticalHUDSelectionDetails",
+        "TacticalPlayerPowerCommandButton",
+        "HUDTickerPanel"
+      ]
+    },
+    {
+      "identifier": "BlackRectangle",
+      "fingerprint": "2c87ddde7fbf436a0f5f858e8a7693c291fd7dfbd177261bbe5c53cfbc555f77",
+      "movies": [
+        "TacticalHUDRadar",
+        "TacticalPlayerStatusDialog",
+        "HelpBox"
       ]
     }
   ],
-  "sourceSymbolCount": 187,
-  "masterSymbolCount": 182,
-  "sharedDescriptorGroups": 6,
-  "scriptFiles": 289,
+  "sourceSymbolCount": 949,
+  "masterSymbolCount": 925,
+  "sharedDescriptorGroups": 11,
+  "commonItems": [
+    {
+      "itemName": "Common/Common_SimpleRenderingSurface",
+      "sources": [
+        {
+          "movie": "TacticalHUD",
+          "item": "Symbol 4"
+        },
+        {
+          "movie": "TacticalHUDRadar",
+          "item": "Symbol 79"
+        }
+      ],
+      "scripts": [
+        "Common/Scripts/ig_libHUD/SimpleRenderingSurface/SimpleRenderingSurface_frame_0001_define_onUnload.as",
+        "Common/Scripts/ig_libHUD/SimpleRenderingSurface/shape_frame_0001_load.as"
+      ]
+    },
+    {
+      "itemName": "Common/Common_WhiteRectangle",
+      "sources": [
+        {
+          "movie": "TacticalHUD",
+          "item": "Symbol 33"
+        },
+        {
+          "movie": "TacticalHUDRadar",
+          "item": "Symbol 73"
+        },
+        {
+          "movie": "TacticalHUDCommandListBox",
+          "item": "Symbol 1"
+        },
+        {
+          "movie": "TacticalHUDEnergyMeter",
+          "item": "Symbol 21"
+        },
+        {
+          "movie": "TacticalHUDSelectionDetails",
+          "item": "Symbol 248"
+        },
+        {
+          "movie": "TacticalHUDTelestratorControlPanel",
+          "item": "Symbol 7"
+        },
+        {
+          "movie": "HelpBox",
+          "item": "Symbol 15"
+        }
+      ],
+      "scripts": []
+    },
+    {
+      "itemName": "Common/Common_HelpBoxSite",
+      "sources": [
+        {
+          "movie": "TacticalHUD",
+          "item": "Symbol 42"
+        },
+        {
+          "movie": "TacticalHUDBuildQueuePage",
+          "item": "Symbol 85"
+        },
+        {
+          "movie": "TacticalHUDCoOpAIOrderPanel",
+          "item": "Symbol 100"
+        },
+        {
+          "movie": "TacticalHUDCommandListBox",
+          "item": "Symbol 4"
+        },
+        {
+          "movie": "TacticalHUDCommandModeBar",
+          "item": "Symbol 54"
+        },
+        {
+          "movie": "TacticalHUDExperiencePanel",
+          "item": "Symbol 160"
+        },
+        {
+          "movie": "TacticalHUDMainCommandBar",
+          "item": "Symbol 3"
+        },
+        {
+          "movie": "TacticalHUDObjectiveIndicatorStage",
+          "item": "Symbol 14"
+        },
+        {
+          "movie": "TacticalHUDPlayerPowersBar",
+          "item": "Symbol 2"
+        },
+        {
+          "movie": "TacticalHUDSelectionDetails",
+          "item": "Symbol 220"
+        },
+        {
+          "movie": "TacticalHUDSpecialPowerTimers",
+          "item": "Symbol 1"
+        },
+        {
+          "movie": "igm_replayControlPanel",
+          "item": "Symbol 8"
+        },
+        {
+          "movie": "HUDVoiceChatControlPanel",
+          "item": "Symbol 9"
+        }
+      ],
+      "scripts": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as"
+      ]
+    },
+    {
+      "itemName": "Common/Common_LoadMovieStage",
+      "sources": [
+        {
+          "movie": "TacticalHUD",
+          "item": "Symbol 47"
+        },
+        {
+          "movie": "TacticalHUDObjectiveIndicatorStage",
+          "item": "Symbol 43"
+        },
+        {
+          "movie": "TacticalHUDPlayerPowersBar",
+          "item": "Symbol 1"
+        },
+        {
+          "movie": "TacticalHUDSelectionDetails",
+          "item": "Symbol 276"
+        },
+        {
+          "movie": "TacticalObjectiveIcon",
+          "item": "Symbol 28"
+        }
+      ],
+      "scripts": [
+        "Common/Scripts/ig_libHUD/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as"
+      ]
+    },
+    {
+      "itemName": "Common/Common_SharedPart_05",
+      "sources": [
+        {
+          "movie": "TacticalHUD",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "TacticalHUDRadar",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "TacticalHUDCommandListBox",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "TacticalHUDEnergyMeter",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "TacticalHUDSelectionDetails",
+          "item": "imported/Symbol 2"
+        },
+        {
+          "movie": "TacticalHUDTelestratorControlPanel",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "HelpBox",
+          "item": "imported/Symbol 2"
+        }
+      ],
+      "scripts": []
+    },
+    {
+      "itemName": "Common/Common_SharedPart_06",
+      "sources": [
+        {
+          "movie": "TacticalHUD",
+          "item": "imported/Symbol 4"
+        },
+        {
+          "movie": "TacticalHUDBuildQueuePage",
+          "item": "imported/Symbol 2"
+        },
+        {
+          "movie": "TacticalHUDCoOpAIOrderPanel",
+          "item": "imported/Symbol 3"
+        },
+        {
+          "movie": "TacticalHUDCommandListBox",
+          "item": "imported/Symbol 3"
+        },
+        {
+          "movie": "TacticalHUDCommandModeBar",
+          "item": "imported/Symbol 2"
+        },
+        {
+          "movie": "TacticalHUDExperiencePanel",
+          "item": "imported/Symbol 2"
+        },
+        {
+          "movie": "TacticalHUDMainCommandBar",
+          "item": "imported/Symbol 2"
+        },
+        {
+          "movie": "TacticalHUDObjectiveIndicatorStage",
+          "item": "imported/Symbol 2"
+        },
+        {
+          "movie": "TacticalHUDPlayerPowersBar",
+          "item": "imported/Symbol 2"
+        },
+        {
+          "movie": "TacticalHUDSelectionDetails",
+          "item": "imported/Symbol 4"
+        },
+        {
+          "movie": "TacticalHUDSpecialPowerTimers",
+          "item": "imported/Symbol 2"
+        },
+        {
+          "movie": "igm_replayControlPanel",
+          "item": "imported/Symbol 2"
+        },
+        {
+          "movie": "HUDVoiceChatControlPanel",
+          "item": "imported/Symbol 2"
+        }
+      ],
+      "scripts": []
+    },
+    {
+      "itemName": "Common/Common_SharedPart_07",
+      "sources": [
+        {
+          "movie": "TacticalHUD",
+          "item": "imported/Symbol 2"
+        },
+        {
+          "movie": "TacticalHUDBuildQueuePage",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "TacticalHUDCoOpAIOrderPanel",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "TacticalHUDCommandListBox",
+          "item": "imported/Symbol 2"
+        },
+        {
+          "movie": "TacticalHUDCommandModeBar",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "TacticalHUDExperiencePanel",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "TacticalHUDMainCommandBar",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "TacticalHUDObjectiveIndicatorStage",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "TacticalHUDPlayerPowersBar",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "TacticalHUDSelectionDetails",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "TacticalHUDSpecialPowerTimers",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "igm_replayControlPanel",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "HUDVoiceChatControlPanel",
+          "item": "imported/Symbol 1"
+        }
+      ],
+      "scripts": []
+    },
+    {
+      "itemName": "Common/Common_RenderImage",
+      "sources": [
+        {
+          "movie": "TacticalHUDCoOpAIOrderPanel",
+          "item": "Symbol 101"
+        },
+        {
+          "movie": "TacticalHUDSelectionDetails",
+          "item": "Symbol 283"
+        },
+        {
+          "movie": "TacticalPlayerPowerCommandButton",
+          "item": "Symbol 109"
+        },
+        {
+          "movie": "HUDTickerPanel",
+          "item": "Symbol 7"
+        }
+      ],
+      "scripts": []
+    },
+    {
+      "itemName": "Common/Common_SharedPart_09",
+      "sources": [
+        {
+          "movie": "TacticalHUDCoOpAIOrderPanel",
+          "item": "imported/Symbol 2"
+        },
+        {
+          "movie": "TacticalHUDSelectionDetails",
+          "item": "imported/Symbol 3"
+        },
+        {
+          "movie": "TacticalPlayerPowerCommandButton",
+          "item": "imported/Symbol 2"
+        },
+        {
+          "movie": "HUDTickerPanel",
+          "item": "imported/Symbol 1"
+        }
+      ],
+      "scripts": []
+    },
+    {
+      "itemName": "Common/Common_BlackRectangle",
+      "sources": [
+        {
+          "movie": "TacticalHUDRadar",
+          "item": "Symbol 76"
+        },
+        {
+          "movie": "TacticalPlayerStatusDialog",
+          "item": "Symbol 14"
+        },
+        {
+          "movie": "HelpBox",
+          "item": "Symbol 14"
+        }
+      ],
+      "scripts": []
+    },
+    {
+      "itemName": "Common/Common_SharedPart_11",
+      "sources": [
+        {
+          "movie": "TacticalHUDRadar",
+          "item": "imported/Symbol 2"
+        },
+        {
+          "movie": "TacticalPlayerStatusDialog",
+          "item": "imported/Symbol 1"
+        },
+        {
+          "movie": "HelpBox",
+          "item": "imported/Symbol 1"
+        }
+      ],
+      "scripts": []
+    }
+  ],
+  "sharedScripts": [
+    {
+      "originLibrary": "HelpBox.swf",
+      "identifier": "HelpBoxSite",
+      "sha256": "146c51dbe148154dfeb73f08ceeda2c007cead03ee20e65d0692228a628dccad",
+      "path": "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+      "sources": [
+        {
+          "movie": "TacticalHUD",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"
+        },
+        {
+          "movie": "TacticalHUDBuildQueuePage",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"
+        },
+        {
+          "movie": "TacticalHUDCoOpAIOrderPanel",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"
+        },
+        {
+          "movie": "TacticalHUDCommandListBox",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"
+        },
+        {
+          "movie": "TacticalHUDCommandModeBar",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"
+        },
+        {
+          "movie": "TacticalHUDExperiencePanel",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"
+        },
+        {
+          "movie": "TacticalHUDMainCommandBar",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"
+        },
+        {
+          "movie": "TacticalHUDObjectiveIndicatorStage",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"
+        },
+        {
+          "movie": "TacticalHUDPlayerPowersBar",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"
+        },
+        {
+          "movie": "TacticalHUDSelectionDetails",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"
+        },
+        {
+          "movie": "TacticalHUDSpecialPowerTimers",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"
+        },
+        {
+          "movie": "HelpBox",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"
+        },
+        {
+          "movie": "igm_replayControlPanel",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"
+        },
+        {
+          "movie": "HUDVoiceChatControlPanel",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"
+        }
+      ]
+    },
+    {
+      "originLibrary": "HelpBox.swf",
+      "identifier": "HelpBoxSite",
+      "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+      "path": "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
+      "sources": [
+        {
+          "movie": "TacticalHUD",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as"
+        },
+        {
+          "movie": "TacticalHUDBuildQueuePage",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as"
+        },
+        {
+          "movie": "TacticalHUDCoOpAIOrderPanel",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as"
+        },
+        {
+          "movie": "TacticalHUDCommandListBox",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as"
+        },
+        {
+          "movie": "TacticalHUDCommandModeBar",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as"
+        },
+        {
+          "movie": "TacticalHUDExperiencePanel",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as"
+        },
+        {
+          "movie": "TacticalHUDMainCommandBar",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as"
+        },
+        {
+          "movie": "TacticalHUDObjectiveIndicatorStage",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as"
+        },
+        {
+          "movie": "TacticalHUDPlayerPowersBar",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as"
+        },
+        {
+          "movie": "TacticalHUDSelectionDetails",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as"
+        },
+        {
+          "movie": "TacticalHUDSpecialPowerTimers",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as"
+        },
+        {
+          "movie": "igm_replayControlPanel",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as"
+        },
+        {
+          "movie": "HUDVoiceChatControlPanel",
+          "script": "scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as"
+        }
+      ]
+    },
+    {
+      "originLibrary": "ig_libHUD.swf",
+      "identifier": "LoadMovieStage",
+      "sha256": "bbbd27ff42832a83eea610bdec54c7e26b2fe8189477d972103861e1c857126a",
+      "path": "Common/Scripts/ig_libHUD/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as",
+      "sources": [
+        {
+          "movie": "TacticalHUD",
+          "script": "scripts/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as"
+        },
+        {
+          "movie": "TacticalHUDObjectiveIndicatorStage",
+          "script": "scripts/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as"
+        },
+        {
+          "movie": "TacticalHUDPlayerPowersBar",
+          "script": "scripts/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as"
+        },
+        {
+          "movie": "TacticalHUDSelectionDetails",
+          "script": "scripts/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as"
+        },
+        {
+          "movie": "TacticalObjectiveIcon",
+          "script": "scripts/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as"
+        }
+      ]
+    },
+    {
+      "originLibrary": "ig_libHUD.swf",
+      "identifier": "SimpleRenderingSurface",
+      "sha256": "a61daa9a1fe391b5249e05dee05a5c8bb1082a5040e84f5a8c03d4f2e6b0fded",
+      "path": "Common/Scripts/ig_libHUD/SimpleRenderingSurface/SimpleRenderingSurface_frame_0001_define_onUnload.as",
+      "sources": [
+        {
+          "movie": "TacticalHUD",
+          "script": "scripts/SimpleRenderingSurface/SimpleRenderingSurface_frame_0001_define_onUnload.as"
+        },
+        {
+          "movie": "TacticalHUDRadar",
+          "script": "scripts/SimpleRenderingSurface/SimpleRenderingSurface_frame_0001_define_onUnload.as"
+        }
+      ]
+    },
+    {
+      "originLibrary": "ig_libHUD.swf",
+      "identifier": "SimpleRenderingSurface",
+      "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+      "path": "Common/Scripts/ig_libHUD/SimpleRenderingSurface/shape_frame_0001_load.as",
+      "sources": [
+        {
+          "movie": "TacticalHUD",
+          "script": "scripts/shape/shape_frame_0001_load.as"
+        },
+        {
+          "movie": "TacticalHUDRadar",
+          "script": "scripts/shape/shape_frame_0001_load.as"
+        }
+      ]
+    }
+  ],
+  "retainedVisualVariants": [
+    {
+      "originLibrary": "HelpBox.swf",
+      "identifier": "HelpBoxSite",
+      "reason": "Original native/export and imported publishing wrappers differ; visual graphs retained separately",
+      "variants": [
+        {
+          "fingerprint": "b45025a87a3f6184dba489fd2604eb9657259813b61074bc158d9c7707ad8a26",
+          "sources": [
+            {
+              "movie": "TacticalHUD",
+              "item": "Symbol 42"
+            },
+            {
+              "movie": "TacticalHUDBuildQueuePage",
+              "item": "Symbol 85"
+            },
+            {
+              "movie": "TacticalHUDCoOpAIOrderPanel",
+              "item": "Symbol 100"
+            },
+            {
+              "movie": "TacticalHUDCommandListBox",
+              "item": "Symbol 4"
+            },
+            {
+              "movie": "TacticalHUDCommandModeBar",
+              "item": "Symbol 54"
+            },
+            {
+              "movie": "TacticalHUDExperiencePanel",
+              "item": "Symbol 160"
+            },
+            {
+              "movie": "TacticalHUDMainCommandBar",
+              "item": "Symbol 3"
+            },
+            {
+              "movie": "TacticalHUDObjectiveIndicatorStage",
+              "item": "Symbol 14"
+            },
+            {
+              "movie": "TacticalHUDPlayerPowersBar",
+              "item": "Symbol 2"
+            },
+            {
+              "movie": "TacticalHUDSelectionDetails",
+              "item": "Symbol 220"
+            },
+            {
+              "movie": "TacticalHUDSpecialPowerTimers",
+              "item": "Symbol 1"
+            },
+            {
+              "movie": "igm_replayControlPanel",
+              "item": "Symbol 8"
+            },
+            {
+              "movie": "HUDVoiceChatControlPanel",
+              "item": "Symbol 9"
+            }
+          ]
+        },
+        {
+          "fingerprint": "b6c321e1f352c31a62f06b4c4c36a2b968a826daf2059afe614250bb9f7f33be",
+          "sources": [
+            {
+              "movie": "HelpBox",
+              "item": "Symbol 6"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scriptFiles": 1323,
   "originalAssetsModified": false
 }

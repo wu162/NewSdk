@@ -1,0 +1,9 @@
+on(release){
+   fscommand(qualifyName(this,"OnClicked"),"");
+}
+on(rollOver){
+   fscommand(qualifyName(this,"OnRollOver"),"");
+}
+on(rollOut){
+   fscommand(qualifyName(this,"OnRollOut"),"");
+}

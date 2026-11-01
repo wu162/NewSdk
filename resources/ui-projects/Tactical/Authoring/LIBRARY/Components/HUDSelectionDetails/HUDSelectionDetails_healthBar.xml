@@ -1,0 +1,1560 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDSelectionDetails/HUDSelectionDetails_healthBar" itemID="6ae70000-000001cc" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDSelectionDetails/HUDSelectionDetails_healthBar">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#fd7f60">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDSelectionDetails/healthBar/healthBar_frame_0001_stop.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#f7f937">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="100" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_294" symbolType="graphic" loop="loop">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#c21da7" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="92.0" centerPoint3DY="5.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.5" greenMultiplier="0.5" blueMultiplier="0.5" greenOffset="128" />
+                                             </color>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDSelectionDetails/healthBar/healthBar_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.002716064453125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.0128936767578125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.0230865478515625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.03326416015625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.0434417724609375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="6" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.0536346435546875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="7" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.063812255859375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="8" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.0739898681640625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.08416748046875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.0943603515625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="11" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.1045379638671875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="12" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.114715576171875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="13" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.1248931884765625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="14" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.1350860595703125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="15" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.145263671875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="16" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.15545654296875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="17" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.4">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.6" a="0.1656341552734375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="18" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.4">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.6" a="0.175811767578125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="19" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.4">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.6" a="0.186004638671875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="20" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.4">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.6" a="0.1961822509765625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="21" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.4">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.6" a="0.20635986328125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="22" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.4">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.6" a="0.2165374755859375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="23" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.4">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.6" a="0.2267303466796875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="24" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.4">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.6" a="0.236907958984375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="25" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.4">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.6" a="0.2470855712890625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="26" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.4">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.6" a="0.25726318359375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="27" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.4">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.6" a="0.2674560546875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="28" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.4">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.6" a="0.2776336669921875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="29" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.4">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.6" a="0.287811279296875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="30" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.4">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.6" a="0.298004150390625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="31" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.3081817626953125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="32" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.318359375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="6" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="33" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.32855224609375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="11" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="34" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.3387298583984375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="17" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="35" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.348907470703125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="22" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="36" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.359100341796875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="28" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="37" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.3692779541015625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="34" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="38" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.37945556640625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="39" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="39" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.3896331787109375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="45" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="40" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.3998260498046875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="51" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="41" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.410003662109375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="56" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="42" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.4201812744140625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="62" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="43" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.43035888671875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="67" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="44" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.4405517578125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="73" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="45" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.4507293701171875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="79" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="46" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.460906982421875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="84" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="47" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.55" a="0.471099853515625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="90" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="48" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.4812774658203125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="96" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="49" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.491455078125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="101" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="50" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.50164794921875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="107" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="51" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.5118255615234375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="112" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="52" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.522003173828125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="118" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="53" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.532196044921875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="124" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="54" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.5423736572265625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="129" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="55" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.55255126953125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="135" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="56" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.5627288818359375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="140" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="57" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.5729217529296875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="146" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="58" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.583099365234375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="152" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="59" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.5932769775390625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="157" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="60" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.60345458984375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="163" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="61" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.6136474609375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="169" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="62" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.1" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.9" ty="-1.55" a="0.6238250732421875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="174" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="63" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.634002685546875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="180" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="64" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.644195556640625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="185" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="65" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.6543731689453125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="191" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="66" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.66455078125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="186" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="67" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.67474365234375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="180" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="68" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.6849212646484375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="175" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="69" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.695098876953125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="169" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="70" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.7052764892578125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="164" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="71" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.7154693603515625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="158" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="72" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.72564697265625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="153" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="73" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.73583984375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="147" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="74" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.7460174560546875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="142" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="75" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.756195068359375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="136" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="76" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.7663726806640625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="131" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="77" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.7765655517578125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="126" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="78" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.7867431640625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="120" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="79" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.7969207763671875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="115" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="80" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.8071136474609375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="109" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="81" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.817291259765625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="104" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="82" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.05" centerPoint3DY="2.45">
+                                             <matrix>
+                                                  <Matrix tx="-0.95" ty="-1.55" a="0.8274688720703125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="98" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="83" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.8376617431640625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="93" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="84" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.84783935546875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="87" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="85" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.8580169677734375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="82" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="86" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.8682098388671875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="76" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="87" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="90.95" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.05" ty="-1.5" a="0.878387451171875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="71" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="88" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.8885650634765625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="65" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="89" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.8987579345703125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="60" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="90" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.908935546875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="55" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="91" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.9191131591796875" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="49" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="92" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.929290771484375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="44" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="93" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.939483642578125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="38" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="94" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.9496612548828125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="33" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="95" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.9598541259765625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="27" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="96" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.97003173828125" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="22" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="97" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.9802093505859375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="16" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="98" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="0.990386962890625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="11" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="99" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="1.000579833984375" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" redOffset="5" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="100" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_292" centerPoint3DX="91.0" centerPoint3DY="2.5">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="-1.5" a="1.0107574462890625" d="1.625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" greenOffset="191" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

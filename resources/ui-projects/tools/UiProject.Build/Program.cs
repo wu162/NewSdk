@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using BinaryAssetBuilder.UiCompiler;
 using BinaryAssetBuilder.UiCompiler.Projects;
+using UiProjectTools;
 
 if (args.Length == 0 || args.Contains("--help"))
 {
@@ -22,9 +23,17 @@ var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true, In
     PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true,
     ReadCommentHandling = JsonCommentHandling.Skip, AllowTrailingCommas = true };
 byte[] manifest = File.ReadAllBytes(projectFile);
+var originalIssues = new Dictionary<string, JsonElement>(StringComparer.Ordinal);
 using (var parsed = JsonDocument.Parse(manifest, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip, AllowTrailingCommas = true }))
+{
     if (parsed.RootElement.TryGetProperty("formatVersion", out var version) && version.GetInt32() != 1)
         throw new InvalidDataException("Unsupported UI project formatVersion.");
+    if (parsed.RootElement.TryGetProperty("movies", out var inputMovies))
+        foreach (var movie in inputMovies.EnumerateArray())
+            if (movie.TryGetProperty("originalSourceIssues", out var issue) &&
+                issue.TryGetProperty("staticLibraryDependencyState", out var state) && state.GetString() != "closed")
+                originalIssues.Add(movie.GetProperty("name").GetString()!, issue.Clone());
+}
 var project = JsonSerializer.Deserialize<UiProjectDefinition>(manifest, options)
     ?? throw new InvalidDataException("Project document is empty.");
 string projectDirectory = Path.GetDirectoryName(projectFile)!;
@@ -32,6 +41,8 @@ project.MasterFile = Path.GetFullPath(Path.Combine(projectDirectory, project.Mas
 project.SourceRoot = Path.GetFullPath(Path.Combine(projectDirectory, project.SourceRoot ?? "."));
 var movies = selected == null ? project.Movies : project.Movies.Where(movie => movie.Name == selected).ToList();
 if (!movies.Any()) throw new InvalidDataException("No matching movie in the project.");
+try { OutputPaths.EnsureWritableOutput(output, projectDirectory); }
+catch (InvalidOperationException error) { Console.Error.WriteLine(error.Message); return 2; }
 Directory.CreateDirectory(output);
 var compiler = new UiProjectCompiler();
 var results = new List<object>();
@@ -63,8 +74,10 @@ foreach (var movie in movies)
         streams.WriteTo(basename);
         results.Add(new { movie = movie.Name, status = "passed", assets = streams.Assets.Count,
             milliseconds = timer.ElapsedMilliseconds,
-            streams = Describe(streams), inputs = streams.InputFiles.Select(path => Path.GetRelativePath(projectDirectory, path)).ToArray() });
+            streams = Describe(streams), inputs = streams.InputFiles.Select(path => Path.GetRelativePath(projectDirectory, path)).ToArray(),
+            originalSourceIssues = originalIssues.TryGetValue(movie.Name, out var issue) ? (JsonElement?)issue : null });
         Console.WriteLine($"{movie.Name}: {streams.Assets.Count} assets, four streams written");
+        if (originalIssues.ContainsKey(movie.Name)) Console.Error.WriteLine(movie.Name + ": original source has unresolved dependencies; see project.json originalSourceIssues.");
     }
     catch (Exception error)
     {

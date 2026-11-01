@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_Symbol_99" itemID="6ae70000-00000097" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_Symbol_99">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#d9b746">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDCoOpAIOrderPanel/normalButton/normalButton_frame_0001_define_SetEnabled.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#ebe61b" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_hitTestButton" name="hitTestButton" centerPoint3DX="16.45" centerPoint3DY="16.45">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

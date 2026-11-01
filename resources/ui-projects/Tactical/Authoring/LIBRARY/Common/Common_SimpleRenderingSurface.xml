@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Common/Common_SimpleRenderingSurface" itemID="6ae70000-00000003" lastModified="1631891428">
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Common/Common_SimpleRenderingSurface" itemID="6ae70000-00000008" lastModified="1631891428">
      <timeline>
           <DOMTimeline name="Common/Common_SimpleRenderingSurface">
                <layers>
@@ -7,7 +7,7 @@
                          <frames>
                               <DOMFrame index="0" keyMode="9728">
                                    <Actionscript>
-                                        <script>#include "Common/Scripts/SimpleRenderingSurface_frame_0001_define_onUnload.as"</script>
+                                        <script>#include "Common/Scripts/ig_libHUD/SimpleRenderingSurface/SimpleRenderingSurface_frame_0001_define_onUnload.as"</script>
                                    </Actionscript>
                                    <elements />
                               </DOMFrame>
@@ -28,7 +28,7 @@
                                                   <Color alphaMultiplier="0.0" />
                                              </color>
                                              <Actionscript>
-                                                  <script>#include "Common/Scripts/shape_frame_0001_load.as"</script>
+                                                  <script>#include "Common/Scripts/ig_libHUD/SimpleRenderingSurface/shape_frame_0001_load.as"</script>
                                              </Actionscript>
                                         </DOMSymbolInstance>
                                    </elements>

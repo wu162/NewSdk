@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDCommandModeBar/HUDCommandModeBar_RepairButtonNormal" itemID="6ae70000-000000a7" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDCommandModeBar/HUDCommandModeBar_RepairButtonNormal">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#908283">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="_disabled" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728" name="_up" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="6" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728" name="_over" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="11" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="15" keyMode="9728" name="_down" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#8ddb43">
+                         <frames>
+                              <DOMFrame index="0" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDCommandModeBar/RepairButtonNormal/RepairButtonNormal_frame_0005_stop_label_disabled.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="5" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDCommandModeBar/RepairButtonNormal/RepairButtonNormal_frame_0010_stop_label_up.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="14" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDCommandModeBar/RepairButtonNormal/RepairButtonNormal_frame_0015_stop_label_over.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="15" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="19" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDCommandModeBar/RepairButtonNormal/RepairButtonNormal_frame_0020_stop_label_down.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#a947d3">
+                         <frames>
+                              <DOMFrame index="0" duration="10" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCommandModeBar/HUDCommandModeBar_Symbol_12" symbolType="graphic" loop="loop">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.05000000074505806" d="0.05000000074505806" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#7cfb1f" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCommandModeBar/HUDCommandModeBar_Symbol_20" centerPoint3DX="18.5" centerPoint3DY="11.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.5" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" duration="15" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCommandModeBar/HUDCommandModeBar_Symbol_20" centerPoint3DX="18.5" centerPoint3DY="11.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_TacticalHUDExperiencePanel" itemID="6ae70000-0000058d"><timeline><DOMTimeline name="Roots/Root_TacticalHUDExperiencePanel">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#ae8c5a">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel_frame_0001_define_GetPlayerTechStoreButton.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#a59b65">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_HelpBoxSite" name="helpSite" centerPoint3DX="223.0" centerPoint3DY="3.05">
+                                             <matrix>
+                                                  <Matrix tx="220.0" ty="0.05" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDExperiencePanel/helpSite/helpSite_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#f66a8a">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDExperiencePanel/HUDExperiencePanel_ugly" name="ugly" centerPoint3DX="133.0" centerPoint3DY="-65.25">
+                                             <matrix>
+                                                  <Matrix tx="17.5" ty="-215.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#70ceb3">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDExperiencePanel/HUDExperiencePanel_playerTechStoreButtonHighlight" name="playerTechStoreButtonHighlight" centerPoint3DX="36.0" centerPoint3DY="-35.0">
+                                             <matrix>
+                                                  <Matrix tx="-11.5" ty="-82.5" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#fb1081">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDExperiencePanel/HUDExperiencePanel_playerTechStoreButton" name="playerTechStoreButton" centerPoint3DX="46.45" centerPoint3DY="-24.55">
+                                             <matrix>
+                                                  <Matrix tx="18.45" ty="-52.55" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6" color="#ed9889">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDExperiencePanel/HUDExperiencePanel_playerExperienceMeter" name="playerExperienceMeter" centerPoint3DX="66.0" centerPoint3DY="-34.5">
+                                             <matrix>
+                                                  <Matrix tx="36.0" ty="-64.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 7" color="#a2f941">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDExperiencePanel/HUDExperiencePanel_threatMeter" name="threatMeter" centerPoint3DX="134.5" centerPoint3DY="-33.5">
+                                             <matrix>
+                                                  <Matrix tx="70.0" ty="-44.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 8" color="#eae875" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDExperiencePanel/HUDExperiencePanel_Symbol_13" centerPoint3DX="116.5" centerPoint3DY="-39.85">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="-86.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline></DOMSymbolItem>

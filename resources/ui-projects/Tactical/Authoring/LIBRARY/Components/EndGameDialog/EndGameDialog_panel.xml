@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/EndGameDialog/EndGameDialog_panel" itemID="6ae70000-00000005" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/EndGameDialog/EndGameDialog_panel">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#d3d352">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="GameOver" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728" name="Victory" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="11" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" keyMode="9728" name="Defeat" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#83c998">
+                         <frames>
+                              <DOMFrame index="0" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalEndGameDialog/panel/panel_frame_0010_stop_label_GameOver.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="19" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalEndGameDialog/panel/panel_frame_0020_stop_label_Victory.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="29" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalEndGameDialog/panel/panel_frame_0030_stop_label_Defeat.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#bb6d6e">
+                         <frames>
+                              <DOMFrame index="0" duration="30" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/EndGameDialog/EndGameDialog_Symbol_13" centerPoint3DX="494.45" centerPoint3DY="197.05">
+                                             <matrix>
+                                                  <Matrix tx="335.0" ty="163.55" a="1.000091552734375" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalEndGameDialog/panel/panel_frame_0001_load_label_GameOver.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#f55d7c">
+                         <frames>
+                              <DOMFrame index="0" duration="20" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/EndGameDialog/EndGameDialog_imageMC" name="imageMC" centerPoint3DX="512.0" centerPoint3DY="384.0">
+                                             <matrix>
+                                                  <Matrix tx="335.0" ty="128.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="20" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/EndGameDialog/EndGameDialog_imageMC_part_2" name="imageMC" centerPoint3DX="512.0" centerPoint3DY="384.0">
+                                             <matrix>
+                                                  <Matrix tx="335.0" ty="128.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#908283" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="30" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/EndGameDialog/EndGameDialog_background" name="background" centerPoint3DX="49.75" centerPoint3DY="50.75">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="1.0" a="10.291458129882812" d="7.718597412109375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.5" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

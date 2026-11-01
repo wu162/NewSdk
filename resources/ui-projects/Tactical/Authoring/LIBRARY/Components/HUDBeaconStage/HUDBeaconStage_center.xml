@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDBeaconStage/HUDBeaconStage_center" itemID="6ae70000-00000049" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDBeaconStage/HUDBeaconStage_center">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#9c59c6" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBeaconStage/HUDBeaconStage_Symbol_38" symbolType="graphic" loop="loop">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.21923065185546875" d="0.2730766236782074" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/ObjectiveIntroPopUp/ObjectiveIntroPopUp_innerFrameMC" itemID="6ae70000-00000225" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/ObjectiveIntroPopUp/ObjectiveIntroPopUp_innerFrameMC">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#88f25d">
+                         <frames>
+                              <DOMFrame index="0" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ObjectiveIntroPopUp/ObjectiveIntroPopUp_Symbol_19" name="top" centerPoint3DX="710.0" centerPoint3DY="24.0">
+                                             <matrix>
+                                                  <Matrix tx="704.0" ty="13.0" a="0.0" d="0.0" b="1.0" c="-21.636367797851562" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#5976c3">
+                         <frames>
+                              <DOMFrame index="0" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ObjectiveIntroPopUp/ObjectiveIntroPopUp_Symbol_19" name="right" centerPoint3DX="710.0" centerPoint3DY="24.0">
+                                             <matrix>
+                                                  <Matrix tx="704.0" ty="13.0" a="-1.0" d="4.409088134765625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#f5d8ab">
+                         <frames>
+                              <DOMFrame index="0" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ObjectiveIntroPopUp/ObjectiveIntroPopUp_Symbol_19" name="bottom" centerPoint3DX="234.0" centerPoint3DY="121.0">
+                                             <matrix>
+                                                  <Matrix tx="228.0" ty="110.0" a="0.0" d="0.0" b="-1.0" c="21.636367797851562" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#49f6e9">
+                         <frames>
+                              <DOMFrame index="0" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ObjectiveIntroPopUp/ObjectiveIntroPopUp_Symbol_19" name="left" centerPoint3DX="234.0" centerPoint3DY="24.0">
+                                             <matrix>
+                                                  <Matrix tx="228.0" ty="13.0" a="1.0" d="4.409088134765625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#a9bff3" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ObjectiveIntroPopUp/ObjectiveIntroPopUp_Symbol_15" name="bg" centerPoint3DX="278.0" centerPoint3DY="63.0">
+                                             <matrix>
+                                                  <Matrix tx="228.0" ty="13.0" a="4.7599945068359375" d="0.970001220703125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.0" greenMultiplier="0.0" blueMultiplier="0.0" alphaMultiplier="0.6015625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

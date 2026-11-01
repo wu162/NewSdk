@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_TacticalHUDSpecialPowerTimers" itemID="6ae70000-00000595"><timeline><DOMTimeline name="Roots/Root_TacticalHUDSpecialPowerTimers">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#f5d8ab">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDSpecialPowerTimers/TacticalHUDSpecialPowerTimers/TacticalHUDSpecialPowerTimers_frame_0001_define_TimerClipStack.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#70a2f5" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSpecialPowerTimers/HUDSpecialPowerTimers_Symbol_17" centerPoint3DX="23.25" centerPoint3DY="22.5">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline></DOMSymbolItem>

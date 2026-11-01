@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/igm_GadgetFlashStage/igm_GadgetFlashStage_GadgetFlash" itemID="6ae70000-000002bb" lastModified="1631891425">
+     <timeline>
+          <DOMTimeline name="Components/igm_GadgetFlashStage/igm_GadgetFlashStage_GadgetFlash">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#d428ba">
+                         <frames>
+                              <DOMFrame index="0" duration="30" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="30" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/igm_GadgetFlashStage/GadgetFlash/GadgetFlash_frame_0031_onEndFlashPulse.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#e3c645" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="15" index="0" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/igm_GadgetFlashStage/igm_GadgetFlashStage_boxMC" name="boxMC" centerPoint3DX="34.5" centerPoint3DY="34.5">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="15" index="15" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/igm_GadgetFlashStage/igm_GadgetFlashStage_boxMC" name="boxMC" centerPoint3DX="34.5" centerPoint3DY="34.5">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="30" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/igm_GadgetFlashStage/igm_GadgetFlashStage_boxMC" name="boxMC" centerPoint3DX="34.5" centerPoint3DY="34.5">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

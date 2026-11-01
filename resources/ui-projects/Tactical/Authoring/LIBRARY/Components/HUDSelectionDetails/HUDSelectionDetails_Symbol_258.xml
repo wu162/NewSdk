@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_258" itemID="6ae70000-000001ba" lastModified="1631891428" symbolType="graphic">
+     <timeline>
+          <DOMTimeline name="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_258" currentFrame="0">
+               <layers>
+                    <DOMLayer name="Layer 1">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#00ffff" />
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="1" fillStyle1="0" strokeStyle="0" edges="! 11 -3079| -267 -3079| -267 -3159| -3497 -3159| -3497 -3069| -3827 -3069| -3970 -2926| -3970 -1478| -3782 -1358| -3888 -1277| -2855 -1277| -2855 -15| 11 -15| 11 -3079" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

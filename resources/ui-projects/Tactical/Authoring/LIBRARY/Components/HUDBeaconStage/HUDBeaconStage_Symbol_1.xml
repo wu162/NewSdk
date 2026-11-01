@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDBeaconStage/HUDBeaconStage_Symbol_1" itemID="6ae70000-00000033" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDBeaconStage/HUDBeaconStage_Symbol_1">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#9b42ce" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="1" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

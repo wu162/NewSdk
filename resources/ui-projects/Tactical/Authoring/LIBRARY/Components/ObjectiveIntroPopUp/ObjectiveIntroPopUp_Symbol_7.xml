@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/ObjectiveIntroPopUp/ObjectiveIntroPopUp_Symbol_7" itemID="6ae70000-0000021f" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/ObjectiveIntroPopUp/ObjectiveIntroPopUp_Symbol_7">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#9fe08c">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="_primary" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728" name="_bonus" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#aecb44">
+                         <frames>
+                              <DOMFrame index="0" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalObjectiveIntroPopUp/top/top_frame_0010_stop_label_primary_occurrence_02.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="19" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalObjectiveIntroPopUp/top/top_frame_0020_stop_label_bonus_occurrence_02.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#943ee8" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/ObjectiveIntroPopUp/ObjectiveIntroPopUp_Bitmap_3.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="25.0" ty="0.0" a="0.0" d="0.0" b="20.0" c="-20.0" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! 500 0| 500 60| 0 60| 0 0| 500 0" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/ObjectiveIntroPopUp/ObjectiveIntroPopUp_Bitmap_5.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="25.0" ty="0.0" a="0.0" d="0.0" b="20.0" c="-20.0" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! 500 0| 500 60| 0 60| 0 0| 500 0" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

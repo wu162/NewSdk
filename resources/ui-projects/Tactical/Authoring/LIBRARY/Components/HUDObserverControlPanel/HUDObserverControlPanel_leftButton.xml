@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDObserverControlPanel/HUDObserverControlPanel_leftButton" itemID="6ae70000-0000011c" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDObserverControlPanel/HUDObserverControlPanel_leftButton">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#f76fb9">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="_disabled" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728" name="_up" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="11" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" keyMode="9728" name="_over" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="21" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="30" keyMode="9728" name="_down" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#f55d7c">
+                         <frames>
+                              <DOMFrame index="0" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObserverControlPanel/leftButton/leftButton_frame_0010_stop_label_disabled.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="19" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObserverControlPanel/leftButton/leftButton_frame_0020_stop_label_up.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="29" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObserverControlPanel/leftButton/leftButton_frame_0030_stop_label_over.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="30" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="39" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObserverControlPanel/leftButton/leftButton_frame_0040_stop_label_down.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#f21cc9">
+                         <frames>
+                              <DOMFrame index="0" duration="10" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="30" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObserverControlPanel/HUDObserverControlPanel_Symbol_20" symbolType="button">
+                                             <matrix>
+                                                  <Matrix tx="14.4" ty="18.85" a="-0.7234039306640625" d="-0.8721771240234375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDObserverControlPanel/leftButton/leftButton_frame_0011_press_label_up.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#8ddb43" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObserverControlPanel/HUDObserverControlPanel_Symbol_18" centerPoint3DX="30.25" centerPoint3DY="31.95">
+                                             <matrix>
+                                                  <Matrix tx="18.75" ty="20.45" a="-1.0" d="-1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.3515625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObserverControlPanel/HUDObserverControlPanel_Symbol_18" centerPoint3DX="30.25" centerPoint3DY="31.95">
+                                             <matrix>
+                                                  <Matrix tx="18.75" ty="20.45" a="-1.0" d="-1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="20" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObserverControlPanel/HUDObserverControlPanel_Symbol_23" centerPoint3DX="30.25" centerPoint3DY="31.95">
+                                             <matrix>
+                                                  <Matrix tx="18.75" ty="20.45" a="-1.0" d="-1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="30" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObserverControlPanel/HUDObserverControlPanel_Symbol_26" centerPoint3DX="30.25" centerPoint3DY="31.95">
+                                             <matrix>
+                                                  <Matrix tx="18.75" ty="20.45" a="-1.0" d="-1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

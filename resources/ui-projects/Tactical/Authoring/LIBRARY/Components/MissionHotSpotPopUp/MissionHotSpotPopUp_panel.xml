@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_panel" itemID="6ae70000-00000203" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_panel">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#f21cc9">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Symbol_18" centerPoint3DX="93.5" centerPoint3DY="54.4">
+                                             <matrix>
+                                                  <Matrix tx="3.55" ty="36.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalMissionHotSpotPopUp/panel/panel_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#8ddb43">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Symbol_16" centerPoint3DX="15.75" centerPoint3DY="94.25">
+                                             <matrix>
+                                                  <Matrix tx="-80.05" ty="54.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalMissionHotSpotPopUp/panel/panel_frame_0001_load_occurrence_02.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#fbb7bb">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Symbol_13" centerPoint3DX="13.0" centerPoint3DY="168.2">
+                                             <matrix>
+                                                  <Matrix tx="-37.0" ty="158.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#8b32f1" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Bitmap_1.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="-103.9" ty="0.0" a="20.0" d="20.0" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! 2082 3680| -2078 3680| -2078 0| 2082 0| 2082 3680" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

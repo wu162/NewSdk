@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDBeaconStage/HUDBeaconStage_selectionEffect" itemID="6ae70000-00000043" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDBeaconStage/HUDBeaconStage_selectionEffect">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#f6d022">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="_stop" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728" name="_play" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#f89698">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDBeaconStage/selectionEffect/selectionEffect_frame_0001_stop_label_stop.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="13" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="14" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDBeaconStage/selectionEffect/selectionEffect_frame_0015_gotoAndStop_label_play.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#917d73" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="5" index="1" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBeaconStage/HUDBeaconStage_Symbol_30" centerPoint3DX="0.0" centerPoint3DY="-29.0">
+                                             <matrix>
+                                                  <Matrix tx="-22.0" ty="-62.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" redOffset="150" greenOffset="150" blueOffset="150" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="8" index="6" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBeaconStage/HUDBeaconStage_Symbol_30" centerPoint3DX="0.0" centerPoint3DY="-29.0">
+                                             <matrix>
+                                                  <Matrix tx="-22.0" ty="-62.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redOffset="150" greenOffset="150" blueOffset="150" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="14" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBeaconStage/HUDBeaconStage_Symbol_30" centerPoint3DX="0.0" centerPoint3DY="-29.0">
+                                             <matrix>
+                                                  <Matrix tx="-22.0" ty="-62.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" redOffset="150" greenOffset="150" blueOffset="150" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

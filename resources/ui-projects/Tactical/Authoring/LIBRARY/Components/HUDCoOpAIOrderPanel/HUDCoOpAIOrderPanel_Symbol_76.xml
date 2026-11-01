@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_Symbol_76" itemID="6ae70000-00000089" lastModified="1631891428" symbolType="graphic">
+     <timeline>
+          <DOMTimeline name="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_Symbol_76" currentFrame="0">
+               <layers>
+                    <DOMLayer name="Layer 1">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#00ffff" />
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 3073 140[ 3060 730 3060 1320| 3060 2020| 3040 2020| 3020 2020[ 3020 2040 3010 2047[ 2986 2066 2976 2099[ 2964 2144 2900 2140| 2900 2160| 2400 2160| 1220 2160[ 1234 2214 1207 2230[ 1148 2268 1060 2280| 1059 2290| 780 2300| 775 2317[ 759 2339 720 2340| 720 2360| 700 2360| 660 2360[ 410 2360 160 2370[ 55 2375 0 2340| 0 2320| 0 2300| 0 2280| 0 2260| 0 2240| 0 2220| 0 2200| 0 2180| 0 2160| 0 2140| 0 2120| 0 2060| 0 2040| 0 2020| 0 2000| 0 1980| 0 1900| 0 1880| 0 1860| 0 1460| 0 1440| 0 1420| 0 1400| 0 1380| 0 1040| 0 1020| 0 360| 0 340| 0 20| 0 0| 280 0| 300 0| 1380 0| 1400 0| 1420 0| 1440 0| 2320 0| 2340 0| 2880 0| 2900 0| 2920 0| 2940 0| 2960 0| 2980 0| 3000 0| 3020 0| 3040 0[ 3075 45 3073 140" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

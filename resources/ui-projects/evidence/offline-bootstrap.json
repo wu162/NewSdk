@@ -1,0 +1,49 @@
+{
+  "freshOfflineSourceImport": true,
+  "downloadedFiles": false,
+  "sourceImmutable": true,
+  "total": 4,
+  "passed": 4,
+  "movies": [
+    {
+      "movie": "TacticalHUD",
+      "sameFourStreams": true,
+      "streams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDMainCommandBar",
+      "sameFourStreams": true,
+      "streams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDBuildQueuePage",
+      "sameFourStreams": true,
+      "streams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDRadar",
+      "sameFourStreams": true,
+      "streams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    }
+  ]
+}

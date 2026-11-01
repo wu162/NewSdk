@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_TacticalHUDMainCommandBar" itemID="6ae70000-0000011f"><timeline><DOMTimeline name="Roots/Root_TacticalHUDMainCommandBar">
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_TacticalHUDMainCommandBar" itemID="6ae70000-0000058e"><timeline><DOMTimeline name="Roots/Root_TacticalHUDMainCommandBar">
                <layers>
                     <DOMLayer name="Script Layer" color="#fc2074">
                          <frames>
@@ -15,7 +15,7 @@
                          <frames>
                               <DOMFrame index="0" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_118" name="tabs" centerPoint3DX="110.0" centerPoint3DY="115.5">
+                                        <DOMSymbolInstance libraryItemName="Components/HUDMainCommandBar/HUDMainCommandBar_tabs" name="tabs" centerPoint3DX="110.0" centerPoint3DY="115.5">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="0.0" />
                                              </matrix>
@@ -50,7 +50,7 @@
                          <frames>
                               <DOMFrame index="0" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_2" name="sel" centerPoint3DX="0.95" centerPoint3DY="35.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUDMainCommandBar/HUDMainCommandBar_Symbol_2" name="sel" centerPoint3DX="0.95" centerPoint3DY="35.0">
                                              <matrix>
                                                   <Matrix tx="-4.05" ty="30.0" />
                                              </matrix>
@@ -69,7 +69,7 @@
                          <frames>
                               <DOMFrame index="0" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_2" name="mainStructure" centerPoint3DX="28.95" centerPoint3DY="35.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUDMainCommandBar/HUDMainCommandBar_Symbol_2" name="mainStructure" centerPoint3DX="28.95" centerPoint3DY="35.0">
                                              <matrix>
                                                   <Matrix tx="23.95" ty="30.0" />
                                              </matrix>
@@ -88,7 +88,7 @@
                          <frames>
                               <DOMFrame index="0" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_2" name="otherStructure" centerPoint3DX="28.95" centerPoint3DY="35.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUDMainCommandBar/HUDMainCommandBar_Symbol_2" name="otherStructure" centerPoint3DX="28.95" centerPoint3DY="35.0">
                                              <matrix>
                                                   <Matrix tx="23.95" ty="30.0" />
                                              </matrix>
@@ -107,7 +107,7 @@
                          <frames>
                               <DOMFrame index="0" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_2" name="infantry" centerPoint3DX="28.95" centerPoint3DY="35.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUDMainCommandBar/HUDMainCommandBar_Symbol_2" name="infantry" centerPoint3DX="28.95" centerPoint3DY="35.0">
                                              <matrix>
                                                   <Matrix tx="23.95" ty="30.0" />
                                              </matrix>
@@ -126,7 +126,7 @@
                          <frames>
                               <DOMFrame index="0" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_2" name="vehicles" centerPoint3DX="28.95" centerPoint3DY="35.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUDMainCommandBar/HUDMainCommandBar_Symbol_2" name="vehicles" centerPoint3DX="28.95" centerPoint3DY="35.0">
                                              <matrix>
                                                   <Matrix tx="23.95" ty="30.0" />
                                              </matrix>
@@ -145,7 +145,7 @@
                          <frames>
                               <DOMFrame index="0" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_2" name="aircraft" centerPoint3DX="28.95" centerPoint3DY="35.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUDMainCommandBar/HUDMainCommandBar_Symbol_2" name="aircraft" centerPoint3DX="28.95" centerPoint3DY="35.0">
                                              <matrix>
                                                   <Matrix tx="23.95" ty="30.0" />
                                              </matrix>
@@ -164,7 +164,7 @@
                          <frames>
                               <DOMFrame index="0" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_Symbol_2" name="navy" centerPoint3DX="28.95" centerPoint3DY="35.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUDMainCommandBar/HUDMainCommandBar_Symbol_2" name="navy" centerPoint3DX="28.95" centerPoint3DY="35.0">
                                              <matrix>
                                                   <Matrix tx="23.95" ty="30.0" />
                                              </matrix>

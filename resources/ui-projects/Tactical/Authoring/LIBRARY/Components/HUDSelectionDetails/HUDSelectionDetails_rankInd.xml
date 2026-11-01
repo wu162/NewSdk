@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDSelectionDetails/HUDSelectionDetails_rankInd" itemID="6ae70000-000001d5" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDSelectionDetails/HUDSelectionDetails_rankInd">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#e9ebf4">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="_1" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728" name="_2" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="11" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" keyMode="9728" name="_3" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="21" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="30" keyMode="9728" name="_4" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#f49ec7">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDSelectionDetails/rankInd/rankInd_frame_0001_define_SetFaction_label_1.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="8" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDSelectionDetails/rankInd/rankInd_frame_0010_stop_label_1.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="19" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDSelectionDetails/rankInd/rankInd_frame_0020_stop_label_2.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="29" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDSelectionDetails/rankInd/rankInd_frame_0030_stop_label_3.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="30" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="39" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDSelectionDetails/rankInd/rankInd_frame_0040_stop_label_4.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#d4c212" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_300" centerPoint3DX="8.5" centerPoint3DY="3.05">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="-4.95" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_image" name="image" centerPoint3DX="6.5" centerPoint3DY="13.5">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="9.0" a="1.0" d="-1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDSelectionDetails/image/image_frame_0011_load_label_2.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="20" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_image_part_2" name="image" centerPoint3DX="6.5" centerPoint3DY="18.35">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="11.4" a="1.0" d="-1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDSelectionDetails/image/image_frame_0021_load_label_3.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="30" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_image_part_3" name="image" centerPoint3DX="6.45" centerPoint3DY="4.0">
+                                             <matrix>
+                                                  <Matrix tx="-2.05" ty="-4.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDSelectionDetails/image/image_frame_0031_load_label_4.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

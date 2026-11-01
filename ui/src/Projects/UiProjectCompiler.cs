@@ -53,6 +53,8 @@ namespace BinaryAssetBuilder.UiCompiler.Projects
             foreach (var movie in project.Movies)
             {
                 if (movie == null || string.IsNullOrWhiteSpace(movie.Name) || !names.Add(movie.Name)) throw new InvalidDataException("Project movie names must be unique and nonempty.");
+                if (movie.Name == "." || movie.Name == ".." || movie.Name.IndexOfAny(new[] { '/', '\\', ':', '\0' }) >= 0)
+                    throw new InvalidDataException("Project movie name must be a portable filename basename.");
                 SageHash.Symbol(movie.Name);
                 if (string.IsNullOrWhiteSpace(movie.SourceName) || movie.SourceName.IndexOfAny(new[] { '/', '\\', '\0' }) >= 0) throw new InvalidDataException("Project SourceName must preserve a movie source basename.");
                 if (string.IsNullOrWhiteSpace(movie.EntrySymbol)) throw new InvalidDataException("Project movie needs an EntrySymbol.");

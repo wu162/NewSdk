@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_quantityText" itemID="6ae70000-00000287" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_quantityText">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#83c998" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMDynamicText fontRenderingMode="device" width="51.55" height="20.1" isSelectable="false" variableName="text">
+                                             <matrix>
+                                                  <Matrix tx="2.05" ty="2.0" a="0.9990997314453125" d="1.0" />
+                                             </matrix>
+                                             <textRuns>
+                                                  <DOMTextRun>
+                                                       <characters>999</characters>
+                                                       <textAttrs>
+                                                            <DOMTextAttrs alignment="center" rotation="true" indent="0.0" leftMargin="0.0" lineSpacing="0.0" rightMargin="0.0" autoKern="false" size="0.0" bitmapSize="0" face="Arial" fillColor="#ffffff" alpha="1.0" />
+                                                       </textAttrs>
+                                                  </DOMTextRun>
+                                             </textRuns>
+                                        </DOMDynamicText>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

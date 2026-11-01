@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/VerticalScrollBar/VerticalScrollBar_Symbol_168" itemID="6ae70000-00000351" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/VerticalScrollBar/VerticalScrollBar_Symbol_168">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#7ed976">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/VerticalScrollBar/VerticalScrollBar/VerticalScrollBar_frame_0001_set_visible.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#bb73b8" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/VerticalScrollBar/VerticalScrollBar_Symbol_161" symbolType="graphic" loop="loop">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.6399993896484375" d="0.6399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

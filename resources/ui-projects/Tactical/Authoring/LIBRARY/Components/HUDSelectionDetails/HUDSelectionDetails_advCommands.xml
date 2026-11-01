@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDSelectionDetails/HUDSelectionDetails_advCommands" itemID="6ae70000-000001b9" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDSelectionDetails/HUDSelectionDetails_advCommands">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#7bb8cd">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="_closed" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728" name="_open" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="2" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="11" keyMode="9728" name="_close" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#fb4f9a">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDSelectionDetails/advCommands/advCommands_frame_0001_define_OnOpenButtonClicked_label_closed.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDSelectionDetails/advCommands/advCommands_frame_0002_OnRollOutOpenButton_label_open.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="2" duration="8" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDSelectionDetails/advCommands/advCommands_frame_0011_fscommand_label_open.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="11" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDSelectionDetails/advCommands/advCommands_frame_0021_OnRollOutOpenButton_label_close.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#97d768">
+                         <frames>
+                              <DOMFrame index="0" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_WhiteRectangle" name="highlightDummy" centerPoint3DX="74.45" centerPoint3DY="56.0">
+                                             <matrix>
+                                                  <Matrix tx="24.45" ty="6.0" a="0.2300567626953125" d="0.5099945068359375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="8" index="2" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_WhiteRectangle" name="highlightDummy" centerPoint3DX="56.65" centerPoint3DY="56.0">
+                                             <matrix>
+                                                  <Matrix tx="6.65" ty="6.0" a="0.2300567626953125" d="0.5099945068359375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="10" index="10" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_WhiteRectangle" name="highlightDummy" centerPoint3DX="-85.75" centerPoint3DY="56.0">
+                                             <matrix>
+                                                  <Matrix tx="-135.75" ty="6.0" a="0.2300567626953125" d="0.5099945068359375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="20" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_WhiteRectangle" name="highlightDummy" centerPoint3DX="74.45" centerPoint3DY="56.0">
+                                             <matrix>
+                                                  <Matrix tx="24.45" ty="6.0" a="0.2300567626953125" d="0.5099945068359375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#74f82d">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_openAdvancedCommandsButton" name="openAdvancedCommandsButton" centerPoint3DX="39.95" centerPoint3DY="35.5">
+                                             <matrix>
+                                                  <Matrix tx="24.45" ty="6.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="9" index="1" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_openAdvancedCommandsButton_part_2" name="openAdvancedCommandsButton" centerPoint3DX="39.95" centerPoint3DY="35.5">
+                                             <matrix>
+                                                  <Matrix tx="24.45" ty="6.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="9" index="10" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_openAdvancedCommandsButton_part_2" name="openAdvancedCommandsButton" centerPoint3DX="-120.25" centerPoint3DY="35.5">
+                                             <matrix>
+                                                  <Matrix tx="-135.75" ty="6.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="19" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_openAdvancedCommandsButton_part_2" name="openAdvancedCommandsButton" centerPoint3DX="23.95" centerPoint3DY="35.5">
+                                             <matrix>
+                                                  <Matrix tx="8.45" ty="6.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="20" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_openAdvancedCommandsButton" name="openAdvancedCommandsButton" centerPoint3DX="39.95" centerPoint3DY="35.5">
+                                             <matrix>
+                                                  <Matrix tx="24.45" ty="6.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#4fb28f" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_panel" name="panel" centerPoint3DX="125.0" centerPoint3DY="35.5">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="8" index="2" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_panel" name="panel" centerPoint3DX="107.2" centerPoint3DY="35.5">
+                                             <matrix>
+                                                  <Matrix tx="-17.8" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="10" index="10" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_panel" name="panel" centerPoint3DX="-35.0" centerPoint3DY="35.5">
+                                             <matrix>
+                                                  <Matrix tx="-160.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="20" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_panel" name="panel" centerPoint3DX="125.0" centerPoint3DY="35.5">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

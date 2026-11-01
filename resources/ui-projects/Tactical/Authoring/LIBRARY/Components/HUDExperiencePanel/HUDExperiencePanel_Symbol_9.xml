@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDExperiencePanel/HUDExperiencePanel_Symbol_9" itemID="6ae70000-000000c0" lastModified="1631891428" symbolType="graphic">
+     <timeline>
+          <DOMTimeline name="Components/HUDExperiencePanel/HUDExperiencePanel_Symbol_9" currentFrame="0">
+               <layers>
+                    <DOMLayer name="Layer 1">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#00ffff" />
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 4395 -1064| 4395 0| 7 0| 7 -1839| 635 -1839| 807 -1697| 1084 -1697| 1570 -1241| 2161 -1240| 2235 -1315| 3371 -1308| 3375 -1312| 3491 -1196| 4275 -1196| 4395 -1064" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

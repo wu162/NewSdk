@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HelpBox/HelpBox_text_part_4" itemID="6ae70000-000002d4" lastModified="1631891425">
+     <timeline>
+          <DOMTimeline name="Components/HelpBox/HelpBox_text_part_4">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#33b0a8" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMDynamicText fontRenderingMode="device" name="field" width="196.05" height="13.7" isSelectable="false" lineType="multiline" variableName="text">
+                                             <matrix>
+                                                  <Matrix tx="2.0" ty="2.0" a="0.9998321533203125" d="1.0" />
+                                             </matrix>
+                                             <textRuns>
+                                                  <DOMTextRun>
+                                                       <characters>Description</characters>
+                                                       <textAttrs>
+                                                            <DOMTextAttrs alignment="left" rotation="true" indent="0.0" leftMargin="0.0" lineSpacing="0.0" rightMargin="0.0" autoKern="false" size="0.0" bitmapSize="0" face="Lucida Sans" fillColor="#ffffff" alpha="1.0" />
+                                                       </textAttrs>
+                                                  </DOMTextRun>
+                                             </textRuns>
+                                        </DOMDynamicText>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

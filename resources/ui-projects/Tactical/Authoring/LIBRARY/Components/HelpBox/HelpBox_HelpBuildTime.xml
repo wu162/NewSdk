@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HelpBox/HelpBox_HelpBuildTime" itemID="6ae70000-000002e6" lastModified="1631891425">
+     <timeline>
+          <DOMTimeline name="Components/HelpBox/HelpBox_HelpBuildTime">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#76c3af">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/HelpBox/HelpBuildTime/HelpBuildTime_frame_0001_define_SetAdjusted.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#e0368c">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HelpBox/HelpBox_Symbol_80" centerPoint3DX="11.0" centerPoint3DY="11.0">
+                                             <matrix>
+                                                  <Matrix tx="2.5" ty="2.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.3984375" greenMultiplier="0.3984375" blueMultiplier="0.3984375" redOffset="61" greenOffset="122" blueOffset="153" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#65ecd5">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HelpBox/HelpBox_textClip_part_3" name="textClip" centerPoint3DX="45.0" centerPoint3DY="10.85">
+                                             <matrix>
+                                                  <Matrix tx="23.0" ty="2.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#e5953f" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_BlackRectangle" name="background" centerPoint3DX="50.0" centerPoint3DY="50.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.8500213623046875" d="0.220001220703125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.3515625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

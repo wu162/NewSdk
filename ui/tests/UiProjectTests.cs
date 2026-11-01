@@ -61,8 +61,21 @@ internal static class UiProjectTests
             var badLinkage = Movie(); badLinkage.Linkages[0].ItemName = "unselected";
             Reject(() => new FlaCompiler(Document(true), new SourceProject(root, badLinkage.Sources), master, badLinkage),
                 "project rejects a linkage outside the selected movie dependency scope");
-            Reject(() => new SourceProject(root, new[] { "../outside.as" }), "project rejects AS paths outside its source root");
+            bool outsideRejected = false;
+            try { new SourceProject(root, new[] { "../outside.as" }); }
+            catch (InvalidDataException error) { outsideRejected = error.Message.Contains("outside the source root"); }
+            check(outsideRejected, "project rejects AS paths outside its source root before checking file existence");
             Reject(() => new SourceProject(root, new[] { "missing.as" }), "project rejects missing declared AS dependencies");
+            foreach (string badName in new[] { ".", "..", "../outside", "folder\\outside", "C:outside", "bad\0name" })
+            {
+                var unsafeMovie = Movie(); unsafeMovie.Name = badName;
+                var unsafeProject = new UiProjectDefinition { MasterFile = master, SourceRoot = root, Movies = new() { unsafeMovie } };
+                bool rejectedAsName = false;
+                try { new UiProjectCompiler().Compile(unsafeProject, badName); }
+                catch (InvalidDataException error)
+                { rejectedAsName = error.Message.Contains("portable filename basename"); }
+                check(rejectedAsName, "project rejects output-path movie names before reading publish dependencies: " + badName.Replace("\0", "NUL"));
+            }
             File.WriteAllText(Path.Combine(root, "hidden.as"), "trace(1);");
             var hidden = Document(true);
             hidden.Pages[hidden.Scenes.First().Text("streamName")].getChildren()[0].getChildren()[0].Record("actions")

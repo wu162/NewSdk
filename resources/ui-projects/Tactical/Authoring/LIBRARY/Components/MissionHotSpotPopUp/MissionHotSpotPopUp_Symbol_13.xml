@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Symbol_13" itemID="6ae70000-00000200" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Symbol_13">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#eedfad">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="_up" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728" name="_over" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="6" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728" name="_down" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#7f42fb">
+                         <frames>
+                              <DOMFrame index="0" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0005_stop_label_up.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="5" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0010_stop_label_over.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="14" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0015_stop_label_down.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#1cafd9">
+                         <frames>
+                              <DOMFrame index="0" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Symbol_9" centerPoint3DX="44.7" centerPoint3DY="9.35">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="-0.05" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0001_load_label_up.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Symbol_9" centerPoint3DX="44.7" centerPoint3DY="9.55">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.15" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0011_load_label_down.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#b16aad">
+                         <frames>
+                              <DOMFrame index="0" duration="5" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="5" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Symbol_10" centerPoint3DX="49.95" centerPoint3DY="10.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.19921875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#d4a0a9">
+                         <frames>
+                              <DOMFrame index="0" duration="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Symbol_6" symbolType="graphic" loop="loop">
+                                             <matrix>
+                                                  <Matrix tx="0.05" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" duration="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Symbol_6" symbolType="graphic" loop="loop">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Symbol_12" symbolType="graphic" loop="loop">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6" color="#bdd3f1" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="15" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Symbol_4" symbolType="button">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.19921875" />
+                                             </color>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0001_press_label_up.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

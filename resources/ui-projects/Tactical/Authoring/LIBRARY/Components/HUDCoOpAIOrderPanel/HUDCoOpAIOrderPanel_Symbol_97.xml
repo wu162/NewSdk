@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_Symbol_97" itemID="6ae70000-00000095" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_Symbol_97">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#33b0a8" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" alpha="0.0" />
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 1980 0| 1980 1980| 0 1980| 0 0| 1980 0" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

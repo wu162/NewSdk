@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using BinaryAssetBuilder.Core;
 using BinaryAssetBuilder.UiCompiler;
 using BinaryAssetBuilder.UiCompiler.Projects;
+using UiProjectTools;
 
 if (args.Length < 3)
 {
@@ -14,6 +15,7 @@ if (args.Length < 3)
     return 2;
 }
 string manifest = Path.GetFullPath(args[0]), oldRoot = Path.GetFullPath(args[1]), outputRoot = Path.GetFullPath(args[2]);
+OutputPaths.EnsureWritableOutput(outputRoot, Path.GetDirectoryName(manifest));
 bool mutations = args.Contains("--mutations");
 string? flacomdoc = null;
 for (int i = 3; i < args.Length; i++)
@@ -55,8 +57,8 @@ foreach (var movie in project.Movies)
                 kv => FirstDifference(kv.Value, Parts(current)[kv.Key]));
             row["assetDifferences"] = AssetDifferences(old, current);
         }
-        current.WriteTo(Path.Combine(outputRoot, "baseline", movie.Name));
-        old.WriteTo(Path.Combine(outputRoot, "old", movie.Name));
+        WriteStreams(current, Path.Combine(outputRoot, "baseline"), movie.Name);
+        WriteStreams(old, Path.Combine(outputRoot, "old"), movie.Name);
         ok &= same;
     }
     catch (Exception error)
@@ -65,6 +67,16 @@ foreach (var movie in project.Movies)
     }
     comparisons.Add(row);
     Console.WriteLine(JsonSerializer.Serialize(row, json));
+}
+var batchedComparisons = new Dictionary<string, bool>(StringComparer.Ordinal);
+if (ok)
+{
+    var batched = compiler.CompileAllStreams(project);
+    foreach (var movie in project.Movies)
+    {
+        bool same = Compare(baseline[movie.Name], batched[movie.Name]).Values.All(value => value);
+        batchedComparisons.Add(movie.Name, same); ok &= same;
+    }
 }
 var mutationResults = new List<object>();
 if (mutations && ok)
@@ -103,15 +115,16 @@ if (mutations && ok)
         else code += "\n" + statement + "\n";
         File.WriteAllText(file, code, new UTF8Encoding(false));
         var outcomes = new List<object>(); bool passed = true;
+        var compiled = compiler.CompileAllStreams(staged);
         foreach (var movie in staged.Movies)
         {
-            var changed = compiler.CompileStreams(staged, movie.Name);
+            var changed = compiled[movie.Name];
             bool expected = expectedUsers.Contains(movie.Name), different = !baseline[movie.Name].Binary.SequenceEqual(changed.Binary);
             bool markerPresent = changed.Binary.AsSpan().IndexOf(Encoding.UTF8.GetBytes(marker)) >= 0;
             bool dependency = changed.InputFiles.Contains(Path.GetFullPath(file), StringComparer.OrdinalIgnoreCase);
             passed &= different == expected && markerPresent == expected && dependency == expected;
             outcomes.Add(new { movie = movie.Name, expected, binaryChanged = different, markerPresent, sourceDependencyRecorded = dependency, streams = Describe(changed) });
-            changed.WriteTo(Path.Combine(outputRoot, mode, "streams", movie.Name));
+            WriteStreams(changed, Path.Combine(outputRoot, mode, "streams"), movie.Name);
         }
         bool masterUnchanged = Hash(File.ReadAllBytes(project.MasterFile)) == Hash(File.ReadAllBytes(staged.MasterFile));
         passed &= masterUnchanged; ok &= passed;
@@ -154,25 +167,34 @@ if (mutations && ok)
         string[] expectedUsers = staged.Movies.Where(m => m.LibraryOrder.Contains(itemName)).Select(m => m.Name).ToArray();
         if (expectedUsers.Length < 2) throw new InvalidDataException("Shared graphic must have multiple users.");
         var outcomes = new List<object>(); bool passed = true;
+        var compiled = compiler.CompileAllStreams(staged);
         foreach (var movie in staged.Movies)
         {
-            var changed = compiler.CompileStreams(staged, movie.Name);
+            var changed = compiled[movie.Name];
             bool expected = expectedUsers.Contains(movie.Name), different = !baseline[movie.Name].Binary.SequenceEqual(changed.Binary);
             passed &= different == expected;
             outcomes.Add(new { movie = movie.Name, expected, binaryChanged = different, streams = Describe(changed) });
-            changed.WriteTo(Path.Combine(outputRoot, "shared-shape", "streams", movie.Name));
+            WriteStreams(changed, Path.Combine(outputRoot, "shared-shape", "streams"), movie.Name);
         }
         ok &= passed;
         return new { mode = "shared-shape", graphicRoot, changedItem = itemName, originalColor = rgb.ToString("x6"), replacementColor = replacement.ToString("x6"), expectedUsers, passed, outcomes };
     }
 }
 var report = new { project = manifest, masterFlaSha256 = Hash(File.ReadAllBytes(project.MasterFile)), compilerAssemblySha256 = Hash(File.ReadAllBytes(typeof(Plugin).Assembly.Location)),
-    comparisons, mutations = mutationResults, passed = ok };
+    comparisons, batchedComparisons, mutations = mutationResults, passed = ok };
 File.WriteAllText(Path.Combine(outputRoot, "report.json"), JsonSerializer.Serialize(report, json));
 Console.WriteLine(JsonSerializer.Serialize(new { movies = comparisons.Count, mutations = mutationResults.Count, passed = ok }));
 return ok ? 0 : 1;
 
 static Dictionary<string, byte[]> Parts(ModStreams value) => new() { ["manifest"] = value.Manifest, ["bin"] = value.Binary, ["relo"] = value.Relocations, ["imp"] = value.Imports };
+static void WriteStreams(ModStreams streams, string directory, string movie)
+{
+    if (string.IsNullOrWhiteSpace(movie) || movie == "." || movie == ".." || movie.IndexOfAny(new[] { '/', '\\', ':', '\0' }) >= 0)
+        throw new InvalidDataException("A validation movie name must be an output basename.");
+    string target = Path.Combine(directory, movie);
+    OutputPaths.EnsureWritableOutput(target);
+    streams.WriteTo(target);
+}
 static bool Inside(string path, string root)
 {
     var comparison = OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;

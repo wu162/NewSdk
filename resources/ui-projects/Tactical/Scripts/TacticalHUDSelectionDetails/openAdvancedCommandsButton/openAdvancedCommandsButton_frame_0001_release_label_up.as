@@ -1,0 +1,19 @@
+on(release){
+   _parent.OnOpenButtonClicked();
+}
+on(rollOver){
+   _parent.OnRollOverOpenButton();
+   if(_parent._parent.openAdvancedCommandsButtonEnabled)
+   {
+      gotoAndStop("_over");
+      play();
+   }
+}
+on(rollOut){
+   _parent.OnRollOutOpenButton();
+   if(_parent._parent.openAdvancedCommandsButtonEnabled)
+   {
+      gotoAndStop("_up");
+      play();
+   }
+}

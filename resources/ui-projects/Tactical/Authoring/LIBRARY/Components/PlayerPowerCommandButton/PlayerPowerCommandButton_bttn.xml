@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_bttn" itemID="6ae70000-00000289" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_bttn">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#09bdc1">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="_disabled" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="8" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728" name="_up" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="19" keyMode="9728" name="_over" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="29" keyMode="9728" name="_down" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="30" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="39" keyMode="9728" name="_release" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#7cfb1f">
+                         <frames>
+                              <DOMFrame index="0" duration="8" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="8" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalPlayerPowerCommandButton/bttn/bttn_frame_0009_stop_label_disabled.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="9" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="18" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalPlayerPowerCommandButton/bttn/bttn_frame_0019_stop_label_up.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="19" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="28" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalPlayerPowerCommandButton/bttn/bttn_frame_0029_stop_label_over.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="29" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="38" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalPlayerPowerCommandButton/bttn/bttn_frame_0039_stop_label_down.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="39" duration="10" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="49" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalPlayerPowerCommandButton/bttn/bttn_frame_0050_gotoAndStop_label_release.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#f161d9">
+                         <frames>
+                              <DOMFrame index="0" duration="50" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_Symbol_108" centerPoint3DX="31.0" centerPoint3DY="31.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#f6f39d">
+                         <frames>
+                              <DOMFrame index="0" duration="50" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_quantityText" name="quantityText" centerPoint3DX="31.05" centerPoint3DY="46.05">
+                                             <matrix>
+                                                  <Matrix tx="3.3" ty="34.0" a="1.0001220703125" d="0.99981689453125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerPowerCommandButton/quantityText/quantityText_frame_0001_load_label_disabled.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#8b32f1">
+                         <frames>
+                              <DOMFrame index="0" duration="50" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_RollOverTop" name="RollOverTop" centerPoint3DX="25.0" centerPoint3DY="25.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6" color="#ab72eb">
+                         <frames>
+                              <DOMFrame index="0" duration="50" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_Symbol_93" name="timerOverlay0" centerPoint3DX="39.0" centerPoint3DY="39.0">
+                                             <matrix>
+                                                  <Matrix tx="7.0" ty="7.0" a="0.78125" d="0.78125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.75" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 7" color="#d428ba">
+                         <frames>
+                              <DOMFrame index="0" duration="9" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_RenderImageDisabled" name="disabledImage" centerPoint3DX="57.0" centerPoint3DY="57.0">
+                                             <matrix>
+                                                  <Matrix tx="7.0" ty="7.0" a="0.5" d="0.5" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.5" />
+                                             </color>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerPowerCommandButton/disabledImage/disabledImage_frame_0001_construct_label_disabled.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="9" duration="41" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_RenderImage" name="image" centerPoint3DX="57.0" centerPoint3DY="57.0">
+                                             <matrix>
+                                                  <Matrix tx="7.0" ty="7.0" a="0.5" d="0.5" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerPowerCommandButton/image/image_frame_0010_construct_label_up.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 8" color="#2ec7bb">
+                         <frames>
+                              <DOMFrame index="0" duration="50" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_Symbol_93" name="timerOverlay1" centerPoint3DX="39.0" centerPoint3DY="39.0">
+                                             <matrix>
+                                                  <Matrix tx="7.0" ty="7.0" a="0.78125" d="0.78125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 9" color="#88f25d">
+                         <frames>
+                              <DOMFrame index="0" duration="50" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_Symbol_4" centerPoint3DX="51.0" centerPoint3DY="51.0">
+                                             <matrix>
+                                                  <Matrix tx="1.0" ty="1.0" a="0.600006103515625" d="0.600006103515625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 10" color="#5976c3" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="50" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_Symbol_2" symbolType="button">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.6200103759765625" d="0.6200103759765625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerPowerCommandButton/bttn/bttn_frame_0001_press_label_disabled.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/QuickChatDialog/QuickChatDialog_panelBorderBottom" itemID="6ae70000-000002a9" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/QuickChatDialog/QuickChatDialog_panelBorderBottom">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#f55d7c">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/QuickChatDialog/QuickChatDialog_Symbol_13" symbolType="graphic" loop="loop">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

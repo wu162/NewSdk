@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_TacticalHUDCoOpAIOrderPanel" itemID="6ae70000-00000589"><timeline><DOMTimeline name="Roots/Root_TacticalHUDCoOpAIOrderPanel">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#88be4a">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="_closed" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728" name="_opening" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="11" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="12" keyMode="9728" name="_open" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="13" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="22" keyMode="9728" name="_closing" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#7ed976">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0001_define_Open_label_closed.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="8" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0010_stop_label_closed.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0011_timelineActions_label_opening.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="11" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="12" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0013_fscommand_label_open.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="13" duration="8" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="21" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0022_stop_label_open.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="22" duration="2" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="24" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0025_fscommand_label_closing.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#bb73b8" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_coopControl" name="coopControl" centerPoint3DX="86.3" centerPoint3DY="70.25">
+                                             <matrix>
+                                                  <Matrix tx="-1.0" ty="1.0" a="1.0" d="1.000244140625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="24" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_coopControl" name="coopControl" centerPoint3DX="86.6" centerPoint3DY="70.0">
+                                             <matrix>
+                                                  <Matrix tx="-0.7" ty="0.75" a="1.0" d="1.000244140625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline></DOMSymbolItem>

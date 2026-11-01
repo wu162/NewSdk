@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/PlayerStatusDialog/PlayerStatusDialog_dialog" itemID="6ae70000-0000029f" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/PlayerStatusDialog/PlayerStatusDialog_dialog">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#5baf8b">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalPlayerStatusDialog/dialog/dialog_frame_0001_define_OnCloseButtonClicked.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#c344f4">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_42" symbolType="graphic" loop="loop">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#b5f5b0">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_40" centerPoint3DX="6.6" centerPoint3DY="115.5">
+                                             <matrix>
+                                                  <Matrix tx="-243.4" ty="99.35" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerStatusDialog/dialog/dialog_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#a4efed">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/PlayerStatusDialog/PlayerStatusDialog_Bitmap_37.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="-304.85" ty="87.55" a="20.0" d="20.0" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! -1897 2031| -6097 2031| -6097 1751| -1897 1751| -1897 2031" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#a3dc7a">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_table" name="table" centerPoint3DX="122.45" centerPoint3DY="313.05">
+                                             <matrix>
+                                                  <Matrix tx="-193.8" ty="163.8" a="0.9999237060546875" d="1.0001678466796875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6" color="#df3790">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_17" centerPoint3DX="-0.9" centerPoint3DY="307.55">
+                                             <matrix>
+                                                  <Matrix tx="-318.45" ty="83.5" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 7" color="#f301a3" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_BlackRectangle" centerPoint3DX="-462.0" centerPoint3DY="-12.4">
+                                             <matrix>
+                                                  <Matrix tx="-512.0" ty="-62.4" a="10.240005493164062" d="7.67999267578125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.5" />
+                                             </color>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerStatusDialog/BlackRectangle/BlackRectangle_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

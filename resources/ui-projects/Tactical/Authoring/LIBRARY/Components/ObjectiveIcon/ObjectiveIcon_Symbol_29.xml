@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/ObjectiveIcon/ObjectiveIcon_Symbol_29" itemID="6ae70000-0000020c" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/ObjectiveIcon/ObjectiveIcon_Symbol_29">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#d3d352" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 335 -1216[ 398 -1154 400 -1065| 400 -694[ 398 -607 335 -545[ 273 -482 186 -480| 158 -480| 0 34| -158 -480| -185 -480[ -274 -482 -336 -545[ -398 -607 -400 -694| -400 -1065[ -398 -1154 -336 -1216[ -274 -1278 -185 -1280| 186 -1280[ 273 -1278 335 -1216" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

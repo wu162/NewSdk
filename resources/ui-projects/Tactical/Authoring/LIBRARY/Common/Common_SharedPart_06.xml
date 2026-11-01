@@ -1,20 +1,28 @@
 <?xml version='1.0' encoding='utf-8'?>
-<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Common/Common_SharedPart_06" itemID="6ae70000-0000002b" lastModified="1631891428">
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Common/Common_SharedPart_06" itemID="6ae70000-0000002f" lastModified="1631891428" symbolType="graphic">
      <timeline>
-          <DOMTimeline name="Common/Common_SharedPart_06">
+          <DOMTimeline name="Common/Common_SharedPart_06" currentFrame="0">
                <layers>
-                    <DOMLayer name="Layer 1" color="#cb88cb" current="true" isSelected="true">
+                    <DOMLayer name="Layer 1">
                          <frames>
-                              <DOMFrame index="0" keyMode="9728">
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Common/Common_SharedPart_05" symbolType="graphic" loop="loop">
-                                             <matrix>
-                                                  <Matrix tx="0.0" ty="0.0" />
-                                             </matrix>
-                                             <transformationPoint>
-                                                  <Point />
-                                             </transformationPoint>
-                                        </DOMSymbolInstance>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#000000" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="2" fillStyle1="1" strokeStyle="0" edges="! 20 20| -20 20| -20 -20| 20 -20| 20 20" />
+                                                  <Edge fillStyle0="1" fillStyle1="2" strokeStyle="0" edges="! 40 40| -40 40| -40 -40| 40 -40| 40 40" />
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 60 60| -60 60| -60 -60| 60 -60| 60 60" />
+                                             </edges>
+                                        </DOMShape>
                                    </elements>
                               </DOMFrame>
                          </frames>

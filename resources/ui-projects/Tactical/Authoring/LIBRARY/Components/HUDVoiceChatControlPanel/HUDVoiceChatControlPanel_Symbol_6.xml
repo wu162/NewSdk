@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDVoiceChatControlPanel/HUDVoiceChatControlPanel_Symbol_6" itemID="6ae70000-00000303" lastModified="1631891425">
+     <timeline>
+          <DOMTimeline name="Components/HUDVoiceChatControlPanel/HUDVoiceChatControlPanel_Symbol_6">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#9fe08c">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDVoiceChatControlPanel/HUDVoiceChatControlPanel_Symbol_5" centerPoint3DX="17.0" centerPoint3DY="18.65">
+                                             <matrix>
+                                                  <Matrix tx="4.5" ty="6.15" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.6015625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#aecb44" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDVoiceChatControlPanel/HUDVoiceChatControlPanel_Symbol_2" symbolType="graphic" loop="loop">
+                                             <matrix>
+                                                  <Matrix tx="-1.65" ty="0.0" a="0.05000000074505806" d="0.05000000074505806" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDRadar/HUDRadar_Symbol_69" itemID="6ae70000-00000158" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDRadar/HUDRadar_Symbol_69">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#fc2074" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <RadialGradient focalPointRatio="0">
+                                                            <matrix>
+                                                                 <Matrix tx="42.75" ty="42.75" a="0.052734375" d="0.052734375" />
+                                                            </matrix>
+                                                            <GradientEntry color="#ffffff" alpha="0.0" ratio="0.0" />
+                                                            <GradientEntry color="#ffffff" alpha="0.0" ratio="0.5176471" />
+                                                            <GradientEntry color="#858585" alpha="1.0" ratio="0.93333334" />
+                                                            <GradientEntry color="#ffffff" alpha="1.0" ratio="1.0" />
+                                                       </RadialGradient>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 1710 855[ 1710 928 1700 997| 876 866| 1702 731[ 1710 791 1710 855" />
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 857 872| 851 876| 852 871| 857 872" />
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 991 10| 861 829[ 858 848 860 868| 863 868| 860 870| 718 10| 855 0| 991 10" />
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 9 728| 821 866| 12 1002[ 0 931 0 855[ 0 790 9 728" />
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 855 1710| 724 1701| 848 895| 985 1701| 855 1710" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

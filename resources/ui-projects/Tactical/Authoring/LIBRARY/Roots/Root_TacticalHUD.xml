@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_TacticalHUD" itemID="6ae70000-0000011e"><timeline><DOMTimeline name="Roots/Root_TacticalHUD">
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_TacticalHUD" itemID="6ae70000-00000586"><timeline><DOMTimeline name="Roots/Root_TacticalHUD">
                <layers>
                     <DOMLayer name="Labels Layer" color="#d6c3f3">
                          <frames>
@@ -70,7 +70,7 @@
                          <frames>
                               <DOMFrame index="0" duration="21" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_52" name="shroud" centerPoint3DX="50.0" centerPoint3DY="50.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_shroud" name="shroud" centerPoint3DX="50.0" centerPoint3DY="50.0">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="0.0" a="13.652999877929688" d="7.67999267578125" />
                                              </matrix>
@@ -86,7 +86,7 @@
                          <frames>
                               <DOMFrame index="0" duration="21" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_51" name="subtitlePanelSurface" centerPoint3DX="639.95" centerPoint3DY="778.6">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_subtitlePanelSurface" name="subtitlePanelSurface" centerPoint3DX="639.95" centerPoint3DY="778.6">
                                              <matrix>
                                                   <Matrix tx="386.9" ty="682.0" />
                                              </matrix>
@@ -102,7 +102,7 @@
                          <frames>
                               <DOMFrame index="0" duration="21" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_47" name="dialogStage" centerPoint3DX="170.7" centerPoint3DY="0.0">
+                                        <DOMSymbolInstance libraryItemName="Common/Common_LoadMovieStage" name="dialogStage" centerPoint3DX="170.7" centerPoint3DY="0.0">
                                              <matrix>
                                                   <Matrix tx="170.7" ty="0.0" />
                                              </matrix>
@@ -118,7 +118,7 @@
                          <frames>
                               <DOMFrame index="0" duration="21" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_48" name="fadeSurface" centerPoint3DX="50.0" centerPoint3DY="50.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_fadeSurface" name="fadeSurface" centerPoint3DX="50.0" centerPoint3DY="50.0">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="0.0" a="13.652938842773438" d="7.67999267578125" />
                                              </matrix>
@@ -134,7 +134,7 @@
                          <frames>
                               <DOMFrame index="0" duration="21" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_47" name="cutSceneStage" centerPoint3DX="170.7" centerPoint3DY="0.0">
+                                        <DOMSymbolInstance libraryItemName="Common/Common_LoadMovieStage" name="cutSceneStage" centerPoint3DX="170.7" centerPoint3DY="0.0">
                                              <matrix>
                                                   <Matrix tx="170.7" ty="0.0" />
                                              </matrix>
@@ -150,7 +150,7 @@
                          <frames>
                               <DOMFrame index="0" duration="21" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_46" name="inputShield" centerPoint3DX="45.0" centerPoint3DY="45.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_InputShield" name="inputShield" centerPoint3DX="45.0" centerPoint3DY="45.0">
                                              <matrix>
                                                   <Matrix tx="-5.0" ty="-5.0" a="13.753189086914062" d="7.7800140380859375" />
                                              </matrix>
@@ -169,7 +169,7 @@
                          <frames>
                               <DOMFrame index="0" duration="21" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_3" name="gadgetFlashStage" centerPoint3DX="0.0" centerPoint3DY="0.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_Dummy" name="gadgetFlashStage" centerPoint3DX="0.0" centerPoint3DY="0.0">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="0.0" />
                                              </matrix>
@@ -185,7 +185,7 @@
                          <frames>
                               <DOMFrame index="0" duration="21" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_45" name="upperSidebarLayer" centerPoint3DX="1233.5" centerPoint3DY="153.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_upperSidebarLayer" name="upperSidebarLayer" centerPoint3DX="1233.5" centerPoint3DY="153.0">
                                              <matrix>
                                                   <Matrix tx="1093.1" ty="0.0" />
                                              </matrix>
@@ -201,7 +201,7 @@
                          <frames>
                               <DOMFrame index="0" duration="21" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_18" name="letterBoxLayer" centerPoint3DX="512.5" centerPoint3DY="384.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_letterBoxLayer" name="letterBoxLayer" centerPoint3DX="512.5" centerPoint3DY="384.0">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="0.0" a="1.333282470703125" d="1.0000152587890625" />
                                              </matrix>
@@ -217,7 +217,7 @@
                          <frames>
                               <DOMFrame index="0" duration="2" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_16" name="main" centerPoint3DX="707.5" centerPoint3DY="409.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_main" name="main" centerPoint3DX="707.5" centerPoint3DY="409.0">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="0.0" />
                                              </matrix>
@@ -232,7 +232,7 @@
                               </DOMFrame>
                               <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="5" index="2" keyMode="22017">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_16" name="main" centerPoint3DX="707.5" centerPoint3DY="409.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_main" name="main" centerPoint3DX="707.5" centerPoint3DY="409.0">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="0.0" />
                                              </matrix>
@@ -247,7 +247,7 @@
                               </DOMFrame>
                               <DOMFrame index="7" duration="8" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_16" name="main" centerPoint3DX="707.5" centerPoint3DY="409.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_main" name="main" centerPoint3DX="707.5" centerPoint3DY="409.0">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="0.0" />
                                              </matrix>
@@ -262,7 +262,7 @@
                               </DOMFrame>
                               <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="5" index="15" keyMode="22017">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_16" name="main" centerPoint3DX="707.5" centerPoint3DY="409.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_main" name="main" centerPoint3DX="707.5" centerPoint3DY="409.0">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="0.0" />
                                              </matrix>
@@ -277,7 +277,7 @@
                               </DOMFrame>
                               <DOMFrame index="20" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_16" name="main" centerPoint3DX="707.5" centerPoint3DY="409.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_main" name="main" centerPoint3DX="707.5" centerPoint3DY="409.0">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="0.0" />
                                              </matrix>
@@ -296,7 +296,7 @@
                          <frames>
                               <DOMFrame index="0" duration="21" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_7" name="watermark" centerPoint3DX="220.5" centerPoint3DY="746.7">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_watermark" name="watermark" centerPoint3DX="220.5" centerPoint3DY="746.7">
                                              <matrix>
                                                   <Matrix tx="130.0" ty="710.7" a="0.7734832763671875" d="0.7736053466796875" />
                                              </matrix>
@@ -347,7 +347,7 @@
                          <frames>
                               <DOMFrame index="0" duration="21" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_3" name="beaconStage" centerPoint3DX="0.0" centerPoint3DY="0.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_Dummy" name="beaconStage" centerPoint3DX="0.0" centerPoint3DY="0.0">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="0.0" />
                                              </matrix>
@@ -363,7 +363,7 @@
                          <frames>
                               <DOMFrame index="0" duration="21" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUD/TacticalHUD_Symbol_3" name="drawableOverlayStage" centerPoint3DX="0.0" centerPoint3DY="0.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_Dummy" name="drawableOverlayStage" centerPoint3DX="0.0" centerPoint3DY="0.0">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="0.0" />
                                              </matrix>

@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../tools/OutputPaths.cs" Link="OutputPaths.cs" />
     <ProjectReference Include="../../../../ui/BinaryAssetBuilder.UiCompiler.csproj" />
     <Reference Include="BinaryAssetBuilder.Core"><HintPath>../../../../SDK/tools/BinaryAssetBuilder.Core.dll</HintPath></Reference>
   </ItemGroup>

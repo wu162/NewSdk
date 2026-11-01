@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_TacticalHUDTelestratorControlPanel" itemID="6ae70000-00000596"><timeline><DOMTimeline name="Roots/Root_TacticalHUDTelestratorControlPanel">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#69c956">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0001_define_SetVisibility.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#75e72d" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_panel" name="panel" centerPoint3DX="110.0" centerPoint3DY="64.7">
+                                             <matrix>
+                                                  <Matrix tx="10.0" ty="-0.4" a="1.0" d="0.998016357421875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline></DOMSymbolItem>

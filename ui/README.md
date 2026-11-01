@@ -31,6 +31,8 @@ NewModCompiler 已内建此插件：Core 在验证阶段调用 `CompileUiFile(de
 
 ## AS 关联规则
 
+集中编辑的多根工程可用 `BinaryAssetBuilder.UiCompiler.Projects.UiProjectCompiler`，由 `UiProjectDefinition` 指定主 FLA、组件根、各自舞台/导出/AS闭包。`CompileAllStreams` 解析一次主文档并生成各组件独立四流，旧 FLA 编译入口保持原行为。实际项目、命令行及验证见 [Tactical 工程](../resources/ui-projects/README.md)。
+
 默认遵循 Flash 8 项目约定：
 
 - 同名 `Main.as` 中的时间轴代码加入 `Main.fla` 第一帧；如果同名 AS 声明的是类，则按类处理。

@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_TacticalHUDObserverControlPanel" itemID="6ae70000-00000590"><timeline><DOMTimeline name="Roots/Root_TacticalHUDObserverControlPanel">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#8e6a94">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel_frame_0001_define_SetVisibility.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#35e4b7" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObserverControlPanel/HUDObserverControlPanel_panel" name="panel" centerPoint3DX="100.0" centerPoint3DY="52.8">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="-1.0" a="1.0005035400390625" d="1.0020294189453125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline></DOMSymbolItem>

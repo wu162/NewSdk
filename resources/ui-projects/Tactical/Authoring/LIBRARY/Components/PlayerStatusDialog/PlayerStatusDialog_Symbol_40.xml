@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_40" itemID="6ae70000-0000029d" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_40">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#ebe61b" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMDynamicText fontRenderingMode="device" width="496.0" height="28.299999999999997" isSelectable="false" variableName="text">
+                                             <matrix>
+                                                  <Matrix tx="2.0" ty="2.0" a="1.0" d="1.001983642578125" />
+                                             </matrix>
+                                             <textRuns>
+                                                  <DOMTextRun>
+                                                       <characters>PLAYER STATUS</characters>
+                                                       <textAttrs>
+                                                            <DOMTextAttrs alignment="center" rotation="true" indent="0.0" leftMargin="0.0" lineSpacing="1.8" rightMargin="0.0" autoKern="false" size="21.65" bitmapSize="433" face="RussellSquare" fillColor="#318bbe" alpha="1.0" />
+                                                       </textAttrs>
+                                                  </DOMTextRun>
+                                             </textRuns>
+                                        </DOMDynamicText>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

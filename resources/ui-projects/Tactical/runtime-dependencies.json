@@ -1,0 +1,275 @@
+{
+  "literalLoads": [
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/TacticalHUD/TacticalHUD_frame_0001_define_Hide.as",
+      "line": 367,
+      "url": "TacticalHUDBeaconStage.swf",
+      "target": "TacticalHUDBeaconStage"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/TacticalHUD/TacticalHUD_frame_0001_define_Hide.as",
+      "line": 368,
+      "url": "ig_DrawableOverlayStage.swf",
+      "target": "ig_DrawableOverlayStage"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/TacticalHUD/TacticalHUD_frame_0001_define_Hide.as",
+      "line": 369,
+      "url": "igm_gadgetFlashStage.swf",
+      "target": "igm_GadgetFlashStage"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/lowerSidebar/lowerSidebar_frame_0001_loadMovie.as",
+      "line": 3,
+      "url": "TacticalHUDSelectionDetails.swf",
+      "target": "TacticalHUDSelectionDetails"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/main/main_frame_0001_loadMovie.as",
+      "line": 3,
+      "url": "HelpBox.swf",
+      "target": "HelpBox"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/main/main_frame_0001_loadMovie.as",
+      "line": 4,
+      "url": "TacticalHUDObjectiveIndicatorStage.swf",
+      "target": "TacticalHUDObjectiveIndicatorStage"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/main/main_frame_0001_loadMovie.as",
+      "line": 5,
+      "url": "TacticalHUDPlayerPowersBar.swf",
+      "target": "TacticalHUDPlayerPowersBar"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/main/main_frame_0001_loadMovie.as",
+      "line": 6,
+      "url": "HUDTickerPanel.swf",
+      "target": "HUDTickerPanel"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/main/main_frame_0001_loadMovie.as",
+      "line": 7,
+      "url": "TacticalHUDSpecialPowerTimers.swf",
+      "target": "TacticalHUDSpecialPowerTimers"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/main/main_frame_0001_loadMovie.as",
+      "line": 8,
+      "url": "igm_replayControlPanel.swf",
+      "target": "igm_replayControlPanel"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/main/main_frame_0001_loadMovie.as",
+      "line": 9,
+      "url": "TacticalHUDTelestratorControlPanel.swf",
+      "target": "TacticalHUDTelestratorControlPanel"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/main/main_frame_0001_loadMovie.as",
+      "line": 10,
+      "url": "TacticalHUDObserverControlPanel.swf",
+      "target": "TacticalHUDObserverControlPanel"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/main/main_frame_0001_loadMovie.as",
+      "line": 11,
+      "url": "HUDVoiceChatControlPanel.swf",
+      "target": "HUDVoiceChatControlPanel"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/main/main_frame_0001_loadMovie.as",
+      "line": 12,
+      "url": "TacticalHUDCoOpAIOrderPanel.swf",
+      "target": "TacticalHUDCoOpAIOrderPanel"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/main/main_frame_0001_loadMovie.as",
+      "line": 13,
+      "url": "TacticalHUDExperiencePanel.swf",
+      "target": "TacticalHUDExperiencePanel"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/upperSidebar/upperSidebar_frame_0001_define_OnContentLoaded.as",
+      "line": 15,
+      "url": "TacticalHUDCommandModeBar.swf",
+      "target": "TacticalHUDCommandModeBar"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/upperSidebar/upperSidebar_frame_0001_define_OnContentLoaded.as",
+      "line": 16,
+      "url": "TacticalHUDEnergyMeter.swf",
+      "target": "TacticalHUDEnergyMeter"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/upperSidebar/upperSidebar_frame_0001_define_OnContentLoaded.as",
+      "line": 17,
+      "url": "TacticalHUDRadar.swf",
+      "target": "TacticalHUDRadar"
+    },
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/upperSidebar/upperSidebar_frame_0001_define_OnContentLoaded.as",
+      "line": 18,
+      "url": "TacticalHUDMainCommandBar.swf",
+      "target": "TacticalHUDMainCommandBar"
+    },
+    {
+      "movie": "TacticalHUDBuildQueuePage",
+      "script": "TacticalHUDBuildQueuePage/scripts/BuildQueuePage/BuildQueuePage_frame_0001_define_GetCommandList.as",
+      "line": 33,
+      "url": "TacticalHUDCommandListBox.swf",
+      "target": "TacticalHUDCommandListBox"
+    },
+    {
+      "movie": "TacticalHUDCommandListBox",
+      "script": "TacticalHUDCommandListBox/scripts/TacticalHUDCommandListBox/TacticalHUDCommandListBox_frame_0001_define_UpdateButtonSlotVisibility.as",
+      "line": 319,
+      "url": "VerticalScrollBar.swf",
+      "target": "VerticalScrollBar"
+    },
+    {
+      "movie": "TacticalHUDMainCommandBar",
+      "script": "TacticalHUDMainCommandBar/scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 218,
+      "url": "TacticalHUDSelectionRefinementPage.swf",
+      "target": "TacticalHUDSelectionRefinementPage"
+    },
+    {
+      "movie": "TacticalHUDMainCommandBar",
+      "script": "TacticalHUDMainCommandBar/scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 219,
+      "url": "TacticalHUDBuildQueuePage.swf",
+      "target": "TacticalHUDBuildQueuePage"
+    },
+    {
+      "movie": "TacticalHUDMainCommandBar",
+      "script": "TacticalHUDMainCommandBar/scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 220,
+      "url": "TacticalHUDBuildQueuePage.swf",
+      "target": "TacticalHUDBuildQueuePage"
+    },
+    {
+      "movie": "TacticalHUDMainCommandBar",
+      "script": "TacticalHUDMainCommandBar/scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 221,
+      "url": "TacticalHUDBuildQueuePage.swf",
+      "target": "TacticalHUDBuildQueuePage"
+    },
+    {
+      "movie": "TacticalHUDMainCommandBar",
+      "script": "TacticalHUDMainCommandBar/scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 222,
+      "url": "TacticalHUDBuildQueuePage.swf",
+      "target": "TacticalHUDBuildQueuePage"
+    },
+    {
+      "movie": "TacticalHUDMainCommandBar",
+      "script": "TacticalHUDMainCommandBar/scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 223,
+      "url": "TacticalHUDBuildQueuePage.swf",
+      "target": "TacticalHUDBuildQueuePage"
+    },
+    {
+      "movie": "TacticalHUDMainCommandBar",
+      "script": "TacticalHUDMainCommandBar/scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 224,
+      "url": "TacticalHUDBuildQueuePage.swf",
+      "target": "TacticalHUDBuildQueuePage"
+    },
+    {
+      "movie": "TacticalHUDRadar",
+      "script": "TacticalHUDRadar/scripts/panel/panel_frame_0001_define_OnContentLoaded.as",
+      "line": 27,
+      "url": "../../common/hud/ig_RadarObjectivesLayer.swf",
+      "target": "ig_RadarObjectivesLayer"
+    },
+    {
+      "movie": "TacticalHUDRadar",
+      "script": "TacticalHUDRadar/scripts/panel/panel_frame_0001_define_OnContentLoaded.as",
+      "line": 28,
+      "url": "../../common/hud/ig_RadarCoOpAITargetLayer.swf",
+      "target": "ig_RadarCoOpAITargetLayer"
+    },
+    {
+      "movie": "TacticalHUDRadar",
+      "script": "TacticalHUDRadar/scripts/panel/panel_frame_0001_define_OnContentLoaded.as",
+      "line": 29,
+      "url": "ig_missionMapHotSpotLayer.swf",
+      "target": "ig_missionMapHotSpotLayer"
+    },
+    {
+      "movie": "TacticalHUDRadar",
+      "script": "TacticalHUDRadar/scripts/panel/panel_frame_0001_define_OnContentLoaded.as",
+      "line": 30,
+      "url": "ig_RadarBridgeLayer.swf",
+      "target": "ig_RadarBridgeLayer"
+    },
+    {
+      "movie": "TacticalHUDSelectionRefinementPage",
+      "script": "TacticalHUDSelectionRefinementPage/scripts/TacticalHUDSelectionRefinementPa/TacticalHUDSelectionRefinementPa_frame_0001_define_GetCommandListBox.as",
+      "line": 38,
+      "url": "TacticalHUDCommandListBox.swf",
+      "target": "TacticalHUDCommandListBox"
+    },
+    {
+      "movie": "TacticalPlayerStatusDialog",
+      "script": "TacticalPlayerStatusDialog/scripts/StatusItem/StatusItem_frame_0001_define_SetPlayerColor.as",
+      "line": 22,
+      "url": "InGameCheckbox.swf",
+      "target": "InGameCheckbox"
+    }
+  ],
+  "missingLiteralLoads": [],
+  "dynamicLoadSites": [
+    {
+      "movie": "TacticalHUD",
+      "script": "TacticalHUD/scripts/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as",
+      "line": 8
+    },
+    {
+      "movie": "TacticalHUDObjectiveIndicatorStage",
+      "script": "TacticalHUDObjectiveIndicatorStage/scripts/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as",
+      "line": 8
+    },
+    {
+      "movie": "TacticalHUDPlayerPowersBar",
+      "script": "TacticalHUDPlayerPowersBar/scripts/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as",
+      "line": 8
+    },
+    {
+      "movie": "TacticalHUDSelectionDetails",
+      "script": "TacticalHUDSelectionDetails/scripts/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as",
+      "line": 8
+    },
+    {
+      "movie": "TacticalObjectiveIcon",
+      "script": "TacticalObjectiveIcon/scripts/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as",
+      "line": 8
+    },
+    {
+      "movie": "ig_DrawableOverlayStage",
+      "script": "ig_DrawableOverlayStage/scripts/ig_DrawableOverlayStage/ig_DrawableOverlayStage_frame_0001_define_LoadContent.as",
+      "line": 12
+    }
+  ]
+}

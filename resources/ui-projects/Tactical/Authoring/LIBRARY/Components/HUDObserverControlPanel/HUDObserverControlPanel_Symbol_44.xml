@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDObserverControlPanel/HUDObserverControlPanel_Symbol_44" itemID="6ae70000-00000124" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDObserverControlPanel/HUDObserverControlPanel_Symbol_44">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#0397e6" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMDynamicText fontRenderingMode="device" width="102.8" height="18.0" isSelectable="false" variableName="text">
+                                             <matrix>
+                                                  <Matrix tx="17.8" ty="1.4" a="1.0" d="1.001983642578125" />
+                                             </matrix>
+                                             <textRuns>
+                                                  <DOMTextRun>
+                                                       <characters>Observer</characters>
+                                                       <textAttrs>
+                                                            <DOMTextAttrs alignment="left" rotation="true" indent="0.0" leftMargin="0.0" lineSpacing="0.0" rightMargin="0.0" autoKern="false" size="0.0" bitmapSize="0" face="Red Alert Extended" fillColor="#000000" alpha="1.0" />
+                                                       </textAttrs>
+                                                  </DOMTextRun>
+                                             </textRuns>
+                                        </DOMDynamicText>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

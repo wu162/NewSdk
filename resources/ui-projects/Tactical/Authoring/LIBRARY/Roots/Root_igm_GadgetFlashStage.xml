@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_igm_GadgetFlashStage" itemID="6ae70000-000005a1"><timeline><DOMTimeline name="Roots/Root_igm_GadgetFlashStage">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#ca8e4f">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/igm_GadgetFlashStage/igm_GadgetFlashStage/igm_GadgetFlashStage_frame_0001_igm_gadgetFlashStage.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline></DOMSymbolItem>

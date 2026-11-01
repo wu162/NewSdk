@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDRadar/HUDRadar_Symbol_29" itemID="6ae70000-0000013d" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDRadar/HUDRadar_Symbol_29">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#0397e6" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <RadialGradient focalPointRatio="0">
+                                                            <matrix>
+                                                                 <Matrix tx="0.0" ty="0.0" a="0.052734375" d="0.052734375" />
+                                                            </matrix>
+                                                            <GradientEntry color="#ffffff" alpha="0.0" ratio="0.0" />
+                                                            <GradientEntry color="#ffffff" alpha="0.0" ratio="0.5882353" />
+                                                            <GradientEntry color="#ffffff" alpha="1.0" ratio="1.0" />
+                                                       </RadialGradient>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 604 -605[ 855 -354 855 0[ 855 354 604 604[ 354 855 0 855[ -354 855 -605 604[ -855 354 -855 0[ -855 -354 -605 -605[ -354 -855 0 -855[ 354 -855 604 -605" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,12 @@
+on(press){
+   _parent.OnPress();
+}
+on(release){
+   _parent.OnRelease();
+}
+on(rollOver){
+   _parent.OnRollOver();
+}
+on(rollOut){
+   _parent.OnRollOut();
+}

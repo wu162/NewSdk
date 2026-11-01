@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/PlayerStatusDialog/PlayerStatusDialog_StatusItem" itemID="6ae70000-00000291" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/PlayerStatusDialog/PlayerStatusDialog_StatusItem">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#bdd3f1">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalPlayerStatusDialog/StatusItem/StatusItem_frame_0001_define_SetPlayerColor.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#d3d352">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_clanText" name="clanText" centerPoint3DX="-57.5" centerPoint3DY="12.95">
+                                             <matrix>
+                                                  <Matrix tx="-110.0" ty="2.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerStatusDialog/clanText/clanText_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#bb6d6e">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_nameText" name="nameText" centerPoint3DX="90.0" centerPoint3DY="12.95">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="2.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerStatusDialog/nameText/nameText_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#f55d7c">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_factionText" name="factionText" centerPoint3DX="222.5" centerPoint3DY="12.95">
+                                             <matrix>
+                                                  <Matrix tx="185.0" ty="2.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerStatusDialog/factionText/factionText_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#908283">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_teamText" name="teamText" centerPoint3DX="302.5" centerPoint3DY="12.95">
+                                             <matrix>
+                                                  <Matrix tx="265.0" ty="2.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerStatusDialog/teamText/teamText_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6" color="#a947d3">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_statusText" name="statusText" centerPoint3DX="395.0" centerPoint3DY="12.95">
+                                             <matrix>
+                                                  <Matrix tx="345.0" ty="2.7" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerStatusDialog/statusText/statusText_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 7" color="#7cfb1f" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_1" name="muteCheckbox" centerPoint3DX="457.0" centerPoint3DY="0.0">
+                                             <matrix>
+                                                  <Matrix tx="457.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

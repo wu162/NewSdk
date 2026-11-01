@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDEnergyMeter/HUDEnergyMeter_pips" itemID="6ae70000-000000b6" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDEnergyMeter/HUDEnergyMeter_pips">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#7f42fb">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDEnergyMeter/pips/pips_frame_0001_define_Initialize.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

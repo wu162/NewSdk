@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_TacticalTextChatDialog" itemID="6ae70000-0000059f"><timeline><DOMTimeline name="Roots/Root_TacticalTextChatDialog">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#bb6d6e">
+                         <frames>
+                              <DOMFrame index="0" duration="10" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728" name="_close" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#f76fb9">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalTextChatDialog/TacticalTextChatDialog/TacticalTextChatDialog_frame_0001_define_Close.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="8" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalTextChatDialog/TacticalTextChatDialog/TacticalTextChatDialog_frame_0010_stop.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="5" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="15" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalTextChatDialog/TacticalTextChatDialog/TacticalTextChatDialog_frame_0016_fscommand_label_close.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#f55d7c" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="5" index="0" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TextChatDialog/TextChatDialog_panel" name="panel" centerPoint3DX="521.0" centerPoint3DY="823.2">
+                                             <matrix>
+                                                  <Matrix tx="258.0" ty="800.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" duration="6" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TextChatDialog/TextChatDialog_panel" name="panel" centerPoint3DX="521.0" centerPoint3DY="780.2">
+                                             <matrix>
+                                                  <Matrix tx="258.0" ty="757.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="4" index="11" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TextChatDialog/TextChatDialog_panel" name="panel" centerPoint3DX="521.0" centerPoint3DY="788.8">
+                                             <matrix>
+                                                  <Matrix tx="258.0" ty="765.8" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="15" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/TextChatDialog/TextChatDialog_panel" name="panel" centerPoint3DX="521.0" centerPoint3DY="823.2">
+                                             <matrix>
+                                                  <Matrix tx="258.0" ty="800.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline></DOMSymbolItem>

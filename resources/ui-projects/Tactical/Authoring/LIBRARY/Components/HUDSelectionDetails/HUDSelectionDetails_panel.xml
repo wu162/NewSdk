@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDSelectionDetails/HUDSelectionDetails_panel" itemID="6ae70000-000001b2" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDSelectionDetails/HUDSelectionDetails_panel">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#96e555">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDSelectionDetails/panel/panel_frame_0001_timelineActions.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#96b649">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_235" name="waypointModeButton" centerPoint3DX="69.8" centerPoint3DY="19.05">
+                                             <matrix>
+                                                  <Matrix tx="57.3" ty="5.25" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDSelectionDetails/waypointModeButton/waypointModeButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#82fe2f">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_235" name="planningModeButton" centerPoint3DX="105.0" centerPoint3DY="19.05">
+                                             <matrix>
+                                                  <Matrix tx="92.5" ty="5.25" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDSelectionDetails/planningModeButton/planningModeButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#e0fb44">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_235" name="forceMoveButton" centerPoint3DX="140.2" centerPoint3DY="19.05">
+                                             <matrix>
+                                                  <Matrix tx="127.7" ty="5.25" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDSelectionDetails/forceMoveButton/forceMoveButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#fc07c3">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_235" name="stopButton" centerPoint3DX="175.4" centerPoint3DY="19.05">
+                                             <matrix>
+                                                  <Matrix tx="162.9" ty="5.25" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDSelectionDetails/stopButton/stopButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6" color="#e20aca">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_235" name="aggressiveStanceButton" centerPoint3DX="69.8" centerPoint3DY="47.65">
+                                             <matrix>
+                                                  <Matrix tx="57.3" ty="33.85" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDSelectionDetails/aggressiveStanceButton/aggressiveStanceButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 7" color="#c2f906">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_235" name="guardStanceButton" centerPoint3DX="105.0" centerPoint3DY="47.65">
+                                             <matrix>
+                                                  <Matrix tx="92.5" ty="33.85" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDSelectionDetails/guardStanceButton/guardStanceButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 8" color="#55a3da">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_235" name="holdGroundStanceButton" centerPoint3DX="140.2" centerPoint3DY="47.65">
+                                             <matrix>
+                                                  <Matrix tx="127.7" ty="33.85" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDSelectionDetails/holdGroundStanceButton/holdGroundStanceButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 9" color="#8254ff">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_235" name="holdFireStanceButton" centerPoint3DX="175.4" centerPoint3DY="47.65">
+                                             <matrix>
+                                                  <Matrix tx="162.9" ty="33.85" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDSelectionDetails/holdFireStanceButton/holdFireStanceButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 10" color="#56adea" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_229" centerPoint3DX="125.0" centerPoint3DY="35.5">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

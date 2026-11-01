@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDBeaconStage/HUDBeaconStage_countdownMC" itemID="6ae70000-00000052" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDBeaconStage/HUDBeaconStage_countdownMC">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#a4c39c">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBeaconStage/HUDBeaconStage_textMC" name="textMC" centerPoint3DX="29.95" centerPoint3DY="7.8">
+                                             <matrix>
+                                                  <Matrix tx="4.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#5ac970">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBeaconStage/HUDBeaconStage_Symbol_48" name="tl" centerPoint3DX="6.5" centerPoint3DY="6.5">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="-1.0" d="-1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#489be4">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBeaconStage/HUDBeaconStage_Symbol_50" name="top" centerPoint3DX="19.5" centerPoint3DY="6.5">
+                                             <matrix>
+                                                  <Matrix tx="13.0" ty="0.0" a="3.846160888671875" d="-1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#f391e3">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBeaconStage/HUDBeaconStage_Symbol_48" name="tr" centerPoint3DX="82.5" centerPoint3DY="6.5">
+                                             <matrix>
+                                                  <Matrix tx="76.0" ty="0.0" a="0.0" d="0.0" b="-1.0" c="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#fcd3f0">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBeaconStage/HUDBeaconStage_Symbol_43" name="right" centerPoint3DX="82.5" centerPoint3DY="19.5">
+                                             <matrix>
+                                                  <Matrix tx="76.0" ty="13.0" a="1.0" d="0.076904296875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6" color="#7ed976">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBeaconStage/HUDBeaconStage_Symbol_48" name="br" centerPoint3DX="82.5" centerPoint3DY="33.5">
+                                             <matrix>
+                                                  <Matrix tx="76.0" ty="27.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 7" color="#cb88cb">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBeaconStage/HUDBeaconStage_Symbol_50" name="bottom" centerPoint3DX="19.5" centerPoint3DY="33.5">
+                                             <matrix>
+                                                  <Matrix tx="13.0" ty="27.0" a="3.846160888671875" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 8" color="#f96bf3">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBeaconStage/HUDBeaconStage_Symbol_48" name="bl" centerPoint3DX="6.5" centerPoint3DY="33.5">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="27.0" a="0.0" d="0.0" b="1.0" c="-1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 9" color="#65ecd5">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBeaconStage/HUDBeaconStage_Symbol_43" name="left" centerPoint3DX="6.5" centerPoint3DY="20.5">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="14.0" a="-1.0" d="-0.076904296875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 10" color="#e5953f" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBeaconStage/HUDBeaconStage_center" name="center" centerPoint3DX="41.45" centerPoint3DY="48.45">
+                                             <matrix>
+                                                  <Matrix tx="13.0" ty="13.0" a="0.877197265625" d="0.0140838623046875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

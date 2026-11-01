@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_Symbol_80" itemID="6ae70000-0000008b" lastModified="1631891428" symbolType="graphic">
+     <timeline>
+          <DOMTimeline name="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_Symbol_80" currentFrame="0">
+               <layers>
+                    <DOMLayer name="Layer 1">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#00ffff" />
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 3240 660| 3240 680| 3240 960| 3240 980[ 3230 980 3225 985[ 3200 1010 3160 1020| 3160 1060| 3160 1080| 3157 1099[ 3143 1143 3100 1160| 3095 1175| 3060 1200[ 3060 1460 3072 1719[ 3080 1900 3020 2000| 3020 2020[ 3010 2020 3009 2023[ 2994 2064 2940 2060| 2935 2075| 2900 2100| 2900 2120| 2880 2120| 2860 2120[ 2850 2130 2839 2131| 2620 2140| 1440 2140| 1435 2155| 1420 2160| 1420 2180| 1420 2200| 1416 2218[ 1381 2291 1300 2320| 1298 2330| 1180 2340| 1180 2360| 1160 2360| 1040 2360| 1040 2340| 1020 2340| 1000 2340| 580 2340| 580 2360[ 360 2360 140 2370[ 45 2375 0 2340| 0 2320| 0 2300| 0 2280| 0 2260| 0 2220| 0 2200| 0 2160| 0 2140| 0 2120| 0 2100| 0 2040| 0 2020| 0 2000| 0 1980| 0 1960| 0 1820| 0 1800| 0 1480| 0 1460| 0 1440| 0 1420| 0 1400| 0 1380| 0 1360| 0 1300| 0 1280| 0 980| 0 960| 0 940| 0 420| 0 400| 0 380| 0 360| 0 100| 0 80| 0 60| 0 0| 80 0| 100 0| 120 0| 480 0| 500 0| 1280 0| 1300 0| 1320 0| 1340 0| 1400 0| 1420 0| 1440 0| 1460 0| 2640 0| 2760 0| 2780 0| 2800 0| 2820 0| 2840 0| 2920 0| 2940 0| 3020 0| 3040 0| 3040 40| 3040 60[ 3075 105 3061 200| 3060 220| 3077 261| 3080 280| 3115 305| 3120 320| 3140 320[ 3202 318 3191 401[ 3190 410 3196 422| 3200 440| 3215 445| 3220 460| 3240 460| 3240 660" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

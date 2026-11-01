@@ -1,0 +1,1 @@
+stage._visible = true;

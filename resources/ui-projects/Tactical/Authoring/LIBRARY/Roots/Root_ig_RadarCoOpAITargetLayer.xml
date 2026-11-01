@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_ig_RadarCoOpAITargetLayer" itemID="6ae70000-000005a8"><timeline><DOMTimeline name="Roots/Root_ig_RadarCoOpAITargetLayer">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#b16aad">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/ig_RadarCoOpAITargetLayer/ig_RadarCoOpAITargetLayer/ig_RadarCoOpAITargetLayer_frame_0001_define_Resize.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#d4a0a9" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ig_RadarCoOpAITargetLayer/ig_RadarCoOpAITargetLayer_sizer" name="sizer" centerPoint3DX="50.0" centerPoint3DY="50.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="1.8049163818359375" d="1.81787109375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.1015625" />
+                                             </color>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/ig_RadarCoOpAITargetLayer/sizer/sizer_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline></DOMSymbolItem>

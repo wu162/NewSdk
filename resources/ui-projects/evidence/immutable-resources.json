@@ -1,0 +1,9 @@
+{
+  "baseCommit": "66c5866070896bebc37fe5e9bdafba42a8822b9d",
+  "path": "resources/ra3-ui",
+  "originalTree": "53dddf9509736adb148ff834eaa290e60295c28d",
+  "trackedFileContentPathsAndModesUnchanged": true,
+  "cliOutputInsidePreservedTreeRejected": true,
+  "rejectionExitCode": 2,
+  "rejection": "Output cannot be inside the preserved recovered resource tree: /workspace/NewSdk/resources/ra3-ui"
+}

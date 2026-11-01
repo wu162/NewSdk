@@ -1,0 +1,78 @@
+{
+  "movie": "TacticalHUDMainCommandBar",
+  "loadedMovie": "TacticalHUDBuildQueuePage.swf",
+  "expectedDistinctTargets": [
+    "mainStructure",
+    "otherStructure",
+    "infantry",
+    "vehicles",
+    "aircraft",
+    "navy"
+  ],
+  "oldUses": [
+    {
+      "target": "mainStructure",
+      "file": "resources/ra3-ui/converted/TacticalHUDMainCommandBar/scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 219
+    },
+    {
+      "target": "otherStructure",
+      "file": "resources/ra3-ui/converted/TacticalHUDMainCommandBar/scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 220
+    },
+    {
+      "target": "infantry",
+      "file": "resources/ra3-ui/converted/TacticalHUDMainCommandBar/scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 221
+    },
+    {
+      "target": "vehicles",
+      "file": "resources/ra3-ui/converted/TacticalHUDMainCommandBar/scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 222
+    },
+    {
+      "target": "aircraft",
+      "file": "resources/ra3-ui/converted/TacticalHUDMainCommandBar/scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 223
+    },
+    {
+      "target": "navy",
+      "file": "resources/ra3-ui/converted/TacticalHUDMainCommandBar/scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 224
+    }
+  ],
+  "projectUses": [
+    {
+      "target": "mainStructure",
+      "file": "/workspace/work/tactical-expanded-v2/Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 219
+    },
+    {
+      "target": "otherStructure",
+      "file": "/workspace/work/tactical-expanded-v2/Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 220
+    },
+    {
+      "target": "infantry",
+      "file": "/workspace/work/tactical-expanded-v2/Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 221
+    },
+    {
+      "target": "vehicles",
+      "file": "/workspace/work/tactical-expanded-v2/Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 222
+    },
+    {
+      "target": "aircraft",
+      "file": "/workspace/work/tactical-expanded-v2/Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 223
+    },
+    {
+      "target": "navy",
+      "file": "/workspace/work/tactical-expanded-v2/Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+      "line": 224
+    }
+  ],
+  "passed": true,
+  "scope": "Static original/new AS loadMovie target identity; runtime state independence additionally relies on unchanged component output and has not been checked in-game."
+}

@@ -19,6 +19,8 @@
 
 本资源分支还保存 [RA3 原始 UI、恢复的 FLA/AS 与转换验证](resources/ra3-ui/README.md)。原始包、全部配套资产及固定转换工具已入库，转换和验证均使用本地文件。
 
+[Tactical 集中编辑工程](resources/ui-projects/README.md) 在独立的新目录中提供一个主 FLA、公共源码和39个独立发布入口，保留上述已恢复资源原样。
+
 ```powershell
 ./NewModCompiler.exe doctor --sdk-root C:\NewSdk\SDK
 ./NewModCompiler.exe plan --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --mod-version 1.0

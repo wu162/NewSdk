@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_titleBox" itemID="6ae70000-000001f9" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_titleBox">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#fb6a4d">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_Symbol_48" centerPoint3DX="31.45" centerPoint3DY="14.2">
+                                             <matrix>
+                                                  <Matrix tx="-22.0" ty="3.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDTelestratorControlPanel/titleBox/titleBox_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#9eb2e5">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_openToggle" name="openToggle" centerPoint3DX="155.15" centerPoint3DY="14.2">
+                                             <matrix>
+                                                  <Matrix tx="137.15" ty="-0.3" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#888bcd" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_TitleFrame" name="TitleFrame" centerPoint3DX="94.5" centerPoint3DY="21.5">
+                                             <matrix>
+                                                  <Matrix tx="-5.5" ty="-4.5" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

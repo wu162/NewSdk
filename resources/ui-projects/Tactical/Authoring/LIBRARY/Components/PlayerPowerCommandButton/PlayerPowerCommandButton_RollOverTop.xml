@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_RollOverTop" itemID="6ae70000-00000286" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_RollOverTop">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#d4a0a9">
+                         <frames>
+                              <DOMFrame index="0" duration="5" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728" name="_show" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="6" duration="7" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="13" keyMode="9728" name="_hide" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#9cd465">
+                         <frames>
+                              <DOMFrame index="0" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalPlayerPowerCommandButton/RollOverTop/RollOverTop_frame_0005_stop.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="5" duration="7" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="12" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalPlayerPowerCommandButton/RollOverTop/RollOverTop_frame_0013_stop_label_show.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="13" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="22" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalPlayerPowerCommandButton/RollOverTop/RollOverTop_frame_0023_stop_label_hide.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#bdd3f1" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="5" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="7" index="5" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_Symbol_97" centerPoint3DX="32.0" centerPoint3DY="32.0">
+                                             <matrix>
+                                                  <Matrix tx="7.0" ty="7.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="12" duration="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_Symbol_97" centerPoint3DX="32.0" centerPoint3DY="32.0">
+                                             <matrix>
+                                                  <Matrix tx="7.0" ty="7.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="8" index="14" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_Symbol_97" centerPoint3DX="32.0" centerPoint3DY="32.0">
+                                             <matrix>
+                                                  <Matrix tx="7.0" ty="7.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.890625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="22" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerPowerCommandButton/PlayerPowerCommandButton_Symbol_97" centerPoint3DX="32.0" centerPoint3DY="32.0">
+                                             <matrix>
+                                                  <Matrix tx="7.0" ty="7.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

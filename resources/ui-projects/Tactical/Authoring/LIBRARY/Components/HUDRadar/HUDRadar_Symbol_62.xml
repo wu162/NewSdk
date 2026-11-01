@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDRadar/HUDRadar_Symbol_62" itemID="6ae70000-00000152" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDRadar/HUDRadar_Symbol_62">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#fcd3f0" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffcc00" />
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="1" fillStyle1="0" strokeStyle="0" edges="! 1050 442| 1096 445[ 1119 436 1130 414[ 1141 391 1133 368[ 1089 245 990 145[ 890 45 767 3| 721 6[ 698 17 691 41[ 682 64 693 87[ 704 109 728 117[ 826 151 905 230[ 985 309 1020 408[ 1028 431 1050 442" />
+                                                  <Edge fillStyle0="1" fillStyle1="0" strokeStyle="0" edges="! 1050 691[ 1028 702 1020 725[ 985 824 905 904[ 825 984 727 1019[ 704 1027 693 1049[ 682 1072 691 1095[ 699 1118 721 1129| 767 1132[ 891 1088 990 988| 990 989[ 1089 888 1133 765[ 1141 742 1130 719[ 1119 697 1096 689| 1050 691" />
+                                                  <Edge fillStyle0="1" fillStyle1="0" strokeStyle="0" edges="! 444 87[ 455 64 447 41[ 439 17 417 6| 371 3[ 247 45 147 145[ 46 245 4 369[ -4 392 7 415[ 18 437 42 445| 88 442[ 110 431 118 408[ 152 309 232 230| 231 230[ 311 151 410 117[ 433 109 444 87" />
+                                                  <Edge fillStyle0="1" fillStyle1="0" strokeStyle="0" edges="! 6 719[ -5 742 4 765[ 47 888 147 989[ 247 1088 370 1132| 416 1129[ 438 1118 447 1095[ 455 1072 444 1049[ 433 1027 410 1019[ 311 984 232 904[ 151 824 117 725[ 108 702 86 691| 40 689[ 17 697 6 719" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

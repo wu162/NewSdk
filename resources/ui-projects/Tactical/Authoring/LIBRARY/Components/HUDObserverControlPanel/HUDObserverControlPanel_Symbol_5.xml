@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDObserverControlPanel/HUDObserverControlPanel_Symbol_5" itemID="6ae70000-00000113" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDObserverControlPanel/HUDObserverControlPanel_Symbol_5">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#9b42ce" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/HUDObserverControlPanel/HUDObserverControlPanel_Bitmap_3.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="12.0" ty="0.0" a="20.0" d="20.0" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! 3500 1040| 240 1040| 240 0| 3500 0| 3500 1040" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_Symbol_17" itemID="6ae70000-00000109" lastModified="1631891428" symbolType="button">
+     <timeline>
+          <DOMTimeline name="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_Symbol_17" currentFrame="0">
+               <layers>
+                    <DOMLayer name="Layer 1" current="true" isSelected="true" color="#bddd59">
+                         <frames>
+                              <DOMFrame index="1" duration="3" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 335 -1250[ 398 -1188 400 -1099| 400 -728[ 398 -641 335 -579[ 273 -516 186 -514| 158 -514| 0 0| -158 -514| -185 -514[ -274 -516 -336 -579[ -398 -641 -400 -728| -400 -1099[ -398 -1188 -336 -1250[ -274 -1312 -185 -1314| 186 -1314[ 273 -1312 335 -1250" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

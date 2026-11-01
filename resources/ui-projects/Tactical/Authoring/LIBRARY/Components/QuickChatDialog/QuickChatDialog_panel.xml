@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/QuickChatDialog/QuickChatDialog_panel" itemID="6ae70000-000002a5" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/QuickChatDialog/QuickChatDialog_panel">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#b16aad">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/QuickChatDialog/QuickChatDialog_BaseMenuItem" name="BaseMenuItem" centerPoint3DX="-454.8" centerPoint3DY="-201.2">
+                                             <matrix>
+                                                  <Matrix tx="-454.8" ty="-201.2" a="1.100006103515625" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#9cd465" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/QuickChatDialog/QuickChatDialog_DialogBackground" name="DialogBackground" centerPoint3DX="-347.0" centerPoint3DY="-201.2">
+                                             <matrix>
+                                                  <Matrix tx="-462.0" ty="-203.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.609375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

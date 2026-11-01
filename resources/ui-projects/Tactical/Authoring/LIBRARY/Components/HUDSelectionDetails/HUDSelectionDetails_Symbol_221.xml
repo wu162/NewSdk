@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_221" itemID="6ae70000-000001aa" lastModified="1631891428" symbolType="graphic">
+     <timeline>
+          <DOMTimeline name="Components/HUDSelectionDetails/HUDSelectionDetails_Symbol_221" currentFrame="0">
+               <layers>
+                    <DOMLayer name="Layer 1">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#00ffff" />
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 4980 160| 4980 920[ 4980 1050 4994 1179[ 5005 1285 4940 1300| 4920 1300| 4900 1300| 4880 1300| 4340 1300| 4320 1300| 4120 1300| 4100 1300| 4020 1300| 4000 1300| 3820 1300| 3800 1300| 3340 1300| 3320 1300| 3060 1300| 3040 1300| 2740 1300| 2720 1300| 2580 1300| 2240 1300| 1060 1300| 1040 1300| 420 1300| 400 1300| 200 1300| 180 1300| 160 1300| 140 1300| 120 1300| 100 1300| 80 1300| 60 1300| 60 1280| 60 1000| 80 1000| 80 980| 80 940| 60 940[ 21 939 0 920| 0 900| 0 860| 0 840| 0 800| 0 780| 0 720| 0 700| 0 600| 0 580| 0 520| 0 500| 0 400| 20 400[ 60 390 76 358| 80 340| 69 337[ 60 310 60 280| 60 260| 60 220[ 94 214 90 160| 100 160| 100 140| 100 120| 100 100| 183 44| 200 40| 235 15| 240 0| 260 0| 280 0| 320 0| 340 0| 1520 0| 2700 0| 3880 0| 4660 0| 4800 0| 4820 0| 4960 0| 4980 0| 4980 140| 4980 160" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

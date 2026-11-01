@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_TacticalHUDCommandModeBar" itemID="6ae70000-0000058b"><timeline><DOMTimeline name="Roots/Root_TacticalHUDCommandModeBar">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#5283fb">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0001_define_GetSellButton.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#cdad75">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCommandModeBar/HUDCommandModeBar_Symbol_56" name="repairButton" centerPoint3DX="0.0" centerPoint3DY="0.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="1.0003509521484375" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDCommandModeBar/repairButton/repairButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#ffb4ad">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCommandModeBar/HUDCommandModeBar_Symbol_56" name="sellButton" centerPoint3DX="40.0" centerPoint3DY="0.0">
+                                             <matrix>
+                                                  <Matrix tx="40.0" ty="0.0" a="1.0003509521484375" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDCommandModeBar/sellButton/sellButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#d3b46a">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCommandModeBar/HUDCommandModeBar_Symbol_56" name="pauseButton" centerPoint3DX="80.0" centerPoint3DY="0.0">
+                                             <matrix>
+                                                  <Matrix tx="80.0" ty="0.0" a="1.0003509521484375" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDCommandModeBar/pauseButton/pauseButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#ebe61b" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_HelpBoxSite" name="helpSite" centerPoint3DX="-9.0" centerPoint3DY="11.05">
+                                             <matrix>
+                                                  <Matrix tx="-12.0" ty="8.05" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDCommandModeBar/helpSite/helpSite_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline></DOMSymbolItem>

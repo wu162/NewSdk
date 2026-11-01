@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Common/Common_HelpBoxSite" itemID="6ae70000-0000001e" lastModified="1631891428">
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Common/Common_HelpBoxSite" itemID="6ae70000-00000023" lastModified="1631891428">
      <timeline>
           <DOMTimeline name="Common/Common_HelpBoxSite">
                <layers>
@@ -7,7 +7,7 @@
                          <frames>
                               <DOMFrame index="0" keyMode="9728">
                                    <Actionscript>
-                                        <script>#include "Common/Scripts/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"</script>
+                                        <script>#include "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as"</script>
                                    </Actionscript>
                                    <elements />
                               </DOMFrame>
@@ -17,7 +17,7 @@
                          <frames>
                               <DOMFrame index="0" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Common/Common_SharedPart_06" centerPoint3DX="3.0" centerPoint3DY="2.95">
+                                        <DOMSymbolInstance libraryItemName="Common/Common_SharedPart_07" centerPoint3DX="3.0" centerPoint3DY="2.95">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="-0.05" />
                                              </matrix>
@@ -28,7 +28,7 @@
                                                   <Color alphaMultiplier="0.0" />
                                              </color>
                                              <Actionscript>
-                                                  <script>#include "Common/Scripts/HelpBoxSite_frame_0001_load.as"</script>
+                                                  <script>#include "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as"</script>
                                              </Actionscript>
                                         </DOMSymbolInstance>
                                    </elements>

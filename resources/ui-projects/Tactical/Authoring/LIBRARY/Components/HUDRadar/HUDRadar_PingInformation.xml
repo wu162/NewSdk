@@ -1,0 +1,411 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDRadar/HUDRadar_PingInformation" itemID="6ae70000-00000157" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDRadar/HUDRadar_PingInformation">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#ce457f">
+                         <frames>
+                              <DOMFrame index="0" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728" name="_loop" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="12" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="22" keyMode="9728" name="_fadeOut" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#266ff5">
+                         <frames>
+                              <DOMFrame index="0" duration="21" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="21" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDRadar/PingInformation/PingInformation_frame_0022_gotoAndPlay_label_loop.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="22" duration="14" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="36" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDRadar/PingInformation/PingInformation_frame_0037_DestroyPing_label_fadeOut.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#a0c35e" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="116.45" centerPoint3DY="171.15">
+                                             <matrix>
+                                                  <Matrix tx="49.55" ty="104.3" a="2.20001220703125" d="2.20001220703125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.5" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="95.0" centerPoint3DY="167.95">
+                                             <matrix>
+                                                  <Matrix tx="28.1" ty="101.1" a="1.9696197509765625" d="1.9696197509765625" b="0.3408660888671875" c="-0.3408660888671875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.5546875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="75.95" centerPoint3DY="160.8">
+                                             <matrix>
+                                                  <Matrix tx="9.05" ty="93.95" a="1.69146728515625" d="1.69146728515625" b="0.6100616455078125" c="-0.6100616455078125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.609375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="60.25" centerPoint3DY="150.35">
+                                             <matrix>
+                                                  <Matrix tx="-6.65" ty="83.5" a="1.38568115234375" d="1.38568115234375" b="0.7954254150390625" c="-0.7954254150390625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.66796875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="48.35" centerPoint3DY="137.85">
+                                             <matrix>
+                                                  <Matrix tx="-18.55" ty="71.0" a="1.072509765625" d="1.072509765625" b="0.8963775634765625" c="-0.8963775634765625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.72265625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="40.6" centerPoint3DY="123.95">
+                                             <matrix>
+                                                  <Matrix tx="-26.3" ty="57.1" a="0.7713623046875" d="0.7713623046875" b="0.916717529296875" c="-0.916717529296875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.77734375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="6" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="37.0" centerPoint3DY="109.9">
+                                             <matrix>
+                                                  <Matrix tx="-29.9" ty="43.05" a="0.5000152587890625" d="0.5000152587890625" b="0.8643798828125" c="-0.8643798828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.83203125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="7" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="37.35" centerPoint3DY="96.55">
+                                             <matrix>
+                                                  <Matrix tx="-29.55" ty="29.7" a="0.273651123046875" d="0.273651123046875" b="0.7508544921875" c="-0.7508544921875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.890625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="8" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="41.2" centerPoint3DY="84.95">
+                                             <matrix>
+                                                  <Matrix tx="-25.7" ty="18.1" a="0.1042327880859375" d="0.1042327880859375" b="0.5905609130859375" c="-0.5905609130859375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.9453125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="9" duration="14" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="9.1552734375E-5" d="9.1552734375E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="23" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="3.0517578125E-5" d="3.0517578125E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.9296875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="24" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="3.0517578125E-5" d="3.0517578125E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.85546875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="25" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="3.0517578125E-5" d="3.0517578125E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.78515625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="26" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="3.0517578125E-5" d="3.0517578125E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.71484375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="27" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="3.0517578125E-5" d="3.0517578125E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.64453125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="28" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="3.0517578125E-5" d="3.0517578125E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.5703125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="29" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="3.0517578125E-5" d="3.0517578125E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.5" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="30" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="3.0517578125E-5" d="3.0517578125E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.4296875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="31" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="3.0517578125E-5" d="3.0517578125E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.35546875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="32" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="3.0517578125E-5" d="3.0517578125E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.28515625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="33" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="3.0517578125E-5" d="3.0517578125E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.21484375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="34" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="3.0517578125E-5" d="3.0517578125E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.14453125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="35" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="3.0517578125E-5" d="3.0517578125E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0703125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="36" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_66" centerPoint3DX="47.9" centerPoint3DY="75.85">
+                                             <matrix>
+                                                  <Matrix tx="-19.0" ty="9.0" a="9.1552734375E-5" d="9.1552734375E-5" b="0.399993896484375" c="-0.399993896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

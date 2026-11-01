@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_24" itemID="6ae70000-00000296" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_24">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#2ec7bb" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMDynamicText fontRenderingMode="device" width="71.0" height="18.4" isSelectable="false" variableName="text">
+                                             <matrix>
+                                                  <Matrix tx="2.0" ty="2.0" />
+                                             </matrix>
+                                             <textRuns>
+                                                  <DOMTextRun>
+                                                       <characters>Team</characters>
+                                                       <textAttrs>
+                                                            <DOMTextAttrs alignment="center" rotation="true" indent="0.0" leftMargin="0.0" lineSpacing="1.8" rightMargin="0.0" autoKern="false" size="12.6" bitmapSize="252" face="RussellSquare" fillColor="#02ecbd" alpha="1.0" />
+                                                       </textAttrs>
+                                                  </DOMTextRun>
+                                             </textRuns>
+                                        </DOMDynamicText>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

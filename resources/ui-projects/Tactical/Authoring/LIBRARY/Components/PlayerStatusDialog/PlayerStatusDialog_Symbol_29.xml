@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_29" itemID="6ae70000-00000299" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_29">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#f5d8ab">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_28" centerPoint3DX="95.0" centerPoint3DY="12.45">
+                                             <matrix>
+                                                  <Matrix tx="5.0" ty="2.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#49f6e9">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_26" centerPoint3DX="227.5" centerPoint3DY="12.45">
+                                             <matrix>
+                                                  <Matrix tx="190.0" ty="2.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog_frame_0001_load_occurrence_02.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#a9bff3">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_24" centerPoint3DX="307.5" centerPoint3DY="13.4">
+                                             <matrix>
+                                                  <Matrix tx="270.0" ty="2.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog_frame_0001_load_occurrence_03.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#b0dff4">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_22" centerPoint3DX="400.0" centerPoint3DY="12.45">
+                                             <matrix>
+                                                  <Matrix tx="350.0" ty="2.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog_frame_0001_load_occurrence_04.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#c894fc" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/PlayerStatusDialog/PlayerStatusDialog_Symbol_20" centerPoint3DX="475.0" centerPoint3DY="12.45">
+                                             <matrix>
+                                                  <Matrix tx="455.0" ty="2.2" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog_frame_0001_load_occurrence_05.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

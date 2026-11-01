@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDRadar/HUDRadar_Symbol_97" itemID="6ae70000-0000016a" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDRadar/HUDRadar_Symbol_97">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#b8c92a" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_96" centerPoint3DX="23.5" centerPoint3DY="-39.05">
+                                             <matrix>
+                                                  <Matrix tx="-66.5" ty="-129.05" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_96" centerPoint3DX="203.5" centerPoint3DY="-39.1">
+                                             <matrix>
+                                                  <Matrix tx="113.5" ty="-129.1" a="9.1552734375E-5" d="9.1552734375E-5" b="1.0" c="-1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_96" centerPoint3DX="203.55" centerPoint3DY="141.0">
+                                             <matrix>
+                                                  <Matrix tx="113.55" ty="51.0" a="-0.9999847412109375" d="-0.9999847412109375" b="1.52587890625E-5" c="-1.52587890625E-5" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_96" centerPoint3DX="23.45" centerPoint3DY="141.0">
+                                             <matrix>
+                                                  <Matrix tx="-66.55" ty="51.0" a="9.1552734375E-5" d="9.1552734375E-5" b="-0.9999847412109375" c="0.9999847412109375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

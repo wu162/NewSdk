@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/ig_missionMapHotSpotLayer/ig_missionMapHotSpotLayer_HotSpotIndicator" itemID="6ae70000-00000368" lastModified="1631891426">
+     <timeline>
+          <DOMTimeline name="Components/ig_missionMapHotSpotLayer/ig_missionMapHotSpotLayer_HotSpotIndicator">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#b93cfd">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/ig_missionMapHotSpotLayer/HotSpotIndicator/HotSpotIndicator_frame_0001_define_Move.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#9b42ce" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/ig_missionMapHotSpotLayer/ig_missionMapHotSpotLayer_Bitmap_1.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="-7.5" ty="-7.5" a="20.0" d="20.0" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! -150 -150| 150 -150| 150 150| -150 150| -150 -150" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_OffScreenIndicator" itemID="6ae70000-00000108" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_OffScreenIndicator">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#908283">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="Attack" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728" name="Protect" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="11" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" keyMode="9728" name="Capture" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="21" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="30" keyMode="9728" name="Build" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="31" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="40" keyMode="9728" name="Move" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#8ddb43">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObjectiveIndicatorStage/OffScreenIndicator/OffScreenIndicator_frame_0001_define_SetObjectivePos_label_Attack.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="8" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObjectiveIndicatorStage/OffScreenIndicator/OffScreenIndicator_frame_0010_stop_label_Attack.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="19" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObjectiveIndicatorStage/OffScreenIndicator/OffScreenIndicator_frame_0020_stop_label_Protect.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="29" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObjectiveIndicatorStage/OffScreenIndicator/OffScreenIndicator_frame_0030_stop_label_Capture.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="30" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="39" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObjectiveIndicatorStage/OffScreenIndicator/OffScreenIndicator_frame_0040_stop_label_Build.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="40" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="49" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObjectiveIndicatorStage/OffScreenIndicator/OffScreenIndicator_frame_0050_stop_label_Move.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#a947d3">
+                         <frames>
+                              <DOMFrame index="0" duration="50" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_HelpBoxSite" name="helpSite" centerPoint3DX="203.0" centerPoint3DY="3.05">
+                                             <matrix>
+                                                  <Matrix tx="200.0" ty="0.05" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDObjectiveIndicatorStage/helpSite/helpSite_frame_0001_construct_label_Attack.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#7cfb1f">
+                         <frames>
+                              <DOMFrame index="0" duration="50" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_newness" name="newness" centerPoint3DX="261.9" centerPoint3DY="9.5">
+                                             <matrix>
+                                                  <Matrix tx="249.05" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#33c2ff">
+                         <frames>
+                              <DOMFrame index="0" duration="50" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_ordinal" name="ordinal" centerPoint3DX="232.5" centerPoint3DY="9.25">
+                                             <matrix>
+                                                  <Matrix tx="223.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDObjectiveIndicatorStage/ordinal/ordinal_frame_0001_load_label_Attack.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6" color="#fbb7bb">
+                         <frames>
+                              <DOMFrame index="0" duration="50" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_marker" name="marker" centerPoint3DX="250.0" centerPoint3DY="9.5">
+                                             <matrix>
+                                                  <Matrix tx="237.5" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 7" color="#8f7eda" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="50" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_Symbol_2" symbolType="button">
+                                             <matrix>
+                                                  <Matrix tx="250.8" ty="0.0" a="1.0015411376953125" d="1.00262451171875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDObjectiveIndicatorStage/OffScreenIndicator/OffScreenIndicator_frame_0001_press_label_Attack.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

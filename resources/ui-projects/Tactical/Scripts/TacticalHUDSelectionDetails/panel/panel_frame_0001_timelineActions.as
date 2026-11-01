@@ -1,0 +1,9 @@
+waypointModeButton.helpSite = _parent._parent.portraitHelpSite;
+planningModeButton.helpSite = _parent._parent.portraitHelpSite;
+forceAttackMoveButton.helpSite = _parent._parent.portraitHelpSite;
+forceMoveButton.helpSite = _parent._parent.portraitHelpSite;
+stopButton.helpSite = _parent._parent.portraitHelpSite;
+aggressiveStanceButton.helpSite = _parent._parent.portraitHelpSite;
+holdFireStanceButton.helpSite = _parent._parent.portraitHelpSite;
+guardStanceButton.helpSite = _parent._parent.portraitHelpSite;
+holdGroundStanceButton.helpSite = _parent._parent.portraitHelpSite;

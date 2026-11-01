@@ -1,0 +1,28 @@
+on(press){
+   if(isEnabled)
+   {
+      SetState("_down");
+   }
+}
+on(release){
+   if(isEnabled)
+   {
+      SetState("_over");
+      TriggerGlow();
+   }
+   fscommand(qualifyName(this,"OnClicked"),"");
+}
+on(rollOver){
+   if(isEnabled)
+   {
+      SetState("_over");
+   }
+   fscommand(qualifyName(this,"OnRollOver"),"");
+}
+on(rollOut){
+   if(isEnabled)
+   {
+      SetState("_up");
+   }
+   fscommand(qualifyName(this,"OnRollOut"),"");
+}

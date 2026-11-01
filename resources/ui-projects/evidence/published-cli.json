@@ -1,0 +1,2464 @@
+{
+  "project": "/workspace/NewSdk/resources/ui-projects/Tactical/project.json",
+  "projectSha256": "0eeb7fc2c645865247e1d9cb5b17250bb15459b503fd17f4bdd08028a9c81627",
+  "masterSha256": "491db50a3ed7efe87b2edde0a55eb94eccf0969274c123101051057f2f129d3f",
+  "compilerSha256": "09b6a0290bfbc2961706d355d022933cfd6429451017475a7ff55a5dfec59fc0",
+  "runtime": ".NET 8.0.33",
+  "total": 39,
+  "passed": 39,
+  "failed": 0,
+  "movies": [
+    {
+      "movie": "TacticalEndGameDialog",
+      "status": "passed",
+      "assets": 22,
+      "milliseconds": 5,
+      "streams": {
+        "manifest": {
+          "bytes": 1994,
+          "sha256": "0c757383e2d2e3cb50bfdfd5e8139042c88a78686b60de383c94c969eb28f6dd"
+        },
+        "bin": {
+          "bytes": 12593664,
+          "sha256": "0b5a1b1367dcf935a456732119b583ad873d502d8c62f7591ab06f46f73ea27c"
+        },
+        "relo": {
+          "bytes": 180,
+          "sha256": "ca77b38cfbd6863868338179f9411556f14772f317af1969e9c2e349f4360aa4"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "ee6cb6cbad39907f0434048c1993237141840e10ec8593de07a5dfa34a770db9"
+        }
+      },
+      "inputs": [
+        "Scripts/TacticalEndGameDialog/TacticalEndGameDialog/TacticalEndGameDialog_frame_0001_define_SetEndGameType.as",
+        "Scripts/TacticalEndGameDialog/TacticalEndGameDialog/TacticalEndGameDialog_frame_0037_gotoAndStop_label_loop.as",
+        "Scripts/TacticalEndGameDialog/TacticalEndGameDialog/TacticalEndGameDialog_frame_0043_fscommand_label_close.as",
+        "Scripts/TacticalEndGameDialog/imageMC/imageMC_frame_0001_gotoAndPlay_label_Allies.as",
+        "Scripts/TacticalEndGameDialog/imageMC/imageMC_frame_0001_gotoAndPlay_label_Allies_occurrence_02.as",
+        "Scripts/TacticalEndGameDialog/imageMC/imageMC_frame_0010_stop_label_Allies.as",
+        "Scripts/TacticalEndGameDialog/imageMC/imageMC_frame_0010_stop_label_Allies_occurrence_02.as",
+        "Scripts/TacticalEndGameDialog/imageMC/imageMC_frame_0020_stop_label_Soviet.as",
+        "Scripts/TacticalEndGameDialog/imageMC/imageMC_frame_0020_stop_label_Soviet_occurrence_02.as",
+        "Scripts/TacticalEndGameDialog/imageMC/imageMC_frame_0030_stop_label_Japan.as",
+        "Scripts/TacticalEndGameDialog/imageMC/imageMC_frame_0030_stop_label_Japan_occurrence_02.as",
+        "Scripts/TacticalEndGameDialog/panel/panel_frame_0001_load_label_GameOver.as",
+        "Scripts/TacticalEndGameDialog/panel/panel_frame_0010_stop_label_GameOver.as",
+        "Scripts/TacticalEndGameDialog/panel/panel_frame_0020_stop_label_Victory.as",
+        "Scripts/TacticalEndGameDialog/panel/panel_frame_0030_stop_label_Defeat.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUD",
+      "status": "passed",
+      "assets": 25,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 2011,
+          "sha256": "1ba4c8865c94b6d081c57516498f6168f8886a1f55e2ccc22b462320109806b8"
+        },
+        "bin": {
+          "bytes": 3361720,
+          "sha256": "0173fc8e6ffb0c5eeecf49d2af18ec6bcfa1223e9c7796edfff033ad799f7b76"
+        },
+        "relo": {
+          "bytes": 204,
+          "sha256": "17a118e1449a0fda50a8280f327f3f4c56c1c4a203484c4074a4f05eecad4c9f"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "dca21f773cd6476b4924442ab0085bb50700a4daa9d6e34470a97051c812f32d"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
+        "Common/Scripts/ig_libHUD/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as",
+        "Common/Scripts/ig_libHUD/SimpleRenderingSurface/SimpleRenderingSurface_frame_0001_define_onUnload.as",
+        "Common/Scripts/ig_libHUD/SimpleRenderingSurface/shape_frame_0001_load.as",
+        "Scripts/TacticalHUD/InputShield/InputShield_frame_0001_define_Raise.as",
+        "Scripts/TacticalHUD/TacticalHUD/TacticalHUD_frame_0001_define_Hide.as",
+        "Scripts/TacticalHUD/TacticalHUD/TacticalHUD_frame_0002_play_label_fadeIn.as",
+        "Scripts/TacticalHUD/TacticalHUD/TacticalHUD_frame_0008_fscommand_label_fadeIn.as",
+        "Scripts/TacticalHUD/TacticalHUD/TacticalHUD_frame_0014_stop_label_fadeIn.as",
+        "Scripts/TacticalHUD/TacticalHUD/TacticalHUD_frame_0015_play_label_fadeOut.as",
+        "Scripts/TacticalHUD/TacticalHUD/TacticalHUD_frame_0021_fscommand_label_fadeOut.as",
+        "Scripts/TacticalHUD/commandModeBar/commandModeBar_frame_0001_load.as",
+        "Scripts/TacticalHUD/energyMeter/energyMeter_frame_0001_load.as",
+        "Scripts/TacticalHUD/energyMeterHelpSite/energyMeterHelpSite_frame_0001_construct.as",
+        "Scripts/TacticalHUD/fadeSurface/fadeSurface_frame_0001_define_SetOpacity.as",
+        "Scripts/TacticalHUD/letterBoxLayer/letterBoxLayer_frame_0001_gotoAndStop_label_hide.as",
+        "Scripts/TacticalHUD/letterBoxLayer/letterBoxLayer_frame_0002_stop_label_hide.as",
+        "Scripts/TacticalHUD/letterBoxLayer/letterBoxLayer_frame_0003_timelineActions_label_fadeIn.as",
+        "Scripts/TacticalHUD/letterBoxLayer/letterBoxLayer_frame_0022_stop_label_fadeIn.as",
+        "Scripts/TacticalHUD/letterBoxLayer/letterBoxLayer_frame_0033_gotoAndStop_label_fadeOut.as",
+        "Scripts/TacticalHUD/lowerSidebar/lowerSidebar_frame_0001_loadMovie.as",
+        "Scripts/TacticalHUD/main/main_frame_0001_loadMovie.as",
+        "Scripts/TacticalHUD/mainCommandBar/mainCommandBar_frame_0001_load.as",
+        "Scripts/TacticalHUD/observerControl/observerControl_frame_0001_load.as",
+        "Scripts/TacticalHUD/popUpMetaStage/popUpMetaStage_frame_0001_define_AddStage.as",
+        "Scripts/TacticalHUD/resourceDisplay/resourceDisplay_frame_0001_define_SetVisibility.as",
+        "Scripts/TacticalHUD/resourceDisplay/resourceDisplay_frame_0001_load.as",
+        "Scripts/TacticalHUD/shroud/shroud_frame_0002_stop.as",
+        "Scripts/TacticalHUD/shroud/shroud_frame_0011_stop_label_fade.as",
+        "Scripts/TacticalHUD/sidebarFrame/sidebarFrame_frame_0001_define_OnCurrentFactionChanged_label_Allies.as",
+        "Scripts/TacticalHUD/sidebarFrame/sidebarFrame_frame_0010_stop_label_Allies.as",
+        "Scripts/TacticalHUD/sidebarFrame/sidebarFrame_frame_0020_stop_label_Soviet.as",
+        "Scripts/TacticalHUD/sidebarFrame/sidebarFrame_frame_0030_stop_label_Japan.as",
+        "Scripts/TacticalHUD/sizer/sizer_frame_0001_load.as",
+        "Scripts/TacticalHUD/subtitlePanelSurface/subtitlePanelSurface_frame_0001_define_TrackSite.as",
+        "Scripts/TacticalHUD/telestratorControl/telestratorControl_frame_0001_load.as",
+        "Scripts/TacticalHUD/upperSidebar/upperSidebar_frame_0001_define_OnContentLoaded.as",
+        "Scripts/TacticalHUD/upperSidebarLayer/upperSidebarLayer_frame_0003_stop.as",
+        "Scripts/TacticalHUD/upperSidebarLayer/upperSidebarLayer_frame_0004_play_label_fadeIn.as",
+        "Scripts/TacticalHUD/upperSidebarLayer/upperSidebarLayer_frame_0010_play_label_on.as",
+        "Scripts/TacticalHUD/upperSidebarLayer/upperSidebarLayer_frame_0016_stop_label_on.as",
+        "Scripts/TacticalHUD/upperSidebarLayer/upperSidebarLayer_frame_0017_play_label_fadeOut.as",
+        "Scripts/TacticalHUD/upperSidebarLayer/upperSidebarLayer_frame_0023_stop_label_fadeOut.as",
+        "Scripts/TacticalHUD/voiceChatControl/voiceChatControl_frame_0001_load.as",
+        "Scripts/TacticalHUD/watermark/watermark_frame_0001_stop.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDBeaconStage",
+      "status": "passed",
+      "assets": 68,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 6114,
+          "sha256": "be0d8b4a14cce176f1cd0ba4552329684cd0e948dc416ef0405619d229a6bbdd"
+        },
+        "bin": {
+          "bytes": 484908,
+          "sha256": "41728ae80025df2ed3c95625739f6012fea71f807925b0c9bc6ec012951518aa"
+        },
+        "relo": {
+          "bytes": 548,
+          "sha256": "aa86a96d703fd0d2849d43f6d70cb34b0b155d8617325d7dc7d167389f50b753"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "d3ed5285881ff5d9f997cd74bd6655eccc8b3c5216f60b6e7292ad3322e83ac6"
+        }
+      },
+      "inputs": [
+        "Scripts/TacticalHUDBeaconStage/AIAssaultBeaconIndicator/AIAssaultBeaconIndicator_frame_0001_define_SetVisibility.as",
+        "Scripts/TacticalHUDBeaconStage/AIAssaultBeaconIndicator/AIAssaultBeaconIndicator_frame_0001_release.as",
+        "Scripts/TacticalHUDBeaconStage/AIHoldBeaconIndicator/AIHoldBeaconIndicator_frame_0001_define_SetVisibility.as",
+        "Scripts/TacticalHUDBeaconStage/AIHoldBeaconIndicator/AIHoldBeaconIndicator_frame_0001_release.as",
+        "Scripts/TacticalHUDBeaconStage/MpBeaconIndicator/MpBeaconIndicator_frame_0001_define_SetVisibility.as",
+        "Scripts/TacticalHUDBeaconStage/MpBeaconMessage/MpBeaconMessage_frame_0001_qualifyName.as",
+        "Scripts/TacticalHUDBeaconStage/TacticalHUDBeaconStage/TacticalHUDBeaconStage_frame_0001_Color.as",
+        "Scripts/TacticalHUDBeaconStage/TacticalHUDBeaconStage/TacticalHUDBeaconStage_frame_0001_define_CreateBeaconIndicator.as",
+        "Scripts/TacticalHUDBeaconStage/TimeBombFrame/TimeBombFrame_frame_0001_define_Move.as",
+        "Scripts/TacticalHUDBeaconStage/arrow/arrow_frame_0001_release.as",
+        "Scripts/TacticalHUDBeaconStage/bl/bl_frame_0001_load.as",
+        "Scripts/TacticalHUDBeaconStage/bottom/bottom_frame_0001_load.as",
+        "Scripts/TacticalHUDBeaconStage/br/br_frame_0001_load.as",
+        "Scripts/TacticalHUDBeaconStage/center/center_frame_0001_load.as",
+        "Scripts/TacticalHUDBeaconStage/left/left_frame_0001_load.as",
+        "Scripts/TacticalHUDBeaconStage/minuteMC/minuteMC_frame_0001_stop.as",
+        "Scripts/TacticalHUDBeaconStage/minuteMC/minuteMC_frame_0002_stop.as",
+        "Scripts/TacticalHUDBeaconStage/minuteMC/minuteMC_frame_0003_stop.as",
+        "Scripts/TacticalHUDBeaconStage/minuteMC/minuteMC_frame_0004_stop.as",
+        "Scripts/TacticalHUDBeaconStage/minuteMC/minuteMC_frame_0005_stop.as",
+        "Scripts/TacticalHUDBeaconStage/minuteMC/minuteMC_frame_0006_stop.as",
+        "Scripts/TacticalHUDBeaconStage/minuteMC/minuteMC_frame_0007_stop.as",
+        "Scripts/TacticalHUDBeaconStage/minuteMC/minuteMC_frame_0008_stop.as",
+        "Scripts/TacticalHUDBeaconStage/minuteMC/minuteMC_frame_0009_stop.as",
+        "Scripts/TacticalHUDBeaconStage/minuteMC/minuteMC_frame_0010_stop.as",
+        "Scripts/TacticalHUDBeaconStage/right/right_frame_0001_load.as",
+        "Scripts/TacticalHUDBeaconStage/selectionEffect/selectionEffect_frame_0001_stop_label_stop.as",
+        "Scripts/TacticalHUDBeaconStage/selectionEffect/selectionEffect_frame_0015_gotoAndStop_label_play.as",
+        "Scripts/TacticalHUDBeaconStage/tl/tl_frame_0001_load.as",
+        "Scripts/TacticalHUDBeaconStage/top/top_frame_0001_load.as",
+        "Scripts/TacticalHUDBeaconStage/tr/tr_frame_0001_load.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDBuildQueuePage",
+      "status": "passed",
+      "assets": 127,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 11769,
+          "sha256": "abacecf82ee791bb1899424b88e781f3401c04abe04c35ca5e04c28fbf63186a"
+        },
+        "bin": {
+          "bytes": 1174904,
+          "sha256": "62781a41a46d60cb59813758f7e1e02ad1b22afa76e1f8460a35c2b922ff9bea"
+        },
+        "relo": {
+          "bytes": 1020,
+          "sha256": "bae0eb15507d92c9f9562d9369bf8bf9a10490d257637f67da47e36a88823930"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "e0194fec507614572b7cb1587e7b43104b48f576a0c919f07bc177f470d79865"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
+        "Scripts/TacticalHUDBuildQueuePage/BuildQueuePage/BuildQueuePage_frame_0001_define_GetCommandList.as",
+        "Scripts/TacticalHUDBuildQueuePage/TabButton/TabButton_frame_0001_press_label_up.as",
+        "Scripts/TacticalHUDBuildQueuePage/TabButton/TabButton_frame_0001_set_client_label_up.as",
+        "Scripts/TacticalHUDBuildQueuePage/TabButton/TabButton_frame_0010_stop_label_up.as",
+        "Scripts/TacticalHUDBuildQueuePage/TabButton/TabButton_frame_0020_stop_label_over.as",
+        "Scripts/TacticalHUDBuildQueuePage/TabButton/TabButton_frame_0030_stop_label_down.as",
+        "Scripts/TacticalHUDBuildQueuePage/TabButton/TabButton_frame_0040_stop_label_selected.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_02.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_03.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_04.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_05.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_06.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_07.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_08.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_09.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_10.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_11.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_12.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_13.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_14.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_15.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_16.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_17.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_18.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_19.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnSubTabsInitialized.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_gotoAndStop_label_Str.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_gotoAndStop_label_Str_occurrence_02.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_02.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_03.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_04.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_05.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_06.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_07.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_08.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_09.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_10.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_11.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_12.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_13.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_14.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_15.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_16.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_17.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_18.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_19.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_02.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_03.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_04.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_05.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_06.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_07.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_08.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_09.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_10.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_11.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_12.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_13.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_14.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_15.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_16.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_17.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_18.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_19.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_02.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_03.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_04.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_05.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_06.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_07.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_08.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_09.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_10.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_11.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_12.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_13.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_14.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_15.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_16.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_17.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_18.as",
+        "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_19.as",
+        "Scripts/TacticalHUDBuildQueuePage/flashClip/flashClip_frame_0005_stop_label_off.as",
+        "Scripts/TacticalHUDBuildQueuePage/flashClip/flashClip_frame_0035_gotoAndStop_label_on.as",
+        "Scripts/TacticalHUDBuildQueuePage/spinLeftButton/spinLeftButton_frame_0001_define_SetEnabled_label_up.as",
+        "Scripts/TacticalHUDBuildQueuePage/spinLeftButton/spinLeftButton_frame_0001_press_label_up.as",
+        "Scripts/TacticalHUDBuildQueuePage/spinLeftButton/spinLeftButton_frame_0009_stop_label_up.as",
+        "Scripts/TacticalHUDBuildQueuePage/spinLeftButton/spinLeftButton_frame_0019_stop_label_over.as",
+        "Scripts/TacticalHUDBuildQueuePage/spinLeftButton/spinLeftButton_frame_0029_stop_label_down.as",
+        "Scripts/TacticalHUDBuildQueuePage/spinLeftButton/spinLeftButton_frame_0039_gotoAndStop_label_release.as",
+        "Scripts/TacticalHUDBuildQueuePage/spinLeftButton/spinLeftButton_frame_0050_stop_label_disabled.as",
+        "Scripts/TacticalHUDBuildQueuePage/spinRightButton/spinRightButton_frame_0001_define_SetEnabled_label_up.as",
+        "Scripts/TacticalHUDBuildQueuePage/spinRightButton/spinRightButton_frame_0001_press_label_up.as",
+        "Scripts/TacticalHUDBuildQueuePage/spinRightButton/spinRightButton_frame_0009_stop_label_up.as",
+        "Scripts/TacticalHUDBuildQueuePage/spinRightButton/spinRightButton_frame_0019_stop_label_over.as",
+        "Scripts/TacticalHUDBuildQueuePage/spinRightButton/spinRightButton_frame_0029_stop_label_down.as",
+        "Scripts/TacticalHUDBuildQueuePage/spinRightButton/spinRightButton_frame_0039_gotoAndStop_label_release.as",
+        "Scripts/TacticalHUDBuildQueuePage/spinRightButton/spinRightButton_frame_0050_stop_label_disabled.as",
+        "Scripts/TacticalHUDBuildQueuePage/subTabHelpSite/subTabHelpSite_frame_0001_construct.as",
+        "Scripts/TacticalHUDBuildQueuePage/subTabs/subTabs_frame_0001_define_GetTabButtonIndex.as",
+        "Scripts/TacticalHUDBuildQueuePage/tabOutline/tabOutline_frame_0005_stop_label_none.as",
+        "Scripts/TacticalHUDBuildQueuePage/tabOutline/tabOutline_frame_0010_stop_label_0.as",
+        "Scripts/TacticalHUDBuildQueuePage/tabOutline/tabOutline_frame_0015_stop_label_1.as",
+        "Scripts/TacticalHUDBuildQueuePage/tabOutline/tabOutline_frame_0020_stop_label_2.as",
+        "Scripts/TacticalHUDBuildQueuePage/tabOutline/tabOutline_frame_0025_stop_label_3.as",
+        "Scripts/TacticalHUDBuildQueuePage/tabOutline/tabOutline_frame_0030_stop_label_4.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDCoOpAIOrderPanel",
+      "status": "passed",
+      "assets": 122,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 11573,
+          "sha256": "01cfb2bd364e09b4cd27648f312c589b09eaa3a680ef8336f9f4723dc8f92616"
+        },
+        "bin": {
+          "bytes": 1148152,
+          "sha256": "b54c60535a9f62edf2af2451ac523388e6a4614e20b548214c21c6ac6ff87ee9"
+        },
+        "relo": {
+          "bytes": 980,
+          "sha256": "068febb9e3592281d8fe99ba4288cbd9f5f185268114907bbe8702c70342b8bd"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "24d8c44b8357f11c9a70b4440130e7d754fb8ba1d331072bffda999d53855cc5"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/AssaultButton/AssaultButton_frame_0005_stop_label_off.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/AssaultButton/AssaultButton_frame_0010_stop_label_on.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/AssaultButton/AssaultButton_frame_0015_stop_label_over.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/AssaultButton/AssaultButton_frame_0020_stop_label_pressed.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/AssaultButton/AssaultButton_frame_0025_stop_label_disabled.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/GadgetFlash/GadgetFlash_frame_0004_stop_label_off.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/GadgetFlash/GadgetFlash_frame_0005_set_isOn_label_on.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/GadgetFlash/GadgetFlash_frame_0019_gotoAndStop_label_on.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/HoldObjectButton/HoldObjectButton_frame_0005_stop_label_off.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/HoldObjectButton/HoldObjectButton_frame_0010_stop_label_on.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/HoldObjectButton/HoldObjectButton_frame_0015_stop_label_over.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/HoldObjectButton/HoldObjectButton_frame_0020_stop_label_pressed.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/HoldObjectButton/HoldObjectButton_frame_0025_stop_label_disabled.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/HoldPositionButton/HoldPositionButton_frame_0005_stop_label_off.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/HoldPositionButton/HoldPositionButton_frame_0010_stop_label_on.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/HoldPositionButton/HoldPositionButton_frame_0015_stop_label_over.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/HoldPositionButton/HoldPositionButton_frame_0020_stop_label_pressed.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/HoldPositionButton/HoldPositionButton_frame_0025_stop_label_disabled.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/NormalButton/NormalButton_frame_0005_stop_label_off.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/NormalButton/NormalButton_frame_0010_stop_label_on.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/NormalButton/NormalButton_frame_0015_stop_label_over.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/NormalButton/NormalButton_frame_0020_stop_label_pressed.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/NormalButton/NormalButton_frame_0025_stop_label_disabled.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/RenderImage/RenderImage_frame_0001_construct.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0001_define_OnCurrentFactionChanged_label_Allies.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_02.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_03.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_04.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_05.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_06.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_07.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_08.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_09.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0001_define_Open_label_closed.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0010_stop_label_Allies.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0010_stop_label_Allies_occurrence_02.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0010_stop_label_Allies_occurrence_03.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0010_stop_label_Allies_occurrence_04.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0010_stop_label_Allies_occurrence_05.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0010_stop_label_Allies_occurrence_06.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0010_stop_label_Allies_occurrence_07.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0010_stop_label_Allies_occurrence_08.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0010_stop_label_Allies_occurrence_09.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0010_stop_label_closed.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0011_timelineActions_label_opening.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0013_fscommand_label_open.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0020_stop_label_Soviet.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0020_stop_label_Soviet_occurrence_02.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0020_stop_label_Soviet_occurrence_03.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0020_stop_label_Soviet_occurrence_04.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0020_stop_label_Soviet_occurrence_05.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0020_stop_label_Soviet_occurrence_06.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0020_stop_label_Soviet_occurrence_07.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0020_stop_label_Soviet_occurrence_08.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0020_stop_label_Soviet_occurrence_09.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0022_stop_label_open.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0025_fscommand_label_closing.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0030_stop_label_Japan.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0030_stop_label_Japan_occurrence_02.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0030_stop_label_Japan_occurrence_03.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0030_stop_label_Japan_occurrence_04.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0030_stop_label_Japan_occurrence_05.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0030_stop_label_Japan_occurrence_06.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0030_stop_label_Japan_occurrence_07.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0030_stop_label_Japan_occurrence_08.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel_frame_0030_stop_label_Japan_occurrence_09.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/assaultButton/assaultButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/buttonHelpSite/buttonHelpSite_frame_0001_construct.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/hitTestButton/hitTestButton_frame_0001_load.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/hitTestButton/hitTestButton_frame_0001_press.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/holdObjectButton/holdObjectButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/holdPositionButton/holdPositionButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/monitor/monitor_frame_0001_fscommand.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/monitor/monitor_frame_0001_load.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/monitor/monitor_frame_0001_press.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/normalButton/normalButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDCoOpAIOrderPanel/normalButton/normalButton_frame_0001_define_SetEnabled.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDCommandListBox",
+      "status": "passed",
+      "assets": 5,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 533,
+          "sha256": "9015943ed7779c0eea0fbe157e28461d3fdd74ce78ee01db9f968c1f0cd1a226"
+        },
+        "bin": {
+          "bytes": 31232,
+          "sha256": "d39dc41963b20d8a766db953780b91f65beef2da3d305b66bc8770126505e812"
+        },
+        "relo": {
+          "bytes": 44,
+          "sha256": "39c2c20a314c340739d741b717a8aada3522b8b381e4bd2ca1b10e2227ee6c22"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "edba8776b09a00846a450a7cdd492e125a96c22d1c562d595ab581093d7fb4c6"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
+        "Scripts/TacticalHUDCommandListBox/TacticalHUDCommandListBox/TacticalHUDCommandListBox_frame_0001_define_UpdateButtonSlotVisibility.as",
+        "Scripts/TacticalHUDCommandListBox/WhiteRectangle/WhiteRectangle_frame_0001_load.as",
+        "Scripts/TacticalHUDCommandListBox/WhiteRectangle/WhiteRectangle_frame_0001_load_occurrence_02.as",
+        "Scripts/TacticalHUDCommandListBox/buttonHelpSite/buttonHelpSite_frame_0001_construct.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDCommandModeBar",
+      "status": "passed",
+      "assets": 62,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 5759,
+          "sha256": "ccabe2ee59e748ea75442c5a6d6bee9a4de68507ef1ece257b4fdf5fd9d17054"
+        },
+        "bin": {
+          "bytes": 278104,
+          "sha256": "c53ccbb572a5ff1088138a43b7fb3dfa80c076a0499ec8ea707243c4db7dba94"
+        },
+        "relo": {
+          "bytes": 500,
+          "sha256": "0ccb1517b179f537247ceef7376451a5905bc2c9fe4313dbb25979fdf89c0376"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "0d3e08b89c64a885d6afef7e7c3836f9f27574b6751e959a6bb6432587c99366"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
+        "Scripts/TacticalHUDCommandModeBar/ObjectivesButtonHighlighted/ObjectivesButtonHighlighted_frame_0005_stop_label_disabled.as",
+        "Scripts/TacticalHUDCommandModeBar/ObjectivesButtonHighlighted/ObjectivesButtonHighlighted_frame_0010_stop_label_up.as",
+        "Scripts/TacticalHUDCommandModeBar/ObjectivesButtonHighlighted/ObjectivesButtonHighlighted_frame_0015_stop_label_over.as",
+        "Scripts/TacticalHUDCommandModeBar/ObjectivesButtonHighlighted/ObjectivesButtonHighlighted_frame_0020_stop_label_down.as",
+        "Scripts/TacticalHUDCommandModeBar/ObjectivesButtonNormal/ObjectivesButtonNormal_frame_0005_stop_label_disabled.as",
+        "Scripts/TacticalHUDCommandModeBar/ObjectivesButtonNormal/ObjectivesButtonNormal_frame_0010_stop_label_up.as",
+        "Scripts/TacticalHUDCommandModeBar/ObjectivesButtonNormal/ObjectivesButtonNormal_frame_0015_stop_label_over.as",
+        "Scripts/TacticalHUDCommandModeBar/ObjectivesButtonNormal/ObjectivesButtonNormal_frame_0020_stop_label_down.as",
+        "Scripts/TacticalHUDCommandModeBar/RA3CommandModeButtonClip/RA3CommandModeButtonClip_frame_0001_press_label_disabled.as",
+        "Scripts/TacticalHUDCommandModeBar/RA3CommandModeButtonClip/RA3CommandModeButtonClip_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDCommandModeBar/RA3CommandModeButtonClip/RA3CommandModeButtonClip_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDCommandModeBar/RA3CommandModeButtonClip/RA3CommandModeButtonClip_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDCommandModeBar/RA3CommandModeButtonClip/RA3CommandModeButtonClip_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDCommandModeBar/RepairButtonHighlighted/RepairButtonHighlighted_frame_0005_stop_label_disabled.as",
+        "Scripts/TacticalHUDCommandModeBar/RepairButtonHighlighted/RepairButtonHighlighted_frame_0010_stop_label_up.as",
+        "Scripts/TacticalHUDCommandModeBar/RepairButtonHighlighted/RepairButtonHighlighted_frame_0015_stop_label_over.as",
+        "Scripts/TacticalHUDCommandModeBar/RepairButtonHighlighted/RepairButtonHighlighted_frame_0020_stop_label_down.as",
+        "Scripts/TacticalHUDCommandModeBar/RepairButtonNormal/RepairButtonNormal_frame_0005_stop_label_disabled.as",
+        "Scripts/TacticalHUDCommandModeBar/RepairButtonNormal/RepairButtonNormal_frame_0010_stop_label_up.as",
+        "Scripts/TacticalHUDCommandModeBar/RepairButtonNormal/RepairButtonNormal_frame_0015_stop_label_over.as",
+        "Scripts/TacticalHUDCommandModeBar/RepairButtonNormal/RepairButtonNormal_frame_0020_stop_label_down.as",
+        "Scripts/TacticalHUDCommandModeBar/SellButtonHighlighted/SellButtonHighlighted_frame_0005_stop_label_disabled.as",
+        "Scripts/TacticalHUDCommandModeBar/SellButtonHighlighted/SellButtonHighlighted_frame_0010_stop_label_up.as",
+        "Scripts/TacticalHUDCommandModeBar/SellButtonHighlighted/SellButtonHighlighted_frame_0015_stop_label_over.as",
+        "Scripts/TacticalHUDCommandModeBar/SellButtonHighlighted/SellButtonHighlighted_frame_0020_stop_label_down.as",
+        "Scripts/TacticalHUDCommandModeBar/SellButtonNormal/SellButtonNormal_frame_0005_stop_label_disabled.as",
+        "Scripts/TacticalHUDCommandModeBar/SellButtonNormal/SellButtonNormal_frame_0010_stop_label_up.as",
+        "Scripts/TacticalHUDCommandModeBar/SellButtonNormal/SellButtonNormal_frame_0015_stop_label_over.as",
+        "Scripts/TacticalHUDCommandModeBar/SellButtonNormal/SellButtonNormal_frame_0020_stop_label_down.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0001_define_GetSellButton.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0001_define_OnCurrentFactionChanged_label_Allies.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_02.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_03.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_04.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_05.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_06.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0010_stop_label_Allies.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0010_stop_label_Allies_occurrence_02.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0010_stop_label_Allies_occurrence_03.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0010_stop_label_Allies_occurrence_04.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0010_stop_label_Allies_occurrence_05.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0010_stop_label_Allies_occurrence_06.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0020_stop_label_Soviet.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0020_stop_label_Soviet_occurrence_02.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0020_stop_label_Soviet_occurrence_03.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0020_stop_label_Soviet_occurrence_04.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0020_stop_label_Soviet_occurrence_05.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0020_stop_label_Soviet_occurrence_06.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0030_stop_label_Japan.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0030_stop_label_Japan_occurrence_02.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0030_stop_label_Japan_occurrence_03.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0030_stop_label_Japan_occurrence_04.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0030_stop_label_Japan_occurrence_05.as",
+        "Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0030_stop_label_Japan_occurrence_06.as",
+        "Scripts/TacticalHUDCommandModeBar/helpSite/helpSite_frame_0001_construct.as",
+        "Scripts/TacticalHUDCommandModeBar/pauseButton/pauseButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDCommandModeBar/repairButton/repairButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDCommandModeBar/sellButton/sellButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDCommandModeBar/sellButton/sellButton_frame_0001_define_SetState.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDEnergyMeter",
+      "status": "passed",
+      "assets": 23,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 2109,
+          "sha256": "5850dde2a8b93a18395370bd9c478df91037616706d6293424ff308e658b7ff2"
+        },
+        "bin": {
+          "bytes": 73444,
+          "sha256": "aaa25ece918ef6afa75772e9d2d9230edd9c82da8aa90e576ebc7d7bbb6ddf20"
+        },
+        "relo": {
+          "bytes": 188,
+          "sha256": "6b4c5068af0e88198e23f5a4e259b180e343e05e71b2f6c1dd21d3a47b644859"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "8543a0d7bc4302f1b1adf5ebf963767ba310681b34c8e00e990eaaaeb736a4cc"
+        }
+      },
+      "inputs": [
+        "Scripts/TacticalHUDEnergyMeter/RA3PowerBarPip/RA3PowerBarPip_frame_0005_stop_label_off.as",
+        "Scripts/TacticalHUDEnergyMeter/RA3PowerBarPip/RA3PowerBarPip_frame_0010_stop_label_red.as",
+        "Scripts/TacticalHUDEnergyMeter/RA3PowerBarPip/RA3PowerBarPip_frame_0015_stop_label_yellow.as",
+        "Scripts/TacticalHUDEnergyMeter/RA3PowerBarPip/RA3PowerBarPip_frame_0020_stop_label_green.as",
+        "Scripts/TacticalHUDEnergyMeter/TacticalHUDEnergyMeter/TacticalHUDEnergyMeter_frame_0001_define_SetValues.as",
+        "Scripts/TacticalHUDEnergyMeter/button/button_frame_0001_rollOver_label_steady.as",
+        "Scripts/TacticalHUDEnergyMeter/pips/pips_frame_0001_define_Initialize.as",
+        "Scripts/TacticalHUDEnergyMeter/powerBar/powerBar_frame_0001_construct.as",
+        "Scripts/TacticalHUDEnergyMeter/powerBar/powerBar_frame_0001_define_OnPipsLoaded_label_steady.as",
+        "Scripts/TacticalHUDEnergyMeter/powerBar/powerBar_frame_0006_stop_label_steady.as",
+        "Scripts/TacticalHUDEnergyMeter/powerBar/powerBar_frame_0026_gotoAndStop_label_pulse.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDExperiencePanel",
+      "status": "passed",
+      "assets": 184,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 17240,
+          "sha256": "7cb54f3bdb2b565a82ab0fc97130c1133c0067fa26bc3d52117f1ec7e347f765"
+        },
+        "bin": {
+          "bytes": 1319552,
+          "sha256": "1b737a1053292f86404429738de6a47410251937c94289f7d8498701fa934261"
+        },
+        "relo": {
+          "bytes": 1476,
+          "sha256": "3eb225a8a0fb8a4c6536765b946dbdaaea2d2434038e18f7574b6e4742ea4a6a"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "1d732cf257eab342ce22c51a7da47e25ce52d5b87a946e0eb6ea32fbc32fee18"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
+        "Scripts/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel_frame_0001_define_GetPlayerTechStoreButton.as",
+        "Scripts/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel_frame_0001_define_OnCurrentFactionChanged_label_Allies.as",
+        "Scripts/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel_frame_0010_stop_label_Allies.as",
+        "Scripts/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel_frame_0010_stop_label_off.as",
+        "Scripts/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel_frame_0020_NextFlash_label_flash.as",
+        "Scripts/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel_frame_0020_stop_label_Soviet.as",
+        "Scripts/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel_frame_0021_stop_label_flash.as",
+        "Scripts/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel_frame_0030_stop_label_Japan.as",
+        "Scripts/TacticalHUDExperiencePanel/flashyThingy/flashyThingy_frame_0005_stop_label_off.as",
+        "Scripts/TacticalHUDExperiencePanel/flashyThingy/flashyThingy_frame_0026_gotoAndStop_label_on.as",
+        "Scripts/TacticalHUDExperiencePanel/helpSite/helpSite_frame_0001_construct.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0001_define_SetProgress.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0002_SetProgress.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0003_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0004_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0005_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0006_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0007_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0008_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0009_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0010_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0011_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0012_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0013_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0014_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0015_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0016_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0017_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0018_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0019_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0020_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0021_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0022_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0023_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0024_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0025_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerExperienceMeter/playerExperienceMeter_frame_0026_stop.as",
+        "Scripts/TacticalHUDExperiencePanel/playerTechStoreButton/playerTechStoreButton_frame_0001_define_SetEnabled.as",
+        "Scripts/TacticalHUDExperiencePanel/playerTechStoreButton/playerTechStoreButton_frame_0001_release.as",
+        "Scripts/TacticalHUDExperiencePanel/playerTechStoreButtonHighlight/playerTechStoreButtonHighlight_frame_0005_stop_label_off.as",
+        "Scripts/TacticalHUDExperiencePanel/playerTechStoreButtonHighlight/playerTechStoreButtonHighlight_frame_0036_gotoAndPlay_label_on.as",
+        "Scripts/TacticalHUDExperiencePanel/sunburst/sunburst_frame_0010_stop_label_flash.as",
+        "Scripts/TacticalHUDExperiencePanel/techPoints/techPoints_frame_0005_stop_label_0.as",
+        "Scripts/TacticalHUDExperiencePanel/techPoints/techPoints_frame_0010_stop_label_1.as",
+        "Scripts/TacticalHUDExperiencePanel/techPoints/techPoints_frame_0015_stop_label_2.as",
+        "Scripts/TacticalHUDExperiencePanel/techPoints/techPoints_frame_0020_stop_label_3.as",
+        "Scripts/TacticalHUDExperiencePanel/techPoints/techPoints_frame_0025_stop_label_4.as",
+        "Scripts/TacticalHUDExperiencePanel/techPoints/techPoints_frame_0030_stop_label_5.as",
+        "Scripts/TacticalHUDExperiencePanel/techPoints/techPoints_frame_0035_stop_label_6.as",
+        "Scripts/TacticalHUDExperiencePanel/techPoints/techPoints_frame_0040_stop_label_7.as",
+        "Scripts/TacticalHUDExperiencePanel/techPoints/techPoints_frame_0045_stop_label_8.as",
+        "Scripts/TacticalHUDExperiencePanel/techPoints/techPoints_frame_0050_stop_label_9.as",
+        "Scripts/TacticalHUDExperiencePanel/techPoints/techPoints_frame_0055_stop_label_10.as",
+        "Scripts/TacticalHUDExperiencePanel/threatMeter/threatMeter_frame_0001_define_Calibrate.as",
+        "Scripts/TacticalHUDExperiencePanel/threatMeter/threatMeter_frame_0001_rollOver.as",
+        "Scripts/TacticalHUDExperiencePanel/ugly/ugly_frame_0001_define_Start.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDMainCommandBar",
+      "status": "passed",
+      "assets": 144,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 13341,
+          "sha256": "174a3268dbf3342cb9e044a039f5f53fa04fc5ab1ce85224e40a3e7191c7fa15"
+        },
+        "bin": {
+          "bytes": 691264,
+          "sha256": "2b31dff38dd9c341e6bbd99a7abf34a99228050f91bdfc051cc1fa2871072f6d"
+        },
+        "relo": {
+          "bytes": 1156,
+          "sha256": "823fa5cc7a4eb650e355854de8b56b436ceaaa06fa1cf0698fc88ee286804a6c"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "6ee05831bdcfc46644abcf055acacb1b466e89d2f4de66e3147982ae141b4d2a"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
+        "Scripts/TacticalHUDMainCommandBar/ButtonContact/ButtonContact_frame_0001_press.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_GetSelectionRefinementPage.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_OnCurrentFactionChanged_label_Allies.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_02.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_03.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_04.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_05.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_06.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_07.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_08.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_09.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_10.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_11.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_12.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_13.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_14.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_gotoAndStop_label_Con_component.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_gotoAndStop_label_Con_component_occurrence_02.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_gotoAndStop_label_Con_component_occurrence_03.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0001_set_client_label_disabled.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_Allies.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_Allies_occurrence_02.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_Allies_occurrence_03.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_Allies_occurrence_04.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_Allies_occurrence_05.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_Allies_occurrence_06.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_Allies_occurrence_07.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_Allies_occurrence_08.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_Allies_occurrence_09.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_Allies_occurrence_10.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_Allies_occurrence_11.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_Allies_occurrence_12.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_Allies_occurrence_13.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_Allies_occurrence_14.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_Soviet.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_Soviet_occurrence_02.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_Soviet_occurrence_03.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_Soviet_occurrence_04.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_Soviet_occurrence_05.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_Soviet_occurrence_06.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_Soviet_occurrence_07.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_Soviet_occurrence_08.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_Soviet_occurrence_09.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_Soviet_occurrence_10.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_Soviet_occurrence_11.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_Soviet_occurrence_12.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_Soviet_occurrence_13.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_Soviet_occurrence_14.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_Japan.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_Japan_occurrence_02.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_Japan_occurrence_03.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_Japan_occurrence_04.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_Japan_occurrence_05.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_Japan_occurrence_06.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_Japan_occurrence_07.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_Japan_occurrence_08.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_Japan_occurrence_09.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_Japan_occurrence_10.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_Japan_occurrence_11.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_Japan_occurrence_12.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_Japan_occurrence_13.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_Japan_occurrence_14.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar_frame_0050_stop_label_selected.as",
+        "Scripts/TacticalHUDMainCommandBar/aircraft/aircraft_frame_0001_load.as",
+        "Scripts/TacticalHUDMainCommandBar/flashClip/flashClip_frame_0005_stop_label_off.as",
+        "Scripts/TacticalHUDMainCommandBar/flashClip/flashClip_frame_0035_gotoAndStop_label_on.as",
+        "Scripts/TacticalHUDMainCommandBar/infantry/infantry_frame_0001_load.as",
+        "Scripts/TacticalHUDMainCommandBar/mainStructure/mainStructure_frame_0001_load.as",
+        "Scripts/TacticalHUDMainCommandBar/navy/navy_frame_0001_load.as",
+        "Scripts/TacticalHUDMainCommandBar/otherStructure/otherStructure_frame_0001_load.as",
+        "Scripts/TacticalHUDMainCommandBar/sel/sel_frame_0001_load.as",
+        "Scripts/TacticalHUDMainCommandBar/tabHelpSite/tabHelpSite_frame_0001_construct.as",
+        "Scripts/TacticalHUDMainCommandBar/tabOutline/tabOutline_frame_0005_stop_label_0.as",
+        "Scripts/TacticalHUDMainCommandBar/tabOutline/tabOutline_frame_0010_stop_label_1.as",
+        "Scripts/TacticalHUDMainCommandBar/tabOutline/tabOutline_frame_0015_stop_label_2.as",
+        "Scripts/TacticalHUDMainCommandBar/tabOutline/tabOutline_frame_0020_stop_label_3.as",
+        "Scripts/TacticalHUDMainCommandBar/tabOutline/tabOutline_frame_0025_stop_label_4.as",
+        "Scripts/TacticalHUDMainCommandBar/tabOutline/tabOutline_frame_0030_stop_label_5.as",
+        "Scripts/TacticalHUDMainCommandBar/tabOutline/tabOutline_frame_0035_stop_label_6.as",
+        "Scripts/TacticalHUDMainCommandBar/tabs/tabs_frame_0001_define_SelectTab.as",
+        "Scripts/TacticalHUDMainCommandBar/vehicles/vehicles_frame_0001_load.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDObjectiveIndicatorStage",
+      "status": "passed",
+      "assets": 44,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 4517,
+          "sha256": "b5a8555360c2a4c609209a145764830953193e381ff4ffea5a077d5d9b2089f4"
+        },
+        "bin": {
+          "bytes": 374884,
+          "sha256": "1e1d4987f8e93a5059e218cb721ef3db42b1502aba96d39f44c855301f7ae2db"
+        },
+        "relo": {
+          "bytes": 356,
+          "sha256": "6d0de1458d057ef5c128f149276f0bdd6b5b17b89820799db0ad1c4e57035c05"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "0b1b99198c9483f9b45812a37c9588be802eb3a408fafa9b0915792f4d1928fe"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
+        "Common/Scripts/ig_libHUD/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/OffScreenIndicator/OffScreenIndicator_frame_0001_define_SetObjectivePos_label_Attack.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/OffScreenIndicator/OffScreenIndicator_frame_0001_press_label_Attack.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/OffScreenIndicator/OffScreenIndicator_frame_0010_stop_label_Attack.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/OffScreenIndicator/OffScreenIndicator_frame_0020_stop_label_Protect.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/OffScreenIndicator/OffScreenIndicator_frame_0030_stop_label_Capture.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/OffScreenIndicator/OffScreenIndicator_frame_0040_stop_label_Build.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/OffScreenIndicator/OffScreenIndicator_frame_0050_stop_label_Move.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/OnScreenIndicator/OnScreenIndicator_frame_0001_define_Move.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/OnScreenIndicator/OnScreenIndicator_frame_0001_load.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/OnScreenIndicator/OnScreenIndicator_frame_0001_release.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/TacticalHUDObjectiveIndicatorSta/TacticalHUDObjectiveIndicatorSta_frame_0001_define_AddOnScreenIndicator.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/arrow/arrow_frame_0005_stop_label_primary.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/arrow/arrow_frame_0010_stop_label_bonus.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/bonus/bonus_frame_0005_stop_label_Attack.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/bonus/bonus_frame_0010_stop_label_Protect.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/bonus/bonus_frame_0015_stop_label_Capture.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/bonus/bonus_frame_0020_stop_label_Build.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/bonus/bonus_frame_0025_stop_label_Move.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/helpSite/helpSite_frame_0001_construct_label_Attack.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/marker/marker_frame_0001_define_SetPrimary.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/newness/newness_frame_0001_stop.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/newness/newness_frame_0001_stop_occurrence_02.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/newness/newness_frame_0002_play_label_play.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/newness/newness_frame_0002_play_label_play_occurrence_02.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/newness/newness_frame_0022_gotoAndStop_label_loop.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/newness/newness_frame_0022_gotoAndStop_label_loop_occurrence_02.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/newness/newness_frame_0023_stop_label_loop.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/newness/newness_frame_0023_stop_label_loop_occurrence_02.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/ordinal/ordinal_frame_0001_load_label_Attack.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/primary/primary_frame_0005_stop_label_Attack.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/primary/primary_frame_0010_stop_label_Protect.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/primary/primary_frame_0015_stop_label_Capture.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/primary/primary_frame_0020_stop_label_Build.as",
+        "Scripts/TacticalHUDObjectiveIndicatorStage/primary/primary_frame_0025_stop_label_Move.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDObserverControlPanel",
+      "status": "passed",
+      "assets": 45,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 4479,
+          "sha256": "dde1f7457db637edee36ac4b56e830b6b3d3f516cfa0014f63511ae682e360fd"
+        },
+        "bin": {
+          "bytes": 300836,
+          "sha256": "97ef4473e512e041c461a80093003294f58b9e05f8e5cf88238b9fb6001bbeb7"
+        },
+        "relo": {
+          "bytes": 364,
+          "sha256": "77009fd589199e9ce8709a08db0daf1c541ec1c4e5c47160517826415e133076"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "7f1b6bf1d7d5f12668933f1af2313039bd711ab9bf58232ab6542cedd40607ff"
+        }
+      },
+      "inputs": [
+        "Scripts/TacticalHUDObserverControlPanel/Observer/Observer_frame_0001_load.as",
+        "Scripts/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel_frame_0001_define_SetVisibility.as",
+        "Scripts/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel_frame_0001_press_label_minimize.as",
+        "Scripts/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel_frame_0001_stop_label_minimize.as",
+        "Scripts/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel_frame_0010_press_label_maximize.as",
+        "Scripts/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel_frame_0010_stop_label_maximize.as",
+        "Scripts/TacticalHUDObserverControlPanel/TitleFrame/TitleFrame_frame_0001_stop_label_mini.as",
+        "Scripts/TacticalHUDObserverControlPanel/TitleFrame/TitleFrame_frame_0010_stop_label_max.as",
+        "Scripts/TacticalHUDObserverControlPanel/leftButton/leftButton_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDObserverControlPanel/leftButton/leftButton_frame_0011_press_label_up.as",
+        "Scripts/TacticalHUDObserverControlPanel/leftButton/leftButton_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDObserverControlPanel/leftButton/leftButton_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDObserverControlPanel/leftButton/leftButton_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDObserverControlPanel/modeSpinner/modeSpinner_frame_0001_define_SetLeftButtonEnabled.as",
+        "Scripts/TacticalHUDObserverControlPanel/modeSpinner/modeSpinner_frame_0001_load.as",
+        "Scripts/TacticalHUDObserverControlPanel/panel/panel_frame_0001_stop.as",
+        "Scripts/TacticalHUDObserverControlPanel/panel/panel_frame_0012_stop_label_open.as",
+        "Scripts/TacticalHUDObserverControlPanel/panel/panel_frame_0022_stop_label_close.as",
+        "Scripts/TacticalHUDObserverControlPanel/rightButton/rightButton_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDObserverControlPanel/rightButton/rightButton_frame_0011_press_label_up.as",
+        "Scripts/TacticalHUDObserverControlPanel/rightButton/rightButton_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDObserverControlPanel/rightButton/rightButton_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDObserverControlPanel/rightButton/rightButton_frame_0040_stop_label_down.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDPlayerPowersBar",
+      "status": "passed",
+      "assets": 4,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 446,
+          "sha256": "603815f9a02bd8a575023f3bf98d5a3ff2b30d816e45183ee4d8cc63188d8a4f"
+        },
+        "bin": {
+          "bytes": 21948,
+          "sha256": "2b8673437b848b0e7a3d99d11ff2eb1764069aec29f9579a7b071bf39ebb8cec"
+        },
+        "relo": {
+          "bytes": 36,
+          "sha256": "50719f4cd23fd6ccd444f03a18a4ec66aee46dec346d722f97e185f9bdfa67a8"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "94a446935b214a635e7c4e4ebe4ee9cdb53e860b285d49fbde71ce4845832a39"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
+        "Common/Scripts/ig_libHUD/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as",
+        "Scripts/TacticalHUDPlayerPowersBar/HelpBoxSite/HelpBoxSite_frame_0002_construct.as",
+        "Scripts/TacticalHUDPlayerPowersBar/TacticalHUDPlayerPowersBar/TacticalHUDPlayerPowersBar_frame_0001_define_GetNumRowsInColumn.as",
+        "Scripts/TacticalHUDPlayerPowersBar/TacticalHUDPlayerPowersBar/TacticalHUDPlayerPowersBar_frame_0001_stop.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDRadar",
+      "status": "passed",
+      "assets": 80,
+      "milliseconds": 2,
+      "streams": {
+        "manifest": {
+          "bytes": 6718,
+          "sha256": "0ed7c3cb7e3fe9e4171f53ccb2e388c3852811244f98fd662d158ed9c7c8c932"
+        },
+        "bin": {
+          "bytes": 6045260,
+          "sha256": "18e1c4e99e04cb20d6b3ca5e937d451ffc5649dd82a043934bd85ae322f8ad8b"
+        },
+        "relo": {
+          "bytes": 644,
+          "sha256": "74c402c39fb67966c8016bc6829829518564a4e59d27ba053d5d4ff1b8b2cbdb"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "144d9b1a82bf6ed7fdfcad266cd553e47857869680f35d65fa0f08cecbb86f26"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/ig_libHUD/SimpleRenderingSurface/SimpleRenderingSurface_frame_0001_define_onUnload.as",
+        "Common/Scripts/ig_libHUD/SimpleRenderingSurface/shape_frame_0001_load.as",
+        "Scripts/TacticalHUDRadar/BlackRectangle/BlackRectangle_frame_0001_load.as",
+        "Scripts/TacticalHUDRadar/BuildQueueIndicator/BuildQueueIndicator_frame_0001_gotoAndPlay_label_Str.as",
+        "Scripts/TacticalHUDRadar/BuildQueueIndicator/BuildQueueIndicator_frame_0005_stop_label_Str.as",
+        "Scripts/TacticalHUDRadar/BuildQueueIndicator/BuildQueueIndicator_frame_0010_stop_label_Def.as",
+        "Scripts/TacticalHUDRadar/BuildQueueIndicator/BuildQueueIndicator_frame_0015_stop_label_Inf.as",
+        "Scripts/TacticalHUDRadar/BuildQueueIndicator/BuildQueueIndicator_frame_0020_stop_label_Veh.as",
+        "Scripts/TacticalHUDRadar/BuildQueueIndicator/BuildQueueIndicator_frame_0030_stop_label_Air.as",
+        "Scripts/TacticalHUDRadar/MpBeaconIndicator/MpBeaconIndicator_frame_0001_Color.as",
+        "Scripts/TacticalHUDRadar/PingAttack/PingAttack_frame_0022_gotoAndPlay_label_loop.as",
+        "Scripts/TacticalHUDRadar/PingAttack/PingAttack_frame_0037_DestroyPing_label_fadeOut.as",
+        "Scripts/TacticalHUDRadar/PingGeneric/PingGeneric_frame_0001_timelineActions.as",
+        "Scripts/TacticalHUDRadar/PingGeneric/PingGeneric_frame_0016_timelineActions.as",
+        "Scripts/TacticalHUDRadar/PingGeneric/PingGeneric_frame_0070_gotoAndPlay_label_loop.as",
+        "Scripts/TacticalHUDRadar/PingGeneric/PingGeneric_frame_0085_DestroyPing_label_fadeOut.as",
+        "Scripts/TacticalHUDRadar/PingInformation/PingInformation_frame_0022_gotoAndPlay_label_loop.as",
+        "Scripts/TacticalHUDRadar/PingInformation/PingInformation_frame_0037_DestroyPing_label_fadeOut.as",
+        "Scripts/TacticalHUDRadar/PingPlayer/PingPlayer_frame_0001_Color.as",
+        "Scripts/TacticalHUDRadar/PingUpgrade/PingUpgrade_frame_0022_gotoAndPlay_label_loop.as",
+        "Scripts/TacticalHUDRadar/PingUpgrade/PingUpgrade_frame_0037_DestroyPing_label_fadeOut.as",
+        "Scripts/TacticalHUDRadar/TacticalHUDRadar/TacticalHUDRadar_frame_0001_define_Open.as",
+        "Scripts/TacticalHUDRadar/TacticalHUDRadar/TacticalHUDRadar_frame_0018_stop.as",
+        "Scripts/TacticalHUDRadar/TacticalHUDRadar/TacticalHUDRadar_frame_0022_stop.as",
+        "Scripts/TacticalHUDRadar/TacticalHUDRadar/TacticalHUDRadar_frame_0055_gotoAndPlay.as",
+        "Scripts/TacticalHUDRadar/WhiteRectangle/WhiteRectangle_frame_0001_load.as",
+        "Scripts/TacticalHUDRadar/beaconStage/beaconStage_frame_0001_define_Resize.as",
+        "Scripts/TacticalHUDRadar/buildQueueStage/buildQueueStage_frame_0001_define_Resize.as",
+        "Scripts/TacticalHUDRadar/coverMC/coverMC_frame_0001_stop.as",
+        "Scripts/TacticalHUDRadar/coverMC/coverMC_frame_0002_play_label_opening.as",
+        "Scripts/TacticalHUDRadar/coverMC/coverMC_frame_0017_onOpened_label_opening.as",
+        "Scripts/TacticalHUDRadar/coverMC/coverMC_frame_0025_stop_label_opening.as",
+        "Scripts/TacticalHUDRadar/coverMC/coverMC_frame_0026_play_label_closing.as",
+        "Scripts/TacticalHUDRadar/coverMC/coverMC_frame_0041_onClosed_label_closing.as",
+        "Scripts/TacticalHUDRadar/coverMC/coverMC_frame_0048_stop_label_closing.as",
+        "Scripts/TacticalHUDRadar/imageMC/imageMC_frame_0001_define_OnCurrentFactionChanged_label_Allies.as",
+        "Scripts/TacticalHUDRadar/imageMC/imageMC_frame_0010_stop_label_Allies.as",
+        "Scripts/TacticalHUDRadar/imageMC/imageMC_frame_0020_stop_label_Japan.as",
+        "Scripts/TacticalHUDRadar/imageMC/imageMC_frame_0030_stop_label_Soviet.as",
+        "Scripts/TacticalHUDRadar/inputCatcher/inputCatcher_frame_0001_define_GetMousePos.as",
+        "Scripts/TacticalHUDRadar/inputCatcher/inputCatcher_frame_0001_rollOver_dragOver.as",
+        "Scripts/TacticalHUDRadar/jammedMessage/jammedMessage_frame_0001_load.as",
+        "Scripts/TacticalHUDRadar/mov/mov_frame_0001_set_loopcount.as",
+        "Scripts/TacticalHUDRadar/mov/mov_frame_0045_gotoAndPlay_label_loop.as",
+        "Scripts/TacticalHUDRadar/mov/mov_frame_0060_DestroyPing_label_fadeout.as",
+        "Scripts/TacticalHUDRadar/panel/panel_frame_0001_define_OnContentLoaded.as",
+        "Scripts/TacticalHUDRadar/pingSurface/pingSurface_frame_0001_define_Resize.as",
+        "Scripts/TacticalHUDRadar/sizer/sizer_frame_0001_load.as",
+        "Scripts/TacticalHUDRadar/sizer/sizer_frame_0001_load_occurrence_02.as",
+        "Scripts/TacticalHUDRadar/sizer/sizer_frame_0001_load_occurrence_03.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDSelectionDetails",
+      "status": "passed",
+      "assets": 327,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 30986,
+          "sha256": "a257731c3756fd19e7ebecb95615779fdce72be7e89f0d8836de31d92eb1ee17"
+        },
+        "bin": {
+          "bytes": 2697916,
+          "sha256": "d7db607b114e4af15f5b2c8eb483f4cc1ac21d1c8baef41e746cc44f4c3f38f1"
+        },
+        "relo": {
+          "bytes": 2620,
+          "sha256": "ddf0b0ab0774776c0060cf5667ac2f64f008940752ef3a543ec5c89ea4d8a5b9"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "1431809e8cc5232e669217f3130c969782e032a2d205934ac26f5a429521e34b"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
+        "Common/Scripts/ig_libHUD/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as",
+        "Scripts/TacticalHUDSelectionDetails/AmmoPip/AmmoPip_frame_0010_stop_label_empty.as",
+        "Scripts/TacticalHUDSelectionDetails/AmmoPip/AmmoPip_frame_0020_stop_label_filled.as",
+        "Scripts/TacticalHUDSelectionDetails/AssaultMoveHighlighted/AssaultMoveHighlighted_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/AssaultMoveHighlighted/AssaultMoveHighlighted_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/AssaultMoveHighlighted/AssaultMoveHighlighted_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/AssaultMoveHighlighted/AssaultMoveHighlighted_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/AssaultMoveNormal/AssaultMoveNormal_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/AssaultMoveNormal/AssaultMoveNormal_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/AssaultMoveNormal/AssaultMoveNormal_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/AssaultMoveNormal/AssaultMoveNormal_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/AttackMoveHighlighted/AttackMoveHighlighted_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/AttackMoveHighlighted/AttackMoveHighlighted_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/AttackMoveHighlighted/AttackMoveHighlighted_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/AttackMoveHighlighted/AttackMoveHighlighted_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/AttackMoveNormal/AttackMoveNormal_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/AttackMoveNormal/AttackMoveNormal_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/AttackMoveNormal/AttackMoveNormal_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/AttackMoveNormal/AttackMoveNormal_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceAttackHighlighted/ForceAttackHighlighted_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceAttackHighlighted/ForceAttackHighlighted_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceAttackHighlighted/ForceAttackHighlighted_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceAttackHighlighted/ForceAttackHighlighted_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceAttackNormal/ForceAttackNormal_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceAttackNormal/ForceAttackNormal_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceAttackNormal/ForceAttackNormal_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceAttackNormal/ForceAttackNormal_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceMoveHighlighted/ForceMoveHighlighted_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceMoveHighlighted/ForceMoveHighlighted_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceMoveHighlighted/ForceMoveHighlighted_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceMoveHighlighted/ForceMoveHighlighted_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceMoveNormal/ForceMoveNormal_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceMoveNormal/ForceMoveNormal_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceMoveNormal/ForceMoveNormal_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/ForceMoveNormal/ForceMoveNormal_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/FormationMoveHighlighted/FormationMoveHighlighted_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/FormationMoveHighlighted/FormationMoveHighlighted_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/FormationMoveHighlighted/FormationMoveHighlighted_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/FormationMoveHighlighted/FormationMoveHighlighted_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/FormationMoveNormal/FormationMoveNormal_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/FormationMoveNormal/FormationMoveNormal_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/FormationMoveNormal/FormationMoveNormal_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/FormationMoveNormal/FormationMoveNormal_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/PlanningModeHighlighted/PlanningModeHighlighted_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/PlanningModeHighlighted/PlanningModeHighlighted_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/PlanningModeHighlighted/PlanningModeHighlighted_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/PlanningModeHighlighted/PlanningModeHighlighted_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/PlanningModeNormal/PlanningModeNormal_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/PlanningModeNormal/PlanningModeNormal_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/PlanningModeNormal/PlanningModeNormal_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/PlanningModeNormal/PlanningModeNormal_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/RenderImage/RenderImage_frame_0001_construct.as",
+        "Scripts/TacticalHUDSelectionDetails/ReverseMoveHighlighted/ReverseMoveHighlighted_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/ReverseMoveHighlighted/ReverseMoveHighlighted_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/ReverseMoveHighlighted/ReverseMoveHighlighted_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/ReverseMoveHighlighted/ReverseMoveHighlighted_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/ReverseMoveNormal/ReverseMoveNormal_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/ReverseMoveNormal/ReverseMoveNormal_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/ReverseMoveNormal/ReverseMoveNormal_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/ReverseMoveNormal/ReverseMoveNormal_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceAggressiveHighlighted/StanceAggressiveHighlighted_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceAggressiveHighlighted/StanceAggressiveHighlighted_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceAggressiveHighlighted/StanceAggressiveHighlighted_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceAggressiveHighlighted/StanceAggressiveHighlighted_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceAggressiveNormal/StanceAggressiveNormal_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceAggressiveNormal/StanceAggressiveNormal_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceAggressiveNormal/StanceAggressiveNormal_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceAggressiveNormal/StanceAggressiveNormal_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceGuardHighlighted/StanceGuardHighlighted_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceGuardHighlighted/StanceGuardHighlighted_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceGuardHighlighted/StanceGuardHighlighted_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceGuardHighlighted/StanceGuardHighlighted_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceGuardNormal/StanceGuardNormal_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceGuardNormal/StanceGuardNormal_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceGuardNormal/StanceGuardNormal_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceGuardNormal/StanceGuardNormal_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldFireHighlighted/StanceHoldFireHighlighted_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldFireHighlighted/StanceHoldFireHighlighted_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldFireHighlighted/StanceHoldFireHighlighted_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldFireHighlighted/StanceHoldFireHighlighted_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldFireNormal/StanceHoldFireNormal_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldFireNormal/StanceHoldFireNormal_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldFireNormal/StanceHoldFireNormal_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldFireNormal/StanceHoldFireNormal_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldGroundHighlighted/StanceHoldGroundHighlighted_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldGroundHighlighted/StanceHoldGroundHighlighted_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldGroundHighlighted/StanceHoldGroundHighlighted_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldGroundHighlighted/StanceHoldGroundHighlighted_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldGroundNormal/StanceHoldGroundNormal_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldGroundNormal/StanceHoldGroundNormal_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldGroundNormal/StanceHoldGroundNormal_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/StanceHoldGroundNormal/StanceHoldGroundNormal_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/StopHighlighted/StopHighlighted_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/StopHighlighted/StopHighlighted_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/StopHighlighted/StopHighlighted_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/StopHighlighted/StopHighlighted_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/StopNormal/StopNormal_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/StopNormal/StopNormal_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/StopNormal/StopNormal_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/StopNormal/StopNormal_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_GetAbilityButtonStage_label_hide.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_02.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_03.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_04.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_05.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_06.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_07.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_08.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_09.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_10.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_11.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_12.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_13.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_14.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_15.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_16.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_17.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_18.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_19.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_20.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_21.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_22.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_23.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_24.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_25.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_26.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_27.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_28.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_29.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_30.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_31.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_32.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_gotoAndPlay.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0001_set_visible.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0002_stop.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_02.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_03.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_04.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_05.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_06.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_07.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_08.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_09.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_10.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_11.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_12.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_13.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_14.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_15.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_16.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_17.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_18.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_19.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_20.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_21.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_22.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_23.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_24.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_25.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_26.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_27.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_28.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_29.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_30.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_31.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_Allies_occurrence_32.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0010_stop_label_hide.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0011_load_label_singleUnit.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_02.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_03.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_04.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_05.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_06.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_07.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_08.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_09.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_10.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_11.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_12.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_13.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_14.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_15.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_16.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_17.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_18.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_19.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_20.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_21.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_22.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_23.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_24.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_25.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_26.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_27.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_28.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_29.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_30.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_31.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_Soviet_occurrence_32.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0020_stop_label_singleUnit.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_02.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_03.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_04.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_05.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_06.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_07.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_08.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_09.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_10.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_11.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_12.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_13.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_14.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_15.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_16.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_17.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_18.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_19.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_20.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_21.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_22.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_23.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_24.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_25.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_26.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_27.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_28.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_29.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_30.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_31.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_Japan_occurrence_32.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0030_stop_label_multiUnitSingleType.as",
+        "Scripts/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_frame_0040_stop_label_multiUnitMultiType.as",
+        "Scripts/TacticalHUDSelectionDetails/WaypointModeHighlighted/WaypointModeHighlighted_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/WaypointModeHighlighted/WaypointModeHighlighted_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/WaypointModeHighlighted/WaypointModeHighlighted_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/WaypointModeHighlighted/WaypointModeHighlighted_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/WaypointModeNormal/WaypointModeNormal_frame_0010_stop_label_disabled.as",
+        "Scripts/TacticalHUDSelectionDetails/WaypointModeNormal/WaypointModeNormal_frame_0020_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/WaypointModeNormal/WaypointModeNormal_frame_0030_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/WaypointModeNormal/WaypointModeNormal_frame_0040_stop_label_down.as",
+        "Scripts/TacticalHUDSelectionDetails/WhiteRectangle/WhiteRectangle_frame_0001_load.as",
+        "Scripts/TacticalHUDSelectionDetails/abilities/abilities_frame_0001_String.as",
+        "Scripts/TacticalHUDSelectionDetails/advCommands/advCommands_frame_0001_define_OnOpenButtonClicked_label_closed.as",
+        "Scripts/TacticalHUDSelectionDetails/advCommands/advCommands_frame_0002_OnRollOutOpenButton_label_open.as",
+        "Scripts/TacticalHUDSelectionDetails/advCommands/advCommands_frame_0011_fscommand_label_open.as",
+        "Scripts/TacticalHUDSelectionDetails/advCommands/advCommands_frame_0021_OnRollOutOpenButton_label_close.as",
+        "Scripts/TacticalHUDSelectionDetails/aggressiveStanceButton/aggressiveStanceButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDSelectionDetails/ammoBar/ammoBar_frame_0001_load.as",
+        "Scripts/TacticalHUDSelectionDetails/ammoBar/ammoBar_frame_0001_stop.as",
+        "Scripts/TacticalHUDSelectionDetails/ammoDisplay/ammoDisplay_frame_0001_define_SetPipCount.as",
+        "Scripts/TacticalHUDSelectionDetails/attackMoveButton/attackMoveButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDSelectionDetails/backgroundStage/backgroundStage_frame_0001_load.as",
+        "Scripts/TacticalHUDSelectionDetails/basicCommands/basicCommands_frame_0001_timelineActions.as",
+        "Scripts/TacticalHUDSelectionDetails/forceAttackButton/forceAttackButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDSelectionDetails/forceMoveButton/forceMoveButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDSelectionDetails/guardStanceButton/guardStanceButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDSelectionDetails/healthBar/healthBar_frame_0001_load.as",
+        "Scripts/TacticalHUDSelectionDetails/healthBar/healthBar_frame_0001_stop.as",
+        "Scripts/TacticalHUDSelectionDetails/healthBar/healthBar_frame_0011_load_label_singleUnit.as",
+        "Scripts/TacticalHUDSelectionDetails/helpSite0/helpSite0_frame_0001_construct.as",
+        "Scripts/TacticalHUDSelectionDetails/holdFireStanceButton/holdFireStanceButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDSelectionDetails/holdGroundStanceButton/holdGroundStanceButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDSelectionDetails/image/image_frame_0011_load_label_2.as",
+        "Scripts/TacticalHUDSelectionDetails/image/image_frame_0021_load_label_3.as",
+        "Scripts/TacticalHUDSelectionDetails/image/image_frame_0031_load_label_4.as",
+        "Scripts/TacticalHUDSelectionDetails/imageStage/imageStage_frame_0001_load.as",
+        "Scripts/TacticalHUDSelectionDetails/infiltratedOverlay/infiltratedOverlay_frame_0011_load_label_singleUnit.as",
+        "Scripts/TacticalHUDSelectionDetails/openAdvancedCommandsButton/openAdvancedCommandsButton_frame_0001_release_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/openAdvancedCommandsButton/openAdvancedCommandsButton_frame_0001_release_label_up_occurrence_02.as",
+        "Scripts/TacticalHUDSelectionDetails/openAdvancedCommandsButton/openAdvancedCommandsButton_frame_0010_stop_label_up.as",
+        "Scripts/TacticalHUDSelectionDetails/openAdvancedCommandsButton/openAdvancedCommandsButton_frame_0010_stop_label_up_occurrence_02.as",
+        "Scripts/TacticalHUDSelectionDetails/openAdvancedCommandsButton/openAdvancedCommandsButton_frame_0020_stop_label_over.as",
+        "Scripts/TacticalHUDSelectionDetails/openAdvancedCommandsButton/openAdvancedCommandsButton_frame_0020_stop_label_over_occurrence_02.as",
+        "Scripts/TacticalHUDSelectionDetails/oreRemaining/oreRemaining_frame_0001_gotoAndPlay.as",
+        "Scripts/TacticalHUDSelectionDetails/oreRemaining/oreRemaining_frame_0001_load_label_hide.as",
+        "Scripts/TacticalHUDSelectionDetails/oreRemaining/oreRemaining_frame_0002_stop.as",
+        "Scripts/TacticalHUDSelectionDetails/panel/panel_frame_0001_timelineActions.as",
+        "Scripts/TacticalHUDSelectionDetails/planningModeButton/planningModeButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDSelectionDetails/portrait/portrait_frame_0001_rollOver.as",
+        "Scripts/TacticalHUDSelectionDetails/portraitHelpSite/portraitHelpSite_frame_0001_construct_label_hide.as",
+        "Scripts/TacticalHUDSelectionDetails/rankInd/rankInd_frame_0001_define_SetFaction_label_1.as",
+        "Scripts/TacticalHUDSelectionDetails/rankInd/rankInd_frame_0010_stop_label_1.as",
+        "Scripts/TacticalHUDSelectionDetails/rankInd/rankInd_frame_0011_load_label_singleUnit.as",
+        "Scripts/TacticalHUDSelectionDetails/rankInd/rankInd_frame_0020_stop_label_2.as",
+        "Scripts/TacticalHUDSelectionDetails/rankInd/rankInd_frame_0030_stop_label_3.as",
+        "Scripts/TacticalHUDSelectionDetails/rankInd/rankInd_frame_0040_stop_label_4.as",
+        "Scripts/TacticalHUDSelectionDetails/reverseMoveButton/reverseMoveButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDSelectionDetails/stopButton/stopButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDSelectionDetails/stopButton/stopButton_frame_0001_define_SetState.as",
+        "Scripts/TacticalHUDSelectionDetails/stopButton/stopButton_frame_0001_load.as",
+        "Scripts/TacticalHUDSelectionDetails/stopButton/stopButton_frame_0001_press.as",
+        "Scripts/TacticalHUDSelectionDetails/unitIntroButton/unitIntroButton_frame_0001_construct.as",
+        "Scripts/TacticalHUDSelectionDetails/waypointModeButton/waypointModeButton_frame_0001_construct.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDSelectionRefinementPage",
+      "status": "passed",
+      "assets": 3,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 385,
+          "sha256": "2b118f648fc9a6ceea5b39e69f6f24248afbcb0ce92d47bc098f0318a8335910"
+        },
+        "bin": {
+          "bytes": 2832,
+          "sha256": "62ec62cfdba6481ee96e8486435a46c58d63065ad5dc945ac898a1b525b8802f"
+        },
+        "relo": {
+          "bytes": 28,
+          "sha256": "e74b4eb1e5c5d1051ac92a36a69392f18e1e23de9344855a2191c355a396b94c"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "735a19ecf473c8253bd972d77adb1c533eeaf6631c345c82e162e9f213675edb"
+        }
+      },
+      "inputs": [
+        "Scripts/TacticalHUDSelectionRefinementPage/TacticalHUDSelectionRefinementPa/TacticalHUDSelectionRefinementPa_frame_0001_define_GetCommandListBox.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDSpecialPowerTimers",
+      "status": "passed",
+      "assets": 9,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 945,
+          "sha256": "7db801c1c6987327eb1684176d24c32cb1f2ffc898769fe9fe9cd1daa0df34d9"
+        },
+        "bin": {
+          "bytes": 28608,
+          "sha256": "58fc3103b67a217015f3e89d8c337e1100b791bebd83ca1153e2f80fd11bde8a"
+        },
+        "relo": {
+          "bytes": 76,
+          "sha256": "c199b74c6ead468b3191d2841ef17809d30be739a6a74dae3be7309a12bdf7f9"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "1f62dfd37bc1e58876daf616e8def2e333d196ddab7e1beb176d3220c23cad79"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
+        "Scripts/TacticalHUDSpecialPowerTimers/TacticalHUDSpecialPowerTimers/TacticalHUDSpecialPowerTimers_frame_0001_define_TimerClipStack.as",
+        "Scripts/TacticalHUDSpecialPowerTimers/TacticalHUDSpecialPowerTimers/TacticalHUDSpecialPowerTimers_frame_0001_stop.as",
+        "Scripts/TacticalHUDSpecialPowerTimers/Timer/Timer_frame_0001_define_OnTimerRollOver.as",
+        "Scripts/TacticalHUDSpecialPowerTimers/Timer/Timer_frame_0001_press.as",
+        "Scripts/TacticalHUDSpecialPowerTimers/Timer/Timer_frame_0007_onEnterFrame_label_down.as",
+        "Scripts/TacticalHUDSpecialPowerTimers/Timer/Timer_frame_0012_onEnterFrame_label_up.as",
+        "Scripts/TacticalHUDSpecialPowerTimers/helpSite/helpSite_frame_0001_construct.as",
+        "Scripts/TacticalHUDSpecialPowerTimers/image/image_frame_0001_construct.as",
+        "Scripts/TacticalHUDSpecialPowerTimers/timerText/timerText_frame_0001_gotoAndPlay.as",
+        "Scripts/TacticalHUDSpecialPowerTimers/timerText/timerText_frame_0002_stop.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalHUDTelestratorControlPanel",
+      "status": "passed",
+      "assets": 41,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 4221,
+          "sha256": "2f156f516f5a902a6dcfdc1da6cb435241c23eaedceb77cd69bfff9d13ed30a6"
+        },
+        "bin": {
+          "bytes": 282000,
+          "sha256": "1e443564c655315fc63095363dacbc79370f07fbe6f38d3de8683e3b723cf3cf"
+        },
+        "relo": {
+          "bytes": 332,
+          "sha256": "e64001661cadd47b32b698e19f34cebb2feebd00cea753cdb6e78bc0a12fe3b3"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "e2b5cce47f73dc07826b32f171feba5dd10e2efabce10dc681d6956700d415ba"
+        }
+      },
+      "inputs": [
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0001_define_SetVisibility.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0001_press_label_up.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0001_press_label_up_occurrence_02.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0001_press_label_up_occurrence_03.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0010_stop_label_up.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0010_stop_label_up_occurrence_02.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0010_stop_label_up_occurrence_03.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0020_stop_label_over.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0020_stop_label_over_occurrence_02.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0020_stop_label_over_occurrence_03.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0030_stop_label_down.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0030_stop_label_down_occurrence_02.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0030_stop_label_down_occurrence_03.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0040_stop_label_selected.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0040_stop_label_selected_occurrence_02.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TitleFrame/TitleFrame_frame_0001_stop_label_mini.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/TitleFrame/TitleFrame_frame_0010_stop_label_max.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/WhiteRectangle/WhiteRectangle_frame_0001_load_label_up.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/box/box_frame_0001_define_SelectColorButton.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/colors/colors_frame_0001_construct.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/colors/colors_frame_0001_construct_occurrence_02.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/colors/colors_frame_0001_construct_occurrence_03.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/colors/colors_frame_0001_construct_occurrence_04.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/colors/colors_frame_0001_construct_occurrence_05.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/colors/colors_frame_0001_construct_occurrence_06.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/colors/colors_frame_0001_construct_occurrence_07.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/colors/colors_frame_0001_construct_occurrence_08.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/image/image_frame_0001_load_label_up.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/image/image_frame_0010_stop_label_thin.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/image/image_frame_0011_load_label_over.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/image/image_frame_0020_stop_label_thick.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/image/image_frame_0021_load_label_down.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/image/image_frame_0031_load_label_selected.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/lineWidths/lineWidths_frame_0001_load.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/lineWidths/lineWidths_frame_0001_load_occurrence_02.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/openToggle/openToggle_frame_0001_press_label_minimize.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/openToggle/openToggle_frame_0001_stop_label_minimize.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/openToggle/openToggle_frame_0010_stop_label_maximize.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/panel/panel_frame_0001_stop.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/panel/panel_frame_0010_OnOpening_label_open.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/panel/panel_frame_0020_OnOpen_label_open.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/panel/panel_frame_0021_OnClosing_label_close.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/panel/panel_frame_0030_OnClosed_label_close.as",
+        "Scripts/TacticalHUDTelestratorControlPanel/titleBox/titleBox_frame_0001_load.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalMissionHotSpotPopUp",
+      "status": "passed",
+      "assets": 14,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 1385,
+          "sha256": "df60f1907de5cbe680ef8857c40eebb5172b7a1a02c50d33d128b3f1a6af4e07"
+        },
+        "bin": {
+          "bytes": 304372,
+          "sha256": "a0809eb71d5cc0040fec9ecff6351e7ea2e93e317d6659305966e0aafe3fa0cc"
+        },
+        "relo": {
+          "bytes": 116,
+          "sha256": "e44ce6a2df84be237cafd5170b5e7de6f5bfcca873845b7dff69985444d6d445"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "9cf5ee598299ad42dee3ff1cff6245aa7c0a90aa9c87f648f558254fdcee8e5b"
+        }
+      },
+      "inputs": [
+        "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0001_define_Move.as",
+        "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0001_load_label_up.as",
+        "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0001_press_label_up.as",
+        "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0005_stop.as",
+        "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0005_stop_label_up.as",
+        "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0010_fscommand_label_close.as",
+        "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0010_stop_label_over.as",
+        "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0011_load_label_down.as",
+        "Scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0015_stop_label_down.as",
+        "Scripts/TacticalMissionHotSpotPopUp/panel/panel_frame_0001_load.as",
+        "Scripts/TacticalMissionHotSpotPopUp/panel/panel_frame_0001_load_occurrence_02.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalMpBeaconDialog",
+      "status": "passed",
+      "assets": 6,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 604,
+          "sha256": "4b0e018dfbab014c453c5b545b73cb16ff3254b4e203e0469a4e6f5ac2b66488"
+        },
+        "bin": {
+          "bytes": 6544,
+          "sha256": "d1f52875ebf8abf78fa846c9f5ce21c057a836f3e015c7bf4fe7e30cc001b3f9"
+        },
+        "relo": {
+          "bytes": 52,
+          "sha256": "e37081947d26567e66830dfa336af6cc9a0a55eeb15c35bb02aea1dce3f577c4"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "3d241f0bf082b6ac3988666e56bd577e1c7a3cc1c9e8ae391a0aa3b046838827"
+        }
+      },
+      "inputs": [
+        "Scripts/TacticalMpBeaconDialog/TacticalMpBeaconDialog/TacticalMpBeaconDialog_frame_0001_define_Close.as",
+        "Scripts/TacticalMpBeaconDialog/TacticalMpBeaconDialog/TacticalMpBeaconDialog_frame_0010_stop.as",
+        "Scripts/TacticalMpBeaconDialog/TacticalMpBeaconDialog/TacticalMpBeaconDialog_frame_0016_fscommand_label_close.as",
+        "Scripts/TacticalMpBeaconDialog/messageText/messageText_frame_0001_load.as",
+        "Scripts/TacticalMpBeaconDialog/panel/panel_frame_0001_define_GetMousePosString.as",
+        "Scripts/TacticalMpBeaconDialog/panel/panel_frame_0001_press.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalObjectiveIcon",
+      "status": "passed",
+      "assets": 35,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 3135,
+          "sha256": "05cbc991b6891dc98f46ba0b56bf2ef004a046a30f940dd24e852774bb60acc1"
+        },
+        "bin": {
+          "bytes": 347564,
+          "sha256": "d767638633ceca685b290f56eb8bec3a4d8f3b335619e99acdce99df84cb16b5"
+        },
+        "relo": {
+          "bytes": 284,
+          "sha256": "1f4855bc0ee9590eca19a5a4cbaeae63a27550943e4915241a8dfcee5b78e286"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "c046b6b4f9d56b5e2ec5be29103a86db6f40f67efe2f250bcbd674c070254a36"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/ig_libHUD/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as",
+        "Scripts/TacticalObjectiveIcon/TacticalObjectiveIcon/TacticalObjectiveIcon_frame_0001_define_SetIsBonus.as",
+        "Scripts/TacticalObjectiveIcon/bonus/bonus_frame_0005_stop_label_Attack.as",
+        "Scripts/TacticalObjectiveIcon/bonus/bonus_frame_0010_stop_label_Protect.as",
+        "Scripts/TacticalObjectiveIcon/bonus/bonus_frame_0015_stop_label_Capture.as",
+        "Scripts/TacticalObjectiveIcon/bonus/bonus_frame_0020_stop_label_Build.as",
+        "Scripts/TacticalObjectiveIcon/bonus/bonus_frame_0025_stop_label_Move.as",
+        "Scripts/TacticalObjectiveIcon/marker/marker_frame_0001_define_Move.as",
+        "Scripts/TacticalObjectiveIcon/marker/marker_frame_0001_release.as",
+        "Scripts/TacticalObjectiveIcon/newness/newness_frame_0001_stop.as",
+        "Scripts/TacticalObjectiveIcon/newness/newness_frame_0002_play_label_play.as",
+        "Scripts/TacticalObjectiveIcon/newness/newness_frame_0022_gotoAndStop_label_loop.as",
+        "Scripts/TacticalObjectiveIcon/newness/newness_frame_0023_stop_label_loop.as",
+        "Scripts/TacticalObjectiveIcon/primary/primary_frame_0005_stop_label_Attack.as",
+        "Scripts/TacticalObjectiveIcon/primary/primary_frame_0010_stop_label_Protect.as",
+        "Scripts/TacticalObjectiveIcon/primary/primary_frame_0015_stop_label_Capture.as",
+        "Scripts/TacticalObjectiveIcon/primary/primary_frame_0020_stop_label_Build.as",
+        "Scripts/TacticalObjectiveIcon/primary/primary_frame_0025_stop_label_Move.as",
+        "Scripts/TacticalObjectiveIcon/textClip/textClip_frame_0001_load.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalObjectiveIndicatorPopUp",
+      "status": "passed",
+      "assets": 17,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 1748,
+          "sha256": "fdf166f675c2d9b28f475a3ae7d2605e760f5339b0477f5218fae5fdd7ba7f0d"
+        },
+        "bin": {
+          "bytes": 8812,
+          "sha256": "8aba80e736463cc994213c48fbb896c3b1876f44575ad819f445322ea7ecd176"
+        },
+        "relo": {
+          "bytes": 140,
+          "sha256": "283902bf4ad69e46544a77db26586747bee7f413a19b36793844daff8cd5fe92"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "b2dc19fb62ec8c2d4639950ef31b967afc888ff1c13dabfb9802aa2d06ac8e83"
+        }
+      },
+      "inputs": [
+        "Scripts/TacticalObjectiveIndicatorPopUp/TacticalObjectiveIndicatorPopUp/TacticalObjectiveIndicatorPopUp_frame_0001_define_Close.as",
+        "Scripts/TacticalObjectiveIndicatorPopUp/TacticalObjectiveIndicatorPopUp/TacticalObjectiveIndicatorPopUp_frame_0005_stop.as",
+        "Scripts/TacticalObjectiveIndicatorPopUp/TacticalObjectiveIndicatorPopUp/TacticalObjectiveIndicatorPopUp_frame_0009_fscommand_label_close.as",
+        "Scripts/TacticalObjectiveIndicatorPopUp/panel/panel_frame_0001_load.as",
+        "Scripts/TacticalObjectiveIndicatorPopUp/panel/panel_frame_0001_load_occurrence_02.as",
+        "Scripts/TacticalObjectiveIndicatorPopUp/panel/panel_frame_0001_release.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalObjectiveIntroPopUp",
+      "status": "passed",
+      "assets": 50,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 4757,
+          "sha256": "1ec22eb03a5647c7de8b5de0d076ce6eb367035a5f7adacd2580247af823c23b"
+        },
+        "bin": {
+          "bytes": 388432,
+          "sha256": "34ec24ab85286056f1f81f23f4cc5e6bf554dd0206fe1d24d6fa0d8766daacfe"
+        },
+        "relo": {
+          "bytes": 404,
+          "sha256": "a70da669ff4b084207b65d0602e20248ef8c7105d6acb8e670490373f44e3d06"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "4c6040634716f5b1ab8642aa8dce216423b37f860b683ea21cff65be5e6c234a"
+        }
+      },
+      "inputs": [
+        "Scripts/TacticalObjectiveIntroPopUp/TacticalObjectiveIntroPopUp/TacticalObjectiveIntroPopUp_frame_0001_define_SetObjectiveType.as",
+        "Scripts/TacticalObjectiveIntroPopUp/TacticalObjectiveIntroPopUp/TacticalObjectiveIntroPopUp_frame_0127_set_closing_label_close.as",
+        "Scripts/TacticalObjectiveIntroPopUp/TacticalObjectiveIntroPopUp/TacticalObjectiveIntroPopUp_frame_0136_fscommand_label_close.as",
+        "Scripts/TacticalObjectiveIntroPopUp/bl/bl_frame_0010_stop_label_primary.as",
+        "Scripts/TacticalObjectiveIntroPopUp/bl/bl_frame_0020_stop_label_bonus.as",
+        "Scripts/TacticalObjectiveIntroPopUp/symbolMC/symbolMC_frame_0005_stop_label_Attack_primary.as",
+        "Scripts/TacticalObjectiveIntroPopUp/symbolMC/symbolMC_frame_0010_stop_label_Protect_primary.as",
+        "Scripts/TacticalObjectiveIntroPopUp/symbolMC/symbolMC_frame_0015_stop_label_Capture_primary.as",
+        "Scripts/TacticalObjectiveIntroPopUp/symbolMC/symbolMC_frame_0020_stop_label_Build_primary.as",
+        "Scripts/TacticalObjectiveIntroPopUp/symbolMC/symbolMC_frame_0025_stop_label_Move_primary.as",
+        "Scripts/TacticalObjectiveIntroPopUp/symbolMC/symbolMC_frame_0030_stop_label_Attack_bonus.as",
+        "Scripts/TacticalObjectiveIntroPopUp/symbolMC/symbolMC_frame_0035_stop_label_Protect_bonus.as",
+        "Scripts/TacticalObjectiveIntroPopUp/symbolMC/symbolMC_frame_0040_stop_label_Capture_bonus.as",
+        "Scripts/TacticalObjectiveIntroPopUp/symbolMC/symbolMC_frame_0045_stop_label_Build_bonus.as",
+        "Scripts/TacticalObjectiveIntroPopUp/symbolMC/symbolMC_frame_0050_stop_label_Move_bonus.as",
+        "Scripts/TacticalObjectiveIntroPopUp/top/top_frame_0010_stop_label_primary.as",
+        "Scripts/TacticalObjectiveIntroPopUp/top/top_frame_0010_stop_label_primary_occurrence_02.as",
+        "Scripts/TacticalObjectiveIntroPopUp/top/top_frame_0020_stop_label_bonus.as",
+        "Scripts/TacticalObjectiveIntroPopUp/top/top_frame_0020_stop_label_bonus_occurrence_02.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalPlayerPowerCommandButton",
+      "status": "passed",
+      "assets": 107,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 10814,
+          "sha256": "697951cea4517164c372da5e055cac39b7de3c25a85cac770c422793a40bc3ae"
+        },
+        "bin": {
+          "bytes": 264560,
+          "sha256": "3a2b0d9c61eb16ac561e1499254c52fb2a8ca3a5b75aa7d3f0957658ae3907e2"
+        },
+        "relo": {
+          "bytes": 860,
+          "sha256": "171cac0d59719cbf946fdf5a767770f8b161f5b9e6e202b24d46810303757eb9"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "965e06009c317a6b1469acbb68e88766224d21b6d4f6176cb39b5051e6de42fc"
+        }
+      },
+      "inputs": [
+        "Scripts/TacticalPlayerPowerCommandButton/RollOverTop/RollOverTop_frame_0005_stop.as",
+        "Scripts/TacticalPlayerPowerCommandButton/RollOverTop/RollOverTop_frame_0013_stop_label_show.as",
+        "Scripts/TacticalPlayerPowerCommandButton/RollOverTop/RollOverTop_frame_0023_stop_label_hide.as",
+        "Scripts/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton_frame_0001_define_OnCurrentFactionChanged_label_Allies.as",
+        "Scripts/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton_frame_0001_define_SetEnabled.as",
+        "Scripts/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton_frame_0010_stop_label_Allies.as",
+        "Scripts/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton_frame_0010_timelineActions.as",
+        "Scripts/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton_frame_0020_stop_label_Soviet.as",
+        "Scripts/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton_frame_0030_stop_label_Japan.as",
+        "Scripts/TacticalPlayerPowerCommandButton/bttn/bttn_frame_0001_load.as",
+        "Scripts/TacticalPlayerPowerCommandButton/bttn/bttn_frame_0001_press_label_disabled.as",
+        "Scripts/TacticalPlayerPowerCommandButton/bttn/bttn_frame_0009_stop_label_disabled.as",
+        "Scripts/TacticalPlayerPowerCommandButton/bttn/bttn_frame_0019_stop_label_up.as",
+        "Scripts/TacticalPlayerPowerCommandButton/bttn/bttn_frame_0029_stop_label_over.as",
+        "Scripts/TacticalPlayerPowerCommandButton/bttn/bttn_frame_0039_stop_label_down.as",
+        "Scripts/TacticalPlayerPowerCommandButton/bttn/bttn_frame_0050_gotoAndStop_label_release.as",
+        "Scripts/TacticalPlayerPowerCommandButton/disabledImage/disabledImage_frame_0001_construct_label_disabled.as",
+        "Scripts/TacticalPlayerPowerCommandButton/image/image_frame_0010_construct_label_up.as",
+        "Scripts/TacticalPlayerPowerCommandButton/quantityText/quantityText_frame_0001_load_label_disabled.as",
+        "Scripts/TacticalPlayerPowerCommandButton/timerOverlay0/timerOverlay0_frame_0001_stop.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalPlayerStatusDialog",
+      "status": "passed",
+      "assets": 24,
+      "milliseconds": 1,
+      "streams": {
+        "manifest": {
+          "bytes": 2299,
+          "sha256": "85a7cd55f7fd33ab17f78046f8d984c90ba9df69606b1e5eb3d6b4d9016d34f0"
+        },
+        "bin": {
+          "bytes": 4291368,
+          "sha256": "775c757d8b22602f1902d63c88620d6b71dfa2544862269805c9305cafea953a"
+        },
+        "relo": {
+          "bytes": 196,
+          "sha256": "7d48aaa05b8e39af694849af807e5a4a3f767a05aff6341e31213742ab9e7c7d"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "f9a4810106a43af38be08b007958b28bce8bdd083b4c37557b6fd70d37a2440a"
+        }
+      },
+      "inputs": [
+        "Scripts/TacticalPlayerStatusDialog/BlackRectangle/BlackRectangle_frame_0001_load.as",
+        "Scripts/TacticalPlayerStatusDialog/StatusItem/StatusItem_frame_0001_define_SetPlayerColor.as",
+        "Scripts/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog_frame_0001_define_Close.as",
+        "Scripts/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog_frame_0001_load.as",
+        "Scripts/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog_frame_0001_load_occurrence_02.as",
+        "Scripts/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog_frame_0001_load_occurrence_03.as",
+        "Scripts/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog_frame_0001_load_occurrence_04.as",
+        "Scripts/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog_frame_0001_load_occurrence_05.as",
+        "Scripts/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog_frame_0012_stop.as",
+        "Scripts/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog_frame_0015_fscommand_label_close.as",
+        "Scripts/TacticalPlayerStatusDialog/clanText/clanText_frame_0001_load.as",
+        "Scripts/TacticalPlayerStatusDialog/dialog/dialog_frame_0001_define_OnCloseButtonClicked.as",
+        "Scripts/TacticalPlayerStatusDialog/dialog/dialog_frame_0001_load.as",
+        "Scripts/TacticalPlayerStatusDialog/factionText/factionText_frame_0001_load.as",
+        "Scripts/TacticalPlayerStatusDialog/nameText/nameText_frame_0001_load.as",
+        "Scripts/TacticalPlayerStatusDialog/statusText/statusText_frame_0001_load.as",
+        "Scripts/TacticalPlayerStatusDialog/teamText/teamText_frame_0001_load.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": {
+        "staticLibraryDependencyState": "unresolved-source-dependencies",
+        "missingImports": [
+          "ShellButtons.swf"
+        ],
+        "missingExports": []
+      }
+    },
+    {
+      "movie": "TacticalQuickChatDialog",
+      "status": "passed",
+      "assets": 14,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 1330,
+          "sha256": "221d56f843e003389ca3cda62b10f230b824858ffa365924b7c77afcb64b5de9"
+        },
+        "bin": {
+          "bytes": 16472,
+          "sha256": "a63a5846ec8df8758542ba1cf1b10cde6c1cd24bdc5d0a3dae3bc7b572ed4012"
+        },
+        "relo": {
+          "bytes": 116,
+          "sha256": "803a9cd842c52e153f41288c49183feb1cc45dc22303b40b70a726f2e6128bd8"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "9ba27d6708c8b95797497fae2dc45b7ccdf2fbd78788c1eecd273a1e2d35755d"
+        }
+      },
+      "inputs": [
+        "Scripts/TacticalQuickChatDialog/MenuItem/MenuItem_frame_0001_OnContentLoaded.as",
+        "Scripts/TacticalQuickChatDialog/MenuItem/MenuItem_frame_0002_stop.as",
+        "Scripts/TacticalQuickChatDialog/TacticalQuickChatDialog/TacticalQuickChatDialog_frame_0001_define_SetMenuItemCount.as",
+        "Scripts/TacticalQuickChatDialog/TacticalQuickChatDialog/TacticalQuickChatDialog_frame_0010_stop.as",
+        "Scripts/TacticalQuickChatDialog/TacticalQuickChatDialog/TacticalQuickChatDialog_frame_0016_fscommand_label_close.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "TacticalTextChatDialog",
+      "status": "passed",
+      "assets": 7,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 689,
+          "sha256": "9938c8282111fd0d30fd176425c7c46c932b1fc3e98693f4a0e7f193daa3be8c"
+        },
+        "bin": {
+          "bytes": 270420,
+          "sha256": "b58408373ccf756e8b0b4f65eec427781e72918cffdbf3341de17c6118abb54e"
+        },
+        "relo": {
+          "bytes": 60,
+          "sha256": "4d01d42ab12c97a80d2a2752c5be9422d9a030700c4e6b658f30e19c95d6b0c0"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "be66913ee8ad720815d4bf60e850277709b4c00133d9084fcb2b0a0ae400e6cc"
+        }
+      },
+      "inputs": [
+        "Scripts/TacticalTextChatDialog/TacticalTextChatDialog/TacticalTextChatDialog_frame_0001_define_Close.as",
+        "Scripts/TacticalTextChatDialog/TacticalTextChatDialog/TacticalTextChatDialog_frame_0010_stop.as",
+        "Scripts/TacticalTextChatDialog/TacticalTextChatDialog/TacticalTextChatDialog_frame_0016_fscommand_label_close.as",
+        "Scripts/TacticalTextChatDialog/messageText/messageText_frame_0001_load.as",
+        "Scripts/TacticalTextChatDialog/panel/panel_frame_0001_define_GetMousePosString.as",
+        "Scripts/TacticalTextChatDialog/panel/panel_frame_0001_press.as",
+        "Scripts/TacticalTextChatDialog/panel/panel_frame_0001_press_occurrence_02.as",
+        "Scripts/TacticalTextChatDialog/panel/panel_frame_0001_press_occurrence_03.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "ig_DrawableOverlayStage",
+      "status": "passed",
+      "assets": 3,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 341,
+          "sha256": "5ef66715ae72e791a8bc156a71936f813d18b04545656dd8720721ef2d6044f9"
+        },
+        "bin": {
+          "bytes": 4964,
+          "sha256": "d4cef550db702d2ff331d3e6787ae8cfa98a10cd9560f09a3c3460ad5b8b366f"
+        },
+        "relo": {
+          "bytes": 28,
+          "sha256": "cb760a1c42185d70d080e2a2f17344ec454dd6e4d0f18bdc89874c8e7860a34d"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "c4aa6fb6aa4d2b22480ea95e566d98a8f2013fe88526a70bd8cfa79bbec8f20a"
+        }
+      },
+      "inputs": [
+        "Scripts/ig_DrawableOverlayStage/LayerClip/LayerClip_frame_0001_define_OnContentLoaded.as",
+        "Scripts/ig_DrawableOverlayStage/ig_DrawableOverlayStage/ig_DrawableOverlayStage_frame_0001_define_LoadContent.as",
+        "Scripts/ig_DrawableOverlayStage/ig_DrawableOverlayStage/ig_DrawableOverlayStage_frame_0001_load.as",
+        "Scripts/ig_DrawableOverlayStage/ig_DrawableOverlayStage/ig_DrawableOverlayStage_frame_0001_stop.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "igm_GadgetFlashStage",
+      "status": "passed",
+      "assets": 15,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 1372,
+          "sha256": "10247ff02547d384dcde4eea87f232302589b8c13cebee4a344b904b7d07ccb0"
+        },
+        "bin": {
+          "bytes": 14792,
+          "sha256": "ccd6c578600932e8302d409d428a8cc9c3a228c34332f4b4494c7ee71ffb364f"
+        },
+        "relo": {
+          "bytes": 124,
+          "sha256": "fc6e1d01e41ddb6e0ba8684984fd3b9887569103d326d7b679cb1ae261c85d5a"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "edd3e458aa494eacf7a42473df6c7752f5ac4fe011015ca89127c57da70a40e9"
+        }
+      },
+      "inputs": [
+        "Scripts/igm_GadgetFlashStage/GadgetFlash/GadgetFlash_frame_0031_onEndFlashPulse.as",
+        "Scripts/igm_GadgetFlashStage/igm_GadgetFlashStage/igm_GadgetFlashStage_frame_0001_igm_gadgetFlashStage.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "HelpBox",
+      "status": "passed",
+      "assets": 43,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 3247,
+          "sha256": "8697c57c479d560433b26044a1aa06396b742eb1be09269d16b3040880d865ec"
+        },
+        "bin": {
+          "bytes": 133816,
+          "sha256": "269124b7367fee336df11b1e2af77c93058ad731b0dd73ab3faddb896067f4dd"
+        },
+        "relo": {
+          "bytes": 348,
+          "sha256": "92d20eb176c0e3bd56930e043efe3f229259f5b3045ec7cfe560b1adb019d128"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "7f47bdbbdb85e239de672e1a811143a9dd10c4d74afb845a7c60c66b0de362e4"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Scripts/HelpBox/BlackRectangle/BlackRectangle_frame_0001_load.as",
+        "Scripts/HelpBox/BlackRectangle/BlackRectangle_frame_0001_load_occurrence_02.as",
+        "Scripts/HelpBox/ChecklistItem/ChecklistItem_frame_0001_stop.as",
+        "Scripts/HelpBox/ClientRenderedHelp/ClientRenderedHelp_frame_0001_construct.as",
+        "Scripts/HelpBox/ClientRenderedHelp/ClientRenderedHelp_frame_0001_define_Resize.as",
+        "Scripts/HelpBox/CommandHelpDescription/CommandHelpDescription_frame_0001_define_Move_label_None.as",
+        "Scripts/HelpBox/CommandHelpDescription/CommandHelpDescription_frame_0010_stop_label_None.as",
+        "Scripts/HelpBox/CommandHelpDescription/CommandHelpDescription_frame_0020_stop_label_Instant.as",
+        "Scripts/HelpBox/CommandHelpDescription/CommandHelpDescription_frame_0030_stop_label_Toggle.as",
+        "Scripts/HelpBox/CommandHelpDescription/CommandHelpDescription_frame_0040_stop_label_Targeted.as",
+        "Scripts/HelpBox/CommandHelpTitle/CommandHelpTitle_frame_0001_define_HideHotKeyText_label_None.as",
+        "Scripts/HelpBox/CommandHelpTitle/CommandHelpTitle_frame_0010_stop_label_None.as",
+        "Scripts/HelpBox/CommandHelpTitle/CommandHelpTitle_frame_0020_stop_label_Instant.as",
+        "Scripts/HelpBox/CommandHelpTitle/CommandHelpTitle_frame_0030_stop_label_Toggle.as",
+        "Scripts/HelpBox/CommandHelpTitle/CommandHelpTitle_frame_0040_stop_label_Targeted.as",
+        "Scripts/HelpBox/HelpAcquireHint/HelpAcquireHint_frame_0001_define_Move.as",
+        "Scripts/HelpBox/HelpBox/HelpBox_frame_0001_define_GetContentStage.as",
+        "Scripts/HelpBox/HelpBox/HelpBox_frame_0001_set_text.as",
+        "Scripts/HelpBox/HelpBox/HelpBox_frame_0001_set_text_occurrence_02.as",
+        "Scripts/HelpBox/HelpBox/HelpBox_frame_0001_set_text_occurrence_03.as",
+        "Scripts/HelpBox/HelpBox/HelpBox_frame_0001_set_text_occurrence_04.as",
+        "Scripts/HelpBox/HelpBox/HelpBox_frame_0001_stop.as",
+        "Scripts/HelpBox/HelpBox/HelpBox_frame_0029_gotoAndPlay.as",
+        "Scripts/HelpBox/HelpBoxSiteMarker/HelpBoxSiteMarker_frame_0001_load.as",
+        "Scripts/HelpBox/HelpBuildTime/HelpBuildTime_frame_0001_define_SetAdjusted.as",
+        "Scripts/HelpBox/HelpCost/HelpCost_frame_0001_define_SetAffordable.as",
+        "Scripts/HelpBox/HelpEnergy/HelpEnergy_frame_0001_define_SetAffordable_label_canAfford.as",
+        "Scripts/HelpBox/HelpEnergyMeter/HelpEnergyMeter_frame_0001_define_Move.as",
+        "Scripts/HelpBox/HelpInstructions/HelpInstructions_frame_0001_define_Move.as",
+        "Scripts/HelpBox/HelpPlayerName/HelpPlayerName_frame_0001_define_Move.as",
+        "Scripts/HelpBox/HelpPrerequisites/HelpPrerequisites_frame_0001_define_SetItemCount.as",
+        "Scripts/HelpBox/HelpTitle/HelpTitle_frame_0001_define_Move.as",
+        "Scripts/HelpBox/HelpUnitTypeDescription/HelpUnitTypeDescription_frame_0001_define_Move.as",
+        "Scripts/HelpBox/RenderingSurface/RenderingSurface_frame_0001_construct.as",
+        "Scripts/HelpBox/RenderingSurface/RenderingSurface_frame_0001_define_Resize.as",
+        "Scripts/HelpBox/UnitDescription/UnitDescription_frame_0001_define_Move_label_NotAmphibious.as",
+        "Scripts/HelpBox/UnitDescription/UnitDescription_frame_0010_stop_label_NotAmphibious.as",
+        "Scripts/HelpBox/UnitDescription/UnitDescription_frame_0020_stop_label_Amphibious.as",
+        "Scripts/HelpBox/UnitTitle/UnitTitle_frame_0001_define_HideHotKeyText_label_NotAmphibious.as",
+        "Scripts/HelpBox/UnitTitle/UnitTitle_frame_0010_stop_label_NotAmphibious.as",
+        "Scripts/HelpBox/UnitTitle/UnitTitle_frame_0011_timelineActions_label_Amphibious.as",
+        "Scripts/HelpBox/UnitTitle/UnitTitle_frame_0020_stop_label_Amphibious.as",
+        "Scripts/HelpBox/background/background_frame_0001_load_label_canAfford.as",
+        "Scripts/HelpBox/box/box_frame_0001_define_RegisterMasterResizeListener.as",
+        "Scripts/HelpBox/box/box_frame_0001_load.as",
+        "Scripts/HelpBox/checkbox/checkbox_frame_0010_stop_label_unchecked.as",
+        "Scripts/HelpBox/checkbox/checkbox_frame_0020_stop_label_checked.as",
+        "Scripts/HelpBox/contentSizer/contentSizer_frame_0001_load.as",
+        "Scripts/HelpBox/contentStage/contentStage_frame_0001_define_AttachContent.as",
+        "Scripts/HelpBox/textMC/textMC_frame_0005_stop.as",
+        "Scripts/HelpBox/textMC/textMC_frame_0005_stop_occurrence_02.as",
+        "Scripts/HelpBox/textMC/textMC_frame_0010_stop_label_noHotKey.as",
+        "Scripts/HelpBox/textMC/textMC_frame_0010_stop_label_noHotKey_occurrence_02.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "HUDTickerPanel",
+      "status": "passed",
+      "assets": 6,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 549,
+          "sha256": "b6093e72bbf8ebaac735f3eda52090997d24a6dd0cee39f69e82075dd4da7405"
+        },
+        "bin": {
+          "bytes": 15248,
+          "sha256": "142ee9d58c7b56d772e77e8ae93832e07b9186cc27eb3c16bf4948e787981864"
+        },
+        "relo": {
+          "bytes": 52,
+          "sha256": "d2c2d6962e42c21a9a3487f1ebf8a35317e0dce8aaefd1a213f1c5d17a25791c"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "44cea818ce8fbfeb79fce35c506dfb1211773bf18e008ef7d45e62b0e204a3d3"
+        }
+      },
+      "inputs": [
+        "Scripts/HUDTickerPanel/AttachMovieClipStage/AttachMovieClipStage_frame_0001_define_AttachContent.as",
+        "Scripts/HUDTickerPanel/HUDTickerPanel/HUDTickerPanel_frame_0001_define_SetVisibility.as",
+        "Scripts/HUDTickerPanel/HUDTickerPanel/HUDTickerPanel_frame_0001_stop.as",
+        "Scripts/HUDTickerPanel/ImageContent/ImageContent_frame_0001_define_SetImageSize.as",
+        "Scripts/HUDTickerPanel/TextContent/TextContent_frame_0001_load.as",
+        "Scripts/HUDTickerPanel/imageRenderer/imageRenderer_frame_0001_construct.as",
+        "Scripts/HUDTickerPanel/panel/panel_frame_0002_timelineActions_label_open.as",
+        "Scripts/HUDTickerPanel/panel/panel_frame_0011_fscommand_label_open.as",
+        "Scripts/HUDTickerPanel/panel/panel_frame_0047_fscommand_label_close.as",
+        "Scripts/HUDTickerPanel/placeholder/placeholder_frame_0001_load.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "igm_replayControlPanel",
+      "status": "passed",
+      "assets": 14,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 1310,
+          "sha256": "1ff7154b2e4306b66a9fa8eaef5329429cce5981138f2692db5bdd1c3e7bb4c1"
+        },
+        "bin": {
+          "bytes": 60952,
+          "sha256": "a106db34f2d89a59580539eff04575f2152a1c44eb82a08001cf39856a823c8a"
+        },
+        "relo": {
+          "bytes": 116,
+          "sha256": "abde6462ddc39f0cecf37d9f863f04255000179ddc12e4b495aa9e2252faa0e7"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "03752ea526267e9d4599bf2dc4fb9362fe65aa1e8c77b94949c5ed28c1768fe2"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
+        "Scripts/igm_replayControlPanel/ffButtonMC/ffButtonMC_frame_0001_define_OnPress_label_up.as",
+        "Scripts/igm_replayControlPanel/ffButtonMC/ffButtonMC_frame_0010_stop_label_up.as",
+        "Scripts/igm_replayControlPanel/ffButtonMC/ffButtonMC_frame_0020_stop_label_over.as",
+        "Scripts/igm_replayControlPanel/ffButtonMC/ffButtonMC_frame_0030_stop_label_down.as",
+        "Scripts/igm_replayControlPanel/helpSiteMC/helpSiteMC_frame_0001_construct_label_up.as",
+        "Scripts/igm_replayControlPanel/igm_replayControlPanel/igm_replayControlPanel_frame_0001_define_GetFastForwardButton.as",
+        "Scripts/igm_replayControlPanel/imageMC/imageMC_frame_0010_stop_label_normal.as",
+        "Scripts/igm_replayControlPanel/imageMC/imageMC_frame_0020_stop_label_selected.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "HUDVoiceChatControlPanel",
+      "status": "passed",
+      "assets": 21,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 1977,
+          "sha256": "e75862b523b1dc636122449cf36c2d9091aa49c1b9605ae9a56c32ebae9f730e"
+        },
+        "bin": {
+          "bytes": 87784,
+          "sha256": "8dc2c6c33eeef2af1ee8e7dc92227da8d01ffb57a9535852e74f731e74c92e8a"
+        },
+        "relo": {
+          "bytes": 172,
+          "sha256": "999db8be7f39a1dd0aab70c205d1e71ab07eadc51759caa1f9fdd1052f2f59c2"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "55091e148a636de625906b1b58079bb38a056e015713a759509bc8d34c323453"
+        }
+      },
+      "inputs": [
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
+        "Common/Scripts/HelpBox/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
+        "Scripts/HUDVoiceChatControlPanel/HUDVoiceChatControlPanel/HUDVoiceChatControlPanel_frame_0001_define_SetVisibility.as",
+        "Scripts/HUDVoiceChatControlPanel/helpSite/helpSite_frame_0001_construct_label_off.as",
+        "Scripts/HUDVoiceChatControlPanel/helpSite/helpSite_frame_0001_construct_label_team.as",
+        "Scripts/HUDVoiceChatControlPanel/modeIndicator/modeIndicator_frame_0001_define_SetMode_label_team.as",
+        "Scripts/HUDVoiceChatControlPanel/modeIndicator/modeIndicator_frame_0001_release_label_team.as",
+        "Scripts/HUDVoiceChatControlPanel/modeIndicator/modeIndicator_frame_0010_stop_label_team.as",
+        "Scripts/HUDVoiceChatControlPanel/modeIndicator/modeIndicator_frame_0020_stop_label_global.as",
+        "Scripts/HUDVoiceChatControlPanel/talkIndicator/talkIndicator_frame_0001_define_SetTalking_label_off.as",
+        "Scripts/HUDVoiceChatControlPanel/talkIndicator/talkIndicator_frame_0001_press_label_off.as",
+        "Scripts/HUDVoiceChatControlPanel/talkIndicator/talkIndicator_frame_0010_stop_label_off.as",
+        "Scripts/HUDVoiceChatControlPanel/talkIndicator/talkIndicator_frame_0020_stop_label_on.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "VerticalScrollBar",
+      "status": "passed",
+      "assets": 188,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 15921,
+          "sha256": "d8c06e3de431c1c55f009f0db191bc87af4bef40ea45de80fd186499d73a3320"
+        },
+        "bin": {
+          "bytes": 237016,
+          "sha256": "cae21408af086ab58c0139dbf9b33caf2413f5e955539ac14a07b95acd40e460"
+        },
+        "relo": {
+          "bytes": 1508,
+          "sha256": "4fe606cfeb5d7d4e74005875b2da8fd29d9f1aeac4b08f1516f831ea46f514da"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "99dc9b5f75b2ac38b3686141fdd07f142dfa7cc00bf71b484b660390d6ea4584"
+        }
+      },
+      "inputs": [
+        "Scripts/VerticalScrollBar/ImageLoader/ImageLoader_frame_0001_load.as",
+        "Scripts/VerticalScrollBar/VSliderBarDisabledDynFac/VSliderBarDisabledDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderBarDisabledDynFac/VSliderBarDisabledDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderBarDisabledDynFac/VSliderBarDisabledDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderBarDisabledDynFac/VSliderBarDisabledDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonDisabledDynFac/VSliderDownButtonDisabledDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonDisabledDynFac/VSliderDownButtonDisabledDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonDisabledDynFac/VSliderDownButtonDisabledDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonDisabledDynFac/VSliderDownButtonDisabledDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonEnabledDynFac/VSliderDownButtonEnabledDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonEnabledDynFac/VSliderDownButtonEnabledDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonEnabledDynFac/VSliderDownButtonEnabledDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonEnabledDynFac/VSliderDownButtonEnabledDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonOverDynFac/VSliderDownButtonOverDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonOverDynFac/VSliderDownButtonOverDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonOverDynFac/VSliderDownButtonOverDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonOverDynFac/VSliderDownButtonOverDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonPressDynFac/VSliderDownButtonPressDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonPressDynFac/VSliderDownButtonPressDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonPressDynFac/VSliderDownButtonPressDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderDownButtonPressDynFac/VSliderDownButtonPressDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderThumbDisabledBottomDynFac/VSliderThumbDisabledBottomDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbDisabledBottomDynFac/VSliderThumbDisabledBottomDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbDisabledBottomDynFac/VSliderThumbDisabledBottomDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderThumbDisabledBottomDynFac/VSliderThumbDisabledBottomDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderThumbDisabledMiddleDynFac/VSliderThumbDisabledMiddleDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbDisabledMiddleDynFac/VSliderThumbDisabledMiddleDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbDisabledMiddleDynFac/VSliderThumbDisabledMiddleDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderThumbDisabledMiddleDynFac/VSliderThumbDisabledMiddleDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderThumbDisabledTopDynFac/VSliderThumbDisabledTopDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbDisabledTopDynFac/VSliderThumbDisabledTopDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbDisabledTopDynFac/VSliderThumbDisabledTopDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderThumbDisabledTopDynFac/VSliderThumbDisabledTopDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderThumbEnabledBottomDynFac/VSliderThumbEnabledBottomDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbEnabledBottomDynFac/VSliderThumbEnabledBottomDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbEnabledBottomDynFac/VSliderThumbEnabledBottomDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderThumbEnabledBottomDynFac/VSliderThumbEnabledBottomDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderThumbEnabledMiddleDynFac/VSliderThumbEnabledMiddleDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbEnabledMiddleDynFac/VSliderThumbEnabledMiddleDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbEnabledMiddleDynFac/VSliderThumbEnabledMiddleDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderThumbEnabledMiddleDynFac/VSliderThumbEnabledMiddleDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderThumbEnabledTopDynFac/VSliderThumbEnabledTopDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbEnabledTopDynFac/VSliderThumbEnabledTopDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbEnabledTopDynFac/VSliderThumbEnabledTopDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderThumbEnabledTopDynFac/VSliderThumbEnabledTopDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderThumbOverBottomDynFac/VSliderThumbOverBottomDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbOverBottomDynFac/VSliderThumbOverBottomDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbOverBottomDynFac/VSliderThumbOverBottomDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderThumbOverBottomDynFac/VSliderThumbOverBottomDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderThumbOverMiddleDynFac/VSliderThumbOverMiddleDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbOverMiddleDynFac/VSliderThumbOverMiddleDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbOverMiddleDynFac/VSliderThumbOverMiddleDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderThumbOverMiddleDynFac/VSliderThumbOverMiddleDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderThumbOverTopDynFac/VSliderThumbOverTopDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbOverTopDynFac/VSliderThumbOverTopDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbOverTopDynFac/VSliderThumbOverTopDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderThumbOverTopDynFac/VSliderThumbOverTopDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderThumbPressBottomDynFac/VSliderThumbPressBottomDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbPressBottomDynFac/VSliderThumbPressBottomDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbPressBottomDynFac/VSliderThumbPressBottomDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderThumbPressBottomDynFac/VSliderThumbPressBottomDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderThumbPressMiddleDynFac/VSliderThumbPressMiddleDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbPressMiddleDynFac/VSliderThumbPressMiddleDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbPressMiddleDynFac/VSliderThumbPressMiddleDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderThumbPressMiddleDynFac/VSliderThumbPressMiddleDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderThumbPressTopDynFac/VSliderThumbPressTopDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbPressTopDynFac/VSliderThumbPressTopDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderThumbPressTopDynFac/VSliderThumbPressTopDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderThumbPressTopDynFac/VSliderThumbPressTopDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonDisabledDynFac/VSliderUpButtonDisabledDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonDisabledDynFac/VSliderUpButtonDisabledDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonDisabledDynFac/VSliderUpButtonDisabledDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonDisabledDynFac/VSliderUpButtonDisabledDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonEnabledDynFac/VSliderUpButtonEnabledDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonEnabledDynFac/VSliderUpButtonEnabledDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonEnabledDynFac/VSliderUpButtonEnabledDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonEnabledDynFac/VSliderUpButtonEnabledDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonOverDynFac/VSliderUpButtonOverDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonOverDynFac/VSliderUpButtonOverDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonOverDynFac/VSliderUpButtonOverDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonOverDynFac/VSliderUpButtonOverDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonPressDynFac/VSliderUpButtonPressDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonPressDynFac/VSliderUpButtonPressDynFac_frame_0010_stop_label_GDI.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonPressDynFac/VSliderUpButtonPressDynFac_frame_0020_stop_label_NOD.as",
+        "Scripts/VerticalScrollBar/VSliderUpButtonPressDynFac/VSliderUpButtonPressDynFac_frame_0030_stop_label_Alien.as",
+        "Scripts/VerticalScrollBar/VerticalScrollBar/VerticalScrollBar_frame_0001_define_OnPosChanged.as",
+        "Scripts/VerticalScrollBar/VerticalScrollBar/VerticalScrollBar_frame_0001_set_visible.as",
+        "Scripts/VerticalScrollBar/VerticalScrollBar/VerticalScrollBar_frame_0002_OnScrollBarLoaded.as",
+        "Scripts/VerticalScrollBar/bar/bar_frame_0001_define_SetHeight_label_disabled.as",
+        "Scripts/VerticalScrollBar/bar/bar_frame_0001_load.as",
+        "Scripts/VerticalScrollBar/bar/bar_frame_0010_stop_label_disabled.as",
+        "Scripts/VerticalScrollBar/bar/bar_frame_0011_attachMovie_label_up.as",
+        "Scripts/VerticalScrollBar/bar/bar_frame_0020_stop_label_up.as",
+        "Scripts/VerticalScrollBar/bar/bar_frame_0021_attachMovie_label_over.as",
+        "Scripts/VerticalScrollBar/bar/bar_frame_0030_stop_label_over.as",
+        "Scripts/VerticalScrollBar/bottomPiece/bottomPiece_frame_0001_load_label_disabled.as",
+        "Scripts/VerticalScrollBar/bttn/bttn_frame_0001_press.as",
+        "Scripts/VerticalScrollBar/bttn/bttn_frame_0011_load_label_up.as",
+        "Scripts/VerticalScrollBar/bttn/bttn_frame_0011_load_label_up_occurrence_02.as",
+        "Scripts/VerticalScrollBar/downButton/downButton_frame_0001_load.as",
+        "Scripts/VerticalScrollBar/dummy/dummy_frame_0001_load.as",
+        "Scripts/VerticalScrollBar/middlePiece/middlePiece_frame_0001_attachMovie_label_disabled.as",
+        "Scripts/VerticalScrollBar/middlePiece/middlePiece_frame_0001_load_label_disabled.as",
+        "Scripts/VerticalScrollBar/middlePiece/middlePiece_frame_0010_stop_label_disabled.as",
+        "Scripts/VerticalScrollBar/middlePiece/middlePiece_frame_0011_attachMovie_label_up.as",
+        "Scripts/VerticalScrollBar/middlePiece/middlePiece_frame_0020_stop_label_up.as",
+        "Scripts/VerticalScrollBar/middlePiece/middlePiece_frame_0021_attachMovie_label_over.as",
+        "Scripts/VerticalScrollBar/middlePiece/middlePiece_frame_0030_stop_label_over.as",
+        "Scripts/VerticalScrollBar/middlePiece/middlePiece_frame_0031_attachMovie_label_down.as",
+        "Scripts/VerticalScrollBar/middlePiece/middlePiece_frame_0040_stop_label_down.as",
+        "Scripts/VerticalScrollBar/thumb/thumb_frame_0001_define_SetHeight_label_disabled.as",
+        "Scripts/VerticalScrollBar/thumb/thumb_frame_0001_load.as",
+        "Scripts/VerticalScrollBar/thumb/thumb_frame_0010_stop_label_disabled.as",
+        "Scripts/VerticalScrollBar/thumb/thumb_frame_0011_gotoAndPlay_label_up.as",
+        "Scripts/VerticalScrollBar/thumb/thumb_frame_0020_stop_label_up.as",
+        "Scripts/VerticalScrollBar/thumb/thumb_frame_0021_gotoAndPlay_label_over.as",
+        "Scripts/VerticalScrollBar/thumb/thumb_frame_0030_stop_label_over.as",
+        "Scripts/VerticalScrollBar/thumb/thumb_frame_0031_gotoAndPlay_label_down.as",
+        "Scripts/VerticalScrollBar/thumb/thumb_frame_0040_stop_label_down.as",
+        "Scripts/VerticalScrollBar/topPiece/topPiece_frame_0001_attachMovie_label_disabled.as",
+        "Scripts/VerticalScrollBar/topPiece/topPiece_frame_0001_load_label_disabled.as",
+        "Scripts/VerticalScrollBar/topPiece/topPiece_frame_0010_stop_label_disabled.as",
+        "Scripts/VerticalScrollBar/topPiece/topPiece_frame_0011_attachMovie_label_up.as",
+        "Scripts/VerticalScrollBar/topPiece/topPiece_frame_0020_stop_label_up.as",
+        "Scripts/VerticalScrollBar/topPiece/topPiece_frame_0021_attachMovie_label_over.as",
+        "Scripts/VerticalScrollBar/topPiece/topPiece_frame_0030_stop_label_over.as",
+        "Scripts/VerticalScrollBar/topPiece/topPiece_frame_0031_attachMovie_label_down.as",
+        "Scripts/VerticalScrollBar/topPiece/topPiece_frame_0040_stop_label_down.as",
+        "Scripts/VerticalScrollBar/upButton/upButton_frame_0001_attachMovie_label_disabled.as",
+        "Scripts/VerticalScrollBar/upButton/upButton_frame_0001_load.as",
+        "Scripts/VerticalScrollBar/upButton/upButton_frame_0010_stop_label_disabled.as",
+        "Scripts/VerticalScrollBar/upButton/upButton_frame_0011_attachMovie_label_up.as",
+        "Scripts/VerticalScrollBar/upButton/upButton_frame_0011_press_label_up.as",
+        "Scripts/VerticalScrollBar/upButton/upButton_frame_0020_stop_label_up.as",
+        "Scripts/VerticalScrollBar/upButton/upButton_frame_0021_attachMovie_label_over.as",
+        "Scripts/VerticalScrollBar/upButton/upButton_frame_0030_stop_label_over.as",
+        "Scripts/VerticalScrollBar/upButton/upButton_frame_0031_attachMovie_label_down.as",
+        "Scripts/VerticalScrollBar/upButton/upButton_frame_0040_stop_label_down.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "ig_RadarObjectivesLayer",
+      "status": "passed",
+      "assets": 16,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 1503,
+          "sha256": "f832708dfa7f3b04c5227f923c2e23b391af10116d32be9fc1f2f221b5c2c52f"
+        },
+        "bin": {
+          "bytes": 59072,
+          "sha256": "3d8e33ecd3ea868ada6ad5b878808d8a5951ae09ccc64ab99327f4e3eadf528c"
+        },
+        "relo": {
+          "bytes": 132,
+          "sha256": "a9941d2cd7168000b31c75dca784f2586507e4de2d1156f867962feed3f16b43"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "f154870ead9d9649b6c4c36ef6c698150443f761ad8701bc8932257eeede8313"
+        }
+      },
+      "inputs": [
+        "Scripts/ig_RadarObjectivesLayer/ObjectiveIndicator/ObjectiveIndicator_frame_0001_gotoAndPlay_label_Attack.as",
+        "Scripts/ig_RadarObjectivesLayer/ObjectiveIndicator/ObjectiveIndicator_frame_0010_stop_label_Attack.as",
+        "Scripts/ig_RadarObjectivesLayer/ObjectiveIndicator/ObjectiveIndicator_frame_0020_stop_label_Protect.as",
+        "Scripts/ig_RadarObjectivesLayer/ObjectiveIndicator/ObjectiveIndicator_frame_0030_stop_label_Capture.as",
+        "Scripts/ig_RadarObjectivesLayer/ObjectiveIndicator/ObjectiveIndicator_frame_0040_stop_label_Build.as",
+        "Scripts/ig_RadarObjectivesLayer/ObjectiveIndicator/ObjectiveIndicator_frame_0050_stop_label_Move.as",
+        "Scripts/ig_RadarObjectivesLayer/bonus/bonus_frame_0075_stop.as",
+        "Scripts/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer_frame_0001_define_Resize.as",
+        "Scripts/ig_RadarObjectivesLayer/primary/primary_frame_0075_stop.as",
+        "Scripts/ig_RadarObjectivesLayer/sizer/sizer_frame_0001_load.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "ig_RadarCoOpAITargetLayer",
+      "status": "passed",
+      "assets": 13,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 1261,
+          "sha256": "eac1bb1de19a498c1be1686a8cfa2173b66b49353d56d2b7c7e8f5e09a978e60"
+        },
+        "bin": {
+          "bytes": 22560,
+          "sha256": "a201ec1f2c74218590b5d07849ee1b0f5d2251aba1c419a30750258693555e1a"
+        },
+        "relo": {
+          "bytes": 108,
+          "sha256": "73dbc2ca6b7ade27f2c68b1d7ba6112fd7275cb42c2eb614b31fb3b2d4806403"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "8bc9d0752f5aa93c3461f201b2d517b03fbe4040fbf5752c2816abb13ca694cf"
+        }
+      },
+      "inputs": [
+        "Scripts/ig_RadarCoOpAITargetLayer/AITargetIndicator/AITargetIndicator_frame_0001_define_Move.as",
+        "Scripts/ig_RadarCoOpAITargetLayer/icon/icon_frame_0010_stop_label_Offensive.as",
+        "Scripts/ig_RadarCoOpAITargetLayer/icon/icon_frame_0020_stop_label_Defensive.as",
+        "Scripts/ig_RadarCoOpAITargetLayer/icon/icon_frame_0030_stop_label_Neutral.as",
+        "Scripts/ig_RadarCoOpAITargetLayer/ig_RadarCoOpAITargetLayer/ig_RadarCoOpAITargetLayer_frame_0001_define_Resize.as",
+        "Scripts/ig_RadarCoOpAITargetLayer/sizer/sizer_frame_0001_load.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "ig_missionMapHotSpotLayer",
+      "status": "passed",
+      "assets": 7,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 713,
+          "sha256": "91fa0c4916e93ff401e2079e5590afe832e9f7c9430d81ad5c7a36abe9b0e0bf"
+        },
+        "bin": {
+          "bytes": 12884,
+          "sha256": "ee95aee1151608faa0271360f47be743bcd19b77be2c92706989f2da8018f58a"
+        },
+        "relo": {
+          "bytes": 60,
+          "sha256": "e6eb6747111130604f74ebaa99d3eaeb0a33575b221dc87fe4e0d06757fd6695"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "52e592ee9ce72204bea654812e70788c40ae835911796f3c3a42c5b420268fc3"
+        }
+      },
+      "inputs": [
+        "Scripts/ig_missionMapHotSpotLayer/HotSpotIndicator/HotSpotIndicator_frame_0001_define_Move.as",
+        "Scripts/ig_missionMapHotSpotLayer/ig_missionMapHotSpotLayer/ig_missionMapHotSpotLayer_frame_0001_define_AddIndicator.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "ig_RadarBridgeLayer",
+      "status": "passed",
+      "assets": 7,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 665,
+          "sha256": "de8006a808cf30befd6e686695cbbe4029d558d7243f7b9b675ccbbbb7ccbf56"
+        },
+        "bin": {
+          "bytes": 26824,
+          "sha256": "db746ab9497ce246f24cf8039680d2a07133d50dccc877c771fbe5c1c28785d4"
+        },
+        "relo": {
+          "bytes": 60,
+          "sha256": "45490a5e6e77a4cbf05531e2281dc7c3c47b2d43c75219f345c0b139daa69541"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "d58af06224316ac25105ea472bdcdf1d8192f51e32c7270d31adefe305830086"
+        }
+      },
+      "inputs": [
+        "Scripts/ig_RadarBridgeLayer/BridgeSegmentIndicator/BridgeSegmentIndicator_frame_0001_define_Move.as",
+        "Scripts/ig_RadarBridgeLayer/ig_RadarBridgeLayer/ig_RadarBridgeLayer_frame_0001_define_Resize.as",
+        "Scripts/ig_RadarBridgeLayer/sizer/sizer_frame_0001_load.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    },
+    {
+      "movie": "InGameCheckbox",
+      "status": "passed",
+      "assets": 22,
+      "milliseconds": 0,
+      "streams": {
+        "manifest": {
+          "bytes": 1835,
+          "sha256": "e2a2bc67a43a43c6cf9e87ce054e7c5bf536efa58c40ec52ae9c21d514ac5bdd"
+        },
+        "bin": {
+          "bytes": 35392,
+          "sha256": "acb440c5fd79f32494f56ce626a801b184953cae2a2cb45935e7aa50c416ee21"
+        },
+        "relo": {
+          "bytes": 180,
+          "sha256": "cddc0fbff02ce1a8b9bbc961b0bf72511b9bebcbcf02d13494783ae3cf9c6a66"
+        },
+        "imp": {
+          "bytes": 4,
+          "sha256": "be71201092a7cd02e413dfac80c16c6231736215971410ace80323e1cb12378b"
+        }
+      },
+      "inputs": [
+        "Scripts/InGameCheckbox/InGameCheckbox/InGameCheckbox_frame_0001_define_SetEnabled_label_unchecked.as",
+        "Scripts/InGameCheckbox/InGameCheckbox/InGameCheckbox_frame_0001_release_label_unchecked.as",
+        "Scripts/InGameCheckbox/InGameCheckbox/InGameCheckbox_frame_0010_stop_label_unchecked.as",
+        "Scripts/InGameCheckbox/InGameCheckbox/InGameCheckbox_frame_0020_stop_label_checked.as",
+        "Scripts/InGameCheckbox/box/box_frame_0001_load_label_unchecked.as",
+        "Scripts/InGameCheckbox/box/box_frame_0010_stop_label_up.as",
+        "Scripts/InGameCheckbox/box/box_frame_0010_stop_label_up_occurrence_02.as",
+        "Scripts/InGameCheckbox/box/box_frame_0011_load_label_checked.as",
+        "Scripts/InGameCheckbox/box/box_frame_0020_stop_label_over.as",
+        "Scripts/InGameCheckbox/box/box_frame_0020_stop_label_over_occurrence_02.as",
+        "Scripts/InGameCheckbox/box/box_frame_0030_stop_label_disabled.as",
+        "Scripts/InGameCheckbox/box/box_frame_0030_stop_label_disabled_occurrence_02.as",
+        "Tactical.fla"
+      ],
+      "originalSourceIssues": null
+    }
+  ]
+}

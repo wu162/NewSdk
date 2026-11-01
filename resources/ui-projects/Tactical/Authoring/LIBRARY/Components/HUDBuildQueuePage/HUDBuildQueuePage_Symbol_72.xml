@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDBuildQueuePage/HUDBuildQueuePage_Symbol_72" itemID="6ae70000-00000068" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDBuildQueuePage/HUDBuildQueuePage_Symbol_72">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#f6d022">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="_Str" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728" name="_Def" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="6" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728" name="_Inf" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="11" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="15" keyMode="9728" name="_Veh" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="16" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" keyMode="9728" name="_Air" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="21" duration="4" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="25" keyMode="9728" name="_Nav" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#f89698">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_gotoAndStop_label_Str_occurrence_02.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#917d73" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBuildQueuePage/HUDBuildQueuePage_Symbol_56" centerPoint3DX="11.5" centerPoint3DY="12.0">
+                                             <matrix>
+                                                  <Matrix tx="2.0" ty="3.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" duration="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBuildQueuePage/HUDBuildQueuePage_Symbol_59" centerPoint3DX="11.0" centerPoint3DY="12.0">
+                                             <matrix>
+                                                  <Matrix tx="2.0" ty="4.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBuildQueuePage/HUDBuildQueuePage_Symbol_62" centerPoint3DX="9.5" centerPoint3DY="11.0">
+                                             <matrix>
+                                                  <Matrix tx="2.0" ty="2.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="15" duration="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBuildQueuePage/HUDBuildQueuePage_Symbol_65" centerPoint3DX="11.5" centerPoint3DY="11.5">
+                                             <matrix>
+                                                  <Matrix tx="2.0" ty="3.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="20" duration="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBuildQueuePage/HUDBuildQueuePage_Symbol_68" centerPoint3DX="10.5" centerPoint3DY="11.5">
+                                             <matrix>
+                                                  <Matrix tx="2.0" ty="2.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="25" duration="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBuildQueuePage/HUDBuildQueuePage_Symbol_71" centerPoint3DX="11.0" centerPoint3DY="11.5">
+                                             <matrix>
+                                                  <Matrix tx="2.0" ty="2.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_coopControl" itemID="6ae70000-0000009c" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_coopControl">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#4e9ec5">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_GadgetFlash" name="portraitFlashMC" centerPoint3DX="35.5" centerPoint3DY="35.5">
+                                             <matrix>
+                                                  <Matrix tx="-11.0" ty="-11.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#ae7bab">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_highlightDummy" name="highlightDummy" centerPoint3DX="75.0" centerPoint3DY="52.5">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="1.0" d="1.000030517578125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#f9dc7f">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_portrait" name="portrait" centerPoint3DX="35.45" centerPoint3DY="35.5">
+                                             <matrix>
+                                                  <Matrix tx="3.0" ty="3.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#21b8f4">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_HelpBoxSite" name="buttonHelpSite" centerPoint3DX="156.0" centerPoint3DY="3.05">
+                                             <matrix>
+                                                  <Matrix tx="153.0" ty="0.05" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDCoOpAIOrderPanel/buttonHelpSite/buttonHelpSite_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#8e6a94">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_Symbol_99" name="normalButton" centerPoint3DX="126.45" centerPoint3DY="54.45">
+                                             <matrix>
+                                                  <Matrix tx="110.0" ty="38.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDCoOpAIOrderPanel/normalButton/normalButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6" color="#cfaeac">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_Symbol_99" name="assaultButton" centerPoint3DX="92.45" centerPoint3DY="54.45">
+                                             <matrix>
+                                                  <Matrix tx="76.0" ty="38.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDCoOpAIOrderPanel/assaultButton/assaultButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 7" color="#b0dffb">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_Symbol_99" name="holdObjectButton" centerPoint3DX="126.45" centerPoint3DY="20.45">
+                                             <matrix>
+                                                  <Matrix tx="110.0" ty="4.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDCoOpAIOrderPanel/holdObjectButton/holdObjectButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 8" color="#8de1ed">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_Symbol_99" name="holdPositionButton" centerPoint3DX="92.45" centerPoint3DY="20.45">
+                                             <matrix>
+                                                  <Matrix tx="76.0" ty="4.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDCoOpAIOrderPanel/holdPositionButton/holdPositionButton_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 9" color="#9f9aa1">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_monitor" name="monitor" centerPoint3DX="74.45" centerPoint3DY="83.0">
+                                             <matrix>
+                                                  <Matrix tx="3.0" ty="68.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 10" color="#e6de2e" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDCoOpAIOrderPanel/HUDCoOpAIOrderPanel_Symbol_88" centerPoint3DX="81.8" centerPoint3DY="63.75">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Symbol_6" itemID="6ae70000-000001fc" lastModified="1631891428" symbolType="graphic">
+     <timeline>
+          <DOMTimeline name="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Symbol_6" currentFrame="0">
+               <layers>
+                    <DOMLayer name="Layer 1">
+                         <frames>
+                              <DOMFrame index="0" motionTweenScale="false" keyMode="8192">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/MissionHotSpotPopUp/MissionHotSpotPopUp_Bitmap_5.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="-13.1" ty="0.0" a="20.0" d="20.0" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! 1738 400| -262 400| -262 0| 1738 0| 1738 400" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

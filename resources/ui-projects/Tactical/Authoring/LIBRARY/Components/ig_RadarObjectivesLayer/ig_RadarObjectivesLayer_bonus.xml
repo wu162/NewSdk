@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer_bonus" itemID="6ae70000-00000360" lastModified="1631891426">
+     <timeline>
+          <DOMTimeline name="Components/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer_bonus">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#9fe08c">
+                         <frames>
+                              <DOMFrame index="0" duration="74" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="74" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/ig_RadarObjectivesLayer/bonus/bonus_frame_0075_stop.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#aecb44">
+                         <frames>
+                              <DOMFrame index="0" duration="75" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer_Bitmap_4.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="0.3" ty="0.0" a="20.0" d="20.0" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! 6 0| 166 0| 166 280| 6 280| 6 0" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#eedfad" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="14" index="0" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer_Symbol_3" centerPoint3DX="18.75" centerPoint3DY="26.65">
+                                             <matrix>
+                                                  <Matrix tx="3.75" ty="11.65" a="0.01666259765625" d="0.01666259765625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="10" index="14" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer_Symbol_3" centerPoint3DX="11.5" centerPoint3DY="19.4">
+                                             <matrix>
+                                                  <Matrix tx="-3.5" ty="4.4" a="0.5" d="0.5" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="24" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer_Symbol_3" centerPoint3DX="11.5" centerPoint3DY="19.4">
+                                             <matrix>
+                                                  <Matrix tx="-3.5" ty="4.4" a="0.5" d="0.5" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="14" index="25" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer_Symbol_3" centerPoint3DX="18.75" centerPoint3DY="26.65">
+                                             <matrix>
+                                                  <Matrix tx="3.75" ty="11.65" a="0.01666259765625" d="0.01666259765625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="10" index="39" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer_Symbol_3" centerPoint3DX="11.5" centerPoint3DY="19.4">
+                                             <matrix>
+                                                  <Matrix tx="-3.5" ty="4.4" a="0.5" d="0.5" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="49" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer_Symbol_3" centerPoint3DX="11.5" centerPoint3DY="19.4">
+                                             <matrix>
+                                                  <Matrix tx="-3.5" ty="4.4" a="0.5" d="0.5" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="14" index="50" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer_Symbol_3" centerPoint3DX="18.75" centerPoint3DY="26.65">
+                                             <matrix>
+                                                  <Matrix tx="3.75" ty="11.65" a="0.01666259765625" d="0.01666259765625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="10" index="64" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer_Symbol_3" centerPoint3DX="11.5" centerPoint3DY="19.4">
+                                             <matrix>
+                                                  <Matrix tx="-3.5" ty="4.4" a="0.5" d="0.5" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="74" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer_Symbol_3" centerPoint3DX="11.5" centerPoint3DY="19.4">
+                                             <matrix>
+                                                  <Matrix tx="-3.5" ty="4.4" a="0.5" d="0.5" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

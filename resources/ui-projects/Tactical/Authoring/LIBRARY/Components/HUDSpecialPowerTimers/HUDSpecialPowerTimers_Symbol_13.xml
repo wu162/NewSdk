@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDSpecialPowerTimers/HUDSpecialPowerTimers_Symbol_13" itemID="6ae70000-000001de" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDSpecialPowerTimers/HUDSpecialPowerTimers_Symbol_13">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#d3d352" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#000000" />
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="1" strokeStyle="0" edges="! 840 0| 840 840| 0 840| 0 0| 840 0" />
+                                                  <Edge fillStyle0="1" fillStyle1="0" strokeStyle="0" edges="! 821 820| 21 820| 21 20| 821 20| 821 820" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

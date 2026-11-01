@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDRadar/HUDRadar_Symbol_55" itemID="6ae70000-0000014e" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDRadar/HUDRadar_Symbol_55">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#4467ee" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-20.9" centerPoint3DY="-2.95">
+                                             <matrix>
+                                                  <Matrix tx="-51.4" ty="-33.45" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-24.75" centerPoint3DY="-1.35">
+                                             <matrix>
+                                                  <Matrix tx="-55.25" ty="-31.85" a="0.9965667724609375" d="0.9965667724609375" b="0.0794830322265625" c="-0.0794830322265625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-28.9" centerPoint3DY="0.05">
+                                             <matrix>
+                                                  <Matrix tx="-59.4" ty="-30.45" a="0.986297607421875" d="0.986297607421875" b="0.161712646484375" c="-0.161712646484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-33.1" centerPoint3DY="1.05">
+                                             <matrix>
+                                                  <Matrix tx="-63.6" ty="-29.45" a="0.969268798828125" d="0.969268798828125" b="0.2428131103515625" c="-0.2428131103515625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-37.45" centerPoint3DY="1.75">
+                                             <matrix>
+                                                  <Matrix tx="-67.95" ty="-28.75" a="0.945587158203125" d="0.945587158203125" b="0.3222503662109375" c="-0.3222503662109375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-41.8" centerPoint3DY="2.05">
+                                             <matrix>
+                                                  <Matrix tx="-72.3" ty="-28.45" a="0.915435791015625" d="0.915435791015625" b="0.39947509765625" c="-0.39947509765625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="6" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-46.2" centerPoint3DY="2.0">
+                                             <matrix>
+                                                  <Matrix tx="-76.7" ty="-28.5" a="0.8789825439453125" d="0.8789825439453125" b="0.473968505859375" c="-0.473968505859375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="7" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-50.5" centerPoint3DY="1.6">
+                                             <matrix>
+                                                  <Matrix tx="-81.0" ty="-28.9" a="0.836517333984375" d="0.836517333984375" b="0.5452117919921875" c="-0.5452117919921875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="8" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-54.8" centerPoint3DY="0.85">
+                                             <matrix>
+                                                  <Matrix tx="-85.3" ty="-29.65" a="0.788299560546875" d="0.788299560546875" b="0.612701416015625" c="-0.612701416015625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-59.05" centerPoint3DY="-0.35">
+                                             <matrix>
+                                                  <Matrix tx="-89.55" ty="-30.85" a="0.73468017578125" d="0.73468017578125" b="0.6760101318359375" c="-0.6760101318359375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-63.15" centerPoint3DY="-1.75">
+                                             <matrix>
+                                                  <Matrix tx="-93.65" ty="-32.25" a="0.676025390625" d="0.676025390625" b="0.7346649169921875" c="-0.7346649169921875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="11" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-67.15" centerPoint3DY="-3.5">
+                                             <matrix>
+                                                  <Matrix tx="-97.65" ty="-34.0" a="0.61273193359375" d="0.61273193359375" b="0.7882843017578125" c="-0.7882843017578125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="12" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-70.9" centerPoint3DY="-5.7">
+                                             <matrix>
+                                                  <Matrix tx="-101.4" ty="-36.2" a="0.54522705078125" d="0.54522705078125" b="0.8365020751953125" c="-0.8365020751953125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="13" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-74.55" centerPoint3DY="-8.1">
+                                             <matrix>
+                                                  <Matrix tx="-105.05" ty="-38.6" a="0.4739990234375" d="0.4739990234375" b="0.87896728515625" c="-0.87896728515625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="14" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-78.05" centerPoint3DY="-10.8">
+                                             <matrix>
+                                                  <Matrix tx="-108.55" ty="-41.3" a="0.399505615234375" d="0.399505615234375" b="0.9154205322265625" c="-0.9154205322265625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="15" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-81.15" centerPoint3DY="-13.85">
+                                             <matrix>
+                                                  <Matrix tx="-111.65" ty="-44.35" a="0.322265625" d="0.322265625" b="0.945587158203125" c="-0.945587158203125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="16" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-84.15" centerPoint3DY="-17.0">
+                                             <matrix>
+                                                  <Matrix tx="-114.65" ty="-47.5" a="0.242828369140625" d="0.242828369140625" b="0.969268798828125" c="-0.969268798828125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="17" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-86.75" centerPoint3DY="-20.5">
+                                             <matrix>
+                                                  <Matrix tx="-117.25" ty="-51.0" a="0.1617279052734375" d="0.1617279052734375" b="0.986297607421875" c="-0.986297607421875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="18" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-89.05" centerPoint3DY="-24.15">
+                                             <matrix>
+                                                  <Matrix tx="-119.55" ty="-54.65" a="0.0795135498046875" d="0.0795135498046875" b="0.9965667724609375" c="-0.9965667724609375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="19" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_54" centerPoint3DX="-91.05" centerPoint3DY="-27.9">
+                                             <matrix>
+                                                  <Matrix tx="-121.55" ty="-58.4" a="9.1552734375E-5" d="9.1552734375E-5" b="1.0" c="-1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDObserverControlPanel/HUDObserverControlPanel_Observer" itemID="6ae70000-0000012b" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDObserverControlPanel/HUDObserverControlPanel_Observer">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#5591e7">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObserverControlPanel/HUDObserverControlPanel_Symbol_52" centerPoint3DX="155.0" centerPoint3DY="14.45">
+                                             <matrix>
+                                                  <Matrix tx="137.0" ty="-0.05" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#ffb4ad">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObserverControlPanel/HUDObserverControlPanel_Symbol_44" centerPoint3DX="61.15" centerPoint3DY="15.35">
+                                             <matrix>
+                                                  <Matrix tx="7.75" ty="4.35" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDObserverControlPanel/Observer/Observer_frame_0001_load.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#b1e53e" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObserverControlPanel/HUDObserverControlPanel_TitleFrame" name="TitleFrame" centerPoint3DX="94.5" centerPoint3DY="21.5">
+                                             <matrix>
+                                                  <Matrix tx="-5.5" ty="-4.5" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

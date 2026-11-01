@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_TacticalHUDObjectiveIndicatorStage" itemID="6ae70000-0000058f"><timeline><DOMTimeline name="Roots/Root_TacticalHUDObjectiveIndicatorStage">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#edd155">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDObjectiveIndicatorStage/TacticalHUDObjectiveIndicatorSta/TacticalHUDObjectiveIndicatorSta_frame_0001_define_AddOnScreenIndicator.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#aeb1bd">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_Symbol_47" name="offScreen" centerPoint3DX="512.0" centerPoint3DY="384.0">
+                                             <matrix>
+                                                  <Matrix tx="512.0" ty="384.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#f89698" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDObjectiveIndicatorStage/HUDObjectiveIndicatorStage_Symbol_47" name="onScreen" centerPoint3DX="0.0" centerPoint3DY="0.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline></DOMSymbolItem>

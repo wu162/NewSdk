@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUD/HUD_upperSidebar" itemID="6ae70000-00000025" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUD/HUD_upperSidebar">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#83b7f9">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUD/upperSidebar/upperSidebar_frame_0001_define_OnContentLoaded.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#ebe042">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_commandModeBar" name="commandModeBar" centerPoint3DX="-172.05" centerPoint3DY="239.95">
+                                             <matrix>
+                                                  <Matrix tx="-222.0" ty="225.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#a4efed">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Common/Common_HelpBoxSite" name="energyMeterHelpSite" centerPoint3DX="-266.0" centerPoint3DY="20.05">
+                                             <matrix>
+                                                  <Matrix tx="-269.0" ty="17.05" a="1.00628662109375" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUD/energyMeterHelpSite/energyMeterHelpSite_frame_0001_construct.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#936bea">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_energyMeter" name="energyMeter" centerPoint3DX="-145.0" centerPoint3DY="213.0">
+                                             <matrix>
+                                                  <Matrix tx="-240.0" ty="208.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#4e9ec5">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_resourceDisplay" name="resourceDisplay" centerPoint3DX="-51.5" centerPoint3DY="238.0">
+                                             <matrix>
+                                                  <Matrix tx="-112.0" ty="227.0" a="1.000091552734375" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6" color="#ae7bab">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_radar" name="radar" centerPoint3DX="-111.5" centerPoint3DY="111.95">
+                                             <matrix>
+                                                  <Matrix tx="-209.5" ty="14.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 7" color="#7e28f9">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_Symbol_10" name="mainCommandBar" centerPoint3DX="-196.0" centerPoint3DY="281.0">
+                                             <matrix>
+                                                  <Matrix tx="-221.0" ty="256.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 8" color="#21b8f4" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUD/HUD_sidebarFrame" name="sidebarFrame" centerPoint3DX="133.0" centerPoint3DY="148.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="1.000396728515625" d="1.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

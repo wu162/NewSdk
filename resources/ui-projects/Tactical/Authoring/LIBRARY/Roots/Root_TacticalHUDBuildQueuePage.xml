@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_TacticalHUDBuildQueuePage" itemID="6ae70000-00000120"><timeline><DOMTimeline name="Roots/Root_TacticalHUDBuildQueuePage">
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Roots/Root_TacticalHUDBuildQueuePage" itemID="6ae70000-00000588"><timeline><DOMTimeline name="Roots/Root_TacticalHUDBuildQueuePage">
                <layers>
                     <DOMLayer name="Script Layer" color="#76c3af">
                          <frames>
@@ -15,7 +15,7 @@
                          <frames>
                               <DOMFrame index="0" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_Symbol_121" name="subTabs" centerPoint3DX="92.0" centerPoint3DY="11.5">
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBuildQueuePage/HUDBuildQueuePage_subTabs" name="subTabs" centerPoint3DX="92.0" centerPoint3DY="11.5">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="0.0" />
                                              </matrix>
@@ -31,7 +31,7 @@
                          <frames>
                               <DOMFrame index="0" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_Symbol_74" name="pagePos" centerPoint3DX="11.0" centerPoint3DY="21.0">
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBuildQueuePage/HUDBuildQueuePage_Symbol_74" name="pagePos" centerPoint3DX="11.0" centerPoint3DY="21.0">
                                              <matrix>
                                                   <Matrix tx="11.0" ty="21.0" />
                                              </matrix>
@@ -66,7 +66,7 @@
                          <frames>
                               <DOMFrame index="0" keyMode="9728">
                                    <elements>
-                                        <DOMSymbolInstance libraryItemName="Components/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_Symbol_84" centerPoint3DX="96.9" centerPoint3DY="101.5">
+                                        <DOMSymbolInstance libraryItemName="Components/HUDBuildQueuePage/HUDBuildQueuePage_Symbol_84" centerPoint3DX="96.9" centerPoint3DY="101.5">
                                              <matrix>
                                                   <Matrix tx="0.0" ty="0.0" />
                                              </matrix>

@@ -1,0 +1,95 @@
+{
+  "baseCommit": "66c5866070896bebc37fe5e9bdafba42a8822b9d",
+  "protectedOriginalPath": "resources/ra3-ui",
+  "protectedOriginalGitTree": "53dddf9509736adb148ff834eaa290e60295c28d",
+  "masterFlaSha256": "491db50a3ed7efe87b2edde0a55eb94eccf0969274c123101051057f2f129d3f",
+  "publishRoots": 39,
+  "oldVsProjectFourStreamsEqual": true,
+  "serialVsBatchEqual": {
+    "TacticalEndGameDialog": true,
+    "TacticalHUD": true,
+    "TacticalHUDBeaconStage": true,
+    "TacticalHUDBuildQueuePage": true,
+    "TacticalHUDCoOpAIOrderPanel": true,
+    "TacticalHUDCommandListBox": true,
+    "TacticalHUDCommandModeBar": true,
+    "TacticalHUDEnergyMeter": true,
+    "TacticalHUDExperiencePanel": true,
+    "TacticalHUDMainCommandBar": true,
+    "TacticalHUDObjectiveIndicatorStage": true,
+    "TacticalHUDObserverControlPanel": true,
+    "TacticalHUDPlayerPowersBar": true,
+    "TacticalHUDRadar": true,
+    "TacticalHUDSelectionDetails": true,
+    "TacticalHUDSelectionRefinementPage": true,
+    "TacticalHUDSpecialPowerTimers": true,
+    "TacticalHUDTelestratorControlPanel": true,
+    "TacticalMissionHotSpotPopUp": true,
+    "TacticalMpBeaconDialog": true,
+    "TacticalObjectiveIcon": true,
+    "TacticalObjectiveIndicatorPopUp": true,
+    "TacticalObjectiveIntroPopUp": true,
+    "TacticalPlayerPowerCommandButton": true,
+    "TacticalPlayerStatusDialog": true,
+    "TacticalQuickChatDialog": true,
+    "TacticalTextChatDialog": true,
+    "ig_DrawableOverlayStage": true,
+    "igm_GadgetFlashStage": true,
+    "HelpBox": true,
+    "HUDTickerPanel": true,
+    "igm_replayControlPanel": true,
+    "HUDVoiceChatControlPanel": true,
+    "VerticalScrollBar": true,
+    "ig_RadarObjectivesLayer": true,
+    "ig_RadarCoOpAITargetLayer": true,
+    "ig_missionMapHotSpotLayer": true,
+    "ig_RadarBridgeLayer": true,
+    "InGameCheckbox": true
+  },
+  "mutations": [
+    {
+      "mode": "shared-as",
+      "passed": true,
+      "expectedUsers": [
+        "TacticalHUD",
+        "TacticalHUDBuildQueuePage",
+        "TacticalHUDCoOpAIOrderPanel",
+        "TacticalHUDCommandListBox",
+        "TacticalHUDCommandModeBar",
+        "TacticalHUDExperiencePanel",
+        "TacticalHUDMainCommandBar",
+        "TacticalHUDObjectiveIndicatorStage",
+        "TacticalHUDPlayerPowersBar",
+        "TacticalHUDSelectionDetails",
+        "TacticalHUDSpecialPowerTimers",
+        "HelpBox",
+        "igm_replayControlPanel",
+        "HUDVoiceChatControlPanel"
+      ]
+    },
+    {
+      "mode": "private-as",
+      "passed": true,
+      "expectedUsers": [
+        "TacticalHUDMainCommandBar"
+      ]
+    },
+    {
+      "mode": "shared-shape",
+      "passed": true,
+      "expectedUsers": [
+        "TacticalHUD",
+        "TacticalHUDCommandListBox",
+        "TacticalHUDEnergyMeter",
+        "TacticalHUDRadar",
+        "TacticalHUDSelectionDetails",
+        "TacticalHUDTelestratorControlPanel",
+        "HelpBox"
+      ]
+    }
+  ],
+  "componentChecksPassed": 797,
+  "net472Build": "passed, zero warnings/errors",
+  "scope": "Local component publication. Flash editor GUI and in-game playback are not verified.",
+  "authoringAsFiles": 1323
+}

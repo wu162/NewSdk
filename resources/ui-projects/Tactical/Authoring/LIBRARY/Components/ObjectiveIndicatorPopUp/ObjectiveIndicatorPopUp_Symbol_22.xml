@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/ObjectiveIndicatorPopUp/ObjectiveIndicatorPopUp_Symbol_22" itemID="6ae70000-00000219" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/ObjectiveIndicatorPopUp/ObjectiveIndicatorPopUp_Symbol_22">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#f55d7c" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/ObjectiveIndicatorPopUp/ObjectiveIndicatorPopUp_Bitmap_14.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="0.0" ty="3.0" a="0.00152587890625" d="0.00152587890625" b="-19.99969482421875" c="19.99969482421875" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! 0 60| 0 0| 220 0| 220 60| 0 60" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

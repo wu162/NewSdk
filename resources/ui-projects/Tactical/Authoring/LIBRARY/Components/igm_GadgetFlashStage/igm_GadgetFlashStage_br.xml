@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/igm_GadgetFlashStage/igm_GadgetFlashStage_br" itemID="6ae70000-000002b5" lastModified="1631891425">
+     <timeline>
+          <DOMTimeline name="Components/igm_GadgetFlashStage/igm_GadgetFlashStage_br">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#7f42fb" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMShape isFloating="true">
+                                             <fills>
+                                                  <FillStyle index="1">
+                                                       <SolidColor color="#ffffff" />
+                                                  </FillStyle>
+                                                  <FillStyle index="2">
+                                                       <BitmapFill bitmapPath="Components/igm_GadgetFlashStage/igm_GadgetFlashStage_Bitmap_4.png" bitmapIsClipped="true">
+                                                            <matrix>
+                                                                 <Matrix tx="23.0" ty="23.0" a="-20.0" d="-20.0" />
+                                                            </matrix>
+                                                       </BitmapFill>
+                                                  </FillStyle>
+                                             </fills>
+                                             <strokes />
+                                             <edges>
+                                                  <Edge fillStyle0="0" fillStyle1="2" strokeStyle="0" edges="! 460 460| 0 460| 0 0| 460 0| 460 460" />
+                                             </edges>
+                                        </DOMShape>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

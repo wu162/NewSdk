@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_box" itemID="6ae70000-000001f0" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_box">
+               <layers>
+                    <DOMLayer name="Script Layer" color="#f95f49">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDTelestratorControlPanel/box/box_frame_0001_define_SelectColorButton.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 2" color="#21b8f4">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_lineWidths" name="lineWidths" centerPoint3DX="70.0" centerPoint3DY="21.75">
+                                             <matrix>
+                                                  <Matrix tx="21.0" ty="8.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#4467ee">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_Symbol_20" centerPoint3DX="151.9" centerPoint3DY="21.25">
+                                             <matrix>
+                                                  <Matrix tx="122.85" ty="4.9" a="0.8269195556640625" d="0.828582763671875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#aa6bcf">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_colors" name="colors" centerPoint3DX="114.6" centerPoint3DY="50.5">
+                                             <matrix>
+                                                  <Matrix tx="15.6" ty="36.35" a="0.8071136474609375" d="0.5323638916015625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#6788cd">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_Symbol_5" centerPoint3DX="81.25" centerPoint3DY="27.95">
+                                             <matrix>
+                                                  <Matrix tx="-0.25" ty="1.95" a="1.0" d="0.999267578125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 6" color="#2abbde" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_Symbol_2" symbolType="button">
+                                             <matrix>
+                                                  <Matrix tx="12.35" ty="2.6" a="1.6197509765625" d="0.5043792724609375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,488 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDRadar/HUDRadar_PingGeneric" itemID="6ae70000-00000135" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDRadar/HUDRadar_PingGeneric">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#a947d3">
+                         <frames>
+                              <DOMFrame index="0" duration="40" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="40" keyMode="9728" name="_loop" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="41" duration="29" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="70" keyMode="9728" name="_fadeOut" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#09bdc1">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDRadar/PingGeneric/PingGeneric_frame_0001_timelineActions.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="14" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="15" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDRadar/PingGeneric/PingGeneric_frame_0016_timelineActions.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="16" duration="53" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="69" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDRadar/PingGeneric/PingGeneric_frame_0070_gotoAndPlay_label_loop.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="70" duration="14" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="84" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDRadar/PingGeneric/PingGeneric_frame_0085_DestroyPing_label_fadeOut.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#7cfb1f">
+                         <frames>
+                              <DOMFrame index="0" duration="15" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="100" duration="5" index="15" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect2" name="effect2" centerPoint3DX="80.4" centerPoint3DY="80.45">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.75" d="0.75" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="14" index="20" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect2" name="effect2" centerPoint3DX="80.4" centerPoint3DY="80.45">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="34" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect2" name="effect2" centerPoint3DX="80.4" centerPoint3DY="80.45">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.75" d="0.75" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="35" duration="50" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#ab72eb">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="144.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="-34.0" ty="0.0" a="1.068115234375E-4" d="1.068115234375E-4" b="-1.29998779296875" c="1.29998779296875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.69921875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="1" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="146.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="-32.0" ty="0.0" a="0.112762451171875" d="0.112762451171875" b="-1.22381591796875" c="1.22381591796875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.71875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="2" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="148.9" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="-30.05" ty="0.0" a="0.2116241455078125" d="0.2116241455078125" b="-1.13861083984375" c="1.13861083984375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.734375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="3" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="150.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="-28.0" ty="0.0" a="0.2960052490234375" d="0.2960052490234375" b="-1.0461883544921875" c="1.0461883544921875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.75390625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="4" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="152.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="-26.0" ty="0.0" a="0.36541748046875" d="0.36541748046875" b="-0.948516845703125" c="0.948516845703125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.76953125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="5" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="154.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="-24.0" ty="0.0" a="0.4196929931640625" d="0.4196929931640625" b="-0.84759521484375" c="0.84759521484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.7890625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="6" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="156.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="-22.0" ty="0.0" a="0.4612579345703125" d="0.4612579345703125" b="-0.743743896484375" c="0.743743896484375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.8046875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="7" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="158.9" centerPoint3DY="155.5">
+                                             <matrix>
+                                                  <Matrix tx="-20.05" ty="-0.05" a="0.48516845703125" d="0.48516845703125" b="-0.6418609619140625" c="0.6418609619140625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.82421875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="8" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="160.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="-18.0" ty="0.0" a="0.49462890625" d="0.49462890625" b="-0.542388916015625" c="0.542388916015625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.83984375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="162.95" centerPoint3DY="155.6">
+                                             <matrix>
+                                                  <Matrix tx="-16.0" ty="0.05" a="0.490325927734375" d="0.490325927734375" b="-0.4470977783203125" c="0.4470977783203125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.859375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="164.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="-14.0" ty="0.0" a="0.47320556640625" d="0.47320556640625" b="-0.357635498046875" c="0.357635498046875" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="11" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="166.95" centerPoint3DY="155.6">
+                                             <matrix>
+                                                  <Matrix tx="-12.0" ty="0.05" a="0.4442291259765625" d="0.4442291259765625" b="-0.2755126953125" c="0.2755126953125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.89453125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="12" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="168.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="-10.0" ty="0.0" a="0.4053497314453125" d="0.4053497314453125" b="-0.200714111328125" c="0.200714111328125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.91015625" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="13" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="170.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="-8.0" ty="0.0" a="0.3563690185546875" d="0.3563690185546875" b="-0.137298583984375" c="0.137298583984375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.9296875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="14" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="172.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="-6.0" ty="0.0" a="0.2997283935546875" d="0.2997283935546875" b="-0.0847930908203125" c="0.0847930908203125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.9453125" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="15" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="174.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="-4.0" ty="0.0" a="0.236968994140625" d="0.236968994140625" b="-0.044036865234375" c="0.044036865234375" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.96484375" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="16" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="176.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="-2.0" ty="0.0" a="0.1697998046875" d="0.1697998046875" b="-0.0156402587890625" c="0.0156402587890625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.98046875" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="0" duration="7" index="17" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="178.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.0999908447265625" d="0.0999908447265625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="24" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_effect1" name="effect1" centerPoint3DX="178.95" centerPoint3DY="155.55">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.0999908447265625" d="0.0999908447265625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="25" duration="60" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 5" color="#d428ba" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="25" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_8" centerPoint3DX="45.5" centerPoint3DY="46.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.2636260986328125" d="0.2636260986328125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="-100" duration="14" index="25" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_8" centerPoint3DX="45.5" centerPoint3DY="46.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.307525634765625" d="0.307525634765625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="100" duration="15" index="39" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_8" centerPoint3DX="45.5" centerPoint3DY="46.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.6042633056640625" d="0.6042633056640625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="-100" duration="15" index="54" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_8" centerPoint3DX="45.5" centerPoint3DY="46.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.2636260986328125" d="0.2636260986328125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame tweenType="motion" motionTweenScale="true" acceleration="100" duration="15" index="69" keyMode="22017">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_8" centerPoint3DX="45.5" centerPoint3DY="46.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.6042633056640625" d="0.6042633056640625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="84" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDRadar/HUDRadar_Symbol_8" centerPoint3DX="45.5" centerPoint3DY="46.0">
+                                             <matrix>
+                                                  <Matrix tx="0.0" ty="0.0" a="0.2639923095703125" d="0.2639923095703125" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.0" />
+                                             </color>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>

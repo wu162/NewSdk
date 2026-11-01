@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DOMSymbolItem xmlns="http://ns.adobe.com/xfl/2008/" name="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_Symbol_28" itemID="6ae70000-000001ee" lastModified="1631891428">
+     <timeline>
+          <DOMTimeline name="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_Symbol_28">
+               <layers>
+                    <DOMLayer name="Labels Layer" color="#a4efed">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728" name="_up" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="1" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" keyMode="9728" name="_over" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="11" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" keyMode="9728" name="_down" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="21" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="30" keyMode="9728" name="_selected" labelType="name">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Script Layer" color="#5ad2ed">
+                         <frames>
+                              <DOMFrame index="0" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="9" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0010_stop_label_up_occurrence_03.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="19" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0020_stop_label_over_occurrence_03.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="20" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="29" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0030_stop_label_down_occurrence_03.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="30" duration="9" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                              <DOMFrame index="39" keyMode="9728">
+                                   <Actionscript>
+                                        <script>#include "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0040_stop_label_selected_occurrence_02.as"</script>
+                                   </Actionscript>
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 3" color="#936bea">
+                         <frames>
+                              <DOMFrame index="0" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_image" name="image" centerPoint3DX="45.5" centerPoint3DY="12.35">
+                                             <matrix>
+                                                  <Matrix tx="5.0" ty="8.35" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color alphaMultiplier="0.5" />
+                                             </color>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDTelestratorControlPanel/image/image_frame_0001_load_label_up.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="10" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_image" name="image" centerPoint3DX="45.5" centerPoint3DY="12.25">
+                                             <matrix>
+                                                  <Matrix tx="5.0" ty="8.25" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.0" greenMultiplier="0.0" blueMultiplier="0.0" redOffset="255" greenOffset="204" blueOffset="102" />
+                                             </color>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDTelestratorControlPanel/image/image_frame_0011_load_label_over.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="20" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_image" name="image" centerPoint3DX="45.5" centerPoint3DY="12.35">
+                                             <matrix>
+                                                  <Matrix tx="5.0" ty="8.35" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.25" greenMultiplier="0.25" blueMultiplier="0.25" />
+                                             </color>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDTelestratorControlPanel/image/image_frame_0021_load_label_down.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="30" duration="10" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_image" name="image" centerPoint3DX="45.5" centerPoint3DY="12.35">
+                                             <matrix>
+                                                  <Matrix tx="5.0" ty="8.35" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <color>
+                                                  <Color redMultiplier="0.0" greenMultiplier="0.0" blueMultiplier="0.0" redOffset="255" greenOffset="255" blueOffset="255" />
+                                             </color>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDTelestratorControlPanel/image/image_frame_0031_load_label_selected.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+                    <DOMLayer name="Layer 4" color="#52ed7f" current="true" isSelected="true">
+                         <frames>
+                              <DOMFrame index="0" duration="30" keyMode="9728">
+                                   <elements>
+                                        <DOMSymbolInstance libraryItemName="Components/HUDTelestratorControlPanel/HUDTelestratorControlPanel_Symbol_22" symbolType="button">
+                                             <matrix>
+                                                  <Matrix tx="2.5" ty="3.3" a="0.9499969482421875" d="0.100006103515625" />
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point />
+                                             </transformationPoint>
+                                             <Actionscript>
+                                                  <script>#include "Scripts/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPan/TacticalHUDTelestratorControlPan_frame_0001_press_label_up_occurrence_03.as"</script>
+                                             </Actionscript>
+                                        </DOMSymbolInstance>
+                                   </elements>
+                              </DOMFrame>
+                              <DOMFrame index="30" duration="10" keyMode="9728">
+                                   <elements />
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timeline>
+</DOMSymbolItem>
