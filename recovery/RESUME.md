@@ -1,4 +1,17 @@
-# 当前：CLI 单行编译进度已验收（PR #47）
+# 当前：Joypad 并行版已发布（PR #49 未合并）
+
+11 个 Joypad 根已显式认证到 worker，metadata 路由 284→295；原 TypeId/版本/字节布局与缓存身份不变。
+生产 `a75840ef` 的 D/R 只构建一次；[最终 41300821811](https://github.com/wu162/NewSdk/actions/runs/41300821811) success，严格复用已通过的组件/CLI 范围，45 资产小 MOD、实际 worker 重叠、串并行/缓存/原 SDK 四流与独立三文件 ZIP 均通过。
+按用户要求未运行大型 MOD 或完整 mymod/全量 SDK 编译，没有新性能或游戏内结论。
+用户已明确批准发布：[compiler-2026.11.01](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01) 已公开并设为 Latest，两个 ZIP 与确认包逐字节相同，七附件和自动文档归档均复核通过；[发行收据](evidence/releases/compiler-2026.11.01/published.json)、[范围与来源](docs/components/xml/XML_JOYPAD.md)。源码和修复仍在 [PR #49](https://github.com/wu162/NewSdk/pull/49)，未合并；禁止强推，后续合入仍须用户明确批准。
+
+# 此前：发行验收误报已修复，待确认包（PR #49）
+
+基线 `recovery/legacy-sdk-cache` / `680c4f0c`，仅修复验收脚本的显式 BIG 版本、集中缓存冷态隔离、SDK 缓存输出审计和 Joypad 主线程集合预期。生产源码及构建输入不变。
+[最终 Windows 41297316677](https://github.com/wu162/NewSdk/actions/runs/41297316677) success：复用本次 D/R 构建及独立成功组，完整 mymod 原 SDK、独立三文件 ZIP 与完整 Upheaval 22 样本通过，原失败终态保留。
+用户要求修复后先打包，明确确认后才能发布；本轮没有创建 Release 或发行标签。[待确认运行包](https://github.com/wu162/NewSdk/actions/runs/41298119902/artifacts/13079722889) 已通过纯运行文件及校验检查。[说明与来源](docs/RELEASE_VALIDATION_FIXES.md)、[PR #49](https://github.com/wu162/NewSdk/pull/49)（未合并）。禁止强推，合入仍须用户明确批准。
+
+# 此前：CLI 单行编译进度已验收（PR #47）
 
 分支 `feat/cli-build-progress`，基线 `recovery/legacy-sdk-cache` / `52d44c6`。
 默认单行阶段/数据流进度、真实资产/XML/文档复用计数、警告/错误协调和重定向降级已接通；
