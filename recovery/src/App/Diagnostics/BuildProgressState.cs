@@ -1,24 +1,29 @@
 using System;
+using System.Collections.Concurrent;
+using System.Linq;
 using System.Threading;
 
 namespace NewModCompiler.Diagnostics
 {
-    // Only lifecycle transitions notify the renderer. Core work callbacks update
-    // counters without allocating, taking locks, or touching terminal output.
+    // Lifecycle transitions notify the renderer. Work callbacks only update the
+    // explicitly bound stream's atomic counters, without terminal output.
     public sealed class BuildProgressState
     {
-        sealed class Work
+        sealed class StageContext
         {
-            internal long Assets, Xml, Reused;
+            internal string Id;
+            internal long Started;
         }
-        sealed class Context
+        sealed class StreamContext
         {
-            internal string Stage, Stream, Phase;
-            internal long StageStarted, StreamStarted;
-            internal Work Work;
+            internal string Id, Phase;
+            internal long Started, Order, Assets, Xml, Reused;
         }
         readonly Func<long> elapsed;
-        Context current = new Context { Work = new Work() };
+        readonly ConcurrentDictionary<string, StreamContext> streams = new ConcurrentDictionary<string, StreamContext>(StringComparer.Ordinal);
+        StageContext stage = new StageContext();
+        string legacyStream;
+        long streamOrder;
         int completed, total;
         bool finished;
         internal event Action<BuildProgressSnapshot, string, string> Boundary;
@@ -27,44 +32,50 @@ namespace NewModCompiler.Diagnostics
         public void SetPlan(int totalStreams) { Volatile.Write(ref total,totalStreams); }
         public void StartStage(string id)
         {
-            var next = new Context { Stage=id, StageStarted=elapsed(), Work=new Work() };
-            Volatile.Write(ref current,next); Notify("stage-started",null);
+            Volatile.Write(ref stage,new StageContext { Id=id, Started=elapsed() });
+            Notify("stage-started",null);
         }
         public void CompleteStage(string status)
         {
             BuildProgressSnapshot value=Snapshot();
-            Volatile.Write(ref current,new Context { Work=new Work() });
+            Volatile.Write(ref stage,new StageContext());
+            streams.Clear(); Volatile.Write(ref legacyStream,null);
             Notify(value,"stage-completed",status);
         }
         public void StartStream(string id)
         {
-            Context previous=Volatile.Read(ref current);
-            Volatile.Write(ref current,new Context { Stage=previous.Stage, StageStarted=previous.StageStarted,
-                Stream=id, StreamStarted=elapsed(), Work=new Work() });
+            streams[id]=new StreamContext { Id=id, Started=elapsed(), Order=Interlocked.Increment(ref streamOrder) };
+            Volatile.Write(ref legacyStream,id);
             Notify("stream-started",null);
         }
-        public void CompleteStream(string status)
+        public void CompleteStream(string status) { CompleteStream(Volatile.Read(ref legacyStream),status); }
+        public void CompleteStream(string streamId,string status)
         {
+            StreamContext value;
+            if (streamId==null || !streams.TryRemove(streamId,out value)) return;
             if (status=="succeeded") Interlocked.Increment(ref completed);
-            BuildProgressSnapshot value=Snapshot();
-            Context previous=Volatile.Read(ref current);
-            Volatile.Write(ref current,new Context { Stage=previous.Stage, StageStarted=previous.StageStarted, Work=new Work() });
-            Notify(value,"stream-completed",status);
+            BuildProgressSnapshot snapshot=Snapshot(value);
+            if (Volatile.Read(ref legacyStream)==streamId) Volatile.Write(ref legacyStream,null);
+            Notify(snapshot,"stream-completed",status);
         }
-        public void SetPhase(string id)
+        public void SetPhase(string id) { SetPhase(Volatile.Read(ref legacyStream),id); }
+        public void SetPhase(string streamId,string id)
         {
-            Context previous=Volatile.Read(ref current);
-            if (previous.Stage==null || Volatile.Read(ref finished) || previous.Phase==id) return;
-            Volatile.Write(ref current,new Context { Stage=previous.Stage, StageStarted=previous.StageStarted,
-                Stream=previous.Stream, StreamStarted=previous.StreamStarted, Phase=id, Work=previous.Work });
+            StreamContext value;
+            if (streamId==null || Volatile.Read(ref stage).Id==null || Volatile.Read(ref finished) ||
+                !streams.TryGetValue(streamId,out value) || Volatile.Read(ref value.Phase)==id) return;
+            Volatile.Write(ref value.Phase,id);
             Notify("phase",null);
         }
         public void RecordWork(int assetsCompleted,int xmlParsed,int documentsReused)
+        { RecordWork(Volatile.Read(ref legacyStream),assetsCompleted,xmlParsed,documentsReused); }
+        public void RecordWork(string streamId,int assetsCompleted,int xmlParsed,int documentsReused)
         {
-            Work work=Volatile.Read(ref current).Work;
-            if (assetsCompleted!=0) Interlocked.Add(ref work.Assets,assetsCompleted);
-            if (xmlParsed!=0) Interlocked.Add(ref work.Xml,xmlParsed);
-            if (documentsReused!=0) Interlocked.Add(ref work.Reused,documentsReused);
+            StreamContext value;
+            if (streamId==null || !streams.TryGetValue(streamId,out value)) return;
+            if (assetsCompleted!=0) Interlocked.Add(ref value.Assets,assetsCompleted);
+            if (xmlParsed!=0) Interlocked.Add(ref value.Xml,xmlParsed);
+            if (documentsReused!=0) Interlocked.Add(ref value.Reused,documentsReused);
         }
         public void Finish(string status)
         {
@@ -76,17 +87,37 @@ namespace NewModCompiler.Diagnostics
             var handler=Boundary;
             if (handler!=null) handler(value,boundary,status);
         }
-        public BuildProgressSnapshot Snapshot()
+        public BuildProgressSnapshot Snapshot() { return Snapshot(null); }
+        BuildProgressSnapshot Snapshot(StreamContext selected)
         {
-            Context value=Volatile.Read(ref current);
+            StageContext currentStage=Volatile.Read(ref stage);
             long now=elapsed();
-            return new BuildProgressSnapshot { Stage=value.Stage, Stream=value.Stream, Phase=value.Phase,
-                AssetsCompleted=Interlocked.Read(ref value.Work.Assets), XmlParsed=Interlocked.Read(ref value.Work.Xml),
-                DocumentsReused=Interlocked.Read(ref value.Work.Reused), StreamsCompleted=Volatile.Read(ref completed),
-                StreamsTotal=Volatile.Read(ref total), ElapsedMilliseconds=now,
-                StageElapsedMilliseconds=now-value.StageStarted, StreamElapsedMilliseconds=now-value.StreamStarted,
-                Finished=Volatile.Read(ref finished) };
+            BuildStreamProgressSnapshot[] active=streams.Values.OrderBy(s=>s.Order).Select(s=>StreamSnapshot(s,now)).ToArray();
+            BuildStreamProgressSnapshot item=selected!=null ? StreamSnapshot(selected,now) : active.Length==1 ? active[0] : null;
+            return new BuildProgressSnapshot { Stage=currentStage.Id, Stream=item==null ? null : item.Stream,
+                Phase=item==null ? null : item.Phase,
+                AssetsCompleted=item==null ? active.Sum(s=>s.AssetsCompleted) : item.AssetsCompleted,
+                XmlParsed=item==null ? active.Sum(s=>s.XmlParsed) : item.XmlParsed,
+                DocumentsReused=item==null ? active.Sum(s=>s.DocumentsReused) : item.DocumentsReused,
+                ActiveStreams=active, StreamsCompleted=Volatile.Read(ref completed), StreamsTotal=Volatile.Read(ref total),
+                ElapsedMilliseconds=now, StageElapsedMilliseconds=now-currentStage.Started,
+                StreamElapsedMilliseconds=item==null ? 0 : item.ElapsedMilliseconds, Finished=Volatile.Read(ref finished) };
         }
+        static BuildStreamProgressSnapshot StreamSnapshot(StreamContext value,long now)
+        {
+            return new BuildStreamProgressSnapshot { Stream=value.Id, Phase=Volatile.Read(ref value.Phase),
+                AssetsCompleted=Interlocked.Read(ref value.Assets), XmlParsed=Interlocked.Read(ref value.Xml),
+                DocumentsReused=Interlocked.Read(ref value.Reused), ElapsedMilliseconds=now-value.Started };
+        }
+    }
+    public sealed class BuildStreamProgressSnapshot
+    {
+        public string Stream { get; internal set; }
+        public string Phase { get; internal set; }
+        public long AssetsCompleted { get; internal set; }
+        public long XmlParsed { get; internal set; }
+        public long DocumentsReused { get; internal set; }
+        public long ElapsedMilliseconds { get; internal set; }
     }
     public sealed class BuildProgressSnapshot
     {
@@ -96,6 +127,7 @@ namespace NewModCompiler.Diagnostics
         public long AssetsCompleted { get; internal set; }
         public long XmlParsed { get; internal set; }
         public long DocumentsReused { get; internal set; }
+        public BuildStreamProgressSnapshot[] ActiveStreams { get; internal set; }
         public int StreamsCompleted { get; internal set; }
         public int StreamsTotal { get; internal set; }
         public long ElapsedMilliseconds { get; internal set; }

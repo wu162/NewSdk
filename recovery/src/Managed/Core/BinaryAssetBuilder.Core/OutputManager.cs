@@ -57,7 +57,7 @@ public class OutputManager
 
 	private ManifestHeader _Header;
 
-	private static byte[] _LinkedBuffer = new byte[65536];
+	private readonly byte[] _LinkedBuffer = new byte[65536];
 
 	public IDictionary<string, BinaryAsset> Assets => _Assets;
 

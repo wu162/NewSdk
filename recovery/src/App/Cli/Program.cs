@@ -66,11 +66,12 @@ namespace NewModCompiler.Cli
                     Console.CancelKeyPress += handler;
                     BuildSession session = null;
                     IStreamCompiler compiler = null;
+                    Func<string,IStreamCompiler> compilerFactory=null;
 #if NEWSdk_MONOLITHIC
                     if (request.Command == "build")
-                        compiler = new CoreStreamCompiler((source,eventType,message) => session.RecordCoreTrace(source,eventType,message),progress);
+                        compilerFactory = group => new CoreStreamCompiler((source,eventType,message) => session.RecordCoreTrace(source,eventType,message),progress);
 #endif
-                    session = new BuildSession(request,compiler,events,progress:progress);
+                    session = new BuildSession(request,compiler,events,progress:progress,compilerFactory:compilerFactory);
                     try { return (int)session.Run(cancellation.Token); }
                     finally { Console.CancelKeyPress -= handler; }
                 }

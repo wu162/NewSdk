@@ -121,7 +121,19 @@ static class CompilerResourceLifecycle
         Check(listeners.Count == 0, "metrics no retained listeners");
     }
 
-    static FieldInfo ReportField(string name) { return typeof(AssetReport).GetField(name, BindingFlags.Static | BindingFlags.NonPublic); }
+    static object ReportValue(string name)
+    {
+        var flags = BindingFlags.Static | BindingFlags.NonPublic;
+        var field = typeof(AssetReport).GetField(name, flags);
+        return field != null ? field.GetValue(null) : typeof(AssetReport).GetProperty(name, flags).GetValue(null, null);
+    }
+    static void SetReportValue(string name, object value)
+    {
+        var flags = BindingFlags.Static | BindingFlags.NonPublic;
+        var field = typeof(AssetReport).GetField(name, flags);
+        if (field != null) field.SetValue(null, value);
+        else typeof(AssetReport).GetProperty(name, flags).SetValue(null, value, null);
+    }
     static void InitReport()
     {
         try { typeof(AssetReport).GetMethod("InitAssetRecordWriter", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, null); }
@@ -129,8 +141,8 @@ static class CompilerResourceLifecycle
     }
     static void ReportCleared(string name)
     {
-        Check(ReportField("AssetRecordWriter").GetValue(null) == null && ReportField("AssetRecordStream").GetValue(null) == null &&
-              ReportField("RecordedAssets").GetValue(null) == null && AssetReport.FileNameFullyQualified == null, name);
+        Check(ReportValue("AssetRecordWriter") == null && ReportValue("AssetRecordStream") == null &&
+              ReportValue("RecordedAssets") == null && AssetReport.FileNameFullyQualified == null, name);
     }
     sealed class FaultWriter : XmlWriter
     {
@@ -181,12 +193,12 @@ static class CompilerResourceLifecycle
             }
             for (int i = 0; i < 3; i++)
             {
-                InitReport(); var original = (XmlWriter)ReportField("AssetRecordWriter").GetValue(null);
+                InitReport(); var original = (XmlWriter)ReportValue("AssetRecordWriter");
                 var fault = new FaultWriter(original); var primary = new IOException("writer primary " + i); var secondary = new IOException("writer Close secondary");
                 if (i == 0) { fault.EndFailure = primary; fault.CloseFailure = secondary; }
                 if (i == 1) { fault.FlushFailure = primary; fault.CloseFailure = secondary; }
                 if (i == 2) fault.CloseFailure = primary;
-                ReportField("AssetRecordWriter").SetValue(null, fault);
+                SetReportValue("AssetRecordWriter", fault);
                 SameFailure(AssetReport.Close, primary, "asset report preserves writer failure " + i);
                 Check(fault.CloseCalled, "asset report always attempts writer Close " + i);
                 ReportCleared("asset report failed Close clears state " + i);
@@ -216,8 +228,8 @@ static class CompilerResourceLifecycle
     }
     static object[] ReportState()
     {
-        return new[] { ReportField("AssetRecordWriter").GetValue(null), ReportField("AssetRecordStream").GetValue(null),
-            ReportField("RecordedAssets").GetValue(null), AssetReport.FileName, AssetReport.FileNameFullyQualified };
+        return new[] { ReportValue("AssetRecordWriter"), ReportValue("AssetRecordStream"),
+            ReportValue("RecordedAssets"), AssetReport.FileName, AssetReport.FileNameFullyQualified };
     }
     static void SameReportState(object[] expected, string name)
     {
@@ -241,7 +253,7 @@ static class CompilerResourceLifecycle
                 Check(AssetReport.FileName == "AssetReport.xml", "asset report child gets default filename");
                 ReportCleared("asset report child begins with empty state");
                 AssetReport.FileName = "child-custom.xml"; InitReport();
-                ((XmlWriter)ReportField("AssetRecordWriter").GetValue(null)).WriteComment("child-success");
+                ((XmlWriter)ReportValue("AssetRecordWriter")).WriteComment("child-success");
             }
             SameReportState(parent, "asset report successful child restores exact parent state");
             Check(File.ReadAllText(Path.Combine(root, "child-success/child-custom.xml")).Contains("child-success"), "asset report child output completed");
@@ -249,7 +261,7 @@ static class CompilerResourceLifecycle
 
             Settings.Current = new Settings { SessionCacheDirectory = Path.Combine(root, "child-failure") };
             var failedScope = AssetReport.BeginScope(); InitReport();
-            var child = (XmlWriter)ReportField("AssetRecordWriter").GetValue(null);
+            var child = (XmlWriter)ReportValue("AssetRecordWriter");
             var primary = new IOException("child EndDocument failure");
             var fault = new FaultWriter(child) { EndFailure = primary, CloseFailure = new IOException("child Close secondary") };
             fault.OnClose = delegate {
@@ -259,7 +271,7 @@ static class CompilerResourceLifecycle
                 ScopeWorkerRejected(delegate { AssetReport.BeginScope(); }, "asset report callback scope creation");
                 ScopeWorkerRejected(failedScope.Dispose, "asset report callback scope disposal");
             };
-            ReportField("AssetRecordWriter").SetValue(null, fault);
+            SetReportValue("AssetRecordWriter", fault);
             SameFailure(failedScope.Dispose, primary, "asset report child Dispose preserves original Close error");
             SameReportState(parent, "asset report failed child restores exact parent state");
             failedScope.Dispose(); SameReportState(parent, "asset report child Dispose is idempotent");

@@ -138,19 +138,17 @@ public class MetricManager
 
 	public static void Submit(string descriptorName, params object[] datalist)
 	{
-		MetricDescriptor value = null;
-		if (_DescriptorMap.TryGetValue(descriptorName.ToLower(), out value))
-		{
-			SubmitInternal(value, datalist);
-		}
+        MetricDescriptor descriptor;
+        lock (SessionLock)
+            if (!_DescriptorMap.TryGetValue(descriptorName.ToLower(), out descriptor)) return;
+        SubmitInternal(descriptor, datalist);
 	}
 
 	public static void Submit(MetricDescriptor descriptor, params object[] datalist)
 	{
-		if (_DescriptorMap.ContainsKey(descriptor.Name.ToLower()))
-		{
-			SubmitInternal(descriptor, datalist);
-		}
+        lock (SessionLock)
+            if (!_DescriptorMap.ContainsKey(descriptor.Name.ToLower())) return;
+        SubmitInternal(descriptor, datalist);
 	}
 
 	private static void SubmitInternal(MetricDescriptor descriptor, params object[] samples)
@@ -185,13 +183,16 @@ public class MetricManager
 
 	public static MetricDescriptor GetDescriptor(string name, MetricType type, string description)
 	{
-		string key = name.ToLower();
-		MetricDescriptor value = null;
-		if (!_DescriptorMap.TryGetValue(key, out value))
-		{
-			value = new MetricDescriptor(name, type, description);
-			_DescriptorMap.Add(key, value);
-		}
-		return value;
+        lock (SessionLock)
+        {
+            string key = name.ToLower();
+            MetricDescriptor value;
+            if (!_DescriptorMap.TryGetValue(key, out value))
+            {
+                value = new MetricDescriptor(name, type, description);
+                _DescriptorMap.Add(key, value);
+            }
+            return value;
+        }
 	}
 }

@@ -8,7 +8,7 @@ namespace BinaryAssetBuilder;
 
 public class Settings : ICloneable
 {
-	public static Settings Current;
+	public static Settings Current { get => CompilationContext.Current.Settings; set => CompilationContext.Current.Settings = value; }
 
     [XmlIgnore]
     public Func<string, IDisposable> MeasurePerformance { get; set; }

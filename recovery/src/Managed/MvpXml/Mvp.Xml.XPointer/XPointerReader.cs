@@ -14,7 +14,7 @@ public class XPointerReader : XmlReader, IHasXPathNavigator
 
 	private XPathNodeIterator _pointedNodes;
 
-	private static IDictionary<string, WeakReference> _cache;
+	private static readonly IDictionary<string, WeakReference> _cache = new Dictionary<string, WeakReference>();
 
 	public override int AttributeCount => _reader.AttributeCount;
 
@@ -113,34 +113,25 @@ public class XPointerReader : XmlReader, IHasXPathNavigator
 	public XPointerReader(XmlReader reader, string xpointer)
 	{
 		XPathDocument xPathDocument = null;
-		if (_cache == null)
+		lock (_cache)
 		{
-			_cache = new Dictionary<string, WeakReference>();
+			if (_cache.TryGetValue(reader.BaseURI, out var value))
+				xPathDocument = value.Target as XPathDocument;
 		}
-		if (_cache.TryGetValue(reader.BaseURI, out var value) && value.IsAlive)
-		{
-			xPathDocument = (XPathDocument)value.Target;
-			reader.Close();
-		}
-		else
-		{
-			xPathDocument = CreateAndCacheDocument(reader);
-		}
+		if (xPathDocument != null) reader.Close();
+		else xPathDocument = CreateAndCacheDocument(reader);
 		Init(xPathDocument.CreateNavigator(), xpointer);
 	}
 
 	public XPointerReader(string uri, string content, string xpointer)
 	{
 		XPathDocument xPathDocument = null;
-		if (_cache == null)
+		lock (_cache)
 		{
-			_cache = new Dictionary<string, WeakReference>();
+			if (_cache.TryGetValue(uri, out var value))
+				xPathDocument = value.Target as XPathDocument;
 		}
-		if (_cache.TryGetValue(uri, out var value) && value.IsAlive)
-		{
-			xPathDocument = (XPathDocument)value.Target;
-		}
-		else
+		if (xPathDocument == null)
 		{
 			XmlReader r = new XmlBaseAwareXmlTextReader(uri, new StringReader(content));
 			xPathDocument = CreateAndCacheDocument(r);

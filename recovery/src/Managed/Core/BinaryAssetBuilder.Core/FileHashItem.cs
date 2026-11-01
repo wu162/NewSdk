@@ -21,7 +21,7 @@ public class FileHashItem : IXmlSerializable
 {
 	public delegate void KeepAliveDelegate();
 
-	public static KeepAliveDelegate _KeepAliveDelegate;
+	public static KeepAliveDelegate _KeepAliveDelegate { get => CompilationContext.Current.KeepAlive; set => CompilationContext.Current.KeepAlive = value; }
 
 	private string _Path;
 

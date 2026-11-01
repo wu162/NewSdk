@@ -1,3 +1,13 @@
+# 当前：单进程按内容分组并行（实现检查点，待 Windows 验收）
+
+分支 `feat/single-process-content-parallel`，基线 `recovery/legacy-sdk-cache` / `680c4f0c`。
+非空组独立 Owner/Core、任务级依赖就绪调度、AsyncLocal Core 状态、分组旧格式缓存、
+全构建 CPU/IO/在途内存预算和按流进度已一起接入。主线程合并日志/产物/报告，仅全部成功后打包。
+本地 App net48 Roslyn 与托管闭包编译、可移植预算/进度/性能/上下文合同已通过；
+尚未取得 Windows 原生 Release、真实 Core/CLI/取消、七组合冷热原字节及 Upheaval 结果，不能标为验收完成。
+入口：`docs/CONTENT_PARALLEL.md`、`scripts/TestContentParallel.ps1`、`content-parallel.yml`。
+禁止强推；PR 待审，合入仍需用户明确批准。
+
 # 当前：CLI 单行编译进度已验收（PR #47）
 
 分支 `feat/cli-build-progress`，基线 `recovery/legacy-sdk-cache` / `52d44c6`。

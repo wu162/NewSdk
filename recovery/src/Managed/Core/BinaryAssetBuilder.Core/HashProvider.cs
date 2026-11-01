@@ -13,11 +13,11 @@ public static class HashProvider
 
 	private static readonly string StringHashesFileDefault;
 
-	public static string StringHashesFile;
+	public static string StringHashesFile { get => CurrentState.StringHashesFile; set => CurrentState.StringHashesFile = value; }
 
-	private static IDictionary<string, string> _SchemaNameToBinName;
+	private static IDictionary<string, string> _SchemaNameToBinName { get => CurrentState.SchemaNames; set => CurrentState.SchemaNames = value; }
 
-	private static IDictionary<string, StringHashBin> _StringHashBins;
+	private static IDictionary<string, StringHashBin> _StringHashBins { get => CurrentState.Bins; set => CurrentState.Bins = value; }
 
 	private static readonly string InstanceIdTableName;
 
@@ -29,14 +29,26 @@ public static class HashProvider
 
 	private static readonly uint HashProviderVersion;
 
-	private static string _outputDirectory;
+	private static string _outputDirectory { get => CurrentState.OutputDirectory; set => CurrentState.OutputDirectory = value; }
 
-    private static readonly object ScopeGate = new object();
-    private static StringHashScope _CurrentScope;
-    private static bool _PreparingState;
+    internal sealed class State
+    {
+        internal readonly object Gate = new object();
+        internal IDictionary<string, string> SchemaNames;
+        internal IDictionary<string, StringHashBin> Bins;
+        internal string OutputDirectory;
+        internal string StringHashesFile = "StringHashes.xml";
+        internal StringHashScope CurrentScope;
+        internal bool Preparing;
+    }
 
-    // Core uses process-wide hash tables. A stream owns them sequentially; nested
-    // scopes restore their exact parent tables, never publish output on disposal.
+    private static State CurrentState => CompilationContext.Current.Hashes;
+    private static object ScopeGate => CurrentState.Gate;
+    private static StringHashScope _CurrentScope { get => CurrentState.CurrentScope; set => CurrentState.CurrentScope = value; }
+    private static bool _PreparingState { get => CurrentState.Preparing; set => CurrentState.Preparing = value; }
+
+    // Each compilation context owns its tables. Nested scopes restore their
+    // exact parent tables and never publish output on disposal.
     public static IDisposable BeginStringHashScope(string outputDirectory)
     {
         return PrepareStringHashes(outputDirectory, true);
@@ -48,8 +60,9 @@ public static class HashProvider
             throw new InvalidOperationException("String hash scopes may only be used on their owning thread.");
     }
 
-    private sealed class StringHashScope : IDisposable
+    internal sealed class StringHashScope : IDisposable
     {
+        private readonly State state = CurrentState;
         internal readonly int ThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
         private readonly StringHashScope parent = _CurrentScope;
         private readonly IDictionary<string, string> schemaNames = _SchemaNameToBinName;
@@ -60,9 +73,11 @@ public static class HashProvider
 
         public void Dispose()
         {
-            lock (ScopeGate)
+            lock (state.Gate)
             {
                 if (disposed) return;
+                if (!Object.ReferenceEquals(CurrentState, state))
+                    throw new InvalidOperationException("String hash scopes must be disposed in their creating compilation context.");
                 EnsureScopeThread();
                 if (_PreparingState) throw new InvalidOperationException("Cannot dispose a string hash scope during initialization.");
                 if (!Object.ReferenceEquals(_CurrentScope, this))
@@ -86,7 +101,6 @@ public static class HashProvider
 	{
 		_Tracer = Tracer.GetTracer("HashProvider", "Centralized facility to produce hashes from strings");
 		StringHashesFileDefault = "StringHashes.xml";
-		StringHashesFile = StringHashesFileDefault;
 		InstanceIdTableName = "INSTANCEID";
 		TypeIdTableName = "TYPEID";
 		StringTableAssetName = "StringHashTable";

@@ -48,7 +48,7 @@ public class XIncludingReader : XmlReader
 
 	private bool _differentLang;
 
-	private static IDictionary<string, WeakReference> _cache;
+	private static readonly IDictionary<string, WeakReference> _cache = new Dictionary<string, WeakReference>();
 
 	public override int AttributeCount
 	{
@@ -1014,13 +1014,13 @@ public class XIncludingReader : XmlReader
 
 	private string CreateAcquiredInfoset(Uri includeLocation)
 	{
-		if (_cache == null)
+		lock (_cache)
 		{
-			_cache = new Dictionary<string, WeakReference>();
-		}
-		if (_cache.TryGetValue(includeLocation.AbsoluteUri, out var value) && value.IsAlive)
-		{
-			return (string)value.Target;
+			if (_cache.TryGetValue(includeLocation.AbsoluteUri, out var value))
+			{
+				string cached = value.Target as string;
+				if (cached != null) return cached;
+			}
 		}
 		WebResponse response;
 		Stream resource = GetResource(includeLocation.AbsoluteUri, _reader.GetAttribute(_keywords.Accept), _reader.GetAttribute(_keywords.AcceptLanguage), out response);

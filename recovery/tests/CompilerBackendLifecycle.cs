@@ -22,7 +22,11 @@ public static class CompilerBackendLifecycle
     static string work, sdk, probe;
     static int checks, traceCalls;
     static void Require(bool value, string message) { ++checks; if (!value) throw new Exception(message); }
-    static object Field(Type type, string name) { return type.GetField(name, PrivateStatic).GetValue(null); }
+    static object Field(Type type, string name)
+    {
+        var field = type.GetField(name, PrivateStatic);
+        return field != null ? field.GetValue(null) : type.GetProperty(name, PrivateStatic).GetValue(null, null);
+    }
     sealed class Ambient
     {
         readonly Settings settings = Settings.Current;

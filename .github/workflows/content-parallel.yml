@@ -1,0 +1,73 @@
+name: Single-process content parallel Release acceptance
+on:
+  push:
+    branches: [feat/single-process-content-parallel]
+    paths:
+      - '.github/workflows/content-parallel.yml'
+      - 'recovery/scripts/TestContentParallel.ps1'
+      - 'recovery/src/**'
+      - 'recovery/tests/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: content-parallel-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  content:
+    runs-on: windows-2022
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Parse changed PowerShell and check pinned Upheaval before native build
+        shell: pwsh
+        run: |
+          $tokens=$null; $errors=$null
+          [Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'recovery/scripts/TestContentParallel.ps1'),[ref]$tokens,[ref]$errors) | Out-Null
+          if($errors.Count){throw ($errors|Out-String)}
+          $tree=git rev-parse 'bacfc69fc3e71c8116d1f22b933b8b6173170ecf:SDK/Mods/Upheaval'
+          if($LASTEXITCODE -ne 0 -or $tree -cne '5551fc26a6f96b62613443e0d0fa2958c14cbce0'){throw 'Pinned complete Upheaval unavailable'}
+      - name: Managed App contracts before native compilation
+        shell: pwsh
+        run: |
+          $out='recovery/artifacts/content-app'
+          ./recovery/scripts/BuildApp.ps1 -Tests -Configuration Release -OutputDirectory $out
+          & "$out/NewModCompiler.AppTests.exe" 'C:\nsc-content-app' *> "$out/contracts.log"
+          if($LASTEXITCODE -ne 0){Get-Content "$out/contracts.log" -Tail 100; throw 'App contracts failed'}
+          Get-Content "$out/contracts.log" -Tail 12
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Build one current Release and its production-object fixture host
+        shell: pwsh
+        run: |
+          ./recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory recovery/artifacts/content-product
+          ./recovery/scripts/BuildCompilerValidationHost.ps1 -ProductBuildDirectory recovery/artifacts/content-product -OutputDirectory recovery/artifacts/content-product/validation
+      - name: Core contracts, seven selections, cold hot bytes, cancellation and one Upheaval comparison
+        shell: pwsh
+        run: ./recovery/scripts/TestContentParallel.ps1 -ProductBuildDirectory recovery/artifacts/content-product -OutputDirectory recovery/artifacts/content-validation
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: content-parallel-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/content-app/contracts.log
+            recovery/artifacts/content-validation/
+            recovery/artifacts/content-product/build.json
+            recovery/artifacts/content-product/link-inputs.json
+            recovery/artifacts/content-product/**/*.log
+            recovery/artifacts/content-product/bin/
+            recovery/artifacts/content-product/validation/build.json
+            recovery/artifacts/content-product/validation/bin/
+          include-hidden-files: true
+          if-no-files-found: warn

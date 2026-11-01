@@ -14,7 +14,18 @@ using BinaryAssetBuilder.Core;
 // real type from its entry EXE, with no substitute Core assembly or static stub.
 public static class CompilerStateLifecycle
 {
-    static object Field(Type type, string name) { return type.GetField(name, BindingFlags.Static | BindingFlags.NonPublic).GetValue(null); }
+    static object Field(Type type, string name)
+    {
+        var field = type.GetField(name, BindingFlags.Static | BindingFlags.NonPublic);
+        return field != null ? field.GetValue(null) : type.GetProperty(name, BindingFlags.Static | BindingFlags.NonPublic).GetValue(null, null);
+    }
+    static void SetField(Type type, string name, object value)
+    {
+        var flags = BindingFlags.Static | BindingFlags.NonPublic;
+        var field = type.GetField(name, flags);
+        if (field != null) field.SetValue(null, value);
+        else type.GetProperty(name, flags).SetValue(null, value, null);
+    }
     static void Require(bool condition, string message) { if (!condition) throw new Exception(message); }
     static void Reject(Action action, string message)
     {
@@ -170,7 +181,7 @@ public static class CompilerStateLifecycle
             Tracer.TraceWrite = baseline;
             // A nonstandard mask ensures restoration preserves the exact mask,
             // rather than guessing its nearest public verbosity level.
-            typeof(Tracer).GetField("_TraceMask", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, TraceKind.Warning | TraceKind.Data);
+            SetField(typeof(Tracer), "_TraceMask", TraceKind.Warning | TraceKind.Data);
             object baselineMask = Field(typeof(Tracer), "_TraceMask");
             using (Tracer.BeginScope(delegate { firstCalls++; }, 9))
             {
@@ -237,7 +248,7 @@ public static class CompilerStateLifecycle
         finally
         {
             Tracer.TraceWrite = previous;
-            typeof(Tracer).GetField("_TraceMask", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, previousMask);
+            SetField(typeof(Tracer), "_TraceMask", previousMask);
             Environment.SetEnvironmentVariable("BabEnableTrace", environment);
         }
     }
@@ -301,6 +312,72 @@ public static class CompilerStateLifecycle
             Require(callbacks == workers * repetitions, "Concurrent verifier diagnostic count differs");
         }
     }
+    static void CompilationContextChecks(string output)
+    {
+        const int groups = 3;
+        var caller = CompilationContext.Current;
+        Settings callerSettings = Settings.Current;
+        var tasks = new Task[groups];
+        var identities = new object[groups];
+        using (var ready = new CountdownEvent(groups))
+        using (var begin = new ManualResetEventSlim())
+        {
+            for (int i = 0; i < groups; ++i)
+            {
+                int index = i;
+                tasks[i] = Task.Factory.StartNew(delegate
+                {
+                    var context = new CompilationContext();
+                    string id = "group-" + index;
+                    using (context.Enter())
+                    {
+                        var settings = new Settings { SessionCacheDirectory = Path.Combine(output, id), StringHashBinDescriptors = Descriptors() };
+                        Settings.Current = settings;
+                        int messages = 0;
+                        using (DocumentProcessor.BeginStateScope())
+                        using (HashProvider.BeginStringHashScope(settings.SessionCacheDirectory))
+                        using (AssetReport.BeginScope())
+                        using (Tracer.BeginScope(delegate(string source, TraceEventType kind, string message)
+                        {
+                            Require(message == id, "Trace callback crossed content owners");
+                            messages++;
+                        }, 9))
+                        {
+                            AssetReport.FileName = id + ".xml";
+                            ((Stack<string>)Field(typeof(DocumentProcessor), "_CurrentDocumentStack")).Push(id);
+                            identities[index] = Field(typeof(HashProvider), "_StringHashBins");
+                            HashProvider.RecordHash("POID", id);
+                            ready.Signal();
+                            Require(begin.Wait(5000), "Parallel contexts did not overlap");
+                            Require(CompilationContext.Current == context && Settings.Current == settings, "Another owner replaced current settings");
+                            Require(DocumentProcessor.CurrentDocument == id && AssetReport.FileName == id + ".xml", "Document/report state crossed content owners");
+                            var worker = Task.Factory.StartNew(delegate
+                            {
+                                Require(CompilationContext.Current == context && Settings.Current == settings, "Compilation context did not flow into Task");
+                                Require(DocumentProcessor.CurrentDocument == id, "Task received another owner's document stack");
+                                var capture = Tracer.CaptureDiagnostics();
+                                using (capture) Tracer.GetTracer("CompilationContextFixture", "Concurrent Core context fixture").Message(id);
+                                return capture;
+                            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
+                            Require(worker.Wait(5000), "Context worker did not complete");
+                            worker.Result.Replay();
+                            Require(messages == 1, "Context diagnostic capture was lost or replayed to another owner");
+                            Require(ReferenceEquals(identities[index], Field(typeof(HashProvider), "_StringHashBins")), "Another context replaced string hash tables");
+                        }
+                    }
+                    Require(CompilationContext.Current == caller && Settings.Current == callerSettings, "Leaving owner context did not restore caller");
+                }, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+            }
+            Require(ready.Wait(5000), "Content contexts could not enter scopes concurrently");
+            begin.Set();
+            Require(Task.WaitAll(tasks, 10000), "Concurrent contexts did not finish");
+        }
+        for (int i = 0; i < groups; ++i)
+            for (int j = i + 1; j < groups; ++j)
+                Require(!ReferenceEquals(identities[i], identities[j]), "Content owners shared string hash dictionaries");
+        Require(CompilationContext.Current == caller && Settings.Current == callerSettings, "Parallel contexts changed parent settings");
+    }
+
     public static void Run(string outputDirectory)
     {
         Directory.CreateDirectory(outputDirectory);
@@ -309,7 +386,7 @@ public static class CompilerStateLifecycle
         try
         {
             Environment.SetEnvironmentVariable("BabEnableTrace", "False");
-            HashChecks(outputDirectory); TraceChecks(); WorkerVerificationChecks();
+            HashChecks(outputDirectory); TraceChecks(); WorkerVerificationChecks(); CompilationContextChecks(outputDirectory);
         }
         finally { Environment.SetEnvironmentVariable("BabEnableTrace", environment); }
         Console.WriteLine("PASS Hash/Tracer state lifecycle");
@@ -319,7 +396,7 @@ public static class CompilerStateLifecycle
         try
         {
             Run(args[0]);
-            File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks = new[] { "hash-scope-restoration", "atomic-hash-initialization", "hash-write-failure-releases-file", "hash-callback-worker-no-deadlock", "hash-lifo-and-thread-rejection", "trace-scope-restoration", "trace-no-duplicate-callbacks", "trace-lifo-and-thread-rejection", "trace-explicit-scope-overrides-latched-legacy-switch-only-within-scope", "parallel-verifier-private-namespace-and-diagnostics", "owner-diagnostic-replay-once" } }));
+            File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks = new[] { "hash-scope-restoration", "atomic-hash-initialization", "hash-write-failure-releases-file", "hash-callback-worker-no-deadlock", "hash-lifo-and-thread-rejection", "trace-scope-restoration", "trace-no-duplicate-callbacks", "trace-lifo-and-thread-rejection", "trace-explicit-scope-overrides-latched-legacy-switch-only-within-scope", "parallel-verifier-private-namespace-and-diagnostics", "owner-diagnostic-replay-once", "three-context-overlap-isolation", "asynclocal-task-context-flow" } }));
             return 0;
         }
         catch (Exception error) { Console.Error.WriteLine(error); return 1; }
