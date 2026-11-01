@@ -1,15 +1,16 @@
-# 当前：单进程按内容分组并行（Release/Core 通过，CLI 矩阵验收中）
+# 当前：单进程按内容分组并行已验收（PR #48）
 
 分支 `feat/single-process-content-parallel`，基线 `recovery/legacy-sdk-cache` / `680c4f0c`。
-非空组独立 Owner/Core、任务级依赖就绪调度、AsyncLocal Core 状态、分组旧格式缓存、
-全构建 CPU/IO/在途内存预算和按流进度已一起接入。主线程合并日志/产物/报告，仅全部成功后打包。
-生产 `60197197` / Windows `41286126589` 的 Release、全部 App 及六组真实 Core 合同通过，
-包括两个真实 Core Owner 同时编译、上下文隔离、实例约束和独立原字节 oracle。
-运行整体失败：CLI 脚本误把 BIG 专用身份参数传给 loose，尚未进入七组合矩阵。
-修正只涉及测试，核对生产输入闭包后复用该 Release；原来源与失败终态保留。
-真实 CLI/取消、七组合冷热原字节、APT/Maps 业务及 Upheaval 对照仍待验收，不能标为完成。
-入口：`docs/CONTENT_PARALLEL.md`、`scripts/TestContentParallel.ps1`、`content-parallel.yml`。
-禁止强推；PR 待审，合入仍需用户明确批准。
+非空组独立 Owner/Core、任务级 DAG 就绪调度、AsyncLocal 状态隔离、分组 BAB 缓存、
+全构建 CPU/IO/在途结果预算及按流进度一起接入；失败/取消收尾后禁止发布。
+生产/测试 `1b9da37` / [Windows 41287090604](https://github.com/wu162/NewSdk/actions/runs/41287090604) 全部 success：
+新 Release/同对象宿主、App 3268 合同、六组真实 Core、58 CLI 样本及 58/58 报告 Schema 通过。
+最终归档单次下载核对六运行文件/源码及链接收据；18 对输出、每侧 1413 文件原字节相同。
+三组真实峰值 Owner=3；七组合冷热及 BIG/SKUDEF、真实 FLA/XML 与 MapMetaData、取消重试已覆盖。
+完整历史 Upheaval 仅 base 冷 n1 对照 53.098→32.521 秒；OS 页缓存未控，不作三组或通用提速结论。
+七组合调度矩阵用 Armor，另有定向业务；没有新完整 APT/Maps、原 SDK 或游戏验收。
+入口：[实现/范围/计量](docs/CONTENT_PARALLEL.md)、[最终独立收据](evidence/content-parallel/41287090604-1/archive-verification.json)。
+[PR #48](https://github.com/wu162/NewSdk/pull/48) 待审，未合并；早期失败和空报告协议缺陷的修复证据保留，禁止强推。
 
 # 当前：CLI 单行编译进度已验收（PR #47）
 
