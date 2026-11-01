@@ -5,7 +5,7 @@ using BinaryAssetBuilder.Core;
 
 namespace Recovered.XmlPriority
 {
-    // Generated 289 recovered entries; see catalog/XmlSdkTypes.json and GenerateXmlSdkRoutes.py. Every payload is generated
+    // Generated 300 recovered entries; see catalog/XmlSdkTypes.json and GenerateXmlSdkRoutes.py. Every payload is generated
     // by the recovered bridge; this assembly does not load the original compiler.
     public sealed class Plugin : IAssetBuilderPlugin
     {
@@ -320,6 +320,17 @@ namespace Recovered.XmlPriority
                 case 3737094024u: info.TypeName = "GameScriptList"; info.TypeHash = 2724763994u; break;
                 case 3575309793u: info.TypeName = "GameMap"; info.TypeHash = 4100291602u; break;
                 case 3072160547u: info.TypeName = "UIConfigList"; info.TypeHash = 3852040349u; break;
+                case 1276968974u: info.TypeName = "UIJoypadCommandBarMixedGroup"; info.TypeHash = 3983232506u; break;
+                case 1546953756u: info.TypeName = "UIJoypadCommandBarHomogenousGroup"; info.TypeHash = 2225127171u; break;
+                case 1654297531u: info.TypeName = "UIJoypadCommandBarCoopCommunicator"; info.TypeHash = 2835608034u; break;
+                case 1804891371u: info.TypeName = "JoypadCommandBarButtonTemplate"; info.TypeHash = 689163324u; break;
+                case 1887864852u: info.TypeName = "UIJoypadCommandBarStances"; info.TypeHash = 1145979021u; break;
+                case 1931769760u: info.TypeName = "JoypadCommandBarTemplate"; info.TypeHash = 1959031257u; break;
+                case 2170044043u: info.TypeName = "UIJoypadCommandBarTopMenu"; info.TypeHash = 360514692u; break;
+                case 2742786440u: info.TypeName = "UIJoypadCommandBarPlayerPowers"; info.TypeHash = 1752851487u; break;
+                case 3423839194u: info.TypeName = "UIJoypadCommandBarButtonBuild"; info.TypeHash = 1141570868u; break;
+                case 3645205636u: info.TypeName = "UIJoypadCommandBarControlGroups"; info.TypeHash = 3852026165u; break;
+                case 3901433122u: info.TypeName = "UIJoypadCommandBarSingleUnit"; info.TypeHash = 1804668011u; break;
                 default: throw new NotSupportedException("XmlPriority supports only its generated recovered scope; excluded roots remain unsupported.");
             }
             info.ProcessingHash = info.TypeHash ^ GetVersionNumber();
@@ -1504,6 +1515,50 @@ namespace Recovered.XmlPriority
                 case 3072160547u:
                     typeName = "UIConfigList";
                     result = global::Recovered.UIConfigListCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1276968974u:
+                    typeName = "UIJoypadCommandBarMixedGroup";
+                    result = global::Recovered.UIJoypadCommandBarMixedGroupCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1546953756u:
+                    typeName = "UIJoypadCommandBarHomogenousGroup";
+                    result = global::Recovered.UIJoypadCommandBarHomogenousGroupCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1654297531u:
+                    typeName = "UIJoypadCommandBarCoopCommunicator";
+                    result = global::Recovered.UIJoypadCommandBarCoopCommunicatorCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1804891371u:
+                    typeName = "JoypadCommandBarButtonTemplate";
+                    result = global::Recovered.JoypadCommandBarButtonTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1887864852u:
+                    typeName = "UIJoypadCommandBarStances";
+                    result = global::Recovered.UIJoypadCommandBarStancesCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1931769760u:
+                    typeName = "JoypadCommandBarTemplate";
+                    result = global::Recovered.JoypadCommandBarTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2170044043u:
+                    typeName = "UIJoypadCommandBarTopMenu";
+                    result = global::Recovered.UIJoypadCommandBarTopMenuCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2742786440u:
+                    typeName = "UIJoypadCommandBarPlayerPowers";
+                    result = global::Recovered.UIJoypadCommandBarPlayerPowersCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3423839194u:
+                    typeName = "UIJoypadCommandBarButtonBuild";
+                    result = global::Recovered.UIJoypadCommandBarButtonBuildCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3645205636u:
+                    typeName = "UIJoypadCommandBarControlGroups";
+                    result = global::Recovered.UIJoypadCommandBarControlGroupsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3901433122u:
+                    typeName = "UIJoypadCommandBarSingleUnit";
+                    result = global::Recovered.UIJoypadCommandBarSingleUnitCompiler.ProcessInstance(compilationInstance, platform);
                     break;
                 default: throw new NotSupportedException("XmlPriority supports only its generated recovered scope; excluded roots remain unsupported.");
             }

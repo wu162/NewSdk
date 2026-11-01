@@ -1,0 +1,74 @@
+name: Joypad type compilation and small MOD validation
+on:
+  push:
+    branches: [fix/joypad-type-compilation]
+    paths:
+      - '.github/workflows/joypad-validation.yml'
+      - 'recovery/src/**'
+      - 'recovery/build/**'
+      - 'recovery/catalog/**'
+      - 'recovery/scripts/**'
+      - 'recovery/tests/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: joypad-validation-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[joypad-validate]')
+    runs-on: windows-2022
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+            !/recovery/decompiled/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Preflight scripts and existing production audit dependencies
+        shell: pwsh
+        run: |
+          python -m pip install -r recovery/probes/TextureRedirect/requirements.txt
+          if($LASTEXITCODE -ne 0){throw 'Production audit dependencies failed'}
+          python -m py_compile recovery/scripts/PrepareJoypadFixtures.py
+          if($LASTEXITCODE -ne 0){throw 'Joypad fixture syntax failed'}
+          foreach($script in @('recovery/scripts/TestXmljoypad.ps1','recovery/scripts/TestXmljoypadMod.ps1')){
+            $tokens=$null;$errors=$null
+            [System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $script),[ref]$tokens,[ref]$errors)|Out-Null
+            if($errors.Count){throw ($errors|Out-String)}
+          }
+      - name: Original DLL component bytes for all Joypad roots and runtime Data branches
+        shell: pwsh
+        run: ./recovery/scripts/TestXmljoypad.ps1 -EvidenceDirectory "recovery/evidence/joypad/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/components"
+      - name: Build production Debug and Release with Joypad routes
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')){
+            ./recovery/scripts/BuildCompiler.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/joypad-product/$mode"
+          }
+      - name: Small Joypad MOD exact original SDK four-stream comparison
+        shell: pwsh
+        run: ./recovery/scripts/TestXmljoypadMod.ps1 -CompilerDirectory recovery/artifacts/joypad-product -OutputDirectory "recovery/evidence/joypad/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/mod"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: joypad-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/joypad/${{ github.run_id }}-${{ github.run_attempt }}/**
+            recovery/artifacts/joypad-product/*/build.json
+            recovery/artifacts/joypad-product/*/link-inputs.json
+            recovery/artifacts/joypad-product/*/validation/build.json
+            recovery/artifacts/joypad-product/*/bin/**
+            recovery/artifacts/joypad-product/**/*.log
+          if-no-files-found: error
