@@ -29,13 +29,21 @@ function Within([string]$Directory,[string]$Path){
 function Snapshot([string]$Directory,[string]$Exclude){
     $result=@{};Get-ChildItem -LiteralPath $Directory -Recurse -Force|ForEach-Object{
         if($Exclude -and (Within $Exclude $_.FullName)){return}
-        $key=[IO.Path]::GetRelativePath($Directory,$_.FullName).Replace('\','/')
-        $result[$key]=if($_.PSIsContainer){'directory:'+([int]$_.Attributes)+':'+$_.LastWriteTimeUtc.Ticks}else{[string]$_.Length+':'+$_.LastWriteTimeUtc.Ticks+':'+([int]$_.Attributes)+':'+(Hash $_.FullName)}
+        $path=$_.FullName;$key=[IO.Path]::GetRelativePath($Directory,$path).Replace('\','/')
+        # Provider DirectoryInfo objects can retain stale enumeration metadata.
+        # Query each path directly at snapshot time instead of reusing it.
+        $attributes=[int][IO.File]::GetAttributes($path)
+        $result[$key]=if([IO.Directory]::Exists($path)){'directory:'+$attributes+':'+[IO.Directory]::GetLastWriteTimeUtc($path).Ticks}else{[string]([IO.FileInfo]::new($path).Length)+':'+[IO.File]::GetLastWriteTimeUtc($path).Ticks+':'+$attributes+':'+(Hash $path)}
     };$result
 }
 function Unchanged([string]$Directory,$Before){
     $after=Snapshot $Directory;Need ($after.Count -eq $Before.Count) "Source entry count changed: $Directory"
     foreach($key in $Before.Keys){Need ($after.ContainsKey($key) -and $after[$key] -ceq $Before[$key]) "Source changed: $Directory/$key"}
+}
+function SnapshotDifferences($Before,$After){
+    foreach($key in @((@($Before.Keys)+@($After.Keys))|Sort-Object -Unique)){
+        if($Before[$key] -cne $After[$key]){@{path=$key;before=$Before[$key];after=$After[$key]}}
+    }
 }
 function InvokeBuild([string]$Label,[string]$Command,[string]$Mod,[string]$Format,[bool]$Version=$true,[string]$Content='base'){
     $out=Join-Path $work ('out/'+$Label);$case=Join-Path $evidence $Label;$null=New-Item -ItemType Directory -Path $case
@@ -81,8 +89,8 @@ public sealed class SuperCompilerCacheWriteAudit : IDisposable {
     public readonly ConcurrentQueue<string> Paths = new ConcurrentQueue<string>();
     public readonly ConcurrentQueue<Event> Events = new ConcurrentQueue<Event>();
     public readonly ConcurrentQueue<string> Errors = new ConcurrentQueue<string>();
-    public SuperCompilerCacheWriteAudit(string root) {
-        watcher = new FileSystemWatcher(root) { IncludeSubdirectories = true, InternalBufferSize = 65536,
+    public SuperCompilerCacheWriteAudit(string root,bool recursive = true) {
+        watcher = new FileSystemWatcher(root) { IncludeSubdirectories = recursive, InternalBufferSize = 65536,
             NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.LastWrite | NotifyFilters.Size | NotifyFilters.Attributes | NotifyFilters.Security };
         watcher.Created += Changed; watcher.Changed += Changed; watcher.Deleted += Changed;
         watcher.Renamed += (s,e) => { Record(e.OldFullPath,"RenamedFrom"); Record(e.FullPath,"RenamedTo"); };
@@ -117,6 +125,7 @@ try {
     # before defining the compiler's audit interval.
     [GC]::Collect();[GC]::WaitForPendingFinalizers();Start-Sleep -Milliseconds 200
     $sdkBefore=Snapshot $sdk $cacheBase
+    $state.sdkRootMetadata=@{beforeLastWriteTimeUtcTicks=[IO.Directory]::GetLastWriteTimeUtc($sdk).Ticks;beforeAttributes=[int][IO.File]::GetAttributes($sdk);allowedChange='Creating the authorized SuperCompilerCache child changes the SDK root directory timestamp.'}
     $sdkBefore|ConvertTo-Json -Depth 4|Set-Content (Join-Path $evidence 'inputs-sdk.json')
     $mods=@(@{name='mymod';path=$modInside;source='current repository';snapshot=(Snapshot $modInside)},@{name='upheaval';path=$modOutside;source=$historical;sourceTree=$tree;snapshot=(Snapshot $modOutside)})
     $sourceMods=@($mods)+@(@{name='flash8-empty';path=$flaMod;source='ui/tests/fixtures/flash8-empty.fla';snapshot=(Snapshot $flaMod)})
@@ -125,7 +134,14 @@ try {
         $mod.snapshot|ConvertTo-Json -Depth 4|Set-Content (Join-Path $evidence ('inputs-'+$mod.name+'.json'))
         $audit=[SuperCompilerCacheWriteAudit]::new($mod.path);$watchers+=,$audit;$mod.audit=$audit
     }
-    $sdkAudit=[SuperCompilerCacheWriteAudit]::new($sdk);$watchers+=,$sdkAudit
+    # Cover every SDK input subtree, plus direct children of the SDK root. The
+    # authorized cache traffic must not flood the input audit's native buffer.
+    # A new non-cache directory/file is still observed at the root boundary.
+    $sdkAudits=@([SuperCompilerCacheWriteAudit]::new($sdk,$false))
+    foreach($directory in @(Get-ChildItem -LiteralPath $sdk -Directory -Force|Where-Object Name -ne 'SuperCompilerCache')){
+        $sdkAudits+=,[SuperCompilerCacheWriteAudit]::new($directory.FullName)
+    }
+    $watchers+=@($sdkAudits)
     foreach($mod in $mods){$null=InvokeBuild ($mod.name+'-plan') 'plan' $mod.path 'big';Need (!(Test-Path $cacheBase)) 'Plan created a cache directory'}
     $null=InvokeBuild 'big-version-required' 'plan' $modInside 'big' $false
     foreach($mod in $mods){
@@ -174,16 +190,23 @@ try {
     }
     Start-Sleep -Milliseconds 200
     foreach($mod in $sourceMods){Need ($mod.audit.Errors.IsEmpty) "Source watcher failed: $($mod.name)";Need ($mod.audit.Paths.IsEmpty) "Source write event observed: $($mod.name) $($mod.audit.Paths.ToArray() -join ', ')";Unchanged $mod.path $mod.snapshot}
-    Need ($sdkAudit.Errors.IsEmpty) 'SDK watcher overflowed or failed'
-    foreach($path in $sdkAudit.Paths.ToArray()){Need (Within $cacheBase $path) "SDK write escaped SuperCompilerCache: $path"}
-    $state.sourceWriteEvents=0;$state.sdkWriteEvents=$sdkAudit.Paths.Count;$state.sourceSnapshotsUnchanged=$true;$state.status='passed'
+    foreach($audit in $sdkAudits){
+        Need ($audit.Errors.IsEmpty) 'SDK input watcher overflowed or failed'
+        foreach($path in $audit.Paths.ToArray()){Need (Within $cacheBase $path) "SDK write escaped SuperCompilerCache: $path"}
+    }
+    $sdkAfter=Snapshot $sdk $cacheBase
+    $state.sdkInputDifferences=@(SnapshotDifferences $sdkBefore $sdkAfter)
+    Need ($state.sdkInputDifferences.Count -eq 0) 'SDK input bytes or metadata changed'
+    $state.sourceWriteEvents=0;$state.sdkInputWriteEvents=0;$state.sourceSnapshotsUnchanged=$true;$state.status='passed'
 } catch {$state.status='failed';$state.error=$_.ToString();throw}
 finally {
     $state.sourceAudits=@(foreach($mod in $sourceMods){@{name=$mod.name;writeEvents=$mod.audit.Paths.Count;events=@($mod.audit.Events.ToArray()|Select-Object -First 100);errors=@($mod.audit.Errors.ToArray())}})
-    if($sdkAudit){
-        $sdkAfter=Snapshot $sdk $cacheBase
-        $state.sdkInputDifferences=@(foreach($key in @((@($sdkBefore.Keys)+@($sdkAfter.Keys))|Sort-Object -Unique)){if($sdkBefore[$key] -cne $sdkAfter[$key]){@{path=$key;before=$sdkBefore[$key];after=$sdkAfter[$key]}}})
-        $state.sdkAudit=@{writeEvents=$sdkAudit.Paths.Count;outsideCache=@($sdkAudit.Events.ToArray()|Where-Object{!(Within $cacheBase $_.Path)}|Select-Object -First 100);errors=@($sdkAudit.Errors.ToArray())}
+    if($sdkAudits){
+        if(!$sdkAfter){$sdkAfter=Snapshot $sdk $cacheBase}
+        $state.sdkInputDifferences=@(SnapshotDifferences $sdkBefore $sdkAfter)
+        $state.sdkRootMetadata.afterLastWriteTimeUtcTicks=[IO.Directory]::GetLastWriteTimeUtc($sdk).Ticks
+        $state.sdkRootMetadata.afterAttributes=[int][IO.File]::GetAttributes($sdk)
+        $state.sdkAudit=@{watchedInputTrees=$sdkAudits.Count;outsideCache=@($sdkAudits|ForEach-Object{$_.Events.ToArray()}|Where-Object{!(Within $cacheBase $_.Path)}|Select-Object -First 100);errors=@($sdkAudits|ForEach-Object{$_.Errors.ToArray()})}
     }
     foreach($watcher in $watchers){$watcher.Dispose()}
     $state|ConvertTo-Json -Depth 16|Set-Content (Join-Path $evidence 'validation.json')
