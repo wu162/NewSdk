@@ -4,6 +4,8 @@
 
 从仓库 `main` 开发；编译器命令和协议参考 `recovery/legacy-sdk-cache` 的 `680c4f0c4439bd7435addebfc57a1a16c3c320e3`。VSIX 不包含编译器，也不从源码生成编译器。
 
+默认下载包已配置为用户提供的 [`compiler-2026.11.01` Win32 Release](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01)。[compiler-release.json](compiler-release.json) 固定下载地址、SHA-256 和二进制来源提交 `a75840e`；该提交的 CLI 和事件/报告协议与上述参考一致。下载对话框预填地址和校验值，仍可选择其他 ZIP 或已有 EXE，不自动后台升级。
+
 ## 使用
 
 1. 安装 `NewSdk-Mod-Tools-P0.vsix`，在 VS Code 中打开 MOD 目录。
@@ -33,14 +35,14 @@ Windows 工作流 `.github/workflows/vscode-p0.yml` 执行协议、配置、ZIP 
 
 VS Code 在 `--extensionTestsPath` 模式下主动使用内存存储。因此宿主测试通过临时驱动扩展，在使用同一独立磁盘配置的两个普通 VS Code 窗口中运行；驱动不进入 VSIX，也不写入 MOD。
 
-真实编译器由仓库 Secrets 提供：
+CI 默认使用上述公开发布包并校验 SHA-256；需要覆盖下载来源或认证时使用仓库 Secrets：
 
 | Secret | 含义 |
 | --- | --- |
-| `NEWSDK_COMPILER_URL` | 直接下载编译器 ZIP 的 HTTPS 链接；未配置时明确跳过真实测试 |
+| `NEWSDK_COMPILER_URL` | 可选：覆盖默认编译器 ZIP 的 HTTPS 链接 |
 | `NEWSDK_COMPILER_SHA256` | 可选 SHA-256；未提供时记录下载文件的实际哈希 |
 | `NEWSDK_COMPILER_AUTHORIZATION` | 可选 HTTP `Authorization` 值；仅用于下载，不写进日志或源码 |
 
-常规提交在提供 ZIP 后执行一个小型 Armor 数据流的真实编译冒烟测试。手动运行 `full_acceptance` 会增加 base、APT 入口、global-metadata 入口和完整内容发现组合；这些路由测试使用小型 Armor XML，**不等于真实 APT 业务内容验收**。测试不会重建生产编译器，也不重复完整 Upheaval 基准。
+常规提交执行小型 Armor 数据流、BIG/SKUDEF、源文件只读和缓存保留的真实编译冒烟测试。手动运行 `full_acceptance` 增加真实 SDK 的文件型 APT 业务资产、MapMetaData、完整内容组合、Additional 覆盖与排除、仅 Additional 无输入、无效 XML、插件强制停止后重试，以及独立进程组中的正常 Ctrl+Break 取消后重试。测试检查实际 BIG 成员和链接清单，区分两种停止结果。SDK 与 MOD 使用临时副本，不重建生产编译器，也不重复完整 Upheaval 基准。
 
-完整 P0 验收仍需已提供编译器包上的真实 APT 业务用例、正常 Ctrl+Break 取消等方案要求的证据。未提供编译器包、或这些门槛未通过时，不能将本插件标记为 P0 全部完成。下载来源、SHA-256、真实事件、报告和日志随 Actions 产物保存。
+完整验收以对应 Windows Actions 的实际结果和 `real-compiler.json` 为准；仅通过冒烟测试不代表 P0 全部完成。下载来源、版本、SHA-256、真实事件、报告、日志及取消控制器证据随 Actions 产物保存；VSIX 提供单独下载。此验收不包含游戏内运行或大型 MOD 性能结论。

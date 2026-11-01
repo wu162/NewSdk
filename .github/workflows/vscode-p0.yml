@@ -79,7 +79,7 @@ jobs:
           } else {
             'Real compiler tests SKIPPED: NEWSDK_COMPILER_URL is not configured. Protocol and extension-host checks do not establish P0 completion.' >> $env:GITHUB_STEP_SUMMARY
           }
-          'Normal Ctrl+Break cancellation and real APT business fixtures remain required before declaring the full P0 acceptance complete.' >> $env:GITHUB_STEP_SUMMARY
+          'See real-compiler.json and cancellation evidence for the actual executed scope. Smoke success alone does not establish complete P0 acceptance.' >> $env:GITHUB_STEP_SUMMARY
       - name: Save installable VSIX
         uses: actions/upload-artifact@v4
         if: always()

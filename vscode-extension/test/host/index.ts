@@ -6,13 +6,15 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import * as vscode from 'vscode';
 import { installCompiler } from '../../src/compilerInstaller';
+import type { BuildEvent, BuildResult } from '../../src/buildProtocol';
+import { runNormalCancellation } from '../realCancellation';
 
-interface Result { status: string; reason?: string; artifacts?: Array<{ path: string }>; diagnostics?: Array<{ code: string }> }
+type Result = BuildResult;
 interface State {
     status: string;
     operation?: string;
     config?: { modRoot: string };
-    progress?: { buildId?: string };
+    progress?: { buildId?: string; events?: BuildEvent[] };
     result?: Result;
 }
 interface ExtensionApi {
@@ -50,10 +52,11 @@ function checkpoint(name: string): void {
     console.log(`[newsdk-host] ${name} ${JSON.stringify(diagnosticSnapshot())}`);
 }
 
-async function inventory(root: string): Promise<Record<string, string>> {
+async function inventory(root: string, excludedRootDirectories: string[] = []): Promise<Record<string, string>> {
     const result: Record<string, string> = {};
     async function visit(directory: string): Promise<void> {
         for (const entry of await fs.readdir(directory, { withFileTypes: true })) {
+            if (directory === root && excludedRootDirectories.includes(entry.name)) continue;
             const file = path.join(directory, entry.name);
             if (entry.isDirectory()) await visit(file);
             else if (entry.isFile()) result[path.relative(root, file)] = createHash('sha256').update(await fs.readFile(file)).digest('hex');
@@ -203,7 +206,9 @@ async function runSuite(): Promise<void> {
             expectedSha256: process.env.NEWSDK_COMPILER_SHA256 || undefined,
             headers: process.env.NEWSDK_COMPILER_AUTHORIZATION ? { Authorization: process.env.NEWSDK_COMPILER_AUTHORIZATION } : undefined,
             storageDirectory: path.join(root, 'provided-compiler') });
+        const release = JSON.parse(await fs.readFile(path.resolve(__dirname, '../../../compiler-release.json'), 'utf8')) as { sha256: string };
         await fs.writeFile(path.join(evidence, 'compiler-source.json'), JSON.stringify({ ...installed,
+            release: installed.sha256.toLowerCase() === release.sha256.toLowerCase() ? release : undefined,
             executableSha256: createHash('sha256').update(await fs.readFile(installed.executablePath)).digest('hex') }, null, 2));
         await realCompilerCases(api, root, evidence, installed.executablePath);
     } else {
@@ -214,46 +219,287 @@ async function runSuite(): Promise<void> {
     checkpoint('exercise-persisted-final-configuration');
 }
 
-async function realCompilerCases(api: ExtensionApi, root: string, evidence: string, compilerPath: string): Promise<void> {
-    const sdkRoot = path.join(process.env.NEWSDK_REPOSITORY!, 'SDK');
-    const full = process.env.NEWSDK_ACCEPTANCE === 'full';
-    const layouts: Array<{ name: string; files: string[] }> = [
-        { name: 'RealBase', files: ['Data/Mod.xml'] },
-        ...(full ? [{ name: 'RealAptRouting', files: ['Data/AptUI/Entry.xml'] },
-            { name: 'RealGlobalRouting', files: ['Data/AdditionalMaps/MapMetaData_Probe.xml'] },
-            { name: 'RealAllRouting', files: ['Data/Mod.xml', 'Data/AptUI/Entry.xml', 'Data/AdditionalMaps/MapMetaData_Probe.xml'] }] : []),
-    ];
-    const results: Array<{ name: string; status: string; artifacts: number }> = [];
-    for (const layout of layouts) {
-        const mod = path.join(root, layout.name);
-        for (const relative of layout.files) {
-            await fs.mkdir(path.dirname(path.join(mod, relative)), { recursive: true });
-            await fs.writeFile(path.join(mod, relative), xml);
-        }
-        if (layout.name === 'RealAllRouting') {
-            await fs.mkdir(path.join(mod, 'Additional'), { recursive: true });
-            await fs.writeFile(path.join(mod, 'Additional', 'readme.txt'), 'Additional packaging fixture');
-        }
-        const before = await inventory(mod);
-        const outputDirectory = path.join(root, 'real-outputs', layout.name);
-        await api.selectProject(mod);
-        await api.configure({ compilerPath, sdkRoot, outputDirectory, modVersion: '1.0' });
-        const planned = await timed(api.plan(), 180000);
-        assert.equal((planned ?? api.getState().result)?.status, 'succeeded');
-        const built = await timed(api.build(), 180000);
-        const result = built ?? api.getState().result;
-        assert.equal(result?.status, 'succeeded', result?.reason);
-        assert.ok(result.artifacts?.length, 'Real compiler must report actual output artifacts');
-        for (const artifact of result.artifacts) await fs.access(artifact.path);
-        assert.deepEqual(await inventory(mod), before, 'Real build must leave input MOD unchanged');
-        const caseEvidence = path.join(evidence, layout.name);
-        await fs.mkdir(caseEvidence, { recursive: true });
-        for (const file of ['build.events.jsonl', 'build-report.json', 'build.log', 'plan.events.jsonl', 'plan-report.json', 'plan.log']) {
-            await fs.copyFile(path.join(outputDirectory, file), path.join(caseEvidence, file));
-        }
-        results.push({ name: layout.name, status: result.status, artifacts: result.artifacts.length });
+/** Read the real uncompressed MakeBig archive to inspect current stream payloads. */
+async function bigMembers(file: string): Promise<Map<string, Buffer>> {
+    const bytes = await fs.readFile(file);
+    assert.ok(bytes.length >= 24);
+    assert.equal(bytes.toString('ascii', 0, 4), 'BIG4');
+    assert.equal(bytes.readUInt32LE(4), bytes.length);
+    const count = bytes.readUInt32BE(8), header = bytes.readUInt32BE(12);
+    assert.ok(count > 0 && count <= 1000000 && header >= 24 && header <= bytes.length);
+    const members = new Map<string, Buffer>();
+    let position = 16, expectedOffset = header;
+    for (let index = 0; index < count; index++) {
+        assert.ok(position + 9 <= header - 8);
+        const offset = bytes.readUInt32BE(position), size = bytes.readUInt32BE(position + 4);
+        position += 8;
+        const end = bytes.indexOf(0, position);
+        assert.ok(end >= position && end < header - 8);
+        const name = bytes.toString('ascii', position, end);
+        assert.ok(name && name === name.toLowerCase() && !members.has(name));
+        assert.equal(offset, expectedOffset);
+        assert.ok(offset + size <= bytes.length);
+        members.set(name, bytes.subarray(offset, offset + size));
+        expectedOffset += size;
+        position = end + 1;
     }
-    await fs.writeFile(path.join(evidence, 'real-compiler.json'), JSON.stringify({ status: 'passed', cases: results,
-        scope: 'Packaged real compiler, doctor through build preflight, small Armor stream, BIG output and read-only input. Optional full mode adds stream-discovery combinations; Armor XML in AptUI does not establish APT business compiler acceptance.',
-        pending: ['Real APT business fixture', 'Normal Ctrl+Break cancellation', 'Complete P0 acceptance with the supplied release package'] }, null, 2));
+    assert.deepEqual(bytes.subarray(position, header), Buffer.from([76, 50, 49, 57, 0, 0, 0, 0]));
+    assert.equal(expectedOffset, bytes.length);
+    return members;
+}
+
+function manifestAssets(members: Map<string, Buffer>, member: string): string[] {
+    const bytes = members.get(member);
+    assert.ok(bytes, `Missing actual linked stream ${member}`);
+    assert.ok(bytes.length >= 48);
+    assert.deepEqual(bytes.subarray(0, 4), Buffer.from([0, 1, 6, 0]));
+    const count = bytes.readUInt32LE(12), nameBytes = bytes.readUInt32LE(40);
+    const names = 48 + 48 * count + bytes.readUInt32LE(32) + bytes.readUInt32LE(36);
+    assert.equal(names + nameBytes + bytes.readUInt32LE(44), bytes.length);
+    const assets: string[] = [];
+    for (let index = 0; index < count; index++) {
+        const offset = bytes.readUInt32LE(48 + 48 * index + 24);
+        assert.ok(offset < nameBytes);
+        const end = bytes.indexOf(0, names + offset);
+        assert.ok(end >= names + offset && end < names + nameBytes);
+        assets.push(bytes.toString('ascii', names + offset, end));
+    }
+    return assets;
+}
+
+async function compilerCacheRoot(sdk: string, mod: string): Promise<string> {
+    const physical = await fs.realpath(mod);
+    const normalized = physical.replace(/[\\/]+$/, '').toUpperCase() + path.sep;
+    const identity = createHash('sha256').update(normalized, 'utf8').digest('hex').slice(0, 32);
+    const label = path.basename(physical).toLowerCase().replace(/[^a-z0-9_-]/g, '_').slice(0, 12);
+    return path.join(sdk, 'SuperCompilerCache', `${label}_${identity}`);
+}
+
+async function realCompilerCases(api: ExtensionApi, root: string, evidence: string, compilerPath: string): Promise<void> {
+    const repository = process.env.NEWSDK_REPOSITORY!;
+    const sourceSdk = path.join(repository, 'SDK');
+    const sdkRoot = path.join(root, 'real-sdk');
+    // Use private copies of the exact SDK configuration/schema, as the compiler's
+    // own UI acceptance does. No tracked SDK inputs or historical binaries change.
+    await fs.mkdir(path.join(sdkRoot, 'tools'), { recursive: true });
+    await fs.mkdir(path.join(sdkRoot, 'Schemas'), { recursive: true });
+    await fs.cp(path.join(sourceSdk, 'Schemas', 'xsd'), path.join(sdkRoot, 'Schemas', 'xsd'), { recursive: true });
+    await fs.copyFile(path.join(sourceSdk, 'tools', 'BinaryAssetBuilder.exe.config'), path.join(sdkRoot, 'tools', 'BinaryAssetBuilder.exe.config'));
+    await fs.mkdir(path.join(sdkRoot, 'Additional'), { recursive: true });
+    await fs.writeFile(path.join(sdkRoot, 'Additional', 'shared-p0.txt'), 'SDK overlay');
+    await fs.writeFile(path.join(sdkRoot, 'Additional', 'sdk-only-p0.txt'), 'SDK only');
+    const sdkInputs = await inventory(sdkRoot);
+    await fs.writeFile(path.join(evidence, 'sdk-inputs.json'), JSON.stringify({ checkoutCommit: process.env.GITHUB_SHA,
+        sourceSdk, temporarySdk: sdkRoot, inputs: sdkInputs }, null, 2));
+    const full = process.env.NEWSDK_ACCEPTANCE === 'full';
+    const results: Array<Record<string, unknown>> = [];
+    const scope = full
+        ? 'Provided Win32/net48 release compiler through real VS Code ProcessExecution; real base, file-backed SDK APT business assets, MapMetaData, BIG/SKUDEF, Additional, errors, cancellation/retry, source and SDK input preservation. No in-game playback or full Upheaval performance claim.'
+        : 'Provided Win32/net48 release compiler through real VS Code ProcessExecution; real base stream, BIG/SKUDEF, source and SDK input preservation, SDK-owned cache retention. Full content/error/cancellation matrix is separate.';
+    const summaryPath = path.join(evidence, 'real-compiler.json');
+    async function summary(status: string, error?: unknown): Promise<void> {
+        await fs.writeFile(summaryPath, JSON.stringify({ status, scope, mode: full ? 'full' : 'smoke', cases: results,
+            error: error instanceof Error ? error.message : error,
+            pending: full ? [] : ['Full content/error/cancellation matrix requires full_acceptance dispatch'] }, null, 2));
+    }
+    async function preserve(output: string, label: string, result?: Result): Promise<void> {
+        const target = path.join(evidence, 'real-cases', label);
+        await fs.mkdir(target, { recursive: true });
+        for (const file of ['build.events.jsonl', 'build-report.json', 'build.log', 'plan.events.jsonl', 'plan-report.json', 'plan.log']) {
+            try { await fs.copyFile(path.join(output, file), path.join(target, file)); }
+            catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; }
+        }
+        if (result) await fs.writeFile(path.join(target, 'extension-result.json'), JSON.stringify({ status: result.status,
+            buildId: result.buildId, exitCode: result.exitCode, reason: result.reason, artifacts: result.artifacts,
+            diagnostics: result.diagnostics }, null, 2));
+    }
+    async function selected(name: string): Promise<{ mod: string; output: string }> {
+        const mod = path.join(root, name), output = path.join(root, 'real-outputs', name);
+        await fs.mkdir(mod, { recursive: true });
+        await api.selectProject(mod);
+        await api.configure({ compilerPath, sdkRoot, outputDirectory: output, modVersion: '1.0' });
+        return { mod, output };
+    }
+    async function write(mod: string, relative: string, contents: string): Promise<void> {
+        const file = path.join(mod, relative);
+        await fs.mkdir(path.dirname(file), { recursive: true });
+        await fs.writeFile(file, contents);
+    }
+    async function fixture(name: string, content: string[]): Promise<{ mod: string; output: string }> {
+        const mod = path.join(root, name);
+        await fs.mkdir(mod, { recursive: true });
+        if (content.includes('base')) await write(mod, 'Data/Mod.xml', xml);
+        if (content.includes('apt')) {
+            const apt = path.join(sourceSdk, 'Mods', 'Upheaval', 'Data', 'AptUI');
+            await fs.mkdir(path.join(mod, 'Data', 'AptUI'), { recursive: true });
+            await fs.copyFile(path.join(apt, 'TacticalHUDCommandListBox.xml'), path.join(mod, 'Data', 'AptUI', 'TacticalHUDCommandListBox.xml'));
+            await fs.cp(path.join(apt, 'TacticalHUDCommandListBox'), path.join(mod, 'Data', 'AptUI', 'TacticalHUDCommandListBox'), { recursive: true });
+        }
+        if (content.includes('maps')) {
+            await fs.mkdir(path.join(mod, 'Data', 'AdditionalMaps'), { recursive: true });
+            await fs.copyFile(path.join(sourceSdk, 'SageXml', 'dlcontent', 'packages', 'package1', 'MapMetaData.xml'),
+                path.join(mod, 'Data', 'AdditionalMaps', 'MapMetaData_P0.xml'));
+        }
+        if (content.includes('additional')) {
+            await write(mod, 'Additional/shared-p0.txt', 'MOD overlay');
+            await write(mod, 'Additional/mod-only-p0.txt', 'MOD only');
+            await write(mod, 'Additional/excluded.asset', 'Must never be packaged');
+        }
+        return selected(name);
+    }
+    function final(value?: Result): Result {
+        const result = value ?? api.getState().result;
+        assert.ok(result);
+        return result;
+    }
+    async function verifySuccess(result: Result, mod: string, output: string, content: string[]): Promise<void> {
+        assert.equal(result.status, 'succeeded', result.reason);
+        assert.ok(result.report, 'A successful real build requires its current final report');
+        assert.equal(result.report?.buildId, result.buildId);
+        assert.equal(result.exitCode, 0);
+        assert.equal(result.report.exitCode, 0);
+        assert.equal(result.report.status, 'succeeded');
+        assert.equal(result.artifacts.length, 2, 'Current report must confirm one BIG/SKUDEF pair');
+        const big = result.artifacts.find(item => item.kind === 'package.big');
+        const sku = result.artifacts.find(item => item.kind === 'package.skudef');
+        assert.ok(big && sku);
+        for (const artifact of result.artifacts) {
+            assert.equal(path.dirname(artifact.path).toLowerCase(), path.join(output, 'published').toLowerCase());
+            assert.equal((await fs.stat(artifact.path)).size, artifact.size);
+        }
+        assert.equal(await fs.readFile(sku.path, 'ascii'), `mod-game 1.12\r\nadd-big ${path.basename(big.path)}\r\n`);
+        const members = await bigMembers(big.path);
+        const expectedContent = content.filter(item => item !== 'additional').sort();
+        assert.deepEqual(result.plan?.tasks.map(task => task.content).sort(), expectedContent);
+        if (content.includes('base')) assert.ok(manifestAssets(members, 'data\\mod.manifest').includes('ArmorTemplate:NewSdkP0Probe'));
+        if (content.includes('apt')) {
+            const assets = manifestAssets(members, 'data\\aptui\\tacticalhudcommandlistbox.manifest');
+            for (const part of ['AptAptData:TacticalHUDCommandListBox_apt', 'AptConstData:TacticalHUDCommandListBox_const', 'AptDatData:TacticalHUDCommandListBox_dat']) {
+                assert.ok(assets.includes(part), `Real APT output omitted ${part}`);
+            }
+        }
+        if (content.includes('maps')) assert.ok(manifestAssets(members, 'data\\additionalmaps\\mapmetadata_p0.manifest').includes('MapMetaData:package0'));
+        assert.equal(members.get('sdk-only-p0.txt')?.toString(), 'SDK only');
+        if (content.includes('additional')) {
+            assert.equal(members.get('shared-p0.txt')?.toString(), 'MOD overlay');
+            assert.equal(members.get('mod-only-p0.txt')?.toString(), 'MOD only');
+            assert.ok(!members.has('excluded.asset'));
+            assert.ok(result.diagnostics.some(item => item.code === 'ADDITIONAL_OVERWRITE' && item.level === 'warning'));
+        }
+        const cache = await compilerCacheRoot(sdkRoot, mod);
+        assert.ok((await fs.stat(cache)).isDirectory(), 'Cache must remain in the SDK-owned MOD partition');
+        const reportCache = result.report.cache as { sessionCacheDirectory?: string };
+        assert.ok(reportCache.sessionCacheDirectory?.toLowerCase().startsWith(cache.toLowerCase() + path.sep));
+        await assert.rejects(fs.access(path.join(mod, 'SuperCompilerCache')), { code: 'ENOENT' });
+        await assert.rejects(fs.access(path.join(output, 'SuperCompilerCache')), { code: 'ENOENT' });
+        assert.deepEqual(await inventory(sdkRoot, ['SuperCompilerCache']), sdkInputs, 'SDK configuration/schema/Additional inputs must remain unchanged');
+        await fs.writeFile(path.join(evidence, 'real-cases', path.basename(mod), 'package-inventory.json'), JSON.stringify({
+            buildId: result.buildId, cacheRoot: cache, members: [...members].map(([name, data]) => ({ name, bytes: data.length,
+                sha256: createHash('sha256').update(data).digest('hex') })) }, null, 2));
+    }
+    await summary('running');
+    try {
+        const layouts = [{ name: 'RealBase', content: ['base'] }, ...(full ? [
+            { name: 'RealAptBusiness', content: ['apt'] }, { name: 'RealGlobalMetadata', content: ['maps'] },
+            { name: 'RealComplete', content: ['base', 'apt', 'maps', 'additional'] }] : [])];
+        for (const layout of layouts) {
+            const { mod, output } = await fixture(layout.name, layout.content);
+            const before = await inventory(mod);
+            await fs.mkdir(path.join(evidence, 'real-cases', layout.name), { recursive: true });
+            await fs.writeFile(path.join(evidence, 'real-cases', layout.name, 'source-inputs.json'), JSON.stringify(before, null, 2));
+            checkpoint(`real-${layout.name}-plan`);
+            const planned = final(await timed(api.plan(), 180000));
+            await preserve(output, `${layout.name}-plan`, planned);
+            assert.equal(planned.status, 'succeeded', planned.reason);
+            checkpoint(`real-${layout.name}-build`);
+            const built = final(await timed(api.build(), 180000));
+            await preserve(output, layout.name, built);
+            await verifySuccess(built, mod, output, layout.content);
+            assert.deepEqual(await inventory(mod), before, 'Real build must leave all MOD source files and bytes unchanged');
+            results.push({ name: layout.name, status: 'passed', buildId: built.buildId, artifacts: built.artifacts });
+            if (layout.name === 'RealBase') {
+                const cache = await compilerCacheRoot(sdkRoot, mod), cacheBefore = await inventory(cache);
+                checkpoint('real-cached-plan');
+                const readOnlyPlan = final(await timed(api.plan(), 180000));
+                assert.equal(readOnlyPlan.status, 'succeeded');
+                assert.deepEqual(await inventory(cache), cacheBefore, 'Viewing a plan must leave existing compiler cache untouched');
+                results.push({ name: 'plan-preserves-sdk-cache', status: 'passed', cacheRoot: cache });
+            }
+            await summary('running');
+        }
+        if (full) {
+            const additional = await fixture('RealAdditionalOnly', ['additional']);
+            const additionalBefore = await inventory(additional.mod);
+            checkpoint('real-additional-only-plan-error');
+            const noInputs = final(await timed(api.plan(), 180000));
+            await preserve(additional.output, 'RealAdditionalOnly', noInputs);
+            assert.equal(noInputs.status, 'failed');
+            assert.ok(noInputs.diagnostics.some(item => item.code === 'PLAN_NO_INPUTS'));
+            assert.equal(noInputs.artifacts.length, 0);
+            assert.deepEqual(await inventory(additional.mod), additionalBefore);
+            results.push({ name: 'additional-only-PLAN_NO_INPUTS', status: 'passed', buildId: noInputs.buildId });
+
+            const malformed = await fixture('RealMalformed', ['base']);
+            await write(malformed.mod, 'Data/Mod.xml', '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><broken');
+            const malformedBefore = await inventory(malformed.mod);
+            checkpoint('real-malformed-xml-error');
+            const invalid = final(await timed(api.build(), 180000));
+            await preserve(malformed.output, 'RealMalformed', invalid);
+            assert.equal(invalid.status, 'failed');
+            assert.ok(invalid.diagnostics.some(item => item.level === 'error' && item.message));
+            assert.equal(invalid.artifacts.length, 0);
+            assert.deepEqual(await inventory(malformed.mod), malformedBefore);
+            results.push({ name: 'malformed-XML-real-error', status: 'passed', buildId: invalid.buildId });
+
+            async function cancellationFixture(name: string, count: number): Promise<{ mod: string; output: string }> {
+                const { mod, output } = await fixture(name, ['base']);
+                const assets = Array.from({ length: count }, (_, index) => `<ArmorTemplate id="P0Cancel${index}" Default="100"/>`).join('');
+                await write(mod, 'Data/Mod.xml', `<AssetDeclaration xmlns="uri:ea.com:eala:asset">${assets}</AssetDeclaration>`);
+                return { mod, output };
+            }
+            const force = await cancellationFixture('RealForceStop', 16384);
+            const forceBefore = await inventory(force.mod), previousId = api.getState().progress?.buildId;
+            const forcePhysical = await fs.realpath(force.mod);
+            checkpoint('real-force-stop-start');
+            const stopping = timed(api.build(), 180000);
+            await waitFor(() => {
+                const state = api.getState();
+                return state.status === 'running' && state.operation === 'build'
+                    && state.config?.modRoot.toLowerCase() === forcePhysical.toLowerCase()
+                    && Boolean(state.progress?.buildId) && state.progress?.buildId !== previousId
+                    && Boolean(state.progress?.events?.some(event => event.eventType === 'StreamStarted'));
+            }, 60000);
+            checkpoint('real-force-stop-current-stream');
+            api.stop();
+            const interrupted = final(await stopping);
+            await preserve(force.output, 'RealForceStop-interrupted', interrupted);
+            assert.equal(interrupted.status, 'interrupted');
+            assert.equal(interrupted.artifacts.length, 0);
+            assert.deepEqual(await inventory(force.mod), forceBefore);
+            checkpoint('real-force-stop-retry');
+            const forceRetry = final(await timed(api.build(), 180000));
+            await preserve(force.output, 'RealForceStop-retry', forceRetry);
+            assert.equal(forceRetry.status, 'succeeded', forceRetry.reason);
+            assert.deepEqual(await inventory(force.mod), forceBefore);
+            results.push({ name: 'real-plugin-force-stop-and-retry', status: 'passed', interruptedBuildId: interrupted.buildId, retryBuildId: forceRetry.buildId });
+
+            const normal = await cancellationFixture('RealCancelNormal', 4096);
+            const normalBefore = await inventory(normal.mod);
+            checkpoint('real-normal-CtrlBreak');
+            const cancelled = await timed(runNormalCancellation({ compilerPath, sdkRoot, modRoot: normal.mod,
+                outputDirectory: normal.output, modVersion: '1.0', evidenceDirectory: path.join(evidence, 'real-cases', 'RealCancelNormal') }), 180000);
+            assert.deepEqual(await inventory(normal.mod), normalBefore);
+            checkpoint('real-normal-CtrlBreak-retry');
+            const normalRetry = final(await timed(api.build(), 180000));
+            await preserve(normal.output, 'RealCancelNormal-retry', normalRetry);
+            assert.equal(normalRetry.status, 'succeeded', normalRetry.reason);
+            assert.deepEqual(await inventory(normal.mod), normalBefore);
+            results.push({ name: 'real-normal-CtrlBreak-and-retry', status: 'passed', cancellation: cancelled, retryBuildId: normalRetry.buildId });
+        }
+        assert.deepEqual(await inventory(sdkRoot, ['SuperCompilerCache']), sdkInputs);
+        await summary('passed');
+    } catch (error) {
+        await summary('failed', error);
+        throw error;
+    }
 }
