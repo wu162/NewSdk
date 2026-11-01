@@ -4,3 +4,5 @@ recovery/src/Native/Texture/PublicS3/** -text
 SDK/builtmods/sagexml/Worldbuilder.bin.parts/*.deflate -text
 SDK/builtmods/sagexml/Worldbuilder.imp -text
 SDK/builtmods/sagexml/Worldbuilder.relo -text
+recovery/releases/**/reference-zip-template.bin -text
+recovery/releases/**/compiler-manifest.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

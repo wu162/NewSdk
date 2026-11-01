@@ -1,0 +1,51 @@
+name: Publish already accepted neutral compiler release
+on:
+  push:
+    branches: [fix/neutral-worldbuilder-config]
+    paths:
+      - '.github/workflows/publish-neutral-release.yml'
+      - 'recovery/scripts/PublishNeutralRelease.py'
+      - 'recovery/releases/compiler-2026.11.01-neutral/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: publish-neutral-release
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[publish-neutral-release]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+            !/recovery/decompiled/
+      - uses: actions/download-artifact@v4
+        with:
+          name: neutral-worldbuilder-41319194413-1
+          run-id: 41319194413
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/neutral-accepted
+      - name: Verify acceptance reconstruct exact data ZIP upload assets and publish draft
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          python recovery/scripts/PublishNeutralRelease.py
+          --artifact-root '${{ runner.temp }}/neutral-accepted'
+          --output '${{ runner.temp }}/neutral-publication'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: neutral-release-publication-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/neutral-publication/summary.json
+            ${{ runner.temp }}/neutral-publication/error.log
+          if-no-files-found: warn
