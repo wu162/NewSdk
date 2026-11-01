@@ -1,0 +1,63 @@
+name: Publish accepted shared WorldBuilder cache release
+on:
+  push:
+    branches: [fix/neutral-worldbuilder-config]
+    paths:
+      - '.github/workflows/publish-shared-worldbuilder-cache.yml'
+      - 'recovery/scripts/PublishGameWorldbuilderRelease.py'
+      - 'recovery/releases/compiler-2026.11.02-shared-worldbuilder-cache/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: publish-shared-worldbuilder-cache
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[publish-shared-worldbuilder-cache]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+            !/recovery/decompiled/
+      - name: Read accepted run and artifact from the publication bundle
+        id: accepted
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p=json.loads(Path('recovery/releases/compiler-2026.11.02-shared-worldbuilder-cache/release-metadata.json').read_text())
+          name=p.get('artifactName',f'game-worldbuilder-{p["runId"]}-{p.get("runAttempt",1)}')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as out:
+              out.write(f'run_id={p["runId"]}\nartifact_name={name}\n')
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ steps.accepted.outputs.artifact_name }}
+          run-id: ${{ steps.accepted.outputs.run_id }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/game-worldbuilder-accepted
+      - name: Verify actual game extraction acceptance upload six assets and publish draft
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          python recovery/scripts/PublishGameWorldbuilderRelease.py
+          --tag compiler-2026.11.02-shared-worldbuilder-cache
+          --artifact-root '${{ runner.temp }}/game-worldbuilder-accepted'
+          --output '${{ runner.temp }}/game-worldbuilder-publication'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: game-worldbuilder-publication-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/game-worldbuilder-publication/summary.json
+            ${{ runner.temp }}/game-worldbuilder-publication/error.log
+          if-no-files-found: warn
