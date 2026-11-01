@@ -1,3 +1,35 @@
+# 当前：自动使用游戏目录的 SDK 地编
+
+启用 `fix-neutral-assets` 后，缺少完整参考流时按老 SDK 规则查询 HKLM 的
+`SOFTWARE\Electronic Arts\Electronic Arts\Red Alert 3` 的 `Install Dir`，覆盖32/64位视图，
+读取 `<游戏目录>/Data/WBData_12.big`。该文件由SDK地编安装到游戏目录，普通游戏不保证自带。
+
+优先级为显式 `game-root` > 完整已有 SDK 四流/分块包 > 注册表游戏路径 > 当前目录的 `Data/WBData_12.big`。
+用户已有数据继续兼容；自动读取游戏数据时无需另外下载500MB参考包，也不把大资产内嵌到EXE。
+
+便携游戏可使用 `--game-root C:\Games\RedAlert3`，或在 MOD `newmodcompiler.json` 中配置：
+
+```json
+{
+  "fix-neutral-assets": true,
+  "game-root": "C:/Games/RedAlert3"
+}
+```
+
+EXE 配置的 `appSettings` 也支持 `game-root`，出厂空值表示自动发现；CLI > MOD JSON > EXE配置。
+JSON相对路径以MOD目录为基准，EXE配置相对路径以编译器目录为基准。
+BIG仍要求CLI显式 `--mod-version`，开关仍仅用于包含base的BIG。
+
+首次使用会流式提取四流到 `SDK/SuperCompilerCache/<ModKey>/neutral-worldbuilder/`，
+不修改游戏/SDK输入；后续按来源路径、长度、mtime复用内部缓存，不反复哈希或搬运1.3GB。
+文件变化或缓存缺件时重提取；失败/取消清理半成品。普通SDK的Static/Global/Audio参考仍需存在。
+HashFix优先使用SDK原manifest，缺失时使用同一游戏BIG提取的manifest。
+原HashFix→Resolver→LoD算法与BIG输出合同保持原行为。
+
+新实现与快速验证结果以本页后续收据为准；以下为上一版参考数据来源和验收历史。
+
+---
+
 # 中立与 Worldbuilder 资产修复
 
 本分支从用户指定的 `recovery/legacy-sdk-cache` / `680c4f0c` 开始，带入
