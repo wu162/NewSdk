@@ -1,4 +1,11 @@
-# 当前：发行验收误报已修复，待确认包（PR #49）
+# 当前：Joypad 已加入并行，重新打包待确认（PR #49）
+
+11 个 Joypad 根已显式认证到 worker，metadata 路由 284→295；原 TypeId/版本/字节布局与缓存身份不变。
+生产 `a75840ef` 的 D/R 只构建一次；[最终 41300821811](https://github.com/wu162/NewSdk/actions/runs/41300821811) success，严格复用已通过的组件/CLI 范围，45 资产小 MOD、实际 worker 重叠、串并行/缓存/原 SDK 四流与独立三文件 ZIP 均通过。
+按用户要求未运行大型 MOD 或完整 mymod/全量 SDK 编译，没有新性能或游戏内结论。
+[新待确认包](https://github.com/wu162/NewSdk/actions/runs/41300821811/artifacts/13081475771)、[范围与来源](docs/components/xml/XML_JOYPAD.md)。源码和修复仍在 [PR #49](https://github.com/wu162/NewSdk/pull/49)，未合并；未创建 Release/发行标签，用户明确确认后才能发布。禁止强推。
+
+# 此前：发行验收误报已修复，待确认包（PR #49）
 
 基线 `recovery/legacy-sdk-cache` / `680c4f0c`，仅修复验收脚本的显式 BIG 版本、集中缓存冷态隔离、SDK 缓存输出审计和 Joypad 主线程集合预期。生产源码及构建输入不变。
 [最终 Windows 41297316677](https://github.com/wu162/NewSdk/actions/runs/41297316677) success：复用本次 D/R 构建及独立成功组，完整 mymod 原 SDK、独立三文件 ZIP 与完整 Upheaval 22 样本通过，原失败终态保留。

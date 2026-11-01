@@ -6,9 +6,11 @@
 
 `--jobs auto|<正整数>` 默认 auto，表示 CPU 和当前 Win32 可用内存共同约束的 worker 上限；`--jobs 1` 保留 owner 串行对照，`--jobs 4` 允许最多四个已认证后端任务。`plan`、`build` 和 `newmodcompiler.json` 的 `"jobs": "auto"` 或整数均支持。修改 jobs 不改变原缓存身份。
 
-并行路由包括 GameObject、WeaponTemplate、ArmorTemplate、W3DAnimation/W3DMesh、精确内建编码器的 NONE/XAS AudioFile（无显式 PCSampleRate）、MP3 passthrough、284 个认证 XML metadata TypeId、四类 APT，以及本轮接入的 `Texture`、`OnDemandTexture`、`TerrainTextureAtlas`。纹理在 owner 准备只读输入租约并按图像尺寸、DDS 长度或图集工作量计入预算，解码和编码在 worker 执行；S3 临时状态与懒初始化表按线程隔离。资源不足、输入租约失败、纹理头无法识别、APT 非 ASCII 路径或未认证后端回到 owner。Core XML 前端、验证、缓存、诊断与输出提交保持 owner 顺序。源码 `8fe12ca9b` 已通过 [Windows 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818) 的 Debug/Release 实际四 worker、原元数据完整转录、组件、缓存、完整 mymod、独立 ZIP 及 Upheaval 22 样本验收；[常见格式与16个CLI用例收据](evidence/texture/plugin-validation/41185772818-1/common-summary.json)已入库。
+并行路由包括 GameObject、WeaponTemplate、ArmorTemplate、W3DAnimation/W3DMesh、精确内建编码器的 NONE/XAS AudioFile（无显式 PCSampleRate）、MP3 passthrough、295 个认证 XML metadata TypeId（含 11 个 Joypad 独立根）、四类 APT，以及本轮接入的 `Texture`、`OnDemandTexture`、`TerrainTextureAtlas`。纹理在 owner 准备只读输入租约并按图像尺寸、DDS 长度或图集工作量计入预算，解码和编码在 worker 执行；S3 临时状态与懒初始化表按线程隔离。资源不足、输入租约失败、纹理头无法识别、APT 非 ASCII 路径或未认证后端回到 owner。Core XML 前端、验证、缓存、诊断与输出提交保持 owner 顺序。源码 `8fe12ca9b` 已通过 [Windows 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818) 的 Debug/Release 实际四 worker、原元数据完整转录、组件、缓存、完整 mymod、独立 ZIP 及 Upheaval 22 样本验收；[常见格式与16个CLI用例收据](evidence/texture/plugin-validation/41185772818-1/common-summary.json)已入库。
 
 默认 `/sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false` 不变，Texture 继续使用原 BAB 缓存格式，目录统一位于当前 SDK 的 MOD 专属分区，插件版本 `4202` 和三个 ProcessingHash 保留原 DLL 值。工具不会因切换实现自动清理缓存或更换身份；BC1 编码字节可能与既有产物不同，切换时应在无构建运行时清理当前 MOD 的缓存分区。无需关闭 SessionCache 来使用多 worker。`--sc=false --bc=false --jobs 1|4` 可作纯冷态吞吐对照。没有新增动作缓存、额外持久结果或文件哈希体系。
+
+Joypad 新并行范围见 [Joypad 说明](docs/components/xml/XML_JOYPAD.md)。本次只验证定向组件与 45 资产小 MOD，源运行目录和独立三文件 ZIP 的 jobs1/4/auto、缓存、编辑和原 SDK 四流对照已通过；没有运行大型 MOD 或全量 SDK 编译。上述 `8fe12ca9b` 的纹理/完整 MOD 结果为历史证据，未冒充本轮重测。新包仍待用户明确确认后发布。
 
 ## 1. 安装与检查
 
