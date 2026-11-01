@@ -139,9 +139,13 @@ def main():
              (bundle / 'release-metadata.json').read_bytes(), 'Source-free tag raw metadata differs')
         need(set(subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', TAG], cwd=ROOT, text=True).splitlines()) ==
              {'README.md', 'release-metadata.json'}, 'Source-free release tag contains unapproved files')
-        release = api('releases/tags/' + TAG)
-        release_id = metadata.get('releaseId', release['id'])
+        # GitHub's by-tag endpoint excludes draft releases. Publication-only
+        # routing stays separate from the immutable source-free tag metadata.
+        release_id = metadata.get('releaseId')
+        if release_id is None:
+            release_id = read_json(bundle / 'publication.json')['releaseId']
         release_path = 'releases/' + str(release_id)
+        release = api(release_path)
         state['releaseId'] = release_id
         need(release['id'] == release_id and release['tag_name'] == TAG and release['draft'],
              'Target is not the intended draft release')
