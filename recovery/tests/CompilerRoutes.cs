@@ -95,7 +95,7 @@ class CompilerRoutes
             {
                 var routes = Items(Read(owner, "Routes"));
                 var plugins = Items(Read(owner, "Plugins"));
-                Require(routes.Count == 299, "Expected 299 declared built-in routes");
+                Require(routes.Count == 310, "Expected 310 declared built-in routes");
                 Require(plugins.Count == 7, "Expected seven explicitly constructed built-in plugins");
                 foreach (object plugin in plugins) Require(plugin.GetType().Assembly == own, "Plugin implementation escaped production EXE");
                 var ids = new HashSet<uint>(); var names = new HashSet<string>(StringComparer.Ordinal);
@@ -166,7 +166,7 @@ class CompilerRoutes
                         (bool)Read(route, "SchemaGlobal") == (bool)expected["schemaGlobal"], "XML catalog metadata differs: " + name);
                     ++xmlCount; if ((bool)expected["schemaGlobal"]) ++globalCount;
                 }
-                Require(xmlCount == 289 && globalCount == 267, "XML schema-global/non-global boundary changed");
+                Require(xmlCount == 300 && globalCount == 278, "XML schema-global/non-global boundary changed");
                 foreach (Dictionary<string, object> excluded in (object[])catalog["excluded"])
                     Require(!ids.Contains(Convert.ToUInt32(excluded["typeId"])), "Excluded XML root became supported");
                 Type routeType = routes[0].GetType();
@@ -183,7 +183,7 @@ class CompilerRoutes
                 Require(!ids.Contains(0u), "Unknown-route fixture collided");
                 object unknown = getPlugin.Invoke(registry, new object[] { 0u });
                 Reject(unknown.GetType().GetMethod("ProcessInstance"), unknown, new object[] { null }, "Unknown route");
-                Console.WriteLine("PASS production built-in registry: 299 routes, seven EXE-owned factories including source-aware AptAptData, 289 XML declarations (267 global/22 non-global), missing/duplicate/unknown rejection; three owner reinitializations preserve plugin/route identity and metadata; metadata only, no asset differential");
+                Console.WriteLine("PASS production built-in registry: 310 routes, seven EXE-owned factories including source-aware AptAptData, 300 XML declarations (278 global/22 non-global), missing/duplicate/unknown rejection; three owner reinitializations preserve plugin/route identity and metadata; metadata only, no asset differential");
             }
             finally { ((IDisposable)owner).Dispose(); ((IDisposable)owner).Dispose(); }
             RejectDisposed(factory.GetMethod("ReInitialize"), owner, new[] { win32 }, "ReInitialize");
