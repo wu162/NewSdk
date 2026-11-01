@@ -10,7 +10,7 @@ try{
     if($LASTEXITCODE -ne 0){throw 'Joypad fixture preparation failed'}
     [xml]$mod=[IO.File]::ReadAllText("$out/fixtures/mod/Data/Mod.xml")
     $mod.Schemas.XmlResolver=[Xml.XmlUrlResolver]::new()
-    $mod.Schemas.Add($null,(Resolve-Path 'SDK/Schemas/xsd/CnC3Types.xsd').Path)|Out-Null
+    $mod.Schemas.Add('uri:ea.com:eala:asset',(Resolve-Path 'SDK/Schemas/xsd/CnC3Types.xsd').Path)|Out-Null
     $mod.Validate($null)
     Copy-Item "$out/fixtures/fixtures.json" "$evidence/fixtures.json"
     Copy-Item SDK/tools/*.dll $out

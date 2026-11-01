@@ -67,6 +67,8 @@ jobs:
           path: |
             recovery/evidence/joypad/${{ github.run_id }}-${{ github.run_attempt }}/**
             recovery/artifacts/joypad-product/*/build.json
+            recovery/artifacts/joypad-product/*/link-inputs.json
+            recovery/artifacts/joypad-product/*/validation/build.json
             recovery/artifacts/joypad-product/*/bin/**
             recovery/artifacts/joypad-product/**/*.log
           if-no-files-found: error
