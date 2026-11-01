@@ -21,7 +21,8 @@ try{
         Copy-Item "$out/*.dll" $modeOut
         & cl /nologo /clr /LD /MD /EHa /std:c++17 "/$mode" /fp:precise "/AI$modeOut" "/Fo$modeOut/" "/Fe$modeOut/Recovered.Xmljoypad.dll" @sources *> "$evidence/$mode-build.txt"
         if($LASTEXITCODE -ne 0){Get-Content "$evidence/$mode-build.txt" -Tail 70;throw "$mode Joypad component build failed"}
-        & $csc /nologo /codepage:65001 /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll "/r:$modeOut/Recovered.Xmljoypad.dll" "/r:$modeOut/BinaryAssetBuilder.Core.dll" "/out:$modeOut/XmljoypadOracle.exe" recovery/tests/PluginSchemaBoundary.cs recovery/tests/XmljoypadOracle.cs *> "$evidence/$mode-host-build.txt"
+        $testSources=@('recovery/tests/PluginSchemaBoundary.cs','recovery/tests/XmljoypadOracle.cs'|ForEach-Object{(Resolve-Path $_).Path})
+        & $csc /nologo /codepage:65001 /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll "/r:$modeOut/Recovered.Xmljoypad.dll" "/r:$modeOut/BinaryAssetBuilder.Core.dll" "/out:$modeOut/XmljoypadOracle.exe" @testSources *> "$evidence/$mode-host-build.txt"
         if($LASTEXITCODE -ne 0){Get-Content "$evidence/$mode-host-build.txt";throw "$mode Joypad oracle host build failed"}
         '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0"/></startup></configuration>'|Set-Content "$modeOut/XmljoypadOracle.exe.config"
         & "$modeOut/XmljoypadOracle.exe" (Resolve-Path 'SDK/tools/BinaryAssetBuilder.XmlCompiler.dll').Path "$evidence/$mode-result.json" "$out/fixtures/cases.json" *> "$evidence/$mode-oracle.txt"
