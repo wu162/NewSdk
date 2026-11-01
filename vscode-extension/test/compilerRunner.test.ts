@@ -83,6 +83,7 @@ class MockTask {
         readonly name: string, readonly source: string, readonly execution: MockProcess) { }
 }
 interface MockExecution { task: MockTask; terminate(): void }
+const taskProcessStarted = new MockEmitter<{ execution: MockExecution; processId: number }>();
 const taskProcessEnded = new MockEmitter<{ execution: MockExecution; exitCode?: number }>();
 const taskEnded = new MockEmitter<{ execution: MockExecution }>();
 const launchedTasks: MockTask[] = [];
@@ -97,12 +98,16 @@ const mockVscode = {
     env: {},
     workspace: { isTrusted: true },
     tasks: {
+        onDidStartTaskProcess: taskProcessStarted.event,
         onDidEndTaskProcess: taskProcessEnded.event,
         onDidEndTask: taskEnded.event,
         executeTask: async (task: MockTask): Promise<MockExecution> => {
             launchedTasks.push(task);
             const execution: MockExecution = { task, terminate: () => endExecution(execution, undefined) };
-            queueMicrotask(() => { void taskBehavior(execution); });
+            queueMicrotask(() => {
+                taskProcessStarted.fire({ execution, processId: process.pid });
+                void taskBehavior(execution);
+            });
             return execution;
         },
     },
@@ -233,6 +238,11 @@ test('OS project lock rejects a second host, permits release/retry and reclaims 
             lockDirectory: directory, probeProcess: () => 'unknown',
         }), /无法确认进程/);
         assert.deepEqual(JSON.parse(await fs.readFile(lockPath, 'utf8')), oldOwner);
+        await fs.writeFile(lockPath, JSON.stringify({ ...oldOwner, processId: process.pid }));
+        await assert.rejects(acquirePhysicalProjectLock(identity, {
+            lockDirectory: directory, probeProcess: pid => pid === process.pid ? 'alive' : 'dead',
+        }), /编译器进程/);
+        await fs.writeFile(lockPath, JSON.stringify(oldOwner));
         const reclaimed = await acquirePhysicalProjectLock(identity, {
             lockDirectory: directory, probeProcess: () => 'dead',
         });

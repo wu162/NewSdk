@@ -9,7 +9,9 @@ import {
 } from '../src/project';
 
 async function fixture(run: (root: string) => Promise<void>): Promise<void> {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-project-'));
+    // Windows runners may expose TEMP through an 8.3 user-directory alias.
+    // Expectations use the same physical spelling as the project helpers.
+    const root = await fs.realpath(await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-project-')));
     try { await run(root); } finally { await fs.rm(root, { recursive: true, force: true }); }
 }
 

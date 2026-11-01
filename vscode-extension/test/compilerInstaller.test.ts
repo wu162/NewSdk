@@ -197,3 +197,22 @@ test('authenticated HTTPS redirects preserve same-origin headers and drop creden
   assert.equal(calls[2].headers['X-Custom-Secret'], undefined);
   assert.equal(result.sourceUrl, 'https://downloads.example.test/compiler.zip');
 });
+
+
+test('reuses a validated existing install after Windows EPERM without hiding genuine rename failures', async t => {
+  const f = await fixture(t, runtimeFiles);
+  const installed = await installCompilerArchive(f.archive, { storageDirectory: f.storageDirectory });
+  const denied = Object.assign(new Error('Windows directory rename denied'), { code: 'EPERM' });
+  const promisesModule = require('node:fs/promises') as typeof import('node:fs/promises');
+  t.mock.method(promisesModule, 'rename', async () => { throw denied; });
+  const repeated = await installCompilerArchive(f.archive, { storageDirectory: f.storageDirectory });
+  assert.equal(repeated.executablePath, installed.executablePath);
+
+  await fs.rm(path.join(path.dirname(installed.executablePath), 'antlr.runtime.dll'));
+  await assert.rejects(installCompilerArchive(f.archive, { storageDirectory: f.storageDirectory }), /antlr.runtime.dll/);
+
+  const installRoot = path.join(f.storageDirectory, 'compilers');
+  await fs.rm(path.join(installRoot, installed.sha256), { recursive: true });
+  await assert.rejects(installCompilerArchive(f.archive, { storageDirectory: f.storageDirectory }), error => error === denied);
+  assert.deepEqual(await fs.readdir(installRoot), []);
+});

@@ -39,12 +39,18 @@ export class CompilerRunner implements vscode.Disposable {
     private forced = false;
     private disposed = false;
     private execution?: vscode.TaskExecution;
+    private physicalLock?: PhysicalProjectLock;
+    private lockUpdates: Promise<void> = Promise.resolve();
     private readonly completions = new Map<string, TaskCompletion>();
     private readonly subscriptions: vscode.Disposable[];
 
     constructor() {
         this.subscriptions = [
+            vscode.tasks.onDidStartTaskProcess(event => {
+                if (this.completions.has(event.execution.task.definition.runId)) this.updateTaskProcess(event.processId);
+            }),
             vscode.tasks.onDidEndTaskProcess(event => {
+                if (this.completions.has(event.execution.task.definition.runId)) this.updateTaskProcess(undefined);
                 this.completeTask(event.execution.task.definition.runId, event.exitCode);
             }),
             vscode.tasks.onDidEndTask(event => {
@@ -74,6 +80,7 @@ export class CompilerRunner implements vscode.Disposable {
             const identity = await projectIdentity(config.modRoot);
             release = projectLocks.acquire(identity);
             physicalLock = await acquirePhysicalProjectLock(identity);
+            this.physicalLock = physicalLock;
             this.update({ config, message: '正在检查 SDK 环境；原始诊断见任务终端。' });
             const exitCode = await this.runTask('doctor', config);
             const succeeded = exitCode === 0 && !this.forced;
@@ -88,6 +95,8 @@ export class CompilerRunner implements vscode.Disposable {
             return false;
         } finally {
             clearInterval(timer);
+            await this.lockUpdates;
+            this.physicalLock = undefined;
             await physicalLock?.release().catch(error => {
                 this.update({ message: `${this.current.message ?? ''}；释放项目锁失败：${errorMessage(error)}` });
             });
@@ -116,8 +125,10 @@ export class CompilerRunner implements vscode.Disposable {
         if (this.disposed) return;
         this.disposed = true;
         this.stop();
-        for (const [runId] of this.completions) this.completeTask(runId, undefined);
-        this.subscriptions.forEach(subscription => subscription.dispose());
+        // Keep task-end listeners until an active task actually ends. Resolving
+        // it here would release the cross-window lock while its process may
+        // still be shutting down in VS Code's terminal.
+        if (!this.busy) this.subscriptions.forEach(subscription => subscription.dispose());
         this.changed.dispose();
     }
 
@@ -158,6 +169,7 @@ export class CompilerRunner implements vscode.Disposable {
             const identity = await projectIdentity(config.modRoot);
             release = projectLocks.acquire(identity);
             physicalLock = await acquirePhysicalProjectLock(identity);
+            this.physicalLock = physicalLock;
             const paths = diagnosticPaths(operation, config.outputDirectory);
             this.update({ config, paths });
             if (operation === 'build') {
@@ -225,6 +237,8 @@ export class CompilerRunner implements vscode.Disposable {
         } finally {
             if (timer) clearInterval(timer);
             await polling?.catch(() => undefined);
+            await this.lockUpdates;
+            this.physicalLock = undefined;
             await physicalLock?.release().catch(error => {
                 this.update({ message: `${this.current.message ?? ''}；释放项目锁失败：${errorMessage(error)}` });
             });
@@ -307,6 +321,14 @@ export class CompilerRunner implements vscode.Disposable {
         completion.resolve(exitCode);
     }
 
+    private updateTaskProcess(processId: number | undefined): void {
+        const lock = this.physicalLock;
+        if (!lock) return;
+        this.lockUpdates = this.lockUpdates.then(() => lock.setProcessId(processId)).catch(error => {
+            this.update({ message: `${this.current.message ?? ''}；记录编译器进程失败：${errorMessage(error)}` });
+        });
+    }
+
     private setResult(result: BuildResult): void {
         this.update({ result, progress: result, status: result.status, message: result.reason });
     }
@@ -320,6 +342,7 @@ export class CompilerRunner implements vscode.Disposable {
         this.busy = false;
         this.execution = undefined;
         this.update({ elapsedMs: Date.now() - started });
+        if (this.disposed) this.subscriptions.forEach(subscription => subscription.dispose());
     }
 }
 

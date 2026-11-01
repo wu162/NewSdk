@@ -75,13 +75,14 @@ import { createHash, randomUUID } from 'node:crypto';
 export interface PhysicalProjectLock {
     readonly lockPath: string;
     release(): Promise<void>;
+    setProcessId(processId: number | undefined): Promise<void>;
 }
 export interface PhysicalProjectLockOptions {
     lockDirectory?: string;
     /** An injectable liveness probe keeps stale-owner tests deterministic. */
     probeProcess?: (pid: number) => 'alive' | 'dead' | 'unknown';
 }
-interface LockOwner { version: 1; pid: number; token: string; identity: string }
+interface LockOwner { version: 1; pid: number; token: string; identity: string; processId?: number }
 
 export function sharedProjectLockDirectory(): string {
     const user = os.userInfo();
@@ -109,6 +110,7 @@ function parseOwner(text: string, expectedIdentity: string): LockOwner | undefin
         const owner = value as Partial<LockOwner>;
         if (owner.version !== 1 || owner.identity !== expectedIdentity ||
             !Number.isSafeInteger(owner.pid) || owner.pid! <= 0 ||
+            (owner.processId !== undefined && (!Number.isSafeInteger(owner.processId) || owner.processId <= 0)) ||
             typeof owner.token !== 'string' || !/^[a-f0-9-]{36}$/i.test(owner.token)) return undefined;
         return owner as LockOwner;
     } catch { return undefined; }
@@ -185,6 +187,12 @@ export async function acquirePhysicalProjectLock(identity: string,
             const state = probe(existing.pid);
             if (state === 'alive') throw new Error(`另一个 VS Code 窗口（进程 ${existing.pid}）正在运行此 MOD，请等待完成或在该窗口停止任务。`);
             if (state !== 'dead') throw new Error(`无法确认进程 ${existing.pid} 是否仍在运行，保留项目锁。请确认没有窗口运行此 MOD 后再删除：${lockPath}`);
+            if (existing.processId !== undefined) {
+                const processState = probe(existing.processId);
+                if (processState !== 'dead') {
+                    throw new Error(`上次 VS Code 窗口已退出，但编译器进程 ${existing.processId} 仍在运行或无法确认已退出，保留项目锁：${lockPath}`);
+                }
+            }
             await fs.unlink(lockPath);
         }
         const file = await fs.open(lockPath, 'wx', 0o600);
@@ -195,6 +203,23 @@ export async function acquirePhysicalProjectLock(identity: string,
     let released = false;
     return {
         lockPath,
+        async setProcessId(processId: number | undefined): Promise<void> {
+            if (released) throw new Error('项目锁已释放。');
+            if (processId !== undefined && (!Number.isSafeInteger(processId) || processId <= 0)) {
+                throw new Error('编译器进程 ID 无效。');
+            }
+            await withLockGate(lockPath, identity, async () => {
+                const current = await readOwner(lockPath, identity);
+                if (!current || current.token !== owner.token) {
+                    throw new Error(`项目锁已由其他任务持有，保留该锁：${lockPath}`);
+                }
+                const temporary = `${lockPath}.${owner.token}.tmp`;
+                try {
+                    await fs.writeFile(temporary, JSON.stringify({ ...current, processId }), { flag: 'wx', mode: 0o600 });
+                    await fs.rename(temporary, lockPath);
+                } finally { await fs.unlink(temporary).catch(() => undefined); }
+            });
+        },
         async release(): Promise<void> {
             if (released) return;
             await withLockGate(lockPath, identity, async () => {

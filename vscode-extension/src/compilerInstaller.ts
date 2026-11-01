@@ -277,7 +277,11 @@ export async function installCompilerArchive(archivePath: string, options: Archi
     try { await fsp.rename(staging, target); }
     catch (error) {
       const code = (error as NodeJS.ErrnoException).code;
-      if (code !== 'EEXIST' && code !== 'ENOTEMPTY') throw error;
+      if (code !== 'EEXIST' && code !== 'ENOTEMPTY' && code !== 'EPERM') throw error;
+      // Windows reports EPERM when renaming onto an existing directory. Do not mask
+      // permissions/locking errors when there is no installed directory to reuse.
+      const existing = await fsp.lstat(target).catch(() => undefined);
+      if (!existing?.isDirectory()) throw error;
       // An earlier install of this exact archive is reusable only after dependency validation.
       await validateCompilerExecutable(path.join(target, executableRelative));
     }
