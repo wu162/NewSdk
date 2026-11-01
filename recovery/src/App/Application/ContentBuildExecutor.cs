@@ -123,10 +123,10 @@ namespace NewModCompiler.Application
                             owner.Provider=compiler.ProviderIdentity;
                         }
                         IList<Artifact> produced;
-                        double began=ElapsedMilliseconds();
+                        double compileStarted=ElapsedMilliseconds();
                         using(owner.Request.Performance.Measure("stream.compile"))
                             produced=compiler.Compile(new StreamContext {BuildId=buildId,Task=task,Request=owner.Request,OutputDirectory=layout.StreamDirectory(task)},stop.Token);
-                        owner.Timings.Add(new {streamId=task.Id,startedMs=began,completedMs=ElapsedMilliseconds()});
+                        owner.Timings.Add(new {streamId=task.Id,startedMs=compileStarted,completedMs=ElapsedMilliseconds()});
                         stop.Token.ThrowIfCancellationRequested();
                         if(produced==null) throw new InvalidOperationException("Backend returned no artifact list.");
                         messages.Add(new Message {Kind="success",Owner=owner,Task=task,Artifacts=produced});
