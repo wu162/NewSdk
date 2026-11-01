@@ -65,10 +65,9 @@ namespace NewModCompiler.Diagnostics
             lock(gate) {
                 if (disposed || outputFailed) return;
                 Output(()=> {
-                    bool restore=lineCells!=0;
+                    // Diagnostics are immediate; the existing timer restores
+                    // the progress row once per second, including warning bursts.
                     ClearLine(); writer.WriteLine(message);
-                    BuildProgressSnapshot value=state.Snapshot();
-                    if (restore && interactive && !value.Finished && value.Stage!=null) Draw(Format(value,"进行",true));
                     writer.Flush();
                 });
             }
@@ -96,7 +95,7 @@ namespace NewModCompiler.Diagnostics
         void ClearLine()
         {
             if (!interactive || lineCells==0) return;
-            writer.Write('\r'); writer.Write(new string(' ',Math.Min(lineCells,Math.Max(1,width()-1)))); writer.Write('\r'); lineCells=0;
+            writer.Write("\r"+new string(' ',Math.Min(lineCells,Math.Max(1,width()-1)))+"\r"); lineCells=0;
         }
         string Fit(string text)
         {

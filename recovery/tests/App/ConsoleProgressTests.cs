@@ -56,9 +56,15 @@ namespace NewModCompiler.Tests
                 Check(interactive.ToString()==text,"Queued timer callbacks refreshed within one second");
                 elapsed=2000;renderer.Refresh();
                 Check(interactive.ToString().Length>text.Length && interactive.ToString().Contains("完成 8"),"One-second deadline hid later work");
+                int warningStart=interactive.ToString().Length;
                 renderer.WriteLine("[warning] visible warning");
-                text=interactive.ToString();int warning=text.IndexOf("[warning] visible warning",StringComparison.Ordinal);
-                Check(warning>0 && text.IndexOf("[进行]",warning,StringComparison.Ordinal)>warning,"Warning was not followed by restored progress");
+                text=interactive.ToString().Substring(warningStart);
+                Check(text.Contains("[warning] visible warning") && !text.Contains("[进行]"),"Warning was buffered or synchronously repainted progress");
+                for(int index=1;index<1859;index++)renderer.WriteLine("[warning] repeated warning");
+                text=interactive.ToString().Substring(warningStart);
+                Check(!text.Contains("[进行]") && text.Split(new [] {"[warning]"},StringSplitOptions.None).Length-1==1859,"Warning burst repainted progress or lost diagnostics");
+                elapsed=3000;renderer.Refresh();
+                Check(interactive.ToString().Substring(warningStart+text.Length).Contains("[进行]"),"One-second refresh did not restore progress after warnings");
                 state.CompleteStream("cancelled");state.CompleteStage("cancelled");
                 text=interactive.ToString();renderer.Refresh();state.SetPhase("cache-save");
                 Check(interactive.ToString()==text,"Completed stage reappeared as an active progress row");

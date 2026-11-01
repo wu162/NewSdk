@@ -167,9 +167,23 @@ public static class CliProgressConsole {
         foreach($file in $files){$relative=[IO.Path]::GetRelativePath($published,$file.FullName);Need ([CliProgressConsole]::EqualFiles($file.FullName,(Join-Path $reference $relative))) "Published bytes differ: $relative"}
         return $body
     }
+    function CheckProgressCallbacks([string]$Label,$Body,[long]$ExpectedAssets){
+        $text=[IO.File]::ReadAllText((Join-Path (Join-Path $out $Label) 'stderr.log'))
+        $summaries=[regex]::Matches($text,'(?m)^\[完成\]\s+\d+/\d+\s+[^\r\n]*?\|\s*完成\s+([0-9,]+)\s*\|\s*XML\s+([0-9,]+)\s*\|\s*复用文档\s+([0-9,]+)')
+        Need ($summaries.Count -eq @($Body.plan.Tasks).Count) "$Label omitted completed stream work counts"
+        [long]$assets=0;[long]$xml=0;[long]$reused=0
+        foreach($summary in $summaries){
+            $assets+=[long]$summary.Groups[1].Value.Replace(',','')
+            $xml+=[long]$summary.Groups[2].Value.Replace(',','')
+            $reused+=[long]$summary.Groups[3].Value.Replace(',','')
+        }
+        Need ($assets -eq $ExpectedAssets -and $assets -gt 0 -and $xml -eq $Body.cache.xmlParse -and $reused -eq $Body.cache.documentReuse) "$Label live callbacks differ from actual compiled/reused work"
+        return @{assetsCompleted=$assets;xmlParsed=$xml;documentsReused=$reused;matchedReportCache=$true}
+    }
     $env:NEWSDK_PROGRESS=$null
     RunRedirected $exe $buildArguments "$out/redirected-cold"
-    $null=CheckBuild 'redirected-cold' $false
+    $coldReport=CheckBuild 'redirected-cold' $false
+    $state.realCallbacks=@{cold=(CheckProgressCallbacks 'redirected-cold' $coldReport $coldReport.cache.instanceCompile)}
     $redirected=[IO.File]::ReadAllText("$out/redirected-cold/stderr.log")
     Need ($redirected.Contains('[开始]') -and $redirected.Contains('[完成]')) 'Default redirected CLI omitted phase boundaries or result'
     foreach($enabled in @($true,$false)){
@@ -212,21 +226,22 @@ public static class CliProgressConsole {
     Need ($audit.succeeded -and $audit.signalSent -and $audit.streamStartedObserved -and $audit.processExitCode -eq 6 -and $cancelReport.status -ceq 'cancelled' -and @($cancelReport.artifacts).Count -eq 0) 'Actual CtrlBreak cancellation was not verified'
     $state.actualCancellation=@{passed=$true;exitCode=6;terminal='redirected via existing real CtrlBreak controller'}
     RunRedirected $exe $buildArguments "$out/retry-after-cancel"
-    $null=CheckBuild 'retry-after-cancel' $true
+    $retryReport=CheckBuild 'retry-after-cancel' $true
+    $state.realCallbacks.hot=CheckProgressCallbacks 'retry-after-cancel' $retryReport $state.realCallbacks.cold.assetsCompleted
     $bad=Join-Path $work 'bad';$null=New-Item -ItemType Directory -Path "$bad/Data"
     [IO.File]::WriteAllText("$bad/Data/Mod.xml","<AssetDeclaration xmlns='uri:ea.com:eala:asset'><ArmorTemplate id='broken'></AssetDeclaration>")
     $badOut=Join-Path $work 'failed'
-    RunRedirected $exe @('build','--sdk-root',$sdk,'--mod',$bad,'--out',$badOut,'--package-content','base','--package-format','loose','--performance','off') "$out/failure" 3
+    RunRedirected $exe @('build','--sdk-root',$sdk,'--mod',$bad,'--out',$badOut,'--package-content','base','--package-format','loose','--performance','off') "$out/failure" 4
     $failed=Get-Content "$badOut/build-report.json" -Raw|ConvertFrom-Json
     Copy-Item "$badOut/build-report.json","$badOut/build.events.jsonl" -Destination "$out/failure"
     Need ($failed.status -ceq 'failed' -and @($failed.artifacts).Count -eq 0) 'Malformed XML failure accepted output'
-    $state.actualFailure=@{passed=$true;exitCode=3}
+    $state.actualFailure=@{passed=$true;exitCode=4}
     Need ((Hash $exe) -ceq $state.binarySha256) 'Production EXE changed during validation'
     $summary=@"
 Complete historical Upheaval base stream, same Release executable and hot cache; $Pairs alternating real-console pairs.
 Progress on median: $([Math]::Round($on,3)) ms; off: $([Math]::Round($off,3)) ms; overhead: $([Math]::Round($overhead,3))%; target <= 1%: $($overhead -le 1).
 Output bytes and stream-level JSONL semantics matched; performance sampling stayed off. External process wall includes console startup; OS page cache was uncontrolled.
-Release Core/application fixtures, actual redirected CtrlBreak exit 6/retry, malformed-XML exit 3 and redirected boundary output passed. Managed renderer contracts are recorded separately in contracts.log.
+Release Core/application fixtures, actual redirected CtrlBreak exit 6/retry, malformed-XML exit 4 and redirected boundary output passed. Cold/hot stream summaries matched actual committed asset totals and XML/document reuse report counters. Managed renderer contracts are recorded separately in contracts.log.
 "@
     $summary|Set-Content "$out/measurement.md"
     if($env:GITHUB_STEP_SUMMARY){$summary|Add-Content $env:GITHUB_STEP_SUMMARY}
