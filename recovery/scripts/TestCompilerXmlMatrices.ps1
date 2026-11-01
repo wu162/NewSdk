@@ -16,7 +16,7 @@ $work=Join-Path ([IO.Path]::GetTempPath()) ('compiler-xml-matrices-'+[Guid]::New
 $oracle=Join-Path $work 'original'
 New-Item -ItemType Directory -Force $work,$oracle|Out-Null
 $oldPipe=$env:XML_ORIGINAL_PIPE;$oldPath=$env:PATH
-$state=[ordered]@{schemaVersion=1;succeeded=$false;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='All 63 existing complete XML group matrices against EXE-owned recovered types, independent original oracle process; not production G3 single-process or SDK acceptance';groups=@();modes=@()}
+$state=[ordered]@{schemaVersion=1;succeeded=$false;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='All 64 existing complete XML group matrices against EXE-owned recovered types, independent original oracle process; not production G3 single-process or SDK acceptance';groups=@();modes=@()}
 function Start-XmlProcess([string]$Exe,[string[]]$Arguments,[string]$Directory) {
     $info=[Diagnostics.ProcessStartInfo]::new($Exe)
     $info.WorkingDirectory=$Directory;$info.UseShellExecute=$false;$info.RedirectStandardOutput=$true;$info.RedirectStandardError=$true
@@ -71,7 +71,7 @@ try {
     & python recovery/scripts/PrepareCompilerXmlMatrices.py --output "$work/sources"
     if($LASTEXITCODE -ne 0){throw 'XML complete matrix binding adaptation failed'}
     $manifest=@(Get-Content "$work/sources/manifest.json" -Raw|ConvertFrom-Json)
-    if($manifest.Count -ne 63){throw 'All 63 complete XML groups are required'}
+    if($manifest.Count -ne 64){throw 'All 64 complete XML groups are required'}
     $state.groups=@($manifest|ForEach-Object{@{group=$_.group;inputs=$_.inputs}})
     $state.adapterSha256=(Get-FileHash recovery/scripts/PrepareCompilerXmlMatrices.py -Algorithm SHA256).Hash.ToLowerInvariant()
     $state.runnerSha256=(Get-FileHash $PSCommandPath -Algorithm SHA256).Hash.ToLowerInvariant()
@@ -133,12 +133,12 @@ try {
             }
         }
         Complete-CompilerValidationRun $validationRun
-        if($modeState.groups.Count -ne 63){throw 'XML groups omitted'}
+        if($modeState.groups.Count -ne 64){throw 'XML groups omitted'}
         $modeState.passed=@($modeState.groups|Where-Object{!$_.passed}).Count -eq 0
     }
     if($matrixFailures.Count){throw "$($matrixFailures.Count) XML matrices failed; see each group log and validation.json"}
     $state.succeeded=$true
-    $state.status='passed all 63 complete group matrices in Debug and Release; SDK and G3 acceptance remain separate'
+    $state.status='passed all 64 complete group matrices in Debug and Release; SDK and G3 acceptance remain separate'
 } catch {$state.status='failed';$state.error=$_.Exception.Message;throw}
 finally {
     $env:XML_ORIGINAL_PIPE=$oldPipe;$env:PATH=$oldPath

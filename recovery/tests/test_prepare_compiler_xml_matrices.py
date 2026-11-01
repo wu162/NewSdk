@@ -14,8 +14,8 @@ class PrepareXmlMatrixTests(unittest.TestCase):
     def test_all_groups_preserve_assertions_and_partial_cases(self):
         with tempfile.TemporaryDirectory() as directory:
             rows = PREPARE.prepare(ROOT, pathlib.Path(directory))
-            self.assertEqual(len(rows), 63)
-            self.assertEqual(len({r['group'] for r in rows}), 63)
+            self.assertEqual(len(rows), 64)
+            self.assertEqual(len({r['group'] for r in rows}), 64)
             for row in rows:
                 group = row['group']
                 expected = [ROOT / ('recovery/tests/' + group + 'Oracle.cs')] + sorted((ROOT / 'recovery/tests').glob(group + '*Cases.cs'))
