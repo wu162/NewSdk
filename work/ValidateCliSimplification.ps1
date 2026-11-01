@@ -2,7 +2,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory=$true)][string]$SourceCommit,
-    [string]$BaselineCommit='a58df1021598ba783aae953023d0e46163377dd6'
+    [string]$BaselineCommit='9fd3557eea3a33479a99f22872b2034b11b74c2b'
 )
 $ErrorActionPreference='Stop'
 $repo=(Get-Location).Path

@@ -29,7 +29,7 @@ jobs:
         run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt
       - name: Release App, production build and baseline raw-byte comparison
         shell: pwsh
-        run: ./work/ValidateCliSimplification.ps1 -SourceCommit d39b0c337c035e2f0bd076c760dd1577b0c454f2
+        run: ./work/ValidateCliSimplification.ps1 -SourceCommit 5b40ed35e638a9962f7fbcd74227e29ccc32b85d
       - uses: actions/upload-artifact@v4
         if: always()
         with:

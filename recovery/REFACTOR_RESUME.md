@@ -1,4 +1,13 @@
-# 当前：冷/热缓存性能优化已验收，PR #38 待审
+# 当前：Joypad 编译已验收，PR #44 待审
+
+基于用户指定的 `recovery/legacy-sdk-cache` / `a58df102`，新增 11 个 Joypad 根和
+34 个按钮 Data 分支。[Windows 41270490335](https://github.com/wu162/NewSdk/actions/runs/41270490335)
+通过组件原字节差分、生产 D/R、310 路由及自制 43 资产小 MOD 原 SDK 四流对照；
+没有运行性能测试或完整大型 MOD。当前入口与收据见 [RESUME](RESUME.md)、
+[Joypad 说明](docs/components/xml/XML_JOYPAD.md)。[PR #44](https://github.com/wu162/NewSdk/pull/44)
+待审，未合并。以下保留历史交接。
+
+# 此前：冷/热缓存性能优化已验收，PR #38 待审
 
 分支 `perf/compiler-cold-hot-cache` / [PR #38](https://github.com/wu162/NewSdk/pull/38)。已同步目标FLA基线 `074bf768`，组合源码 `e2dba3c3`，[Windows 41169755141](https://github.com/wu162/NewSdk/actions/runs/41169755141) 全success：Debug/Release、真实FLA/AS、Core/CLI/取消、64worker/缓存、完整mymod原BAB、五文件ZIP及22个完整Upheaval样本。原归档、十运行文件和两个ZIP已下载核验。
 
