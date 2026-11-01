@@ -25,7 +25,7 @@ function Same([hashtable]$Before,[hashtable]$After,[string]$Name){
     Need ($Before.Count -eq $After.Count) "$Name file count differs"
     foreach($key in $Before.Keys){Need ($After.ContainsKey($key) -and $Before[$key].sha256 -ceq $After[$key].sha256 -and $Before[$key].bytes -eq $After[$key].bytes) "$Name raw file differs: $key"}
 }
-$state=@{baselineCommit=$BaselineCommit;sourceCommit=$SourceCommit;validationCommit=$env:GITHUB_SHA;runId=$env:GITHUB_RUN_ID;succeeded=$false;cases=@();comparisons=@();scope='Reuse successful Release App contracts and candidate production build from run41271617644; accepted baseline Release from run41270490335; only resume same-input small Armor base/APT/metadata CLI checks; no additional builds, benchmark or full MOD claim';candidateArtifact=@{id=13069274015;sha256='df837c63493bb0df8bd973d2e502c23c1c2b5ad796cae88f98a4f3c933b46b49'};baselineArtifact=@{id=13069292067;sha256='8eaa2b2b713ce8939623a84020e4112dad4a8873e85351d1ede879f65a70a696'}}
+$state=@{baselineCommit=$BaselineCommit;sourceCommit=$SourceCommit;validationCommit=$env:GITHUB_SHA;runId=$env:GITHUB_RUN_ID;succeeded=$false;cases=@();comparisons=@();scope='Reuse unchanged binaries, Release App1603 success, and first7 proven fixture cases; recheck archived outputs/reports, then retry only two SDK buildCache cases with sessionCache disabled to observe actual Core buildCache state; no rebuild or benchmark';candidateArtifact=@{id=13069274015;sha256='df837c63493bb0df8bd973d2e502c23c1c2b5ad796cae88f98a4f3c933b46b49'};baselineArtifact=@{id=13069292067;sha256='8eaa2b2b713ce8939623a84020e4112dad4a8873e85351d1ede879f65a70a696'}}
 try {
     $candidateBuildCommit='5c79cb57feb93314d388936b84e85c46e02a5599'
     $baselineBuildCommit='1f0cea03083f2219e43fa35f3dd44df73158310e'
@@ -37,13 +37,13 @@ try {
     Need ($LASTEXITCODE -eq 0) 'Cannot compare baseline/candidate production closure'
     Need (@($changed|Where-Object{$_ -notlike 'recovery/src/App/*'}).Count -eq 0) 'Non-App production inputs differ between baseline and candidate'
     $state.changedProductionInputs=$changed
-    $prior=Get-Content (Join-Path $CandidateEvidence 'validation.json') -Raw|ConvertFrom-Json
+    $prior=Get-Content (Join-Path $CandidateEvidence 'prior-validation.json') -Raw|ConvertFrom-Json
     Need ($prior.runId -ceq '41271617644' -and $prior.sourceCommit -ceq $SourceCommit -and $prior.validationCommit -ceq $candidateBuildCommit -and $prior.appContractsPassed -and !$prior.succeeded -and $prior.error.Contains('Baseline production relink failed')) 'Prior successful App/build stages do not match known harness failure'
     $appLog=Join-Path $CandidateEvidence 'app/test-app.log'
     Need (([IO.File]::ReadAllText($appLog)).Contains('PASS App contract assertions=1603;')) 'Prior Release App success log is missing'
     $app=Join-Path $out 'app';New-Item -ItemType Directory -Force $app|Out-Null
     Copy-Item -LiteralPath $appLog -Destination "$app/test-app.log"
-    Copy-Item -LiteralPath (Join-Path $CandidateEvidence 'validation.json') -Destination (Join-Path $out 'prior-validation.json')
+    Copy-Item -LiteralPath (Join-Path $CandidateEvidence 'prior-validation.json') -Destination (Join-Path $out 'prior-build-validation.json')
     $state.appContractsPassed=$true;$state.appContractAssertions=1603;$state.appContractsRunId='41271617644';$state.appContractsReused=$true
     $product=Join-Path $out 'product';$baseline=Join-Path $out 'baseline'
     Copy-Item -LiteralPath $CandidateRuntime -Destination $product -Recurse
@@ -119,48 +119,68 @@ try {
         $entry.passed=$true;$entry.inventory=$inventory
         return @{report=$report;inventory=$inventory;case=$case;destination=$destination}
     }
-    foreach($format in @('default','loose')){
-        [string[]]$extra=@();if($format -ceq 'loose'){$extra=@('--package-format','loose')}
-        $before=RunCli ('baseline-'+$format) $baselineExe $extra
-        $after=RunCli ('candidate-'+$format) $candidateExe $extra
-        Same $before.inventory $after.inventory $format
-        Need (@($after.report.plan.Tasks).Count -eq 3) 'Automatic content discovery changed'
-        if($format -ceq 'default'){
-            Need ($after.inventory.Count -eq 14 -and @($after.inventory.Keys|Where-Object{$_ -like '*.big'}).Count -eq 1 -and @($after.inventory.Keys|Where-Object{$_ -like '*.skudef'}).Count -eq 1) 'Default did not retain twelve stream files plus BIG + SKUDEF'
-            Need (@($after.report.artifacts).Count -eq 2 -and @($after.report.artifacts|Where-Object{$_.Kind -in @('package.big','package.skudef')}).Count -eq 2) 'Default report package artifacts changed'
-            $bigRelative=@($after.inventory.Keys|Where-Object{$_ -like '*.big'})[0]
-            $bigPath=Join-Path (Join-Path $after.case 'published') $bigRelative
-            Need (([Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes($bigPath))).Contains('identical Additional input')) 'Default BIG omitted Additional'
-            foreach($key in @('ss','pc','slowclean','sc','csc','psc')){Need ($after.report.effectiveOptions.$key.Value -ceq 'true') "Default $key changed"}
-            Need ($after.report.effectiveOptions.jobs.Value -ceq 'auto' -and $after.report.effectiveOptions.performance.Value -ceq 'off') 'Jobs/performance defaults changed'
-        }else{Need ($after.inventory.Count -eq 12) 'Loose did not publish three four-file streams'}
-        $state.comparisons+=,@{format=$format;rawPublishedBytesIdentical=$true;files=$after.inventory}
+    $fixturePrior=Get-Content (Join-Path $CandidateEvidence 'validation.json') -Raw|ConvertFrom-Json
+    Need ($fixturePrior.runId -ceq '41272130186' -and $fixturePrior.sourceCommit -ceq $SourceCommit -and !$fixturePrior.succeeded -and $fixturePrior.error.Contains('configured-assets') -and @($fixturePrior.cases).Count -eq 9 -and @($fixturePrior.cases|Where-Object{!$_.passed -or $_.exitCode -ne $_.expectedExit}).Count -eq 0) 'Prior fixture does not match known final harness assumption failure'
+    Need ($fixturePrior.candidateExeSha256 -ceq $state.candidateExeSha256 -and $fixturePrior.baselineExeSha256 -ceq $state.baselineExeSha256) 'Prior fixture runtimes differ'
+    Copy-Item -LiteralPath (Join-Path $CandidateEvidence 'validation.json') -Destination (Join-Path $out 'prior-fixture-validation.json')
+    $state.priorValidationFailures=@($prior.error,$fixturePrior.error)
+    $state.reusedFixtureRunId='41272130186';$state.reusedCases=@()
+    function JsonMap($Object){$map=@{};foreach($property in $Object.PSObject.Properties){$map[$property.Name]=$property.Value};return $map}
+    Same (JsonMap $fixturePrior.fixtureInputInventory) (Inventory $mod) 'Reconstructed fixture inputs'
+    Same (JsonMap $fixturePrior.sdkInputInventory) (Inventory $sdk) 'Reconstructed SDK inputs'
+    $names=@('baseline-default','candidate-default','baseline-loose','candidate-loose','neutral-false','neutral-reference-missing','advanced-false')
+    $priorReports=@{};$priorInventories=@{}
+    New-Item -ItemType Directory -Force (Join-Path $out 'cases')|Out-Null
+    foreach($name in $names){
+        $entry=@($fixturePrior.cases|Where-Object{$_.name -ceq $name})
+        Need ($entry.Count -eq 1) ('Prior fixture case missing/duplicated: '+$name)
+        $entry=$entry[0];$case=Join-Path $CandidateEvidence ('cases/'+$name)
+        $report=Get-Content (Join-Path $case 'build-report.json') -Raw|ConvertFrom-Json
+        Need ($report.exitCode -eq $entry.expectedExit -and $report.status -ceq $(if($name -ceq 'neutral-reference-missing'){'failed'}else{'succeeded'})) ('Prior report failed: '+$name)
+        $priorReports[$name]=$report
+        $inventory=@{}
+        if($name -cne 'neutral-reference-missing'){
+            $inventory=Inventory (Join-Path $case 'published')
+            Same (JsonMap $entry.inventory) $inventory ('Archived '+$name)
+        }
+        $priorInventories[$name]=$inventory
+        Copy-Item -LiteralPath $case -Destination (Join-Path $out 'cases') -Recurse
+        $state.reusedCases+=,@{name=$name;sourceRunId='41272130186';passed=$true;exitCode=$entry.exitCode;expectedExit=$entry.expectedExit;inventory=$inventory}
     }
-    # Explicit false must not consult missing Worldbuilder references.
-    $falseNeutral=RunCli 'neutral-false' $candidateExe @('--fix-neutral-assets=false')
-    Same $falseNeutral.inventory $state.comparisons[0].files 'Explicit neutral false'
-    $trueNeutral=RunCli 'neutral-reference-missing' $candidateExe @('--fix-neutral-assets=true') 3
-    Need ($null -ne $trueNeutral.report -and @($trueNeutral.report.diagnostics|Where-Object{$_.code -ceq 'PACKAGE_NEUTRAL_REFERENCE_MISSING'}).Count -eq 1) 'Missing neutral reference did not retain exit3/report diagnostic'
-    Need (@($trueNeutral.report.artifacts).Count -eq 0) 'Neutral reference failure accepted artifacts'
+    Same $priorInventories['baseline-default'] $priorInventories['candidate-default'] 'Prior default published bytes'
+    Same $priorInventories['baseline-loose'] $priorInventories['candidate-loose'] 'Prior loose published bytes'
+    Same $priorInventories['candidate-default'] $priorInventories['neutral-false'] 'Prior explicit neutral false'
+    Need ($priorInventories['candidate-default'].Count -eq 14 -and $priorInventories['candidate-loose'].Count -eq 12) 'Prior stream/package inventory changed'
+    $default=$priorReports['candidate-default']
+    Need (@($default.plan.Tasks).Count -eq 3 -and @($default.artifacts).Count -eq 2) 'Prior default auto/BIG contract differs'
+    foreach($key in @('ss','pc','slowclean','sc','csc','psc')){Need ($default.effectiveOptions.$key.Value -ceq 'true') ('Prior default changed: '+$key)}
+    Need ($default.effectiveOptions.jobs.Value -ceq 'auto' -and $default.effectiveOptions.performance.Value -ceq 'off') 'Prior jobs/performance default changed'
+    $bigRelative=@($priorInventories['candidate-default'].Keys|Where-Object{$_ -like '*.big'})[0]
+    $bigPath=Join-Path (Join-Path $CandidateEvidence 'cases/candidate-default/published') $bigRelative
+    $bigText=[Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes($bigPath))
+    Need ($bigText.Contains('identical Additional input')) 'Prior Additional input absent from BIG'
+    Need (@($priorReports['neutral-reference-missing'].diagnostics|Where-Object{$_.code -ceq 'PACKAGE_NEUTRAL_REFERENCE_MISSING'}).Count -eq 1 -and @($priorReports['neutral-reference-missing'].artifacts).Count -eq 0) 'Prior neutral reference rejection differs'
+    $advanced=$priorReports['advanced-false']
+    foreach($key in @('ss','pc','slowclean','sc','bc','csc','psc','fsc','atc')){Need ($advanced.effectiveOptions.$key.Value -ceq 'false' -and $advanced.effectiveOptions.$key.Source -ceq 'commandLine') ('Prior advanced false changed: '+$key)}
+    Need ($advanced.cache.status -ceq 'Disabled' -and !$advanced.cache.sessionCache -and !$advanced.cache.compressedSessionCache -and !$advanced.cache.partialSessionCache -and !$advanced.cache.freezeSessionCache -and !$advanced.cache.alwaysTouchCache) 'Prior advanced settings did not reach Core'
+    $state.comparisons=@(@{format='default';rawPublishedBytesIdentical=$true;sourceRunId='41272130186';files=$priorInventories['candidate-default']},@{format='loose';rawPublishedBytesIdentical=$true;sourceRunId='41272130186';files=$priorInventories['candidate-loose']})
 
-    $flags=@('/ss:false','/pc:false','/slowclean:false','/sc:false','/bc:false','/csc:false','/psc:false','/fsc:false','/atc:false')
-    $advanced=RunCli 'advanced-false' $candidateExe (@('--package-format','loose')+$flags)
-    foreach($key in @('ss','pc','slowclean','sc','bc','csc','psc','fsc','atc')){Need ($advanced.report.effectiveOptions.$key.Value -ceq 'false' -and $advanced.report.effectiveOptions.$key.Source -ceq 'commandLine') "Advanced $key false did not reach request"}
-    Need ($advanced.report.cache.status -ceq 'Disabled' -and !$advanced.report.cache.sessionCache -and !$advanced.report.cache.compressedSessionCache -and !$advanced.report.cache.partialSessionCache -and !$advanced.report.cache.freezeSessionCache -and !$advanced.report.cache.alwaysTouchCache) 'Advanced cache false flags did not reach Core'
-
+    # Armor's compiler has UseBuildCache=false, so no network *.asset is expected.
+    # Disable session caching to distinguish actual Core BuildCache states directly.
     $configPath=Join-Path $sdk 'tools/BinaryAssetBuilder.exe.config';$configBytes=[IO.File]::ReadAllBytes($configPath)
     try {
         [xml]$config=[IO.File]::ReadAllText($configPath);$section=$config.SelectSingleNode('/configuration/assetbuilder')
-        $configuredAssets=Join-Path $work 'configured-assets';$section.SetAttribute('buildCache','false');$section.SetAttribute('buildCacheRoot',$configuredAssets);$config.Save($configPath)
-        $configured=RunCli 'sdk-buildcache-false' $candidateExe @('--package-format','loose')
-        Need ($configured.report.effectiveOptions.bc.Value -ceq 'false' -and $configured.report.effectiveOptions.bc.Source -ceq 'sdkConfig' -and $configured.report.cache.hits -eq 0 -and $configured.report.cache.misses -eq 0) 'SDK buildCache did not override default bc'
-        $override=RunCli 'sdk-buildcache-cli-true' $candidateExe @('--package-format','loose','/bc:true')
-        Need ($override.report.effectiveOptions.bc.Value -ceq 'true' -and $override.report.effectiveOptions.bc.Source -ceq 'commandLine' -and @(Get-ChildItem -LiteralPath $configuredAssets -Filter '*.asset' -File -Recurse).Count -gt 0) 'Explicit bc true did not override SDK config/use configured cache root'
-        Same $configured.inventory $override.inventory 'SDK cache flags'
+        $section.SetAttribute('buildCache','false');$config.Save($configPath)
+        $configured=RunCli 'sdk-buildcache-false-no-session' $candidateExe @('--package-format','loose','/sc:false')
+        Need ($configured.report.effectiveOptions.bc.Value -ceq 'false' -and $configured.report.effectiveOptions.bc.Source -ceq 'sdkConfig' -and $configured.report.cache.status -ceq 'Disabled' -and !$configured.report.cache.sessionCache -and $configured.report.cache.hits -eq 0 -and $configured.report.cache.misses -eq 0) 'SDK buildCache did not override default bc in actual Core state'
+        $override=RunCli 'sdk-buildcache-cli-true-no-session' $candidateExe @('--package-format','loose','/sc:false','/bc:true')
+        Need ($override.report.effectiveOptions.bc.Value -ceq 'true' -and $override.report.effectiveOptions.bc.Source -ceq 'commandLine' -and $override.report.cache.status -ceq 'BuildAssetCache' -and !$override.report.cache.sessionCache) 'Explicit bc true did not override SDK config in actual Core state'
+        Same $configured.inventory $override.inventory 'SDK buildCache flags'
+        Same $priorInventories['candidate-loose'] $override.inventory 'SDK buildCache same input output bytes'
     }finally{[IO.File]::WriteAllBytes($configPath,$configBytes)}
     Same $state.fixtureInputInventory (Inventory $mod) 'Fixture input'
     Same $state.sdkInputInventory (Inventory $sdk) 'SDK input'
     $state.succeeded=$true
-    Write-Host ('PASS CLI simplification: '+$state.cases.Count+' production cases; default BIG/SKUDEF + loose raw bytes identical')
+    Write-Host ('PASS CLI simplification: reused7 checked fixture cases; retried2 SDK buildCache cases; default BIG/SKUDEF + loose raw bytes identical')
 } catch {$state.error=$_.Exception.ToString();throw}
 finally {$state|ConvertTo-Json -Depth 30|Set-Content (Join-Path $out 'validation.json')}

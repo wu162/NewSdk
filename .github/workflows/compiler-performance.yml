@@ -1,4 +1,4 @@
-name: CLI parameter simplification runtime validation
+name: CLI parameter simplification remaining SDK validation
 on:
   workflow_dispatch:
 permissions:
@@ -10,7 +10,7 @@ concurrency:
 jobs:
   validate:
     runs-on: windows-2022
-    timeout-minutes: 15
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
@@ -20,27 +20,21 @@ jobs:
           sparse-checkout: |
             /*
             !/recovery/evidence/
-      - name: Download exact successful runtime artifacts
+      - name: Download exact prior successful fixture cases and runtimes
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           $ErrorActionPreference='Stop'
           $headers=@{Authorization=('Bearer '+$env:GH_TOKEN);Accept='application/vnd.github+json'}
-          $archives=@(
-            @{id='13069274015';name='candidate';sha256='df837c63493bb0df8bd973d2e502c23c1c2b5ad796cae88f98a4f3c933b46b49'},
-            @{id='13069292067';name='baseline';sha256='8eaa2b2b713ce8939623a84020e4112dad4a8873e85351d1ede879f65a70a696'}
-          )
-          foreach($item in $archives){
-            $zip=Join-Path $env:RUNNER_TEMP ($item.name+'.zip')
-            Invoke-WebRequest -Uri ('https://api.github.com/repos/wu162/NewSdk/actions/artifacts/'+$item.id+'/zip') -Headers $headers -OutFile $zip
-            if((Get-FileHash $zip -Algorithm SHA256).Hash.ToLowerInvariant() -cne $item.sha256){throw ('Artifact digest mismatch: '+$item.id)}
-            Expand-Archive -LiteralPath $zip -DestinationPath (Join-Path $env:RUNNER_TEMP $item.name)
-          }
-      - name: Resume only targeted production CLI validation
+          $zip=Join-Path $env:RUNNER_TEMP 'prior-fixture.zip'
+          Invoke-WebRequest -Uri 'https://api.github.com/repos/wu162/NewSdk/actions/artifacts/13069851893/zip' -Headers $headers -OutFile $zip
+          if((Get-FileHash $zip -Algorithm SHA256).Hash.ToLowerInvariant() -cne 'e0b915ec8c18849c1053f6abe33813e814c1e06bfcfc3a4279af3240c3efb966'){throw 'Prior fixture artifact digest mismatch'}
+          Expand-Archive -LiteralPath $zip -DestinationPath (Join-Path $env:RUNNER_TEMP 'prior-fixture')
+      - name: Recheck archived results and retry only two SDK configuration cases
         shell: pwsh
         run: |
-          ./work/ResumeCliSimplification.ps1 -SourceCommit 5b40ed35e638a9962f7fbcd74227e29ccc32b85d -CandidateRuntime "$env:RUNNER_TEMP/candidate/product" -BaselineRuntime "$env:RUNNER_TEMP/baseline/artifacts/joypad-product/Release" -CandidateEvidence "$env:RUNNER_TEMP/candidate"
+          ./work/RetryCliSdkConfig.ps1 -SourceCommit 5b40ed35e638a9962f7fbcd74227e29ccc32b85d -CandidateRuntime "$env:RUNNER_TEMP/prior-fixture/product" -BaselineRuntime "$env:RUNNER_TEMP/prior-fixture/baseline" -CandidateEvidence "$env:RUNNER_TEMP/prior-fixture"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
