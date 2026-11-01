@@ -171,7 +171,7 @@ CLI > 项目 JSON > EXE 配置；JSON相对路径以MOD目录为准，EXE配置�
 
 `/sc` 按原文档、文件依赖、定义和继承复用解析与中间结果；`/bc` 按原类型/实例哈希复用资产，包括三种 Texture 路由。修改、新增、删除 MOD 输入均交由原 Core 判断，不再将整个 SDK/MOD 内容指纹作为冷失效开关。四流按原清单/流校验和原地复用；BIG 每次重新打包。
 
-`/csc:false` 使用原 `BinaryAssetBuilder.SessionCache.xml`，true 使用 `.xml.deflate`。全部缓存和编译工作文件统一放在传入 SDK 的 `SuperCompilerCache/<ModKey>/`：会话为 `session`，资产为 `build-cache`，中间资产为 `intermediate`，可复用四流为 `streams`。`/scd`（别名 `/scp`）、`/bcd`（别名 `/bcp`）、`/iod` 及项目预设中的对应值仅能指定当前分区内部目录，超界以 `CLI_CACHE_PATH` 拒绝。会话格式和会话根 `.NewModCompiler/cdata` 的恢复逻辑保留；旧 `--out` 下的缓存不读取、不迁移或自动删除。布局与路径边界见 [集中缓存说明](docs/SUPERCOMPILER_CACHE.md)。
+`/csc:false` 使用原 `BinaryAssetBuilder.SessionCache.xml`，true 使用 `.xml.deflate`。MOD缓存和编译工作文件放在传入 SDK 的 `SuperCompilerCache/<ModKey>/`：会话为 `session`，资产为 `build-cache`，中间资产为 `intermediate`，可复用四流为 `streams`。`/scd`（别名 `/scp`）、`/bcd`（别名 `/bcp`）、`/iod` 及项目预设中的对应值仅能指定当前分区内部目录，超界以 `CLI_CACHE_PATH` 拒绝。会话格式和会话根 `.NewModCompiler/cdata` 的恢复逻辑保留；旧 `--out` 下的缓存不读取、不迁移或自动删除。布局与路径边界见 [集中缓存说明](docs/SUPERCOMPILER_CACHE.md)。
 
 同一个物理 MOD 更换 `--out` 或版本仍使用同一缓存分区；同名但路径不同的 MOD 各自隔离。切换原 DLL 与源码纹理实现时，原版本与 ProcessingHash 保持不变，既有 BC1 产物可能直接命中；需要冷缓存时，应在无构建运行时清理当前 MOD 分区。更换输出目录不再清空缓存。构建器不引入额外指纹、缓存代次或自动清理。
 

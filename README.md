@@ -4,7 +4,10 @@
 
 ## 获取工具
 
-当前自动读取游戏地编版：[compiler-2026.11.01-game-worldbuilder](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01-game-worldbuilder)。
+当前共享地编缓存版：[compiler-2026.11.02-shared-worldbuilder-cache](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.02-shared-worldbuilder-cache)。
+同一SDK的所有Mod共用一份地编数据，旧有效缓存自动迁移/清理；D/R两Mod复用、并发首次提取和独立ZIP快测通过。
+
+此前自动读取游戏地编版：[compiler-2026.11.01-game-worldbuilder](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01-game-worldbuilder)。
 按老 SDK 规则自动使用游戏 `Data/WBData_12.big`，也可设置 `game-root`；已安装 SDK 地编时无需另下载500MB参考包。
 [Windows 41322569300](https://github.com/wu162/NewSdk/actions/runs/41322569300) 的D/R App、小MOD原字节与独立ZIP快测通过。
 Release EXE约5MB，仅比上一中立版增加10.5KiB；发布附件保持三运行文件ZIP与说明/清单。

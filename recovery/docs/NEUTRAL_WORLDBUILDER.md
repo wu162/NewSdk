@@ -1,3 +1,21 @@
+# 当前：同SDK共用地编参考缓存
+
+共享目录：`SDK/SuperCompilerCache/shared/neutral-worldbuilder/`，不再按Mod复制约1.33GB。
+共享锁覆盖提取与消费，两个Mod并发首次使用也只保存一份；不同来源切换不会混代，等待可取消。
+当前Mod的有效旧cache直接迁入；共享已有效时清理当前Mod同来源有效旧副本，其它Mod在各自下次使用时处理。
+普通Mod编译缓存仍按ModKey隔离。
+
+生产 `57c0c783`，[Windows41324686715](https://github.com/wu162/NewSdk/actions/runs/41324686715)全通过：D/R各1901项App检查，
+原9个游戏布局用例、第二Mod共享热命中不改mtime、两个Mod并发冷提取仅1份payload、原SDK整包字节与独立ZIP共享冷编译。
+Release EXE=5024256字节，三运行文件ZIP约1.61MB。未重跑完整Core/CLI大矩阵、完整大型Mod或游戏内验证。
+[验收收据](../evidence/shared-worldbuilder/41324686715-1/summary.json)、
+[发行](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.02-shared-worldbuilder-cache)、
+[发布收据](../evidence/releases/compiler-2026.11.02-shared-worldbuilder-cache/published.json)。
+
+以下为自动发现游戏Data的前版逻辑与历史验收，其中旧的Mod专属地编路径已由以上共享目录替代。
+
+---
+
 # 当前：自动使用游戏目录的 SDK 地编
 
 启用 `fix-neutral-assets` 后，缺少完整参考流时按老 SDK 规则查询 HKLM 的

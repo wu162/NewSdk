@@ -1,3 +1,16 @@
+# 当前：地编缓存改为SDK共享，已快测发布
+
+分支fix/neutral-worldbuilder-config；生产57c0c783。
+游戏地编四流位于SDK/SuperCompilerCache/shared/neutral-worldbuilder，全SDK所有Mod复用一份。
+共享锁覆盖提取至消费，支持取消；当前Mod有效旧cache移动迁入或清理冗余，其它Mod在下次使用时处理。
+普通Mod缓存边界保持分区隔离。
+[Windows41324686715](https://github.com/wu162/NewSdk/actions/runs/41324686715)全success：D/R新构建、App各1901、
+原9个游戏用例、第二Mod热复用、双Mod并发冷提取仅1份payload，原SDK整个BIG与独立ZIP共享冷编译通过。
+[compiler-2026.11.02-shared-worldbuilder-cache](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.02-shared-worldbuilder-cache)
+已公开/latest；发布41325895676复用同一验收二进制，6附件大小/SHA全核对，一次性工作流已移除。
+[测试收据](evidence/shared-worldbuilder/41324686715-1/summary.json)、[发布收据](evidence/releases/compiler-2026.11.02-shared-worldbuilder-cache/published.json)。
+未做完整Core/CLI大矩阵、完整大Mod或游戏内新验证；没有合入其它开发分支，禁止强推。
+
 # 当前：按老SDK自动读取游戏地编，已快测发布
 
 分支 `fix/neutral-worldbuilder-config`；生产源码 `3cf65b6d`。
