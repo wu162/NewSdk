@@ -53,17 +53,24 @@ namespace NewModCompiler.Cli
         {
             using (var events = new EventDispatcher(Guid.NewGuid().ToString("N"),sinks))
             using (var cancellation = new CancellationTokenSource()) {
-                ConsoleCancelEventHandler handler = (sender,e) => { e.Cancel=true; cancellation.Cancel(); };
-                Console.CancelKeyPress += handler;
-                BuildSession session = null;
-                IStreamCompiler compiler = null;
-#if NEWSdk_MONOLITHIC
-                if (request.Command == "build")
-                    compiler = new CoreStreamCompiler((source,eventType,message) => session.RecordCoreTrace(source,eventType,message));
-#endif
-                session = new BuildSession(request,compiler,events);
-                try { return (int)session.Run(cancellation.Token); }
-                finally { Console.CancelKeyPress -= handler; }
+                // Default progress is independent of optional performance sampling.
+                // The opt-out also removes Core callbacks for paired measurements.
+                var progress = string.Equals(Environment.GetEnvironmentVariable("NEWSDK_PROGRESS"),"off",StringComparison.OrdinalIgnoreCase)
+                    ? null : new BuildProgressState(() => events.ElapsedMilliseconds);
+                using (var renderer = progress == null ? null : new ConsoleProgressRenderer(progress)) {
+                    events.ConsoleOutput = renderer;
+                    ConsoleCancelEventHandler handler = (sender,e) => { e.Cancel=true; cancellation.Cancel(); };
+                    Console.CancelKeyPress += handler;
+                    BuildSession session = null;
+                    IStreamCompiler compiler = null;
+    #if NEWSdk_MONOLITHIC
+                    if (request.Command == "build")
+                        compiler = new CoreStreamCompiler((source,eventType,message) => session.RecordCoreTrace(source,eventType,message),progress);
+    #endif
+                    session = new BuildSession(request,compiler,events,progress:progress);
+                    try { return (int)session.Run(cancellation.Token); }
+                    finally { Console.CancelKeyPress -= handler; }
+                }
             }
         }
     }

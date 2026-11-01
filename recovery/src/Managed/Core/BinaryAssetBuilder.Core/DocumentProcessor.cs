@@ -107,6 +107,9 @@ public class DocumentProcessor
 	public int DocumentReuseCount { get; private set; }
 	public int XmlParseCount { get; private set; }
 	public int InstanceCompileCount { get; private set; }
+	// Integer deltas only: completed assets, parsed XML, reused documents.
+	// The host keeps this callback allocation-free and independent of rendering.
+	public Action<int, int, int> Progress { get; set; }
 	public IAssetExecution AssetExecution { get; set; }
 	// A version owns its stable declarations until every output subscription has
 	// returned. A replacement document receives a new version instead of reusing
@@ -239,7 +242,7 @@ public class DocumentProcessor
 	}
 	private readonly HashSet<uint> _ProcessedTypeIds = new HashSet<uint>();
 	public IEnumerable<uint> ProcessedTypeIds => _ProcessedTypeIds;
-	internal void RecordXmlParse() { XmlParseCount++; }
+	internal void RecordXmlParse() { XmlParseCount++; Progress?.Invoke(0, 1, 0); }
 	internal void RecordInstanceCompile() { InstanceCompileCount++; }
 
 	// Local/intermediate reuse is excluded from persistent asset-cache counters.
@@ -723,7 +726,11 @@ public class DocumentProcessor
 			}
 			version.FrontendPrepared = true;
 		}
-		if (document.State != DocumentState.Loaded) DocumentReuseCount++;
+		if (document.State != DocumentState.Loaded)
+		{
+			DocumentReuseCount++;
+			Progress?.Invoke(0, 0, 1);
+		}
 		foreach (InstanceDeclaration instance in document.SelfInstances) _ProcessedTypeIds.Add(instance.Handle.TypeId);
 		_InstancesProcessedCount += document.SelfInstances.Count;
 		document.RecordStringHashes();
@@ -1052,6 +1059,9 @@ public class DocumentProcessor
 			assetLocationInfo.AssetOutputDirectory = asset.AssetOutputDirectory;
 			assetLocationInfo.CustomDataOutputDirectory = asset.Instance.HasCustomData ? Path.GetDirectoryName(asset.CustomDataPath) : asset.CustomDataOutputDirectory;
 			_LastWrittenAssets.Add(asset.FileBase, assetLocationInfo);
+			// RecordCommit reaches this only after publication succeeds. Reuse
+			// its existing identity table so repeated includes count just once.
+			Progress?.Invoke(1, 0, 0);
 		}
 	}
 

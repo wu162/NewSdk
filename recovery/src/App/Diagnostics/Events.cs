@@ -144,6 +144,12 @@ namespace NewModCompiler.Diagnostics
     {
         readonly List<IBuildEventSink> sinks; readonly Stopwatch clock = Stopwatch.StartNew();
         long sequence; bool finished; bool outputFailed; bool disposed;
+        internal ConsoleProgressRenderer ConsoleOutput { get; set; }
+        internal void WriteConsoleLine(string message)
+        {
+            try { if (ConsoleOutput != null) ConsoleOutput.WriteLine(message); else Console.Error.WriteLine(message); }
+            catch (IOException) { }
+        }
         public string BuildId { get; private set; }
         public bool OutputFailed { get { return outputFailed; } }
         public bool CloseFailed { get; private set; }
@@ -173,11 +179,12 @@ namespace NewModCompiler.Diagnostics
                     // report remain the required machine-readable outputs.
                     try { sink.Dispose(); } catch { }
                     sinks.RemoveAt(index--);
-                    try { Console.Error.WriteLine("Optional text log disabled: " + error.Message); } catch (IOException) { }
+                    WriteConsoleLine("Optional text log disabled: " + error.Message);
                 }
             }
             // Console is optional; a disconnected caller must not hide the durable final result.
-            try { if (type == "BuildFinished" || (type == "Diagnostic" && (level == "error" || level == "warning"))) Console.Error.WriteLine("[{0}] {1} {2}",level,code ?? type,message ?? ""); } catch (IOException) { }
+            if ((type == "BuildFinished" && ConsoleOutput == null) || (type == "Diagnostic" && (level == "error" || level == "warning")))
+                WriteConsoleLine(string.Format("[{0}] {1} {2}",level,code ?? type,message ?? ""));
             if (failure != null) throw new BuildFailure(ExitCode.Output,"EVENT_WRITE_FAILED",failure.Message);
         }
         public void Dispose()

@@ -11,6 +11,7 @@ using System.Xml;
 using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 using EALA.Metrics;
+using NewModCompiler.Diagnostics;
 
 namespace NewModCompiler.Application
 {
@@ -29,6 +30,7 @@ namespace NewModCompiler.Application
         static readonly object LeaseGate = new object();
         static CoreStreamCompiler leaseOwner;
         readonly TraceWriteHandler traceWriter;
+        readonly BuildProgressState progress;
         BuildRequest request;
         string sdkRoot, modRoot, outputRoot, configurationXml;
         Settings configurationSettings;
@@ -49,7 +51,8 @@ namespace NewModCompiler.Application
         SchemaSet schemas;
         VerifierPluginRegistry verifiers;
         PluginDescriptor[] verifierDescriptors;
-        public CoreStreamCompiler(TraceWriteHandler traceWriter = null) { this.traceWriter = traceWriter; }
+        public CoreStreamCompiler(TraceWriteHandler traceWriter = null, BuildProgressState progress = null) { this.traceWriter = traceWriter; this.progress = progress; }
+        void ProgressPhase(string id) { if (progress != null) progress.SetPhase(id); }
         public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Win32.LegacySessionCache" : buildCacheEnabled ? "NewModCompiler.Core.Win32.LegacyBuildCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
         public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionCache" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, linkedStreamsRestored = linkedStreamsRestored, fileHashReads = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reads, fileHashReuses = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reuses, fileHashBytesRead = request == null || request.FileIdentities == null ? 0L : request.FileIdentities.BytesRead, textureCache = buildCacheEnabled || sessionCacheEnabled, compressedSessionCache, partialSessionCache, freezeSessionCache, alwaysTouchCache, partialSessionsSaved, parallel = parallelMetrics == null ? null : parallelMetrics.Snapshot(request), sessionCacheDirectory = legacyStore == null ? null : legacyStore.SessionRoot }; } }
         int linkedStreamsRestored;
@@ -68,6 +71,7 @@ namespace NewModCompiler.Application
             }
             try
             {
+                ProgressPhase("initialize");
                 ValidateOptions(request);
                 sdkRoot = Path.GetFullPath(request.SdkRoot);
                 modRoot = Path.GetFullPath(request.ModRoot);
@@ -512,6 +516,7 @@ namespace NewModCompiler.Application
             compiling = true;
             try
             {
+                ProgressPhase("initialize");
                 cacheLayout.PrepareDirectory(output);
                 cacheLayout.PrepareDirectory(cacheLayout.Session);
                 cacheLayout.PrepareDirectory(cacheLayout.BuildCache);
@@ -540,6 +545,7 @@ namespace NewModCompiler.Application
                 // All streams in this request share the same schema snapshot.
                 // A new backend/request loads a fresh closure; explicit Core
                 // ReloadIfChanged remains available to mutable standalone hosts.
+                ProgressPhase("cache-load");
                 using (request.Performance.Measure("cache.prepare"))
                 if (sessionCacheEnabled)
                 {
@@ -609,9 +615,11 @@ namespace NewModCompiler.Application
                 }
                 cache.AssetCompilersVersion = compilers.Registry.AssetBuilderPluginsVersion;
                 processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
+                if (progress != null) processor.Progress = progress.RecordWork;
                 if (parallelMetrics == null) parallelMetrics = new ParallelBackendMetrics(request.Performance);
                 execution = new ParallelBackendScheduler(processor, output, request.JobsAuto ? Math.Max(1, Environment.ProcessorCount) : request.RequestedJobs, parallelMetrics, request.Performance, cancellation);
                 processor.AssetExecution = execution;
+                ProgressPhase("process");
                 bool success; processingStarted = true;
                 using (request.Performance.Measure("core.process"))
                     processor.ProcessDocument(settings.InputPath, true, false, out success);
@@ -692,6 +700,7 @@ namespace NewModCompiler.Application
 
         void SaveLegacySession(SessionCache cache, Settings settings, IEnumerable<string> currentFiles, CancellationToken cancellation)
         {
+            ProgressPhase("cache-save");
             using (request.Performance.Measure("cache.save"))
             {
             if (!cache.HasChanges && cache.LoadedCompressed == compressedSessionCache) return;
