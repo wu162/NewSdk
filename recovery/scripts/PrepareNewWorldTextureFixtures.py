@@ -91,8 +91,8 @@ def main():
     add('truncated-pixel-data', original[:pixel_end - 1], base[0], original=None, candidate=False)
     add('truncated-header', original[:17], base[0], original=False, candidate=False)
 
-    # Ignored palette fields belong to unmapped images, including the existing
-    # 16-bit truecolor and grayscale routes. Mapped-image checks stay unchanged.
+    # Original 41259222360 rejects these nonempty palette specifications on
+    # 16-bit truecolor and grayscale. Keep the existing rejection boundary.
     for name, image_type, depth, pixels in (
         ('unmapped-16-bit-palette-fields', 2, 16, b'\x1f\xfc' * 16),
         ('unmapped-grayscale-palette-fields', 3, 8, bytes(range(16))),
@@ -102,7 +102,8 @@ def main():
         struct.pack_into('<HHB', header, 3, 29, 7, 32)
         struct.pack_into('<HH', header, 12, 4, 4)
         header[16] = depth
-        add(name, header + pixels, 'generated ignored-color-map-specification boundary')
+        add(name, header + pixels, 'generated nonempty-color-map-specification boundary',
+            original=False, candidate=False)
     (output / 'cases.json').write_text(json.dumps(cases, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(dict(status='prepared', realSourceCases=real_cases, boundaryCases=len(cases) - real_cases,
                           totalCases=len(cases), sourceBytesUnchanged=True)))

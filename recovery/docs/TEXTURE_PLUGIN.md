@@ -2,15 +2,17 @@
 
 ## 本轮：The New World 7.1 TGA 编解码修复，等待 Windows 差分
 
-`ColorMapType=0` 时忽略未使用的色表说明字段，覆盖 true-color 及既有灰度/16-bit
-路由；有色表输入的索引、长度和格式边界不变。TGA 2.0 footer 指向完整495字节扩展、
+`ColorMapType=0` 且色表 origin/count 为0时接受真实32-bit输入遗留的 entry-depth=32；
+其余色表字段以及灰度/16-bit路由的原有边界保留。原DLL `41259222360` 明确拒绝
+新增的16-bit/灰度非空色表说明用例，现按真实观察保留负例，不把未知格式推为正例。
+TGA 2.0 footer 指向完整495字节扩展、
 但扩展 size word 写成0的旧写入器现可读取（实际 `VIPEMP.tga`）；扩展/辅助区边界、
 footer、像素和 RLE 检查继续保留，没有忽略任意尾部数据。
 
 新增 `TestNewWorldTextureCodecs.ps1 -CompilerDirectory <Debug/Release父目录>
 -ModDirectory <原始7.1目录> -OutputDirectory <证据目录>`：原 DLL 与生产对象分别运行，
 245张原始图片（3张基础、234张带未用色表字段的APT、两流另外8张打包图）与10个边界
-输入集中记录；248个正例直接比较完整三缓冲区原字节。无损 A8R8G8B8 将图像解码
+输入集中记录；246个正例直接比较完整三缓冲区原字节。无损 A8R8G8B8 将图像解码
 与压缩搜索分开，真实原图不作头部规范化。非法元数据的原版接受情况单独保留，
 不将严格子集边界冒充原版所有行为。当前仅完成源码和本地fixture/hash预检，
 **尚无本轮 Windows 编译或原字节通过结论**。
