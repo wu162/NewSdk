@@ -139,6 +139,9 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     async function chooseCompiler(): Promise<void> {
         ensureSupported();
         ensureIdle();
+        const release = JSON.parse(await fs.readFile(vscode.Uri.joinPath(context.extensionUri, 'compiler-release.json').fsPath, 'utf8')) as {
+            url: string; sha256: string;
+        };
         const choice = await vscode.window.showQuickPick(['选择现有 NewModCompiler.exe', '从提供的 HTTPS ZIP 链接下载'],
             { title: '配置编译器', placeHolder: '编译器包单独提供，不包含在插件中' });
         if (!choice) return;
@@ -149,13 +152,14 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
             if (!selected?.[0]) return;
             compilerPath = (await validateCompilerExecutable(selected[0].fsPath)).executablePath;
         } else {
-            const url = await vscode.window.showInputBox({ title: '编译器 ZIP 下载链接', ignoreFocusOut: true,
+            const url = await vscode.window.showInputBox({ title: '编译器 ZIP 下载链接', ignoreFocusOut: true, value: release.url,
                 placeHolder: 'https://…', validateInput: value => {
                     try { const parsed = new URL(value); return parsed.protocol === 'https:' && !parsed.username && !parsed.password
                         ? undefined : '请输入不含用户名和密码的 HTTPS 链接。'; } catch { return '请输入有效的 HTTPS 链接。'; }
                 } });
             if (!url) return;
             const expectedSha256 = await vscode.window.showInputBox({ title: 'SHA-256（可留空）', ignoreFocusOut: true,
+                value: url === release.url ? release.sha256 : '',
                 prompt: '留空时记录实际下载哈希；提供校验值时必须匹配。', validateInput: value => !value || /^[a-f0-9]{64}$/i.test(value)
                     ? undefined : '请输入 64 位十六进制 SHA-256。' });
             if (expectedSha256 === undefined) return;

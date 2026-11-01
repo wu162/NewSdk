@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       full_acceptance:
-        description: '运行额外真实编译器内容发现组合（仍不等于全部 P0 验收）'
+        description: '运行真实编译器的完整 P0 验收组合'
         type: boolean
         default: false
 
@@ -45,6 +45,17 @@ jobs:
           cache-dependency-path: vscode-extension/package-lock.json
       - name: Install extension dependencies
         run: npm ci
+      - name: Resolve provided compiler release
+        run: |
+          $release = Get-Content compiler-release.json -Raw | ConvertFrom-Json
+          if (-not $env:NEWSDK_COMPILER_URL) {
+            "NEWSDK_COMPILER_URL=$($release.url)" >> $env:GITHUB_ENV
+            if (-not $env:NEWSDK_COMPILER_SHA256) {
+              "NEWSDK_COMPILER_SHA256=$($release.sha256)" >> $env:GITHUB_ENV
+            }
+          } elseif ($env:NEWSDK_COMPILER_URL -eq $release.url -and -not $env:NEWSDK_COMPILER_SHA256) {
+            "NEWSDK_COMPILER_SHA256=$($release.sha256)" >> $env:GITHUB_ENV
+          }
       - name: Compile and run protocol, configuration and ZIP boundary tests
         run: |
           New-Item -ItemType Directory -Force test-results | Out-Null
