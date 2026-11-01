@@ -44,6 +44,23 @@ BIG 直接读取本轮确认的缓存流，`published` 仅写最终 `.big/.skude
 逻辑源名；普通 MOD 的 DATA 搜索顺序不变。Additional 继续直接读取当前 SDK/MOD
 输入，不在源码目录生成副本；不新增 BIG 包缓存或整代发布暂存。
 
-本次按用户要求仅进行轻量验证，具体结果见 [续接入口](../RESUME.md)。未执行大型
-编译测试、完整 MOD 冷热构建、Windows 写入事件监测或真实 FLA/原版产物全字节对照；
-既往缓存及 UI 验收不能作为本次路径迁移的完整生产验收。
+本次按用户追加授权使用 mymod 与 Upheaval 做定向核验，没有运行完整大矩阵。
+生产 `f8e8f4a0` 完成一次成功的 Release 构建；后续只复用同源 EXE，并核对生产输入闭包、
+EXE 收据与 config/ANTLR 内容身份。首轮链接异常及观测器修复的失败记录均保留。
+
+[最终 Windows 核验 41275643703](https://github.com/wu162/NewSdk/actions/runs/41275643703) 通过：
+
+| 输入 | 冷态 XML 解析 / 资产编译 | 换 out 的热态 | 交付 |
+| --- | --- | --- | --- |
+| SDK 内完整 mymod，base | 11 / 47 | 0 / 0 | loose 4 文件；BIG/SKUDEF 2 文件 |
+| SDK 外完整历史 Upheaval，base | 910 / 3235 | 0 / 0 | loose 1295 文件；BIG/SKUDEF 2 文件 |
+| 小型 flash8-empty 直接 FLA，apt | 1 / 3 | 0 / 0 | loose 4 文件，manifest 无私有缓存路径 |
+
+三个 MOD 的瞬时写事件为 0；SDK 输入按根目录与既有输入子树共 7 个监听边界完整监视，
+避免合法缓存流量挤爆输入监听缓冲区。越区事件、监听溢出与 SDK 输入字节/mtime/属性差异均为零。
+冷热 loose 原字节一致，BIG 输出只有正式包，打包临时输入清理完成。plan 无缓存创建、BIG
+缺 CLI 版本拒绝、切输出复用分区均通过。1846 项 App 合同、全部 PowerShell 脚本语法与
+73 项相关 Python 小测试通过；详见 [收据](../evidence/refactor/supercompiler-cache/summary.json)。
+
+未实测本轮迁移的原 SDK 全字节差分、完整 APT/maps 与 FLA 样例集、完整缓存开关/失效/真实取消
+矩阵或游戏运行。既往验收不冒充本次重新执行的结果。
