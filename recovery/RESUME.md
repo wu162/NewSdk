@@ -1,14 +1,17 @@
-# 当前：Joypad 11 类资产恢复（PR #44，Windows 验证中）
+# 当前：Joypad 11 类资产恢复已验收（PR #44）
 
 用户指定 `recovery/legacy-sdk-cache` / `a58df102`；实现位于
 `fix/joypad-type-compilation` / [PR #44](https://github.com/wu162/NewSdk/pull/44)。
 11 个独立 Joypad 根、34 个运行时按钮 Data 分支及生产路由已接入；XML 注册范围为
 300 类（278 全局/22 非全局），仅排除 TestGameObject。历史 82/207 类目录与证据保留。
 
-本地静态审计、相关 Python 检查和自制 43 资产小 MOD 的 SDK XSD 校验已通过；
-Windows x86 Debug/Release、Joypad 原 DLL 三缓冲差分与小 MOD 原 SDK 四流对照待执行。
-本轮不触发性能测试或完整大型 MOD。实现与覆盖边界见
-[Joypad 说明](docs/components/xml/XML_JOYPAD.md)。禁止强推，未获合入批准，不合并。
+源码 `1f0cea03` / [Windows 41270490335](https://github.com/wu162/NewSdk/actions/runs/41270490335)
+整体 success：组件 Od/O2、四平台三缓冲差分、生产 Debug/Release 和全部 310 路由、
+自制 43 资产小 MOD（11 根/29 个 schema Data 分支）原 SDK 四流逐字节一致。
+归档仅下载一次，D/R 三份运行文件、同生产对象的验证入口及八对原始四流已复核，
+[收据](evidence/joypad/41270490335-1/summary.json)已入库。最初两次脚本预检失败保留。
+没有运行性能测试、完整大型 MOD、缓存/并行新矩阵或游戏内验证。实现与边界见
+[Joypad 说明](docs/components/xml/XML_JOYPAD.md)。禁止强推，PR 待审，未合并。
 
 # 此前：TGA/Wave8已合入性能分支，修复版全15流冷计量完成
 
