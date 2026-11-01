@@ -29,6 +29,14 @@
     "typescript": "^5.7.2"
   },
   "contributes": {
+    "taskDefinitions": [{
+      "type": "newsdk",
+      "required": ["runId", "operation"],
+      "properties": {
+        "runId": { "type": "string", "description": "扩展创建的本轮任务标识。" },
+        "operation": { "type": "string", "enum": ["doctor", "plan", "build"] }
+      }
+    }],
     "commands": [
       { "command": "newsdk.openWorkbench", "title": "NewSdk: 打开编译工作台" },
       { "command": "newsdk.selectProject", "title": "NewSdk: 选择 MOD 目录" },

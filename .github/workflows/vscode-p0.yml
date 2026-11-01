@@ -33,7 +33,6 @@ jobs:
       NEWSDK_COMPILER_SHA256: ${{ secrets.NEWSDK_COMPILER_SHA256 }}
       NEWSDK_COMPILER_AUTHORIZATION: ${{ secrets.NEWSDK_COMPILER_AUTHORIZATION }}
       NEWSDK_ACCEPTANCE: ${{ inputs.full_acceptance && 'full' || 'smoke' }}
-      NEWSDK_TEST_ROOT: ${{ runner.temp }}/newsdk-p0-host
       NEWSDK_TEST_EVIDENCE: ${{ github.workspace }}/vscode-extension/test-results
     steps:
       - uses: actions/checkout@v4
@@ -56,6 +55,8 @@ jobs:
           npm run package 2>&1 | Tee-Object test-results/package.log
           if ($LASTEXITCODE -ne 0) { throw 'VSIX packaging failed' }
       - name: Real Windows VS Code host, task lifecycle and optional packaged compiler
+        env:
+          NEWSDK_TEST_ROOT: ${{ runner.temp }}/newsdk-p0-host
         run: |
           npm run test:host 2>&1 | Tee-Object test-results/extension-host.log
           if ($LASTEXITCODE -ne 0) { throw 'Windows extension-host tests failed' }

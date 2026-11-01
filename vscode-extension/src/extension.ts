@@ -46,6 +46,10 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     });
     const tree = vscode.window.createTreeView('newsdk.sidebar', { treeDataProvider: sidebar });
     context.subscriptions.push(runner, sidebar, diagnostics, log, workbench, tree);
+    context.subscriptions.push(vscode.tasks.registerTaskProvider('newsdk', {
+        provideTasks: () => [],
+        resolveTask: task => task.execution ? task : undefined,
+    }));
 
     function globals(): GlobalSettings {
         const config = vscode.workspace.getConfiguration('newsdk');
