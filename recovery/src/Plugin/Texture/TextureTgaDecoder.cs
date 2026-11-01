@@ -19,10 +19,9 @@ namespace Recovered.Compiler.Texture
             int idLength = source[0], colorMap = source[1], type = source[2];
             if (colorMap != 0 || (type != 2 && type != 10))
                 throw new NotSupportedException("Only unmapped true-color raw/RLE TGA images are supported.");
-            // Legacy D3DX ignores the coordinate labels at bytes 8..11. Keep
-            // undeclared color-map fields and interleaved storage outside scope.
-            for (int i = 3; i < 8; i++)
-                if (source[i] != 0) throw new NotSupportedException("TGA palette/origin metadata is outside the recovered subset.");
+            // With ColorMapType=0, D3DX ignores the entire color-map
+            // specification (bytes 3..7), as well as coordinate labels 8..11.
+            // Real unmapped TGA writers leave a palette entry depth here.
             int width = source[12] | source[13] << 8;
             int height = source[14] | source[15] << 8;
             int depth = source[16], descriptor = source[17], attributes = descriptor & 15;

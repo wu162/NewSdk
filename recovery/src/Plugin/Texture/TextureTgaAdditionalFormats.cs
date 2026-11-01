@@ -70,7 +70,7 @@ namespace Recovered.Compiler.Texture
                 throw new NotSupportedException("Additional TGA interleaving metadata is not recovered.");
             if (mapped ? source[1] != 1 || entries == 0 || (depth != 8 && depth != 16) ||
                 (paletteDepth != 15 && paletteDepth != 16 && paletteDepth != 24 && paletteDepth != 32)
-                : source[1] != 0 || first != 0 || entries != 0 || paletteDepth != 0 || (gray && depth != 8 && depth != 16)) throw Bad();
+                : source[1] != 0 || (gray && depth != 8 && depth != 16)) throw Bad();
             if ((mapped && depth != 8) || (gray && depth != 8)) throw Bad();
             if (mapped && first + entries > 256) throw Bad();
             int attributes = descriptor & 15;
