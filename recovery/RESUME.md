@@ -1,3 +1,18 @@
+# 当前：按老SDK自动读取游戏地编，已快测发布
+
+分支 `fix/neutral-worldbuilder-config`；生产源码 `3cf65b6d`。
+开启fix-neutral-assets后，缺完整旧参考时按HKLM EA Install Dir的32/64位视图自动找游戏Data/WBData_12.big；
+可用CLI/JSON/EXE的game-root指定。首次流式提取到Mod专属SuperCompilerCache/neutral-worldbuilder，后续按来源元数据复用。
+游戏/SDK/MOD输入只读，保留旧完整四流/pack兼容，不把资产内嵌EXE，不再附500MB参考包。
+[Windows41322569300](https://github.com/wu162/NewSdk/actions/runs/41322569300)全success：D/R新构建，各App1894、
+9个游戏布局小MOD用例（两注册表视图恢复、配置、冷热提取、缺失重试）、原完整处理链BIG字节及独立ZIP冷编译通过。
+[发行compiler-2026.11.01-game-worldbuilder](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01-game-worldbuilder)
+已公开并为latest；[发布41323676291](https://github.com/wu162/NewSdk/actions/runs/41323676291)复用已验收二进制，6附件大小/摘要全核对。
+Release EXE5022720B，仅增10.5KiB；未重跑完整Core/CLI大矩阵、完整大型MOD或游戏内验证。
+[逻辑与边界](docs/NEUTRAL_WORLDBUILDER.md)、[测试收据](evidence/game-worldbuilder/41322569300-1/summary.json)、
+[发行收据](evidence/releases/compiler-2026.11.01-game-worldbuilder/published.json)。一次性发布工作流已移除，原草稿查询失败记录保留。
+未合入其他开发分支；禁止强推，后续合入仍须用户批准。
+
 # 当前：官方中立地编修复与配置已验收
 
 分支 `fix/neutral-worldbuilder-config`，从用户指定的 `recovery/legacy-sdk-cache` / `680c4f0c` 开始，

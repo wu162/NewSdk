@@ -26,7 +26,15 @@ BIG仍要求CLI显式 `--mod-version`，开关仍仅用于包含base的BIG。
 HashFix优先使用SDK原manifest，缺失时使用同一游戏BIG提取的manifest。
 原HashFix→Resolver→LoD算法与BIG输出合同保持原行为。
 
-新实现与快速验证结果以本页后续收据为准；以下为上一版参考数据来源和验收历史。
+新版本已发布：[compiler-2026.11.01-game-worldbuilder](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01-game-worldbuilder)。
+生产源码 `3cf65b6d`，[Windows 41322569300](https://github.com/wu162/NewSdk/actions/runs/41322569300) 全success：
+D/R各1894项App检查、9个真实小MOD用例及独立ZIP冷提取通过，注册表32/64视图均实际测试并恢复；
+缓存热命中不改mtime，缺BIG失败后恢复可重试，游戏/SDK/MOD输入不变。
+实际修正1个哈希、补5资产，全部12个BIG成员及整包与原SDK链原字节一致。
+Release EXE=5022720字节，只增加10752字节，不内嵌资产。
+本轮按用户要求快速定向验证，没有重新执行完整Core/CLI大矩阵、完整大型MOD或游戏内验证。
+[验收收据](../evidence/game-worldbuilder/41322569300-1/summary.json)、[发布收据](../evidence/releases/compiler-2026.11.01-game-worldbuilder/published.json)。
+以下为上一版参考数据来源和验收历史。
 
 ---
 

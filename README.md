@@ -4,7 +4,12 @@
 
 ## 获取工具
 
-本轮中立地编修复版见 [compiler-2026.11.01-neutral Release](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01-neutral)。
+当前自动读取游戏地编版：[compiler-2026.11.01-game-worldbuilder](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01-game-worldbuilder)。
+按老 SDK 规则自动使用游戏 `Data/WBData_12.big`，也可设置 `game-root`；已安装 SDK 地编时无需另下载500MB参考包。
+[Windows 41322569300](https://github.com/wu162/NewSdk/actions/runs/41322569300) 的D/R App、小MOD原字节与独立ZIP快测通过。
+Release EXE约5MB，仅比上一中立版增加10.5KiB；发布附件保持三运行文件ZIP与说明/清单。
+
+上一中立地编修复版见 [compiler-2026.11.01-neutral Release](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01-neutral)。
 已带入 `release/compiler-2026.11.01-harness` 的修改；[Windows 41319194413](https://github.com/wu162/NewSdk/actions/runs/41319194413)
 的 Debug/Release、Core/CLI、小MOD原处理链及独立ZIP均通过。编译器 ZIP 保持三个运行文件，官方参考数据另附独立ZIP。
 配置和验证边界见 [中立地编修复说明](recovery/docs/NEUTRAL_WORLDBUILDER.md)。
