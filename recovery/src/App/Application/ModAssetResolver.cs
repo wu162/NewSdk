@@ -15,7 +15,11 @@ namespace NewModCompiler.Application
         }
         public static int Apply(string manifest,string builtMods,string worldbuilderManifest,CancellationToken cancellation)
         {
-            return new Resolver(manifest,builtMods,worldbuilderManifest,cancellation).Run();
+            return Apply(manifest,builtMods,worldbuilderManifest,null,cancellation);
+        }
+        internal static int Apply(string manifest,string builtMods,string worldbuilderManifest,WorldbuilderPayload payload,CancellationToken cancellation)
+        {
+            return new Resolver(manifest,builtMods,worldbuilderManifest,payload,cancellation).Run();
         }
         sealed class Resolver
         {
@@ -26,14 +30,17 @@ namespace NewModCompiler.Application
             readonly List<byte[]> inserted=new List<byte[]>(), refs=new List<byte[]>();
             readonly MemoryStream names=new MemoryStream(),sources=new MemoryStream(),bin=new MemoryStream(),imp=new MemoryStream(),relo=new MemoryStream();
             readonly HashSet<ulong> complete=new HashSet<ulong>(),active=new HashSet<ulong>();
-            readonly string worldBin,worldImp,worldRelo;
-            public Resolver(string path,string builtMods,string worldbuilderManifest,CancellationToken cancellation)
+            readonly WorldbuilderPayload worldBin;
+            readonly string worldImp,worldRelo;
+            public Resolver(string path,string builtMods,string worldbuilderManifest,WorldbuilderPayload payload,CancellationToken cancellation)
             {
                 this.path=path;this.cancellation=cancellation;cancellation.ThrowIfCancellationRequested();
                 mod=new Manifest(path);
                 external=new[]{new Manifest(Path.Combine(builtMods,"Static.manifest")),new Manifest(Path.Combine(builtMods,"Global.manifest")),new Manifest(Path.Combine(builtMods,"Audio.manifest"))};
                 world=new Manifest(worldbuilderManifest);
-                worldBin=ValidatePayload(world,".bin",8);worldImp=ValidatePayload(world,".imp",10);worldRelo=ValidatePayload(world,".relo",9);
+                worldBin=payload ?? new WorldbuilderPayload(Path.ChangeExtension(worldbuilderManifest,".bin"));
+                worldBin.ValidateLength(PayloadLength(world,8));
+                worldImp=ValidatePayload(world,".imp",10);worldRelo=ValidatePayload(world,".relo",9);
             }
             public int Run()
             {
@@ -89,7 +96,7 @@ namespace NewModCompiler.Application
                 // Recursive CheckAsset does not rewrite the inserted references.
                 for(int i=0;i<count;i++)refs.Add(Slice(world.References,referenceOffset+i*8,8));
                 Append(names,Terminated(world.Names,Read(original,24)));Append(sources,Terminated(world.Sources,Read(original,28)));
-                Append(bin,ReadChunk(worldBin,world.Offset(index,8),checked((int)Read(original,32))));
+                Append(bin,worldBin.Read(world.Offset(index,8),checked((int)Read(original,32))));
                 Append(imp,ReadChunk(worldImp,world.Offset(index,10),checked((int)Read(original,40))));
                 Append(relo,ReadChunk(worldRelo,world.Offset(index,9),checked((int)Read(original,36))));
                 inserted.Add(asset);active.Remove(identity);complete.Add(identity);return actual;
@@ -121,9 +128,11 @@ namespace NewModCompiler.Application
             public long Offset(int index,int word) {long result=4;for(int i=0;i<index;i++)result+=Read(Assets[i],word*4);return result;}
         }
         static bool Matches(uint requested,uint actual) {return requested==actual || requested==0xb22f87c9U && (actual==0xe3181c04U || actual==0xf0f08712U || actual==0xc2b1a262U);}
+        static long PayloadLength(Manifest manifest,int sizeWord) {
+            long result=4;foreach(byte[] asset in manifest.Assets)result+=Read(asset,sizeWord*4);return result;
+        }
         static string ValidatePayload(Manifest manifest,string extension,int sizeWord) {
-            string path=Path.ChangeExtension(manifest.PathName,extension);long expected=4;
-            foreach(byte[] asset in manifest.Assets)expected+=Read(asset,sizeWord*4);
+            string path=Path.ChangeExtension(manifest.PathName,extension);long expected=PayloadLength(manifest,sizeWord);
             if(new FileInfo(path).Length!=expected)throw new InvalidDataException("Asset resolver linked payload length differs.");return path;
         }
         static byte[] Payload(Manifest manifest,string extension,int sizeWord) {return File.ReadAllBytes(ValidatePayload(manifest,extension,sizeWord));}

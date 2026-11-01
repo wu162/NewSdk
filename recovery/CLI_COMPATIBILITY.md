@@ -27,7 +27,7 @@
 
 | 用途 | 参数与默认行为 |
 | --- | --- |
-| 中立修复 | `--fix-neutral-assets=false`；显式 true 仅限含 base 的 BIG，沿用 `HashFix → ModAssetResolver`、参考文件预检、私有四流复制及修正后 LoD 生成；缺少参考文件仍报 `PACKAGE_NEUTRAL_REFERENCE_MISSING`，不下载或提取 WBData |
+| 中立修复 | `--fix-neutral-assets=false`；true 仅限含 base 的 BIG，执行 `HashFix → ModAssetResolver → LoD`；可在 MOD `newmodcompiler.json` 或 EXE.config `appSettings` 保存，CLI > 项目 > EXE 配置 > false；支持本分支附带的官方分块压缩 Worldbuilder 参考数据，缺少参考报 `PACKAGE_NEUTRAL_REFERENCE_MISSING` |
 | 游戏版本字段 | `--game-version=1.12`，只控制 SKUDEF 的 `mod-game` 字段 |
 | 缓存开关 | `/sc:true`、`/bc:true`、`/csc:true`、`/psc:true`、`/fsc:false`、`/atc:false`；未显式指定 `/bc` 时仍受 SDK `buildCache` 配置覆盖 |
 | 缓存目录 | `/scd`（别名 `/scp`）、`/bcd`（别名 `/bcp`）、`/iod`，仅允许当前 `SuperCompilerCache/<ModKey>` 分区内部；原 BAB 格式保留 |

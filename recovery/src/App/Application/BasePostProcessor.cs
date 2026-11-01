@@ -39,7 +39,7 @@ namespace NewModCompiler.Application
                 foreach(string file in custom)Copy(file,Path.Combine(targetStem,"cdata",Path.GetFileName(file)),cancellation);
                 string target=targetStem+".manifest";
                 HashFix.Apply(target,hashReference,cancellation);
-                ModAssetResolver.Apply(target,builtMods,world,cancellation);
+                ModAssetResolver.Apply(target,builtMods,world,inputs.Payload,cancellation);
                 cancellation.ThrowIfCancellationRequested();return target;
             }
             catch {
@@ -50,7 +50,7 @@ namespace NewModCompiler.Application
             }
             finally {for(int i=guards.Count-1;i>=0;i--)guards[i].Dispose();}
         }
-        sealed class ReferenceInputs {public string BuiltMods,HashReference,World;public List<string> Files;}
+        sealed class ReferenceInputs {public string BuiltMods,HashReference,World;public List<string> Files;public WorldbuilderPayload Payload;}
         public static void ValidateReferences(string sdkRoot) {ResolveReferences(Path.GetFullPath(sdkRoot));}
         static ReferenceInputs ResolveReferences(string sdkRoot) {
             string builtMods=Path.Combine(sdkRoot,"builtmods"),sage=Path.Combine(builtMods,"sagexml");
@@ -60,12 +60,18 @@ namespace NewModCompiler.Application
             // A complete SageXml quartet is an explicit fallback only when no
             // root quartet member exists. Never mix generations across roots.
             string[] rootWorld=Extensions.Select(ext=>Path.Combine(builtMods,"Worldbuilder"+ext)).ToArray();
-            string world= rootWorld.Any(path=>File.Exists(path) || Directory.Exists(path)) ? rootWorld[0] : Path.Combine(sage,"Worldbuilder.manifest");
+            string world= rootWorld.Any(path=>File.Exists(path) || Directory.Exists(path)) || Directory.Exists(Path.Combine(builtMods,"Worldbuilder.bin.parts")) ? rootWorld[0] : Path.Combine(sage,"Worldbuilder.manifest");
             var references=new List<string> {hashReference,Path.Combine(builtMods,"Static.manifest"),Path.Combine(builtMods,"Global.manifest"),Path.Combine(builtMods,"Audio.manifest")};
-            references.AddRange(Extensions.Select(ext=>Path.ChangeExtension(world,ext)));
+            references.AddRange(Extensions.Where(ext=>ext!=".bin").Select(ext=>Path.ChangeExtension(world,ext)));
+            string bin=Path.ChangeExtension(world,".bin");
+            if(!File.Exists(bin) && !File.Exists(Path.Combine(bin+".parts","index.json")))references.Add(bin);
             var missing=references.Distinct(StringComparer.OrdinalIgnoreCase).Where(path=>!File.Exists(path)).ToArray();
-            if(missing.Length!=0)throw new BuildFailure(ExitCode.Environment,"PACKAGE_NEUTRAL_REFERENCE_MISSING","Neutral asset repair requires explicit original reference files: "+string.Join(", ",missing)+". WBData extraction is not implemented; no game or SDK files were modified.");
-            return new ReferenceInputs {BuiltMods=builtMods,HashReference=hashReference,World=world,Files=references};
+            if(missing.Length!=0)throw new BuildFailure(ExitCode.Environment,"PACKAGE_NEUTRAL_REFERENCE_MISSING","Neutral asset repair requires original reference files: "+string.Join(", ",missing)+". Worldbuilder.bin may also be supplied as its indexed .bin.parts blocks.");
+            WorldbuilderPayload payload;
+            try {payload=new WorldbuilderPayload(bin);}
+            catch(FileNotFoundException error) {throw new BuildFailure(ExitCode.Environment,"PACKAGE_NEUTRAL_REFERENCE_MISSING",error.Message);}
+            references.AddRange(payload.Files);
+            return new ReferenceInputs {BuiltMods=builtMods,HashReference=hashReference,World=world,Files=references,Payload=payload};
         }
         static void RejectFile(string path) {
             FileAttributes attributes=File.GetAttributes(path);

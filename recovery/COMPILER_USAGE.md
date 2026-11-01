@@ -128,7 +128,28 @@ SDK 和输出路径可由项目提供；BIG `build`/`plan` 仍须每次在命令
 
 `--game-version` 默认 `1.12`，只控制 SKUDEF 的 `mod-game` 字段，不改变资产编译，也不代表已验证其他游戏版本的实际运行。
 
-`--fix-neutral-assets=false` 为默认值，不执行中立修复。显式 `--fix-neutral-assets=true` 仅限包含 base 的 BIG，仍沿用 `HashFix → ModAssetResolver`：预检已有参考文件，复制私有四流，修正后再生成 LoD。缺少 Worldbuilder 等参考文件时报告 `PACKAGE_NEUTRAL_REFERENCE_MISSING`。本工具不下载或提取 WBData，也不新增自动修复；已有组件差分及生产零插入链证据不能当作完整游戏中立资产验收。
+`--fix-neutral-assets=false` 为出厂默认值。启用后仅用于包含 base 的 BIG，依次执行 `HashFix → ModAssetResolver → LoD`，修正中立/地编资产身份，并递归补入 MOD 引用的 Worldbuilder 资产。修改在本轮打包私有副本中完成。缺少参考文件报告 `PACKAGE_NEUTRAL_REFERENCE_MISSING`。
+
+在 MOD 目录的 `newmodcompiler.json` 中保存：
+
+```json
+{
+  "package-format": "big",
+  "fix-neutral-assets": true
+}
+```
+
+也可以修改编译器旁的 `NewModCompiler.exe.config`，让全部 MOD 默认启用：
+
+```xml
+<appSettings>
+  <add key="fix-neutral-assets" value="true"/>
+</appSettings>
+```
+
+修改现有 `<configuration>` 内的 `appSettings`，保留其 `startup` 节点。优先级为命令行 > MOD 项目 JSON > EXE 配置 > false；例如 `--fix-neutral-assets=false` 可临时关闭配置中启用的修复。BIG 仍要求命令行显式传入 `--mod-version`。
+
+本分支附带官方 WorldBuilder Mod SDK 1.12 参考数据；目录、导入方式及验证范围见 [中立地编修复说明](docs/NEUTRAL_WORLDBUILDER.md)。不需要安装 WorldBuilder 或启动旧工具；未启用时不读取 Worldbuilder payload。完整游戏运行结果仍需游戏内验证。
 
 ### 缓存与资源根
 
