@@ -56,7 +56,7 @@ jobs:
             if($LASTEXITCODE -ne 0){Get-Content "$out/contracts.log" -Tail 100;throw "$mode App contracts failed"}
             Get-Content "$out/contracts.log" -Tail 12
           }
-      - name: Existing original HashFix resolver and LoD component differential
+      - name: Original HashFix and resolver component differential (LoD canonical is in App)
         shell: pwsh
         run: |
           $vs=& "${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe" -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
@@ -66,7 +66,7 @@ jobs:
             $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
             & $csc /nologo /target:exe /platform:x86 /langversion:7.3 /r:System.Web.Extensions.dll $opt "/out:$out/BasePostprocessControl.exe" recovery/src/App/Application/HashFix.cs recovery/src/App/Application/ModAssetResolver.cs recovery/src/App/Application/WorldbuilderPayload.cs recovery/src/App/Application/LoDStreamBuilder.cs recovery/preparation/base-postprocess/BasePostprocessControl.cs
             if($LASTEXITCODE -ne 0){throw 'Base postprocess validation host compilation failed'}
-            python recovery/preparation/base-postprocess/TestCompilerBasePostprocess.py --tools SDK/tools --candidate "$out/BasePostprocessControl.exe" --output "$out/evidence"
+            python recovery/preparation/base-postprocess/TestCompilerBasePostprocess.py --tools SDK/tools --candidate "$out/BasePostprocessControl.exe" --output "$out/evidence" --hashfix-resolver-only
             if($LASTEXITCODE -ne 0){throw "$mode original base postprocess differential failed"}
           }
       - name: Build current Debug and Release and production-object validation hosts
