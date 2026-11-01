@@ -6,6 +6,7 @@ param(
     [ValidateRange(15,600)][int]$TimeoutSeconds=180
 )
 $ErrorActionPreference='Stop'
+. "$PSScriptRoot/CompilerCacheLayout.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite input-root evidence: $OutputDirectory"}
@@ -35,7 +36,8 @@ function DifferentOutputs($Left,$Right){
 function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[int]$Expected=0,[bool]$Cancel=$false,[string]$HoldReadFile=$null,[string[]]$Extra=@()){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     New-Item -ItemType Directory -Force -Path $Destination|Out-Null
-    $arguments=@('build','--sc=false','--iod',(Join-Path $caseOut 'intermediate'),'--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content','base',('--bc='+$Enabled.ToString().ToLowerInvariant()))+$Extra
+    $intermediate=Join-Path (Get-CompilerTestCacheRoot $script:sdk $Mod) ('intermediate/'+$Name)
+    $arguments=@('build','--sc=false','--iod',$intermediate,'--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content','base',('--bc='+$Enabled.ToString().ToLowerInvariant()))+$Extra
     $events=Join-Path $Destination 'build.events.jsonl';$report=Join-Path $Destination 'build-report.json'
     $request=@{exe=$script:exe;cwd=$script:runtime;arguments=$arguments;stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=$events;cancel=$Cancel;timeoutSeconds=$TimeoutSeconds}
     if($HoldReadFile){$request.holdReadFile=$HoldReadFile}

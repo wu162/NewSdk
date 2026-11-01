@@ -44,8 +44,8 @@ public static class CompilerInputRoots
     }
     static StreamContext Context(BuildRequest request, string name)
     {
-        string staging = Path.Combine(request.OutputRoot, name); Directory.CreateDirectory(staging);
         var task = new BuildTask { Id = "base/Mod", Content = "base", InputPath = Path.Combine(mod, "Data", "Mod.xml"), OutputName = "base/Mod", Reason = "InputRootsFixture", Dependencies = new string[0] };
+        string staging = CacheLayout.ForRequest(request).StreamDirectory(task); Directory.CreateDirectory(staging);
         var context = new StreamContext();
         foreach (var pair in new Dictionary<string, object> { { "BuildId", "input-roots-fixture" }, { "Request", request }, { "Task", task }, { "OutputDirectory", staging } })
             typeof(StreamContext).GetProperty(pair.Key).GetSetMethod(true).Invoke(context, new[] { pair.Value });

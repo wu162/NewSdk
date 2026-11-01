@@ -45,8 +45,10 @@ AS 修改、添加、删除和 UI 实现升级会使相关文档失效。生成�
 缺失输出按原重载路径重建。声明与生成资产同名时拒绝构建。
 失败沿原直接输出合同清理本次已开始流的四文件，保留可复用中间资产及允许的部分会话；
 修复源文件后重试重建完整四流。
-裸 FLA 的内部 XML 包装保存在输出目录 `.NewModCompiler/fla/`，不改源目录，
+裸 FLA 的内部 XML 包装保存在当前 SDK 缓存分区的 `generated/fla/`，不改源目录，
 不作为最终 MOD 文件发布。
+
+仅直接 FLA 流将该合成输入目录放在 DATA 根首位，保持 `DATA:<movie>.xml` 逻辑源名，避免把 `SuperCompilerCache/<ModKey>` 写入 manifest 源路径；普通 MOD 的 DATA 搜索顺序不变。loose 导出的公开布局保持上例形式，BIG 直接读取缓存流。完整目录合同见 [集中缓存说明](SUPERCOMPILER_CACHE.md)。
 
 UI 源码随 Foundation 编入单 EXE。LibTessDotNet、Clipper2Lib、StbImageSharp
 按 `ui/dependencies.json` 固定版本和包身份恢复，并作为 EXE 资源加载；正式部署仍为

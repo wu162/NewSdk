@@ -8,6 +8,7 @@ param(
 )
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
+. "$PSScriptRoot/CompilerCacheLayout.ps1"
 if(!$Preflight){$CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path}
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite session-cache evidence: $OutputDirectory"}
 $out=(New-Item -ItemType Directory -Path $OutputDirectory).FullName
@@ -34,10 +35,34 @@ function DifferentOutputs($Left,$Right){
     foreach($key in $Left.files.Keys){if(!$Right.files.ContainsKey($key)){$changed=$true}elseif((Hash $Left.files[$key]) -cne (Hash $Right.files[$key])){$changed=$true}}
     Need $changed 'Input mutation did not exercise any observable compiled output change'
 }
+# The matrix deliberately keeps independent cache experiments separate. They
+# are explicit subdirectories of the one physical SDK/MOD partition, never out.
+$script:cacheDestinations=@{}
+function CacheRoots([string]$Mod,[string]$Destination){
+    $partition=Get-CompilerTestCacheRoot $script:sdk $Mod
+    $sha=[Security.Cryptography.SHA256]::Create()
+    try {$group=[BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes([IO.Path]::GetFullPath($Destination).ToUpperInvariant())),0,6).Replace('-','').ToLowerInvariant()}
+    finally {$sha.Dispose()}
+    $namespace=Join-Path (Join-Path $partition 'tests') $group
+    return @{partition=$partition;session=(Join-Path $namespace 's');build=(Join-Path $namespace 'b');intermediate=(Join-Path $namespace 'i');streams=(Join-Path $partition 'streams')}
+}
+function CacheOverride([string[]]$Extra,[string[]]$Names,[string]$Fallback){
+    for($i=0;$i -lt $Extra.Count;$i++){
+        $value=$Extra[$i];$key=$value.TrimStart([char[]]'-/');$split=$key.IndexOfAny([char[]]'=:')
+        if($split -ge 0){$name=$key.Substring(0,$split);if($Names -icontains $name){return [IO.Path]::GetFullPath($key.Substring($split+1))}}
+        elseif($Names -icontains $key){Need ($i+1 -lt $Extra.Count) 'Cache override has no value';return [IO.Path]::GetFullPath($Extra[$i+1])}
+    }
+    return $Fallback
+}
+function CacheAt([string]$Destination){
+    Need ($script:cacheDestinations.ContainsKey($Destination)) "No cache layout recorded for $Destination"
+    return $script:cacheDestinations[$Destination]
+}
 function CacheFiles([string]$Destination){
     $files=@{}
-    foreach($file in @(Get-ChildItem -LiteralPath $Destination -File -Recurse)){
-        $relative=$file.FullName.Substring($Destination.Length).TrimStart([char[]]'\/')
+    $session=(CacheAt $Destination).session
+    foreach($file in @(Get-ChildItem -LiteralPath $session -File -Recurse -ErrorAction SilentlyContinue)){
+        $relative=$file.FullName.Substring($session.Length).TrimStart([char[]]'\/')
         if($relative -like 'BinaryAssetBuilder.SessionCache.xml*' -or $relative.StartsWith('.NewModCompiler'+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)){$files[$relative]=Hash $file.FullName}
     }
     return $files
@@ -71,9 +96,11 @@ function Cache($Case,[string]$Expected){
         Need ($statistics.sessionPackageHits -gt 0 -and $statistics.xmlParse -gt 0 -and $statistics.instanceCompile -gt 0) 'Missing original intermediate or CDATA was not repaired by actual recompilation'
     }else{throw "Unknown session expectation: $Expected"}
 }
-function PublishedTimes([string]$Destination){
+function StreamTimes([string]$Destination){
     $times=@{}
-    foreach($file in Get-ChildItem -LiteralPath (Join-Path $Destination 'published') -File -Recurse){$times[$file.FullName]=$file.LastWriteTimeUtc.Ticks}
+    # Published loose files are formal exports. Link reuse is measured at the
+    # reusable stream root, independently of their export timestamps.
+    foreach($file in Get-ChildItem -LiteralPath (CacheAt $Destination).streams -File -Recurse){$times[$file.FullName]=$file.LastWriteTimeUtc.Ticks}
     return $times
 }
 function LinkedHot($Case,$Before){
@@ -88,18 +115,19 @@ function LinkedHot($Case,$Before){
             Need ($Case.report.cache.fileHashReads -gt 0) 'Disabled session did not compute required input FastHashes'
         }
     }
-    $after=PublishedTimes $Case.destination
-    Need ($after.Count -eq $Before.Count) 'Unchanged publication file set differs'
-    foreach($path in $Before.Keys){Need ($after[$path] -eq $Before[$path]) 'Unchanged publication rewrote a file'}
+    $after=StreamTimes $Case.destination
+    Need ($after.Count -eq $Before.Count) 'Unchanged reusable stream file set differs'
+    foreach($path in $Before.Keys){Need ($after[$path] -eq $Before[$path]) 'Unchanged reusable stream rewrote a file'}
     $log=[IO.File]::ReadAllText($Case.report.logPaths.text)
     foreach($message in @('Old manifest is up to date.','Linked binary data up to date','Linked import data up to date','Linked relocation data up to date')){
         Need ($log.Contains($message)) "Original linker did not skip unchanged output: $message"
     }
 }
 function DamagePackage([string]$Destination,[string]$Kind){
-    if($Kind -eq 'xml'){$paths=@(Join-Path $Destination 'BinaryAssetBuilder.SessionCache.xml')}
-    elseif($Kind -eq 'intermediate'){$paths=@(Get-ChildItem -LiteralPath $Destination -Filter '*.asset' -File -Recurse|ForEach-Object FullName)}
-    elseif($Kind -eq 'cdata'){$paths=@(Get-ChildItem -LiteralPath $Destination -Filter '*.cdata' -File -Recurse|ForEach-Object FullName)}
+    $layout=CacheAt $Destination
+    if($Kind -eq 'xml'){$paths=@(Join-Path $layout.session 'BinaryAssetBuilder.SessionCache.xml')}
+    elseif($Kind -eq 'intermediate'){$paths=@(Get-ChildItem -LiteralPath $layout.intermediate -Filter '*.asset' -File -Recurse|ForEach-Object FullName)}
+    elseif($Kind -eq 'cdata'){$paths=@(@($layout.session,$layout.streams)|ForEach-Object{Get-ChildItem -LiteralPath $_ -Filter '*.cdata' -File -Recurse -ErrorAction SilentlyContinue|ForEach-Object FullName})}
     else{throw 'Unknown original cache corruption kind'}
     Need ($paths.Count -gt 0) "Original session omitted required $Kind data"
     $selected=@()
@@ -143,7 +171,19 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
     if(!$OriginalDefaults){
         $arguments+=@('--csc=false','--psc=false',('--sc='+$Enabled.ToString().ToLowerInvariant()),('--bc='+$BuildEnabled.ToString().ToLowerInvariant()))
     }
-    if(!$Enabled -and !$OriginalDefaults){$arguments+=@('--iod',(Join-Path $caseOut 'independent-intermediate'))}
+    $layout=CacheRoots $Mod $Destination
+    if(!$Enabled -and !$OriginalDefaults){
+        # Force the independently compiled reference to have fresh intermediates.
+        $layout.intermediate=Join-Path $layout.intermediate $Name
+    }
+    $layout.session=CacheOverride $Extra @('scd','scp','session-cache-directory') $layout.session
+    $layout.build=CacheOverride $Extra @('bcd','bcp','build-cache-directory') $layout.build
+    $layout.intermediate=CacheOverride $Extra @('iod') $layout.intermediate
+    foreach($cachePath in @($layout.session,$layout.build,$layout.intermediate)){Need (Within $layout.partition $cachePath) 'Fixture cache override escaped its MOD partition'}
+    $script:cacheDestinations[$Destination]=$layout
+    if((CacheOverride $Extra @('scd','scp','session-cache-directory') '') -eq ''){$arguments+=('/scd:'+$layout.session)}
+    if((CacheOverride $Extra @('bcd','bcp','build-cache-directory') '') -eq ''){$arguments+=('/bcd:'+$layout.build)}
+    if((CacheOverride $Extra @('iod') '') -eq ''){$arguments+=('/iod:'+$layout.intermediate)}
     $arguments+=@($Extra)
     $events=Join-Path $Destination 'build.events.jsonl';$report=Join-Path $Destination 'build-report.json'
     $request=@{exe=$script:exe;cwd=$script:runtime;arguments=$arguments;stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=$events;cancel=$Cancel;timeoutSeconds=$TimeoutSeconds}
@@ -151,7 +191,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
     $request|ConvertTo-Json -Depth 6|Set-Content "$caseOut/request.json"
     & $script:control "$caseOut/request.json" "$caseOut/control.json" *> "$caseOut/controller.log"
     $exit=$LASTEXITCODE;$audit=Get-Content "$caseOut/control.json" -Raw|ConvertFrom-Json
-    $entry=@{name=$Name;arguments=$arguments;expectedExit=$Expected;passed=$false;controller=$audit};$script:modeState.cases+=,$entry
+    $entry=@{name=$Name;arguments=$arguments;expectedExit=$Expected;passed=$false;controller=$audit;cacheLayout=$layout};$script:modeState.cases+=,$entry
     try{
         Need ($exit -eq 0 -and $audit.succeeded -and $audit.processExitCode -eq $Expected) "Session-cache CLI failed: $Name"
         Need ($audit.singleProcessJobEnforced -and $audit.singleProcessJobLimit -eq 1 -and @($audit.descendants).Count -eq 0) 'Asset cache introduced a product child process'
@@ -159,6 +199,8 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
         $body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json
         foreach($artifact in $body.artifacts){$artifact|Add-Member -NotePropertyName TestSha256 -NotePropertyValue (Hash $artifact.Path)}
         Need ($body.exitCode -eq $Expected) 'Cache process/report exit differs'
+        if($body.cache.sessionCacheDirectory){Need ($body.cache.sessionCacheDirectory -ieq $layout.session) 'Actual session cache escaped its requested partition namespace'}
+        Need (!(Test-Path (Join-Path $Destination 'BinaryAssetBuilder.SessionCache.xml')) -and !(Test-Path (Join-Path $Destination 'BinaryAssetBuilder.SessionCache.xml.deflate')) -and !(Test-Path (Join-Path $Destination '.NewModCompiler'))) 'Compiler cache leaked into final output'
         $rows=@(Get-Content -LiteralPath $events|Where-Object{$_}|ForEach-Object{$_|ConvertFrom-Json})
         Need ($rows[-1].eventType -ceq 'BuildFinished' -and @($rows|Where-Object{$_.eventType -ceq 'BuildStarted'}).Count -eq 1 -and @($rows|Where-Object{$_.eventType -ceq 'BuildFinished'}).Count -eq 1) 'Cache CLI terminal protocol differs'
         $sequence=0;foreach($row in $rows){$sequence++;Need ($row.buildId -ceq $body.buildId -and $row.sequence -eq $sequence) 'Cache CLI build identity/sequence differs'}
@@ -343,18 +385,19 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         $plain=RunCli 'disabled' $mod $plainOut $false;Cache $plain 'disabled'
         $cold=RunCli 'cold' $mod $cachedOut $true -Extra @('--performance','summary');Cache $cold 'cold';SameOutputs $plain $cold;$script:hotParseCeiling=$cold.report.cache.xmlParse
         Need ((@($cold.report.performance.counters|Where-Object name -eq 'cache.session.memoryReuse'|Measure-Object value -Sum).Sum) -eq 1) 'Second cold stream did not reuse the saved in-memory session'
-        $publishedBefore=PublishedTimes $cachedOut
+        $publishedBefore=StreamTimes $cachedOut
         $cacheTimes=@{}
-        foreach($file in Get-ChildItem -LiteralPath $cachedOut -File -Recurse){
-            if($file.Name -like 'BinaryAssetBuilder.SessionCache.xml*' -or (Within (Join-Path $cachedOut '.NewModCompiler') $file.FullName)){$cacheTimes[$file.FullName]=$file.LastWriteTimeUtc.Ticks}
+        $cachedSession=(CacheAt $cachedOut).session
+        foreach($file in Get-ChildItem -LiteralPath $cachedSession -File -Recurse){
+            if($file.Name -like 'BinaryAssetBuilder.SessionCache.xml*' -or (Within (Join-Path $cachedSession '.NewModCompiler') $file.FullName)){$cacheTimes[$file.FullName]=$file.LastWriteTimeUtc.Ticks}
         }
         $hot=RunCli 'hot' $mod $cachedOut $true -Extra @('--performance','summary');Cache $hot 'hot';SameOutputs $plain $hot
         Need ((@($hot.report.performance.counters|Where-Object name -eq 'cache.session.memoryReuse'|Measure-Object value -Sum).Sum) -eq 1) 'Second hot stream reparsed the shared saved session'
         LinkedHot $hot $publishedBefore
         foreach($path in $cacheTimes.Keys){Need ([IO.File]::GetLastWriteTimeUtc($path).Ticks -eq $cacheTimes[$path]) 'Hot build rewrote unchanged SessionCache or CDATA'}
-        $plainBefore=PublishedTimes $plainOut
+        $plainBefore=StreamTimes $plainOut
         $plainHot=RunCli 'disabled-hot-linked' $mod $plainOut $false;Cache $plainHot 'disabled';SameOutputs $plain $plainHot;LinkedHot $plainHot $plainBefore
-        $damagedLinked=Get-ChildItem -LiteralPath (Join-Path $cachedOut 'published') -Filter '*.imp' -Recurse -File|Select-Object -First 1
+        $damagedLinked=Get-ChildItem -LiteralPath (CacheAt $cachedOut).streams -Filter '*.imp' -Recurse -File|Select-Object -First 1
         Remove-Item -LiteralPath $damagedLinked.FullName
         $repairedLinked=RunCli 'missing-linked-group' $mod $cachedOut $true;Cache $repairedLinked 'hot';SameOutputs $plain $repairedLinked
 
@@ -392,7 +435,7 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
             $changed=RunCli ($change.name+'-invalidated') $mod $cachedOut $true;Cache $changed $(if($change.name -eq 'schema'){'revalidated'}else{'hot'});SameOutputs $plain $changed;if($change.name -eq 'schema'){$script:hotParseCeiling=$changed.report.cache.xmlParse}
             $hot=RunCli ($change.name+'-hot') $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         }
-        Need (!(Test-Path (Join-Path $cachedOut '.file-identities.json')) -and !(Test-Path (Join-Path $cachedOut '.NewModCompiler/session.identity'))) 'Removed hash/session sidecar was recreated'
+        Need (!(Test-Path (Join-Path (CacheAt $cachedOut).partition '.file-identities.json')) -and !(Test-Path (Join-Path (CacheAt $cachedOut).session '.NewModCompiler/session.identity'))) 'Removed hash/session sidecar was recreated'
         Put "$runtime/unrelated.dll" 'Unloaded runtime neighbor A'
         Put "$runtime/unrelated.config" 'Unloaded runtime configuration'
         $neighbor=RunCli 'unrelated-runtime-files' $mod $cachedOut $true;Cache $neighbor 'hot';SameOutputs $plain $neighbor
@@ -432,7 +475,8 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         $confirmed=CacheFiles $cachedOut
         $cancelled=RunCli 'actual-cancel' $mod $cachedOut $true 6 $true;CacheUnchanged $cachedOut $confirmed
         $afterCancel=RunCli 'retry-after-actual-cancel' $mod $cachedOut $true;SameOutputs $plain $afterCancel
-        $held=@($afterCancel.report.artifacts)[0].Path
+        $publishedRoot=Join-Path $cachedOut 'published';$artifact=@($afterCancel.report.artifacts)[0]
+        $held=Join-Path (CacheAt $cachedOut).streams ([IO.Path]::GetRelativePath($publishedRoot,$artifact.Path))
         $lockedHot=RunCli 'unchanged-locked-output' $mod $cachedOut $true 0 $false $held;SameOutputs $plain $lockedHot
 
         $unrelated=Join-Path $cachedOut 'published/unrelated.keep'
@@ -486,7 +530,7 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
             $texturePlainOut=$textureOut+'-plain'
             $texturePlain=RunCli ($type+'-disabled') $textureMod $texturePlainOut $false
             $textureCold=RunCli ($type+'-session-cold') $textureMod $textureOut $true;Cache $textureCold 'cold';SameOutputs $texturePlain $textureCold;$script:hotParseCeiling=$textureCold.report.cache.xmlParse
-            $textureBefore=PublishedTimes $textureOut
+            $textureBefore=StreamTimes $textureOut
             $textureHot=RunCli ($type+'-session-hot') $textureMod $textureOut $true;Cache $textureHot 'hot';SameOutputs $texturePlain $textureHot
             LinkedHot $textureHot $textureBefore
             $image="$textureMod/Data/probe.tga";$stamp=[IO.File]::GetLastWriteTimeUtc($image);$bytes=[IO.File]::ReadAllBytes($image);$bytes[18]=$bytes[18] -bxor 127
@@ -508,11 +552,11 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         $optionsPlain=RunCli 'options-disabled' $optionsMod $optionsPlainOut $false
         $defaults=RunCli 'original-defaults-cold' $optionsMod $optionsOut $true -OriginalDefaults;SameOutputs $optionsPlain $defaults
         Need ($defaults.report.cache.sessionCache -and $defaults.report.cache.compressedSessionCache -and $defaults.report.cache.partialSessionCache -and !$defaults.report.cache.freezeSessionCache -and !$defaults.report.cache.alwaysTouchCache -and $defaults.report.cache.misses -gt 0) 'Original SDK cache defaults are not active'
-        Need (Test-Path -LiteralPath (Join-Path $optionsOut 'BinaryAssetBuilder.SessionCache.xml.deflate')) 'Default original Deflate file is absent'
+        Need (Test-Path -LiteralPath (Join-Path (CacheAt $optionsOut).session 'BinaryAssetBuilder.SessionCache.xml.deflate')) 'Default original Deflate file is absent'
         $defaultsHot=RunCli 'original-defaults-hot' $optionsMod $optionsOut $true -OriginalDefaults;SameOutputs $optionsPlain $defaultsHot
         Need ($defaultsHot.report.cache.documentReuse -gt 0 -and $defaultsHot.report.cache.instanceCompile -eq 0) 'Original default session did not reuse compiled documents'
         $xml=RunCli 'original-xml-switch' $optionsMod $optionsOut $true -OriginalDefaults -Extra @('--csc=false');SameOutputs $optionsPlain $xml
-        Need ((Test-Path -LiteralPath (Join-Path $optionsOut 'BinaryAssetBuilder.SessionCache.xml')) -and !(Test-Path -LiteralPath (Join-Path $optionsOut 'BinaryAssetBuilder.SessionCache.xml.deflate'))) 'XML/Deflate switch left an ambiguous active representation'
+        Need ((Test-Path -LiteralPath (Join-Path (CacheAt $optionsOut).session 'BinaryAssetBuilder.SessionCache.xml')) -and !(Test-Path -LiteralPath (Join-Path (CacheAt $optionsOut).session 'BinaryAssetBuilder.SessionCache.xml.deflate'))) 'XML/Deflate switch left an ambiguous active representation'
         $frozenBytes=CacheFiles $optionsOut
         SameLengthMutation "$optionsMod/Data/Armor.xml" '72.5%' '42.5%'
         $frozen=RunCli 'original-freeze-edit' $optionsMod $optionsOut $true -OriginalDefaults -Extra @('--fsc=true','--csc=false');CacheUnchanged $optionsOut $frozenBytes
@@ -523,14 +567,14 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         $thawed=RunCli 'original-unfreeze' $optionsMod $optionsOut $true -OriginalDefaults -Extra @('--csc=false');SameOutputs $editedPlain $thawed
         $thawedHot=RunCli 'original-unfreeze-hot' $optionsMod $optionsOut $true -OriginalDefaults -Extra @('--csc=false');SameOutputs $editedPlain $thawedHot
         Need ($thawedHot.report.cache.documentReuse -gt 0 -and $thawedHot.report.cache.instanceCompile -eq 0) 'Unfrozen session did not persist the edited state'
-        $assetFiles=@(Get-ChildItem -LiteralPath (Join-Path $optionsOut 'cache') -Filter '*.asset' -File -Recurse);Need ($assetFiles.Count -gt 0) 'Original network asset layout is absent'
+        $assetFiles=@(Get-ChildItem -LiteralPath (CacheAt $optionsOut).build -Filter '*.asset' -File -Recurse);Need ($assetFiles.Count -gt 0) 'Original network asset layout is absent'
         $oldStamp=[DateTime]::new(2001,1,1,0,0,0,[DateTimeKind]::Utc)
         foreach($assetFile in $assetFiles){[IO.File]::SetLastWriteTimeUtc($assetFile.FullName,$oldStamp)}
         $untouched=RunCli 'original-touch-disabled' $optionsMod $optionsOut $true -OriginalDefaults -Extra @('--csc=false');SameOutputs $editedPlain $untouched
         foreach($assetFile in $assetFiles){Need ([IO.File]::GetLastWriteTimeUtc($assetFile.FullName) -eq $oldStamp) 'Default atc:false touched a build cache asset reused from intermediate'}
         $touched=RunCli 'original-touch-enabled' $optionsMod $optionsOut $true -OriginalDefaults -Extra @('--atc=true','--csc=false');SameOutputs $editedPlain $touched
         Need ($touched.report.cache.alwaysTouchCache -and @($assetFiles|Where-Object{[IO.File]::GetLastWriteTimeUtc($_.FullName) -gt $oldStamp}).Count -eq $assetFiles.Count) 'atc:true did not reach original native cache timestamp updates'
-        $external=Join-Path $modeWork 'shared original cache';$sessionDirectory=Join-Path $external 'sessions';$buildDirectory=Join-Path $external 'assets';$intermediateDirectory=Join-Path $external 'intermediate'
+        $external=Join-Path (CacheAt $optionsOut).partition 'custom';$sessionDirectory=Join-Path $external 'sessions';$buildDirectory=Join-Path $external 'assets';$intermediateDirectory=Join-Path $external 'intermediate'
         $custom=RunCli 'original-cache-directories' $optionsMod ($optionsOut+'-custom') $true -OriginalDefaults -Extra @(('/scd:'+$sessionDirectory),('/bcd:'+$buildDirectory),('/iod:'+$intermediateDirectory));SameOutputs $editedPlain $custom
         Need ((Test-Path -LiteralPath (Join-Path $sessionDirectory 'BinaryAssetBuilder.SessionCache.xml.deflate')) -and @(Get-ChildItem -LiteralPath $buildDirectory -Filter '*.asset' -File -Recurse).Count -gt 0 -and @(Get-ChildItem -LiteralPath $intermediateDirectory -Filter '*.asset' -File -Recurse).Count -gt 0) 'scd/bcd/iod did not use independent original directories'
         $aliases=RunCli 'original-cache-directory-aliases' $optionsMod ($optionsOut+'-aliases') $true -OriginalDefaults -Extra @(('/scp:'+$sessionDirectory),('/bcp:'+$buildDirectory),('/iod:'+$intermediateDirectory));SameOutputs $editedPlain $aliases
@@ -542,12 +586,19 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
             $configured=RunCli 'original-sdk-cache-config' $optionsMod ($optionsOut+'-config') $true -OriginalDefaults;SameOutputs $editedPlain $configured
             Need ($configured.report.effectiveOptions.bc.Value -ceq 'false' -and $configured.report.effectiveOptions.bc.Source -ceq 'sdkConfig' -and $configured.report.cache.hits -eq 0 -and $configured.report.cache.misses -eq 0) 'Original SDK buildCache setting did not override its factory default'
             $configuredOverride=RunCli 'original-sdk-cache-config-cli-override' $optionsMod ($optionsOut+'-config-cli') $true -OriginalDefaults -Extra @('--bc=true');SameOutputs $editedPlain $configuredOverride
-            Need ($configuredOverride.report.effectiveOptions.bc.Value -ceq 'true' -and $configuredOverride.report.effectiveOptions.bc.Source -ceq 'commandLine' -and @(Get-ChildItem -LiteralPath $configuredAssets -Filter '*.asset' -File -Recurse).Count -gt 0) 'CLI did not override buildCache or SDK buildCacheRoot was ignored'
+            Need ($configuredOverride.report.effectiveOptions.bc.Value -ceq 'true' -and $configuredOverride.report.effectiveOptions.bc.Source -ceq 'commandLine' -and !(Test-Path -LiteralPath $configuredAssets) -and @(Get-ChildItem -LiteralPath (CacheAt ($optionsOut+'-config-cli')).build -Filter '*.asset' -File -Recurse).Count -gt 0) 'CLI buildCache override did not stay in its SDK/MOD partition'
         }finally{[IO.File]::WriteAllBytes($configPath,$configBytes)}
         $rawExport=Join-Path $modeWork 'original-bab-cache'
         OriginalOracle $editedPlain 'original-cache-export' -CacheExportDirectory $rawExport
         $raw=Join-Path $rawExport 'mod-a'
-        $imported=RunCli 'original-bab-cache-import' $optionsMod ($optionsOut+'-original') $true -OriginalDefaults -Extra @(('/scd:'+(Join-Path $raw 'session')),('/bcd:'+(Join-Path $raw 'cache')),('/iod:'+(Join-Path $raw 'intermediate')));SameOutputs $editedPlain $imported
+        # The original format is unchanged; explicitly stage this test's raw BAB
+        # state inside the allowed partition instead of permitting outside roots.
+        $importRoots=CacheRoots $optionsMod ($optionsOut+'-original')
+        foreach($pair in @(@{source='session';target=$importRoots.session},@{source='cache';target=$importRoots.build},@{source='intermediate';target=$importRoots.intermediate})){
+            New-Item -ItemType Directory -Force -Path $pair.target|Out-Null
+            Copy-Item -Path (Join-Path (Join-Path $raw $pair.source) '*') -Destination $pair.target -Recurse
+        }
+        $imported=RunCli 'original-bab-cache-import' $optionsMod ($optionsOut+'-original') $true -OriginalDefaults;SameOutputs $editedPlain $imported
         Need ($imported.report.cache.documentReuse -gt 0 -and $imported.report.cache.instanceCompile -eq 0) 'Production did not reuse the actual original BAB session and intermediate assets'
         # Complete one included document before a guaranteed later XML failure.
         $partialMod=Join-Path $modeWork 'partial';MakeMod $partialMod $probe
@@ -557,15 +608,15 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         Put "$partialMod/Data/Broken.xml" '<AssetDeclaration>broken'
         $partialOut=Join-Path $modeWork 'partial-cache';$noPartialOut=Join-Path $modeWork 'no-partial-cache'
         $partialFailure=RunCli 'original-partial-failure' $partialMod $partialOut $true 4 -OriginalDefaults
-        Need ($partialFailure.report.cache.partialSessionsSaved -gt 0 -and (Test-Path -LiteralPath (Join-Path $partialOut 'BinaryAssetBuilder.SessionCache.xml.deflate'))) 'psc:true did not save completed document work after failure'
+        Need ($partialFailure.report.cache.partialSessionsSaved -gt 0 -and (Test-Path -LiteralPath (Join-Path (CacheAt $partialOut).session 'BinaryAssetBuilder.SessionCache.xml.deflate'))) 'psc:true did not save completed document work after failure'
         $noPartialFailure=RunCli 'original-no-partial-failure' $partialMod $noPartialOut $true 4 -OriginalDefaults -Extra @('--psc=false')
-        Need (!(Test-Path -LiteralPath (Join-Path $noPartialOut 'BinaryAssetBuilder.SessionCache.xml.deflate'))) 'psc:false saved an aborted session'
-        Need (@(Get-ChildItem -LiteralPath (Join-Path $noPartialOut 'cache') -Filter '*.asset' -File -Recurse).Count -gt 0) 'Original build cache did not retain successfully compiled assets from an aborted build'
+        Need (!(Test-Path -LiteralPath (Join-Path (CacheAt $noPartialOut).session 'BinaryAssetBuilder.SessionCache.xml.deflate'))) 'psc:false saved an aborted session'
+        Need (@(Get-ChildItem -LiteralPath (CacheAt $noPartialOut).build -Filter '*.asset' -File -Recurse).Count -gt 0) 'Original build cache did not retain successfully compiled assets from an aborted build'
         Put "$partialMod/Data/Broken.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"/>'
         $partialRetry=RunCli 'original-partial-retry' $partialMod $partialOut $true -OriginalDefaults
         $partialPlain=RunCli 'original-partial-retry-disabled' $partialMod ($partialOut+'-plain') $false;SameOutputs $partialPlain $partialRetry
         Need ($partialRetry.report.cache.documentReuse -gt 0) 'Partial retry did not reuse its completed included document'
-        $noPartialRetry=RunCli 'original-no-partial-retry' $partialMod $noPartialOut $true -OriginalDefaults -Extra @('--psc=false','--iod',(Join-Path $modeWork 'no-partial-fresh-intermediate'));SameOutputs $partialPlain $noPartialRetry
+        $noPartialRetry=RunCli 'original-no-partial-retry' $partialMod $noPartialOut $true -OriginalDefaults -Extra @('--psc=false','--iod',(Join-Path (CacheAt $noPartialOut).intermediate 'retry'));SameOutputs $partialPlain $noPartialRetry
         Need ($noPartialRetry.report.cache.documentReuse -eq 0 -and $noPartialRetry.report.cache.hits -gt 0) 'psc:false retry must parse source but reuse independently completed native assets'
         $modeState.passed=$true
     }

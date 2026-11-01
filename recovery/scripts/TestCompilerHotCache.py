@@ -16,6 +16,7 @@ import wave
 import xml.etree.ElementTree as ET
 
 from BenchmarkCompilerCache import MODES, inventory, validate_sample
+from CompilerCachePaths import cache_layout, session_directory
 
 NS = 'uri:ea.com:eala:asset'
 ET.register_namespace('', NS)
@@ -170,7 +171,7 @@ def validate_hot(report, mode, fmt, before, after, has_payload):
                  'Unchanged XML-only hot build reread complete files for SHA256')
     if fmt == 'loose':
         if MODES[mode][1]:
-            need(before == after, 'Hot session reuse rewrote files')
+            need(before == after, 'Hot session reuse rewrote cached streams or CDATA')
         else:
             # With /sc:false and a fresh intermediate directory BAB restores
             # CDATA from its asset cache. That copy may change mtime; the linked
@@ -244,6 +245,7 @@ def run(args):
         workloads = prepare(repo, work / 'mods')
         state['workloads'] = workloads
         state['initialInputs'] = {k: inventory(v['modRoot']) for k, v in workloads.items()}
+        scenario_mods, scenario_generations = {}, {}
         state['setupSeconds'] = time.perf_counter() - started
         started = time.perf_counter()
 
@@ -253,21 +255,40 @@ def run(args):
             evidence.mkdir()
             destination = work / 'builds' / scenario
             bc, sc, csc = MODES[mode]
+            template = Path(workloads[tier]['modRoot'])
+            mod = work / 'scenario-mods' / scenario / template.name
+            if scenario not in scenario_mods:
+                # The physical MOD path owns all caches, including linked streams.
+                # Keep its basename so independent BIG identities still agree.
+                shutil.copytree(template, mod)
+                scenario_mods[scenario] = mod
+                scenario_generations[scenario] = generation
+            elif scenario_generations[scenario] != generation:
+                for source in template.rglob('*'):
+                    if source.is_file():
+                        target = mod / source.relative_to(template)
+                        if not target.is_file() or target.read_bytes() != source.read_bytes():
+                            target.parent.mkdir(parents=True, exist_ok=True)
+                            shutil.copy2(source, target)
+                scenario_generations[scenario] = generation
+            layout = cache_layout(repo / 'SDK', mod)
             command = [str(runtime / 'NewModCompiler.exe'), 'build', '--sdk-root', str(repo / 'SDK'),
-                       '--mod', workloads[tier]['modRoot'], '--out', str(destination),
+                       '--mod', str(mod), '--out', str(destination),
                        '--package-content', 'base', '--package-format', fmt, '--include-additional=false',
                        '--jobs', jobs, '--performance', performance,
                        '--bc=' + str(bc).lower(), '--sc=' + str(sc).lower(), '--csc=' + str(csc).lower()]
+            if fmt == 'big':
+                command += ['--mod-version', '1.0']
             if not sc:
-                command += ['--iod', str(work / 'fresh-intermediate' / label)]
+                command += ['--iod', str(layout['root'] / 'i' / label.split('-', 1)[0])]
             row = {'label': label, 'scenario': scenario, 'tier': tier, 'mode': mode, 'phase': phase,
                    'jobs': jobs, 'format': fmt, 'performance': performance, 'generation': generation,
                    'status': 'started', 'command': command}
             state['samples'].append(row)
             write(evidence / 'request.json', row)
             save(out, state)
-            before = {p.relative_to(destination).as_posix(): p.stat().st_mtime_ns
-                      for p in (destination / 'published').rglob('*') if p.is_file()}
+            before = {p.relative_to(layout['streams']).as_posix(): p.stat().st_mtime_ns
+                      for p in layout['streams'].rglob('*') if p.is_file()}
             tick = time.perf_counter()
             try:
                 with (evidence / 'stdout.log').open('wb') as stdout, (evidence / 'stderr.log').open('wb') as stderr:
@@ -308,14 +329,14 @@ def run(args):
                     need(content != previous, 'Mutation did not change observable output bytes')
                 baselines[key] = content
             need(content == baselines[key], label + ' complete raw bytes differ from independent no-cache')
-            after = {p.relative_to(destination).as_posix(): p.stat().st_mtime_ns
-                     for p in (destination / 'published').rglob('*') if p.is_file()}
+            after = {p.relative_to(layout['streams']).as_posix(): p.stat().st_mtime_ns
+                     for p in layout['streams'].rglob('*') if p.is_file()}
             if phase.startswith('hot'):
                 validate_hot(report, mode, fmt, before, after, tier == 'medium')
             if phase == 'modified':
                 need(report['cache']['instanceCompile'] > 0, 'Content edit did not invalidate any compiled asset')
             row.update(status='passed', cache=report['cache'], streamFilesUnchanged=linked_timestamps(before) == linked_timestamps(after),
-                       outputTimestampsUnchanged=before == after,
+                       cacheStreamTimestampsUnchanged=before == after,
                        rawBytesEqual=True, outputFiles=len(content), outputBytes=sum(map(len, content.values())))
             save(out, state)
             print(label + ' passed (%.1f ms)' % row['wallMs'], flush=True)
@@ -370,7 +391,8 @@ def run(args):
         missing.unlink()
         sample('medium-default', 'medium', 'both-deflate', 'repair', generation=generation)
         sample('medium-default', 'medium', 'both-deflate', 'hot-after-repair', generation=generation)
-        session = destination / 'BinaryAssetBuilder.SessionCache.xml.deflate'
+        last_report = json.loads((destination / 'build-report.json').read_text(encoding='utf-8-sig'))
+        session = session_directory(last_report, repo / 'SDK', scenario_mods['medium-default']) / 'BinaryAssetBuilder.SessionCache.xml.deflate'
         need(session.is_file(), 'Missing compressed session corruption target')
         session.write_bytes(b'broken deflate session')
         sample('medium-default', 'medium', 'both-deflate', 'repair-session', performance='summary', generation=generation)

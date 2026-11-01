@@ -23,6 +23,10 @@ namespace NewModCompiler.Application
             string published = Path.Combine(request.OutputRoot,"published");
             ExitCode code = ExitCode.Success; string status = "succeeded";
             bool generated = false;
+            CacheLock buildLock=null;
+            // Keep exclusive ownership through backend teardown and delivery.
+            // Session serialization releases its own lock before packaging.
+            try {
             try {
                 Reports.RemoveStale(request.ReportPath);
                 events.Emit("BuildStarted",payload:new { request = request, toolVersion = typeof(BuildSession).Assembly.GetName().Version.ToString(), processId = System.Diagnostics.Process.GetCurrentProcess().Id });
@@ -34,6 +38,11 @@ namespace NewModCompiler.Application
                     if (compiler == null) throw new BuildFailure(ExitCode.Environment,"BACKEND_NOT_INTEGRATED","This P2 application skeleton has no integrated compilation backend. No stream was compiled.");
                     cancellation.ThrowIfCancellationRequested(); StartStage("compile");
                     DiagnosticDirectory.PrepareDirectory(published);
+                    CacheLayout layout=CacheLayout.ForRequest(request);
+                    try { buildLock=CacheLock.Acquire(layout.CacheRoot); }
+                    catch(IOException error) { throw new BuildFailure(ExitCode.Environment,"CACHE_BUSY",error.Message); }
+                    request.BuildCacheLock=buildLock;
+                    layout.PrepareDirectory(layout.CacheRoot);
                     using (request.Performance.Measure("identity.load"))
                         request.FileIdentities=new FileHashCache(request.Performance);
                     using (request.Performance.Measure("backend.initialize")) compiler.Initialize(request);
@@ -41,8 +50,8 @@ namespace NewModCompiler.Application
                     int completed = 0;
                     foreach (BuildTask task in plan.Tasks) {
                         cancellation.ThrowIfCancellationRequested();
-                        string streamDirectory = Path.Combine(published,task.Content,Path.GetFileNameWithoutExtension(task.InputPath));
-                        Directory.CreateDirectory(streamDirectory);
+                        string streamDirectory = layout.StreamDirectory(task);
+                        layout.PrepareDirectory(streamDirectory);
                         activeStream = task.Id; request.Performance.StreamId=task.Id;
                         events.Emit("StreamStarted",payload:new {input=task.InputPath,effectiveOptions=request.Options},streamId:task.Id,stageId:"compile");
                         try {
@@ -51,7 +60,7 @@ namespace NewModCompiler.Application
                             cancellation.ThrowIfCancellationRequested();
                             if (produced == null) throw new InvalidOperationException("Backend returned no artifact list.");
                             foreach (Artifact artifact in produced) {
-                                ValidateArtifact(artifact,streamDirectory); artifacts.Add(artifact); events.Emit("ArtifactProduced",payload:artifact,streamId:task.Id,stageId:"compile");
+                                ValidateArtifact(artifact,streamDirectory); artifacts.Add(artifact);
                             }
                             
                             }
@@ -84,15 +93,25 @@ namespace NewModCompiler.Application
                 }
                 acceptingCoreTrace = false;
             }
-            if(code==ExitCode.Success && request.Command=="build" && request.PackageFormat=="big" && artifacts.Count!=0) {
+            if(code==ExitCode.Success && request.Command=="build" && artifacts.Count!=0) {
+                bool package=request.PackageFormat=="big";
+                string deliveryStage=package ? "package" : "publish";
                 try {
-                    StartStage("package");
-                    var packaged=BigPackage.Create(request,plan,published,artifacts,cancellation,message=>Diagnostic("ADDITIONAL_OVERWRITE",message,"warning",stageId:"package"));
-                    artifacts.Clear();artifacts.AddRange(packaged);
-                    foreach(var artifact in artifacts) events.Emit("ArtifactProduced",payload:artifact,stageId:"package");
+                    StartStage(deliveryStage);
+                    var delivered=package
+                        ? BigPackage.Create(request,plan,published,artifacts,events.BuildId,cancellation,message=>Diagnostic("ADDITIONAL_OVERWRITE",message,"warning",stageId:"package"))
+                        : ExportLoose(published,cancellation);
+                    artifacts.Clear();artifacts.AddRange(delivered);
+                    foreach(var artifact in artifacts) events.Emit("ArtifactProduced",payload:artifact,stageId:deliveryStage);
                     CompleteStage("succeeded",artifacts.Count);
-                } catch(OperationCanceledException e) {code=ExitCode.Cancelled;status="cancelled";Fail(e,status,"BUILD_CANCELLED","Build cancelled while packaging.");}
-                catch(Exception e) {code=ExitCode.Output;status="failed";Fail(e,status,"PACKAGE_FAILED",e.ToString());}
+                } catch(OperationCanceledException e) {code=ExitCode.Cancelled;status="cancelled";Fail(e,status,"BUILD_CANCELLED","Build cancelled while delivering output.");}
+                catch(Exception e) {code=ExitCode.Output;status="failed";Fail(e,status,package ? "PACKAGE_FAILED" : "PUBLICATION_FAILED",e.ToString());}
+            }
+            } finally {
+                if(buildLock!=null) {
+                    request.BuildCacheLock=null;
+                    buildLock.Dispose();
+                }
             }
             generated = code == ExitCode.Success && request.Command == "build" && artifacts.Count != 0;
             if (!generated) artifacts.Clear();
@@ -123,6 +142,34 @@ namespace NewModCompiler.Application
                 try { Console.Error.WriteLine("REPORT_WRITE_FAILED: " + error.Message); } catch (IOException) { }
             }
             return code;
+        }
+        IList<Artifact> ExportLoose(string published,CancellationToken cancellation)
+        {
+            CacheLayout layout=CacheLayout.ForRequest(request);
+            var delivered=new List<Artifact>();
+            foreach(Artifact artifact in artifacts) {
+                cancellation.ThrowIfCancellationRequested();
+                string extension=Path.GetExtension(artifact.Path);
+                if(!Paths.Contains(layout.Streams,artifact.Path) ||
+                    !(string.Equals(extension,".manifest",StringComparison.OrdinalIgnoreCase) || string.Equals(extension,".bin",StringComparison.OrdinalIgnoreCase) ||
+                      string.Equals(extension,".imp",StringComparison.OrdinalIgnoreCase) || string.Equals(extension,".relo",StringComparison.OrdinalIgnoreCase) ||
+                      string.Equals(extension,".cdata",StringComparison.OrdinalIgnoreCase)))
+                    throw new IOException("Loose delivery requires this build's linked streams or custom data.");
+                string target=Path.Combine(published,artifact.Path.Substring(layout.Streams.Length+1));
+                DiagnosticDirectory.PrepareDirectory(Path.GetDirectoryName(target),published);
+                DiagnosticFiles.RejectReparseFile(target);
+                // Delivery has independent storage: user edits to exported files
+                // must never change the next build's reusable linked streams.
+                string temporary=target+".tmp-"+Guid.NewGuid().ToString("N");
+                try {
+                    File.Copy(artifact.Path,temporary);
+                    cancellation.ThrowIfCancellationRequested();
+                    if(File.Exists(target)) File.Replace(temporary,target,null);
+                    else File.Move(temporary,target);
+                } finally { if(File.Exists(temporary)) File.Delete(temporary); }
+                delivered.Add(new Artifact {Path=target,Kind=artifact.Kind,Size=artifact.Size});
+            }
+            return delivered;
         }
         void StartStage(string id)
         {

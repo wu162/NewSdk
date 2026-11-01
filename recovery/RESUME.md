@@ -1,3 +1,21 @@
+# 当前：SuperCompilerCache 集中缓存改造完成（PR #46）
+
+分支 `feature/supercompiler-cache`，基线 `recovery/legacy-sdk-cache` / `5c0c993f`；
+[PR #46](https://github.com/wu162/NewSdk/pull/46) 未合并。所有内部缓存、中间资产、可复用四流、
+FLA 合成声明及打包临时输入位于本次 SDK 的 MOD 专属分区；MOD 源码只读、完整 build 锁、
+分区内缓存覆盖、BIG/loose 正式交付已接通。BIG 仍要求 CLI 显式 `--mod-version`。
+
+生产 `f8e8f4a0` 已成功 Release 构建；[最终 Windows 核验 41275643703](https://github.com/wu162/NewSdk/actions/runs/41275643703)
+严格验证输入闭包和运行文件后复用该 EXE，没有再次编译。mymod 与完整历史 Upheaval 的 base loose 冷/热、
+热态 BIG，以及小型直接 FLA 冷/热共 8 次 build 通过；热态全部 0 解析/0 资产编译。
+三个 MOD 写事件为 0，SDK 输入 7 个监听边界无越区事件/溢出，字节、mtime、属性快照零差异。
+[App 41275643739](https://github.com/wu162/NewSdk/actions/runs/41275643739) 的 1846 项合同与全部 PS 语法预检通过；
+相关 73 项 Python 小测试通过。未运行原 SDK 全字节差分、完整 APT/maps/缓存开关大矩阵或游戏验收。
+
+[布局与验证边界](docs/SUPERCOMPILER_CACHE.md)、[收据及保留的失败记录](evidence/refactor/supercompiler-cache/summary.json)。
+首轮 MSVC 链接内部错误已以显式 catch 修复；SDK 审计改用输入子树监听及直接元数据读取后通过，
+原失败终态保留。后续从本分支/PR 续接；禁止强推，合入仍需用户明确批准。
+
 # 当前：Joypad 11 类资产恢复已验收（PR #44）
 
 用户指定 `recovery/legacy-sdk-cache` / `a58df102`；实现位于

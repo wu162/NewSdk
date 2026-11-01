@@ -30,14 +30,14 @@
 | 中立修复 | `--fix-neutral-assets=false`；显式 true 仅限含 base 的 BIG，沿用 `HashFix → ModAssetResolver`、参考文件预检、私有四流复制及修正后 LoD 生成；缺少参考文件仍报 `PACKAGE_NEUTRAL_REFERENCE_MISSING`，不下载或提取 WBData |
 | 游戏版本字段 | `--game-version=1.12`，只控制 SKUDEF 的 `mod-game` 字段 |
 | 缓存开关 | `/sc:true`、`/bc:true`、`/csc:true`、`/psc:true`、`/fsc:false`、`/atc:false`；未显式指定 `/bc` 时仍受 SDK `buildCache` 配置覆盖 |
-| 缓存目录 | `/scd`（别名 `/scp`）、`/bcd`（别名 `/bcp`）、`/iod`，保留原目录和格式 |
+| 缓存目录 | `/scd`（别名 `/scp`）、`/bcd`（别名 `/bcp`）、`/iod`，仅允许当前 `SuperCompilerCache/<ModKey>` 分区内部；原 BAB 格式保留 |
 | 旧脚本真实行为 | `/ss:true`、`/pc:true`、`/slowclean:true`，均可显式 false，独立于缓存开关 |
 | 资源搜索根 | `/dr`、`/data`、`/art`、`/audio`，保留原根与搜索顺序 |
 | 诊断 | `/tl:0..9`，默认 3；`--log`、`--events`、`--report`，默认位于输出根 |
 
 `/pc:true` 使用原 Core 的引用策略：优先尝试预编译引用，缺失时沿原逻辑处理引用而不额外发布它们。它不代表自动导入游戏数据或 WBData；不存在的参考 manifest 不会凭空生成。`/pc:false` 保留编译并输出引用流的旧行为；含多个输出流的 BIG 仍受既有打包合同约束。
 
-三种 Texture 路由继续支持原资产与会话缓存。BIG/SKUDEF 每次正常打包；本次参数整理不改变 Core 编译、缓存、调度、四流、包名或 Additional 覆盖顺序。
+三种 Texture 路由继续支持原资产与会话缓存。缓存统一写入传入 SDK 的 [MOD 专属分区](docs/SUPERCOMPILER_CACHE.md)，不采用 SDK `buildCacheRoot` 或旧输出目录缓存。BIG/SKUDEF 每次正常打包；本次参数整理不改变 Core 编译、缓存、调度、四流、包名或 Additional 覆盖顺序。
 
 ## 仅供旧脚本兼容
 

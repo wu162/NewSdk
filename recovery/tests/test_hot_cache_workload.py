@@ -48,9 +48,13 @@ class WorkloadChecks(unittest.TestCase):
         if self.output.exists():
             shutil.rmtree(self.output)
         self.output.mkdir()
+        self.cache = self.work / 'cache'
+        if self.cache.exists():
+            shutil.rmtree(self.cache)
+        self.cache.mkdir()
 
     def apply(self, identifier):
-        return W.apply_case(self.load, self.lookup[identifier], self.output)
+        return W.apply_case(self.load, self.lookup[identifier], self.output, self.cache)
 
     def test_all_generated_declarations_are_reachable_and_ids_unique(self):
         paths = set()
@@ -241,19 +245,21 @@ class WorkloadChecks(unittest.TestCase):
     def test_cache_layers_are_deleted_separately(self):
         for name in ('base/BinaryAssetBuilder.SessionCache.xml.deflate',
                      'apt/BinaryAssetBuilder.SessionCache.xml.deflate',
-                     'base/stream.bin', 'published/Mod.big'):
-            target = self.output / name
+                     'streams/base/Mod/stream.bin'):
+            target = self.cache / name
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(b'baseline')
+        (self.output / 'published').mkdir()
+        (self.output / 'published/Mod.big').write_bytes(b'BIG')
         result = self.apply('C10')
         self.assertEqual(len(result['deletedPaths']), 1)
-        self.assertTrue((self.output / 'base/stream.bin').exists())
+        self.assertTrue((self.cache / 'streams/base/Mod/stream.bin').exists())
         self.assertTrue((self.output / 'published/Mod.big').exists())
         result = self.apply('C11')
         self.assertEqual(result['deletedPaths'], ['published/Mod.big'])
-        self.assertTrue((self.output / 'base/stream.bin').exists())
+        self.assertTrue((self.cache / 'streams/base/Mod/stream.bin').exists())
         result = self.apply('F07-linked')
-        self.assertEqual(result['deletedPaths'], ['base/stream.bin'])
+        self.assertEqual(result['deletedPaths'], [str((self.cache / 'streams/base/Mod/stream.bin').resolve())])
 
     def test_partial_session_preserves_other_streams_and_hash_collection(self):
         selected = next(row for row in self.load['streamFixtures'] if row['streamId'].startswith('apt/'))
@@ -267,7 +273,7 @@ class WorkloadChecks(unittest.TestCase):
                        '<fi><hi d="shared;1;0;default;0"/><ad marker="shared"><dsf>' + entry + ';another-stream</dsf></ad></fi>'
                        '<fi><hi d="other;1;0;default;0"/>'
                        '<ad marker="other"/></fi></fic></sc>').encode()
-            path = self.output / ('BinaryAssetBuilder.SessionCache.xml' + ('.deflate' if compressed else ''))
+            path = self.cache / ('BinaryAssetBuilder.SessionCache.xml' + ('.deflate' if compressed else ''))
             if compressed:
                 compressor = zlib.compressobj(wbits=-15)
                 payload = compressor.compress(payload) + compressor.flush()

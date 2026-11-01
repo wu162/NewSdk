@@ -24,12 +24,18 @@ namespace NewModCompiler.Application
             if(string.IsNullOrWhiteSpace(name) || name.Any(value=>value<32 || value>126 || value=='"' || value=='\r' || value=='\n'))
                 throw new BuildFailure(ExitCode.Arguments,"PACKAGE_NAME_UNSUPPORTED","BIG packaging requires an ASCII MOD directory basename for the game skudef.");
         }
-        public static IList<Artifact> Create(BuildRequest request,BuildPlan plan,string output,IList<Artifact> artifacts,CancellationToken cancellation,Action<string> warning = null)
+        public static IList<Artifact> Create(BuildRequest request,BuildPlan plan,string output,IList<Artifact> artifacts,string buildId,CancellationToken cancellation,Action<string> warning = null)
         {
             ValidateRequest(request);
             if(request.PackageFormat!="big" || plan==null || artifacts==null || artifacts.Count==0) throw new ArgumentException("BIG packaging requires a nonempty current build artifact list.");
             output=Path.GetFullPath(output);
+            if(!string.Equals(output,Path.Combine(request.OutputRoot,"published"),StringComparison.OrdinalIgnoreCase)) throw new IOException("BIG delivery must use the published output directory.");
+            CacheLayout layout=CacheLayout.ForRequest(request);
+            string temporary=layout.BuildTempDirectory(buildId);
+            if(Directory.Exists(temporary) || File.Exists(temporary)) throw new IOException("This build's package workspace already exists.");
+            bool created=false;
             try {
+            layout.PrepareDirectory(temporary); created=true;
             var entries=new List<BigArchiveEntry>();var names=new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             var owners=new Dictionary<BuildTask,HashSet<string>>();
             foreach(var task in plan.Tasks) {
@@ -37,10 +43,10 @@ namespace NewModCompiler.Application
                 owners.Add(task,new HashSet<string>(StringComparer.OrdinalIgnoreCase));
             }
             foreach(var artifact in artifacts) {
-                cancellation.ThrowIfCancellationRequested();Verify(artifact,output);
+                cancellation.ThrowIfCancellationRequested();Verify(artifact,layout.Streams);
                 BuildTask owner=null;
                 foreach(var task in plan.Tasks) {
-                    string root=Path.Combine(output,task.Content,Path.GetFileNameWithoutExtension(task.InputPath));
+                    string root=layout.StreamDirectory(task);
                     if(!Paths.Contains(root,artifact.Path)) continue;
                     if(owner!=null) throw new IOException("BIG artifact has ambiguous task ownership.");owner=task;
                 }
@@ -68,11 +74,11 @@ namespace NewModCompiler.Application
             // a private package copy, never Core/cache outputs.
             foreach(var task in plan.Tasks) if(task.Content=="base") {
                 cancellation.ThrowIfCancellationRequested();
-                string manifest=artifacts.Single(value=>string.Equals(Path.GetExtension(value.Path),".manifest",StringComparison.OrdinalIgnoreCase) && Paths.Contains(Path.Combine(output,task.Content,Path.GetFileNameWithoutExtension(task.InputPath)),value.Path)).Path;
+                string manifest=artifacts.Single(value=>string.Equals(Path.GetExtension(value.Path),".manifest",StringComparison.OrdinalIgnoreCase) && Paths.Contains(layout.StreamDirectory(task),value.Path)).Path;
                 if(request.FixNeutralAssets) {
                     string originalRoot=Path.GetDirectoryName(manifest);
                     using (request.Performance.Measure("package.neutral"))
-                        manifest=BasePostProcessor.Prepare(manifest,request.SdkRoot,Path.Combine(request.OutputRoot,".package-neutral"),cancellation);
+                        manifest=BasePostProcessor.Prepare(manifest,request.SdkRoot,Path.Combine(temporary,"package-neutral"),cancellation);
                     string preparedStem=Path.Combine(Path.GetDirectoryName(manifest),"mod");
                     foreach(var entry in entries) if(Paths.Contains(originalRoot,entry.SourcePath)) {
                         string extension=Path.GetExtension(entry.SourcePath);
@@ -84,7 +90,7 @@ namespace NewModCompiler.Application
                 // original script passes lowercase mod.manifest, which is also
                 // the exact embedded dependency name in both LoD manifests.
                 using (request.Performance.Measure("package.lod"))
-                foreach(string source in LoDStreamBuilder.Create(Path.Combine(Path.GetDirectoryName(manifest),"mod.manifest"),cancellation,Path.Combine(request.OutputRoot,".package-lod"))) {
+                foreach(string source in LoDStreamBuilder.Create(Path.Combine(Path.GetDirectoryName(manifest),"mod.manifest"),cancellation,Path.Combine(temporary,"package-lod"))) {
                     string name="Data\\"+Path.GetFileName(source);
                     if(!names.Add(name)) throw new IOException("Case-insensitive LoD archive path collision.");
                     entries.Add(new BigArchiveEntry {Name=name,SourcePath=source});
@@ -96,7 +102,7 @@ namespace NewModCompiler.Application
             int versionIndex=0;
             foreach(var task in plan.Tasks) if(task.Content=="apt") {
                 cancellation.ThrowIfCancellationRequested();
-                string directory=Path.Combine(request.OutputRoot,".package-versions");Directory.CreateDirectory(directory);
+                string directory=Path.Combine(temporary,"package-versions");Directory.CreateDirectory(directory);
                 string source=Path.Combine(directory,(versionIndex++).ToString(System.Globalization.CultureInfo.InvariantCulture)+".version");
                 using(var file=new FileStream(source,FileMode.CreateNew,FileAccess.Write,FileShare.None)) {file.WriteByte(32);file.WriteByte(13);file.WriteByte(10);}
                 string name="Data\\AptUI\\"+Path.GetFileNameWithoutExtension(task.InputPath)+".version";
@@ -112,17 +118,17 @@ namespace NewModCompiler.Application
             cancellation.ThrowIfCancellationRequested();
             return new[] {Describe(big,"package.big"),Describe(skudef,"package.skudef")};
             } finally {
-                // These contain only generated LoD/version/neutral-repair inputs.
-                // Core output and BAB caches remain in place for the next build.
-                foreach (string name in new[] { ".package-lod", ".package-versions", ".package-neutral" }) {
-                    string directory = Path.Combine(request.OutputRoot, name);
-                    if (Directory.Exists(directory)) Directory.Delete(directory, true);
+                // Only this build owns these generated package inputs. Never
+                // sweep other builds' temporary work or reusable Core streams.
+                if(created && Directory.Exists(temporary)) {
+                    DiagnosticDirectory.CheckDirectory(temporary,layout.CacheRoot);
+                    Directory.Delete(temporary,true);
                 }
             }
         }
         static void Verify(Artifact artifact,string output)
         {
-            if(artifact==null || string.IsNullOrEmpty(artifact.Path) || !Path.IsPathRooted(artifact.Path) || !Paths.Contains(output,artifact.Path)) throw new IOException("BIG input must be an accepted current output file.");
+            if(artifact==null || string.IsNullOrEmpty(artifact.Path) || !Path.IsPathRooted(artifact.Path) || !Paths.Contains(output,artifact.Path)) throw new IOException("BIG input must be an accepted current cache stream file.");
         }
         static Artifact Describe(string path,string kind) { return new Artifact {Path=path,Kind=kind,Size=new FileInfo(path).Length}; }
     }

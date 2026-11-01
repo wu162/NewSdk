@@ -127,6 +127,23 @@ class ReplayAndReportTests(unittest.TestCase):
             self.assertFalse((mod / 'new.xml').exists())
             self.assertEqual((out / 'cache').read_text(), str(mod / 'input.xml'))
 
+    def test_snapshot_restores_sdk_cache_separately_from_final_output(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            mod, out, cache = root / 'mod', root / 'out', root / 'sdk-cache'
+            for directory in (mod, out, cache):
+                directory.mkdir()
+            (cache / 'session.xml').write_bytes(b'original session')
+            (out / 'final.big').write_bytes(b'original final')
+            snapshot = B.Snapshot(mod, out, root / 'snapshot', B.Budget('common'), cache=cache)
+            (cache / 'session.xml').unlink()
+            (cache / 'added.bin').write_bytes(b'new')
+            (out / 'final.big').write_bytes(b'changed final')
+            snapshot.restore()
+            self.assertEqual((cache / 'session.xml').read_bytes(), b'original session')
+            self.assertFalse((cache / 'added.bin').exists())
+            self.assertEqual((out / 'final.big').read_bytes(), b'original final')
+
     def test_snapshot_replays_same_stamp_changes_and_removes_added_search_roots(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

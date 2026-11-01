@@ -155,6 +155,7 @@ namespace NewModCompiler.Tests
                 assertions += FileIdentityTests.Run(Path.Combine(root,"file-identity"));
                 assertions += BigArchiveWriterTests.Run(Path.Combine(root,"big-writer"));
                 assertions += BuildDefaultsTests.Run(Path.Combine(root,"build-defaults"));
+                assertions += CacheLayoutTests.Run(Path.Combine(root,"cache-layout"));
                 assertions += AdditionalFilesTests.Run(Path.Combine(root,"additional-files"));
                 assertions += MakeBigTests.Run(Path.Combine(root,"makebig"));
                 assertions += BasePostProcessorTests.Run(Path.Combine(root,"neutral-assets"));
@@ -193,7 +194,8 @@ namespace NewModCompiler.Tests
                 Check(plan.Tasks.Select(x=>x.Id).SequenceEqual(new [] {"base/Mod","apt/a","apt/b","maps/MapMetaData_z"}),"Deterministic selected stream discovery");
                 Check(Planner.Resolve(Request("base")).Tasks.Length==1,"base does not compile apt/maps"); Check(Planner.Resolve(Request("apt")).Tasks.Length==2,"apt only"); Check(Planner.Resolve(Request("maps")).Tasks.Length==1,"maps only");
                 Check(Request("maps,base,base").Content.SequenceEqual(new [] {"base","maps"}),"Selection normalization and deduplication");
-                var aliases=Request("base","/pc:false","/csc:true","/sc:false","/bc:true","/scp:"+Path.Combine(root,"cache"),"/scd:"+Path.Combine(root,"cache"));
+                string aliasCache = request.CacheLayout.Session;
+                var aliases=Request("base","/pc:false","/csc:true","/sc:false","/bc:true","/scp:"+aliasCache,"/scd:"+aliasCache);
                 Check(aliases.Options["pc"].Value=="false" && aliases.Options["csc"].Value=="true" && aliases.Options["sc"].Value=="false" && aliases.Options["bc"].Value=="true","Distinct legacy meanings");
                 Check(aliases.Options["session-cache-directory"].Source=="commandLine","Alias provenance");
                 foreach (string session in new [] {"true","false"}) foreach (string asset in new [] {"true","false"}) {

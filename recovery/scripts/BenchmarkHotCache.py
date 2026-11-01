@@ -15,6 +15,7 @@ import time
 from BenchmarkCompilerCache import MODES, process_metrics, read_json, sha
 from HotCacheReport import save
 from HotCacheWorkload import prepare, expand, apply_case
+from CompilerCachePaths import cache_layout
 
 LIMITS = {'common': (2100, 1920), 'full': (3600, 3360)}
 CALIBRATION_TARGET_MS = 10500
@@ -148,14 +149,17 @@ class Snapshot:
     Copies are outside process timing and inside the active phase/global budget.
     Register every source mutation with mark_changed, including same-stamp writes.
     """
-    def __init__(self, mod, destination, store, budget):
+    def __init__(self, mod, destination, store, budget, cache=None):
         self.mod, self.destination, self.store = Path(mod), Path(destination), Path(store)
         self.budget = budget
         self.dirty_source = set()
         self.indices = {}
         self.directories = {}
         self.store.mkdir()
-        for name, source in (('source', self.mod), ('output', self.destination)):
+        self.targets = [('source', self.mod), ('output', self.destination)]
+        if cache is not None:
+            self.targets.append(('cache', Path(cache)))
+        for name, source in self.targets:
             budget.check()
             shutil.copytree(source, self.store / name)
             self.indices[name], self.directories[name] = tree_metadata(source)
@@ -166,7 +170,7 @@ class Snapshot:
         self.dirty_source.update(mutation.get('changedPaths', []))
 
     def restore(self):
-        for name, target in (('source', self.mod), ('output', self.destination)):
+        for name, target in self.targets:
             self.budget.check()
             if name == 'source' and not self.dirty_source:
                 continue
@@ -205,13 +209,14 @@ class Runner:
         evidence = self.output / 'samples' / label
         evidence.mkdir(parents=True)
         bc, sc, csc = MODES[mode]
+        layout = cache_layout(self.workload['sdkRoot'], self.workload['modRoot'])
         command = [str(self.exe), 'build', '--sdk-root', str(Path(self.args.repo) / 'SDK'),
-                   '--mod', self.workload['modRoot'], '--out', str(self.destination),
+                   '--mod', self.workload['modRoot'], '--out', str(self.destination), '--mod-version', '1.0',
                    '--jobs', str(jobs), '--performance', performance,
                    '--bc=' + str(bc).lower(), '--sc=' + str(sc).lower(), '--csc=' + str(csc).lower()]
         # All actual streams, normal BIG/SKUDEF and Additional inputs stay enabled.
         if not sc:
-            command += ['--iod', str(Path(self.args.work) / 'fresh-intermediate' / label)]
+            command += ['--iod', str(layout['root'] / 'i' / label.split('-', 1)[0])]
         mutation = dict(mutation or {})
         command += mutation.get('extraArgs', [])
         mutation['deletedPaths'] = [str(self.destination / p) for p in mutation.get('deletedPaths', [])]
@@ -405,7 +410,8 @@ def execute(args):
         # Full includes the entire Common and its 35-minute ceiling.
         budget.section_stop = 1920
         with budget.phase('workload', 420):
-            snapshot = Snapshot(runner.workload['modRoot'], runner.destination, work / 'baseline', budget)
+            snapshot = Snapshot(runner.workload['modRoot'], runner.destination, work / 'baseline', budget,
+                                cache=cache_layout(runner.workload['sdkRoot'], runner.workload['modRoot'])['root'])
         common = [c for c in state['cases'] if c['id'].startswith('C')]
         c00 = next(c for c in common if c['id'] == 'C00')
         with budget.phase('common_sampling', 1080):

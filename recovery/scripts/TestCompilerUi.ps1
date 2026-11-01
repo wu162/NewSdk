@@ -6,6 +6,7 @@ param(
     [ValidateRange(15,600)][int]$TimeoutSeconds=180
 )
 $ErrorActionPreference='Stop'
+. "$PSScriptRoot/CompilerCacheLayout.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite UI acceptance evidence: $OutputDirectory"}
@@ -20,9 +21,10 @@ function Equal($Left,$Right){
     Need ($Left.Count -eq $Right.Count) 'Four-stream file counts differ'
     foreach($key in $Left.Keys){Need ($Right.ContainsKey($key) -and $Left[$key] -ceq $Right[$key]) "Final stream bytes differ: $key"}
 }
-function FailedStreamsCleaned($Previous,[string]$Published){
+function FailedStreamsCleaned($Previous,[string]$Published,[string]$CacheRoot){
     Need ($Previous.Count -eq 4) 'Failed-stream cleanup requires the previous complete four-file set'
-    foreach($key in $Previous.Keys){Need (!(Test-Path -LiteralPath (Join-Path $Published $key))) "Failed stream file was retained: $key"}
+    foreach($key in $Previous.Keys){Need (!(Test-Path -LiteralPath (Join-Path (Join-Path $CacheRoot 'streams') $key))) "Failed cache stream file was retained: $key"}
+    Equal $Previous (Snapshot $Published)
 }
 function Changed($Left,$Right){
     Need ($Left.Count -eq $Right.Count) 'A source edit changed the published file layout'
@@ -58,7 +60,7 @@ function InspectStreams([string]$Published){
 function Run([string]$Name,[string]$Destination,[bool]$SessionCache=$true,[int]$Expected=0){
     $case=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     New-Item -ItemType Directory -Path $Destination -Force|Out-Null
-    $arguments=@('build','--mod',$script:mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content',$script:content,'--performance','detailed',('--sc='+$SessionCache.ToString().ToLowerInvariant()),'--bc=true','--iod',(Join-Path $script:modeWork 'intermediate'))
+    $arguments=@('build','--mod',$script:mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content',$script:content,'--performance','detailed',('--sc='+$SessionCache.ToString().ToLowerInvariant()),'--bc=true')
     $events=Join-Path $Destination 'build.events.jsonl';$report=Join-Path $Destination 'build-report.json'
     @{exe=$script:exe;cwd=$script:runtime;arguments=$arguments;stdout=(Join-Path $case 'stdout.log');stderr=(Join-Path $case 'stderr.log');events=$events;cancel=$false;timeoutSeconds=$TimeoutSeconds}|ConvertTo-Json -Depth 5|Set-Content "$case/request.json"
     & $script:control "$case/request.json" "$case/control.json" *> "$case/controller.log"
@@ -123,14 +125,15 @@ try{
         Remove-Item -LiteralPath $timeline
         $deleted=Run 'as-deleted' $destination;Equal $changed.files $deleted.files
         [IO.File]::WriteAllText($timeline,'#include "does-not-exist.as"')
-        # Direct output removes the four files of a touched failed stream.
+        # Failure cleans the touched cache stream while retaining delivered files.
         # Retry must reconstruct the bytes from the preceding successful build.
-        $null=Run 'missing-include' $destination $true 4;FailedStreamsCleaned $deleted.files $deleted.published
+        $cacheRoot=Get-CompilerTestCacheRoot $script:sdk $script:mod
+        $null=Run 'missing-include' $destination $true 4;FailedStreamsCleaned $deleted.files $deleted.published $cacheRoot
         Remove-Item -LiteralPath $timeline
         $retry=Run 'retry' $destination;Equal $deleted.files $retry.files
         [IO.File]::WriteAllBytes("$mod/Data/collision.bin",[byte[]](1,2,3,4))
         [IO.File]::WriteAllText("$mod/Data/Mod.xml",$xml.Replace('</AssetDeclaration>','<AptConstData id="CoronaUIMain_const" File="collision.bin"/></AssetDeclaration>'))
-        $null=Run 'generated-identity-collision' $destination $true 4;FailedStreamsCleaned $retry.files $retry.published
+        $null=Run 'generated-identity-collision' $destination $true 4;FailedStreamsCleaned $retry.files $retry.published $cacheRoot
         [IO.File]::WriteAllText("$mod/Data/Mod.xml",$xml)
         $recovered=Run 'collision-retry' $destination;Equal $retry.files $recovered.files
         $mixedMod=$script:mod;$script:mod=(New-Item -ItemType Directory -Path (Join-Path $modeWork 'bare')).FullName
