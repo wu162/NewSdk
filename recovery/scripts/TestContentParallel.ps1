@@ -14,7 +14,7 @@ $out=(New-Item -ItemType Directory -Path $OutputDirectory).FullName
 $work=Join-Path ([IO.Path]::GetPathRoot($env:RUNNER_TEMP)) ('cp-'+[Guid]::NewGuid().ToString('N').Substring(0,8))
 $null=New-Item -ItemType Directory -Path $work
 $oldProgress=$env:NEWSDK_PROGRESS
-$state=@{schemaVersion=1;sourceCommit=(git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';samples=@();coreFixtures=@();scope='One Release product, private production-object Core/application contracts; all seven nonempty base/apt/maps selections with two entries in each optional group; jobs1/4 cold/hot loose bytes and BIG/SKUDEF bytes; actual process-job enforced cancellation/failure/retry; a single pinned complete Upheaval base jobs1/4 cold comparison. No original SDK or game runtime acceptance.';timingBoundary='External controller process wall, per-stream owner Compile intervals from one build Stopwatch, Windows peak process working set. OS page cache uncontrolled; no speed threshold.'}
+$state=@{schemaVersion=1;sourceCommit=(git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';samples=@();coreFixtures=@();scope='One Release product, private production-object Core/application contracts; all seven nonempty base/apt/maps selections with two entries in each optional group; jobs1/4 cold/hot loose bytes and BIG/SKUDEF bytes; actual process-job enforced cancellation/failure/retry; targeted real Flash8 FLA plus file-backed APT XML and existing MapMetaData fixtures with jobs1/4 cold comparisons; a single pinned complete Upheaval base jobs1/4 cold comparison. The seven-combination scheduling matrix uses Armor assets; targeted UI/Maps cases are not full UI/Maps, original SDK or game runtime acceptance.';timingBoundary='External controller process wall, per-stream owner Compile intervals from one build Stopwatch, Windows peak process working set. OS page cache uncontrolled; no speed threshold.'}
 function Need([bool]$Value,[string]$Message){if(!$Value){throw $Message}}
 function Hash([string]$Path){(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()}
 function SaveState{$state|ConvertTo-Json -Depth 24|Set-Content -LiteralPath "$out/validation.json"}
@@ -175,6 +175,53 @@ public static class ContentParallelBytes {
     SameOutputs $on $off
     foreach($part in $otherPartitions){Unchanged (Join-Path $cache $part) $before[$part]}
     Unchanged $mod $modBefore
+    # Existing accepted direct-FLA and file-backed XML fixtures exercise two
+    # different APT frontends in the same owner, without creating Base or Maps.
+    $flaMod=Join-Path $work 'fla-xml';$null=New-Item -ItemType Directory -Force -Path "$flaMod/Data/AptUI"
+    $flaSource=Join-Path $root 'ui/tests/fixtures/flash8-empty.fla'
+    Copy-Item -LiteralPath $flaSource -Destination "$flaMod/Data/AptUI/flash8-empty.fla"
+    $aptSource=Join-Path $root 'SDK/Mods/XmlCompilerRecoveryApt/Data'
+    Copy-Item -LiteralPath "$aptSource/FixturesApt.xml" -Destination "$flaMod/Data/AptUI/FileBacked.xml"
+    $aptDocument=[xml][IO.File]::ReadAllText("$aptSource/FixturesApt.xml")
+    $payloadNames=@($aptDocument.DocumentElement.ChildNodes|Where-Object NodeType -EQ Element|ForEach-Object{ $_.GetAttribute('File') }|Select-Object -Unique)
+    foreach($name in $payloadNames){Need ([IO.Path]::GetFileName($name) -ceq $name) 'Accepted APT payload must remain beside XML';Copy-Item -LiteralPath (Join-Path $aptSource $name) -Destination (Join-Path "$flaMod/Data/AptUI" $name)}
+    $flaBefore=Snapshot $flaMod;$flaCache=Get-CompilerTestCacheRoot $script:sdk $flaMod
+    foreach($jobs in @(1,4)){
+        if(Test-Path $flaCache){Remove-Item -LiteralPath $flaCache -Recurse -Force}
+        $flaBuild=RunBuild "fla-xml-j$jobs-cold" $flaMod 'apt' 'loose' $jobs
+        Need ($flaBuild.report.contentExecution.groupCount -eq 1 -and @($flaBuild.report.plan.Tasks).Count -eq 2 -and @($flaBuild.report.plan.Tasks|Where-Object Content -CNE 'apt').Count -eq 0) 'FLA/XML inputs were not kept in one APT owner'
+        $wrapper=Join-Path $flaCache 'generated/fla/flash8-empty.xml'
+        Need ((Test-Path -LiteralPath $wrapper -PathType Leaf) -and @(Get-ChildItem "$flaCache/generated" -Recurse -File).Count -eq 1) 'Direct FLA generated declaration escaped the APT generated/fla directory'
+        foreach($group in @('base','maps')){foreach($part in @('session','build-cache','intermediate','streams')){Need (!(Test-Path (Join-Path $flaCache "$part/$group"))) "FLA/XML created inactive $group $part"}}
+        foreach($artifact in @($flaBuild.report.artifacts|Where-Object{[IO.Path]::GetExtension($_.Path) -ieq '.manifest'})){
+            $manifestText=[IO.File]::ReadAllText($artifact.Path)
+            Need ($manifestText.IndexOf('SuperCompilerCache',[StringComparison]::OrdinalIgnoreCase) -lt 0 -and $manifestText.IndexOf((Split-Path $flaCache -Leaf),[StringComparison]::OrdinalIgnoreCase) -lt 0) 'APT manifest leaked the private wrapper cache path'
+        }
+        if($jobs -eq 1){$flaSerial=$flaBuild}else{SameOutputs $flaSerial $flaBuild}
+        Unchanged $flaMod $flaBefore
+    }
+    # Copy only the same three root MapMetaData nodes used by the accepted
+    # PrepareCompilerCliBusiness fixture. Do not broaden the metadata workload.
+    $mapsMod=Join-Path $work 'map-business';$null=New-Item -ItemType Directory -Force -Path "$mapsMod/Data/AdditionalMaps"
+    $mapSource=Join-Path $root 'SDK/Mods/XmlCompilerRecoveryA/Data/FixturesA.xml'
+    $mapDocument=[xml][IO.File]::ReadAllText($mapSource)
+    $mapNodes=@($mapDocument.SelectNodes("/*[local-name()='AssetDeclaration']/*[local-name()='MapMetaData']"))
+    Need ($mapNodes.Count -eq 3) 'Accepted MapMetaData fixture inventory changed'
+    $mapDeclaration=[xml]'<AssetDeclaration xmlns="uri:ea.com:eala:asset"/>'
+    foreach($node in $mapNodes){[void]$mapDeclaration.DocumentElement.AppendChild($mapDeclaration.ImportNode($node,$true))}
+    foreach($name in @('One','Two')){$mapDeclaration.Save("$mapsMod/Data/AdditionalMaps/MapMetaData_Business_$name.xml")}
+    $mapsBefore=Snapshot $mapsMod;$mapsCache=Get-CompilerTestCacheRoot $script:sdk $mapsMod
+    foreach($jobs in @(1,4)){
+        if(Test-Path $mapsCache){Remove-Item -LiteralPath $mapsCache -Recurse -Force}
+        $mapsBuild=RunBuild "maps-business-j$jobs-cold" $mapsMod 'maps' 'loose' $jobs
+        Need ($mapsBuild.report.contentExecution.groupCount -eq 1 -and @($mapsBuild.report.plan.Tasks).Count -eq 2 -and @($mapsBuild.report.plan.Tasks|Where-Object Content -CNE 'maps').Count -eq 0) 'MapMetaData inputs were not kept in one Maps owner'
+        foreach($group in @('base','apt')){foreach($part in @('session','build-cache','intermediate','streams')){Need (!(Test-Path (Join-Path $mapsCache "$part/$group"))) "MapMetaData created inactive $group $part"}}
+        Need (!(Test-Path (Join-Path $mapsCache 'generated'))) 'Maps generated an APT wrapper directory'
+        if($jobs -eq 1){$mapsSerial=$mapsBuild}else{SameOutputs $mapsSerial $mapsBuild}
+        Unchanged $mapsMod $mapsBefore
+    }
+    $state.targetedContent=@{apt=@{flaSource='ui/tests/fixtures/flash8-empty.fla';flaSha256=(Hash $flaSource);xmlSource='SDK/Mods/XmlCompilerRecoveryApt/Data/FixturesApt.xml';xmlSha256=(Hash "$aptSource/FixturesApt.xml");entryCount=2;scope='One accepted empty Flash8 project plus twelve accepted file-backed APT DataBlob assets; no full UI or game playback'};maps=@{source='SDK/Mods/XmlCompilerRecoveryA/Data/FixturesA.xml';sourceSha256=(Hash $mapSource);rootAssetsPerEntry=3;entryCount=2;scope='Existing XSD-valid MapMetaData fixture roots only; not full map business acceptance'}}
+    SaveState
     $empty=Join-Path $work 'empty';$null=New-Item -ItemType Directory -Path "$empty/Data"
     $autoEmpty=RunBuild 'auto-empty' $empty 'auto' 'loose' 4 -Expected 2
     Need (@($autoEmpty.report.diagnostics|Where-Object Code -CEQ 'PLAN_NO_INPUTS').Count -eq 1) 'Automatic empty discovery changed'

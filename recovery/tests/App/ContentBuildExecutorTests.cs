@@ -46,6 +46,7 @@ namespace NewModCompiler.Tests
             internal Action<StreamContext, CancellationToken> CompileAction;
             internal int Active, Peak, ExpectedOverlap = 1;
             internal bool Trace;
+            internal string CleanupFailure;
             internal Harness(string root, string content, int jobs)
             {
                 string work = Path.Combine(root, (++serial).ToString()), sdk = Path.Combine(work, "sdk"), mod = Path.Combine(work, "mod");
@@ -87,7 +88,12 @@ namespace NewModCompiler.Tests
             internal Compiler(Harness harness, string content) { this.harness = harness; Content = content; }
             void Affinity() { Check(Thread.CurrentThread == Owner, "Core lifecycle moved away from its Owner thread"); }
             public string ProviderIdentity { get { return "CONTROLLED_CONTENT_COMPILER"; } }
-            public object CacheReport { get { return new {status="Disabled",hits=0,misses=0,sessionCacheDirectory=request.CacheLayout.ForContent(Content).Session}; } }
+            public object CacheReport {
+                get {
+                    if(Content=="base" && harness.CleanupFailure=="report") throw new InvalidOperationException("CONTROLLED_CACHE_REPORT_CLEANUP");
+                    return new {status="Disabled",hits=0,misses=0,sessionCacheDirectory=request.CacheLayout.ForContent(Content).Session};
+                }
+            }
             public void Initialize(BuildRequest value)
             {
                 Affinity(); Check(!Initialized && !Disposed, "Invalid Initialize lifecycle");
@@ -119,7 +125,11 @@ namespace NewModCompiler.Tests
                     return artifacts;
                 } finally { lock (harness.Gate) harness.Active--; }
             }
-            public void Dispose() { Affinity(); Check(!Disposed, "Owner disposed twice"); Disposed=true; }
+            public void Dispose()
+            {
+                Affinity(); Check(!Disposed, "Owner disposed twice"); Disposed=true;
+                if(Content=="base" && harness.CleanupFailure=="dispose") throw new InvalidOperationException("CONTROLLED_DISPOSE_CLEANUP");
+            }
         }
         sealed class AptDependency : IDependencyPlanner
         {
@@ -128,6 +138,24 @@ namespace NewModCompiler.Tests
                 roots.Single(task=>task.Content=="base").Dependencies=new[] {"apt/a"};
                 return roots;
             }
+        }
+        sealed class ProgressCompiler : IStreamCompiler
+        {
+            readonly BuildProgressState progress;
+            readonly IDictionary<string,ManualResetEventSlim> entered;
+            internal ProgressCompiler(BuildProgressState progress,IDictionary<string,ManualResetEventSlim> entered)
+            { this.progress=progress; this.entered=entered; }
+            public string ProviderIdentity { get { return "CONTROLLED_EARLY_PROGRESS"; } }
+            public void Initialize(BuildRequest request) { }
+            public IList<Artifact> Compile(StreamContext context,CancellationToken cancellation)
+            {
+                // Core can report work synchronously at the first line of
+                // Compile. A queued StreamStarted alone must not lose it.
+                progress.RecordWork(context.Task.Id,1,2,3);
+                entered[context.Task.Id].Set();
+                return new Artifact[0];
+            }
+            public void Dispose() { }
         }
         static string[] ArtifactIdentities(Harness harness)
         {
@@ -182,14 +210,46 @@ namespace NewModCompiler.Tests
                 Check(baseStarted.IsSet,"A ready dependent task never started");
             }
         }
+        static void ProgressStartAcknowledgement(string root)
+        {
+            using(var harness=new Harness(root,"base,apt",2)) {
+                var plan=Planner.Resolve(harness.Request);
+                var entered=plan.Tasks.ToDictionary(task=>task.Id,task=>new ManualResetEventSlim());
+                var progress=new BuildProgressState(()=>0);
+                progress.SetPlan(plan.Tasks.Length); progress.StartStage("compile");
+                int completed=0; bool compiledBeforeStart=false;
+                var executor=new ContentBuildExecutor(content=>new ProgressCompiler(progress,entered));
+                try {
+                    executor.Run(harness.Request,plan,harness.Request.CacheLayout,"progress-start-race",CancellationToken.None,
+                        task=>{
+                            // Hold the coordinator before creating the stream's
+                            // counters. The old fire-and-forget start lets its
+                            // Owner finish Compile during this bounded wait.
+                            compiledBeforeStart|=entered[task.Id].Wait(TimeSpan.FromMilliseconds(200));
+                            progress.StartStream(task.Id);
+                        },
+                        (task,artifacts)=>{
+                            var stream=progress.Snapshot().ActiveStreams.Single(value=>value.Stream==task.Id);
+                            Check(stream.AssetsCompleted==1 && stream.XmlParsed==2 && stream.DocumentsReused==3,
+                                "Compile reported work before the coordinator created its stream counters: "+task.Id);
+                            progress.CompleteStream(task.Id,"succeeded"); completed++;
+                        },
+                        (stream,source,type,message)=>{},
+                        (task,error)=>{throw new Exception("Progress acknowledgement build failed",error);});
+                    Check(!compiledBeforeStart && completed==plan.Tasks.Length && progress.Snapshot().StreamsCompleted==plan.Tasks.Length,
+                        "Owner did not wait for its coordinator's StreamStarted callback");
+                } finally { foreach(var signal in entered.Values) signal.Dispose(); }
+            }
+        }
         static void FailureAndCancellation(string root)
         {
             if (Environment.ProcessorCount<2) return;
             foreach (bool cancel in new[] {false,true})
+            foreach (string cleanup in new[] {"none","dispose","report"})
             using (var source=new CancellationTokenSource())
             using (var peerStarted=new ManualResetEventSlim())
             using (var harness=new Harness(root,"base,apt,maps",2)) {
-                harness.ExpectedOverlap=2; harness.Trace=true;
+                harness.ExpectedOverlap=2; harness.Trace=true; harness.CleanupFailure=cleanup;
                 harness.CompileAction=(context,cancellation)=>{
                     if(context.Task.Content=="base") {
                         Wait(peerStarted,"Failure was injected before the peer began native work");
@@ -203,6 +263,15 @@ namespace NewModCompiler.Tests
                 Check(harness.Run(source.Token)==(cancel ? ExitCode.Cancelled : ExitCode.Compilation),"Content failure/cancellation exit changed");
                 harness.Joined();
                 Check(harness.Started.Count==2 && !harness.Started.Contains("apt/b") && !harness.Started.Any(value=>value.StartsWith("maps/")),"Failure accepted new content work");
+                var started=harness.Events.Values.Where(value=>(string)value["eventType"]=="StreamStarted").Select(value=>(string)value["streamId"]).ToArray();
+                var completed=harness.Events.Values.Where(value=>(string)value["eventType"]=="StreamCompleted").Select(value=>(string)value["streamId"]).ToArray();
+                Check(started.Length==harness.Started.Count && completed.Length==started.Length,"Failure/cleanup emitted an unmatched stream terminal event");
+                foreach(string stream in started) Check(completed.Count(value=>value==stream)==1,"Failure/cleanup repeated or omitted a stream terminal event: "+stream);
+                if(cleanup!="none") {
+                    string marker=cleanup=="dispose" ? "CONTROLLED_DISPOSE_CLEANUP" : "CONTROLLED_CACHE_REPORT_CLEANUP";
+                    Check(harness.Events.Values.Any(value=>(string)value["eventType"]=="Diagnostic" && value.ContainsKey("message") &&
+                        ((string)value["message"]).Contains(marker)),"Secondary Owner cleanup failure was not diagnosed");
+                }
                 Check(!harness.Events.Values.Any(value=>(string)value["eventType"]=="ArtifactProduced" ||
                     (string)value["eventType"]=="StageStarted" && ((string)value["stageId"]=="publish" || (string)value["stageId"]=="package")),"Failed content was packaged or published");
                 var report=harness.Report();
@@ -212,7 +281,7 @@ namespace NewModCompiler.Tests
         internal static int Run(string root)
         {
             checks=0; serial=0;
-            Combinations(root); ReadyDependencies(root); FailureAndCancellation(root);
+            Combinations(root); ReadyDependencies(root); ProgressStartAcknowledgement(root); FailureAndCancellation(root);
             return checks;
         }
     }

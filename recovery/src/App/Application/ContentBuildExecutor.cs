@@ -68,7 +68,11 @@ namespace NewModCompiler.Application
                         if(message.Kind=="exit") { exited++; continue; }
                         try {
                             if(message.Kind=="trace") trace(message.StreamId,message.Source,message.TraceType,message.Text);
-                            else if(message.Kind=="start") started(message.Task);
+                            else if(message.Kind=="start") {
+                                try { started(message.Task); }
+                                catch { stop.Cancel(); throw; }
+                                finally { message.Owner.StartedAck.Set(); }
+                            }
                             else if(message.Kind=="success") {
                                 completed(message.Task,message.Artifacts);
                                 results.Add(message.Task.Id,message.Artifacts); successful.Add(message.Task.Id);
@@ -94,6 +98,7 @@ namespace NewModCompiler.Application
                         if(owner.CacheReport!=null) CacheReports.Add(new KeyValuePair<string,object>(owner.Content,owner.CacheReport));
                         if(InputRootsReport==null) InputRootsReport=owner.InputRoots;
                         if(ProviderIdentity==null) ProviderIdentity=owner.Provider;
+                        owner.StartedAck.Dispose();
                         owner.Work.Dispose();
                     }
                     ResourceReport=governor.Snapshot();
@@ -106,7 +111,8 @@ namespace NewModCompiler.Application
         }
         void RunOwner(Owner owner,CacheLayout layout,string buildId,BuildResourceGovernor governor,CancellationTokenSource stop)
         {
-            IStreamCompiler compiler=null; BuildTask current=null; bool began=false;
+            IStreamCompiler compiler=null; BuildTask current=null; bool began=false,reportFailure=false;
+            Exception failure=null;
             currentExecutor.Value=this;
             try {
                 foreach(BuildTask task in owner.Work.GetConsumingEnumerable(stop.Token)) {
@@ -115,7 +121,14 @@ namespace NewModCompiler.Application
                     using(governor.EnterOwner(stop.Token)) {
                         stop.Token.ThrowIfCancellationRequested();
                         began=true;
-                        messages.Add(new Message {Kind="start",Task=task});
+                        owner.StartedAck.Reset();
+                        messages.Add(new Message {Kind="start",Owner=owner,Task=task});
+                        // Core's first phase/work callback must observe the
+                        // stream already registered by the coordinator. Short
+                        // or hot streams can otherwise finish before it reads
+                        // the start message and lose their real work counters.
+                        owner.StartedAck.Wait(stop.Token);
+                        stop.Token.ThrowIfCancellationRequested();
                         if(compiler==null) {
                             compiler=factory(owner.Content);
                             if(compiler==null) throw new InvalidOperationException("Content compiler factory returned null.");
@@ -134,31 +147,52 @@ namespace NewModCompiler.Application
                     current=null; currentStream.Value=null; owner.Request.Performance.StreamId=null;
                 }
             } catch(OperationCanceledException error) {
-                if(current!=null) messages.Add(new Message {Kind="failure",Owner=owner,Task=began ? current : null,Error=error});
-            } catch(Exception error) {
+                failure=error; reportFailure=current!=null;
                 stop.Cancel();
-                messages.Add(new Message {Kind="failure",Owner=owner,Task=began ? current : null,Error=error});
+            } catch(Exception error) {
+                failure=error; reportFailure=true;
+                stop.Cancel();
             } finally {
                 try {
                     if(compiler!=null) {
                         using(governor.EnterOwner(CancellationToken.None))
                         using(owner.Request.Performance.Measure("backend.dispose")) compiler.Dispose();
                     }
-                } catch(Exception error) { stop.Cancel(); messages.Add(new Message {Kind="failure",Owner=owner,Task=current,Error=error}); }
+                } catch(Exception error) {
+                    AddCleanupFailure(ref failure,error,"BACKEND_DISPOSE_FAILED"); reportFailure=true; stop.Cancel();
+                }
                 finally {
                     try {
                         if(compiler is IBuildCacheCompiler) owner.CacheReport=((IBuildCacheCompiler)compiler).CacheReport;
                         if(compiler is IInputRootsCompiler) owner.InputRoots=((IInputRootsCompiler)compiler).InputRootsReport;
-                    } catch(Exception error) { stop.Cancel(); messages.Add(new Message {Kind="failure",Owner=owner,Task=current,Error=error}); }
-                    finally { currentStream.Value=null; currentExecutor.Value=null; messages.Add(new Message {Kind="exit",Owner=owner}); }
+                    } catch(Exception error) {
+                        AddCleanupFailure(ref failure,error,"BACKEND_REPORT_FAILED"); reportFailure=true; stop.Cancel();
+                    }
+                    finally {
+                        currentStream.Value=null; currentExecutor.Value=null;
+                        // Publish the primary exception only after teardown has
+                        // finished adding details. The coordinator may inspect
+                        // its Data immediately, and each started stream has one
+                        // terminal message even if both compilation and cleanup fail.
+                        if(reportFailure) messages.Add(new Message {Kind="failure",Owner=owner,Task=began ? current : null,Error=failure});
+                        messages.Add(new Message {Kind="exit",Owner=owner});
+                    }
                 }
             }
+        }
+        static void AddCleanupFailure(ref Exception failure,Exception cleanup,string code)
+        {
+            if(failure==null) failure=new BuildFailure(ExitCode.Internal,code,cleanup.Message);
+            var details=failure.Data["CoreCleanupExceptions"] as List<Exception>;
+            if(details==null) { details=new List<Exception>(); failure.Data["CoreCleanupExceptions"]=details; }
+            details.Add(cleanup);
         }
         double ElapsedMilliseconds() { return (Stopwatch.GetTimestamp()-origin)*1000.0/Stopwatch.Frequency; }
         sealed class Owner
         {
             internal string Content,Provider; internal BuildTask[] Tasks; internal BuildRequest Request;
             internal readonly BlockingCollection<BuildTask> Work=new BlockingCollection<BuildTask>();
+            internal readonly ManualResetEventSlim StartedAck=new ManualResetEventSlim();
             internal Thread Thread; internal int Next; internal bool Busy,Closed; internal object CacheReport,InputRoots;
             internal readonly List<object> Timings=new List<object>();
         }

@@ -12,8 +12,8 @@ using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 using NewModCompiler.Application;
 
-// Real sequential IStreamCompiler fixture. Cold comparisons use new backend
-// instances in this same process; this is not a cold-process or SDK/G3 receipt.
+// Real owner-thread IStreamCompiler fixture, including simultaneous Core
+// lifetimes. Cold comparisons are same-process, not cold-process or SDK/G3.
 public static class CompilerBackendLifecycle
 {
     static readonly List<string> Tests = new List<string>();
@@ -21,7 +21,7 @@ public static class CompilerBackendLifecycle
     static readonly BindingFlags PrivateStatic = BindingFlags.Static | BindingFlags.NonPublic;
     static string work, sdk, probe;
     static int checks, traceCalls;
-    static void Require(bool value, string message) { ++checks; if (!value) throw new Exception(message); }
+    static void Require(bool value, string message) { Interlocked.Increment(ref checks); if (!value) throw new Exception(message); }
     static object Field(Type type, string name)
     {
         var field = type.GetField(name, PrivateStatic);
@@ -73,7 +73,7 @@ public static class CompilerBackendLifecycle
             typeof(StreamContext).GetProperty(pair.Key).GetSetMethod(true).Invoke(context,new[] {pair.Value});
         return context;
     }
-    static CoreStreamCompiler Backend() { return new CoreStreamCompiler(delegate(string source, TraceEventType kind, string message) { ++traceCalls; }); }
+    static CoreStreamCompiler Backend() { return new CoreStreamCompiler(delegate(string source, TraceEventType kind, string message) { Interlocked.Increment(ref traceCalls); }); }
     static string Hash(string path)
     {
         using (var sha=SHA256.Create()) return BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(path))).Replace("-","").ToLowerInvariant();
@@ -258,12 +258,113 @@ public static class CompilerBackendLifecycle
     {
         using(var backend=Backend()) { backend.Initialize(request); ambient.Unchanged("cold Initialize"); return Compile(backend,request,"Mod","cold",ambient); }
     }
+    static void RejectOwnerOperation(Action action, string message)
+    {
+        bool rejected = false;
+        try { action(); } catch (InvalidOperationException) { rejected = true; }
+        Require(rejected, message);
+    }
+    static Dictionary<string,string>[] ConcurrentOwners(string a, string b, Ambient ambient)
+    {
+        var requests = new[] { Request(a, Path.Combine(work, "parallel-output-a")), Request(b, Path.Combine(work, "parallel-output-b")) };
+        var artifacts = new IList<Artifact>[2];
+        var outputs = new Dictionary<string,string>[2];
+        var errors = new Exception[2];
+        var threads = new Thread[2];
+        var contexts = new CompilationContext[2];
+        var hashTables = new object[2];
+        var documentStacks = new object[2];
+        var entered = new int[2];
+        using (var ready = new CountdownEvent(2))
+        {
+            for (int i = 0; i < threads.Length; ++i)
+            {
+                int index = i;
+                requests[index].Options["tl"] = new EffectiveOption { Value = "9", Source = "concurrent-owner-fixture" };
+                threads[index] = new Thread(delegate()
+                {
+                    CoreStreamCompiler owner = null;
+                    try
+                    {
+                        TraceWriteHandler writer = delegate(string source, TraceEventType kind, string message)
+                        {
+                            Interlocked.Increment(ref traceCalls);
+                            if (source != "DocumentProcessor" || Interlocked.CompareExchange(ref entered[index], 1, 0) != 0) return;
+                            Settings settings = Settings.Current;
+                            Require(settings != null && settings.InputPath == Path.Combine(requests[index].ModRoot, "Data", "Mod.xml"), "Core callback received another owner's settings");
+                            contexts[index] = CompilationContext.Current;
+                            hashTables[index] = Field(typeof(HashProvider), "_StringHashBins");
+                            documentStacks[index] = Field(typeof(DocumentProcessor), "_CurrentDocumentStack");
+                            Require(hashTables[index] != null && documentStacks[index] != null, "Concurrent scope was not fully initialized");
+                            TraceWriteHandler originalWriter = Tracer.TraceWrite;
+                            string originalHashes = HashProvider.StringHashesFile, originalReport = AssetReport.FileName;
+                            string marker = "owner-" + index;
+                            HashProvider.StringHashesFile = marker + "-hash.xml";
+                            AssetReport.FileName = marker + "-report.xml";
+                            try
+                            {
+                                RejectOwnerOperation(delegate { owner.Compile(null, CancellationToken.None); }, "Instance accepted reentrant Compile");
+                                RejectOwnerOperation(delegate { owner.Initialize(requests[index]); }, "Instance accepted repeated Initialize");
+                                RejectOwnerOperation(owner.Dispose, "Instance accepted Dispose during Compile");
+                                Exception foreignError = null;
+                                var foreign = new Thread(delegate()
+                                {
+                                    try
+                                    {
+                                        RejectOwnerOperation(delegate { owner.Compile(null, CancellationToken.None); }, "Foreign thread entered Compile");
+                                        RejectOwnerOperation(owner.Dispose, "Foreign thread disposed Core");
+                                    }
+                                    catch (Exception error) { foreignError = error; }
+                                });
+                                foreign.IsBackground = true; foreign.Start();
+                                Require(foreign.Join(5000), "Foreign owner checks blocked");
+                                if (foreignError != null) throw foreignError;
+                                ready.Signal();
+                                Require(ready.Wait(10000), "Separate Core owners did not overlap inside their compilation scopes");
+                                Require(!Object.ReferenceEquals(contexts[0], contexts[1]), "Concurrent Core instances shared a CompilationContext");
+                                Require(!Object.ReferenceEquals(hashTables[0], hashTables[1]) && !Object.ReferenceEquals(documentStacks[0], documentStacks[1]), "Concurrent Core instances shared hash or document state");
+                                Require(Object.ReferenceEquals(CompilationContext.Current, contexts[index]) && Object.ReferenceEquals(Settings.Current, settings), "Concurrent owner replaced this Core's context/settings");
+                                Require(Object.ReferenceEquals(Field(typeof(HashProvider), "_StringHashBins"), hashTables[index]) && Object.ReferenceEquals(Field(typeof(DocumentProcessor), "_CurrentDocumentStack"), documentStacks[index]), "Concurrent owner replaced this Core's hash/document state");
+                                Require(Object.ReferenceEquals(Tracer.TraceWrite, originalWriter) && HashProvider.StringHashesFile == marker + "-hash.xml" && AssetReport.FileName == marker + "-report.xml", "Concurrent owner changed this Core's trace/hash/report state");
+                            }
+                            finally { HashProvider.StringHashesFile = originalHashes; AssetReport.FileName = originalReport; }
+                        };
+                        owner = new CoreStreamCompiler(writer);
+                        owner.Initialize(requests[index]); ambient.Unchanged("Concurrent Initialize");
+                        artifacts[index] = owner.Compile(Context(requests[index], Task(requests[index].ModRoot, "Mod")), CancellationToken.None);
+                        outputs[index] = Four(artifacts[index], CacheLayout.ForRequest(requests[index]).StreamDirectory(Task(requests[index].ModRoot, "Mod")));
+                        DefaultMetadata(owner); ambient.Unchanged("Concurrent Compile");
+                    }
+                    catch (Exception error) { errors[index] = error; }
+                    finally
+                    {
+                        try { if (owner != null) { owner.Dispose(); owner.Dispose(); } }
+                        catch (Exception error) { errors[index] = errors[index] == null ? error : new AggregateException(errors[index], error); }
+                    }
+                });
+                threads[index].IsBackground = true;
+            }
+            foreach (Thread thread in threads) thread.Start();
+            foreach (Thread thread in threads) Require(thread.Join(30000), "Concurrent Core owner did not finish");
+        }
+        for (int i = 0; i < errors.Length; ++i)
+        {
+            if (errors[i] != null) throw new Exception("Concurrent owner " + i + " failed", errors[i]);
+            Require(entered[i] == 1, "Core did not exercise the concurrent scope barrier");
+            IndependentArmorOracle(artifacts[i], i == 1, "DATA:armor.xml");
+        }
+        ambient.Unchanged("Concurrent owners disposed");
+        Tests.Add("two-real-core-owner-threads-overlap-private-context-settings-hash-document-trace-report-state-original-byte-oracle");
+        Tests.Add("per-instance-thread-affinity-nonreentry-reinitialize-running-dispose-rejection");
+        return outputs;
+    }
     static void Run(Ambient ambient)
     {
         string a=MakeMod("mod-a",probe), b=MakeMod("mod-b",probe.Replace("Default=\"72.5%\"","Default=\"12.5%\""));
         Require(File.ReadAllText(Path.Combine(a,"Data/Armor.xml"))!=File.ReadAllText(Path.Combine(b,"Data/Armor.xml")),"Variant fixture did not change payload");
         var originalA=Files(a); var originalB=Files(b);
         var requestA=Request(a,Path.Combine(work,"output-a")); var requestB=Request(b,Path.Combine(work,"output-b"));
+        Dictionary<string,string>[] concurrent = ConcurrentOwners(a,b,ambient);
         Dictionary<string,string> first,second;
         var backend=Backend();
         try
@@ -273,10 +374,12 @@ public static class CompilerBackendLifecycle
             using(var competitor=Backend())
             {
                 bool rejected=false;
-                try { competitor.Initialize(requestB); } catch(InvalidOperationException) { rejected=true; } catch(BuildFailure) { rejected=true; }
-                Require(rejected,"Concurrent backend lease was accepted"); ambient.Unchanged("Rejected Initialize");
+                try { competitor.Initialize(requestA); }
+                catch(BuildFailure error) { rejected=error.ExitCode==ExitCode.Environment && error.Code=="CORE_INITIALIZE_FAILED" && error.Message.Contains("Another compiler owns this cache."); }
+                Require(rejected,"Standalone Core accepted a competing writer to the same MOD cache"); ambient.Unchanged("Rejected same-MOD cache Initialize");
             }
             first=Compile(backend,requestA,"Mod","first",ambient);
+            Equal(concurrent[0],first,"Concurrent MOD A versus serial owner");
             Compile(backend,requestA,"Extra","second-stream",ambient);
             Tests.Add("single-initialize-multiple-real-core-streams-staging-and-ambient-restoration");
             BuildTask badTask=Task(a,"Bad");
@@ -306,6 +409,7 @@ public static class CompilerBackendLifecycle
         ambient.Unchanged("Dispose twice");
         using(var other=Backend()) { other.Initialize(requestB); second=Compile(other,requestB,"Mod","first",ambient); }
         ambient.Unchanged("Second MOD Dispose");
+        Equal(concurrent[1],second,"Concurrent MOD B versus serial owner");
         string bin=first.Keys.Single(path=>Path.GetExtension(path)==".bin");
         Require(second.ContainsKey(bin) && second[bin]!=first[bin],"Different MOD same IDs produced the same payload");
         Equal(first,Cold(requestA,ambient),"MOD A cold-context comparison");
@@ -319,10 +423,10 @@ public static class CompilerBackendLifecycle
             Require(rejected,"Invalid SDK initialization succeeded");
         }
         using(var fresh=Backend()) { fresh.Initialize(requestA); Compile(fresh,requestA,"Mod","after-init-failure",ambient); }
-        ambient.Unchanged("Failed initialization lease release");
+        ambient.Unchanged("Failed initialization cache-lock release");
         SameFiles(originalA,a); SameFiles(originalB,b);
         Require(traceCalls>0,"Backend trace bridge was not exercised");
-        Tests.Add("dispose-idempotent-and-failed-initialize-releases-lease-source-mods-unchanged");
+        Tests.Add("dispose-idempotent-same-mod-cache-exclusion-failed-initialize-releases-cache-lock-source-mods-unchanged");
     }
     public static int Main(string[] args)
     {
@@ -346,7 +450,7 @@ public static class CompilerBackendLifecycle
                 Require(baseline.Contains("BackendFixtureBaselineOnly") && !baseline.Contains("RecoveryArmorProbe"),"Backend polluted caller hash table contents");
             }
             Settings.Current=previous; original.Unchanged("Fixture scopes restored");
-            result=new {succeeded=true,sourceCommit=args[2],runId=args[3],checks=checks,tests=Tests.ToArray(),baselineCases=BaselineCases.ToArray(),fixtureWorkRoot=work,scope="Real in-process backend only; cold comparisons are same-process new-backend contexts; production CLI, cold-process/G3/SDK and persistent-cache acceptance pending"};
+            result=new {succeeded=true,sourceCommit=args[2],runId=args[3],checks=checks,tests=Tests.ToArray(),baselineCases=BaselineCases.ToArray(),fixtureWorkRoot=work,scope="Real simultaneous owner-thread and sequential in-process backends; cold comparisons are same-process new-backend contexts; production CLI, cold-process/G3/SDK and persistent-cache acceptance pending"};
             Console.WriteLine("PASS BackendLifecycle: "+Tests.Count+" groups; "+checks+" checks");
         }
         catch(Exception e)

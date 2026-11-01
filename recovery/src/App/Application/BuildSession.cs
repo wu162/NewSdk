@@ -51,7 +51,7 @@ namespace NewModCompiler.Application
                         request.FileIdentities=new FileHashCache(request.Performance);
                     if(compilerFactory!=null) {
 #if NEWSdk_MONOLITHIC
-                        CoreStreamCompiler.PrepareRequest(request);
+                        if(plan.Tasks.Length!=0) CoreStreamCompiler.PrepareRequest(request);
 #endif
                         request.FreezeOptions();
                         contentExecutor=new ContentBuildExecutor(compilerFactory);
