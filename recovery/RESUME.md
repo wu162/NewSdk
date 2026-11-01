@@ -1,10 +1,10 @@
-# 当前：TGA/Wave8组件验收通过，已合入性能分支，修复版计时中
+# 当前：TGA/Wave8已合入性能分支，修复版全15流冷计量完成
 
-生产 `24f83d2b` / [41260620635](https://github.com/wu162/NewSdk/actions/runs/41260620635) success：新D/R、原图246原三缓冲、边界9、Texture三路/31格式及小CLI、音频每配置4347原转录、100次EALayer3独立解码及52资产生产CLI缓存/并行通过。[身份/收据](evidence/codecs/new-world/41260620635-1/summary.json)。用户指定不额外编译整个MOD做codec验证，已删除对应控制器，未跑完整mymod。
+用户授权的PR#43已以 `a15e3c1e` 合入本分支。生产 `24f83d2b` / [41260620635](https://github.com/wu162/NewSdk/actions/runs/41260620635) 组件与小CLI success；未额外编译整个MOD或mymod做codec验收。TGA原图246三缓冲、边界9、原三路/31格式、D/R每配置4347音频转录、100次EALayer3独立解码及52资产小CLI通过。[组件身份收据](evidence/codecs/new-world/41260620635-1/summary.json)。
 
-用户明确授权的[PR#43](https://github.com/wu162/NewSdk/pull/43)已通过merge commit `a15e3c1e`合回本性能分支，禁强推。当前计量源299286c5，[41261694766](https://github.com/wu162/NewSdk/actions/runs/41261694766)运行：固定已验收Release5aa008d，原始贴图/音频不改，只剔除89Joypad，新旧各一次完整1+13+1冷编译；先新版，失败即停；无额外全MOD预检。结果待终态。
+[修复后41261694766](https://github.com/wu162/NewSdk/actions/runs/41261694766) 已完成新旧全部1+13+1流冷编译，各4058文件：原1921.681秒→新410.182秒（少78.66%，4.68倍）。双方原始媒体不改，只剔除89Joypad；固定已验收Release5aa008d，计量源299286c5，无额外完整预检。整体outputs-differ，仅mod.bin的330个DXT1/BC1块不同，59846863字节差异与旧基线完全相同；其他4057文件身份一致，真实8声道CDATA两方原SHA相同。n1、OS页缓存未控、不含BIG，不能拿别VM的旧94条基线算修复前后提速。[完整报告/边界/证据](docs/NEW_WORLD_71_SDK_COMPARISON.md)。
 
-旧supported94基线41256811133原1457.887→新286.933秒（少80.32%，5.08倍），15流均成功但整体outputs-differ：330个DXT1 Texture的BC1压缩块不同，其他4056文件长度/SHA一致。[详细报告](docs/NEW_WORLD_71_SDK_COMPARISON.md)。BC1字节边界与完整MOD热继承缓存失败仍保留，不冒充已修复。PR#42向legacy的合入未获用户授权。
+本地SDK/Mods源码已恢复原贴图与8声道声明，仅89Joypad仍剔除；原包/备份保留。完整MOD热继承缓存历史失败及BC1字节边界未修复，不冒充整组原字节等价或全热态验收。PR#42向legacy合入尚未获批，禁止强推。
 
 # 当前：音频身份差异已修复，原 SDK 全输入配对通过（PR #41）
 

@@ -12,8 +12,10 @@
 
 [验收收据与运行文件身份](../evidence/codecs/new-world/41260620635-1/summary.json) 已保存。
 按用户要求未额外编译完整MOD或mymod用于本次codec验收。用户授权的[PR#43](https://github.com/wu162/NewSdk/pull/43)
-已以 `a15e3c1e` 合入性能分支；[修复版全15流性能41261694766](https://github.com/wu162/NewSdk/actions/runs/41261694766) 正在运行，
-新旧均使用原始媒体且只剔除89条Joypad；结果未完成前不量化修复后性能，也不把旧supported94计时混入。
+已以 `a15e3c1e` 合入性能分支；[修复版全15流性能41261694766](https://github.com/wu162/NewSdk/actions/runs/41261694766) 已完成，
+已完成，原SDK1921.681→修复版410.182秒；新旧均用原始媒体、仅剔除89Joypad。
+各4058输出，真实8声道XAS原SHA一致；仅330个既有BC1资产块不同，未声称全输出等价。
+[完整同机计量与边界](../docs/NEW_WORLD_71_SDK_COMPARISON.md)。
 
 实现分支：`feature/ra3-ealayer3`，基线 `recovery/legacy-sdk-cache` / `eb503513`。
 实现及 Windows 验收已通过；[PR #34](https://github.com/wu162/NewSdk/pull/34)，未经用户批准不合并。
