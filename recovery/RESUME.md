@@ -9,7 +9,9 @@ D/R新构建、App各1879、10组原修复差分、12个Core fixture、31个CLI�
 实际改1哈希/补5资产，12个BIG成员与原HashFix→Resolver→LoD→MakeBig原字节相同。
 两个三文件ZIP独立解压冷编译通过；未完整大型MOD/游戏验收，旧LoD合成尾字节差异按原确定合同保留。
 [说明与边界](docs/NEUTRAL_WORLDBUILDER.md)、[收据](evidence/neutral-worldbuilder/41319194413-1/summary.json)。
-用户已明确授权打包发布；新标签 `compiler-2026.11.01-neutral` 的实际发布状态以GitHub为准。
+已公开发布 [compiler-2026.11.01-neutral](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01-neutral)，
+[发布运行41320643988](https://github.com/wu162/NewSdk/actions/runs/41320643988) 成功；两个三文件ZIP、完整官方参考ZIP及说明/清单共7附件已核对API大小与SHA256，已设latest。
+沿用独立只含README/metadata的源码归档标签，复用已验收二进制；一次性发布工作流已移除。
 禁止强推，未获另行批准不把本分支合入其他开发分支。
 
 # 当前：Joypad 并行版已发布（PR #49 未合并）

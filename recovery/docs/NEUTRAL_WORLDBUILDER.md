@@ -5,6 +5,10 @@
 
 ## 使用
 
+下载 [中立地编修复版 Release](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01-neutral)。
+通常选择 `NewModCompiler-Win32-Release.zip`；将参考附件 `RA3-Worldbuilder-1.12-References.zip`
+解压到现有 SDK 根目录。编译器 ZIP 保持三个运行文件，参考数据另包提供。
+
 BIG 包含 base 时使用 `--fix-neutral-assets=true`，或在 MOD 的
 `newmodcompiler.json` 中加入 `"fix-neutral-assets": true`。
 也可修改 `NewModCompiler.exe.config` 已有的 `appSettings`：
@@ -76,6 +80,8 @@ Debug/Release 各1879项 App 合同、10组原版修复组件、12个真实 Core
 每种配置8个小MOD用例：实际修正1项哈希，递归补入5个官方资产，BIG的全部12个成员原始字节
 与原版完整处理链一致。两个三文件ZIP均独立解压后完成冷编译，BIG/SKUDEF与生产结果相同。
 归档和运行文件身份见 [验收收据](../evidence/neutral-worldbuilder/41319194413-1/summary.json)。
+[发布运行41320643988](https://github.com/wu162/NewSdk/actions/runs/41320643988) 已成功，7个附件的API大小与SHA256均与本地一致，
+见 [发布收据](../evidence/releases/compiler-2026.11.01-neutral/published.json)。发布复用已验收二进制，没有重新构建。
 本轮不代表完整大型MOD或游戏内验收。
 
 历史联合合成 LoD 的5个单资产样例仍保留原字节失败：原工具越界将来源表末尾 NUL
