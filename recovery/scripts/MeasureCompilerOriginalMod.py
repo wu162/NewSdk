@@ -100,7 +100,8 @@ def report(out, state):
         'Same Windows VM, SDK, physical MOD input, Schema, cwd and ordered search roots. Separate caches.',
         'Fresh process per sample, process launch through exit includes CLI/report overhead. Hash checks excluded.',
         'Cold = initially absent compiler cache/output namespace; OS page cache is uncontrolled.',
-        'New Release jobs4, performance off; original BAB has its original serial implementation.', '',
+        'New Release jobs4, performance off; original BAB has its original serial implementation.',
+        'First paired cold engine: ' + state.get('firstEngine', 'original') + '; trial/phase order alternates.', '',
         '| MOD | Mode | Phase | n/engine | Original seconds | New seconds | New time change |',
         '| --- | --- | --- | ---: | ---: | ---: | ---: |']
     for r in state['summary']:
@@ -142,6 +143,8 @@ def report(out, state):
         lines += ['', 'New-compiler preflight only. No original/new performance comparison is claimed.']
     if state.get('coldOnly'):
         lines += ['', 'Cold-only selection. No hot-cache or incremental-edit result is claimed by this run.']
+    if state.get('stoppedAfterFirstNewColdFailure'):
+        lines += ['', 'The selected first new cold build failed; the original long cold build was not started.']
     (out / 'report.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
 
 
@@ -166,6 +169,8 @@ def main():
                         help='Omit the extra unchanged cache-disabled timing run for very large MODs')
     parser.add_argument('--source-adjustments', type=Path)
     parser.add_argument('--engine', choices=('both', 'new'), default='both')
+    parser.add_argument('--first-engine', choices=('original', 'new'), default='original',
+                        help='First paired cold engine; later trial/phase orders alternate')
     parser.add_argument('--cold-only', action='store_true',
                         help='Measure complete cold builds only; leave warm-cache failures as separate evidence')
     args = parser.parse_args()
@@ -185,6 +190,7 @@ def main():
         samples=[], pairs=[], errors=[], jobs=4, performance='off',
         fullContent=args.content != 'base', contentSelection=args.content)
     state['engineSelection'] = args.engine
+    state['firstEngine'] = args.first_engine
     state['coldOnly'] = args.cold_only
     if args.source_adjustments:
         state['sourceAdjustments'] = json.loads(args.source_adjustments.read_text(encoding='utf-8'))
@@ -404,6 +410,8 @@ def main():
                     elif phase == 'restored':
                         edit_path.write_bytes(edit_original)
                     engines = ('original', 'new') if (trial + index) % 2 == 0 else ('new', 'original')
+                    if args.first_engine == 'new':
+                        engines = tuple(reversed(engines))
                     if args.engine == 'new':
                         engines = ('new',)
                     pair, failures = {}, []
@@ -415,6 +423,10 @@ def main():
                                            error=type(error).__name__ + ': ' + str(error))
                             state['errors'].append(failure)
                             failures.append(failure)
+                            if (args.engine == 'both' and args.first_engine == 'new' and trial == 0
+                                    and phase == 'cold' and engine == 'new'):
+                                state['stoppedAfterFirstNewColdFailure'] = True
+                                break
                     need(not failures, 'Paired build failed: ' + json.dumps(failures))
                     if args.engine == 'new':
                         report(out, state)
