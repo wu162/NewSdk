@@ -1,0 +1,50 @@
+name: Compiler binary release package
+on:
+  push:
+    branches: [release/compiler-2026.11.01]
+    paths:
+      - '.github/workflows/compiler-binary-release.yml'
+      - 'recovery/scripts/PublishCompilerReleaseOnly.ps1'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  package:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Download the pinned accepted Release and verify its archive
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference='Stop'
+          $run=gh api repos/wu162/NewSdk/actions/runs/41275643703|ConvertFrom-Json
+          if($LASTEXITCODE -ne 0 -or $run.conclusion -cne 'success' -or $run.head_sha -cne '476a78787bb026d43902e25d0b006154f14d8448'){throw 'Accepted run identity differs'}
+          python -c "import subprocess;from pathlib import Path;p=Path('accepted.zip');f=p.open('wb');subprocess.run(['gh','api','repos/wu162/NewSdk/actions/artifacts/13071407004/zip'],stdout=f,check=True);f.close()"
+          if($LASTEXITCODE -ne 0){throw 'Accepted archive download failed'}
+          if((Get-FileHash accepted.zip -Algorithm SHA256).Hash.ToLowerInvariant() -cne 'ae00c45b84ae85a8fae693f54c4c374722960007da73da57788b09506d785f2f'){throw 'Accepted archive digest differs'}
+          Expand-Archive accepted.zip -DestinationPath accepted
+      - name: Validate release script syntax
+        shell: pwsh
+        run: |
+          $tokens=$null;$errors=$null
+          $null=[Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'recovery/scripts/PublishCompilerReleaseOnly.ps1'),[ref]$tokens,[ref]$errors)
+          if($errors.Count){$errors|Format-List;throw 'Release script syntax failed'}
+      - name: Package three runtime files and verify independently extracted CLI
+        shell: pwsh
+        run: ./recovery/scripts/PublishCompilerReleaseOnly.ps1 -CompilerDirectory accepted/supercompiler-cache-product -AcceptanceReceipt accepted/supercompiler-cache-sdk/validation.json -OutputDirectory release-package
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compiler-binary-release-${{ github.run_id }}-${{ github.run_attempt }}
+          path: release-package/
+          if-no-files-found: error
