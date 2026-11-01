@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import * as assert from 'node:assert/strict';
-import { compilerArguments, diagnosticPaths, ProjectRunLocks, RunConfiguration } from '../src/compilerArguments';
+import { acquirePhysicalProjectLock, compilerArguments, diagnosticPaths, physicalProjectLockPath, ProjectRunLocks, RunConfiguration } from '../src/compilerArguments';
 
 const configuration: RunConfiguration = {
     compilerPath: 'C:\\Compiler folder\\NewModCompiler.exe',
@@ -201,4 +201,77 @@ test('task lifecycle rejects doctor failure and stale evidence, and forced stop 
         Object.defineProperty(process, 'platform', actualPlatform);
         await fs.rm(temporary, { recursive: true, force: true });
     }
+});
+
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+
+test('OS project lock rejects a second host, permits release/retry and reclaims only known dead owners', async () => {
+    const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-project-lock-'));
+    const identity = 'physical-project-identity';
+    try {
+        const first = await acquirePhysicalProjectLock(identity, { lockDirectory: directory });
+        await assert.rejects(acquirePhysicalProjectLock(identity, { lockDirectory: directory }), /另一个 VS Code 窗口/);
+        const execute = promisify(execFile);
+        // A different Node process sees the same lock, proving this is not just
+        // an in-memory mutex in the original VS Code extension host.
+        await assert.rejects(execute(process.execPath, ['-e',
+            'require(process.argv[1]).acquirePhysicalProjectLock(process.argv[3], {lockDirectory:process.argv[2]}).then(async lock=>{await lock.release();process.exit(0)},error=>{process.stderr.write(error.message);process.exit(9)})',
+            require.resolve('../src/compilerArguments'), directory, identity]),
+        (error: unknown) => error instanceof Error && 'stderr' in error &&
+            String(error.stderr).includes('另一个 VS Code 窗口'));
+        await first.release();
+        await first.release();
+        const retry = await acquirePhysicalProjectLock(identity, { lockDirectory: directory });
+        await retry.release();
+
+        const lockPath = physicalProjectLockPath(identity, directory);
+        const oldOwner = { version: 1, pid: 2147483647,
+            token: '00000000-0000-0000-0000-000000000000', identity };
+        await fs.writeFile(lockPath, JSON.stringify(oldOwner));
+        await assert.rejects(acquirePhysicalProjectLock(identity, {
+            lockDirectory: directory, probeProcess: () => 'unknown',
+        }), /无法确认进程/);
+        assert.deepEqual(JSON.parse(await fs.readFile(lockPath, 'utf8')), oldOwner);
+        const reclaimed = await acquirePhysicalProjectLock(identity, {
+            lockDirectory: directory, probeProcess: () => 'dead',
+        });
+        const current = JSON.parse(await fs.readFile(lockPath, 'utf8')) as { token: string; pid: number };
+        assert.equal(current.pid, process.pid);
+        assert.notEqual(current.token, oldOwner.token);
+        await reclaimed.release();
+    } finally { await fs.rm(directory, { recursive: true, force: true }); }
+});
+
+test('OS project lock preserves corrupt/foreign ownership and never releases another token', async () => {
+    const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-project-lock-'));
+    const identity = 'physical-project-identity';
+    const lockPath = physicalProjectLockPath(identity, directory);
+    try {
+        await fs.writeFile(lockPath, '{unfinished');
+        await assert.rejects(acquirePhysicalProjectLock(identity, { lockDirectory: directory }), /无法确认项目锁/);
+        assert.equal(await fs.readFile(lockPath, 'utf8'), '{unfinished');
+        await fs.unlink(lockPath);
+        const lock = await acquirePhysicalProjectLock(identity, { lockDirectory: directory });
+        const original = JSON.parse(await fs.readFile(lockPath, 'utf8')) as Record<string, unknown>;
+        await fs.writeFile(lockPath, JSON.stringify({ ...original,
+            token: 'ffffffff-ffff-ffff-ffff-ffffffffffff' }));
+        await assert.rejects(lock.release(), /已由其他任务持有/);
+        assert.equal((JSON.parse(await fs.readFile(lockPath, 'utf8')) as { token: string }).token,
+            'ffffffff-ffff-ffff-ffff-ffffffffffff');
+        await fs.unlink(lockPath);
+        await lock.release();
+    } finally { await fs.rm(directory, { recursive: true, force: true }); }
+});
+
+test('concurrent OS lock acquisitions have one owner and leave no gate behind', async () => {
+    const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-project-lock-'));
+    try {
+        const acquired = await Promise.allSettled(Array.from({ length: 4 }, () =>
+            acquirePhysicalProjectLock('same-physical-mod', { lockDirectory: directory })));
+        const owners = acquired.filter(result => result.status === 'fulfilled');
+        assert.equal(owners.length, 1);
+        for (const owner of owners) if (owner.status === 'fulfilled') await owner.value.release();
+        assert.deepEqual(await fs.readdir(directory), []);
+    } finally { await fs.rm(directory, { recursive: true, force: true }); }
 });

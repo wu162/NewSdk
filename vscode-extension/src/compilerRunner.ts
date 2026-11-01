@@ -6,7 +6,7 @@ import {
     BuildProgress, BuildProtocolState, BuildResult, JsonlTail, readBuildReport,
 } from './buildProtocol';
 import {
-    compilerArguments, CompilerOperation, diagnosticPaths, DiagnosticPaths, ProjectRunLocks, RunConfiguration,
+    acquirePhysicalProjectLock, compilerArguments, CompilerOperation, diagnosticPaths, DiagnosticPaths, PhysicalProjectLock, ProjectRunLocks, RunConfiguration,
 } from './compilerArguments';
 import { canonicalPath, projectIdentity, validateOutputDirectory } from './project';
 
@@ -68,9 +68,12 @@ export class CompilerRunner implements vscode.Disposable {
         const started = Date.now();
         const timer = setInterval(() => this.update({ elapsedMs: Date.now() - started }), 500);
         let release: (() => void) | undefined;
+        let physicalLock: PhysicalProjectLock | undefined;
         try {
             const config = await this.prepare(configuration, false);
-            release = projectLocks.acquire(await projectIdentity(config.modRoot));
+            const identity = await projectIdentity(config.modRoot);
+            release = projectLocks.acquire(identity);
+            physicalLock = await acquirePhysicalProjectLock(identity);
             this.update({ config, message: '正在检查 SDK 环境；原始诊断见任务终端。' });
             const exitCode = await this.runTask('doctor', config);
             const succeeded = exitCode === 0 && !this.forced;
@@ -85,8 +88,11 @@ export class CompilerRunner implements vscode.Disposable {
             return false;
         } finally {
             clearInterval(timer);
-            this.finishOperation(started);
+            await physicalLock?.release().catch(error => {
+                this.update({ message: `${this.current.message ?? ''}；释放项目锁失败：${errorMessage(error)}` });
+            });
             release?.();
+            this.finishOperation(started);
         }
     }
 
@@ -138,6 +144,7 @@ export class CompilerRunner implements vscode.Disposable {
         const started = Date.now();
         const protocol = new BuildProtocolState();
         let release: (() => void) | undefined;
+        let physicalLock: PhysicalProjectLock | undefined;
         let timer: ReturnType<typeof setInterval> | undefined;
         let polling: Promise<void> | undefined;
         let poll: (() => Promise<void>) | undefined;
@@ -148,7 +155,9 @@ export class CompilerRunner implements vscode.Disposable {
                 void poll?.().catch(error => { protocolError = errorMessage(error); });
             }, 500);
             const config = await this.prepare(configuration, true);
-            release = projectLocks.acquire(await projectIdentity(config.modRoot));
+            const identity = await projectIdentity(config.modRoot);
+            release = projectLocks.acquire(identity);
+            physicalLock = await acquirePhysicalProjectLock(identity);
             const paths = diagnosticPaths(operation, config.outputDirectory);
             this.update({ config, paths });
             if (operation === 'build') {
@@ -216,8 +225,11 @@ export class CompilerRunner implements vscode.Disposable {
         } finally {
             if (timer) clearInterval(timer);
             await polling?.catch(() => undefined);
-            this.finishOperation(started);
+            await physicalLock?.release().catch(error => {
+                this.update({ message: `${this.current.message ?? ''}；释放项目锁失败：${errorMessage(error)}` });
+            });
             release?.();
+            this.finishOperation(started);
         }
     }
 
