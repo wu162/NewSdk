@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web.Script.Serialization;
@@ -144,6 +145,14 @@ namespace NewModCompiler.Cli
                 if (File.Exists(preset)) LoadPreset(request.Options, preset);
             }
             foreach (var pair in commandLine) request.Options[pair.Key] = pair.Value;
+            // The shipped EXE config can set the neutral-repair default for
+            // all MODs. Project and command-line values retain precedence.
+            if (!request.Options.ContainsKey("fix-neutral-assets")) {
+                string neutral;
+                try { neutral = ConfigurationManager.AppSettings["fix-neutral-assets"]; }
+                catch (ConfigurationErrorsException e) { throw Bad("CONFIG_INVALID", "Invalid compiler configuration: " + e.Message); }
+                if (neutral != null) Set(request.Options,"fix-neutral-assets",NormalizeValue("fix-neutral-assets",neutral),"applicationConfig");
+            }
             Default(request,"ss","true"); Default(request,"pc","true"); Default(request,"slowclean","true");
             foreach (string key in new[] {"sc","bc","psc","csc"}) Default(request,key,"true");
             foreach (string key in new[] {"fsc","atc"}) Default(request,key,"false");
@@ -262,7 +271,7 @@ namespace NewModCompiler.Cli
             "Use --help-advanced for cache, resource-root, diagnostic and neutral-repair controls.\n";
         public const string AdvancedHelp = Help +
             "Advanced options are directly usable with build/plan; no mode switch is required.\n" +
-            "  --fix-neutral-assets=<true|false>   Default false; requires base content in BIG and existing extracted reference streams, including Worldbuilder.\n" +
+            "  --fix-neutral-assets=<true|false>   Default false; also configurable in MOD/newmodcompiler.json or EXE.config appSettings. Requires base content in BIG and the SDK Worldbuilder reference streams.\n" +
             "  --game-version <version>           Default 1.12; changes only the SKUDEF field.\n" +
             "Cache: /sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false; each accepts true|false. SDK buildCache config can override the default /bc.\n" +
             "Caches: <sdk-root>/SuperCompilerCache/<ModKey>. /scd:<directory> (/scp alias), /bcd:<directory> (/bcp alias), /iod:<directory> must stay inside that MOD partition.\n" +
