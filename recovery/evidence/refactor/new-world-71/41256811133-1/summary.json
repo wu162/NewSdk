@@ -2300,5 +2300,13 @@
     "onlyCompressedPayloadDiffers": true,
     "baseAssetCount": 17707,
     "otherTypesAndCustomDataEqual": true
+  },
+  "archivedLinkedStreamComparison": {
+    "compared": 60,
+    "rawEqual": 59,
+    "different": [
+      "base/mod/mod.bin"
+    ],
+    "scope": "Direct original bytes of all60 archived linked vectors; CDATA identity is length+SHA256 from complete runtime inventories"
   }
 }
