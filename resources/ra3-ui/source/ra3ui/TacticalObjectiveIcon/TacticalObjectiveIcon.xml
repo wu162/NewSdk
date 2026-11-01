@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="TacticalObjectiveIcon_apt" File="TacticalObjectiveIcon.apt" />
+	<AptConstData id="TacticalObjectiveIcon_const" File="TacticalObjectiveIcon.const" />
+	<AptDatData id="TacticalObjectiveIcon_dat" File="TacticalObjectiveIcon.dat" />
+	<AptGeometryData id="TacticalObjectiveIcon_1" File="TacticalObjectiveIcon_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="TacticalObjectiveIcon_10" File="TacticalObjectiveIcon_geometry\10.ru" AptID="10"/>
+	<AptGeometryData id="TacticalObjectiveIcon_12" File="TacticalObjectiveIcon_geometry\12.ru" AptID="12"/>
+	<AptGeometryData id="TacticalObjectiveIcon_15" File="TacticalObjectiveIcon_geometry\15.ru" AptID="15"/>
+	<AptGeometryData id="TacticalObjectiveIcon_17" File="TacticalObjectiveIcon_geometry\17.ru" AptID="17"/>
+	<AptGeometryData id="TacticalObjectiveIcon_19" File="TacticalObjectiveIcon_geometry\19.ru" AptID="19"/>
+	<AptGeometryData id="TacticalObjectiveIcon_21" File="TacticalObjectiveIcon_geometry\21.ru" AptID="21"/>
+	<AptGeometryData id="TacticalObjectiveIcon_23" File="TacticalObjectiveIcon_geometry\23.ru" AptID="23"/>
+	<AptGeometryData id="TacticalObjectiveIcon_4" File="TacticalObjectiveIcon_geometry\4.ru" AptID="4"/>
+	<AptGeometryData id="TacticalObjectiveIcon_6" File="TacticalObjectiveIcon_geometry\6.ru" AptID="6"/>
+	<AptGeometryData id="TacticalObjectiveIcon_8" File="TacticalObjectiveIcon_geometry\8.ru" AptID="8"/>
+	<Texture id="apt_TacticalObjectiveIcon_1" File="art\Textures\apt_TacticalObjectiveIcon_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

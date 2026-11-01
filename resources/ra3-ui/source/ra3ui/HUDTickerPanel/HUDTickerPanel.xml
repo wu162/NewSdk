@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="HUDTickerPanel_apt" File="HUDTickerPanel.apt" />
+	<AptConstData id="HUDTickerPanel_const" File="HUDTickerPanel.const" />
+	<AptDatData id="HUDTickerPanel_dat" File="HUDTickerPanel.dat" />
+	<AptGeometryData id="HUDTickerPanel_1" File="HUDTickerPanel_geometry\1.ru" AptID="1"/>
+</AssetDeclaration>

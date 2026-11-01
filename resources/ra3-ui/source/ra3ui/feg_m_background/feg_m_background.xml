@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="feg_m_background_apt" File="feg_m_background.apt" />
+	<AptConstData id="feg_m_background_const" File="feg_m_background.const" />
+	<AptDatData id="feg_m_background_dat" File="feg_m_background.dat" />
+</AssetDeclaration>

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="feg_m_optionsSettings_apt" File="feg_m_optionsSettings.apt" />
+	<AptConstData id="feg_m_optionsSettings_const" File="feg_m_optionsSettings.const" />
+	<AptDatData id="feg_m_optionsSettings_dat" File="feg_m_optionsSettings.dat" />
+	<AptGeometryData id="feg_m_optionsSettings_10" File="feg_m_optionsSettings_geometry\10.ru" AptID="10"/>
+	<AptGeometryData id="feg_m_optionsSettings_103" File="feg_m_optionsSettings_geometry\103.ru" AptID="103"/>
+	<AptGeometryData id="feg_m_optionsSettings_128" File="feg_m_optionsSettings_geometry\128.ru" AptID="128"/>
+	<AptGeometryData id="feg_m_optionsSettings_133" File="feg_m_optionsSettings_geometry\133.ru" AptID="133"/>
+	<AptGeometryData id="feg_m_optionsSettings_134" File="feg_m_optionsSettings_geometry\134.ru" AptID="134"/>
+	<AptGeometryData id="feg_m_optionsSettings_18" File="feg_m_optionsSettings_geometry\18.ru" AptID="18"/>
+	<AptGeometryData id="feg_m_optionsSettings_20" File="feg_m_optionsSettings_geometry\20.ru" AptID="20"/>
+	<AptGeometryData id="feg_m_optionsSettings_27" File="feg_m_optionsSettings_geometry\27.ru" AptID="27"/>
+	<AptGeometryData id="feg_m_optionsSettings_30" File="feg_m_optionsSettings_geometry\30.ru" AptID="30"/>
+	<AptGeometryData id="feg_m_optionsSettings_38" File="feg_m_optionsSettings_geometry\38.ru" AptID="38"/>
+	<AptGeometryData id="feg_m_optionsSettings_41" File="feg_m_optionsSettings_geometry\41.ru" AptID="41"/>
+	<AptGeometryData id="feg_m_optionsSettings_45" File="feg_m_optionsSettings_geometry\45.ru" AptID="45"/>
+	<AptGeometryData id="feg_m_optionsSettings_5" File="feg_m_optionsSettings_geometry\5.ru" AptID="5"/>
+	<AptGeometryData id="feg_m_optionsSettings_52" File="feg_m_optionsSettings_geometry\52.ru" AptID="52"/>
+	<AptGeometryData id="feg_m_optionsSettings_56" File="feg_m_optionsSettings_geometry\56.ru" AptID="56"/>
+	<AptGeometryData id="feg_m_optionsSettings_60" File="feg_m_optionsSettings_geometry\60.ru" AptID="60"/>
+	<AptGeometryData id="feg_m_optionsSettings_62" File="feg_m_optionsSettings_geometry\62.ru" AptID="62"/>
+	<AptGeometryData id="feg_m_optionsSettings_71" File="feg_m_optionsSettings_geometry\71.ru" AptID="71"/>
+	<AptGeometryData id="feg_m_optionsSettings_8" File="feg_m_optionsSettings_geometry\8.ru" AptID="8"/>
+	<AptGeometryData id="feg_m_optionsSettings_82" File="feg_m_optionsSettings_geometry\82.ru" AptID="82"/>
+	<AptGeometryData id="feg_m_optionsSettings_9" File="feg_m_optionsSettings_geometry\9.ru" AptID="9"/>
+	<Texture id="apt_feg_m_optionsSettings_1" File="art\Textures\apt_feg_m_optionsSettings_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_feg_m_optionsSettings_2" File="art\Textures\apt_feg_m_optionsSettings_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_feg_m_optionsSettings_3" File="art\Textures\apt_feg_m_optionsSettings_3.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

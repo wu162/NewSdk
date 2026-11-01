@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\feg_m_tutorialMenu\art\textures\apt_feg_m_tutorialMenu.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\feg_m_tutorialMenu\feg_m_tutorialMenu_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_feg_m_tutorialMenu_1.tga -->
+	<Texture id="apt_feg_m_tutorialMenu_1" File="apt_feg_m_tutorialMenu_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="17" Texture="apt_feg_m_tutorialMenu_1" Rotated="false">
+		<Dimensions x="32" y="32"/>
+		<Coords x="1884" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="22" Texture="apt_feg_m_tutorialMenu_1" Rotated="false">
+		<Dimensions x="57" y="55"/>
+		<Coords x="1825" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="9" Texture="apt_feg_m_tutorialMenu_1" Rotated="false">
+		<Dimensions x="285" y="55"/>
+		<Coords x="1655" y="76"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="6" Texture="apt_feg_m_tutorialMenu_1" Rotated="false">
+		<Dimensions x="285" y="55"/>
+		<Coords x="1368" y="76"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="8" Texture="apt_feg_m_tutorialMenu_1" Rotated="false">
+		<Dimensions x="455" y="73"/>
+		<Coords x="1368" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="25" Texture="apt_feg_m_tutorialMenu_1" Rotated="false">
+		<Dimensions x="1365" y="768"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+
+	<!-- Packed Texture: apt_feg_m_tutorialMenu_2.tga -->
+	<Texture id="apt_feg_m_tutorialMenu_2" File="apt_feg_m_tutorialMenu_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="28" Texture="apt_feg_m_tutorialMenu_2" Rotated="false">
+		<Dimensions x="1001" y="613"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="TacticalHUDObserverControlPanel_apt" File="TacticalHUDObserverControlPanel.apt" />
+	<AptConstData id="TacticalHUDObserverControlPanel_const" File="TacticalHUDObserverControlPanel.const" />
+	<AptDatData id="TacticalHUDObserverControlPanel_dat" File="TacticalHUDObserverControlPanel.dat" />
+	<AptGeometryData id="TacticalHUDObserverControlPanel_1" File="TacticalHUDObserverControlPanel_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_10" File="TacticalHUDObserverControlPanel_geometry\10.ru" AptID="10"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_12" File="TacticalHUDObserverControlPanel_geometry\12.ru" AptID="12"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_15" File="TacticalHUDObserverControlPanel_geometry\15.ru" AptID="15"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_17" File="TacticalHUDObserverControlPanel_geometry\17.ru" AptID="17"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_19" File="TacticalHUDObserverControlPanel_geometry\19.ru" AptID="19"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_22" File="TacticalHUDObserverControlPanel_geometry\22.ru" AptID="22"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_25" File="TacticalHUDObserverControlPanel_geometry\25.ru" AptID="25"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_36" File="TacticalHUDObserverControlPanel_geometry\36.ru" AptID="36"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_39" File="TacticalHUDObserverControlPanel_geometry\39.ru" AptID="39"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_4" File="TacticalHUDObserverControlPanel_geometry\4.ru" AptID="4"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_41" File="TacticalHUDObserverControlPanel_geometry\41.ru" AptID="41"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_46" File="TacticalHUDObserverControlPanel_geometry\46.ru" AptID="46"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_47" File="TacticalHUDObserverControlPanel_geometry\47.ru" AptID="47"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_50" File="TacticalHUDObserverControlPanel_geometry\50.ru" AptID="50"/>
+	<AptGeometryData id="TacticalHUDObserverControlPanel_7" File="TacticalHUDObserverControlPanel_geometry\7.ru" AptID="7"/>
+	<Texture id="apt_TacticalHUDObserverControlPanel_1" File="art\Textures\apt_TacticalHUDObserverControlPanel_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

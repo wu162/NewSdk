@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="std_MouseCheckBox_apt" File="std_MouseCheckBox.apt" />
+	<AptConstData id="std_MouseCheckBox_const" File="std_MouseCheckBox.const" />
+	<AptDatData id="std_MouseCheckBox_dat" File="std_MouseCheckBox.dat" />
+	<AptGeometryData id="std_MouseCheckBox_1" File="std_MouseCheckBox_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="std_MouseCheckBox_11" File="std_MouseCheckBox_geometry\11.ru" AptID="11"/>
+	<AptGeometryData id="std_MouseCheckBox_13" File="std_MouseCheckBox_geometry\13.ru" AptID="13"/>
+	<AptGeometryData id="std_MouseCheckBox_14" File="std_MouseCheckBox_geometry\14.ru" AptID="14"/>
+	<AptGeometryData id="std_MouseCheckBox_16" File="std_MouseCheckBox_geometry\16.ru" AptID="16"/>
+	<AptGeometryData id="std_MouseCheckBox_21" File="std_MouseCheckBox_geometry\21.ru" AptID="21"/>
+	<AptGeometryData id="std_MouseCheckBox_25" File="std_MouseCheckBox_geometry\25.ru" AptID="25"/>
+	<AptGeometryData id="std_MouseCheckBox_3" File="std_MouseCheckBox_geometry\3.ru" AptID="3"/>
+	<AptGeometryData id="std_MouseCheckBox_4" File="std_MouseCheckBox_geometry\4.ru" AptID="4"/>
+	<AptGeometryData id="std_MouseCheckBox_6" File="std_MouseCheckBox_geometry\6.ru" AptID="6"/>
+	<AptGeometryData id="std_MouseCheckBox_8" File="std_MouseCheckBox_geometry\8.ru" AptID="8"/>
+</AssetDeclaration>

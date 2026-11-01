@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="TacticalHUDObjectiveIndicatorStage_apt" File="TacticalHUDObjectiveIndicatorStage.apt" />
+	<AptConstData id="TacticalHUDObjectiveIndicatorStage_const" File="TacticalHUDObjectiveIndicatorStage.const" />
+	<AptDatData id="TacticalHUDObjectiveIndicatorStage_dat" File="TacticalHUDObjectiveIndicatorStage.dat" />
+	<AptGeometryData id="TacticalHUDObjectiveIndicatorStage_1" File="TacticalHUDObjectiveIndicatorStage_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="TacticalHUDObjectiveIndicatorStage_16" File="TacticalHUDObjectiveIndicatorStage_geometry\16.ru" AptID="16"/>
+	<AptGeometryData id="TacticalHUDObjectiveIndicatorStage_19" File="TacticalHUDObjectiveIndicatorStage_geometry\19.ru" AptID="19"/>
+	<AptGeometryData id="TacticalHUDObjectiveIndicatorStage_21" File="TacticalHUDObjectiveIndicatorStage_geometry\21.ru" AptID="21"/>
+	<AptGeometryData id="TacticalHUDObjectiveIndicatorStage_23" File="TacticalHUDObjectiveIndicatorStage_geometry\23.ru" AptID="23"/>
+	<AptGeometryData id="TacticalHUDObjectiveIndicatorStage_25" File="TacticalHUDObjectiveIndicatorStage_geometry\25.ru" AptID="25"/>
+	<AptGeometryData id="TacticalHUDObjectiveIndicatorStage_27" File="TacticalHUDObjectiveIndicatorStage_geometry\27.ru" AptID="27"/>
+	<AptGeometryData id="TacticalHUDObjectiveIndicatorStage_30" File="TacticalHUDObjectiveIndicatorStage_geometry\30.ru" AptID="30"/>
+	<AptGeometryData id="TacticalHUDObjectiveIndicatorStage_32" File="TacticalHUDObjectiveIndicatorStage_geometry\32.ru" AptID="32"/>
+	<AptGeometryData id="TacticalHUDObjectiveIndicatorStage_34" File="TacticalHUDObjectiveIndicatorStage_geometry\34.ru" AptID="34"/>
+	<AptGeometryData id="TacticalHUDObjectiveIndicatorStage_36" File="TacticalHUDObjectiveIndicatorStage_geometry\36.ru" AptID="36"/>
+	<AptGeometryData id="TacticalHUDObjectiveIndicatorStage_38" File="TacticalHUDObjectiveIndicatorStage_geometry\38.ru" AptID="38"/>
+	<AptGeometryData id="TacticalHUDObjectiveIndicatorStage_4" File="TacticalHUDObjectiveIndicatorStage_geometry\4.ru" AptID="4"/>
+	<AptGeometryData id="TacticalHUDObjectiveIndicatorStage_6" File="TacticalHUDObjectiveIndicatorStage_geometry\6.ru" AptID="6"/>
+	<Texture id="apt_TacticalHUDObjectiveIndicatorStage_1" File="art\Textures\apt_TacticalHUDObjectiveIndicatorStage_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_TacticalHUDObjectiveIndicatorStage_3" File="art\Textures\apt_TacticalHUDObjectiveIndicatorStage_3.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_TacticalHUDObjectiveIndicatorStage_5" File="art\Textures\apt_TacticalHUDObjectiveIndicatorStage_5.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\InGameChat\art\textures\apt_InGameChat.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\InGameChat\InGameChat_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_InGameChat_1.tga -->
+	<Texture id="apt_InGameChat_1" File="apt_InGameChat_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="13" Texture="apt_InGameChat_1" Rotated="false">
+		<Dimensions x="29" y="27"/>
+		<Coords x="462" y="1"/>
+		<TextureDimensions x="512" y="32"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="4" Texture="apt_InGameChat_1" Rotated="false">
+		<Dimensions x="29" y="27"/>
+		<Coords x="431" y="1"/>
+		<TextureDimensions x="512" y="32"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="2" Texture="apt_InGameChat_1" Rotated="false">
+		<Dimensions x="428" y="29"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="512" y="32"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="sampleMissionBriefing_apt" File="sampleMissionBriefing.apt" />
+	<AptConstData id="sampleMissionBriefing_const" File="sampleMissionBriefing.const" />
+	<AptDatData id="sampleMissionBriefing_dat" File="sampleMissionBriefing.dat" />
+	<AptGeometryData id="sampleMissionBriefing_12" File="sampleMissionBriefing_geometry\12.ru" AptID="12"/>
+	<AptGeometryData id="sampleMissionBriefing_13" File="sampleMissionBriefing_geometry\13.ru" AptID="13"/>
+	<AptGeometryData id="sampleMissionBriefing_15" File="sampleMissionBriefing_geometry\15.ru" AptID="15"/>
+	<AptGeometryData id="sampleMissionBriefing_18" File="sampleMissionBriefing_geometry\18.ru" AptID="18"/>
+	<AptGeometryData id="sampleMissionBriefing_2" File="sampleMissionBriefing_geometry\2.ru" AptID="2"/>
+	<AptGeometryData id="sampleMissionBriefing_21" File="sampleMissionBriefing_geometry\21.ru" AptID="21"/>
+	<AptGeometryData id="sampleMissionBriefing_24" File="sampleMissionBriefing_geometry\24.ru" AptID="24"/>
+	<AptGeometryData id="sampleMissionBriefing_27" File="sampleMissionBriefing_geometry\27.ru" AptID="27"/>
+	<AptGeometryData id="sampleMissionBriefing_29" File="sampleMissionBriefing_geometry\29.ru" AptID="29"/>
+	<AptGeometryData id="sampleMissionBriefing_32" File="sampleMissionBriefing_geometry\32.ru" AptID="32"/>
+	<AptGeometryData id="sampleMissionBriefing_35" File="sampleMissionBriefing_geometry\35.ru" AptID="35"/>
+	<AptGeometryData id="sampleMissionBriefing_37" File="sampleMissionBriefing_geometry\37.ru" AptID="37"/>
+	<AptGeometryData id="sampleMissionBriefing_40" File="sampleMissionBriefing_geometry\40.ru" AptID="40"/>
+	<AptGeometryData id="sampleMissionBriefing_42" File="sampleMissionBriefing_geometry\42.ru" AptID="42"/>
+	<AptGeometryData id="sampleMissionBriefing_45" File="sampleMissionBriefing_geometry\45.ru" AptID="45"/>
+	<AptGeometryData id="sampleMissionBriefing_48" File="sampleMissionBriefing_geometry\48.ru" AptID="48"/>
+	<AptGeometryData id="sampleMissionBriefing_5" File="sampleMissionBriefing_geometry\5.ru" AptID="5"/>
+	<AptGeometryData id="sampleMissionBriefing_51" File="sampleMissionBriefing_geometry\51.ru" AptID="51"/>
+	<AptGeometryData id="sampleMissionBriefing_53" File="sampleMissionBriefing_geometry\53.ru" AptID="53"/>
+	<AptGeometryData id="sampleMissionBriefing_8" File="sampleMissionBriefing_geometry\8.ru" AptID="8"/>
+	<Texture id="apt_sampleMissionBriefing_1" File="art\Textures\apt_sampleMissionBriefing_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_sampleMissionBriefing_2" File="art\Textures\apt_sampleMissionBriefing_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_sampleMissionBriefing_3" File="art\Textures\apt_sampleMissionBriefing_3.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_sampleMissionBriefing_4" File="art\Textures\apt_sampleMissionBriefing_4.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_sampleMissionBriefing_5" File="art\Textures\apt_sampleMissionBriefing_5.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="libProgressBar_apt" File="libProgressBar.apt" />
+	<AptConstData id="libProgressBar_const" File="libProgressBar.const" />
+	<AptDatData id="libProgressBar_dat" File="libProgressBar.dat" />
+	<AptGeometryData id="libProgressBar_2" File="libProgressBar_geometry\2.ru" AptID="2"/>
+	<Texture id="apt_libProgressBar_1" File="art\Textures\apt_libProgressBar_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

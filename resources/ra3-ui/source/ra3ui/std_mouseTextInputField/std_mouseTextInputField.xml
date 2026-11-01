@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="std_mouseTextInputField_apt" File="std_mouseTextInputField.apt" />
+	<AptConstData id="std_mouseTextInputField_const" File="std_mouseTextInputField.const" />
+	<AptDatData id="std_mouseTextInputField_dat" File="std_mouseTextInputField.dat" />
+	<AptGeometryData id="std_mouseTextInputField_1" File="std_mouseTextInputField_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="std_mouseTextInputField_3" File="std_mouseTextInputField_geometry\3.ru" AptID="3"/>
+	<AptGeometryData id="std_mouseTextInputField_5" File="std_mouseTextInputField_geometry\5.ru" AptID="5"/>
+	<AptGeometryData id="std_mouseTextInputField_7" File="std_mouseTextInputField_geometry\7.ru" AptID="7"/>
+</AssetDeclaration>

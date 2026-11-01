@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="fe_missionBriefingAssets_apt" File="fe_missionBriefingAssets.apt" />
+	<AptConstData id="fe_missionBriefingAssets_const" File="fe_missionBriefingAssets.const" />
+	<AptDatData id="fe_missionBriefingAssets_dat" File="fe_missionBriefingAssets.dat" />
+	<AptGeometryData id="fe_missionBriefingAssets_14" File="fe_missionBriefingAssets_geometry\14.ru" AptID="14"/>
+	<AptGeometryData id="fe_missionBriefingAssets_16" File="fe_missionBriefingAssets_geometry\16.ru" AptID="16"/>
+	<AptGeometryData id="fe_missionBriefingAssets_18" File="fe_missionBriefingAssets_geometry\18.ru" AptID="18"/>
+	<AptGeometryData id="fe_missionBriefingAssets_20" File="fe_missionBriefingAssets_geometry\20.ru" AptID="20"/>
+	<AptGeometryData id="fe_missionBriefingAssets_22" File="fe_missionBriefingAssets_geometry\22.ru" AptID="22"/>
+	<AptGeometryData id="fe_missionBriefingAssets_24" File="fe_missionBriefingAssets_geometry\24.ru" AptID="24"/>
+	<AptGeometryData id="fe_missionBriefingAssets_26" File="fe_missionBriefingAssets_geometry\26.ru" AptID="26"/>
+	<AptGeometryData id="fe_missionBriefingAssets_28" File="fe_missionBriefingAssets_geometry\28.ru" AptID="28"/>
+	<AptGeometryData id="fe_missionBriefingAssets_30" File="fe_missionBriefingAssets_geometry\30.ru" AptID="30"/>
+	<AptGeometryData id="fe_missionBriefingAssets_32" File="fe_missionBriefingAssets_geometry\32.ru" AptID="32"/>
+	<Texture id="apt_fe_missionBriefingAssets_1" File="art\Textures\apt_fe_missionBriefingAssets_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_fe_missionBriefingAssets_2" File="art\Textures\apt_fe_missionBriefingAssets_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_fe_missionBriefingAssets_3" File="art\Textures\apt_fe_missionBriefingAssets_3.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_fe_missionBriefingAssets_4" File="art\Textures\apt_fe_missionBriefingAssets_4.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_fe_missionBriefingAssets_5" File="art\Textures\apt_fe_missionBriefingAssets_5.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

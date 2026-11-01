@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\TacticalEndGameDialog\art\textures\apt_TacticalEndGameDialog.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\TacticalEndGameDialog\TacticalEndGameDialog_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_TacticalEndGameDialog_1.tga -->
+	<Texture id="apt_TacticalEndGameDialog_1" File="apt_TacticalEndGameDialog_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="18" Texture="apt_TacticalEndGameDialog_1" Rotated="false">
+		<Dimensions x="354" y="512"/>
+		<Coords x="357" y="0"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="16" Texture="apt_TacticalEndGameDialog_1" Rotated="false">
+		<Dimensions x="354" y="512"/>
+		<Coords x="1" y="0"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+
+	<!-- Packed Texture: apt_TacticalEndGameDialog_2.tga -->
+	<Texture id="apt_TacticalEndGameDialog_2" File="apt_TacticalEndGameDialog_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="5" Texture="apt_TacticalEndGameDialog_2" Rotated="false">
+		<Dimensions x="354" y="512"/>
+		<Coords x="357" y="0"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="3" Texture="apt_TacticalEndGameDialog_2" Rotated="false">
+		<Dimensions x="354" y="512"/>
+		<Coords x="1" y="0"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+
+	<!-- Packed Texture: apt_TacticalEndGameDialog_3.tga -->
+	<Texture id="apt_TacticalEndGameDialog_3" File="apt_TacticalEndGameDialog_3.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="14" Texture="apt_TacticalEndGameDialog_3" Rotated="false">
+		<Dimensions x="354" y="512"/>
+		<Coords x="357" y="0"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="7" Texture="apt_TacticalEndGameDialog_3" Rotated="false">
+		<Dimensions x="354" y="512"/>
+		<Coords x="1" y="0"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

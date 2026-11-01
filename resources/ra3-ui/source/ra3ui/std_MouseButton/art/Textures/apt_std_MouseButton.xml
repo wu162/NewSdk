@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\std_MouseButton\art\textures\apt_std_MouseButton.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\std_MouseButton\std_MouseButton_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_std_MouseButton_1.tga -->
+	<Texture id="apt_std_MouseButton_1" File="apt_std_MouseButton_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="1" Texture="apt_std_MouseButton_1" Rotated="false">
+		<Dimensions x="55" y="55"/>
+		<Coords x="168" y="1"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="9" Texture="apt_std_MouseButton_1" Rotated="false">
+		<Dimensions x="165" y="55"/>
+		<Coords x="1" y="172"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="6" Texture="apt_std_MouseButton_1" Rotated="false">
+		<Dimensions x="165" y="55"/>
+		<Coords x="1" y="115"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="22" Texture="apt_std_MouseButton_1" Rotated="false">
+		<Dimensions x="165" y="55"/>
+		<Coords x="1" y="58"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="14" Texture="apt_std_MouseButton_1" Rotated="false">
+		<Dimensions x="165" y="55"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

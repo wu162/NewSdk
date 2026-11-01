@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="skins_apt" File="skins.apt" />
+	<AptConstData id="skins_const" File="skins.const" />
+	<AptDatData id="skins_dat" File="skins.dat" />
+	<AptGeometryData id="skins_11" File="skins_geometry\11.ru" AptID="11"/>
+	<AptGeometryData id="skins_14" File="skins_geometry\14.ru" AptID="14"/>
+	<AptGeometryData id="skins_16" File="skins_geometry\16.ru" AptID="16"/>
+	<AptGeometryData id="skins_22" File="skins_geometry\22.ru" AptID="22"/>
+	<AptGeometryData id="skins_24" File="skins_geometry\24.ru" AptID="24"/>
+	<AptGeometryData id="skins_28" File="skins_geometry\28.ru" AptID="28"/>
+	<AptGeometryData id="skins_35" File="skins_geometry\35.ru" AptID="35"/>
+	<AptGeometryData id="skins_7" File="skins_geometry\7.ru" AptID="7"/>
+	<AptGeometryData id="skins_9" File="skins_geometry\9.ru" AptID="9"/>
+	<Texture id="apt_skins_1" File="art\Textures\apt_skins_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

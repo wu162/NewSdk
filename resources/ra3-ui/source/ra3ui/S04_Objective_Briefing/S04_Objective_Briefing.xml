@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="S04_Objective_Briefing_apt" File="S04_Objective_Briefing.apt" />
+	<AptConstData id="S04_Objective_Briefing_const" File="S04_Objective_Briefing.const" />
+	<AptDatData id="S04_Objective_Briefing_dat" File="S04_Objective_Briefing.dat" />
+	<AptGeometryData id="S04_Objective_Briefing_1" File="S04_Objective_Briefing_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="S04_Objective_Briefing_15" File="S04_Objective_Briefing_geometry\15.ru" AptID="15"/>
+	<AptGeometryData id="S04_Objective_Briefing_3" File="S04_Objective_Briefing_geometry\3.ru" AptID="3"/>
+	<Texture id="apt_S04_Objective_Briefing_1" File="art\Textures\apt_S04_Objective_Briefing_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\fes_m_postgameRoundup\art\textures\apt_fes_m_postgameRoundup.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\fes_m_postgameRoundup\fes_m_postgameRoundup_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_fes_m_postgameRoundup_1.tga -->
+	<Texture id="apt_fes_m_postgameRoundup_1" File="apt_fes_m_postgameRoundup_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="66" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="11" y="56"/>
+		<Coords x="1973" y="102"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="35" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="32" y="32"/>
+		<Coords x="2007" y="68"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="26" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="32" y="32"/>
+		<Coords x="1973" y="68"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="28" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="32" y="32"/>
+		<Coords x="2007" y="34"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="87" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="32" y="32"/>
+		<Coords x="1973" y="34"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="40" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="113" y="31"/>
+		<Coords x="1858" y="72"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="42" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="113" y="36"/>
+		<Coords x="1858" y="34"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="1" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="188" y="31"/>
+		<Coords x="1858" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="16" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="237" y="31"/>
+		<Coords x="1607" y="479"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="4" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="237" y="31"/>
+		<Coords x="1607" y="446"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="13" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="237" y="34"/>
+		<Coords x="1368" y="446"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="63" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="908" y="31"/>
+		<Coords x="975" y="771"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="95" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="972" y="182"/>
+		<Coords x="1" y="771"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="55" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="488" y="443"/>
+		<Coords x="1368" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="91" Texture="apt_fes_m_postgameRoundup_1" Rotated="false">
+		<Dimensions x="1365" y="768"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+
+	<!-- Packed Texture: apt_fes_m_postgameRoundup_2.tga -->
+	<Texture id="apt_fes_m_postgameRoundup_2" File="apt_fes_m_postgameRoundup_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="90" Texture="apt_fes_m_postgameRoundup_2" Rotated="false">
+		<Dimensions x="999" y="611"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

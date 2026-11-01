@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="ig_RadarCoOpAITargetLayer_apt" File="ig_RadarCoOpAITargetLayer.apt" />
+	<AptConstData id="ig_RadarCoOpAITargetLayer_const" File="ig_RadarCoOpAITargetLayer.const" />
+	<AptDatData id="ig_RadarCoOpAITargetLayer_dat" File="ig_RadarCoOpAITargetLayer.dat" />
+	<AptGeometryData id="ig_RadarCoOpAITargetLayer_2" File="ig_RadarCoOpAITargetLayer_geometry\2.ru" AptID="2"/>
+	<AptGeometryData id="ig_RadarCoOpAITargetLayer_4" File="ig_RadarCoOpAITargetLayer_geometry\4.ru" AptID="4"/>
+	<AptGeometryData id="ig_RadarCoOpAITargetLayer_6" File="ig_RadarCoOpAITargetLayer_geometry\6.ru" AptID="6"/>
+	<AptGeometryData id="ig_RadarCoOpAITargetLayer_9" File="ig_RadarCoOpAITargetLayer_geometry\9.ru" AptID="9"/>
+	<Texture id="apt_ig_RadarCoOpAITargetLayer_1" File="art\Textures\apt_ig_RadarCoOpAITargetLayer_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

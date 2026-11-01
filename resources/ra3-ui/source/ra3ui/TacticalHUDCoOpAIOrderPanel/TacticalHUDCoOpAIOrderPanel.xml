@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="TacticalHUDCoOpAIOrderPanel_apt" File="TacticalHUDCoOpAIOrderPanel.apt" />
+	<AptConstData id="TacticalHUDCoOpAIOrderPanel_const" File="TacticalHUDCoOpAIOrderPanel.const" />
+	<AptDatData id="TacticalHUDCoOpAIOrderPanel_dat" File="TacticalHUDCoOpAIOrderPanel.dat" />
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_103" File="TacticalHUDCoOpAIOrderPanel_geometry\103.ru" AptID="103"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_106" File="TacticalHUDCoOpAIOrderPanel_geometry\106.ru" AptID="106"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_11" File="TacticalHUDCoOpAIOrderPanel_geometry\11.ru" AptID="11"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_13" File="TacticalHUDCoOpAIOrderPanel_geometry\13.ru" AptID="13"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_16" File="TacticalHUDCoOpAIOrderPanel_geometry\16.ru" AptID="16"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_18" File="TacticalHUDCoOpAIOrderPanel_geometry\18.ru" AptID="18"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_2" File="TacticalHUDCoOpAIOrderPanel_geometry\2.ru" AptID="2"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_21" File="TacticalHUDCoOpAIOrderPanel_geometry\21.ru" AptID="21"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_23" File="TacticalHUDCoOpAIOrderPanel_geometry\23.ru" AptID="23"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_25" File="TacticalHUDCoOpAIOrderPanel_geometry\25.ru" AptID="25"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_28" File="TacticalHUDCoOpAIOrderPanel_geometry\28.ru" AptID="28"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_30" File="TacticalHUDCoOpAIOrderPanel_geometry\30.ru" AptID="30"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_32" File="TacticalHUDCoOpAIOrderPanel_geometry\32.ru" AptID="32"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_35" File="TacticalHUDCoOpAIOrderPanel_geometry\35.ru" AptID="35"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_38" File="TacticalHUDCoOpAIOrderPanel_geometry\38.ru" AptID="38"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_4" File="TacticalHUDCoOpAIOrderPanel_geometry\4.ru" AptID="4"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_40" File="TacticalHUDCoOpAIOrderPanel_geometry\40.ru" AptID="40"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_42" File="TacticalHUDCoOpAIOrderPanel_geometry\42.ru" AptID="42"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_45" File="TacticalHUDCoOpAIOrderPanel_geometry\45.ru" AptID="45"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_47" File="TacticalHUDCoOpAIOrderPanel_geometry\47.ru" AptID="47"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_49" File="TacticalHUDCoOpAIOrderPanel_geometry\49.ru" AptID="49"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_52" File="TacticalHUDCoOpAIOrderPanel_geometry\52.ru" AptID="52"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_55" File="TacticalHUDCoOpAIOrderPanel_geometry\55.ru" AptID="55"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_57" File="TacticalHUDCoOpAIOrderPanel_geometry\57.ru" AptID="57"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_59" File="TacticalHUDCoOpAIOrderPanel_geometry\59.ru" AptID="59"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_6" File="TacticalHUDCoOpAIOrderPanel_geometry\6.ru" AptID="6"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_62" File="TacticalHUDCoOpAIOrderPanel_geometry\62.ru" AptID="62"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_64" File="TacticalHUDCoOpAIOrderPanel_geometry\64.ru" AptID="64"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_66" File="TacticalHUDCoOpAIOrderPanel_geometry\66.ru" AptID="66"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_69" File="TacticalHUDCoOpAIOrderPanel_geometry\69.ru" AptID="69"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_73" File="TacticalHUDCoOpAIOrderPanel_geometry\73.ru" AptID="73"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_76" File="TacticalHUDCoOpAIOrderPanel_geometry\76.ru" AptID="76"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_79" File="TacticalHUDCoOpAIOrderPanel_geometry\79.ru" AptID="79"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_80" File="TacticalHUDCoOpAIOrderPanel_geometry\80.ru" AptID="80"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_83" File="TacticalHUDCoOpAIOrderPanel_geometry\83.ru" AptID="83"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_84" File="TacticalHUDCoOpAIOrderPanel_geometry\84.ru" AptID="84"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_87" File="TacticalHUDCoOpAIOrderPanel_geometry\87.ru" AptID="87"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_89" File="TacticalHUDCoOpAIOrderPanel_geometry\89.ru" AptID="89"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_9" File="TacticalHUDCoOpAIOrderPanel_geometry\9.ru" AptID="9"/>
+	<AptGeometryData id="TacticalHUDCoOpAIOrderPanel_96" File="TacticalHUDCoOpAIOrderPanel_geometry\96.ru" AptID="96"/>
+	<Texture id="apt_TacticalHUDCoOpAIOrderPanel_1" File="art\Textures\apt_TacticalHUDCoOpAIOrderPanel_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_TacticalHUDCoOpAIOrderPanel_71" File="art\Textures\apt_TacticalHUDCoOpAIOrderPanel_71.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_TacticalHUDCoOpAIOrderPanel_72" File="art\Textures\apt_TacticalHUDCoOpAIOrderPanel_72.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

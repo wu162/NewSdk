@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\TacticalHUDCommandModeBar\art\textures\apt_TacticalHUDCommandModeBar.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\TacticalHUDCommandModeBar\TacticalHUDCommandModeBar_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_TacticalHUDCommandModeBar_1.tga -->
+	<Texture id="apt_TacticalHUDCommandModeBar_1" File="apt_TacticalHUDCommandModeBar_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="8" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="37" y="22"/>
+		<Coords x="173" y="73"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="6" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="37" y="22"/>
+		<Coords x="134" y="57"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="50" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="37" y="22"/>
+		<Coords x="95" y="57"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="48" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="37" y="22"/>
+		<Coords x="212" y="49"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="46" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="37" y="22"/>
+		<Coords x="173" y="49"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="14" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="37" y="22"/>
+		<Coords x="134" y="33"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="16" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="37" y="22"/>
+		<Coords x="95" y="33"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="4" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="37" y="22"/>
+		<Coords x="189" y="25"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="18" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="37" y="22"/>
+		<Coords x="189" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="34" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="45" y="30"/>
+		<Coords x="142" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="32" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="45" y="30"/>
+		<Coords x="95" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="30" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="45" y="30"/>
+		<Coords x="48" y="97"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="26" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="45" y="30"/>
+		<Coords x="1" y="97"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="24" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="45" y="30"/>
+		<Coords x="48" y="65"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="22" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="45" y="30"/>
+		<Coords x="1" y="65"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="38" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="45" y="30"/>
+		<Coords x="48" y="33"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="40" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="45" y="30"/>
+		<Coords x="48" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="42" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="45" y="30"/>
+		<Coords x="1" y="33"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="11" Texture="apt_TacticalHUDCommandModeBar_1" Rotated="false">
+		<Dimensions x="45" y="30"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

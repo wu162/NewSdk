@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="TacticalHUDCommandModeBar_apt" File="TacticalHUDCommandModeBar.apt" />
+	<AptConstData id="TacticalHUDCommandModeBar_const" File="TacticalHUDCommandModeBar.const" />
+	<AptDatData id="TacticalHUDCommandModeBar_dat" File="TacticalHUDCommandModeBar.dat" />
+	<AptGeometryData id="TacticalHUDCommandModeBar_1" File="TacticalHUDCommandModeBar_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_12" File="TacticalHUDCommandModeBar_geometry\12.ru" AptID="12"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_15" File="TacticalHUDCommandModeBar_geometry\15.ru" AptID="15"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_17" File="TacticalHUDCommandModeBar_geometry\17.ru" AptID="17"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_19" File="TacticalHUDCommandModeBar_geometry\19.ru" AptID="19"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_23" File="TacticalHUDCommandModeBar_geometry\23.ru" AptID="23"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_25" File="TacticalHUDCommandModeBar_geometry\25.ru" AptID="25"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_27" File="TacticalHUDCommandModeBar_geometry\27.ru" AptID="27"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_31" File="TacticalHUDCommandModeBar_geometry\31.ru" AptID="31"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_33" File="TacticalHUDCommandModeBar_geometry\33.ru" AptID="33"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_35" File="TacticalHUDCommandModeBar_geometry\35.ru" AptID="35"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_39" File="TacticalHUDCommandModeBar_geometry\39.ru" AptID="39"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_41" File="TacticalHUDCommandModeBar_geometry\41.ru" AptID="41"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_43" File="TacticalHUDCommandModeBar_geometry\43.ru" AptID="43"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_47" File="TacticalHUDCommandModeBar_geometry\47.ru" AptID="47"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_49" File="TacticalHUDCommandModeBar_geometry\49.ru" AptID="49"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_5" File="TacticalHUDCommandModeBar_geometry\5.ru" AptID="5"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_51" File="TacticalHUDCommandModeBar_geometry\51.ru" AptID="51"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_7" File="TacticalHUDCommandModeBar_geometry\7.ru" AptID="7"/>
+	<AptGeometryData id="TacticalHUDCommandModeBar_9" File="TacticalHUDCommandModeBar_geometry\9.ru" AptID="9"/>
+	<Texture id="apt_TacticalHUDCommandModeBar_1" File="art\Textures\apt_TacticalHUDCommandModeBar_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

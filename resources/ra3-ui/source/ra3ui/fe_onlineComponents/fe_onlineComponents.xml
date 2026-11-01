@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="fe_onlineComponents_apt" File="fe_onlineComponents.apt" />
+	<AptConstData id="fe_onlineComponents_const" File="fe_onlineComponents.const" />
+	<AptDatData id="fe_onlineComponents_dat" File="fe_onlineComponents.dat" />
+	<AptGeometryData id="fe_onlineComponents_1" File="fe_onlineComponents_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="fe_onlineComponents_15" File="fe_onlineComponents_geometry\15.ru" AptID="15"/>
+	<AptGeometryData id="fe_onlineComponents_18" File="fe_onlineComponents_geometry\18.ru" AptID="18"/>
+	<AptGeometryData id="fe_onlineComponents_23" File="fe_onlineComponents_geometry\23.ru" AptID="23"/>
+	<AptGeometryData id="fe_onlineComponents_30" File="fe_onlineComponents_geometry\30.ru" AptID="30"/>
+	<AptGeometryData id="fe_onlineComponents_35" File="fe_onlineComponents_geometry\35.ru" AptID="35"/>
+	<AptGeometryData id="fe_onlineComponents_45" File="fe_onlineComponents_geometry\45.ru" AptID="45"/>
+	<AptGeometryData id="fe_onlineComponents_47" File="fe_onlineComponents_geometry\47.ru" AptID="47"/>
+	<AptGeometryData id="fe_onlineComponents_55" File="fe_onlineComponents_geometry\55.ru" AptID="55"/>
+	<AptGeometryData id="fe_onlineComponents_57" File="fe_onlineComponents_geometry\57.ru" AptID="57"/>
+	<AptGeometryData id="fe_onlineComponents_59" File="fe_onlineComponents_geometry\59.ru" AptID="59"/>
+	<AptGeometryData id="fe_onlineComponents_73" File="fe_onlineComponents_geometry\73.ru" AptID="73"/>
+	<AptGeometryData id="fe_onlineComponents_75" File="fe_onlineComponents_geometry\75.ru" AptID="75"/>
+	<Texture id="apt_fe_onlineComponents_1" File="art\Textures\apt_fe_onlineComponents_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

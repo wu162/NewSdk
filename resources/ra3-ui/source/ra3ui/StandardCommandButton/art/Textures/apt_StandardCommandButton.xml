@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\StandardCommandButton\art\textures\apt_StandardCommandButton.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\StandardCommandButton\StandardCommandButton_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_StandardCommandButton_1.tga -->
+	<Texture id="apt_StandardCommandButton_1" File="apt_StandardCommandButton_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="101" Texture="apt_StandardCommandButton_1" Rotated="false">
+		<Dimensions x="10" y="9"/>
+		<Coords x="219" y="53"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="116" Texture="apt_StandardCommandButton_1" Rotated="false">
+		<Dimensions x="19" y="13"/>
+		<Coords x="198" y="53"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="113" Texture="apt_StandardCommandButton_1" Rotated="false">
+		<Dimensions x="184" y="8"/>
+		<Coords x="1" y="67"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="119" Texture="apt_StandardCommandButton_1" Rotated="false">
+		<Dimensions x="50" y="50"/>
+		<Coords x="198" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="108" Texture="apt_StandardCommandButton_1" Rotated="false">
+		<Dimensions x="64" y="64"/>
+		<Coords x="132" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="106" Texture="apt_StandardCommandButton_1" Rotated="false">
+		<Dimensions x="64" y="64"/>
+		<Coords x="66" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="104" Texture="apt_StandardCommandButton_1" Rotated="false">
+		<Dimensions x="64" y="64"/>
+		<Coords x="0" y="0"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

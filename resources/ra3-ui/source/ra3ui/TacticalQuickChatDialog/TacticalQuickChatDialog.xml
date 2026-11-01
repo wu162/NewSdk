@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="TacticalQuickChatDialog_apt" File="TacticalQuickChatDialog.apt" />
+	<AptConstData id="TacticalQuickChatDialog_const" File="TacticalQuickChatDialog.const" />
+	<AptDatData id="TacticalQuickChatDialog_dat" File="TacticalQuickChatDialog.dat" />
+	<AptGeometryData id="TacticalQuickChatDialog_11" File="TacticalQuickChatDialog_geometry\11.ru" AptID="11"/>
+	<AptGeometryData id="TacticalQuickChatDialog_13" File="TacticalQuickChatDialog_geometry\13.ru" AptID="13"/>
+	<AptGeometryData id="TacticalQuickChatDialog_5" File="TacticalQuickChatDialog_geometry\5.ru" AptID="5"/>
+	<Texture id="apt_TacticalQuickChatDialog_1" File="art\Textures\apt_TacticalQuickChatDialog_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_TacticalQuickChatDialog_10" File="art\Textures\apt_TacticalQuickChatDialog_10.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

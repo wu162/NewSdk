@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="chatComponent_apt" File="chatComponent.apt" />
+	<AptConstData id="chatComponent_const" File="chatComponent.const" />
+	<AptDatData id="chatComponent_dat" File="chatComponent.dat" />
+	<AptGeometryData id="chatComponent_10" File="chatComponent_geometry\10.ru" AptID="10"/>
+	<AptGeometryData id="chatComponent_13" File="chatComponent_geometry\13.ru" AptID="13"/>
+	<AptGeometryData id="chatComponent_6" File="chatComponent_geometry\6.ru" AptID="6"/>
+	<AptGeometryData id="chatComponent_8" File="chatComponent_geometry\8.ru" AptID="8"/>
+	<Texture id="apt_chatComponent_1" File="art\Textures\apt_chatComponent_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

@@ -1,0 +1,282 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\igm_PlayerTechStoreDialog\art\textures\apt_igm_PlayerTechStoreDialog.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\igm_PlayerTechStoreDialog\igm_PlayerTechStoreDialog_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_igm_PlayerTechStoreDialog_1.tga -->
+	<Texture id="apt_igm_PlayerTechStoreDialog_1" File="apt_igm_PlayerTechStoreDialog_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="106" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="11" y="6"/>
+		<Coords x="1007" y="272"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="82" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="11" y="6"/>
+		<Coords x="1007" y="264"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="118" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="6" y="11"/>
+		<Coords x="1015" y="251"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="94" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="6" y="11"/>
+		<Coords x="1007" y="251"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="84" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="11" y="7"/>
+		<Coords x="1007" y="242"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="72" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="7" y="11"/>
+		<Coords x="1016" y="229"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="96" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="7" y="11"/>
+		<Coords x="1007" y="229"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="108" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="11" y="8"/>
+		<Coords x="1007" y="219"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="116" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="9" y="12"/>
+		<Coords x="1007" y="205"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="92" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="9" y="12"/>
+		<Coords x="1007" y="191"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="80" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="12" y="9"/>
+		<Coords x="1007" y="180"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="74" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="10" y="12"/>
+		<Coords x="1007" y="166"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="98" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="10" y="13"/>
+		<Coords x="1007" y="151"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="78" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="12" y="11"/>
+		<Coords x="1007" y="138"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="86" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="12" y="11"/>
+		<Coords x="1007" y="125"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="110" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="12" y="11"/>
+		<Coords x="1007" y="112"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="90" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="11" y="12"/>
+		<Coords x="1007" y="98"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="88" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="12" y="11"/>
+		<Coords x="1007" y="85"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="104" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="12" y="11"/>
+		<Coords x="1007" y="72"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="102" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="12" y="12"/>
+		<Coords x="1007" y="58"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="112" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="12" y="12"/>
+		<Coords x="1007" y="44"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="100" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="12" y="12"/>
+		<Coords x="1007" y="30"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="76" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="12" y="13"/>
+		<Coords x="1007" y="15"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="114" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="13" y="12"/>
+		<Coords x="1007" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="51" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="28" y="15"/>
+		<Coords x="969" y="436"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="53" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="28" y="15"/>
+		<Coords x="969" y="419"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="131" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="36" y="36"/>
+		<Coords x="969" y="381"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="141" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="36" y="36"/>
+		<Coords x="969" y="343"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="123" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="36" y="36"/>
+		<Coords x="969" y="305"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="139" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="36" y="36"/>
+		<Coords x="969" y="267"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="137" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="36" y="36"/>
+		<Coords x="969" y="229"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="135" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="36" y="36"/>
+		<Coords x="969" y="191"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="133" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="36" y="36"/>
+		<Coords x="969" y="153"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="121" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="36" y="36"/>
+		<Coords x="969" y="115"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="129" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="36" y="36"/>
+		<Coords x="969" y="77"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="127" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="36" y="36"/>
+		<Coords x="969" y="39"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="125" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="36" y="36"/>
+		<Coords x="969" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="57" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="66" y="67"/>
+		<Coords x="956" y="666"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="64" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="66" y="67"/>
+		<Coords x="888" y="666"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="12" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="168" y="45"/>
+		<Coords x="176" y="799"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="14" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="170" y="47"/>
+		<Coords x="176" y="750"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="10" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="173" y="49"/>
+		<Coords x="1" y="750"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="33" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="187" y="65"/>
+		<Coords x="757" y="743"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="26" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="187" y="65"/>
+		<Coords x="568" y="743"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="45" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="163" y="85"/>
+		<Coords x="403" y="743"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="22" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="199" y="75"/>
+		<Coords x="202" y="673"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="24" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="199" y="75"/>
+		<Coords x="1" y="673"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="29" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="199" y="75"/>
+		<Coords x="687" y="666"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="31" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="199" y="75"/>
+		<Coords x="486" y="666"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="1" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="481" y="663"/>
+		<Coords x="486" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="5" Texture="apt_igm_PlayerTechStoreDialog_1" Rotated="false">
+		<Dimensions x="483" y="670"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+
+	<!-- Packed Texture: apt_igm_PlayerTechStoreDialog_2.tga -->
+	<Texture id="apt_igm_PlayerTechStoreDialog_2" File="apt_igm_PlayerTechStoreDialog_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="3" Texture="apt_igm_PlayerTechStoreDialog_2" Rotated="false">
+		<Dimensions x="476" y="660"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="512" y="1024"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

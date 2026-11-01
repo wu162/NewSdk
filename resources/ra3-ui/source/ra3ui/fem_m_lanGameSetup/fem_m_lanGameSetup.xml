@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="fem_m_lanGameSetup_apt" File="fem_m_lanGameSetup.apt" />
+	<AptConstData id="fem_m_lanGameSetup_const" File="fem_m_lanGameSetup.const" />
+	<AptDatData id="fem_m_lanGameSetup_dat" File="fem_m_lanGameSetup.dat" />
+	<AptGeometryData id="fem_m_lanGameSetup_11" File="fem_m_lanGameSetup_geometry\11.ru" AptID="11"/>
+	<AptGeometryData id="fem_m_lanGameSetup_15" File="fem_m_lanGameSetup_geometry\15.ru" AptID="15"/>
+	<AptGeometryData id="fem_m_lanGameSetup_16" File="fem_m_lanGameSetup_geometry\16.ru" AptID="16"/>
+	<AptGeometryData id="fem_m_lanGameSetup_18" File="fem_m_lanGameSetup_geometry\18.ru" AptID="18"/>
+	<AptGeometryData id="fem_m_lanGameSetup_2" File="fem_m_lanGameSetup_geometry\2.ru" AptID="2"/>
+	<AptGeometryData id="fem_m_lanGameSetup_7" File="fem_m_lanGameSetup_geometry\7.ru" AptID="7"/>
+	<Texture id="apt_fem_m_lanGameSetup_1" File="art\Textures\apt_fem_m_lanGameSetup_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

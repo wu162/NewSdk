@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="YesNoDialog_apt" File="YesNoDialog.apt" />
+	<AptConstData id="YesNoDialog_const" File="YesNoDialog.const" />
+	<AptDatData id="YesNoDialog_dat" File="YesNoDialog.dat" />
+	<AptGeometryData id="YesNoDialog_1" File="YesNoDialog_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="YesNoDialog_11" File="YesNoDialog_geometry\11.ru" AptID="11"/>
+	<AptGeometryData id="YesNoDialog_14" File="YesNoDialog_geometry\14.ru" AptID="14"/>
+	<AptGeometryData id="YesNoDialog_19" File="YesNoDialog_geometry\19.ru" AptID="19"/>
+	<AptGeometryData id="YesNoDialog_26" File="YesNoDialog_geometry\26.ru" AptID="26"/>
+	<AptGeometryData id="YesNoDialog_28" File="YesNoDialog_geometry\28.ru" AptID="28"/>
+	<AptGeometryData id="YesNoDialog_29" File="YesNoDialog_geometry\29.ru" AptID="29"/>
+	<AptGeometryData id="YesNoDialog_3" File="YesNoDialog_geometry\3.ru" AptID="3"/>
+	<AptGeometryData id="YesNoDialog_30" File="YesNoDialog_geometry\30.ru" AptID="30"/>
+	<AptGeometryData id="YesNoDialog_32" File="YesNoDialog_geometry\32.ru" AptID="32"/>
+	<AptGeometryData id="YesNoDialog_35" File="YesNoDialog_geometry\35.ru" AptID="35"/>
+	<AptGeometryData id="YesNoDialog_37" File="YesNoDialog_geometry\37.ru" AptID="37"/>
+	<AptGeometryData id="YesNoDialog_39" File="YesNoDialog_geometry\39.ru" AptID="39"/>
+	<AptGeometryData id="YesNoDialog_41" File="YesNoDialog_geometry\41.ru" AptID="41"/>
+	<AptGeometryData id="YesNoDialog_43" File="YesNoDialog_geometry\43.ru" AptID="43"/>
+	<AptGeometryData id="YesNoDialog_45" File="YesNoDialog_geometry\45.ru" AptID="45"/>
+	<AptGeometryData id="YesNoDialog_47" File="YesNoDialog_geometry\47.ru" AptID="47"/>
+	<AptGeometryData id="YesNoDialog_49" File="YesNoDialog_geometry\49.ru" AptID="49"/>
+	<AptGeometryData id="YesNoDialog_51" File="YesNoDialog_geometry\51.ru" AptID="51"/>
+	<AptGeometryData id="YesNoDialog_53" File="YesNoDialog_geometry\53.ru" AptID="53"/>
+	<AptGeometryData id="YesNoDialog_55" File="YesNoDialog_geometry\55.ru" AptID="55"/>
+	<AptGeometryData id="YesNoDialog_57" File="YesNoDialog_geometry\57.ru" AptID="57"/>
+	<AptGeometryData id="YesNoDialog_59" File="YesNoDialog_geometry\59.ru" AptID="59"/>
+	<AptGeometryData id="YesNoDialog_6" File="YesNoDialog_geometry\6.ru" AptID="6"/>
+	<AptGeometryData id="YesNoDialog_61" File="YesNoDialog_geometry\61.ru" AptID="61"/>
+	<AptGeometryData id="YesNoDialog_63" File="YesNoDialog_geometry\63.ru" AptID="63"/>
+	<AptGeometryData id="YesNoDialog_65" File="YesNoDialog_geometry\65.ru" AptID="65"/>
+	<AptGeometryData id="YesNoDialog_68" File="YesNoDialog_geometry\68.ru" AptID="68"/>
+	<AptGeometryData id="YesNoDialog_71" File="YesNoDialog_geometry\71.ru" AptID="71"/>
+	<AptGeometryData id="YesNoDialog_75" File="YesNoDialog_geometry\75.ru" AptID="75"/>
+	<AptGeometryData id="YesNoDialog_77" File="YesNoDialog_geometry\77.ru" AptID="77"/>
+	<AptGeometryData id="YesNoDialog_78" File="YesNoDialog_geometry\78.ru" AptID="78"/>
+	<AptGeometryData id="YesNoDialog_80" File="YesNoDialog_geometry\80.ru" AptID="80"/>
+	<AptGeometryData id="YesNoDialog_9" File="YesNoDialog_geometry\9.ru" AptID="9"/>
+	<Texture id="apt_YesNoDialog_1" File="art\Textures\apt_YesNoDialog_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_YesNoDialog_31" File="art\Textures\apt_YesNoDialog_31.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

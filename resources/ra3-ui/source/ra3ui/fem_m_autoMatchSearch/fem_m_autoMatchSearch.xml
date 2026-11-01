@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="fem_m_autoMatchSearch_apt" File="fem_m_autoMatchSearch.apt" />
+	<AptConstData id="fem_m_autoMatchSearch_const" File="fem_m_autoMatchSearch.const" />
+	<AptDatData id="fem_m_autoMatchSearch_dat" File="fem_m_autoMatchSearch.dat" />
+	<AptGeometryData id="fem_m_autoMatchSearch_4" File="fem_m_autoMatchSearch_geometry\4.ru" AptID="4"/>
+</AssetDeclaration>

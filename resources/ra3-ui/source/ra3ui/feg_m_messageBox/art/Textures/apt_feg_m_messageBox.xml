@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\feg_m_messageBox\art\textures\apt_feg_m_messageBox.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\feg_m_messageBox\feg_m_messageBox_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_feg_m_messageBox_1.tga -->
+	<Texture id="apt_feg_m_messageBox_1" File="apt_feg_m_messageBox_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="11" Texture="apt_feg_m_messageBox_1" Rotated="false">
+		<Dimensions x="24" y="23"/>
+		<Coords x="384" y="1"/>
+		<TextureDimensions x="512" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="13" Texture="apt_feg_m_messageBox_1" Rotated="false">
+		<Dimensions x="42" y="41"/>
+		<Coords x="340" y="1"/>
+		<TextureDimensions x="512" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="9" Texture="apt_feg_m_messageBox_1" Rotated="false">
+		<Dimensions x="465" y="15"/>
+		<Coords x="1" y="71"/>
+		<TextureDimensions x="512" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="3" Texture="apt_feg_m_messageBox_1" Rotated="false">
+		<Dimensions x="337" y="68"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="512" y="128"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="mouse_chapterSelectComponent_apt" File="mouse_chapterSelectComponent.apt" />
+	<AptConstData id="mouse_chapterSelectComponent_const" File="mouse_chapterSelectComponent.const" />
+	<AptDatData id="mouse_chapterSelectComponent_dat" File="mouse_chapterSelectComponent.dat" />
+	<AptGeometryData id="mouse_chapterSelectComponent_4" File="mouse_chapterSelectComponent_geometry\4.ru" AptID="4"/>
+	<Texture id="apt_mouse_chapterSelectComponent_1" File="art\Textures\apt_mouse_chapterSelectComponent_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

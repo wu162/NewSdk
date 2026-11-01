@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="HelpBox_apt" File="HelpBox.apt" />
+	<AptConstData id="HelpBox_const" File="HelpBox.const" />
+	<AptDatData id="HelpBox_dat" File="HelpBox.dat" />
+	<AptGeometryData id="HelpBox_1" File="HelpBox_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="HelpBox_103" File="HelpBox_geometry\103.ru" AptID="103"/>
+	<AptGeometryData id="HelpBox_105" File="HelpBox_geometry\105.ru" AptID="105"/>
+	<AptGeometryData id="HelpBox_23" File="HelpBox_geometry\23.ru" AptID="23"/>
+	<AptGeometryData id="HelpBox_28" File="HelpBox_geometry\28.ru" AptID="28"/>
+	<AptGeometryData id="HelpBox_31" File="HelpBox_geometry\31.ru" AptID="31"/>
+	<AptGeometryData id="HelpBox_34" File="HelpBox_geometry\34.ru" AptID="34"/>
+	<AptGeometryData id="HelpBox_4" File="HelpBox_geometry\4.ru" AptID="4"/>
+	<AptGeometryData id="HelpBox_63" File="HelpBox_geometry\63.ru" AptID="63"/>
+	<AptGeometryData id="HelpBox_66" File="HelpBox_geometry\66.ru" AptID="66"/>
+	<AptGeometryData id="HelpBox_73" File="HelpBox_geometry\73.ru" AptID="73"/>
+	<AptGeometryData id="HelpBox_79" File="HelpBox_geometry\79.ru" AptID="79"/>
+	<AptGeometryData id="HelpBox_87" File="HelpBox_geometry\87.ru" AptID="87"/>
+	<AptGeometryData id="HelpBox_89" File="HelpBox_geometry\89.ru" AptID="89"/>
+	<AptGeometryData id="HelpBox_97" File="HelpBox_geometry\97.ru" AptID="97"/>
+	<Texture id="apt_HelpBox_1" File="art\Textures\apt_HelpBox_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_HelpBox_102" File="art\Textures\apt_HelpBox_102.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

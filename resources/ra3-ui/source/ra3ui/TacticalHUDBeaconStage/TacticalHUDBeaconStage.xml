@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="TacticalHUDBeaconStage_apt" File="TacticalHUDBeaconStage.apt" />
+	<AptConstData id="TacticalHUDBeaconStage_const" File="TacticalHUDBeaconStage.const" />
+	<AptDatData id="TacticalHUDBeaconStage_dat" File="TacticalHUDBeaconStage.dat" />
+	<AptGeometryData id="TacticalHUDBeaconStage_10" File="TacticalHUDBeaconStage_geometry\10.ru" AptID="10"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_12" File="TacticalHUDBeaconStage_geometry\12.ru" AptID="12"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_14" File="TacticalHUDBeaconStage_geometry\14.ru" AptID="14"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_16" File="TacticalHUDBeaconStage_geometry\16.ru" AptID="16"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_18" File="TacticalHUDBeaconStage_geometry\18.ru" AptID="18"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_2" File="TacticalHUDBeaconStage_geometry\2.ru" AptID="2"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_27" File="TacticalHUDBeaconStage_geometry\27.ru" AptID="27"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_29" File="TacticalHUDBeaconStage_geometry\29.ru" AptID="29"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_33" File="TacticalHUDBeaconStage_geometry\33.ru" AptID="33"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_36" File="TacticalHUDBeaconStage_geometry\36.ru" AptID="36"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_38" File="TacticalHUDBeaconStage_geometry\38.ru" AptID="38"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_42" File="TacticalHUDBeaconStage_geometry\42.ru" AptID="42"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_44" File="TacticalHUDBeaconStage_geometry\44.ru" AptID="44"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_47" File="TacticalHUDBeaconStage_geometry\47.ru" AptID="47"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_49" File="TacticalHUDBeaconStage_geometry\49.ru" AptID="49"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_5" File="TacticalHUDBeaconStage_geometry\5.ru" AptID="5"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_54" File="TacticalHUDBeaconStage_geometry\54.ru" AptID="54"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_57" File="TacticalHUDBeaconStage_geometry\57.ru" AptID="57"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_59" File="TacticalHUDBeaconStage_geometry\59.ru" AptID="59"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_61" File="TacticalHUDBeaconStage_geometry\61.ru" AptID="61"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_63" File="TacticalHUDBeaconStage_geometry\63.ru" AptID="63"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_65" File="TacticalHUDBeaconStage_geometry\65.ru" AptID="65"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_67" File="TacticalHUDBeaconStage_geometry\67.ru" AptID="67"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_69" File="TacticalHUDBeaconStage_geometry\69.ru" AptID="69"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_71" File="TacticalHUDBeaconStage_geometry\71.ru" AptID="71"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_73" File="TacticalHUDBeaconStage_geometry\73.ru" AptID="73"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_75" File="TacticalHUDBeaconStage_geometry\75.ru" AptID="75"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_78" File="TacticalHUDBeaconStage_geometry\78.ru" AptID="78"/>
+	<AptGeometryData id="TacticalHUDBeaconStage_8" File="TacticalHUDBeaconStage_geometry\8.ru" AptID="8"/>
+	<Texture id="apt_TacticalHUDBeaconStage_1" File="art\Textures\apt_TacticalHUDBeaconStage_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_TacticalHUDBeaconStage_41" File="art\Textures\apt_TacticalHUDBeaconStage_41.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="TacticalObjectiveIntroPopUp_apt" File="TacticalObjectiveIntroPopUp.apt" />
+	<AptConstData id="TacticalObjectiveIntroPopUp_const" File="TacticalObjectiveIntroPopUp.const" />
+	<AptDatData id="TacticalObjectiveIntroPopUp_dat" File="TacticalObjectiveIntroPopUp.dat" />
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_1" File="TacticalObjectiveIntroPopUp_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_11" File="TacticalObjectiveIntroPopUp_geometry\11.ru" AptID="11"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_14" File="TacticalObjectiveIntroPopUp_geometry\14.ru" AptID="14"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_17" File="TacticalObjectiveIntroPopUp_geometry\17.ru" AptID="17"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_22" File="TacticalObjectiveIntroPopUp_geometry\22.ru" AptID="22"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_24" File="TacticalObjectiveIntroPopUp_geometry\24.ru" AptID="24"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_26" File="TacticalObjectiveIntroPopUp_geometry\26.ru" AptID="26"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_28" File="TacticalObjectiveIntroPopUp_geometry\28.ru" AptID="28"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_30" File="TacticalObjectiveIntroPopUp_geometry\30.ru" AptID="30"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_32" File="TacticalObjectiveIntroPopUp_geometry\32.ru" AptID="32"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_34" File="TacticalObjectiveIntroPopUp_geometry\34.ru" AptID="34"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_36" File="TacticalObjectiveIntroPopUp_geometry\36.ru" AptID="36"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_38" File="TacticalObjectiveIntroPopUp_geometry\38.ru" AptID="38"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_4" File="TacticalObjectiveIntroPopUp_geometry\4.ru" AptID="4"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_40" File="TacticalObjectiveIntroPopUp_geometry\40.ru" AptID="40"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_6" File="TacticalObjectiveIntroPopUp_geometry\6.ru" AptID="6"/>
+	<AptGeometryData id="TacticalObjectiveIntroPopUp_9" File="TacticalObjectiveIntroPopUp_geometry\9.ru" AptID="9"/>
+	<Texture id="apt_TacticalObjectiveIntroPopUp_1" File="art\Textures\apt_TacticalObjectiveIntroPopUp_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_TacticalObjectiveIntroPopUp_16" File="art\Textures\apt_TacticalObjectiveIntroPopUp_16.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_TacticalObjectiveIntroPopUp_3" File="art\Textures\apt_TacticalObjectiveIntroPopUp_3.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_TacticalObjectiveIntroPopUp_5" File="art\Textures\apt_TacticalObjectiveIntroPopUp_5.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

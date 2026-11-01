@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="feg_m_credits_apt" File="feg_m_credits.apt" />
+	<AptConstData id="feg_m_credits_const" File="feg_m_credits.const" />
+	<AptDatData id="feg_m_credits_dat" File="feg_m_credits.dat" />
+	<AptGeometryData id="feg_m_credits_1" File="feg_m_credits_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="feg_m_credits_3" File="feg_m_credits_geometry\3.ru" AptID="3"/>
+</AssetDeclaration>

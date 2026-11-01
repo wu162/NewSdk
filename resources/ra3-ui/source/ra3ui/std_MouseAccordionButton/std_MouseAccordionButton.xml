@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="std_MouseAccordionButton_apt" File="std_MouseAccordionButton.apt" />
+	<AptConstData id="std_MouseAccordionButton_const" File="std_MouseAccordionButton.const" />
+	<AptDatData id="std_MouseAccordionButton_dat" File="std_MouseAccordionButton.dat" />
+	<AptGeometryData id="std_MouseAccordionButton_14" File="std_MouseAccordionButton_geometry\14.ru" AptID="14"/>
+	<AptGeometryData id="std_MouseAccordionButton_19" File="std_MouseAccordionButton_geometry\19.ru" AptID="19"/>
+	<AptGeometryData id="std_MouseAccordionButton_21" File="std_MouseAccordionButton_geometry\21.ru" AptID="21"/>
+	<AptGeometryData id="std_MouseAccordionButton_23" File="std_MouseAccordionButton_geometry\23.ru" AptID="23"/>
+	<AptGeometryData id="std_MouseAccordionButton_24" File="std_MouseAccordionButton_geometry\24.ru" AptID="24"/>
+	<AptGeometryData id="std_MouseAccordionButton_25" File="std_MouseAccordionButton_geometry\25.ru" AptID="25"/>
+	<AptGeometryData id="std_MouseAccordionButton_28" File="std_MouseAccordionButton_geometry\28.ru" AptID="28"/>
+	<AptGeometryData id="std_MouseAccordionButton_32" File="std_MouseAccordionButton_geometry\32.ru" AptID="32"/>
+	<AptGeometryData id="std_MouseAccordionButton_34" File="std_MouseAccordionButton_geometry\34.ru" AptID="34"/>
+	<AptGeometryData id="std_MouseAccordionButton_36" File="std_MouseAccordionButton_geometry\36.ru" AptID="36"/>
+	<AptGeometryData id="std_MouseAccordionButton_38" File="std_MouseAccordionButton_geometry\38.ru" AptID="38"/>
+	<AptGeometryData id="std_MouseAccordionButton_40" File="std_MouseAccordionButton_geometry\40.ru" AptID="40"/>
+	<AptGeometryData id="std_MouseAccordionButton_42" File="std_MouseAccordionButton_geometry\42.ru" AptID="42"/>
+	<AptGeometryData id="std_MouseAccordionButton_44" File="std_MouseAccordionButton_geometry\44.ru" AptID="44"/>
+	<AptGeometryData id="std_MouseAccordionButton_46" File="std_MouseAccordionButton_geometry\46.ru" AptID="46"/>
+	<AptGeometryData id="std_MouseAccordionButton_53" File="std_MouseAccordionButton_geometry\53.ru" AptID="53"/>
+	<AptGeometryData id="std_MouseAccordionButton_56" File="std_MouseAccordionButton_geometry\56.ru" AptID="56"/>
+	<Texture id="apt_std_MouseAccordionButton_1" File="art\Textures\apt_std_MouseAccordionButton_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

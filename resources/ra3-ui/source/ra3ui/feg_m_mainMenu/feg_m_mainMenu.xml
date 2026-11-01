@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="feg_m_mainMenu_apt" File="feg_m_mainMenu.apt" />
+	<AptConstData id="feg_m_mainMenu_const" File="feg_m_mainMenu.const" />
+	<AptDatData id="feg_m_mainMenu_dat" File="feg_m_mainMenu.dat" />
+	<AptGeometryData id="feg_m_mainMenu_1" File="feg_m_mainMenu_geometry\1.ru" AptID="1"/>
+</AssetDeclaration>

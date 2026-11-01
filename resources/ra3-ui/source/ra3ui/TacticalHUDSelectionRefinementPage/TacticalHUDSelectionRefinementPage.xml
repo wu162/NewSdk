@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="TacticalHUDSelectionRefinementPage_apt" File="TacticalHUDSelectionRefinementPage.apt" />
+	<AptConstData id="TacticalHUDSelectionRefinementPage_const" File="TacticalHUDSelectionRefinementPage.const" />
+	<AptDatData id="TacticalHUDSelectionRefinementPage_dat" File="TacticalHUDSelectionRefinementPage.dat" />
+</AssetDeclaration>

@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+tooling/ffdec/
+validation/build/

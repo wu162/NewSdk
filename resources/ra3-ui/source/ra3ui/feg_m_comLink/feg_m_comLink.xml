@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="feg_m_comLink_apt" File="feg_m_comLink.apt" />
+	<AptConstData id="feg_m_comLink_const" File="feg_m_comLink.const" />
+	<AptDatData id="feg_m_comLink_dat" File="feg_m_comLink.dat" />
+	<AptGeometryData id="feg_m_comLink_11" File="feg_m_comLink_geometry\11.ru" AptID="11"/>
+	<AptGeometryData id="feg_m_comLink_116" File="feg_m_comLink_geometry\116.ru" AptID="116"/>
+	<AptGeometryData id="feg_m_comLink_118" File="feg_m_comLink_geometry\118.ru" AptID="118"/>
+	<AptGeometryData id="feg_m_comLink_14" File="feg_m_comLink_geometry\14.ru" AptID="14"/>
+	<AptGeometryData id="feg_m_comLink_17" File="feg_m_comLink_geometry\17.ru" AptID="17"/>
+	<AptGeometryData id="feg_m_comLink_21" File="feg_m_comLink_geometry\21.ru" AptID="21"/>
+	<AptGeometryData id="feg_m_comLink_25" File="feg_m_comLink_geometry\25.ru" AptID="25"/>
+	<AptGeometryData id="feg_m_comLink_28" File="feg_m_comLink_geometry\28.ru" AptID="28"/>
+	<AptGeometryData id="feg_m_comLink_31" File="feg_m_comLink_geometry\31.ru" AptID="31"/>
+	<AptGeometryData id="feg_m_comLink_36" File="feg_m_comLink_geometry\36.ru" AptID="36"/>
+	<AptGeometryData id="feg_m_comLink_4" File="feg_m_comLink_geometry\4.ru" AptID="4"/>
+	<AptGeometryData id="feg_m_comLink_41" File="feg_m_comLink_geometry\41.ru" AptID="41"/>
+	<AptGeometryData id="feg_m_comLink_44" File="feg_m_comLink_geometry\44.ru" AptID="44"/>
+	<AptGeometryData id="feg_m_comLink_47" File="feg_m_comLink_geometry\47.ru" AptID="47"/>
+	<AptGeometryData id="feg_m_comLink_50" File="feg_m_comLink_geometry\50.ru" AptID="50"/>
+	<AptGeometryData id="feg_m_comLink_54" File="feg_m_comLink_geometry\54.ru" AptID="54"/>
+	<AptGeometryData id="feg_m_comLink_55" File="feg_m_comLink_geometry\55.ru" AptID="55"/>
+	<AptGeometryData id="feg_m_comLink_57" File="feg_m_comLink_geometry\57.ru" AptID="57"/>
+	<AptGeometryData id="feg_m_comLink_66" File="feg_m_comLink_geometry\66.ru" AptID="66"/>
+	<AptGeometryData id="feg_m_comLink_69" File="feg_m_comLink_geometry\69.ru" AptID="69"/>
+	<AptGeometryData id="feg_m_comLink_7" File="feg_m_comLink_geometry\7.ru" AptID="7"/>
+	<AptGeometryData id="feg_m_comLink_78" File="feg_m_comLink_geometry\78.ru" AptID="78"/>
+	<AptGeometryData id="feg_m_comLink_83" File="feg_m_comLink_geometry\83.ru" AptID="83"/>
+	<AptGeometryData id="feg_m_comLink_85" File="feg_m_comLink_geometry\85.ru" AptID="85"/>
+	<AptGeometryData id="feg_m_comLink_89" File="feg_m_comLink_geometry\89.ru" AptID="89"/>
+	<AptGeometryData id="feg_m_comLink_9" File="feg_m_comLink_geometry\9.ru" AptID="9"/>
+	<Texture id="apt_feg_m_comLink_1" File="art\Textures\apt_feg_m_comLink_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_feg_m_comLink_2" File="art\Textures\apt_feg_m_comLink_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

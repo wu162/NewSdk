@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\fe_objectiveBriefingsAssets\art\textures\apt_fe_objectiveBriefingsAssets.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\fe_objectiveBriefingsAssets\fe_objectiveBriefingsAssets_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_fe_objectiveBriefingsAssets_1.tga -->
+	<Texture id="apt_fe_objectiveBriefingsAssets_1" File="apt_fe_objectiveBriefingsAssets_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="10" Texture="apt_fe_objectiveBriefingsAssets_1" Rotated="false">
+		<Dimensions x="30" y="35"/>
+		<Coords x="722" y="69"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="9" Texture="apt_fe_objectiveBriefingsAssets_1" Rotated="false">
+		<Dimensions x="30" y="35"/>
+		<Coords x="690" y="69"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="12" Texture="apt_fe_objectiveBriefingsAssets_1" Rotated="false">
+		<Dimensions x="36" y="38"/>
+		<Coords x="958" y="49"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="11" Texture="apt_fe_objectiveBriefingsAssets_1" Rotated="false">
+		<Dimensions x="36" y="38"/>
+		<Coords x="920" y="49"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="7" Texture="apt_fe_objectiveBriefingsAssets_1" Rotated="false">
+		<Dimensions x="46" y="46"/>
+		<Coords x="968" y="1"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="8" Texture="apt_fe_objectiveBriefingsAssets_1" Rotated="false">
+		<Dimensions x="46" y="46"/>
+		<Coords x="920" y="1"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="3" Texture="apt_fe_objectiveBriefingsAssets_1" Rotated="false">
+		<Dimensions x="44" y="66"/>
+		<Coords x="874" y="1"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="2" Texture="apt_fe_objectiveBriefingsAssets_1" Rotated="false">
+		<Dimensions x="44" y="66"/>
+		<Coords x="828" y="1"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="1" Texture="apt_fe_objectiveBriefingsAssets_1" Rotated="false">
+		<Dimensions x="44" y="66"/>
+		<Coords x="782" y="1"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="5" Texture="apt_fe_objectiveBriefingsAssets_1" Rotated="false">
+		<Dimensions x="44" y="66"/>
+		<Coords x="736" y="1"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="4" Texture="apt_fe_objectiveBriefingsAssets_1" Rotated="false">
+		<Dimensions x="44" y="66"/>
+		<Coords x="690" y="1"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="13" Texture="apt_fe_objectiveBriefingsAssets_1" Rotated="false">
+		<Dimensions x="129" y="130"/>
+		<Coords x="559" y="1"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="14" Texture="apt_fe_objectiveBriefingsAssets_1" Rotated="false">
+		<Dimensions x="99" y="177"/>
+		<Coords x="458" y="1"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="6" Texture="apt_fe_objectiveBriefingsAssets_1" Rotated="false">
+		<Dimensions x="455" y="474"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

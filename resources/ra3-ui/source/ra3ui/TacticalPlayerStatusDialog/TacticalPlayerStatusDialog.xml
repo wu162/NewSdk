@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="TacticalPlayerStatusDialog_apt" File="TacticalPlayerStatusDialog.apt" />
+	<AptConstData id="TacticalPlayerStatusDialog_const" File="TacticalPlayerStatusDialog.const" />
+	<AptDatData id="TacticalPlayerStatusDialog_dat" File="TacticalPlayerStatusDialog.dat" />
+	<AptGeometryData id="TacticalPlayerStatusDialog_16" File="TacticalPlayerStatusDialog_geometry\16.ru" AptID="16"/>
+	<AptGeometryData id="TacticalPlayerStatusDialog_31" File="TacticalPlayerStatusDialog_geometry\31.ru" AptID="31"/>
+	<AptGeometryData id="TacticalPlayerStatusDialog_34" File="TacticalPlayerStatusDialog_geometry\34.ru" AptID="34"/>
+	<AptGeometryData id="TacticalPlayerStatusDialog_38" File="TacticalPlayerStatusDialog_geometry\38.ru" AptID="38"/>
+	<AptGeometryData id="TacticalPlayerStatusDialog_42" File="TacticalPlayerStatusDialog_geometry\42.ru" AptID="42"/>
+	<AptGeometryData id="TacticalPlayerStatusDialog_45" File="TacticalPlayerStatusDialog_geometry\45.ru" AptID="45"/>
+	<Texture id="apt_TacticalPlayerStatusDialog_1" File="art\Textures\apt_TacticalPlayerStatusDialog_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="igm_replayControlPanel_apt" File="igm_replayControlPanel.apt" />
+	<AptConstData id="igm_replayControlPanel_const" File="igm_replayControlPanel.const" />
+	<AptDatData id="igm_replayControlPanel_dat" File="igm_replayControlPanel.dat" />
+	<AptGeometryData id="igm_replayControlPanel_1" File="igm_replayControlPanel_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="igm_replayControlPanel_10" File="igm_replayControlPanel_geometry\10.ru" AptID="10"/>
+	<AptGeometryData id="igm_replayControlPanel_4" File="igm_replayControlPanel_geometry\4.ru" AptID="4"/>
+	<AptGeometryData id="igm_replayControlPanel_6" File="igm_replayControlPanel_geometry\6.ru" AptID="6"/>
+	<Texture id="apt_igm_replayControlPanel_1" File="art\Textures\apt_igm_replayControlPanel_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

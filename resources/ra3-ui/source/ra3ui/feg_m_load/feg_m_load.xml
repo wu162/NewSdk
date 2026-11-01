@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="feg_m_load_apt" File="feg_m_load.apt" />
+	<AptConstData id="feg_m_load_const" File="feg_m_load.const" />
+	<AptDatData id="feg_m_load_dat" File="feg_m_load.dat" />
+	<AptGeometryData id="feg_m_load_11" File="feg_m_load_geometry\11.ru" AptID="11"/>
+	<AptGeometryData id="feg_m_load_12" File="feg_m_load_geometry\12.ru" AptID="12"/>
+	<AptGeometryData id="feg_m_load_16" File="feg_m_load_geometry\16.ru" AptID="16"/>
+	<AptGeometryData id="feg_m_load_18" File="feg_m_load_geometry\18.ru" AptID="18"/>
+	<AptGeometryData id="feg_m_load_2" File="feg_m_load_geometry\2.ru" AptID="2"/>
+	<AptGeometryData id="feg_m_load_28" File="feg_m_load_geometry\28.ru" AptID="28"/>
+	<AptGeometryData id="feg_m_load_4" File="feg_m_load_geometry\4.ru" AptID="4"/>
+	<AptGeometryData id="feg_m_load_7" File="feg_m_load_geometry\7.ru" AptID="7"/>
+	<AptGeometryData id="feg_m_load_8" File="feg_m_load_geometry\8.ru" AptID="8"/>
+	<Texture id="apt_feg_m_load_1" File="art\Textures\apt_feg_m_load_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_feg_m_load_10" File="art\Textures\apt_feg_m_load_10.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

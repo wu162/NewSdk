@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="blockTextComponent_apt" File="blockTextComponent.apt" />
+	<AptConstData id="blockTextComponent_const" File="blockTextComponent.const" />
+	<AptDatData id="blockTextComponent_dat" File="blockTextComponent.dat" />
+	<AptGeometryData id="blockTextComponent_1" File="blockTextComponent_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="blockTextComponent_2" File="blockTextComponent_geometry\2.ru" AptID="2"/>
+	<AptGeometryData id="blockTextComponent_3" File="blockTextComponent_geometry\3.ru" AptID="3"/>
+	<AptGeometryData id="blockTextComponent_5" File="blockTextComponent_geometry\5.ru" AptID="5"/>
+</AssetDeclaration>

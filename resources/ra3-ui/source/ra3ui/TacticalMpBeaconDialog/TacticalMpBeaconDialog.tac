@@ -1,0 +1,202 @@
+movie 'C:\projects\Ra3\PRODUC~1\Data\APTBUI~1\034A3~1.0-D\pc\Output\TA7BCA~1\\TACTIC~1.eaf' &compressed // flash 7, total frames: 16, frame rate: 30 fps, 1024x768 px
+
+  &frame 0
+    &constants 'closing', 'Close', 'onUnload', 'initialized', 'this', '_parent', 'OnContentLoaded', 'FSCommand:', 'OnInitialized', 'qualifyName', ''  
+    &function Close (    )    
+      &pushsdbgv 0							//'closing'
+      &not
+      &not
+      &jnz label1      
+      &pushsdb 0							//'closing'
+      &pushtrue
+      &setVariable
+      &gotoLabel '_close'
+      &play
+     label1:
+    &end // of function Close
+
+    &function onUnload (    )    
+      &pushsdb 1							//'Close'
+      &delete2
+      &pop
+      &pushsdb 2							//'onUnload'
+      &delete2
+      &pop
+    &end // of function onUnload
+
+    &pushsdbgv 3							//'initialized'
+    &not
+    &not
+    &jnz label2    
+    &pushthisgv
+    &pushone
+    &pushsdbgv 5							//'_parent'
+    &dcallmp 6							// OnContentLoaded()
+    &pushsdb 0							//'closing'
+    &pushfalse
+    &setVariable
+    &pushsdb 3							//'initialized'
+    &pushtrue
+    &setVariable
+    &pushsdb 7							//'FSCommand:'
+    &pushsdb 8							//'OnInitialized'
+    &pushthisgv
+    &pushbyte 2
+    &pushsdb 9							//'qualifyName'
+    &callFunction
+    &concat
+    &pushsdb 10							//''
+    &getURL2
+   label2:
+  &end // of frame 0
+
+  &defineButton 2
+  
+    &on     &overUpToOverDown
+      &pushs 'FSCommand:'
+      &pushs 'OnPress'
+      &pushsgv '_parent'
+      &pushbyte 2
+      &pushs 'qualifyName'
+      &callFunction
+      &concat
+      &pushzero
+      &pushs 'GetMousePosString'
+      &callFunction
+      &getURL2
+    &end
+  
+    &on     &overDownToOverUp
+      &pushs 'FSCommand:'
+      &pushs 'OnRelease'
+      &pushsgv '_parent'
+      &pushbyte 2
+      &pushs 'qualifyName'
+      &callFunction
+      &concat
+      &pushzero
+      &pushs 'GetMousePosString'
+      &callFunction
+      &getURL2
+    &end
+  
+    &on     &idleToOverUp
+      &pushs 'mouseOver'
+      &pushtrue
+      &setVariable
+    &end
+  
+    &on     &overUpToIdle
+      &pushs 'mouseOver'
+      &pushfalse
+      &setVariable
+    &end
+  &end // of defineButton 2
+
+  &defineMovieClip 6 // total frames: 1
+  &end // of defineMovieClip 6
+
+  &defineMovieClip 8 // total frames: 1
+
+    &frame 0
+      &constants '', '_width', '_height', 'x=', '&y=', 'mouseOver', 'FSCommand:', 'OnMouseMove', 'qualifyName', 'GetMousePosString', 'onMouseMove', 'onUnload'  
+      &function2 GetMousePosString () (r:1='_parent')
+        &pushsdb 0							//''
+        &pushbyte 20
+        &getProperty
+        &pushregister 1
+        &pushsdbgm 1							//'_width'
+        &pushbyte 2
+        &divide
+        &add
+        &setRegister r:3
+        &pop
+        &pushsdb 0							//''
+        &pushbyte 21
+        &getProperty
+        &pushregister 1
+        &pushsdbgm 2							//'_height'
+        &pushbyte 2
+        &divide
+        &add
+        &setRegister r:2
+        &pop
+        &pushsdb 3							//'x='
+        &pushregister 3
+        &toString
+        &add
+        &pushsdb 4							//'&y='
+        &add
+        &pushregister 2
+        &toString
+        &add
+        &return
+      &end // of function GetMousePosString
+
+      &function2 onMouseMove () (r:1='_parent')
+        &pushsdbgv 5							//'mouseOver'
+        &not
+        &jnz label1        
+        &pushsdb 6							//'FSCommand:'
+        &pushsdb 7							//'OnMouseMove'
+        &pushregister 1
+        &pushbyte 2
+        &pushsdb 8							//'qualifyName'
+        &callFunction
+        &concat
+        &pushzero
+        &pushsdb 9							//'GetMousePosString'
+        &callFunction
+        &getURL2
+       label1:
+      &end // of function onMouseMove
+
+      &function onUnload (      )      
+        &pushsdb 10							//'onMouseMove'
+        &delete2
+        &pop
+        &pushsdb 11							//'onUnload'
+        &delete2
+        &pop
+        &pushsdb 9							//'GetMousePosString'
+        &delete2
+        &pop
+      &end // of function onUnload
+
+    &end // of frame 0
+
+    &placeMovieClip 6 &as 'messageText'
+    
+      &onClipEvent &load
+        &constants 'text', '$', 'Message', '_parent', 'qualifyName'  
+        &pushsdb 0							//'text'
+        &pushsdb 1							//'$'
+        &pushsdb 2							//'Message'
+        &pushsdbgv 3							//'_parent'
+        &pushsdbgm 3							//'_parent'
+        &pushbyte 2
+        &pushsdb 4							//'qualifyName'
+        &callFunction
+        &add
+        &setVariable
+      &end
+    &end // of placeMovieClip 6
+  &end // of defineMovieClip 8
+
+  &frame 9
+    &stop
+  &end // of frame 9
+
+  &frame 15
+    &stop
+    &pushs 'FSCommand:'
+    &pushs 'OnClosed'
+    &pushthisgv
+    &pushbyte 2
+    &pushs 'qualifyName'
+    &callFunction
+    &concat
+    &pushs ''
+    &getURL2
+  &end // of frame 15
+&end

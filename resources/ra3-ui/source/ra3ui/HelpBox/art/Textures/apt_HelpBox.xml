@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\HelpBox\art\textures\apt_HelpBox.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\HelpBox\HelpBox_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_HelpBox_1.tga -->
+	<Texture id="apt_HelpBox_1" File="apt_HelpBox_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="62" Texture="apt_HelpBox_1" Rotated="false">
+		<Dimensions x="11" y="18"/>
+		<Coords x="78" y="1"/>
+		<TextureDimensions x="128" y="64"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="65" Texture="apt_HelpBox_1" Rotated="false">
+		<Dimensions x="11" y="18"/>
+		<Coords x="65" y="1"/>
+		<TextureDimensions x="128" y="64"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="72" Texture="apt_HelpBox_1" Rotated="false">
+		<Dimensions x="13" y="16"/>
+		<Coords x="24" y="46"/>
+		<TextureDimensions x="128" y="64"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="22" Texture="apt_HelpBox_1" Rotated="false">
+		<Dimensions x="14" y="15"/>
+		<Coords x="46" y="44"/>
+		<TextureDimensions x="128" y="64"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="88" Texture="apt_HelpBox_1" Rotated="false">
+		<Dimensions x="16" y="15"/>
+		<Coords x="47" y="1"/>
+		<TextureDimensions x="128" y="64"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="78" Texture="apt_HelpBox_1" Rotated="false">
+		<Dimensions x="17" y="18"/>
+		<Coords x="46" y="24"/>
+		<TextureDimensions x="128" y="64"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="86" Texture="apt_HelpBox_1" Rotated="false">
+		<Dimensions x="20" y="20"/>
+		<Coords x="24" y="24"/>
+		<TextureDimensions x="128" y="64"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="33" Texture="apt_HelpBox_1" Rotated="false">
+		<Dimensions x="21" y="21"/>
+		<Coords x="1" y="24"/>
+		<TextureDimensions x="128" y="64"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="30" Texture="apt_HelpBox_1" Rotated="false">
+		<Dimensions x="21" y="21"/>
+		<Coords x="24" y="1"/>
+		<TextureDimensions x="128" y="64"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="27" Texture="apt_HelpBox_1" Rotated="false">
+		<Dimensions x="21" y="21"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="128" y="64"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

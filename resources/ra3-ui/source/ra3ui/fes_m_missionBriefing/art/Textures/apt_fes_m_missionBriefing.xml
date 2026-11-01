@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\fes_m_missionBriefing\art\textures\apt_fes_m_missionBriefing.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\fes_m_missionBriefing\fes_m_missionBriefing_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_fes_m_missionBriefing_1.tga -->
+	<Texture id="apt_fes_m_missionBriefing_1" File="apt_fes_m_missionBriefing_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="20" Texture="apt_fes_m_missionBriefing_1" Rotated="false">
+		<Dimensions x="1365" y="68"/>
+		<Coords x="1" y="914"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="14" Texture="apt_fes_m_missionBriefing_1" Rotated="false">
+		<Dimensions x="1365" y="68"/>
+		<Coords x="1" y="844"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="44" Texture="apt_fes_m_missionBriefing_1" Rotated="false">
+		<Dimensions x="396" y="239"/>
+		<Coords x="1368" y="613"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="38" Texture="apt_fes_m_missionBriefing_1" Rotated="false">
+		<Dimensions x="396" y="239"/>
+		<Coords x="1368" y="372"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="11" Texture="apt_fes_m_missionBriefing_1" Rotated="false">
+		<Dimensions x="1365" y="71"/>
+		<Coords x="1" y="771"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="29" Texture="apt_fes_m_missionBriefing_1" Rotated="false">
+		<Dimensions x="636" y="369"/>
+		<Coords x="1368" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="24" Texture="apt_fes_m_missionBriefing_1" Rotated="false">
+		<Dimensions x="1365" y="768"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+
+	<!-- Packed Texture: apt_fes_m_missionBriefing_2.tga -->
+	<Texture id="apt_fes_m_missionBriefing_2" File="apt_fes_m_missionBriefing_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="12" Texture="apt_fes_m_missionBriefing_2" Rotated="false">
+		<Dimensions x="1365" y="48"/>
+		<Coords x="1" y="771"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="40" Texture="apt_fes_m_missionBriefing_2" Rotated="false">
+		<Dimensions x="396" y="239"/>
+		<Coords x="1368" y="483"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="36" Texture="apt_fes_m_missionBriefing_2" Rotated="false">
+		<Dimensions x="396" y="239"/>
+		<Coords x="1368" y="242"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="34" Texture="apt_fes_m_missionBriefing_2" Rotated="false">
+		<Dimensions x="396" y="239"/>
+		<Coords x="1368" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="26" Texture="apt_fes_m_missionBriefing_2" Rotated="false">
+		<Dimensions x="1365" y="768"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

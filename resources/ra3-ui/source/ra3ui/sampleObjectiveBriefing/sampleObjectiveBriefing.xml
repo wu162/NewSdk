@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="sampleObjectiveBriefing_apt" File="sampleObjectiveBriefing.apt" />
+	<AptConstData id="sampleObjectiveBriefing_const" File="sampleObjectiveBriefing.const" />
+	<AptDatData id="sampleObjectiveBriefing_dat" File="sampleObjectiveBriefing.dat" />
+	<AptGeometryData id="sampleObjectiveBriefing_1" File="sampleObjectiveBriefing_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="sampleObjectiveBriefing_11" File="sampleObjectiveBriefing_geometry\11.ru" AptID="11"/>
+	<AptGeometryData id="sampleObjectiveBriefing_13" File="sampleObjectiveBriefing_geometry\13.ru" AptID="13"/>
+	<AptGeometryData id="sampleObjectiveBriefing_16" File="sampleObjectiveBriefing_geometry\16.ru" AptID="16"/>
+	<AptGeometryData id="sampleObjectiveBriefing_19" File="sampleObjectiveBriefing_geometry\19.ru" AptID="19"/>
+	<AptGeometryData id="sampleObjectiveBriefing_22" File="sampleObjectiveBriefing_geometry\22.ru" AptID="22"/>
+	<AptGeometryData id="sampleObjectiveBriefing_25" File="sampleObjectiveBriefing_geometry\25.ru" AptID="25"/>
+	<AptGeometryData id="sampleObjectiveBriefing_28" File="sampleObjectiveBriefing_geometry\28.ru" AptID="28"/>
+	<AptGeometryData id="sampleObjectiveBriefing_3" File="sampleObjectiveBriefing_geometry\3.ru" AptID="3"/>
+	<AptGeometryData id="sampleObjectiveBriefing_30" File="sampleObjectiveBriefing_geometry\30.ru" AptID="30"/>
+	<AptGeometryData id="sampleObjectiveBriefing_33" File="sampleObjectiveBriefing_geometry\33.ru" AptID="33"/>
+	<AptGeometryData id="sampleObjectiveBriefing_6" File="sampleObjectiveBriefing_geometry\6.ru" AptID="6"/>
+	<AptGeometryData id="sampleObjectiveBriefing_8" File="sampleObjectiveBriefing_geometry\8.ru" AptID="8"/>
+	<Texture id="apt_sampleObjectiveBriefing_1" File="art\Textures\apt_sampleObjectiveBriefing_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_sampleObjectiveBriefing_2" File="art\Textures\apt_sampleObjectiveBriefing_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

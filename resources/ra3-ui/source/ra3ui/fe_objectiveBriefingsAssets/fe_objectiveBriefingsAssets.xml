@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="fe_objectiveBriefingsAssets_apt" File="fe_objectiveBriefingsAssets.apt" />
+	<AptConstData id="fe_objectiveBriefingsAssets_const" File="fe_objectiveBriefingsAssets.const" />
+	<AptDatData id="fe_objectiveBriefingsAssets_dat" File="fe_objectiveBriefingsAssets.dat" />
+	<AptGeometryData id="fe_objectiveBriefingsAssets_15" File="fe_objectiveBriefingsAssets_geometry\15.ru" AptID="15"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_17" File="fe_objectiveBriefingsAssets_geometry\17.ru" AptID="17"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_19" File="fe_objectiveBriefingsAssets_geometry\19.ru" AptID="19"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_21" File="fe_objectiveBriefingsAssets_geometry\21.ru" AptID="21"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_23" File="fe_objectiveBriefingsAssets_geometry\23.ru" AptID="23"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_25" File="fe_objectiveBriefingsAssets_geometry\25.ru" AptID="25"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_27" File="fe_objectiveBriefingsAssets_geometry\27.ru" AptID="27"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_29" File="fe_objectiveBriefingsAssets_geometry\29.ru" AptID="29"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_31" File="fe_objectiveBriefingsAssets_geometry\31.ru" AptID="31"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_33" File="fe_objectiveBriefingsAssets_geometry\33.ru" AptID="33"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_35" File="fe_objectiveBriefingsAssets_geometry\35.ru" AptID="35"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_37" File="fe_objectiveBriefingsAssets_geometry\37.ru" AptID="37"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_39" File="fe_objectiveBriefingsAssets_geometry\39.ru" AptID="39"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_41" File="fe_objectiveBriefingsAssets_geometry\41.ru" AptID="41"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_43" File="fe_objectiveBriefingsAssets_geometry\43.ru" AptID="43"/>
+	<AptGeometryData id="fe_objectiveBriefingsAssets_45" File="fe_objectiveBriefingsAssets_geometry\45.ru" AptID="45"/>
+	<Texture id="apt_fe_objectiveBriefingsAssets_1" File="art\Textures\apt_fe_objectiveBriefingsAssets_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

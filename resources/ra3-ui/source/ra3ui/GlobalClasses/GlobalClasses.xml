@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="GlobalClasses_apt" File="GlobalClasses.apt" />
+	<AptConstData id="GlobalClasses_const" File="GlobalClasses.const" />
+	<AptDatData id="GlobalClasses_dat" File="GlobalClasses.dat" />
+</AssetDeclaration>

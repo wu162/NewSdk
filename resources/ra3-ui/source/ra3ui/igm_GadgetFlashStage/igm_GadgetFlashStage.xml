@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="igm_GadgetFlashStage_apt" File="igm_GadgetFlashStage.apt" />
+	<AptConstData id="igm_GadgetFlashStage_const" File="igm_GadgetFlashStage.const" />
+	<AptDatData id="igm_GadgetFlashStage_dat" File="igm_GadgetFlashStage.dat" />
+	<AptGeometryData id="igm_GadgetFlashStage_11" File="igm_GadgetFlashStage_geometry\11.ru" AptID="11"/>
+	<AptGeometryData id="igm_GadgetFlashStage_13" File="igm_GadgetFlashStage_geometry\13.ru" AptID="13"/>
+	<AptGeometryData id="igm_GadgetFlashStage_15" File="igm_GadgetFlashStage_geometry\15.ru" AptID="15"/>
+	<AptGeometryData id="igm_GadgetFlashStage_17" File="igm_GadgetFlashStage_geometry\17.ru" AptID="17"/>
+	<AptGeometryData id="igm_GadgetFlashStage_2" File="igm_GadgetFlashStage_geometry\2.ru" AptID="2"/>
+	<AptGeometryData id="igm_GadgetFlashStage_5" File="igm_GadgetFlashStage_geometry\5.ru" AptID="5"/>
+	<AptGeometryData id="igm_GadgetFlashStage_7" File="igm_GadgetFlashStage_geometry\7.ru" AptID="7"/>
+	<AptGeometryData id="igm_GadgetFlashStage_9" File="igm_GadgetFlashStage_geometry\9.ru" AptID="9"/>
+	<Texture id="apt_igm_GadgetFlashStage_1" File="art\Textures\apt_igm_GadgetFlashStage_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_igm_GadgetFlashStage_4" File="art\Textures\apt_igm_GadgetFlashStage_4.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

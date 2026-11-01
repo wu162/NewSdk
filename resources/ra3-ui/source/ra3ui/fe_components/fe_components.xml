@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="fe_components_apt" File="fe_components.apt" />
+	<AptConstData id="fe_components_const" File="fe_components.const" />
+	<AptDatData id="fe_components_dat" File="fe_components.dat" />
+	<AptGeometryData id="fe_components_1" File="fe_components_geometry\1.ru" AptID="1"/>
+</AssetDeclaration>

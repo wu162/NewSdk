@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="ig_libHUD_apt" File="ig_libHUD.apt" />
+	<AptConstData id="ig_libHUD_const" File="ig_libHUD.const" />
+	<AptDatData id="ig_libHUD_dat" File="ig_libHUD.dat" />
+	<AptGeometryData id="ig_libHUD_10" File="ig_libHUD_geometry\10.ru" AptID="10"/>
+	<AptGeometryData id="ig_libHUD_12" File="ig_libHUD_geometry\12.ru" AptID="12"/>
+	<AptGeometryData id="ig_libHUD_14" File="ig_libHUD_geometry\14.ru" AptID="14"/>
+	<AptGeometryData id="ig_libHUD_17" File="ig_libHUD_geometry\17.ru" AptID="17"/>
+	<AptGeometryData id="ig_libHUD_3" File="ig_libHUD_geometry\3.ru" AptID="3"/>
+	<AptGeometryData id="ig_libHUD_5" File="ig_libHUD_geometry\5.ru" AptID="5"/>
+	<AptGeometryData id="ig_libHUD_7" File="ig_libHUD_geometry\7.ru" AptID="7"/>
+</AssetDeclaration>

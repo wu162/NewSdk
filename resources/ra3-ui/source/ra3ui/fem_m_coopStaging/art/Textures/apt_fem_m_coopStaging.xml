@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\fem_m_coopStaging\art\textures\apt_fem_m_coopStaging.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\fem_m_coopStaging\fem_m_coopStaging_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_fem_m_coopStaging_1.tga -->
+	<Texture id="apt_fem_m_coopStaging_1" File="apt_fem_m_coopStaging_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="23" Texture="apt_fem_m_coopStaging_1" Rotated="false">
+		<Dimensions x="172" y="172"/>
+		<Coords x="1858" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="12" Texture="apt_fem_m_coopStaging_1" Rotated="false">
+		<Dimensions x="488" y="118"/>
+		<Coords x="1368" y="596"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="1" Texture="apt_fem_m_coopStaging_1" Rotated="false">
+		<Dimensions x="488" y="593"/>
+		<Coords x="1368" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="20" Texture="apt_fem_m_coopStaging_1" Rotated="false">
+		<Dimensions x="1365" y="768"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+
+	<!-- Packed Texture: apt_fem_m_coopStaging_2.tga -->
+	<Texture id="apt_fem_m_coopStaging_2" File="apt_fem_m_coopStaging_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="6" Texture="apt_fem_m_coopStaging_2" Rotated="false">
+		<Dimensions x="488" y="473"/>
+		<Coords x="1" y="525"/>
+		<TextureDimensions x="512" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="28" Texture="apt_fem_m_coopStaging_2" Rotated="false">
+		<Dimensions x="453" y="522"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="512" y="1024"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="igm_shellRoot_apt" File="igm_shellRoot.apt" />
+	<AptConstData id="igm_shellRoot_const" File="igm_shellRoot.const" />
+	<AptDatData id="igm_shellRoot_dat" File="igm_shellRoot.dat" />
+</AssetDeclaration>

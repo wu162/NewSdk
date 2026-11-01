@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="fes_m_missionBriefing_apt" File="fes_m_missionBriefing.apt" />
+	<AptConstData id="fes_m_missionBriefing_const" File="fes_m_missionBriefing.const" />
+	<AptDatData id="fes_m_missionBriefing_dat" File="fes_m_missionBriefing.dat" />
+	<AptGeometryData id="fes_m_missionBriefing_13" File="fes_m_missionBriefing_geometry\13.ru" AptID="13"/>
+	<AptGeometryData id="fes_m_missionBriefing_15" File="fes_m_missionBriefing_geometry\15.ru" AptID="15"/>
+	<AptGeometryData id="fes_m_missionBriefing_21" File="fes_m_missionBriefing_geometry\21.ru" AptID="21"/>
+	<AptGeometryData id="fes_m_missionBriefing_25" File="fes_m_missionBriefing_geometry\25.ru" AptID="25"/>
+	<AptGeometryData id="fes_m_missionBriefing_27" File="fes_m_missionBriefing_geometry\27.ru" AptID="27"/>
+	<AptGeometryData id="fes_m_missionBriefing_30" File="fes_m_missionBriefing_geometry\30.ru" AptID="30"/>
+	<AptGeometryData id="fes_m_missionBriefing_35" File="fes_m_missionBriefing_geometry\35.ru" AptID="35"/>
+	<AptGeometryData id="fes_m_missionBriefing_37" File="fes_m_missionBriefing_geometry\37.ru" AptID="37"/>
+	<AptGeometryData id="fes_m_missionBriefing_39" File="fes_m_missionBriefing_geometry\39.ru" AptID="39"/>
+	<AptGeometryData id="fes_m_missionBriefing_41" File="fes_m_missionBriefing_geometry\41.ru" AptID="41"/>
+	<AptGeometryData id="fes_m_missionBriefing_45" File="fes_m_missionBriefing_geometry\45.ru" AptID="45"/>
+	<Texture id="apt_fes_m_missionBriefing_1" File="art\Textures\apt_fes_m_missionBriefing_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_fes_m_missionBriefing_2" File="art\Textures\apt_fes_m_missionBriefing_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

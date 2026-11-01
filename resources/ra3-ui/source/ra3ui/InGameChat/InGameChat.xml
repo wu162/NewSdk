@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="InGameChat_apt" File="InGameChat.apt" />
+	<AptConstData id="InGameChat_const" File="InGameChat.const" />
+	<AptDatData id="InGameChat_dat" File="InGameChat.dat" />
+	<AptGeometryData id="InGameChat_1" File="InGameChat_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="InGameChat_11" File="InGameChat_geometry\11.ru" AptID="11"/>
+	<AptGeometryData id="InGameChat_14" File="InGameChat_geometry\14.ru" AptID="14"/>
+	<AptGeometryData id="InGameChat_17" File="InGameChat_geometry\17.ru" AptID="17"/>
+	<AptGeometryData id="InGameChat_3" File="InGameChat_geometry\3.ru" AptID="3"/>
+	<AptGeometryData id="InGameChat_5" File="InGameChat_geometry\5.ru" AptID="5"/>
+	<AptGeometryData id="InGameChat_7" File="InGameChat_geometry\7.ru" AptID="7"/>
+	<Texture id="apt_InGameChat_1" File="art\Textures\apt_InGameChat_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

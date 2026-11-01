@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\TacticalHUDTelestratorControlPanel\art\textures\apt_TacticalHUDTelestratorControlPanel.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\TacticalHUDTelestratorControlPanel\TacticalHUDTelestratorControlPanel_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_TacticalHUDTelestratorControlPanel_1.tga -->
+	<Texture id="apt_TacticalHUDTelestratorControlPanel_1" File="apt_TacticalHUDTelestratorControlPanel_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="23" Texture="apt_TacticalHUDTelestratorControlPanel_1" Rotated="false">
+		<Dimensions x="79" y="3"/>
+		<Coords x="166" y="133"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="17" Texture="apt_TacticalHUDTelestratorControlPanel_1" Rotated="false">
+		<Dimensions x="36" y="22"/>
+		<Coords x="203" y="63"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="25" Texture="apt_TacticalHUDTelestratorControlPanel_1" Rotated="false">
+		<Dimensions x="81" y="10"/>
+		<Coords x="166" y="121"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="31" Texture="apt_TacticalHUDTelestratorControlPanel_1" Rotated="false">
+		<Dimensions x="82" y="10"/>
+		<Coords x="166" y="109"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="43" Texture="apt_TacticalHUDTelestratorControlPanel_1" Rotated="false">
+		<Dimensions x="36" y="29"/>
+		<Coords x="203" y="32"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="39" Texture="apt_TacticalHUDTelestratorControlPanel_1" Rotated="false">
+		<Dimensions x="36" y="29"/>
+		<Coords x="203" y="1"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="3" Texture="apt_TacticalHUDTelestratorControlPanel_1" Rotated="false">
+		<Dimensions x="163" y="52"/>
+		<Coords x="1" y="109"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="34" Texture="apt_TacticalHUDTelestratorControlPanel_1" Rotated="false">
+		<Dimensions x="200" y="52"/>
+		<Coords x="1" y="55"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="36" Texture="apt_TacticalHUDTelestratorControlPanel_1" Rotated="false">
+		<Dimensions x="200" y="52"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="TacticalHUDSpecialPowerTimers_apt" File="TacticalHUDSpecialPowerTimers.apt" />
+	<AptConstData id="TacticalHUDSpecialPowerTimers_const" File="TacticalHUDSpecialPowerTimers.const" />
+	<AptDatData id="TacticalHUDSpecialPowerTimers_dat" File="TacticalHUDSpecialPowerTimers.dat" />
+	<AptGeometryData id="TacticalHUDSpecialPowerTimers_12" File="TacticalHUDSpecialPowerTimers_geometry\12.ru" AptID="12"/>
+	<AptGeometryData id="TacticalHUDSpecialPowerTimers_14" File="TacticalHUDSpecialPowerTimers_geometry\14.ru" AptID="14"/>
+	<AptGeometryData id="TacticalHUDSpecialPowerTimers_3" File="TacticalHUDSpecialPowerTimers_geometry\3.ru" AptID="3"/>
+	<AptGeometryData id="TacticalHUDSpecialPowerTimers_5" File="TacticalHUDSpecialPowerTimers_geometry\5.ru" AptID="5"/>
+	<AptGeometryData id="TacticalHUDSpecialPowerTimers_7" File="TacticalHUDSpecialPowerTimers_geometry\7.ru" AptID="7"/>
+</AssetDeclaration>

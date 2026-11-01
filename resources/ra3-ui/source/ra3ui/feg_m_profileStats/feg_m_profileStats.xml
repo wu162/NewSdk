@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="feg_m_profileStats_apt" File="feg_m_profileStats.apt" />
+	<AptConstData id="feg_m_profileStats_const" File="feg_m_profileStats.const" />
+	<AptDatData id="feg_m_profileStats_dat" File="feg_m_profileStats.dat" />
+	<AptGeometryData id="feg_m_profileStats_2" File="feg_m_profileStats_geometry\2.ru" AptID="2"/>
+	<AptGeometryData id="feg_m_profileStats_5" File="feg_m_profileStats_geometry\5.ru" AptID="5"/>
+	<Texture id="apt_feg_m_profileStats_1" File="art\Textures\apt_feg_m_profileStats_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

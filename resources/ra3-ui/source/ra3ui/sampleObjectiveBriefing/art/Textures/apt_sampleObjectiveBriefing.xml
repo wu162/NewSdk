@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\sampleObjectiveBriefing\art\textures\apt_sampleObjectiveBriefing.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\sampleObjectiveBriefing\sampleObjectiveBriefing_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_sampleObjectiveBriefing_1.tga -->
+	<Texture id="apt_sampleObjectiveBriefing_1" File="apt_sampleObjectiveBriefing_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="27" Texture="apt_sampleObjectiveBriefing_1" Rotated="false">
+		<Dimensions x="30" y="35"/>
+		<Coords x="992" y="38"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="24" Texture="apt_sampleObjectiveBriefing_1" Rotated="false">
+		<Dimensions x="30" y="35"/>
+		<Coords x="992" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="18" Texture="apt_sampleObjectiveBriefing_1" Rotated="false">
+		<Dimensions x="36" y="38"/>
+		<Coords x="982" y="97"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="21" Texture="apt_sampleObjectiveBriefing_1" Rotated="false">
+		<Dimensions x="36" y="38"/>
+		<Coords x="944" y="97"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="7" Texture="apt_sampleObjectiveBriefing_1" Rotated="false">
+		<Dimensions x="46" y="46"/>
+		<Coords x="944" y="49"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="10" Texture="apt_sampleObjectiveBriefing_1" Rotated="false">
+		<Dimensions x="46" y="46"/>
+		<Coords x="944" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="32" Texture="apt_sampleObjectiveBriefing_1" Rotated="false">
+		<Dimensions x="129" y="130"/>
+		<Coords x="843" y="180"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="15" Texture="apt_sampleObjectiveBriefing_1" Rotated="false">
+		<Dimensions x="99" y="177"/>
+		<Coords x="843" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="2" Texture="apt_sampleObjectiveBriefing_1" Rotated="false">
+		<Dimensions x="840" y="840"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+
+	<!-- Packed Texture: apt_sampleObjectiveBriefing_2.tga -->
+	<Texture id="apt_sampleObjectiveBriefing_2" File="apt_sampleObjectiveBriefing_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="5" Texture="apt_sampleObjectiveBriefing_2" Rotated="false">
+		<Dimensions x="455" y="474"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="512" y="512"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

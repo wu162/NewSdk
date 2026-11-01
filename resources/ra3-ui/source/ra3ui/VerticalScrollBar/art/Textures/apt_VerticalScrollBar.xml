@@ -1,0 +1,318 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\VerticalScrollBar\art\textures\apt_VerticalScrollBar.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\VerticalScrollBar\VerticalScrollBar_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_VerticalScrollBar_1.tga -->
+	<Texture id="apt_VerticalScrollBar_1" File="apt_VerticalScrollBar_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="99" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="4"/>
+		<Coords x="136" y="84"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="97" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="4"/>
+		<Coords x="113" y="84"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="149" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="4"/>
+		<Coords x="228" y="83"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="147" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="4"/>
+		<Coords x="205" y="83"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="101" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="4"/>
+		<Coords x="182" y="78"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="145" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="4"/>
+		<Coords x="159" y="78"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="85" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="4"/>
+		<Coords x="136" y="78"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="83" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="4"/>
+		<Coords x="113" y="78"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="81" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="4"/>
+		<Coords x="228" y="77"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="125" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="4"/>
+		<Coords x="205" y="77"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="123" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="4"/>
+		<Coords x="228" y="71"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="121" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="4"/>
+		<Coords x="205" y="71"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="69" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="182" y="71"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="67" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="159" y="71"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="65" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="136" y="71"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="105" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="113" y="71"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="107" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="228" y="64"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="109" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="205" y="64"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="113" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="182" y="64"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="115" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="159" y="64"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="117" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="136" y="64"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="73" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="113" y="64"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="75" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="228" y="57"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="77" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="205" y="57"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="129" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="182" y="57"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="131" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="159" y="57"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="133" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="136" y="57"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="137" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="113" y="57"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="139" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="220" y="50"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="141" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="197" y="50"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="89" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="220" y="43"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="91" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="197" y="43"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="93" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="220" y="36"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="153" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="197" y="36"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="155" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="220" y="29"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="157" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="21" y="5"/>
+		<Coords x="197" y="29"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="17" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="169" y="29"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="19" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="141" y="29"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="21" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="113" y="29"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="25" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="225" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="27" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="197" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="29" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="169" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="3" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="141" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="33" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="113" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="35" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="85" y="85"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="37" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="57" y="85"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="13" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="29" y="85"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="41" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="1" y="85"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="43" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="85" y="57"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="45" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="57" y="57"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="49" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="29" y="57"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="5" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="1" y="57"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="51" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="85" y="29"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="53" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="57" y="29"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="11" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="85" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="57" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="57" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="59" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="29" y="29"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="61" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="1" y="29"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="9" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="29" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="1" Texture="apt_VerticalScrollBar_1" Rotated="false">
+		<Dimensions x="26" y="26"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="256" y="128"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

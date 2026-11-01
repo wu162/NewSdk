@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\ig_InfoBox\art\textures\apt_ig_InfoBox.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\ig_InfoBox\ig_InfoBox_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_ig_InfoBox_1.tga -->
+	<Texture id="apt_ig_InfoBox_1" File="apt_ig_InfoBox_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="3" Texture="apt_ig_InfoBox_1" Rotated="false">
+		<Dimensions x="13" y="13"/>
+		<Coords x="32" y="12"/>
+		<TextureDimensions x="64" y="64"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="17" Texture="apt_ig_InfoBox_1" Rotated="false">
+		<Dimensions x="24" y="9"/>
+		<Coords x="32" y="1"/>
+		<TextureDimensions x="64" y="64"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="14" Texture="apt_ig_InfoBox_1" Rotated="false">
+		<Dimensions x="17" y="18"/>
+		<Coords x="1" y="39"/>
+		<TextureDimensions x="64" y="64"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="11" Texture="apt_ig_InfoBox_1" Rotated="false">
+		<Dimensions x="29" y="36"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="64" y="64"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

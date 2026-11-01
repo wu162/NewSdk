@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="ig_HUD_apt" File="ig_HUD.apt" />
+	<AptConstData id="ig_HUD_const" File="ig_HUD.const" />
+	<AptDatData id="ig_HUD_dat" File="ig_HUD.dat" />
+</AssetDeclaration>

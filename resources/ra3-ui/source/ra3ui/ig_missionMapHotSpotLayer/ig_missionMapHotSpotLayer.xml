@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="ig_missionMapHotSpotLayer_apt" File="ig_missionMapHotSpotLayer.apt" />
+	<AptConstData id="ig_missionMapHotSpotLayer_const" File="ig_missionMapHotSpotLayer.const" />
+	<AptDatData id="ig_missionMapHotSpotLayer_dat" File="ig_missionMapHotSpotLayer.dat" />
+	<AptGeometryData id="ig_missionMapHotSpotLayer_2" File="ig_missionMapHotSpotLayer_geometry\2.ru" AptID="2"/>
+	<AptGeometryData id="ig_missionMapHotSpotLayer_4" File="ig_missionMapHotSpotLayer_geometry\4.ru" AptID="4"/>
+	<Texture id="apt_ig_missionMapHotSpotLayer_1" File="art\Textures\apt_ig_missionMapHotSpotLayer_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

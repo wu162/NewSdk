@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="fes_m_objectivesBriefing_apt" File="fes_m_objectivesBriefing.apt" />
+	<AptConstData id="fes_m_objectivesBriefing_const" File="fes_m_objectivesBriefing.const" />
+	<AptDatData id="fes_m_objectivesBriefing_dat" File="fes_m_objectivesBriefing.dat" />
+	<AptGeometryData id="fes_m_objectivesBriefing_101" File="fes_m_objectivesBriefing_geometry\101.ru" AptID="101"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_107" File="fes_m_objectivesBriefing_geometry\107.ru" AptID="107"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_11" File="fes_m_objectivesBriefing_geometry\11.ru" AptID="11"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_113" File="fes_m_objectivesBriefing_geometry\113.ru" AptID="113"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_114" File="fes_m_objectivesBriefing_geometry\114.ru" AptID="114"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_122" File="fes_m_objectivesBriefing_geometry\122.ru" AptID="122"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_127" File="fes_m_objectivesBriefing_geometry\127.ru" AptID="127"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_13" File="fes_m_objectivesBriefing_geometry\13.ru" AptID="13"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_133" File="fes_m_objectivesBriefing_geometry\133.ru" AptID="133"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_145" File="fes_m_objectivesBriefing_geometry\145.ru" AptID="145"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_152" File="fes_m_objectivesBriefing_geometry\152.ru" AptID="152"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_157" File="fes_m_objectivesBriefing_geometry\157.ru" AptID="157"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_2" File="fes_m_objectivesBriefing_geometry\2.ru" AptID="2"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_20" File="fes_m_objectivesBriefing_geometry\20.ru" AptID="20"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_23" File="fes_m_objectivesBriefing_geometry\23.ru" AptID="23"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_29" File="fes_m_objectivesBriefing_geometry\29.ru" AptID="29"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_32" File="fes_m_objectivesBriefing_geometry\32.ru" AptID="32"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_37" File="fes_m_objectivesBriefing_geometry\37.ru" AptID="37"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_41" File="fes_m_objectivesBriefing_geometry\41.ru" AptID="41"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_48" File="fes_m_objectivesBriefing_geometry\48.ru" AptID="48"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_5" File="fes_m_objectivesBriefing_geometry\5.ru" AptID="5"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_54" File="fes_m_objectivesBriefing_geometry\54.ru" AptID="54"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_61" File="fes_m_objectivesBriefing_geometry\61.ru" AptID="61"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_62" File="fes_m_objectivesBriefing_geometry\62.ru" AptID="62"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_63" File="fes_m_objectivesBriefing_geometry\63.ru" AptID="63"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_66" File="fes_m_objectivesBriefing_geometry\66.ru" AptID="66"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_70" File="fes_m_objectivesBriefing_geometry\70.ru" AptID="70"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_73" File="fes_m_objectivesBriefing_geometry\73.ru" AptID="73"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_75" File="fes_m_objectivesBriefing_geometry\75.ru" AptID="75"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_78" File="fes_m_objectivesBriefing_geometry\78.ru" AptID="78"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_8" File="fes_m_objectivesBriefing_geometry\8.ru" AptID="8"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_80" File="fes_m_objectivesBriefing_geometry\80.ru" AptID="80"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_81" File="fes_m_objectivesBriefing_geometry\81.ru" AptID="81"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_83" File="fes_m_objectivesBriefing_geometry\83.ru" AptID="83"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_86" File="fes_m_objectivesBriefing_geometry\86.ru" AptID="86"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_88" File="fes_m_objectivesBriefing_geometry\88.ru" AptID="88"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_91" File="fes_m_objectivesBriefing_geometry\91.ru" AptID="91"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_93" File="fes_m_objectivesBriefing_geometry\93.ru" AptID="93"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_95" File="fes_m_objectivesBriefing_geometry\95.ru" AptID="95"/>
+	<AptGeometryData id="fes_m_objectivesBriefing_97" File="fes_m_objectivesBriefing_geometry\97.ru" AptID="97"/>
+	<Texture id="apt_fes_m_objectivesBriefing_1" File="art\Textures\apt_fes_m_objectivesBriefing_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_fes_m_objectivesBriefing_2" File="art\Textures\apt_fes_m_objectivesBriefing_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

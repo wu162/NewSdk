@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="TacticalMpBeaconDialog_apt" File="TacticalMpBeaconDialog.apt" />
+	<AptConstData id="TacticalMpBeaconDialog_const" File="TacticalMpBeaconDialog.const" />
+	<AptDatData id="TacticalMpBeaconDialog_dat" File="TacticalMpBeaconDialog.dat" />
+	<AptGeometryData id="TacticalMpBeaconDialog_1" File="TacticalMpBeaconDialog_geometry\1.ru" AptID="1"/>
+	<AptGeometryData id="TacticalMpBeaconDialog_3" File="TacticalMpBeaconDialog_geometry\3.ru" AptID="3"/>
+	<AptGeometryData id="TacticalMpBeaconDialog_7" File="TacticalMpBeaconDialog_geometry\7.ru" AptID="7"/>
+</AssetDeclaration>

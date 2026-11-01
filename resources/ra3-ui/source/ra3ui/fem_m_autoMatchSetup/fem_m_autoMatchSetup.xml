@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="fem_m_autoMatchSetup_apt" File="fem_m_autoMatchSetup.apt" />
+	<AptConstData id="fem_m_autoMatchSetup_const" File="fem_m_autoMatchSetup.const" />
+	<AptDatData id="fem_m_autoMatchSetup_dat" File="fem_m_autoMatchSetup.dat" />
+</AssetDeclaration>

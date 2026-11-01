@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\feg_m_mainMenu3D\art\textures\apt_feg_m_mainMenu3D.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\feg_m_mainMenu3D\feg_m_mainMenu3D_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_feg_m_mainMenu3D_1.tga -->
+	<Texture id="apt_feg_m_mainMenu3D_1" File="apt_feg_m_mainMenu3D_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="23" Texture="apt_feg_m_mainMenu3D_1" Rotated="false">
+		<Dimensions x="24" y="23"/>
+		<Coords x="988" y="69"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="25" Texture="apt_feg_m_mainMenu3D_1" Rotated="false">
+		<Dimensions x="42" y="41"/>
+		<Coords x="944" y="69"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="33" Texture="apt_feg_m_mainMenu3D_1" Rotated="false">
+		<Dimensions x="69" y="66"/>
+		<Coords x="944" y="1"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="21" Texture="apt_feg_m_mainMenu3D_1" Rotated="false">
+		<Dimensions x="465" y="15"/>
+		<Coords x="1" y="494"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="28" Texture="apt_feg_m_mainMenu3D_1" Rotated="false">
+		<Dimensions x="337" y="68"/>
+		<Coords x="605" y="1"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="7" Texture="apt_feg_m_mainMenu3D_1" Rotated="false">
+		<Dimensions x="602" y="491"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="1024" y="512"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

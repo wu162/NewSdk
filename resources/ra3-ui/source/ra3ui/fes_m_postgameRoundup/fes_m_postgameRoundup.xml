@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AptAptData id="fes_m_postgameRoundup_apt" File="fes_m_postgameRoundup.apt" />
+	<AptConstData id="fes_m_postgameRoundup_const" File="fes_m_postgameRoundup.const" />
+	<AptDatData id="fes_m_postgameRoundup_dat" File="fes_m_postgameRoundup.dat" />
+	<AptGeometryData id="fes_m_postgameRoundup_104" File="fes_m_postgameRoundup_geometry\104.ru" AptID="104"/>
+	<AptGeometryData id="fes_m_postgameRoundup_111" File="fes_m_postgameRoundup_geometry\111.ru" AptID="111"/>
+	<AptGeometryData id="fes_m_postgameRoundup_113" File="fes_m_postgameRoundup_geometry\113.ru" AptID="113"/>
+	<AptGeometryData id="fes_m_postgameRoundup_120" File="fes_m_postgameRoundup_geometry\120.ru" AptID="120"/>
+	<AptGeometryData id="fes_m_postgameRoundup_14" File="fes_m_postgameRoundup_geometry\14.ru" AptID="14"/>
+	<AptGeometryData id="fes_m_postgameRoundup_17" File="fes_m_postgameRoundup_geometry\17.ru" AptID="17"/>
+	<AptGeometryData id="fes_m_postgameRoundup_2" File="fes_m_postgameRoundup_geometry\2.ru" AptID="2"/>
+	<AptGeometryData id="fes_m_postgameRoundup_20" File="fes_m_postgameRoundup_geometry\20.ru" AptID="20"/>
+	<AptGeometryData id="fes_m_postgameRoundup_27" File="fes_m_postgameRoundup_geometry\27.ru" AptID="27"/>
+	<AptGeometryData id="fes_m_postgameRoundup_29" File="fes_m_postgameRoundup_geometry\29.ru" AptID="29"/>
+	<AptGeometryData id="fes_m_postgameRoundup_36" File="fes_m_postgameRoundup_geometry\36.ru" AptID="36"/>
+	<AptGeometryData id="fes_m_postgameRoundup_37" File="fes_m_postgameRoundup_geometry\37.ru" AptID="37"/>
+	<AptGeometryData id="fes_m_postgameRoundup_38" File="fes_m_postgameRoundup_geometry\38.ru" AptID="38"/>
+	<AptGeometryData id="fes_m_postgameRoundup_41" File="fes_m_postgameRoundup_geometry\41.ru" AptID="41"/>
+	<AptGeometryData id="fes_m_postgameRoundup_43" File="fes_m_postgameRoundup_geometry\43.ru" AptID="43"/>
+	<AptGeometryData id="fes_m_postgameRoundup_5" File="fes_m_postgameRoundup_geometry\5.ru" AptID="5"/>
+	<AptGeometryData id="fes_m_postgameRoundup_56" File="fes_m_postgameRoundup_geometry\56.ru" AptID="56"/>
+	<AptGeometryData id="fes_m_postgameRoundup_58" File="fes_m_postgameRoundup_geometry\58.ru" AptID="58"/>
+	<AptGeometryData id="fes_m_postgameRoundup_60" File="fes_m_postgameRoundup_geometry\60.ru" AptID="60"/>
+	<AptGeometryData id="fes_m_postgameRoundup_62" File="fes_m_postgameRoundup_geometry\62.ru" AptID="62"/>
+	<AptGeometryData id="fes_m_postgameRoundup_64" File="fes_m_postgameRoundup_geometry\64.ru" AptID="64"/>
+	<AptGeometryData id="fes_m_postgameRoundup_65" File="fes_m_postgameRoundup_geometry\65.ru" AptID="65"/>
+	<AptGeometryData id="fes_m_postgameRoundup_67" File="fes_m_postgameRoundup_geometry\67.ru" AptID="67"/>
+	<AptGeometryData id="fes_m_postgameRoundup_68" File="fes_m_postgameRoundup_geometry\68.ru" AptID="68"/>
+	<AptGeometryData id="fes_m_postgameRoundup_88" File="fes_m_postgameRoundup_geometry\88.ru" AptID="88"/>
+	<AptGeometryData id="fes_m_postgameRoundup_92" File="fes_m_postgameRoundup_geometry\92.ru" AptID="92"/>
+	<AptGeometryData id="fes_m_postgameRoundup_96" File="fes_m_postgameRoundup_geometry\96.ru" AptID="96"/>
+	<AptGeometryData id="fes_m_postgameRoundup_97" File="fes_m_postgameRoundup_geometry\97.ru" AptID="97"/>
+	<AptGeometryData id="fes_m_postgameRoundup_98" File="fes_m_postgameRoundup_geometry\98.ru" AptID="98"/>
+	<Texture id="apt_fes_m_postgameRoundup_1" File="art\Textures\apt_fes_m_postgameRoundup_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+	<Texture id="apt_fes_m_postgameRoundup_2" File="art\Textures\apt_fes_m_postgameRoundup_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+</AssetDeclaration>

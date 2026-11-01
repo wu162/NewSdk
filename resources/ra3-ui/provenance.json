@@ -1,0 +1,41 @@
+{
+  "baseBranch": "recovery/legacy-sdk-cache",
+  "baseCommit": "52d44c6267385055df6da91ecdc6ee2b44f467a9",
+  "resourceBranch": "resources/ra3-ui-assets",
+  "retrievedAtUtc": "2026-11-01",
+  "requestedUrl": "https://www.ppmsite.com/download/ra3ui.7z/",
+  "publicAuthorTopic": "https://ppmforums.com/topic-62688/presenting-a-revolution-in-sage-ui-editing/",
+  "actualDownloadUrl": "https://mega.nz/file/Po1EDRaS#u4gW9wVeqOH5VUudgeg9bCTZ5pfapZ8XoRE6dT0XErA",
+  "sourceNote": "PPM download requires CAPTCHA; the author public mirror was used. PPM forum reply links the requested PPM mirror to this author pack. Byte equality to the CAPTCHA-protected PPM download was not independently checked.",
+  "archive": {
+    "name": "ra3ui.7z",
+    "bytes": 181703000,
+    "sha256": "2ef6736d75cbafc1c477e9f810c10f1f849d52081d68fd547a1ea121fb336f25",
+    "megaIntegrityMacVerified": true,
+    "parts": [
+      {
+        "path": "original/ra3ui.7z.001",
+        "bytes": 67108864,
+        "sha256": "d287671e6baf927700f1995e966d90a62fd57844e98780ea3104269cbe2189e0"
+      },
+      {
+        "path": "original/ra3ui.7z.002",
+        "bytes": 67108864,
+        "sha256": "20a5a50bff01625b06df213e70c0532d09c2e08c9b738a5a18e8caa3dd40f2eb"
+      },
+      {
+        "path": "original/ra3ui.7z.003",
+        "bytes": 47485272,
+        "sha256": "dc7470f27a14f1c769472577e899469f654615efc6c10baf7b1414d2bdc72202"
+      }
+    ]
+  },
+  "converter": {
+    "name": "JPEXS Free Flash Decompiler",
+    "version": "26.4.0",
+    "format": "fla:f8",
+    "upstreamUrl": "https://github.com/jindrapetrik/jpexs-decompiler/releases/tag/version26.4.0",
+    "distribution": "tooling/ffdec_26.4.0.zip",
+    "distributionSha256": "56ce960aeafc7caf034e2052ba49f878a883f7c7ca690da6eeffca9587b5e4b9"
+  }
+}

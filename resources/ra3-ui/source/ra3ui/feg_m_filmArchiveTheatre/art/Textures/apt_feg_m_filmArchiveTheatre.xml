@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\feg_m_filmArchiveTheatre\art\textures\apt_feg_m_filmArchiveTheatre.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\feg_m_filmArchiveTheatre\feg_m_filmArchiveTheatre_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_feg_m_filmArchiveTheatre_1.tga -->
+	<Texture id="apt_feg_m_filmArchiveTheatre_1" File="apt_feg_m_filmArchiveTheatre_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="15" Texture="apt_feg_m_filmArchiveTheatre_1" Rotated="false">
+		<Dimensions x="32" y="32"/>
+		<Coords x="1754" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="12" Texture="apt_feg_m_filmArchiveTheatre_1" Rotated="false">
+		<Dimensions x="32" y="32"/>
+		<Coords x="1720" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="10" Texture="apt_feg_m_filmArchiveTheatre_1" Rotated="false">
+		<Dimensions x="32" y="32"/>
+		<Coords x="1686" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="1" Texture="apt_feg_m_filmArchiveTheatre_1" Rotated="false">
+		<Dimensions x="316" y="118"/>
+		<Coords x="1368" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="21" Texture="apt_feg_m_filmArchiveTheatre_1" Rotated="false">
+		<Dimensions x="1365" y="68"/>
+		<Coords x="1" y="844"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="20" Texture="apt_feg_m_filmArchiveTheatre_1" Rotated="false">
+		<Dimensions x="1365" y="71"/>
+		<Coords x="1" y="771"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="23" Texture="apt_feg_m_filmArchiveTheatre_1" Rotated="false">
+		<Dimensions x="1365" y="768"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="2048" y="1024"/>
+	</PackedTextureImage>
+
+	<!-- Packed Texture: apt_feg_m_filmArchiveTheatre_2.tga -->
+	<Texture id="apt_feg_m_filmArchiveTheatre_2" File="apt_feg_m_filmArchiveTheatre_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="22" Texture="apt_feg_m_filmArchiveTheatre_2" Rotated="false">
+		<Dimensions x="998" y="611"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+
+	<!-- Packed Texture: apt_feg_m_filmArchiveTheatre_3.tga -->
+	<Texture id="apt_feg_m_filmArchiveTheatre_3" File="apt_feg_m_filmArchiveTheatre_3.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="25" Texture="apt_feg_m_filmArchiveTheatre_3" Rotated="false">
+		<Dimensions x="968" y="581"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+
+	<!-- Packed Texture: apt_feg_m_filmArchiveTheatre_4.tga -->
+	<Texture id="apt_feg_m_filmArchiveTheatre_4" File="apt_feg_m_filmArchiveTheatre_4.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="28" Texture="apt_feg_m_filmArchiveTheatre_4" Rotated="false">
+		<Dimensions x="968" y="581"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>

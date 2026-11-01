@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- XML: C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\J05_Objective_Briefing\art\textures\apt_J05_Objective_Briefing.xml
+ Directories:
+    C:\projects\Ra3\Production\Data\AptBuildXML\0.0-dev\pc\Output\J05_Objective_Briefing\J05_Objective_Briefing_textures\
+ Extend RGB   : Yes
+ Gutter (1)   : No
+ Alpha Channel: Yes
+ Compressed   : No
+ Image Size   : 1024 x 1024
+ Keep Dirs Seperate: Yes
+-->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Packed Texture: apt_J05_Objective_Briefing_1.tga -->
+	<Texture id="apt_J05_Objective_Briefing_1" File="apt_J05_Objective_Briefing_1.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="6" Texture="apt_J05_Objective_Briefing_1" Rotated="false">
+		<Dimensions x="46" y="46"/>
+		<Coords x="951" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="9" Texture="apt_J05_Objective_Briefing_1" Rotated="false">
+		<Dimensions x="46" y="46"/>
+		<Coords x="903" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="16" Texture="apt_J05_Objective_Briefing_1" Rotated="false">
+		<Dimensions x="129" y="130"/>
+		<Coords x="1" y="867"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+	<PackedTextureImage id="2" Texture="apt_J05_Objective_Briefing_1" Rotated="false">
+		<Dimensions x="900" y="864"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="1024" y="1024"/>
+	</PackedTextureImage>
+
+	<!-- Packed Texture: apt_J05_Objective_Briefing_2.tga -->
+	<Texture id="apt_J05_Objective_Briefing_2" File="apt_J05_Objective_Briefing_2.tga" OutputFormat="A8R8G8B8" GenerateMipMaps="false" AllowAutomaticResize="false"/>
+
+	<PackedTextureImage id="20" Texture="apt_J05_Objective_Briefing_2" Rotated="false">
+		<Dimensions x="165" y="188"/>
+		<Coords x="1" y="1"/>
+		<TextureDimensions x="256" y="256"/>
+	</PackedTextureImage>
+
+</AssetDeclaration>
