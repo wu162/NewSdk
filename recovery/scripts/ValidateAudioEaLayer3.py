@@ -63,7 +63,7 @@ def run(root,decoder):
                 need(ch==case['channels'] and rate==case['rate'] and len(values)==count*ch,f'{name}: decoded PCM length/rate/channel differs')
                 correlations=[]
                 if not name.startswith('real') and count>=2048:
-                    order=list(range(ch)) if case['aiff'] or ch<4 else ([0,1,3,2] if ch==4 else [0,2,1,4,5,3])
+                    order=list(range(ch)) if case['aiff'] or ch not in (4,6) else ([0,1,3,2] if ch==4 else [0,2,1,4,5,3])
                     for c,source_c in enumerate(order):
                         dot=power=reference=0.0
                         for i in range(160,count-160):

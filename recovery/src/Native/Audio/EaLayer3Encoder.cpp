@@ -166,7 +166,7 @@ struct Result { Bytes data; std::string error; };
 API void* NewSdkEaEncode(const float* samples,int frames,int channels,int rate,int quality,int streamed,int loopStart,int loopEnd,const unsigned char** data,int* size,const char** error,int* loopByteOffset) {
     std::unique_ptr<Result> result(new Result());
     try {
-        if(!samples || frames<=0 || frames>0x1fffffff || (channels!=1&&channels!=2&&channels!=4&&channels!=6) || quality<0||quality>100)
+        if(!samples || frames<=0 || frames>0x1fffffff || (channels!=1&&channels!=2&&channels!=4&&channels!=6&&channels!=8) || quality<0||quality>100)
             throw std::runtime_error("Invalid EALayer3 input");
         if(rate!=16000&&rate!=22050&&rate!=24000&&rate!=32000&&rate!=44100&&rate!=48000)
             throw std::runtime_error("EALayer3 V1 requires 16000, 22050, 24000, 32000, 44100 or 48000 Hz");
