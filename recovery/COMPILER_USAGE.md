@@ -8,7 +8,7 @@
 
 并行路由包括 GameObject、WeaponTemplate、ArmorTemplate、W3DAnimation/W3DMesh、精确内建编码器的 NONE/XAS AudioFile（无显式 PCSampleRate）、MP3 passthrough、284 个认证 XML metadata TypeId、四类 APT，以及本轮接入的 `Texture`、`OnDemandTexture`、`TerrainTextureAtlas`。纹理在 owner 准备只读输入租约并按图像尺寸、DDS 长度或图集工作量计入预算，解码和编码在 worker 执行；S3 临时状态与懒初始化表按线程隔离。资源不足、输入租约失败、纹理头无法识别、APT 非 ASCII 路径或未认证后端回到 owner。Core XML 前端、验证、缓存、诊断与输出提交保持 owner 顺序。源码 `8fe12ca9b` 已通过 [Windows 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818) 的 Debug/Release 实际四 worker、原元数据完整转录、组件、缓存、完整 mymod、独立 ZIP 及 Upheaval 22 样本验收；[常见格式与16个CLI用例收据](evidence/texture/plugin-validation/41185772818-1/common-summary.json)已入库。
 
-默认 `/sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false` 不变，Texture 继续使用原 SDK 缓存布局，插件版本 `4202` 和三个 ProcessingHash 保留原 DLL 值。工具不会因切换实现自动清理缓存或更换身份；BC1 编码字节可能与既有产物不同，切换时可选择干净或独立的会话、资产及中间目录。无需关闭 SessionCache 来使用多 worker。`--sc=false --bc=false --jobs 1|4` 可作纯冷态吞吐对照。没有新增动作缓存、额外持久结果或文件哈希体系。
+默认 `/sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false` 不变，Texture 继续使用原 BAB 缓存格式，目录统一位于当前 SDK 的 MOD 专属分区，插件版本 `4202` 和三个 ProcessingHash 保留原 DLL 值。工具不会因切换实现自动清理缓存或更换身份；BC1 编码字节可能与既有产物不同，切换时应在无构建运行时清理当前 MOD 的缓存分区。无需关闭 SessionCache 来使用多 worker。`--sc=false --bc=false --jobs 1|4` 可作纯冷态吞吐对照。没有新增动作缓存、额外持久结果或文件哈希体系。
 
 ## 1. 安装与检查
 
@@ -32,10 +32,10 @@
 | 内容 | MOD 内入口 | 行为 |
 | --- | --- | --- |
 | `base` | `Data/Mod.xml` | 自动模式下存在才编译；显式选择后必须存在 |
-| `apt` | `Data/AptUI/*.xml` | 只发现该目录直接子文件，按稳定顺序逐流编译 |
+| `apt` | `Data/AptUI/*.xml` 和递归 FLA | 顶层 XML 与未被 XML 引用的 FLA 按稳定顺序逐流编译 |
 | `global-metadata`（兼容旧名 `maps`） | `Data/AdditionalMaps/MapMetaData_*.xml` | 只发现该目录直接子文件 |
 
-被入口引用的数据、贴图、模型、音频等资源仍须完整；选择内容不会自动修复缺失的资产依赖。APT XML 是现有 UI 编译入口，本工具不会直接将 FLA、HTML 或脚本工程转换成 APT。
+被入口引用的数据、贴图、模型、音频等资源仍须完整；选择内容不会自动修复缺失的资产依赖。APT 同时支持 XML 入口与二进制 FLA/AS 直接编译，入口去重和源依赖规则见 [FLA UI 说明](docs/FLA_UI_COMPILER.md)。
 
 输出目录必须与 SDK、MOD 输入目录分离。例如 `C:\Build\Example`，不要放在 `C:\Mods\Example` 内部。为不同 MOD 使用各自输出根。
 
@@ -78,7 +78,7 @@
 
 `--package-content base|apt|global-metadata` 或逗号组合仍提供原有的部分编译，旧名 `maps` 完全兼容。显式选择为空的可选组时继续保留上一代，不生成空 BIG；没有改变部分编译和完整打包机制。
 
-成功产物位于输出根的 `published` 目录；本轮产物路径、类别和长度从 `build-report.json` 的 `artifacts` 获取。BIG/SKUDEF 在最终目录逐文件替换同名文件，Core 流文件保留用于增量复用。编译器不递归清空输出根，也不维护整个 MOD 的事务回滚；日志或报告失败仍报错，但保留已生成的文件。见[直接产物与目录说明](docs/DIRECT_OUTPUT.md)。
+成功产物位于输出根的 `published` 目录；本轮产物路径、类别和长度从 `build-report.json` 的 `artifacts` 获取。BIG/SKUDEF 在最终目录逐文件替换同名文件；Core 四流在 SDK 缓存分区中增量复用，loose 仅将本轮四流/CDATA 导出到 `published`。编译器不递归清空输出根，也不维护整个 MOD 的事务回滚；日志或报告失败仍报错，但保留已生成的文件。见[集中缓存与交付目录说明](docs/SUPERCOMPILER_CACHE.md)。
 
 ## 4. 包名、版本和附加文件
 
@@ -132,7 +132,7 @@ SDK 和输出路径可由项目提供；BIG `build`/`plan` 仍须每次在命令
 
 稳定排序 `/ss`、预编译引用策略 `/pc` 和慢清理 `/slowclean` 默认开启，与旧编译脚本一致，通常不必手动填写；确有需要可分别传入 `/ss:false`、`/pc:false`、`/slowclean:false`。这些选项不依赖缓存开关。
 
-本分支恢复原 SDK 缓存默认值：会话 `/sc`、资产 `/bc`、部分会话 `/psc`、压缩 `/csc` 均默认 true；冻结 `/fsc` 和始终 touch `/atc` 默认 false。SDK 配置中的 `buildCacheRoot` 仍生效；`/bc` 未由命令行或项目预设显式指定时，默认值继续受 SDK `buildCache` 配置覆盖，命令行优先于项目预设。旧 defaultscript 显式使用 `/csc:false`，可用相同参数输出 XML：
+本分支恢复原 SDK 缓存默认值：会话 `/sc`、资产 `/bc`、部分会话 `/psc`、压缩 `/csc` 均默认 true；冻结 `/fsc` 和始终 touch `/atc` 默认 false。SDK 配置中的 `buildCacheRoot` 不再决定写入目录；`/bc` 未由命令行或项目预设显式指定时，默认值继续受 SDK `buildCache` 配置覆盖，命令行优先于项目预设。旧 defaultscript 显式使用 `/csc:false`，可用相同参数输出 XML：
 
 ```powershell
 ./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" /csc:false --mod-version 1.0
@@ -141,15 +141,15 @@ SDK 和输出路径可由项目提供；BIG `build`/`plan` 仍须每次在命令
 
 `/sc` 按原文档、文件依赖、定义和继承复用解析与中间结果；`/bc` 按原类型/实例哈希复用资产，包括三种 Texture 路由。修改、新增、删除 MOD 输入均交由原 Core 判断，不再将整个 SDK/MOD 内容指纹作为冷失效开关。四流按原清单/流校验和原地复用；BIG 每次重新打包。
 
-`/csc:false` 使用原 `BinaryAssetBuilder.SessionCache.xml`，true 使用 `.xml.deflate`。默认会话目录为输出根，默认资产目录为输出根 `cache`，默认中间目录与旧 SDK 一样为输出根。`/scd`（别名 `/scp`）、`/bcd`（别名 `/bcp`）、`/iod` 可指定独立目录，支持读取原 SDK 格式；新宿主的 CDATA 状态保存在会话根 `.NewModCompiler/cdata`，可导入没有新侧车的旧目录。以上设置也可保存到项目预设。
+`/csc:false` 使用原 `BinaryAssetBuilder.SessionCache.xml`，true 使用 `.xml.deflate`。全部缓存和编译工作文件统一放在传入 SDK 的 `SuperCompilerCache/<ModKey>/`：会话为 `session`，资产为 `build-cache`，中间资产为 `intermediate`，可复用四流为 `streams`。`/scd`（别名 `/scp`）、`/bcd`（别名 `/bcp`）、`/iod` 及项目预设中的对应值仅能指定当前分区内部目录，超界以 `CLI_CACHE_PATH` 拒绝。会话格式和会话根 `.NewModCompiler/cdata` 的恢复逻辑保留；旧 `--out` 下的缓存不读取、不迁移或自动删除。布局与路径边界见 [集中缓存说明](docs/SUPERCOMPILER_CACHE.md)。
 
-切换原 DLL 与源码纹理实现时，可选新的 `--out` 并保留默认缓存路径；若项目显式共享缓存，则用 `/scd`、`/bcd`、`/iod` 分别指定新的独立目录。原版本与 ProcessingHash 保持不变，既有 BC1 产物可能直接命中；干净目录可避免混用不同实现的编码结果。构建器不引入额外指纹、缓存代次或自动清理。
+同一个物理 MOD 更换 `--out` 或版本仍使用同一缓存分区；同名但路径不同的 MOD 各自隔离。切换原 DLL 与源码纹理实现时，原版本与 ProcessingHash 保持不变，既有 BC1 产物可能直接命中；需要冷缓存时，应在无构建运行时清理当前 MOD 分区。更换输出目录不再清空缓存。构建器不引入额外指纹、缓存代次或自动清理。
 
 `/psc:true` 允许中止后保留已完成的会话工作，失败或取消仍返回失败/取消。`/psc:false` 不在失败流中保存部分会话；成功流的会话保存与日志/报告输出解耦。`/fsc:true` 读取旧会话但不更新会话文件，资产与中间文件仍按原 Core 行为处理。`/atc:true` 即使复用中间资产也更新对应网络资产缓存文件的时间。详细实现与验证状态见 [原 SDK 缓存恢复说明](docs/LEGACY_INCREMENTAL_CACHE.md)。
 
 BIG/SKUDEF 包缓存已移除；每次构建都会从本轮编译结果重新打包，`/sc`、`/bc` 不会跳过打包。打包后直接替换同名最终文件，不做整包哈希或发布去重，也不回滚整个 MOD。
 
-资源搜索 `/dr`、`/data`、`/art`、`/audio` 保留原根与顺序，包含配置的外部资源根。清理时可删除选定缓存目录中的会话 XML/Deflate、其 `.old`、资产文件及 `.NewModCompiler` 状态；保留 `published` 可保留上一代正式产物。
+资源搜索 `/dr`、`/data`、`/art`、`/audio` 保留原根与顺序，包含配置的外部资源根。MOD 源码只读，位于 SDK 的 `Mods` 内也适用；`--out` 仍必须在 SDK/MOD 外。`plan`、`doctor` 不创建缓存目录。同一 MOD 的并发 build 以 `CACHE_BUSY` 拒绝，锁覆盖编译至 BIG 打包或 loose 导出；不同 MOD 的分区锁互不阻塞。
 
 ### 旧脚本兼容入口
 

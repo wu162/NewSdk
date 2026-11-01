@@ -1,4 +1,4 @@
-> 历史记录：本页的句柄固定、SHA 收据、侧车及发布事务不代表当前实现。当前路径与缓存合同见 [DIRECT_OUTPUT](DIRECT_OUTPUT.md)。
+> 历史记录：本页的句柄固定、SHA 收据、侧车及发布事务不代表当前实现。当前路径与缓存合同见 [SUPERCOMPILER_CACHE](SUPERCOMPILER_CACHE.md)，直接产物阶段历史见 [DIRECT_OUTPUT](DIRECT_OUTPUT.md)。
 
 # 原 SDK 缓存：行为与实现
 

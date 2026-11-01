@@ -1,3 +1,5 @@
+> 当前缓存与编译路径见 [集中缓存说明](SUPERCOMPILER_CACHE.md)。本页保留直接产物及冗余清理阶段的历史实现、计量和验收；旧输出根缓存布局不适用于新实现。
+
 # 直接产物、原 SDK 缓存与冗余安全清理
 
 本轮基线为重新获取的 `recovery/legacy-sdk-cache` / `b89fbadb`，交付前远程头仍相同。分支 `cleanup/redundant-defenses`，生产/测试源码 `ecd2bf1d`；后续只整理文档和证据。[Windows 运行 41062149232](https://github.com/wu162/NewSdk/actions/runs/41062149232) 全部 success。[PR #28](https://github.com/wu162/NewSdk/pull/28) 待用户审查，未合并、未强推、未修改授权及合入规则。

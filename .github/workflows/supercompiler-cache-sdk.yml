@@ -1,0 +1,55 @@
+name: SuperCompilerCache targeted mymod and Upheaval
+on:
+  push:
+    branches: [feature/supercompiler-cache]
+    paths:
+      - '.github/workflows/supercompiler-cache-sdk.yml'
+      - 'recovery/scripts/TestSuperCompilerCache.ps1'
+      - 'recovery/src/App/**'
+permissions:
+  contents: read
+jobs:
+  sdk:
+    if: contains(github.event.head_commit.message, '[cache-sdk]')
+    runs-on: windows-2022
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Check the focused validation script before production compilation
+        shell: pwsh
+        run: |
+          $tokens=$null;$errors=$null
+          $null=[Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'recovery/scripts/TestSuperCompilerCache.ps1'),[ref]$tokens,[ref]$errors)
+          if($errors.Count){$errors|Format-List;throw 'Cache validation script syntax failed'}
+      - name: Build one current Release product only
+        shell: pwsh
+        run: ./recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory recovery/artifacts/supercompiler-cache-product
+      - name: Run base cold hot loose and BIG with source write auditing
+        shell: pwsh
+        run: ./recovery/scripts/TestSuperCompilerCache.ps1 -Compiler recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe -OutputDirectory recovery/artifacts/supercompiler-cache-sdk
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: supercompiler-cache-sdk-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/supercompiler-cache-sdk/
+            recovery/artifacts/supercompiler-cache-product/build.json
+            recovery/artifacts/supercompiler-cache-product/*-build.log
+            recovery/artifacts/supercompiler-cache-product/link-inputs.json
+            recovery/artifacts/supercompiler-cache-product/bin/
+            recovery/artifacts/supercompiler-cache-product/obj/foundation/*.log
+            recovery/artifacts/supercompiler-cache-product/obj/native/logs/
+          if-no-files-found: warn
