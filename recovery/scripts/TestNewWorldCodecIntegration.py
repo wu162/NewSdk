@@ -87,7 +87,7 @@ def main():
         reference=dict(runId=reference['runId'], artifactSha256=reference['artifactSha256'], scope=reference['scope'],
                        fileSha256=digest(reference_path.read_bytes())),
         scope='Original media; exactly 89 Joypad declarations temporarily excluded. All 1 base +13 APT +1 global loose streams; cold only, no BIG, no full base cross-input byte-equivalence claim.',
-        sourceAdjustments=changes, restorationErrors=[])
+        sourceAdjustments=changes, restorationErrors=[], evidenceErrors=[])
     try:
         before, schema_before = inventory(mod), inventory(schema)
         write(out / 'source-inventory.json', before)
@@ -166,7 +166,15 @@ def main():
         for name in ('build-report.json', 'build.events.jsonl', 'build.log'):
             generated = work / 'product' / name
             if generated.is_file():
-                shutil.copy2(generated, out / name)
+                try:
+                    shutil.copy2(generated, out / name)
+                except Exception as error:
+                    state['evidenceErrors'].append(name + ': ' + str(error))
+        if 'process' not in state and (out / 'process/process.json').is_file():
+            try:
+                state['process'] = json.loads((out / 'process/process.json').read_text(encoding='utf-8-sig'))
+            except Exception as error:
+                state['evidenceErrors'].append('Failed process receipt: ' + str(error))
         for path, data in original_xml.items():
             try:
                 path.write_bytes(data)
@@ -181,11 +189,13 @@ def main():
         try:
             state['modRestored'] = before is not None and inventory(mod) == before
             state['schemaRestored'] = schema_before is not None and inventory(schema) == schema_before
+            if 'originalMediaUnchanged' not in state:
+                state['originalMediaUnchanged'] = state['modRestored']
             if not state['modRestored'] or not state['schemaRestored']:
                 state['restorationErrors'].append('Original MOD or Schema inventory was not restored')
         except Exception as error:
             state['restorationErrors'].append('Restoration verification: ' + str(error))
-        if state['restorationErrors']:
+        if state['restorationErrors'] or state['evidenceErrors']:
             state['status'] = 'failed'
         write(out / 'validation.json', state)
     print(json.dumps({key: state.get(key) for key in ('status', 'outputFileCount', 'referenceComparison', 'error', 'modRestored', 'schemaRestored')}, ensure_ascii=False))
