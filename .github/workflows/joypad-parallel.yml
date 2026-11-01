@@ -14,6 +14,10 @@ on:
         description: 'Optional previous run from this workflow with unchanged production inputs'
         type: string
         default: ''
+      cli_acceptance_run_id:
+        description: 'Optional independently passed CLI acceptance with unchanged scripts and runtime'
+        type: string
+        default: ''
 permissions:
   contents: read
   actions: read
@@ -44,6 +48,13 @@ jobs:
           run-id: ${{ inputs.reuse_run_id }}
           github-token: ${{ github.token }}
           path: work/reused
+      - uses: actions/download-artifact@v4
+        if: ${{ inputs.cli_acceptance_run_id != '' }}
+        with:
+          name: joypad-parallel-evidence-${{ inputs.cli_acceptance_run_id }}-1
+          run-id: ${{ inputs.cli_acceptance_run_id }}
+          github-token: ${{ github.token }}
+          path: work/cli-reused
       - name: Select fresh source or strictly unchanged production runtime
         shell: pwsh
         env:
@@ -85,6 +96,22 @@ jobs:
           "BINARY_SOURCE=$((git rev-parse HEAD).Trim())"|Add-Content $env:GITHUB_ENV
           "EVIDENCE_ROOT=recovery/evidence/joypad-parallel/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"|Add-Content $env:GITHUB_ENV
           "PACKAGE_ROOT=recovery/artifacts/joypad-parallel-packages/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"|Add-Content $env:GITHUB_ENV
+      - name: Require actual independent CLI success before reusing its receipt
+        if: ${{ inputs.cli_acceptance_run_id != '' }}
+        shell: pwsh
+        env:
+          CLI_RUN: ${{ inputs.cli_acceptance_run_id }}
+        run: |
+          $source="work/cli-reused/evidence/joypad-parallel/$env:CLI_RUN-1/cli"
+          $cli=Get-Content "$source/validation.json" -Raw|ConvertFrom-Json
+          if(!$cli.succeeded -or $cli.sourceCommit -cne $env:BINARY_SOURCE -or $cli.modes.Count -ne 2 -or $cli.scriptSha256 -cne (Get-FileHash recovery/scripts/TestCompilerCli.ps1 -Algorithm SHA256).Hash.ToLowerInvariant() -or $cli.controllerSourceSha256 -cne (Get-FileHash recovery/tests/CompilerCliControl.cs -Algorithm SHA256).Hash.ToLowerInvariant()){throw 'Independent CLI receipt source or script differs'}
+          foreach($mode in $cli.modes){
+            $build=Get-Content "recovery/artifacts/joypad-parallel-product/$($mode.configuration)/build.json" -Raw|ConvertFrom-Json
+            if(!$mode.passed -or $mode.exeSha256 -cne $build.exeSha256){throw 'Independent CLI executable or success differs'}
+          }
+          New-Item -ItemType Directory -Force $env:EVIDENCE_ROOT|Out-Null
+          Copy-Item $source $env:EVIDENCE_ROOT -Recurse
+          "REUSE_CLI=true"|Add-Content $env:GITHUB_ENV
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -132,7 +159,7 @@ jobs:
         shell: pwsh
         run: ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "$env:EVIDENCE_ROOT/production/original-fixture.json" -OutputDirectory "$env:EVIDENCE_ROOT/original-baseline" -ExpectedCaseCount 1
       - name: Existing small production CLI and real cancellation contracts
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && env.REUSE_CLI != 'true' }}
         shell: pwsh
         run: ./recovery/scripts/TestCompilerCli.ps1 -CompilerDirectory recovery/artifacts/joypad-parallel-product -OutputDirectory "$env:EVIDENCE_ROOT/cli"
       - name: Check actual CLI protocol and prepare independently extracted three-file ZIPs

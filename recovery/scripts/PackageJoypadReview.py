@@ -76,6 +76,7 @@ def main():
                     sourceBranch=os.environ.get('GITHUB_REF_NAME'), runId=os.environ.get('GITHUB_RUN_ID'),
                     binaryBuildRunId=os.environ.get('BINARY_BUILD_RUN', os.environ.get('GITHUB_RUN_ID')),
                     componentEvidenceRunId=core['runId'],
+                    cliEvidenceRunId=acceptance['runId'],
                     testSourceCommit=os.environ.get('COMPILER_TEST_SOURCE_COMMIT', args.source_commit),
                     publicationStatus='awaiting-user-confirmation; no release or tag created',
                     scope='Joypad parallelism: 11 roots, 34 runtime Data branches in the component matrix, 29 schema choices in a 45-asset MOD. Actual worker overlap, jobs1/4/auto, hot-cache output changes, single-asset edit, original SDK and extracted runtime parity.',

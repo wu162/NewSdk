@@ -89,9 +89,16 @@ def run(args):
                    '--package-format', 'loose', '--package-content', 'base', '--include-additional=false',
                    '--jobs', str(jobs), '--performance', 'detailed',
                    '--sc=' + str(cached).lower(), '--bc=' + str(cached).lower()]
+        if not cached:
+            # Disabling session/build caches does not disable intermediate-file
+            # reuse. A cold control therefore needs its own intermediate root.
+            namespace = cache_root(sdk, mod) / 'tests' / (mode + '-' + label)
+            command += ['/scd:' + str(namespace / 's'), '/bcd:' + str(namespace / 'b'), '/iod:' + str(namespace / 'i')]
         started = time.perf_counter()
         with (case / 'stdout.log').open('wb') as stdout, (case / 'stderr.log').open('wb') as stderr:
             process = subprocess.run(command, cwd=runtime, stdout=stdout, stderr=stderr, timeout=60)
+        if process.returncode != 0:
+            print((case / 'stderr.log').read_text(encoding='utf-8-sig', errors='replace')[-6000:], flush=True)
         need(process.returncode == 0, mode + '/' + label + ' failed with exit ' + str(process.returncode))
         report = json.loads((destination / 'build-report.json').read_text(encoding='utf-8-sig'))
         need(report['status'] == 'succeeded' and report['diagnosticCounts']['error'] == 0, 'Small MOD reported errors')
@@ -128,7 +135,7 @@ def run(args):
         for name, path in files.items():
             target = archive / path.name; shutil.copy2(path, target)
             inventory[name] = dict(path=str(target), bytes=len(content[name]), sha256=sha(content[name]))
-        row = dict(configuration=mode, label=label, jobs=str(jobs), cached=cached, passed=True,
+        row = dict(configuration=mode, label=label, jobs=str(jobs), cached=cached, arguments=command, passed=True,
                    wallMs=(time.perf_counter()-started)*1000, joypadMaximumConcurrency=joypad_maximum, cache=cache, files=inventory)
         state['samples'].append(row); write(out / 'validation.json', state)
         return content, inventory, report
