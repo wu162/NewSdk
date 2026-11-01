@@ -98,13 +98,21 @@ namespace NewModCompiler.Tests
                 if (failure=="close") sinks.Add(new CloseFailureSink(Path.Combine(request.OutputRoot,"close-count.txt")));
                 if (failure=="swallowed") sinks.Add(new ProbeFailureSink());
                 using (var events=new EventDispatcher(Guid.NewGuid().ToString("N"),sinks)) {
-                    // A backend can catch a listener exception and still return
-                    // successfully. Required sink failure remains session-fatal.
-                    if(failure=="swallowed") compiler.OnCompile=context=>{
-                        try { events.Emit("Diagnostic", "error", message:"controlled backend output failure", code:"TEST_SWALLOWED_OUTPUT"); }
-                        catch(BuildFailure e) { Check(e.ExitCode==ExitCode.Output,"Backend probe failure classification"); swallowed=true; }
-                    };
-                    Check(new BuildSession(request,compiler,events).Run(CancellationToken.None)==ExitCode.Output,"Late "+failure+" failure must fail output");
+                    var progress=new BuildProgressState(()=>events.ElapsedMilliseconds);
+                    var console=new StringWriter();
+                    using (var renderer=new ConsoleProgressRenderer(progress,console,true,()=>120,false)) {
+                        events.ConsoleOutput=renderer;
+                        // A backend can catch a listener exception and still return
+                        // successfully. Required sink failure remains session-fatal.
+                        if(failure=="swallowed") compiler.OnCompile=context=>{
+                            try { events.Emit("Diagnostic", "error", message:"controlled backend output failure", code:"TEST_SWALLOWED_OUTPUT"); }
+                            catch(BuildFailure e) { Check(e.ExitCode==ExitCode.Output,"Backend probe failure classification"); swallowed=true; }
+                        };
+                        Check(new BuildSession(request,compiler,events,progress:progress).Run(CancellationToken.None)==ExitCode.Output,"Late "+failure+" failure must fail output");
+                        Check(console.ToString().Contains("[失败] 编译失败") && !console.ToString().Contains("编译成功"),"Late "+failure+" console reported success before required output completed");
+                        string terminal=console.ToString(); renderer.Refresh();
+                        Check(console.ToString()==terminal && progress.Snapshot().Finished,"Late "+failure+" retained live progress");
+                    }
                 }
                 if(failure=="swallowed") Check(swallowed,"Backend did not catch the required sink failure");
                 Check(compiler.Calls.Count==1 && compiler.Disposed,"Late "+failure+" did not complete actual controlled compilation");
@@ -145,6 +153,7 @@ namespace NewModCompiler.Tests
                 root=Path.GetFullPath(args.Length==0 ? Path.Combine(Path.GetTempPath(),"NewModCompiler-App-"+Guid.NewGuid().ToString("N")) : args[0]);
                 if (Directory.Exists(root)) Directory.Delete(root,true); Directory.CreateDirectory(root);
                 assertions += PerformanceTests.Run();
+                assertions += ConsoleProgressTests.Run();
                 assertions += PlannerFlaTests.Run(Path.Combine(root,"fla-planner"));
 
                 assertions += EventBufferingTests.Run(Path.Combine(root,"event-buffering"));

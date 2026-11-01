@@ -245,7 +245,9 @@ public static class CompilerApplicationBuild
         var sink = new Observe { FailArtifact = true };
         var failed = Build("artifact-sink-failure", full, new[] { "base" }, sink);
         Failed(failed, ExitCode.Output, "failed");
-        Require(sink.Failed && Events(failed, "ArtifactProduced").Length == 1 && Events(failed, "StreamStarted").Length == 1 && Events(failed, "Diagnostic").Any(e => Text(e["diagnosticCode"]) == "EVENT_WRITE_FAILED"), "First artifact sink failure did not exercise required output handling");
+        // ArtifactProduced is emitted during loose publication. Its required
+        // sink failure retains the publication boundary's diagnostic contract.
+        Require(sink.Failed && Events(failed, "ArtifactProduced").Length == 1 && Events(failed, "StreamStarted").Length == 1 && Events(failed, "Diagnostic").Any(e => Text(e["diagnosticCode"]) == "PUBLICATION_FAILED"), "First artifact sink failure did not exercise required output handling");
         Success(Build("retry-after-sink-failure", full, new[] { "base" }), new[] { "base" });
         Tests.Add("first-artifact-sink-write-failure-Output-exit-state-release-and-next-real-session-succeeds");
         var bridge = new Observe { InjectBridgeMessages = true };

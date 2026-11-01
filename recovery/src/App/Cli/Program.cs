@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using System.Text;
 using NewModCompiler.Application;
 using NewModCompiler.Diagnostics;
 
@@ -11,6 +12,8 @@ namespace NewModCompiler.Cli
     {
         public static int Main(string[] args)
         {
+            // Progress uses Chinese labels on both redirected and real consoles.
+            try { Console.OutputEncoding = new UTF8Encoding(false); } catch (IOException) { }
 #if NEWSdk_MONOLITHIC
             BinaryAssetBuilder.UiCompiler.UiEmbeddedDependencies.Initialize();
 #endif
@@ -53,17 +56,24 @@ namespace NewModCompiler.Cli
         {
             using (var events = new EventDispatcher(Guid.NewGuid().ToString("N"),sinks))
             using (var cancellation = new CancellationTokenSource()) {
-                ConsoleCancelEventHandler handler = (sender,e) => { e.Cancel=true; cancellation.Cancel(); };
-                Console.CancelKeyPress += handler;
-                BuildSession session = null;
-                IStreamCompiler compiler = null;
+                // Default progress is independent of optional performance sampling.
+                // The opt-out also removes Core callbacks for paired measurements.
+                var progress = string.Equals(Environment.GetEnvironmentVariable("NEWSDK_PROGRESS"),"off",StringComparison.OrdinalIgnoreCase)
+                    ? null : new BuildProgressState(() => events.ElapsedMilliseconds);
+                using (var renderer = progress == null ? null : new ConsoleProgressRenderer(progress)) {
+                    events.ConsoleOutput = renderer;
+                    ConsoleCancelEventHandler handler = (sender,e) => { e.Cancel=true; cancellation.Cancel(); };
+                    Console.CancelKeyPress += handler;
+                    BuildSession session = null;
+                    IStreamCompiler compiler = null;
 #if NEWSdk_MONOLITHIC
-                if (request.Command == "build")
-                    compiler = new CoreStreamCompiler((source,eventType,message) => session.RecordCoreTrace(source,eventType,message));
+                    if (request.Command == "build")
+                        compiler = new CoreStreamCompiler((source,eventType,message) => session.RecordCoreTrace(source,eventType,message),progress);
 #endif
-                session = new BuildSession(request,compiler,events);
-                try { return (int)session.Run(cancellation.Token); }
-                finally { Console.CancelKeyPress -= handler; }
+                    session = new BuildSession(request,compiler,events,progress:progress);
+                    try { return (int)session.Run(cancellation.Token); }
+                    finally { Console.CancelKeyPress -= handler; }
+                }
             }
         }
     }

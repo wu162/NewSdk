@@ -9,13 +9,13 @@ namespace NewModCompiler.Application
 {
     public sealed class BuildSession
     {
-        readonly BuildRequest request; readonly IStreamCompiler compiler; readonly EventDispatcher events; readonly IDependencyPlanner dependencyPlanner;
+        readonly BuildRequest request; readonly IStreamCompiler compiler; readonly EventDispatcher events; readonly IDependencyPlanner dependencyPlanner; readonly BuildProgressState progress;
         readonly List<Artifact> artifacts = new List<Artifact>(); readonly List<object> stages = new List<object>();
         readonly List<object> diagnostics = new List<object>();
         BuildPlan plan; bool executed, acceptingCoreTrace; string activeStage, activeStream; long stageStarted; string providerIdentity;
         int errorCount, warningCount;
         IDisposable stagePerformance;
-        public BuildSession(BuildRequest request, IStreamCompiler compiler, EventDispatcher events, IDependencyPlanner dependencyPlanner = null) { this.request = request; this.compiler = compiler; this.events = events; this.dependencyPlanner = dependencyPlanner; }
+        public BuildSession(BuildRequest request, IStreamCompiler compiler, EventDispatcher events, IDependencyPlanner dependencyPlanner = null, BuildProgressState progress = null) { this.request = request; this.compiler = compiler; this.events = events; this.dependencyPlanner = dependencyPlanner; this.progress = progress; }
         public ExitCode Run(CancellationToken cancellation)
         {
             if (executed) throw new InvalidOperationException("BuildSession can only be executed once."); executed = true; acceptingCoreTrace = true;
@@ -32,7 +32,9 @@ namespace NewModCompiler.Application
                 events.Emit("BuildStarted",payload:new { request = request, toolVersion = typeof(BuildSession).Assembly.GetName().Version.ToString(), processId = System.Diagnostics.Process.GetCurrentProcess().Id });
                 cancellation.ThrowIfCancellationRequested();
                 StartStage("plan");
-                plan = Planner.Resolve(request,dependencyPlanner); events.Emit("PlanResolved",payload:plan);
+                plan = Planner.Resolve(request,dependencyPlanner);
+                if (progress != null) progress.SetPlan(plan.Tasks.Length);
+                events.Emit("PlanResolved",payload:plan);
                 CompleteStage("succeeded",0);
                 if (request.Command == "build") {
                     if (compiler == null) throw new BuildFailure(ExitCode.Environment,"BACKEND_NOT_INTEGRATED","This P2 application skeleton has no integrated compilation backend. No stream was compiled.");
@@ -53,6 +55,7 @@ namespace NewModCompiler.Application
                         string streamDirectory = layout.StreamDirectory(task);
                         layout.PrepareDirectory(streamDirectory);
                         activeStream = task.Id; request.Performance.StreamId=task.Id;
+                        if (progress != null) progress.StartStream(task.Id);
                         events.Emit("StreamStarted",payload:new {input=task.InputPath,effectiveOptions=request.Options},streamId:task.Id,stageId:"compile");
                         try {
                             using (request.Performance.Measure("stream.compile")) {
@@ -65,10 +68,12 @@ namespace NewModCompiler.Application
                             
                             }
                         } catch (Exception e) {
+                            if (progress != null) progress.CompleteStream(e is OperationCanceledException ? "cancelled" : "failed");
                             try { events.Emit("StreamCompleted","error",new {status = e is OperationCanceledException ? "cancelled" : "failed",artifactCount=0},streamId:task.Id,stageId:"compile"); }
                             catch (Exception outputFailure) { AttachCleanup(e, outputFailure); }
                             throw;
                         }
+                        if (progress != null) progress.CompleteStream("succeeded");
                         events.Emit("StreamCompleted",payload:new {status="succeeded",artifactCount=artifacts.FindAll(a => Paths.Contains(streamDirectory,a.Path)).Count},streamId:task.Id,stageId:"compile");
                         activeStream = null; request.Performance.StreamId=null;
                         events.Emit("Progress",payload:new {completed=++completed,total=plan.Tasks.Length,unit="streams"},stageId:"compile");
@@ -139,8 +144,9 @@ namespace NewModCompiler.Application
             catch (Exception error)
             {
                 code=ExitCode.Output;
-                try { Console.Error.WriteLine("REPORT_WRITE_FAILED: " + error.Message); } catch (IOException) { }
+                events.WriteConsoleLine("REPORT_WRITE_FAILED: " + error.Message);
             }
+            if (progress != null) progress.Finish(code == ExitCode.Success ? "succeeded" : code == ExitCode.Cancelled ? "cancelled" : "failed");
             return code;
         }
         IList<Artifact> ExportLoose(string published,CancellationToken cancellation)
@@ -175,6 +181,7 @@ namespace NewModCompiler.Application
         {
             activeStage=id; stageStarted=events.ElapsedMilliseconds;
             if (request.Performance.Enabled) stagePerformance=request.Performance.Measure("stage."+id);
+            if (progress != null) progress.StartStage(id);
             events.Emit("StageStarted",stageId:id);
         }
         void CompleteStage(string status,int count)
@@ -183,6 +190,7 @@ namespace NewModCompiler.Application
             string id=activeStage; activeStage=null;
             long elapsed=events.ElapsedMilliseconds-stageStarted;
             stages.Add(new {id=id,status=status,elapsedMs=elapsed,artifactCount=count});
+            if (progress != null) progress.CompleteStage(status);
             events.Emit("StageCompleted",payload:new {status=status,elapsedMs=elapsed,artifactCount=count},stageId:id);
         }
         void CompleteFailedStage(string status)

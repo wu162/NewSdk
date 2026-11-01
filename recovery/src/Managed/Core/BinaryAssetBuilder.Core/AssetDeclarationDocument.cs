@@ -1269,6 +1269,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 		else if (source == AssetLocation.Memory && Settings.Current.BuildCache && processor.Plugins.GetExtendedTypeInformation(declaration.Handle.TypeId).UseBuildCache)
 			processor.RecordBuildCacheUse(false);
 		if (source != AssetLocation.BasePatchStream)
+			// Both execution paths publish first; the processor's existing
+			// FileBase table counts each successful logical asset only once.
 			processor.AddLastWrittenAsset(binaryAsset);
 	}
 
