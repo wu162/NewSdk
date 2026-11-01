@@ -32,7 +32,9 @@ namespace NewModCompiler.Application
                         throw new InvalidOperationException("Content caches must share the configured session root.");
                 }
             }
-            if (values.Count == 0) return null;
+            // Empty optional selections and initialization failures still write
+            // the build-report cache object required by the public protocol.
+            if (values.Count == 0) return new {status="NotImplemented",hits=0,misses=0,groups=groups};
             var result = MergeProperties(values);
             result["groups"] = groups;
             result["sessionCacheDirectory"] = sessionRoot;

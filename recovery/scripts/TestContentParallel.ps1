@@ -64,6 +64,7 @@ function RunBuild([string]$Label,[string]$Mod,[string]$Selection,[string]$Format
         Need ($audit.peakWorkingSetBytes -gt 0) "${Label}: peak process memory unavailable"
         if($Cancel){Need ($audit.signalSent -and $audit.streamStartedObserved -and $audit.processExitCode -eq 6) 'Actual CtrlBreak was not verified'}
         $body=Get-Content "$destination/build-report.json" -Raw|ConvertFrom-Json
+        Need ($null -ne $body.cache -and $body.cache -is [pscustomobject]) "${Label}: cache must retain the existing report object contract"
         $events=@(Get-Content "$destination/build.events.jsonl"|ForEach-Object{$_|ConvertFrom-Json})
         Need ($body.exitCode -eq $Expected -and $events[-1].eventType -ceq 'BuildFinished') "${Label}: terminal report/events differ"
         $sequence=0;foreach($event in $events){$sequence++;Need ($event.sequence -eq $sequence -and $event.buildId -ceq $body.buildId) 'Event sequence/build identity crossed owners'}

@@ -45,7 +45,8 @@ namespace NewModCompiler.Tests
             internal BuildSession Session;
             internal Action<StreamContext, CancellationToken> CompileAction;
             internal int Active, Peak, ExpectedOverlap = 1;
-            internal bool Trace;
+            internal int FactoryCalls;
+            internal bool Trace, FailFactory;
             internal string CleanupFailure;
             internal Harness(string root, string content, int jobs)
             {
@@ -60,6 +61,8 @@ namespace NewModCompiler.Tests
             {
                 using (var dispatcher = new EventDispatcher(Guid.NewGuid().ToString("N"), new IBuildEventSink[] {Events})) {
                     Session = new BuildSession(Request, null, dispatcher, dependencies, compilerFactory: content => {
+                        Interlocked.Increment(ref FactoryCalls);
+                        if(FailFactory) throw new BuildFailure(ExitCode.Environment,"CONTROLLED_FACTORY_FAILURE","Controlled factory initialization failure");
                         var compiler = new Compiler(this, content);
                         lock (Gate) Compilers.Add(compiler);
                         return compiler;
@@ -210,6 +213,34 @@ namespace NewModCompiler.Tests
                 Check(baseStarted.IsSet,"A ready dependent task never started");
             }
         }
+        static void ReportsWithoutCacheOwners(string root)
+        {
+            using(var harness=new Harness(root,"apt,maps",4)) {
+                Directory.Delete(Path.Combine(harness.Request.ModRoot,"Data","AptUI"),true);
+                Directory.Delete(Path.Combine(harness.Request.ModRoot,"Data","AdditionalMaps"),true);
+                Check(harness.Run()==ExitCode.Success,"An empty explicit optional selection failed");
+                var report=harness.Report();
+                var cache=report["cache"] as Dictionary<string,object>;
+                Check(cache!=null && ((IDictionary)cache["groups"]).Count==0 && Convert.ToInt64(cache["hits"])==0 && Convert.ToInt64(cache["misses"])==0,
+                    "An empty optional build broke the cache object report contract");
+                var execution=(Dictionary<string,object>)report["contentExecution"];
+                Check(harness.FactoryCalls==0 && harness.Compilers.Count==0 && Convert.ToInt32(execution["groupCount"])==0 &&
+                    ((ICollection)execution["groups"]).Count==0,"An empty optional build created a compiler or Owner");
+                Check(((ICollection)report["artifacts"]).Count==0 && (string)report["publicationStatus"]=="NotPublished" &&
+                    !harness.Events.Values.Any(value=>(string)value["eventType"]=="StreamStarted" || (string)value["eventType"]=="ArtifactProduced"),
+                    "An empty optional build started a stream or accepted an artifact");
+                var layout=harness.Request.CacheLayout;
+                foreach(string path in new[] {layout.Session,layout.BuildCache,layout.Intermediate,layout.Streams,layout.Generated})
+                    Check(!Directory.Exists(path),"An empty optional build created a content cache or output group");
+            }
+            using(var harness=new Harness(root,"base",1)) {
+                harness.FailFactory=true;
+                Check(harness.Run()==ExitCode.Environment,"A factory initialization failure lost its original exit code");
+                var cache=harness.Report()["cache"] as Dictionary<string,object>;
+                Check(harness.FactoryCalls==1 && cache!=null && ((IDictionary)cache["groups"]).Count==0,
+                    "A factory failure with no cache report broke the cache object protocol");
+            }
+        }
         static void ProgressStartAcknowledgement(string root)
         {
             using(var harness=new Harness(root,"base,apt",2)) {
@@ -281,7 +312,7 @@ namespace NewModCompiler.Tests
         internal static int Run(string root)
         {
             checks=0; serial=0;
-            Combinations(root); ReadyDependencies(root); ProgressStartAcknowledgement(root); FailureAndCancellation(root);
+            Combinations(root); ReadyDependencies(root); ReportsWithoutCacheOwners(root); ProgressStartAcknowledgement(root); FailureAndCancellation(root);
             return checks;
         }
     }
