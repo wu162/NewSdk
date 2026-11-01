@@ -78,7 +78,11 @@ jobs:
           $compiler="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
           $probe="$probeDir/NewWorldTextureSupport.exe"
           $probeSource=(Resolve-Path -LiteralPath 'recovery/scripts/NewWorldTextureSupport.cs').Path
-          & $compiler /nologo /platform:x86 /r:System.Web.Extensions.dll "/out:$probe" $probeSource
+          $decoder=(Resolve-Path -LiteralPath 'recovery/src/Plugin/Texture/TextureTgaDecoder.cs').Path
+          $metadata=(Resolve-Path -LiteralPath 'recovery/src/Plugin/Texture/TextureTgaMetadata.cs').Path
+          git diff --exit-code 8050f22de81539c65aeca3903e9b48f53a572068 HEAD -- recovery/src/Plugin/Texture/TextureTgaDecoder.cs recovery/src/Plugin/Texture/TextureTgaMetadata.cs
+          if($LASTEXITCODE -ne 0){throw 'Decoder source differs from accepted production inputs'}
+          & $compiler /nologo /platform:x86 /r:System.Web.Extensions.dll "/out:$probe" $probeSource $decoder $metadata
           if($LASTEXITCODE -ne 0){throw 'TGA support probe compilation failed'}
           Copy-Item work/new-world-accepted/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe.config "$probe.config"
           & $probe work/new-world-accepted/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe 'SDK/Mods/The New World' "$out/unsupported-base-textures.json"

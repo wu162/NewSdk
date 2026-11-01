@@ -7,7 +7,7 @@ using System.Text;
 using System.Web.Script.Serialization;
 
 // A preparation tool, separate from the immutable accepted compiler runtime.
-// Uses the accepted EXE's actual metadata validator; it never rewrites pixels.
+// Links the unchanged accepted production decoder source; never rewrites pixels.
 internal static class NewWorldTextureSupport
 {
     static int U16(byte[] b, int at) { return b[at] | b[at + 1] << 8; }
@@ -52,8 +52,7 @@ internal static class NewWorldTextureSupport
     {
         if (args.Length != 3) throw new ArgumentException("compiler-exe mod-root report-json required");
         string exe = Path.GetFullPath(args[0]), mod = Path.GetFullPath(args[1]).TrimEnd('\\', '/');
-        Assembly assembly = Assembly.LoadFrom(exe);
-        Type type = assembly.GetType("Recovered.Compiler.Texture.TextureTgaDecoder", true);
+        Type type = typeof(Recovered.Compiler.Texture.TextureTgaDecoder);
         MethodInfo validator = type.GetMethod("ValidateMetadataTail", BindingFlags.Static | BindingFlags.NonPublic);
         if (validator == null) throw new MissingMethodException(type.FullName, "ValidateMetadataTail");
         ValidateTail(validator, new byte[22], 22);
@@ -78,10 +77,36 @@ internal static class NewWorldTextureSupport
         using (var algorithm = SHA256.Create()) hash = BitConverter.ToString(algorithm.ComputeHash(File.ReadAllBytes(exe))).Replace("-", "").ToLowerInvariant();
         var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
         var report = new { compilerSha256 = hash, scanned = scanned, unsupported = unsupported,
-            basis = "Accepted compiler's actual TGA metadata validator plus header/RLE byte bounds. Full pixel processing is checked by the subsequent CLI preflight." };
+            decoderSourceCommit = "8050f22de81539c65aeca3903e9b48f53a572068",
+            basis = "Unchanged accepted production decoder source compiled separately (the mixed EXE cannot be loaded as a DLL), plus header/RLE byte bounds. Full pixel processing is checked by the subsequent actual CLI preflight." };
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(args[2])));
         File.WriteAllText(args[2], serializer.Serialize(report), new UTF8Encoding(false));
         Console.WriteLine("Base TGA inputs scanned: " + scanned + "; outside accepted subset: " + unsupported.Count);
         return 0;
+    }
+}
+
+// Only the private metadata method is executed. These pixel-only dependencies
+// deliberately fail if called, rather than substitute a pixel implementation.
+namespace Recovered.Compiler.Texture
+{
+    public static class TexturePacker
+    {
+        public sealed class Image
+        {
+            public Image(int width, int height, uint[] pixels, bool alpha) { throw new InvalidOperationException("Metadata-only probe"); }
+        }
+    }
+    public static class TextureNpotRgba8Resampler
+    {
+        public static TexturePacker.Image Resize(TexturePacker.Image image) { throw new InvalidOperationException("Metadata-only probe"); }
+    }
+}
+namespace BinaryAssetBuilder
+{
+    public enum ErrorCode { BadTextureFile }
+    public sealed class BinaryAssetBuilderException : Exception
+    {
+        public BinaryAssetBuilderException(ErrorCode code, string message, params object[] values) : base(String.Format(message, values)) { }
     }
 }
