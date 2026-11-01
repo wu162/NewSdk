@@ -31,6 +31,8 @@ npm run test:host # Windows；启动真实 VS Code 扩展宿主
 
 Windows 工作流 `.github/workflows/vscode-p0.yml` 执行协议、配置、ZIP 边界和真实扩展宿主测试，打包 VSIX，并上传测试结果。宿主测试使用单独编译的协议假编译器检查计划、错误、缺失报告、停止、重新编译、只读源目录和跨进程配置持久化；假编译器不是生产编译器。
 
+VS Code 在 `--extensionTestsPath` 模式下主动使用内存存储。因此宿主测试通过临时驱动扩展，在使用同一独立磁盘配置的两个普通 VS Code 窗口中运行；驱动不进入 VSIX，也不写入 MOD。
+
 真实编译器由仓库 Secrets 提供：
 
 | Secret | 含义 |

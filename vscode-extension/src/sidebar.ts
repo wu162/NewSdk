@@ -60,6 +60,9 @@ export class NewSdkSidebar implements vscode.TreeDataProvider<SidebarItem>, vsco
     const content: SidebarItem[] = plan ? [
       ...plan.tasks.map(task => new SidebarItem(task.content, [], 'newsdk.openWorkbench', task.inputPath, 'file-code')),
       ...plan.skipped.map(task => new SidebarItem(task.content, [], 'newsdk.openWorkbench', `跳过：${task.reason}`, 'circle-slash')),
+      ...(![...plan.tasks, ...plan.skipped].some(task => task.content.toLowerCase().includes('additional'))
+        ? [new SidebarItem('Additional', [], 'newsdk.openWorkbench', m.project?.contents?.additional
+          ? '检测到目录，按编译器规则处理' : '未检测到目录', 'folder')] : []),
     ] : [
       ...(['base', 'apt', 'globalMetadata', 'additional'] as const).map(key => new SidebarItem(
         { base: '基础数据', apt: 'APT UI', globalMetadata: '全局元数据', additional: 'Additional' }[key], [],

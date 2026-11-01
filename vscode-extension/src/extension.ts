@@ -23,6 +23,7 @@ export interface ConfigurationValues {
 export interface NewSdkApi {
     getState(): CompilerRunner['state'];
     getProject(): DiscoveredProject | undefined;
+    getConfiguration(): ResolvedProjectSettings | undefined;
     selectProject(root: string): Promise<void>;
     configure(values: ConfigurationValues): Promise<void>;
     build(): ReturnType<CompilerRunner['build']>;
@@ -105,7 +106,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     async function saveProject(patch: Partial<ProjectSettings>): Promise<void> {
         ensureIdle();
         if (!project) throw new Error('请先选择 MOD 根目录。');
-        const all = savedProjects();
+        const all = { ...savedProjects() };
         all[project.identity] = { ...all[project.identity], root: project.root, ...patch };
         await context.globalState.update(projectStorageKey, all);
         await refresh();
@@ -338,7 +339,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
         try { await selectProject(initial); } catch (error) { localMessage = message(error); }
     }
     render();
-    return { getState: () => runner.state, getProject: () => project,
+    return { getState: () => runner.state, getProject: () => project, getConfiguration: () => settings ? { ...settings } : undefined,
         selectProject: root => exclusive(() => selectProject(root)), configure: values => exclusive(() => configure(values)),
         build: () => exclusive(build), plan: () => exclusive(plan),
         stop: () => runner.stop(), showWorkbench: () => workbench.show() };

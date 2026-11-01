@@ -18,6 +18,7 @@ interface State {
 interface ExtensionApi {
     getState(): State;
     getProject(): unknown;
+    getConfiguration(): { compilerPath?: string; sdkRoot?: string; outputDirectory?: string; modVersion?: string; root?: string } | undefined;
     selectProject(root: string): Promise<void>;
     configure(values: { compilerPath: string; sdkRoot: string; outputDirectory: string; modVersion: string }): Promise<void>;
     build(): Promise<Result | undefined>;
@@ -28,6 +29,26 @@ interface ExtensionApi {
 
 const execute = promisify(execFile);
 const xml = '<?xml version="1.0" encoding="utf-8"?><AssetDeclaration xmlns="uri:ea.com:eala:asset"><ArmorTemplate id="NewSdkP0Probe" Default="100" /></AssetDeclaration>';
+let activeApi: ExtensionApi | undefined;
+let activeCheckpoint = 'startup';
+
+function diagnosticSnapshot(): unknown {
+    const state = activeApi?.getState();
+    return {
+        phase: process.env.NEWSDK_HOST_PHASE, checkpoint: activeCheckpoint,
+        state: state ? { status: state.status, operation: state.operation, config: state.config,
+            buildId: state.progress?.buildId, resultStatus: state.result?.status } : undefined,
+        project: activeApi?.getProject(), configuration: activeApi?.getConfiguration(),
+        globalCompiler: vscode.workspace.getConfiguration('newsdk').get<string>('compilerPath'),
+        globalSdk: vscode.workspace.getConfiguration('newsdk').get<string>('sdkRoot'),
+        tasks: vscode.tasks.taskExecutions.map(execution => ({ name: execution.task.name, definition: execution.task.definition })),
+    };
+}
+
+function checkpoint(name: string): void {
+    activeCheckpoint = name;
+    console.log(`[newsdk-host] ${name} ${JSON.stringify(diagnosticSnapshot())}`);
+}
 
 async function inventory(root: string): Promise<Record<string, string>> {
     const result: Record<string, string> = {};
@@ -53,7 +74,11 @@ async function waitFor(predicate: () => boolean, timeout = 15000): Promise<void>
 async function timed<T>(promise: Promise<T>, milliseconds = 90000): Promise<T> {
     let timer: ReturnType<typeof setTimeout> | undefined;
     try {
-        return await Promise.race([promise, new Promise<T>((_, reject) => { timer = setTimeout(() => reject(new Error('编译任务验收超时。')), milliseconds); })]);
+        return await Promise.race([promise, new Promise<T>((_, reject) => { timer = setTimeout(() => {
+            const snapshot = JSON.stringify(diagnosticSnapshot());
+            console.error(`[newsdk-host] timeout ${snapshot}`);
+            reject(new Error(`编译任务验收超时（${activeCheckpoint}）：${snapshot}`));
+        }, milliseconds); })]);
     } finally { if (timer) clearTimeout(timer); }
 }
 
@@ -81,6 +106,8 @@ async function runSuite(): Promise<void> {
     const extension = vscode.extensions.getExtension<ExtensionApi>('wu162.newsdk-mod-tools');
     assert.ok(extension, 'VSIX development extension must be discoverable');
     const api = await extension.activate();
+    activeApi = api;
+    checkpoint('activated');
     const commandIds = await vscode.commands.getCommands(true);
     for (const command of ['newsdk.build', 'newsdk.stop', 'newsdk.openWorkbench', 'newsdk.plan', 'newsdk.doctor']) {
         assert.ok(commandIds.includes(command), `Missing command ${command}`);
@@ -88,8 +115,15 @@ async function runSuite(): Promise<void> {
     api.showWorkbench();
     if (process.env.NEWSDK_HOST_PHASE === 'reopen') {
         // No configuration calls here: the previous process must have persisted it.
+        checkpoint('reopen-before-build');
+        const persisted = api.getConfiguration();
+        assert.ok(persisted?.compilerPath, 'Compiler path must persist before reopening build');
+        assert.ok(persisted.sdkRoot, 'SDK path must persist before reopening build');
+        assert.ok(persisted.outputDirectory, 'Project output path must persist before reopening build');
+        assert.equal(persisted.modVersion, '1.0', 'Project MOD version must persist before reopening build');
         const result = await timed(api.build());
         assert.equal((result ?? api.getState().result)?.status, 'succeeded');
+        checkpoint('reopen-build-passed');
         await fs.writeFile(path.join(evidence, 'persistence.json'), JSON.stringify({ succeeded: true, scope: 'Second VS Code process using the same isolated profile' }, null, 2));
         return;
     }
@@ -114,14 +148,17 @@ async function runSuite(): Promise<void> {
     }
     const basic = await select('MockBasic');
     const source = await inventory(basic);
+    checkpoint('basic-plan');
     let result = await timed(api.plan());
     assert.equal((result ?? api.getState().result)?.status, 'succeeded');
+    checkpoint('basic-build');
     result = await timed(api.build());
     assert.equal((result ?? api.getState().result)?.status, 'succeeded');
     assert.ok((result ?? api.getState().result)?.artifacts?.length);
     assert.deepEqual(await inventory(basic), source, 'Extension and task must leave MOD source bytes unchanged');
     cases.push({ name: 'plan-build-artifacts-source-readonly', status: 'passed' });
     await select('MockFailure');
+    checkpoint('compiler-failure');
     result = await timed(api.build());
     assert.equal((result ?? api.getState().result)?.status, 'failed');
     assert.ok((result ?? api.getState().result)?.diagnostics?.some(item => item.code === 'FIXTURE_ERROR'));
@@ -129,12 +166,14 @@ async function runSuite(): Promise<void> {
         'Unlocated compiler diagnostics must not create invented Problems file locations');
     cases.push({ name: 'compiler-error-no-fake-location', status: 'passed' });
     await select('MockMissing');
+    checkpoint('missing-report');
     result = await timed(api.build());
     assert.notEqual((result ?? api.getState().result)?.status, 'succeeded');
     cases.push({ name: 'missing-report-never-success', status: 'passed' });
     const slowMod = await select('MockSlow');
     const canonicalSlowMod = await fs.realpath(slowMod);
     const previousBuildId = api.getState().progress?.buildId;
+    checkpoint('slow-build-start');
     const stopped = timed(api.build());
     await waitFor(() => {
         const state = api.getState();
@@ -146,11 +185,13 @@ async function runSuite(): Promise<void> {
     assert.equal(stoppingState.status, 'running', 'Stop must target the currently running build');
     assert.ok(stoppingState.progress?.buildId, 'Current build must have started its own event stream');
     assert.notEqual(stoppingState.progress.buildId, previousBuildId, 'Previous build state must not satisfy the stop precondition');
+    checkpoint('slow-build-stop');
     api.stop();
     result = await stopped;
     assert.equal((result ?? api.getState().result)?.status, 'interrupted');
     cases.push({ name: 'stop-button-forced-interruption', status: 'passed' });
     await select('MockBasic');
+    checkpoint('retry-after-stop');
     result = await timed(api.build());
     assert.equal((result ?? api.getState().result)?.status, 'succeeded');
     cases.push({ name: 'retry-after-stop', status: 'passed' });
@@ -170,6 +211,7 @@ async function runSuite(): Promise<void> {
     }
     // Leave the synthetic working project selected for the reopen persistence check.
     await select('MockBasic');
+    checkpoint('exercise-persisted-final-configuration');
 }
 
 async function realCompilerCases(api: ExtensionApi, root: string, evidence: string, compilerPath: string): Promise<void> {

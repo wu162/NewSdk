@@ -88,6 +88,7 @@ if (typeof document !== 'undefined') (() => {
       text('planNote', plan.kind ? `编译器计划：${plan.kind}` : '以下内容由编译器 plan 确认。');
       for (const task of plan.tasks) contents.append(row(task.content, NewSdkPresentation.contentStatus(task, model), task.inputPath));
       for (const task of plan.skipped) contents.append(row(task.content, '跳过', task.reason));
+      if (![...plan.tasks, ...plan.skipped].some(task => task.content.toLowerCase().includes('additional'))) contents.append(row('Additional', model.project?.contents?.additional ? '检测到目录，按编译器规则处理' : '未检测到目录'));
       if (!plan.tasks.length && !plan.skipped.length) contents.append(node('p', '计划没有可编译输入。', 'muted'));
     } else {
       text('planNote', '目录检测仅供参考，实际输入以编译器 plan 为准。');
