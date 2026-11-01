@@ -13,6 +13,8 @@
 
 `newmodcompiler.json` 只读。插件不创建 `.vscode`，不修改 MOD 源文件，不搬运或清理 SDK 的 `SuperCompilerCache`。编译使用单个编译器进程，参数使用数组传递；默认 `auto` 内容发现、BIG/SKUDEF 和 Additional，保留编译器自己的 jobs 和缓存设置。
 
+同一物理 MOD 在多个 VS Code 窗口中也只能运行一个任务。项目锁保存在当前用户的系统临时目录；只有确认宿主和编译器进程均已退出时才回收旧锁。计划记录使用 `plan.events.jsonl`、`plan-report.json`、`plan.log`，不会覆盖最近一次构建的记录。
+
 停止按钮使用 VS Code 任务终止 API，显示为**强制中断**。只有编译器的完整事件与报告明确返回 `cancelled/6` 才显示正常取消。成功必须同时有进程退出码 0、本轮 `BuildFinished`、同一 `buildId` 的成功报告。缺少报告、崩溃和旧报告都不会显示为成功。
 
 没有真实位置的诊断保留在扩展问题列表，不伪造 Problems 面板行号。进度不显示资产百分比或 ETA。产物来自本轮报告，不扫描目录认领旧文件。
