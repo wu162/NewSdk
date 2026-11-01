@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import re
+import runpy
 import shutil
 import struct
 import subprocess
@@ -54,12 +55,19 @@ def run(args):
             if existing.tag == '{%s}Slot' % NS:
                 extra.remove(existing)
         for ordinal in range(256):
-            item = copy.deepcopy(slot); item.set('Ordinal', str(ordinal)); extra.append(item)
+            item = copy.deepcopy(slot); item.set('Ordinal', str(ordinal)); extra.insert(ordinal, item)
         document.getroot().append(extra)
     document.write(entry, encoding='utf-8', xml_declaration=True)
+    from lxml import etree as E
+    schema = runpy.run_path(str(repo / 'recovery/scripts/GenerateXmlSdkModA.py'), run_name='joypad_schema')['aggregate_schema']()
+    schema.assertValid(E.parse(str(entry)))
     original_xml = entry.read_bytes()
     expected_assets = metadata['sdkAssets'] + 2
     need(expected_assets == 45, 'Small Joypad fixture asset count changed')
+    if args.prepare_only:
+        write(out / 'preflight.json', dict(schemaValid=True, assets=expected_assets, sourceCommit=args.source_commit))
+        print('PASS: source-XSD-valid 45-asset Joypad fixture, no compiler executed')
+        return
     state = dict(succeeded=False, sourceCommit=args.source_commit,
                  runId=os.environ.get('GITHUB_RUN_ID'), runAttempt=os.environ.get('GITHUB_RUN_ATTEMPT'),
                  usePackagedRuntime=args.packaged, assets=expected_assets, rootNames=metadata['rootNames'],
@@ -181,5 +189,6 @@ if __name__ == '__main__':
     for key in ('repo', 'products', 'fixtures', 'work', 'output', 'source-commit'):
         parser.add_argument('--' + key, required=True)
     parser.add_argument('--packaged', action='store_true')
+    parser.add_argument('--prepare-only', action='store_true')
     parser.add_argument('--reference')
     run(parser.parse_args())
