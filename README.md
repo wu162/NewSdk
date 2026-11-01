@@ -44,7 +44,7 @@ Joypad 并行版已发布：[NewModCompiler 2026.11.01](https://github.com/wu162
 
 loose（包括兼容 development 派生的 loose）和 `doctor` 不要求显式版本；显式 loose 仍保留原包身份校验。
 
-缓存、四流和编译临时文件统一放在传入 SDK 的 `SuperCompilerCache/<ModKey>/`，MOD 源码只读；BIG 输出仅保留包和诊断，loose 将本轮四流/CDATA 导出到 `published`。更换 `--out` 不改变缓存分区。路径覆盖、并发锁及本次验证范围见 [集中缓存说明](recovery/docs/SUPERCOMPILER_CACHE.md)。
+MOD缓存、四流和编译临时文件放在传入 SDK 的 `SuperCompilerCache/<ModKey>/`；地编参考则统一放在 `SuperCompilerCache/shared/neutral-worldbuilder/`，同SDK所有Mod共享。MOD 源码只读；BIG 输出仅保留包和诊断，loose 将本轮四流/CDATA 导出到 `published`。更换 `--out` 不改变缓存分区。路径覆盖、并发锁及本次验证范围见 [集中缓存说明](recovery/docs/SUPERCOMPILER_CACHE.md)。
 
 高级能力仍可直接使用，通过 `--help-advanced` 和[高级选项说明](recovery/COMPILER_USAGE.md#6-高级选项)查看。`--profile` 仅保留旧脚本兼容行为，详见[参数兼容表](recovery/CLI_COMPATIBILITY.md)。
 

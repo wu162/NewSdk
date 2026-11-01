@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using NewModCompiler.Application;
 
 namespace NewModCompiler.Tests
@@ -48,6 +49,33 @@ namespace NewModCompiler.Tests
             foreach(var member in members)Check(File.ReadAllBytes(Path.Combine(cache,Path.GetFileName(member.Key.Replace('/',Path.DirectorySeparatorChar)))).SequenceEqual(member.Value),"Game BIG member bytes changed during extraction");
             DateTime sentinel=new DateTime(2005,1,1,0,0,0,DateTimeKind.Utc);File.SetLastWriteTimeUtc(manifest,sentinel);
             Check(GameWorldbuilderData.Prepare(request,archive,CancellationToken.None)==manifest && File.GetLastWriteTimeUtc(manifest)==sentinel,"Unchanged game archive was extracted again");
+            string otherMod=Path.Combine(root,"other-mod");Directory.CreateDirectory(otherMod);
+            var other=new BuildRequest {SdkRoot=sdk,ModRoot=otherMod,GameRoot=game,OutputRoot=Path.Combine(root,"other-out")};
+            Check(cache==Path.Combine(sdk,"SuperCompilerCache","shared","neutral-worldbuilder"),"Reference cache is not SDK-wide");
+            Check(GameWorldbuilderData.Prepare(other,archive,CancellationToken.None)==manifest && File.GetLastWriteTimeUtc(manifest)==sentinel,"Another MOD did not reuse the same unmodified reference files");
+            string legacy=Path.Combine(CacheLayout.ForRequest(request).CacheRoot,"neutral-worldbuilder");
+            Directory.CreateDirectory(Path.GetDirectoryName(legacy));Directory.Move(cache,legacy);
+            Check(GameWorldbuilderData.Prepare(request,archive,CancellationToken.None)==manifest && !Directory.Exists(legacy) && File.GetLastWriteTimeUtc(manifest)==sentinel,"A valid old MOD cache was not moved without recopying");
+            Directory.CreateDirectory(legacy);
+            foreach(string file in Directory.GetFiles(cache))File.Copy(file,Path.Combine(legacy,Path.GetFileName(file)));
+            GameWorldbuilderData.Prepare(request,archive,CancellationToken.None);
+            Check(!Directory.Exists(legacy) && File.GetLastWriteTimeUtc(manifest)==sentinel,"The current MOD retained a redundant valid legacy reference cache");
+            Directory.Delete(cache,true);
+            Task<string> first=Task.Run(()=>GameWorldbuilderData.Prepare(request,archive,CancellationToken.None));
+            Task<string> second=Task.Run(()=>GameWorldbuilderData.Prepare(other,archive,CancellationToken.None));
+            Check(Task.WaitAll(new Task[]{first,second},10000) && first.Result==manifest && second.Result==manifest,"Concurrent MOD first use did not converge on one shared cache");
+            using(GameWorldbuilderData.Acquire(request,CancellationToken.None))
+            using(var cancelled=new CancellationTokenSource())
+            using(var started=new ManualResetEventSlim()) {
+                Task<bool> waiting=Task.Run(()=> {
+                    started.Set();
+                    try {using(GameWorldbuilderData.Acquire(other,cancelled.Token))return false;}
+                    catch(OperationCanceledException) {return true;}
+                });
+                Check(started.Wait(5000) && !waiting.Wait(100),"The shared reference lease did not block a second MOD");
+                cancelled.Cancel();
+                Check(waiting.Wait(5000) && waiting.Result,"A cancelled MOD could not leave the shared reference lock wait");
+            }
             File.Delete(Path.Combine(cache,"Worldbuilder.imp"));
             GameWorldbuilderData.Prepare(request,archive,CancellationToken.None);
             Check(File.Exists(Path.Combine(cache,"Worldbuilder.imp")),"Partial cached extraction was not repaired");

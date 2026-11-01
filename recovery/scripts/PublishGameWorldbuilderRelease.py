@@ -45,6 +45,9 @@ def verify_acceptance(artifact, bundle, metadata, out):
         need(mode['passed'] and mode['inputsUnchanged'] and mode['hotExtractionMetadataUnchanged'] and
              mode['exactOriginalChainRawMembers'] and len(mode['cases']) == 9 and
              all(c['passed'] for c in mode['cases']), 'Game extraction/configuration/registry cases incomplete: ' + name)
+        if metadata.get('sharedWorldbuilderCache'):
+            need(mode.get('sharedCacheAcrossMods') and mode.get('concurrentSharedExtraction'),
+                 'Shared WorldBuilder reuse and concurrent extraction acceptance missing: ' + name)
         need(mode['originalChain']['hashFixChangedCount'] == 1 and mode['originalChain']['resolverInsertedAssets'] == 5,
              'Original HashFix/recursive insertion scope differs')
         registry = [c for c in mode['cases'] if c['name'].startswith('registry-')]
@@ -101,19 +104,22 @@ def verify_remote(release, local):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--artifact-root', required=True, type=Path)
-    parser.add_argument('--bundle', type=Path, default=ROOT / 'recovery/releases' / TAG)
+    parser.add_argument('--tag', default=TAG)
+    parser.add_argument('--bundle', type=Path)
     parser.add_argument('--output', required=True, type=Path)
     parser.add_argument('--prepare-only', action='store_true')
     args = parser.parse_args()
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
-    bundle, artifact = args.bundle.resolve(), args.artifact_root.resolve()
-    state = {'schemaVersion': 1, 'succeeded': False, 'published': False, 'tag': TAG, 'binaryRebuilt': False,
+    tag = args.tag
+    bundle = (args.bundle or ROOT / 'recovery/releases' / tag).resolve()
+    artifact = args.artifact_root.resolve()
+    state = {'schemaVersion': 1, 'succeeded': False, 'published': False, 'tag': tag, 'binaryRebuilt': False,
              'publicationSourceCommit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
              'publicationRunId': os.environ.get('GITHUB_RUN_ID')}
     try:
         metadata = read_json(bundle / 'release-metadata.json')
-        need(metadata['tag'] == TAG and metadata.get('repository', REPOSITORY) == REPOSITORY, 'Publication target differs')
+        need(metadata['tag'] == tag and metadata.get('repository', REPOSITORY) == REPOSITORY, 'Publication target differs')
         state.update({key: metadata[key] for key in ('runId', 'artifactId', 'sourceCommit')})
         entries = verify_acceptance(artifact, bundle, metadata, out)
         for name in SMALL:
@@ -135,9 +141,9 @@ def main():
         artifact_name = metadata.get('artifactName', 'game-worldbuilder-' + str(metadata['runId']) + '-' + str(metadata.get('runAttempt', 1)))
         need(archived['name'] == artifact_name and not archived['expired'] and
              archived.get('digest') == 'sha256:' + metadata['artifactSha256'], 'Accepted workflow artifact digest differs')
-        need(subprocess.check_output(['git', 'show', TAG + ':release-metadata.json'], cwd=ROOT) ==
+        need(subprocess.check_output(['git', 'show', tag + ':release-metadata.json'], cwd=ROOT) ==
              (bundle / 'release-metadata.json').read_bytes(), 'Source-free tag raw metadata differs')
-        need(set(subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', TAG], cwd=ROOT, text=True).splitlines()) ==
+        need(set(subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', tag], cwd=ROOT, text=True).splitlines()) ==
              {'README.md', 'release-metadata.json'}, 'Source-free release tag contains unapproved files')
         # GitHub's by-tag endpoint excludes draft releases. Publication-only
         # routing stays separate from the immutable source-free tag metadata.
@@ -147,7 +153,7 @@ def main():
         release_path = 'releases/' + str(release_id)
         release = api(release_path)
         state['releaseId'] = release_id
-        need(release['id'] == release_id and release['tag_name'] == TAG and release['draft'],
+        need(release['id'] == release_id and release['tag_name'] == tag and release['draft'],
              'Target is not the intended draft release')
         existing = {entry['name']: entry for entry in release['assets']}
         need(set(existing) <= set(local), 'Draft contains unapproved asset names')
@@ -160,12 +166,12 @@ def main():
             else:
                 pending.append(out / name)
         if pending:
-            gh(['release', 'upload', TAG, *pending, '--repo', REPOSITORY], raw=True)
+            gh(['release', 'upload', tag, *pending, '--repo', REPOSITORY], raw=True)
         state['remoteAssetsBeforePublication'] = verify_remote(api(release_path), local)
-        gh(['release', 'edit', TAG, '--draft=false', '--latest', '--repo', REPOSITORY,
+        gh(['release', 'edit', tag, '--draft=false', '--latest', '--repo', REPOSITORY,
             '--notes-file', bundle / 'release-notes.md'], raw=True)
         published = api(release_path)
-        need(published['id'] == release_id and published['tag_name'] == TAG and not published['draft'],
+        need(published['id'] == release_id and published['tag_name'] == tag and not published['draft'],
              'Release publication state differs')
         state['remoteAssets'] = verify_remote(published, local)
         state['releaseUrl'] = published['html_url']

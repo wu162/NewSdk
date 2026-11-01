@@ -17,7 +17,9 @@ namespace NewModCompiler.Application
         public static string Prepare(string manifest,BuildRequest request,string workDir,CancellationToken cancellation)
         {
             cancellation.ThrowIfCancellationRequested();
-            return Prepare(manifest,request.SdkRoot,workDir,cancellation,ResolveReferences(request,true,cancellation));
+            ReferenceInputs inputs=ResolveReferences(request,true,cancellation);
+            try {return Prepare(manifest,request.SdkRoot,workDir,cancellation,inputs);}
+            finally {if(inputs.Lease!=null)inputs.Lease.Dispose();}
         }
         static string Prepare(string manifest,string sdkRoot,string workDir,CancellationToken cancellation,ReferenceInputs inputs)
         {
@@ -57,7 +59,7 @@ namespace NewModCompiler.Application
             }
             finally {for(int i=guards.Count-1;i>=0;i--)guards[i].Dispose();}
         }
-        sealed class ReferenceInputs {public string BuiltMods,HashReference,World;public List<string> Files;public WorldbuilderPayload Payload;}
+        sealed class ReferenceInputs {public string BuiltMods,HashReference,World;public List<string> Files;public WorldbuilderPayload Payload;public IDisposable Lease;}
         public static void ValidateReferences(string sdkRoot) {ResolveReferences(Path.GetFullPath(sdkRoot));}
         public static void ValidateReferences(BuildRequest request) {ResolveReferences(request,false,CancellationToken.None);}
         static ReferenceInputs ResolveReferences(BuildRequest request,bool extract,CancellationToken cancellation)
@@ -74,9 +76,15 @@ namespace NewModCompiler.Application
             if(missing.Length!=0)throw new BuildFailure(ExitCode.Environment,"PACKAGE_NEUTRAL_REFERENCE_MISSING","Neutral repair requires SDK reference files: "+string.Join(", ",missing));
             string archive=GameWorldbuilderData.FindArchive(request.GameRoot);
             if(!extract) {GameWorldbuilderData.Validate(archive);return null;}
-            string world=GameWorldbuilderData.Prepare(request,archive,cancellation);
-            string hash=Path.Combine(built,"sagexml","Worldbuilder.manifest");
-            return ResolveReferences(sdk,world,File.Exists(hash)?hash:world);
+            IDisposable lease=GameWorldbuilderData.Acquire(request,cancellation);
+            try {
+                string world=GameWorldbuilderData.PrepareLocked(request,archive,cancellation);
+                string hash=Path.Combine(built,"sagexml","Worldbuilder.manifest");
+                ReferenceInputs inputs=ResolveReferences(sdk,world,File.Exists(hash)?hash:world);
+                inputs.Lease=lease;
+                return inputs;
+            }
+            catch {lease.Dispose();throw;}
         }
         static ReferenceInputs ResolveReferences(string sdkRoot) {
             string builtMods=Path.Combine(sdkRoot,"builtmods"),sage=Path.Combine(builtMods,"sagexml");

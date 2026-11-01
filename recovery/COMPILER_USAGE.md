@@ -150,7 +150,8 @@ SDK 和输出路径可由项目提供；BIG `build`/`plan` 仍须每次在命令
 修改现有 `<configuration>` 内的 `appSettings`，保留其 `startup` 节点。优先级为命令行 > MOD 项目 JSON > EXE 配置 > false；例如 `--fix-neutral-assets=false` 可临时关闭配置中启用的修复。BIG 仍要求命令行显式传入 `--mod-version`。
 
 启用后，缺少完整 Worldbuilder 参考流时按老 SDK 方式查询注册表游戏安装目录，自动读取 `Data/WBData_12.big`。
-该文件由 SDK 地编安装到游戏目录，普通游戏不保证自带。提取结果进入 `SDK/SuperCompilerCache/<ModKey>/neutral-worldbuilder/`，游戏和 SDK 输入保持只读；后续构建复用缓存。
+该文件由 SDK 地编安装到游戏目录，普通游戏不保证自带。提取结果进入 `SDK/SuperCompilerCache/shared/neutral-worldbuilder/`，同一SDK下的所有Mod共用一份，游戏和SDK输入保持只读；后续构建复用缓存。
+首次使用时会迁入当前Mod的有效旧地编缓存；共享副本已存在时会清理当前Mod的同来源有效旧副本。其它Mod遗留副本在它们下次使用时处理，不扫描删除其它分区。
 完整的已有参考四流或分块包继续兼容，日常使用无需另下载500MB参考包。
 
 便携游戏或注册表未登记时，可在 CLI 使用 `--game-root C:\Games\RedAlert3`，或在 MOD JSON / EXE appSettings 中设置 `game-root`。

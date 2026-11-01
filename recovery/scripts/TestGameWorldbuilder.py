@@ -15,6 +15,7 @@ import shutil
 import struct
 import subprocess
 import tempfile
+import time
 import traceback
 import xml.etree.ElementTree as ET
 import zipfile
@@ -177,13 +178,100 @@ def package_and_deploy(product, mode, game, expected, work, out, source_commit):
         need(file.read_bytes() == expected[file.suffix], 'Independent ZIP game-BIG build differs from accepted raw package')
         artifacts.append(identity(file))
     need(len(artifacts) == 2, 'Independent ZIP did not publish BIG/SKUDEF')
+    extracted = list((sdk / 'SuperCompilerCache').rglob('Worldbuilder.bin'))
+    need(extracted == [sdk / 'SuperCompilerCache/shared/neutral-worldbuilder/Worldbuilder.bin'],
+         'Independent ZIP did not use exactly one SDK shared WorldBuilder payload')
     shutil.copyfile(destination / 'build-report.json', case / 'build-report.json')
     result = {**identity(archive), 'configuration': mode, 'sourceCommit': source_commit,
               'runtimeFiles': [{'name': name, 'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()} for name, data in files],
               'independentZipDeployment': {'succeeded': True, 'coldGameExtraction': True,
-                  'exactAcceptedRawOutputs': True, 'artifacts': artifacts}}
+                  'sharedWorldbuilderCache': True, 'exactAcceptedRawOutputs': True, 'artifacts': artifacts}}
     shutil.rmtree(deployment)
     return result
+
+
+def check_shared_mods(runtime, sdk, first_mod, game, work, out, expected):
+    """Two ordinary MOD partitions consume one shared extraction, including cold overlap."""
+    second_mod = work / 'second/NeutralWbProbe'
+    shutil.copytree(first_mod, second_mod)
+    second_before = input_snapshot(second_mod / 'Data')
+    cache = sdk / 'SuperCompilerCache/shared/neutral-worldbuilder'
+    cache_before = metadata_snapshot(cache)
+
+    def command(mod, destination, loose=False):
+        arguments = [runtime / 'NewModCompiler.exe', 'build', '--mod', mod, '--sdk-root', sdk,
+                     '--game-root', game, '--out', destination, '--jobs', '1', '--include-additional=false']
+        if loose:
+            arguments += ['--fix-neutral-assets=false', '--package-format', 'loose']
+        else:
+            arguments += ['--fix-neutral-assets=true', '--package-format', 'big', '--mod-version', '1.0']
+        return list(map(str, arguments))
+
+    def accepted(destination, case):
+        report_path = destination / 'build-report.json'
+        report = json.loads(report_path.read_text(encoding='utf-8-sig'))
+        need(report['exitCode'] == 0 and not report['externalTools'] and len(report['artifacts']) == 2,
+             'Shared-cache MOD build did not publish an in-process BIG/SKUDEF pair')
+        artifacts = []
+        archived = case / 'artifacts'
+        archived.mkdir()
+        for entry in report['artifacts']:
+            path = Path(entry['Path'])
+            need(path.read_bytes() == expected[path.suffix], 'Shared-cache MOD output differs from original raw package')
+            shutil.copyfile(path, archived / path.name)
+            artifacts.append(identity(path))
+        shutil.copyfile(report_path, case / 'build-report.json')
+        return artifacts
+
+    # Warm each MOD's normal compilation partition with neutral repair disabled.
+    # The second MOD keeps the same basename so its BIG and SKUDEF bytes are directly comparable.
+    for number, mod in enumerate((first_mod, second_mod)):
+        run(command(mod, work / ('shared-warm-' + str(number)), True), runtime,
+            out / ('shared-warm-' + str(number)))
+    second_destination, second_case = work / 'second-hot', out / 'second-mod-shared-hit'
+    run(command(second_mod, second_destination), runtime, second_case)
+    second_artifacts = accepted(second_destination, second_case)
+    need(metadata_snapshot(cache) == cache_before, 'A second MOD rewrote shared extraction bytes/mtime')
+    need(list((sdk / 'SuperCompilerCache').rglob('Worldbuilder.bin')) == [cache / 'Worldbuilder.bin'],
+         'A second MOD created another WorldBuilder payload copy')
+
+    # Only this disposable SDK's generated data is removed. The two warm MOD
+    # processes then overlap while the shared extraction starts from absent.
+    shutil.rmtree(cache)
+    processes, results = [], []
+    try:
+        for number, mod in enumerate((first_mod, second_mod)):
+            case = out / ('concurrent-shared-' + str(number))
+            case.mkdir()
+            destination = work / ('concurrent-out-' + str(number))
+            arguments = command(mod, destination)
+            stdout, stderr = (case / 'stdout.log').open('wb'), (case / 'stderr.log').open('wb')
+            try:
+                if processes:
+                    need(processes[0][0].poll() is None, 'First MOD exited before concurrent MOD launch')
+                started = time.perf_counter()
+                process = subprocess.Popen(arguments, cwd=runtime, stdout=stdout, stderr=stderr)
+            finally:
+                stdout.close(); stderr.close()
+            processes.append((process, destination, case, arguments, started))
+        need(all(p.poll() is None for p, *_ in processes), 'Two MOD processes did not overlap')
+        for process, destination, case, arguments, started in processes:
+            need(process.wait(timeout=180) == 0, 'Concurrent shared WorldBuilder build failed')
+            artifacts = accepted(destination, case)
+            results.append({'processId': process.pid, 'exitCode': process.returncode, 'arguments': arguments[1:],
+                            'wallSeconds': time.perf_counter() - started, 'artifacts': artifacts})
+    finally:
+        for process, *_ in processes:
+            if process.poll() is None:
+                process.kill(); process.wait()
+    need(list((sdk / 'SuperCompilerCache').rglob('Worldbuilder.bin')) == [cache / 'Worldbuilder.bin'],
+         'Concurrent MODs left multiple WorldBuilder payload copies')
+    need(len(list(cache.glob('Worldbuilder.*'))) == 4 and (cache / 'source.json').is_file(),
+         'Concurrent extraction did not publish one complete shared quartet')
+    need(input_snapshot(second_mod / 'Data') == second_before, 'Shared extraction changed second MOD source')
+    return {'sharedCacheAcrossMods': True, 'concurrentSharedExtraction': True,
+            'secondModHotMetadataUnchanged': True, 'payloadCopies': 1, 'jobsPerProcess': 1,
+            'secondModArtifacts': second_artifacts, 'concurrentProcesses': results}
 
 
 def main():
@@ -204,7 +292,7 @@ def main():
     state = {'schemaVersion': 1, 'succeeded': False, 'sourceCommit': commit,
              'runId': os.environ.get('GITHUB_RUN_ID'), 'runAttempt': os.environ.get('GITHUB_RUN_ATTEMPT'),
              'modes': [], 'packages': [],
-             'scope': 'Debug/Release actual two-asset MOD; game-layout official BIG extraction, CLI/project/appSettings precedence, both original registry views, extraction cold/hot/failed retry, unchanged inputs, original HashFix/Resolver/LoD/MakeBig raw differential and independent three-file ZIP cold game extraction. No full MOD or in-game acceptance.'}
+             'scope': 'Debug/Release actual two-asset MOD; game-layout official BIG extraction, CLI/project/appSettings precedence, both original registry views, extraction cold/hot/failed retry, two MODs sharing one SDK extraction and overlapping cold extraction, unchanged inputs, original HashFix/Resolver/LoD/MakeBig raw differential and independent three-file ZIP cold shared extraction. No full MOD or in-game acceptance.'}
     work = Path(tempfile.mkdtemp(prefix='gwb-', dir=Path(os.environ['RUNNER_TEMP']).resolve().anchor))
     try:
         game, game_identity = create_game(work)
@@ -274,7 +362,7 @@ def main():
             cold_big = next(p for p in cold if p.suffix == '.big')
             validate(cold_big, original['expected'])
             expected_packages = {p.suffix: p.read_bytes() for p in cold}
-            cache = next((sdk / 'SuperCompilerCache').glob('*/neutral-worldbuilder'))
+            cache = sdk / 'SuperCompilerCache/shared/neutral-worldbuilder'
             cache_before = metadata_snapshot(cache)
             need(len(list(cache.glob('Worldbuilder.*'))) == 4 and (cache / 'source.json').is_file(),
                  'First game extraction did not create exactly four cached streams and source metadata')
@@ -305,6 +393,10 @@ def main():
             files, _ = cli('restored-game-retry', destination=retry)
             need(all(p.read_bytes() == expected_packages[p.suffix] for p in files), 'Restored game BIG retry raw package differs')
             need(metadata_snapshot(cache) == cache_before, 'Unchanged restored game BIG rewrote extraction cache')
+            shared = check_shared_mods(runtime, sdk, mod, game, mode_work, out / mode, expected_packages)
+            row['sharedCache'] = shared
+            row['sharedCacheAcrossMods'] = shared['sharedCacheAcrossMods']
+            row['concurrentSharedExtraction'] = shared['concurrentSharedExtraction']
             for extension, expected_stream in game_identity['officialStreams'].items():
                 cached = cache / ('Worldbuilder' + extension)
                 need(cached.stat().st_size == expected_stream['bytes'] and digest(cached) == expected_stream['sha256'],

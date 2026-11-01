@@ -10,7 +10,7 @@ using Microsoft.Win32;
 namespace NewModCompiler.Application
 {
     // Original ModAssetResolver: Install Dir -> Data/WBData_12.big. Extraction
-    // stays in the current MOD's compiler cache instead of writing SDK inputs.
+    // stays in one SDK-wide reference cache instead of writing SDK inputs.
     public static class GameWorldbuilderData
     {
         static readonly string[] Extensions = {".manifest", ".bin", ".imp", ".relo"};
@@ -66,15 +66,47 @@ namespace NewModCompiler.Application
 
         public static string Prepare(BuildRequest request, string archive, CancellationToken cancellation)
         {
+            using (Acquire(request, cancellation)) return PrepareLocked(request, archive, cancellation);
+        }
+
+        internal static IDisposable Acquire(BuildRequest request, CancellationToken cancellation)
+        {
             cancellation.ThrowIfCancellationRequested();
             CacheLayout layout = CacheLayout.ForRequest(request);
             if (layout == null) throw new ArgumentException("Game WorldBuilder extraction requires a MOD build request.");
-            string cache = Path.Combine(layout.CacheRoot, "neutral-worldbuilder");
+            layout.PrepareSharedReferenceDirectory(layout.SharedReferences);
+            string path = Path.Combine(layout.SharedReferences, "neutral-worldbuilder.lock");
+            while (true) {
+                cancellation.ThrowIfCancellationRequested();
+                try {return new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);}
+                catch (IOException error) {
+                    int code = error.HResult & 0xffff;
+                    if (code != 32 && code != 33 && code != 11) throw;
+                    cancellation.WaitHandle.WaitOne(50);
+                }
+            }
+        }
+
+        // Caller holds the shared lease until the reference consumer finishes.
+        internal static string PrepareLocked(BuildRequest request, string archive, CancellationToken cancellation)
+        {
+            cancellation.ThrowIfCancellationRequested();
+            CacheLayout layout = CacheLayout.ForRequest(request);
+            if (layout == null) throw new ArgumentException("Game WorldBuilder extraction requires a MOD build request.");
+            string cache = Path.Combine(layout.SharedReferences, "neutral-worldbuilder");
+            archive = Path.GetFullPath(archive);
             using (var input = OpenArchive(archive)) {
                 long modified = File.GetLastWriteTimeUtc(archive).Ticks;
-                if (Reusable(cache, archive, input.Length, modified)) return Path.Combine(cache, "Worldbuilder.manifest");
+                string legacy = Path.Combine(layout.CacheRoot, "neutral-worldbuilder");
+                if (Reusable(cache, archive, input.Length, modified)) {
+                    if (Reusable(legacy, archive, input.Length, modified)) Directory.Delete(legacy, true);
+                    return Path.Combine(cache, "Worldbuilder.manifest");
+                }
+                if (Reusable(legacy, archive, input.Length, modified)) {
+                    Install(cache, legacy);
+                    return Path.Combine(cache, "Worldbuilder.manifest");
+                }
                 var members = ReadMembers(input);
-                layout.PrepareDirectory(layout.CacheRoot);
                 string staging = cache + ".import-" + Guid.NewGuid().ToString("N");
                 Directory.CreateDirectory(staging);
                 try {
@@ -91,16 +123,21 @@ namespace NewModCompiler.Application
                     cancellation.ThrowIfCancellationRequested();
                     var receipt = new Receipt {schemaVersion = 1, sourcePath = archive, sourceBytes = input.Length, sourceModifiedUtcTicks = modified, files = files.ToArray()};
                     File.WriteAllText(Path.Combine(staging, "source.json"), new JavaScriptSerializer().Serialize(receipt));
-                    string previous = cache + ".previous-" + Guid.NewGuid().ToString("N");
-                    bool moved = Directory.Exists(cache);
-                    if (moved) Directory.Move(cache, previous);
-                    try {Directory.Move(staging, cache);}
-                    catch {if (moved) Directory.Move(previous, cache);throw;}
-                    if (moved) Directory.Delete(previous, true);
+                    Install(cache, staging);
                     return Path.Combine(cache, "Worldbuilder.manifest");
                 }
                 finally {if (Directory.Exists(staging)) Directory.Delete(staging, true);}
             }
+        }
+
+        static void Install(string cache, string source)
+        {
+            string previous = cache + ".previous-" + Guid.NewGuid().ToString("N");
+            bool moved = Directory.Exists(cache);
+            if (moved) Directory.Move(cache, previous);
+            try {Directory.Move(source, cache);}
+            catch {if (moved) Directory.Move(previous, cache);throw;}
+            if (moved) Directory.Delete(previous, true);
         }
 
         static bool Reusable(string cache, string archive, long size, long modified)
@@ -111,7 +148,7 @@ namespace NewModCompiler.Application
             try {receipt = new JavaScriptSerializer().Deserialize<Receipt>(File.ReadAllText(path));}
             catch (ArgumentException) {return false;}
             catch (InvalidOperationException) {return false;}
-            if (receipt == null || receipt.schemaVersion != 1 || receipt.sourcePath != archive || receipt.sourceBytes != size || receipt.sourceModifiedUtcTicks != modified || receipt.files == null || receipt.files.Length != 4) return false;
+            if (receipt == null || receipt.schemaVersion != 1 || !string.Equals(receipt.sourcePath, archive, StringComparison.OrdinalIgnoreCase) || receipt.sourceBytes != size || receipt.sourceModifiedUtcTicks != modified || receipt.files == null || receipt.files.Length != 4) return false;
             for (int i = 0; i < Extensions.Length; i++) {
                 string expected = "Worldbuilder" + Extensions[i];CachedFile file = receipt.files[i];
                 if (file == null || file.name != expected) return false;
