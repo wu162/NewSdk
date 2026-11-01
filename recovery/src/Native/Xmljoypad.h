@@ -6,7 +6,7 @@
 
 namespace Recovered { namespace Native {
 struct XmljoypadNode {
-    std::string name, value;
+    std::string name, value, namespaceUri, assetNamespace;
     std::map<std::string, std::string> attributes;
     std::vector<XmljoypadNode> children;
 };

@@ -17,9 +17,9 @@ struct PayloadLayout { U32 id; unsigned size; };
 #include "XmljoypadLayouts.inc"
 
 const Node* Child(const Node& node, const char* name) {
-    const Node* result = nullptr;
-    for (const auto& child : node.children) if (child.name == name) result = &child;
-    return result;
+    for (const auto& child : node.children)
+        if (child.name == name && child.namespaceUri == node.namespaceUri) return &child;
+    return nullptr;
 }
 void Swap(void* target) {
     U32 value; std::memcpy(&value, target, 4);
@@ -67,12 +67,14 @@ struct Builder {
     template<class F> void List(const Node& node, const char* name, unsigned char* target,
                                 unsigned size, F marshal) {
         U32 count = 0;
-        for (const auto& child : node.children) if (child.name == name) ++count;
+        for (const auto& child : node.children)
+            if (child.name == name && child.namespaceUri == node.assetNamespace) ++count;
         Word(target, count);
         if (count) {
             auto items = static_cast<unsigned char*>(tracker.Push(reinterpret_cast<void**>(target + 4), size, count));
             unsigned i = 0;
-            for (const auto& child : node.children) if (child.name == name) marshal(child, items + size * i++);
+            for (const auto& child : node.children)
+                if (child.name == name && child.namespaceUri == node.assetNamespace) marshal(child, items + size * i++);
             tracker.Pop();
         }
     }
@@ -97,6 +99,7 @@ struct Builder {
             input.attributes[attr.first] = (attr.first == "Rule" || attr.first == "Alignment")
                 ? std::string(attr.second.c_str()) : attr.second;
         for (const auto& item : child->children) {
+            if (item.namespaceUri != child->assetNamespace) continue;
             if (item.name == "IncludeThing") input.includeThings.push_back(item.value);
             else if (item.name == "ExcludeThing") input.excludeThings.push_back(item.value);
         }

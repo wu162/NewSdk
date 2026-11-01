@@ -15,7 +15,7 @@ $out=(Resolve-Path $OutputDirectory).Path
 $work=Join-Path ([IO.Path]::GetTempPath()) ('compiler-xml-matrices-'+[Guid]::NewGuid().ToString('N'))
 $oracle=Join-Path $work 'original'
 New-Item -ItemType Directory -Force $work,$oracle|Out-Null
-$oldPipe=$env:XML_ORIGINAL_PIPE;$oldPath=$env:PATH
+$oldPipe=$env:XML_ORIGINAL_PIPE;$oldPath=$env:PATH;$oldJoypadFixtures=$env:NEWSdk_JOYPAD_FIXTURES
 $state=[ordered]@{schemaVersion=1;succeeded=$false;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='All 64 existing complete XML group matrices against EXE-owned recovered types, independent original oracle process; not production G3 single-process or SDK acceptance';groups=@();modes=@()}
 function Start-XmlProcess([string]$Exe,[string[]]$Arguments,[string]$Directory) {
     $info=[Diagnostics.ProcessStartInfo]::new($Exe)
@@ -70,6 +70,9 @@ try {
     if(!$state.runId){$state.runId='local-'+[Guid]::NewGuid().ToString('N')}
     & python recovery/scripts/PrepareCompilerXmlMatrices.py --output "$work/sources"
     if($LASTEXITCODE -ne 0){throw 'XML complete matrix binding adaptation failed'}
+    & python recovery/scripts/PrepareJoypadFixtures.py --output "$work/joypad-fixtures"
+    if($LASTEXITCODE -ne 0){throw 'Joypad complete matrix fixture generation failed'}
+    $env:NEWSdk_JOYPAD_FIXTURES=Join-Path $work 'joypad-fixtures/cases.json'
     $manifest=@(Get-Content "$work/sources/manifest.json" -Raw|ConvertFrom-Json)
     if($manifest.Count -ne 64){throw 'All 64 complete XML groups are required'}
     $state.groups=@($manifest|ForEach-Object{@{group=$_.group;inputs=$_.inputs}})
@@ -141,7 +144,7 @@ try {
     $state.status='passed all 64 complete group matrices in Debug and Release; SDK and G3 acceptance remain separate'
 } catch {$state.status='failed';$state.error=$_.Exception.Message;throw}
 finally {
-    $env:XML_ORIGINAL_PIPE=$oldPipe;$env:PATH=$oldPath
+    $env:XML_ORIGINAL_PIPE=$oldPipe;$env:PATH=$oldPath;$env:NEWSdk_JOYPAD_FIXTURES=$oldJoypadFixtures
     $state|ConvertTo-Json -Depth 12|Set-Content "$out/validation.json"
     Pop-Location
 }
