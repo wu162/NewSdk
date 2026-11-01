@@ -101,17 +101,17 @@ namespace NewModCompiler.Tests
                     var progress=new BuildProgressState(()=>events.ElapsedMilliseconds);
                     var console=new StringWriter();
                     using (var renderer=new ConsoleProgressRenderer(progress,console,true,()=>120,false)) {
-                    events.ConsoleOutput=renderer;
-                    // A backend can catch a listener exception and still return
-                    // successfully. Required sink failure remains session-fatal.
-                    if(failure=="swallowed") compiler.OnCompile=context=>{
-                        try { events.Emit("Diagnostic", "error", message:"controlled backend output failure", code:"TEST_SWALLOWED_OUTPUT"); }
-                        catch(BuildFailure e) { Check(e.ExitCode==ExitCode.Output,"Backend probe failure classification"); swallowed=true; }
-                    };
-                    Check(new BuildSession(request,compiler,events,progress:progress).Run(CancellationToken.None)==ExitCode.Output,"Late "+failure+" failure must fail output");
-                    Check(console.ToString().Contains("[失败] 编译失败") && !console.ToString().Contains("编译成功"),"Late "+failure+" console reported success before required output completed");
-                    string terminal=console.ToString(); renderer.Refresh();
-                    Check(console.ToString()==terminal && progress.Snapshot().Finished,"Late "+failure+" retained live progress");
+                        events.ConsoleOutput=renderer;
+                        // A backend can catch a listener exception and still return
+                        // successfully. Required sink failure remains session-fatal.
+                        if(failure=="swallowed") compiler.OnCompile=context=>{
+                            try { events.Emit("Diagnostic", "error", message:"controlled backend output failure", code:"TEST_SWALLOWED_OUTPUT"); }
+                            catch(BuildFailure e) { Check(e.ExitCode==ExitCode.Output,"Backend probe failure classification"); swallowed=true; }
+                        };
+                        Check(new BuildSession(request,compiler,events,progress:progress).Run(CancellationToken.None)==ExitCode.Output,"Late "+failure+" failure must fail output");
+                        Check(console.ToString().Contains("[失败] 编译失败") && !console.ToString().Contains("编译成功"),"Late "+failure+" console reported success before required output completed");
+                        string terminal=console.ToString(); renderer.Refresh();
+                        Check(console.ToString()==terminal && progress.Snapshot().Finished,"Late "+failure+" retained live progress");
                     }
                 }
                 if(failure=="swallowed") Check(swallowed,"Backend did not catch the required sink failure");

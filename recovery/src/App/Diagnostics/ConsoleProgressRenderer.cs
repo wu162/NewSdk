@@ -16,6 +16,7 @@ namespace NewModCompiler.Diagnostics
         readonly Timer timer;
         bool disposed, outputFailed;
         int lineCells;
+        long lastDrawMilliseconds=-1000;
         public ConsoleProgressRenderer(BuildProgressState state)
             : this(state,Console.Error,!Console.IsErrorRedirected,ConsoleWidth,true) { }
         internal ConsoleProgressRenderer(BuildProgressState state,TextWriter writer,bool interactive,Func<int> width,bool startTimer=true)
@@ -36,7 +37,8 @@ namespace NewModCompiler.Diagnostics
             lock(gate) {
                 if (disposed || outputFailed || !interactive) return;
                 BuildProgressSnapshot value=state.Snapshot();
-                if (!value.Finished && value.Stage!=null) Output(()=>Draw(Format(value,"进行",true)));
+                if (!value.Finished && value.Stage!=null && value.ElapsedMilliseconds-lastDrawMilliseconds>=1000)
+                    Output(()=>Draw(Format(value,"进行",true)));
             }
         }
         void OnBoundary(BuildProgressSnapshot value,string boundary,string status)
@@ -87,6 +89,9 @@ namespace NewModCompiler.Diagnostics
             if (previousCells>cells) writer.Write(new string(' ',previousCells-cells));
             lineCells=cells;
             writer.Flush();
+            // Timestamp after the write: queued callbacks following a slow
+            // terminal must still wait a full interval before another draw.
+            lastDrawMilliseconds=state.Snapshot().ElapsedMilliseconds;
         }
         void ClearLine()
         {

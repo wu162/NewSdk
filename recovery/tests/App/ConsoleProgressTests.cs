@@ -34,7 +34,7 @@ namespace NewModCompiler.Tests
                 Check(redirected.ToString()==before,"Work callbacks performed console output");
                 state.SetPhase("cache-save");renderer.Refresh();
                 Check(redirected.ToString()==before,"Redirected output included periodic/subphase refreshes");
-                elapsed=1250;state.CompleteStream("succeeded");
+                elapsed=1234;state.CompleteStream("succeeded");
                 Check(redirected.ToString().Contains("完成 8,000") && redirected.ToString().Contains("1/2"),"Completed stream omitted true counters or stream denominator");
                 state.StartStream("apt/UI");
                 Check(state.Snapshot().AssetsCompleted==0 && state.Snapshot().StreamsCompleted==1,"Stream counters did not reset independently of stream completion");
@@ -42,7 +42,7 @@ namespace NewModCompiler.Tests
                 Check(state.Snapshot().StreamsCompleted==1,"Failed stream counted as completed");
             }
             string text=redirected.ToString();
-            Check(!text.Contains("\r") && !text.Contains("%") && text.Contains("总耗时 1.3s"),"Redirected output contains CR/percentage or lacks final elapsed time");
+            Check(!text.Replace("\r\n","\n").Contains("\r") && !text.Contains("%") && text.Contains("总耗时 1.2s"),"Redirected output contains CR/percentage or lacks final elapsed time");
 
             elapsed=0;state=new BuildProgressState(()=>elapsed);
             var interactive=new StringWriter();
@@ -52,6 +52,10 @@ namespace NewModCompiler.Tests
                 Check(interactive.ToString()==text,"Interactive work callback wrote synchronously");
                 elapsed=1000;renderer.Refresh();
                 Check(interactive.ToString().Contains("完成 7") && interactive.ToString().Contains("XML 5"),"Periodic refresh did not show growing work");
+                text=interactive.ToString();state.RecordWork(1,1,1);renderer.Refresh();renderer.Refresh();
+                Check(interactive.ToString()==text,"Queued timer callbacks refreshed within one second");
+                elapsed=2000;renderer.Refresh();
+                Check(interactive.ToString().Length>text.Length && interactive.ToString().Contains("完成 8"),"One-second deadline hid later work");
                 renderer.WriteLine("[warning] visible warning");
                 text=interactive.ToString();int warning=text.IndexOf("[warning] visible warning",StringComparison.Ordinal);
                 Check(warning>0 && text.IndexOf("[进行]",warning,StringComparison.Ordinal)>warning,"Warning was not followed by restored progress");
