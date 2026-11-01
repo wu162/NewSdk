@@ -10,12 +10,14 @@ namespace NewModCompiler.Application
     public sealed class BuildSession
     {
         readonly BuildRequest request; readonly IStreamCompiler compiler; readonly EventDispatcher events; readonly IDependencyPlanner dependencyPlanner; readonly BuildProgressState progress;
+        readonly Func<string,IStreamCompiler> compilerFactory;
+        ContentBuildExecutor contentExecutor;
         readonly List<Artifact> artifacts = new List<Artifact>(); readonly List<object> stages = new List<object>();
         readonly List<object> diagnostics = new List<object>();
         BuildPlan plan; bool executed, acceptingCoreTrace; string activeStage, activeStream; long stageStarted; string providerIdentity;
         int errorCount, warningCount;
         IDisposable stagePerformance;
-        public BuildSession(BuildRequest request, IStreamCompiler compiler, EventDispatcher events, IDependencyPlanner dependencyPlanner = null, BuildProgressState progress = null) { this.request = request; this.compiler = compiler; this.events = events; this.dependencyPlanner = dependencyPlanner; this.progress = progress; }
+        public BuildSession(BuildRequest request, IStreamCompiler compiler, EventDispatcher events, IDependencyPlanner dependencyPlanner = null, BuildProgressState progress = null, Func<string,IStreamCompiler> compilerFactory = null) { this.request = request; this.compiler = compiler; this.events = events; this.dependencyPlanner = dependencyPlanner; this.progress = progress; this.compilerFactory=compilerFactory; }
         public ExitCode Run(CancellationToken cancellation)
         {
             if (executed) throw new InvalidOperationException("BuildSession can only be executed once."); executed = true; acceptingCoreTrace = true;
@@ -37,7 +39,7 @@ namespace NewModCompiler.Application
                 events.Emit("PlanResolved",payload:plan);
                 CompleteStage("succeeded",0);
                 if (request.Command == "build") {
-                    if (compiler == null) throw new BuildFailure(ExitCode.Environment,"BACKEND_NOT_INTEGRATED","This P2 application skeleton has no integrated compilation backend. No stream was compiled.");
+                    if (compiler == null && compilerFactory == null) throw new BuildFailure(ExitCode.Environment,"BACKEND_NOT_INTEGRATED","This P2 application skeleton has no integrated compilation backend. No stream was compiled.");
                     cancellation.ThrowIfCancellationRequested(); StartStage("compile");
                     DiagnosticDirectory.PrepareDirectory(published);
                     CacheLayout layout=CacheLayout.ForRequest(request);
@@ -47,6 +49,36 @@ namespace NewModCompiler.Application
                     layout.PrepareDirectory(layout.CacheRoot);
                     using (request.Performance.Measure("identity.load"))
                         request.FileIdentities=new FileHashCache(request.Performance);
+                    if(compilerFactory!=null) {
+#if NEWSdk_MONOLITHIC
+                        if(plan.Tasks.Length!=0) CoreStreamCompiler.PrepareRequest(request);
+#endif
+                        request.FreezeOptions();
+                        contentExecutor=new ContentBuildExecutor(compilerFactory);
+                        int completed=0;
+                        var produced=contentExecutor.Run(request,plan,layout,events.BuildId,cancellation,
+                            task=>{
+                                if(progress!=null) progress.StartStream(task.Id);
+                                events.Emit("StreamStarted",payload:new {input=task.InputPath,effectiveOptions=request.Options},streamId:task.Id,stageId:"compile");
+                            },
+                            (task,output)=>{
+                                string directory=layout.StreamDirectory(task);
+                                foreach(var artifact in output) ValidateArtifact(artifact,directory);
+                                if(progress!=null) progress.CompleteStream(task.Id,"succeeded");
+                                events.Emit("StreamCompleted",payload:new {status="succeeded",artifactCount=output.Count},streamId:task.Id,stageId:"compile");
+                                events.Emit("Progress",payload:new {completed=++completed,total=plan.Tasks.Length,unit="streams"},stageId:"compile");
+                            },
+                            (stream,source,type,message)=>RecordCoreTraceForStream(stream,source,type,message),
+                            (task,error)=>{
+                                string stream=task==null ? null : task.Id;
+                                if(stream!=null && progress!=null) progress.CompleteStream(stream,error is OperationCanceledException ? "cancelled" : "failed");
+                                if(stream!=null) events.Emit("StreamCompleted","error",new {status=error is OperationCanceledException ? "cancelled" : "failed",artifactCount=0},streamId:stream,stageId:"compile");
+                                Diagnostic("CONTENT_GROUP_FAILED",error.Message,streamId:stream,stageId:"compile");
+                                ExportExceptionDetails(error,stream,"compile");
+                            });
+                        artifacts.AddRange(produced);
+                        providerIdentity=contentExecutor.ProviderIdentity;
+                    } else {
                     using (request.Performance.Measure("backend.initialize")) compiler.Initialize(request);
                     providerIdentity=compiler.ProviderIdentity;
                     int completed = 0;
@@ -77,6 +109,7 @@ namespace NewModCompiler.Application
                         events.Emit("StreamCompleted",payload:new {status="succeeded",artifactCount=artifacts.FindAll(a => Paths.Contains(streamDirectory,a.Path)).Count},streamId:task.Id,stageId:"compile");
                         activeStream = null; request.Performance.StreamId=null;
                         events.Emit("Progress",payload:new {completed=++completed,total=plan.Tasks.Length,unit="streams"},stageId:"compile");
+                    }
                     }
                     CompleteStage("succeeded",artifacts.Count);
                 }
@@ -130,15 +163,16 @@ namespace NewModCompiler.Application
             var report = new Dictionary<string, object> {
                 {"schemaVersion","1.0"},{"buildId",events.BuildId},{"status",status},{"exitCode",(int)code},
                 {"requestArguments",request.Arguments},{"effectiveOptions",request.Options},{"selectedContent",request.Content},
-                {"inputRoots",compiler is IInputRootsCompiler ? ((IInputRootsCompiler)compiler).InputRootsReport : null},
+                {"inputRoots",contentExecutor!=null ? contentExecutor.InputRootsReport : compiler is IInputRootsCompiler ? ((IInputRootsCompiler)compiler).InputRootsReport : null},
                 {"plan",plan},{"stages",stages},{"diagnostics",diagnostics},{"diagnosticCounts",new {error=errorCount,warning=warningCount}},
                 {"loadedProviders",providerIdentity == null ? new string[0] : new [] {providerIdentity}},
-                {"externalTools",new string[0]},{"cache",cacheCompiler == null ? (object)new {status="NotImplemented",hits=0,misses=0} : cacheCompiler.CacheReport},
+                {"externalTools",new string[0]},{"cache",contentExecutor!=null ? ContentCacheReport.Merge(contentExecutor.CacheReports) : cacheCompiler == null ? (object)new {status="NotImplemented",hits=0,misses=0} : cacheCompiler.CacheReport},
                 {"elapsedMs",events.ElapsedMilliseconds},{"artifacts",artifacts},{"logPaths",new {events=request.EventsPath,report=request.ReportPath,text=request.LogPath}},
                 {"executionMode",request.Command == "plan" ? "PlanOnly" : "InProcess"},
                 {"publicationStatus",request.Command == "plan" ? "NoCompilationRequested" : generated ? "PublishedDirectory" : "NotPublished"},
                 {"publicationDirectory",request.Command == "plan" ? null : published}
             };
+            if(contentExecutor!=null) report["contentExecution"]=contentExecutor.Report;
             if (request.Performance.Enabled) report["performance"]=request.Performance.Snapshot();
             try { Reports.WriteAtomic(request.ReportPath,report); }
             catch (Exception error)
@@ -203,14 +237,19 @@ namespace NewModCompiler.Application
         public void RecordCoreTrace(string source, TraceEventType eventType, string message)
         {
             if (!acceptingCoreTrace) throw new InvalidOperationException("Core traces require an active build session.");
+            if(contentExecutor!=null && contentExecutor.QueueTrace(source,eventType,message)) return;
+            RecordCoreTraceForStream(activeStream,source,eventType,message);
+        }
+        void RecordCoreTraceForStream(string streamId,string source,TraceEventType eventType,string message)
+        {
             string level = eventType == TraceEventType.Critical || eventType == TraceEventType.Error ? "error" :
                 eventType == TraceEventType.Warning ? "warning" : eventType == TraceEventType.Verbose ? "debug" : "info";
             string code = level == "error" ? "CORE_TRACE_ERROR" : level == "warning" ? "CORE_TRACE_WARNING" : "CORE_TRACE";
             string type = eventType.ToString();
-            if (level == "error" || level == "warning") AddReportDiagnostic(code,message,level,activeStream,activeStage,source,type);
+            if (level == "error" || level == "warning") AddReportDiagnostic(code,message,level,streamId,activeStage,source,type);
             // Deliberately no catch: EventDispatcher marks the required output
             // failure and its Output exception must reach the build outcome.
-            events.Emit("Diagnostic",level,payload:new {source=source,traceEventType=type},message:message,code:code,streamId:activeStream,stageId:activeStage);
+            events.Emit("Diagnostic",level,payload:new {source=source,traceEventType=type},message:message,code:code,streamId:streamId,stageId:activeStage);
         }
         void AddReportDiagnostic(string code,string message,string level,string streamId,string stageId,string source,string traceEventType)
         {

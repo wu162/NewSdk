@@ -14,7 +14,7 @@ namespace BinaryAssetBuilder.Core;
 
 public class DocumentProcessor
 {
-	private class TypeCompileData
+	internal class TypeCompileData
 	{
 		public TimeSpan TotalProcessTime = new TimeSpan(0L);
 
@@ -54,7 +54,7 @@ public class DocumentProcessor
 
 	private static Tracer _Tracer = Tracer.GetTracer("DocumentProcessor", "Provides XML processing functionality");
 
-	private static InstanceHandleSet _MissingReferences = new InstanceHandleSet();
+	private static InstanceHandleSet _MissingReferences { get => CurrentState._MissingReferences; set => CurrentState._MissingReferences = value; }
 
 	private List2<string> _DocumentStack = new List2<string>();
 
@@ -78,23 +78,23 @@ public class DocumentProcessor
 
 	private int _InstancesCompiledCount;
 
-	private static TimeSpan _TotalProcInstancesTime = new TimeSpan(0L);
+	private static TimeSpan _TotalProcInstancesTime { get => CurrentState._TotalProcInstancesTime; set => CurrentState._TotalProcInstancesTime = value; }
 
-	private static TimeSpan _TotalPrepareOutputTime = new TimeSpan(0L);
+	private static TimeSpan _TotalPrepareOutputTime { get => CurrentState._TotalPrepareOutputTime; set => CurrentState._TotalPrepareOutputTime = value; }
 
-	private static TimeSpan _TotalPrepareSourceTime = new TimeSpan(0L);
+	private static TimeSpan _TotalPrepareSourceTime { get => CurrentState._TotalPrepareSourceTime; set => CurrentState._TotalPrepareSourceTime = value; }
 
-	private static TimeSpan _TotalPostProcTime = new TimeSpan(0L);
+	private static TimeSpan _TotalPostProcTime { get => CurrentState._TotalPostProcTime; set => CurrentState._TotalPostProcTime = value; }
 
-	private static TimeSpan _TotalValidateTime = new TimeSpan(0L);
+	private static TimeSpan _TotalValidateTime { get => CurrentState._TotalValidateTime; set => CurrentState._TotalValidateTime = value; }
 
-	private static IDictionary<uint, TypeCompileData> _TypeProcessingTime = new SortedDictionary<uint, TypeCompileData>();
+	private static IDictionary<uint, TypeCompileData> _TypeProcessingTime { get => CurrentState._TypeProcessingTime; set => CurrentState._TypeProcessingTime = value; }
 
 	private long _MaxTotalMemory;
 
-	private static Stack<string> _CurrentDocumentStack = new Stack<string>();
+	private static Stack<string> _CurrentDocumentStack { get => CurrentState._CurrentDocumentStack; set => CurrentState._CurrentDocumentStack = value; }
 
-	private static Stack<string> _CurrentStreamStack = new Stack<string>();
+	private static Stack<string> _CurrentStreamStack { get => CurrentState._CurrentStreamStack; set => CurrentState._CurrentStreamStack = value; }
 
 	private bool _CompilingProject;
 
@@ -298,11 +298,26 @@ public class DocumentProcessor
 
 	public static string CurrentDocument => _CurrentDocumentStack.Peek();
 
-    private static readonly object StateScopeGate = new object();
-    private static ProcessorStateScope _CurrentStateScope;
+    internal sealed class State
+    {
+        internal readonly object Gate = new object();
+        internal ProcessorStateScope Scope;
+        internal InstanceHandleSet _MissingReferences = new InstanceHandleSet();
+        internal TimeSpan _TotalProcInstancesTime = TimeSpan.Zero;
+        internal TimeSpan _TotalPrepareOutputTime = TimeSpan.Zero;
+        internal TimeSpan _TotalPrepareSourceTime = TimeSpan.Zero;
+        internal TimeSpan _TotalPostProcTime = TimeSpan.Zero;
+        internal TimeSpan _TotalValidateTime = TimeSpan.Zero;
+        internal IDictionary<uint, TypeCompileData> _TypeProcessingTime = new SortedDictionary<uint, TypeCompileData>();
+        internal Stack<string> _CurrentDocumentStack = new Stack<string>();
+        internal Stack<string> _CurrentStreamStack = new Stack<string>();
+    }
+    private static State CurrentState => CompilationContext.Current.Documents;
 
-    // Own the legacy process-wide traversal/diagnostic state sequentially.
-    // This guards scope ownership, not arbitrary concurrent legacy Core calls.
+    private static object StateScopeGate => CurrentState.Gate;
+    private static ProcessorStateScope _CurrentStateScope { get => CurrentState.Scope; set => CurrentState.Scope = value; }
+
+    // Own traversal and diagnostic frames within this logical Core context.
     public static IDisposable BeginStateScope()
     {
         // Prepare every allocation before changing shared state so allocation
@@ -330,9 +345,11 @@ public class DocumentProcessor
         }
     }
 
-    private sealed class ProcessorStateScope : IDisposable
+    internal sealed class ProcessorStateScope : IDisposable
+
     {
         internal readonly int ThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
+        private readonly State state = CurrentState;
         private readonly ProcessorStateScope parent = _CurrentStateScope;
         private readonly InstanceHandleSet missing = _MissingReferences;
         private readonly Stack<string> documents = _CurrentDocumentStack;
@@ -350,7 +367,7 @@ public class DocumentProcessor
             lock (StateScopeGate)
             {
                 if (disposed) return;
-                if (ThreadId != System.Threading.Thread.CurrentThread.ManagedThreadId)
+                if (!ReferenceEquals(state, CurrentState) || ThreadId != System.Threading.Thread.CurrentThread.ManagedThreadId)
                     throw new InvalidOperationException("Document processor state scopes may only be disposed on their owning thread.");
                 if (!Object.ReferenceEquals(_CurrentStateScope, this))
                     throw new InvalidOperationException("Document processor state scopes must be disposed in reverse creation order.");

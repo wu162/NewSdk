@@ -10,7 +10,6 @@ using System.Threading;
 using System.Xml;
 using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
-using EALA.Metrics;
 using NewModCompiler.Diagnostics;
 
 namespace NewModCompiler.Application
@@ -27,8 +26,8 @@ namespace NewModCompiler.Application
     // separate gates; this type never launches BAB, a worker, or another EXE.
     public sealed class CoreStreamCompiler : IStreamCompiler, IBuildCacheCompiler, IInputRootsCompiler
     {
-        static readonly object LeaseGate = new object();
-        static CoreStreamCompiler leaseOwner;
+        readonly object instanceGate = new object();
+        readonly CompilationContext compilationContext = new CompilationContext();
         readonly TraceWriteHandler traceWriter;
         readonly BuildProgressState progress;
         BuildRequest request;
@@ -43,6 +42,15 @@ namespace NewModCompiler.Application
         int partialSessionsSaved;
         LegacyCacheStore legacyStore;
         CacheLayout cacheLayout;
+        ContentCacheLayout contentCache;
+        string contentGroup, activeStreamId;
+        sealed class ContentState
+        {
+            internal LegacyCacheStore Store;
+            internal SessionCache Session;
+        }
+        readonly Dictionary<string, ContentState> contentStates = new Dictionary<string, ContentState>(StringComparer.Ordinal);
+        ContentState contentState;
         CacheLock ownedCacheLock;
         SessionCache savedSessionCache;
         int buildCacheHits, buildCacheMisses, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile;
@@ -52,20 +60,23 @@ namespace NewModCompiler.Application
         VerifierPluginRegistry verifiers;
         PluginDescriptor[] verifierDescriptors;
         public CoreStreamCompiler(TraceWriteHandler traceWriter = null, BuildProgressState progress = null) { this.traceWriter = traceWriter; this.progress = progress; }
-        void ProgressPhase(string id) { if (progress != null) progress.SetPhase(id); }
+        void ProgressPhase(string id) { if (progress != null && activeStreamId != null) progress.SetPhase(activeStreamId, id); }
         public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Win32.LegacySessionCache" : buildCacheEnabled ? "NewModCompiler.Core.Win32.LegacyBuildCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
         public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionCache" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, linkedStreamsRestored = linkedStreamsRestored, fileHashReads = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reads, fileHashReuses = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reuses, fileHashBytesRead = request == null || request.FileIdentities == null ? 0L : request.FileIdentities.BytesRead, textureCache = buildCacheEnabled || sessionCacheEnabled, compressedSessionCache, partialSessionCache, freezeSessionCache, alwaysTouchCache, partialSessionsSaved, parallel = parallelMetrics == null ? null : parallelMetrics.Snapshot(request), sessionCacheDirectory = legacyStore == null ? null : legacyStore.SessionRoot }; } }
         int linkedStreamsRestored;
 
         public void Initialize(BuildRequest request)
         {
+            using (compilationContext.Enter()) InitializeCore(request);
+        }
+
+        void InitializeCore(BuildRequest request)
+        {
             if (request == null) throw new ArgumentNullException("request");
-            lock (LeaseGate)
+            lock (instanceGate)
             {
                 if (disposed) throw new ObjectDisposedException("CoreStreamCompiler");
                 if (initialized || initializing) throw new InvalidOperationException("The backend is already initialized or initializing.");
-                if (leaseOwner != null) throw new BuildFailure(ExitCode.Environment, "CORE_SESSION_BUSY", "Only one in-process Core session may own the process state.");
-                leaseOwner = this;
                 initializing = true;
                 threadId = Thread.CurrentThread.ManagedThreadId;
             }
@@ -84,25 +95,22 @@ namespace NewModCompiler.Application
                 // BuildSession owns this lock through packaging/export. Standalone
                 // Core hosts acquire the same partition lock for their lifetime.
                 if (request.BuildCacheLock == null) ownedCacheLock = CacheLock.Acquire(cacheLayout.CacheRoot);
+                if (request.InputPreparation == null || request.InputPreparation.Signature != InputSignature(request)) PrepareRequest(request);
                 inputPreparation = request.InputPreparation;
-                if (inputPreparation != null && inputPreparation.Signature == InputSignature(request))
-                    configurationSettings = inputPreparation.Configuration;
-                else { inputPreparation = null; LoadSdkConfiguration(); }
-                Settings configured = ReadSettings();
-                EffectiveOption configuredCache;
-                if (!request.Options.TryGetValue("bc", out configuredCache) || configuredCache.Source == "default" || configuredCache.Source == "sdkConfig")
-                {
-                    buildCacheEnabled = configured.BuildCache;
-                    request.Options["bc"] = new EffectiveOption { Value = buildCacheEnabled ? "true" : "false", Source = "sdkConfig" };
-                }
+                configurationSettings = inputPreparation.Configuration;
+                contentGroup = request.ContentGroup;
+                if (contentGroup != null) contentCache = cacheLayout.ForContent(contentGroup);
+                // The coordinator has resolved effective SDK options before any
+                // owners start; Initialize reads the frozen request only.
+                ValidateOptions(request);
                 if (request.FileIdentities == null) request.FileIdentities = new FileHashCache(request.Performance);
                 this.request = request;
-                lock (LeaseGate) { initialized = true; initializing = false; }
+                lock (instanceGate) { initialized = true; initializing = false; }
             }
             catch (Exception error)
             {
                 try { if (ownedCacheLock != null) { ownedCacheLock.Dispose(); ownedCacheLock = null; } }
-                finally { lock (LeaseGate) { initializing = false; ReleaseLease(); } }
+                finally { lock (instanceGate) { initializing = false; } }
                 if (error is BuildFailure || error is OperationCanceledException) throw;
                 throw Failure(ExitCode.Environment, "CORE_INITIALIZE_FAILED", error);
             }
@@ -120,26 +128,21 @@ namespace NewModCompiler.Application
         }
 
         // Read-only environment initialization, not a synthetic MOD build. The
-        // unique hash namespace is never created or finalized. Keep the lease
-        // until every scope and provider has restored the caller's process state.
+        // unique hash namespace is never created or finalized. The isolated
+        // context restores the caller's logical state after all providers close.
         public static void ProbeEnvironment(string sdkDirectory)
         {
             var probe = new CoreStreamCompiler();
-            lock (LeaseGate)
-            {
-                if (leaseOwner != null) throw new BuildFailure(ExitCode.Environment, "CORE_SESSION_BUSY", "A Core session already owns the process state.");
-                leaseOwner = probe;
-                probe.threadId = Thread.CurrentThread.ManagedThreadId;
-                probe.initializing = true;
-            }
+            probe.threadId = Thread.CurrentThread.ManagedThreadId;
+            probe.initializing = true;
+            IDisposable contextScope = probe.compilationContext.Enter();
             Settings previousSettings = null;
-            bool previousMetrics = false, capturedState = false;
+            bool capturedState = false;
             IDisposable tracing = null, state = null, report = null, hashes = null;
             Exception failure = null;
             try
             {
                 previousSettings = Settings.Current;
-                previousMetrics = MetricManager.Enabled;
                 capturedState = true;
                 probe.sdkRoot = Path.GetFullPath(sdkDirectory);
                 probe.LoadSdkConfiguration();
@@ -160,7 +163,6 @@ namespace NewModCompiler.Application
                 string namespaceOnly = Path.Combine(Path.GetTempPath(), "NewModCompiler-doctor-" + Guid.NewGuid().ToString("N"));
                 settings.SessionCacheDirectory = namespaceOnly;
                 hashes = HashProvider.BeginStringHashScope(namespaceOnly);
-                MetricManager.Enabled = false;
                 new SchemaSet(settings.StableSort);
                 ExpressionEvaluatorWrapper.LoadAssembly();
                 XIncludingReaderWrapper.LoadAssembly();
@@ -175,8 +177,9 @@ namespace NewModCompiler.Application
                 try { probe.DisposeProviders(); } catch (Exception error) { AddCleanupFailure(ref failure,error,ExitCode.Environment,"CORE_ENVIRONMENT_CLEANUP_FAILED"); }
                 foreach (IDisposable scope in new[] {report,hashes,state,tracing})
                     try { if (scope != null) scope.Dispose(); } catch (Exception error) { AddCleanupFailure(ref failure,error,ExitCode.Environment,"CORE_ENVIRONMENT_CLEANUP_FAILED"); }
-                if (capturedState) { Settings.Current = previousSettings; MetricManager.Enabled = previousMetrics; }
-                lock (LeaseGate) { probe.disposed = true; probe.initializing = false; probe.ReleaseLease(); }
+                if (capturedState) Settings.Current = previousSettings;
+                probe.disposed = true; probe.initializing = false;
+                contextScope.Dispose();
             }
             if (failure != null) ExceptionDispatchInfo.Capture(failure).Throw();
         }
@@ -236,11 +239,11 @@ namespace NewModCompiler.Application
             settings.SchemaPath = Path.Combine(sdkRoot, "Schemas", "xsd", "CnC3Types.xsd");
             settings.DataRoot = RootOption("dr", sdkRoot);
             settings.OutputDirectory = Path.Combine(output, "streams");
-            settings.IntermediateOutputDirectory = cacheLayout.Intermediate;
-            settings.SessionCacheDirectory = cacheLayout.Session;
+            settings.IntermediateOutputDirectory = contentCache.Intermediate;
+            settings.SessionCacheDirectory = contentCache.Session;
             // SDK buildCacheRoot is configuration input, never a writable override
             // of the current SDK/MOD partition. CLI overrides were bounded once.
-            settings.BuildCacheDirectory = cacheLayout.BuildCache;
+            settings.BuildCacheDirectory = contentCache.BuildCache;
             settings.DefaultDataPaths = RootOption("data", () => Prepend(Path.Combine(modRoot, "Data"), settings.DefaultDataPaths));
             settings.DefaultArtPaths = RootOption("art", () => Prepend(Path.Combine(modRoot, "Art"), settings.DefaultArtPaths));
             settings.DefaultAudioPaths = RootOption("audio", () => Prepend(Path.Combine(modRoot, "Audio"), settings.DefaultAudioPaths));
@@ -398,31 +401,41 @@ namespace NewModCompiler.Application
             while (missing.Count != 0) physical = Path.Combine(physical, missing.Pop());
             return physical;
         }
-        // Pure read preflight before Program opens reports/events/logs. This
-        // uses the same settings loader as the actual stream and restores its
-        // caller's Settings.Current without initializing any native providers.
-        public static void PreflightInputRoots(BuildRequest candidate)
+        // Resolve configuration and input roots once, before owner requests are
+        // cloned. This performs no native initialization or writable cache IO.
+        public static void PrepareRequest(BuildRequest candidate)
         {
             if (candidate == null) throw new ArgumentNullException("candidate");
-            if (!new[] { "dr", "data", "art", "audio" }.Any(candidate.Options.ContainsKey)) return;
-            Settings previous = Settings.Current;
+            if (candidate.InputPreparation != null && candidate.InputPreparation.Signature == InputSignature(candidate)) return;
+            var probe = new CoreStreamCompiler();
+            using (probe.compilationContext.Enter())
             try
             {
-                var probe = new CoreStreamCompiler(); probe.request = candidate;
-                probe.sdkRoot = Path.GetFullPath(candidate.SdkRoot); probe.modRoot = Path.GetFullPath(candidate.ModRoot);
+                probe.request = candidate;
+                probe.sdkRoot = Path.GetFullPath(candidate.SdkRoot);
+                probe.modRoot = Path.GetFullPath(candidate.ModRoot);
                 probe.outputRoot = Path.GetFullPath(candidate.OutputRoot);
                 probe.cacheLayout = CacheLayout.ForRequest(candidate);
-                // Preflight protects input bytes before output sinks open. Cache
-                // coverage rejection belongs to the backend/report lifecycle.
-                probe.buildCacheEnabled = false;
+                probe.contentCache = probe.cacheLayout.ForContent("base");
                 probe.LoadSdkConfiguration();
+                Settings configured = probe.ReadSettings();
+                EffectiveOption cache;
+                if (!candidate.Options.TryGetValue("bc", out cache) || cache.Source == "default" || cache.Source == "sdkConfig")
+                    candidate.Options["bc"] = new EffectiveOption { Value = configured.BuildCache ? "true" : "false", Source = "sdkConfig" };
+                probe.ValidateOptions(candidate);
                 var task = new BuildTask { Content = "base", InputPath = Path.Combine(probe.modRoot, "Data", "mod.xml") };
                 probe.StreamSettings(new StreamContext { Task = task }, probe.cacheLayout.StreamDirectory(task));
                 candidate.InputPreparation = probe.inputPreparation;
+                if (candidate.FileIdentities == null) candidate.FileIdentities = new FileHashCache(candidate.Performance);
             }
             catch (BuildFailure) { throw; }
             catch (Exception error) { throw Failure(ExitCode.Arguments, "CORE_INPUT_ROOT_INVALID", error); }
-            finally { Settings.Current = previous; }
+        }
+
+        public static void PreflightInputRoots(BuildRequest candidate)
+        {
+            if (candidate == null) throw new ArgumentNullException("candidate");
+            if (new[] { "dr", "data", "art", "audio" }.Any(candidate.Options.ContainsKey)) PrepareRequest(candidate);
         }
 
         static string Prepend(string path, string configured)
@@ -492,6 +505,13 @@ namespace NewModCompiler.Application
         public IList<Artifact> Compile(StreamContext context, CancellationToken cancellation)
         {
             CheckOwner();
+            using (compilationContext.Enter())
+            try { return CompileCore(context, cancellation); }
+            finally { if (contentState != null) contentState.Session = savedSessionCache; }
+        }
+
+        IList<Artifact> CompileCore(StreamContext context, CancellationToken cancellation)
+        {
             if (compiling) throw new InvalidOperationException("Core compilation cannot be reentered.");
             if (context == null || context.Task == null || !Object.ReferenceEquals(context.Request, request))
                 throw new BuildFailure(ExitCode.Arguments, "CORE_CONTEXT_INVALID", "Stream context must belong to the initialized request.");
@@ -503,8 +523,19 @@ namespace NewModCompiler.Application
             if (string.IsNullOrEmpty(context.Task.InputPath) || !Path.IsPathRooted(context.Task.InputPath) || !Paths.Contains(modRoot, context.Task.InputPath) || !File.Exists(context.Task.InputPath) ||
                 !(string.Equals(Path.GetExtension(context.Task.InputPath), ".xml", StringComparison.OrdinalIgnoreCase) || context.Task.Content == "apt" && string.Equals(Path.GetExtension(context.Task.InputPath), ".fla", StringComparison.OrdinalIgnoreCase)))
                 throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "Core requires an existing XML stream entry or APT FLA source.");
+            if (request.ContentGroup != null && !string.Equals(request.ContentGroup, context.Task.Content, StringComparison.Ordinal))
+                throw new BuildFailure(ExitCode.Arguments, "CORE_CONTENT_INVALID", "A Core owner may compile only its own content group.");
+            contentGroup = context.Task.Content;
+            contentCache = cacheLayout.ForContent(contentGroup);
+            // Legacy standalone hosts may submit groups sequentially through one
+            // instance. Retain their sessions by content just as dedicated owners
+            // do, never loading another group's saved cache into this partition.
+            if (!contentStates.TryGetValue(contentGroup, out contentState))
+                contentStates.Add(contentGroup, contentState = new ContentState());
+            legacyStore = contentState.Store;
+            savedSessionCache = contentState.Session;
+            activeStreamId = context.Task.Id;
             Settings previousSettings = Settings.Current;
-            bool previousMetrics = MetricManager.Enabled;
             IDisposable hashes = null, tracing = null, report = null, processorState = null;
             Exception failure = null;
             IList<Artifact> artifacts = null;
@@ -518,11 +549,10 @@ namespace NewModCompiler.Application
             {
                 ProgressPhase("initialize");
                 cacheLayout.PrepareDirectory(output);
-                cacheLayout.PrepareDirectory(cacheLayout.Session);
-                cacheLayout.PrepareDirectory(cacheLayout.BuildCache);
-                cacheLayout.PrepareDirectory(cacheLayout.Intermediate);
+                cacheLayout.PrepareDirectory(contentCache.Session);
+                cacheLayout.PrepareDirectory(contentCache.BuildCache);
+                cacheLayout.PrepareDirectory(contentCache.Intermediate);
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
-                MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
                 Settings settings;
                 using (request.Performance.Measure("core.settings")) settings = streamSettings = StreamSettings(context, output);
                 settings.MeasurePerformance = request.Performance.Detailed ? (Func<string, IDisposable>)(name => request.Performance.Measure(name, true)) : null;
@@ -549,7 +579,7 @@ namespace NewModCompiler.Application
                 using (request.Performance.Measure("cache.prepare"))
                 if (sessionCacheEnabled)
                 {
-                    if (legacyStore == null) legacyStore = new LegacyCacheStore(settings.SessionCacheDirectory);
+                    if (legacyStore == null) contentState.Store = legacyStore = new LegacyCacheStore(contentCache);
                     packageRestored = legacyStore.CanLoad();
                     if (!packageRestored) request.Performance.RecordCounter(legacyStore.PrepareMissReason);
                     if (packageRestored)
@@ -615,9 +645,13 @@ namespace NewModCompiler.Application
                 }
                 cache.AssetCompilersVersion = compilers.Registry.AssetBuilderPluginsVersion;
                 processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
-                if (progress != null) processor.Progress = progress.RecordWork;
+                if (progress != null)
+                {
+                    string streamId = context.Task.Id;
+                    processor.Progress = (assets, xml, reused) => progress.RecordWork(streamId, assets, xml, reused);
+                }
                 if (parallelMetrics == null) parallelMetrics = new ParallelBackendMetrics(request.Performance);
-                execution = new ParallelBackendScheduler(processor, output, request.JobsAuto ? Math.Max(1, Environment.ProcessorCount) : request.RequestedJobs, parallelMetrics, request.Performance, cancellation);
+                execution = new ParallelBackendScheduler(processor, output, request.JobsAuto ? Math.Max(1, Environment.ProcessorCount) : request.RequestedJobs, parallelMetrics, request.Performance, cancellation, governor: request.ResourceGovernor);
                 processor.AssetExecution = execution;
                 ProgressPhase("process");
                 bool success; processingStarted = true;
@@ -677,8 +711,8 @@ namespace NewModCompiler.Application
                 try { if (processorState != null) processorState.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (tracing != null) tracing.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 Settings.Current = previousSettings;
-                MetricManager.Enabled = previousMetrics;
                 compiling = false;
+                activeStreamId = null;
                 foreach (Exception error in cleanup) AddCleanupFailure(ref failure, error, ExitCode.Internal, "CORE_CLEANUP_FAILED");
                 if (failure != null)
                 {
@@ -728,18 +762,17 @@ namespace NewModCompiler.Application
 
         void CheckOwner()
         {
-            lock (LeaseGate)
+            lock (instanceGate)
             {
                 if (disposed) throw new ObjectDisposedException("CoreStreamCompiler");
                 if (!initialized) throw new InvalidOperationException("The backend has not been initialized.");
-                if (!Object.ReferenceEquals(leaseOwner, this) || threadId != Thread.CurrentThread.ManagedThreadId)
+                if (threadId != Thread.CurrentThread.ManagedThreadId)
                     throw new InvalidOperationException("The Core session must be used by its owning thread.");
             }
         }
-        void ReleaseLease() { lock (LeaseGate) { if (Object.ReferenceEquals(leaseOwner, this)) leaseOwner = null; } }
         public void Dispose()
         {
-            lock (LeaseGate)
+            lock (instanceGate)
             {
                 if (disposed) return;
                 if ((initialized || initializing) && threadId != Thread.CurrentThread.ManagedThreadId)
@@ -747,14 +780,19 @@ namespace NewModCompiler.Application
                 if (compiling || initializing) throw new InvalidOperationException("Cannot dispose a running or initializing Core session.");
                 disposed = true;
             }
+            using (compilationContext.Enter())
             try { DisposeProviders(); }
             finally {
                 try {
                     savedSessionCache = null;
-                    if (legacyStore != null) legacyStore.Dispose();
+                    foreach (ContentState state in contentStates.Values)
+                    {
+                        state.Session = null;
+                        if (state.Store != null) state.Store.Dispose();
+                    }
+                    contentStates.Clear();
                 } finally {
-                    try { if (ownedCacheLock != null) { ownedCacheLock.Dispose(); ownedCacheLock = null; } }
-                    finally { ReleaseLease(); }
+                    if (ownedCacheLock != null) { ownedCacheLock.Dispose(); ownedCacheLock = null; }
                 }
             }
         }

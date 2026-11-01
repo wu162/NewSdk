@@ -24,7 +24,17 @@ internal static class CompilerCoreLifecycle
     static int checks;
     static readonly BindingFlags Private = BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
     static void Require(bool value, string message) { ++checks; if (!value) throw new Exception(message); }
-    static object Field(object target, string name) { return typeof(DocumentProcessor).GetField(name, Private).GetValue(target); }
+    static object Field(object target, string name)
+    {
+        var field = typeof(DocumentProcessor).GetField(name, Private);
+        return field != null ? field.GetValue(target) : typeof(DocumentProcessor).GetProperty(name, Private).GetValue(target, null);
+    }
+    static void SetField(object target, string name, object value)
+    {
+        var field = typeof(DocumentProcessor).GetField(name, Private);
+        if (field != null) field.SetValue(target, value);
+        else typeof(DocumentProcessor).GetProperty(name, Private).SetValue(target, value, null);
+    }
     static Stack<string> Documents { get { return (Stack<string>)Field(null, "_CurrentDocumentStack"); } }
     static Stack<string> Streams { get { return (Stack<string>)Field(null, "_CurrentStreamStack"); } }
     static IList Inclusions(DocumentProcessor p) { return (IList)Field(p, "_DocumentStack"); }
@@ -489,7 +499,7 @@ internal static class CompilerCoreLifecycle
                 Require(parentProcessor.MissingReferences.TryAdd(missing), "Parent missing-reference sentinel duplicate");
                 Documents.Push("state-parent-document"); Streams.Push("state-parent-stream");
                 for (int i = 4; i < ProcessorStateFields.Length; i++)
-                    typeof(DocumentProcessor).GetField(ProcessorStateFields[i], Private).SetValue(null, TimeSpan.FromTicks(100 + i));
+                    SetField(null, ProcessorStateFields[i], TimeSpan.FromTicks(100 + i));
                 parentProcessor.AddCompileTime(missing, TimeSpan.FromTicks(9876));
                 var parentTypes = (IDictionary)Field(null, "_TypeProcessingTime");
                 object parentType = parentTypes[missing.TypeId];

@@ -19,6 +19,8 @@ public static class CompilerCliControl
     [StructLayout(LayoutKind.Sequential)] struct Io { public ulong ReadOps,WriteOps,OtherOps,ReadBytes,WriteBytes,OtherBytes; }
     [StructLayout(LayoutKind.Sequential)] struct ExtendedLimits { public BasicLimits Basic; public Io Io; public UIntPtr ProcessMemory,JobMemory,PeakProcessMemory,PeakJobMemory; }
     [StructLayout(LayoutKind.Sequential,CharSet=CharSet.Unicode)] struct Entry { public uint Size,Usage,Pid; public UIntPtr Heap; public uint Module,Threads,Parent; public int Priority; public uint Flags; [MarshalAs(UnmanagedType.ByValTStr,SizeConst=260)] public string Name; }
+    [StructLayout(LayoutKind.Sequential)] struct MemoryCounters { public uint Size,PageFaults; public UIntPtr PeakWorkingSet,WorkingSet,QuotaPeakPagedPool,QuotaPagedPool,QuotaPeakNonPagedPool,QuotaNonPagedPool,Pagefile,PeakPagefile; }
+    [DllImport("psapi.dll",SetLastError=true)] static extern bool GetProcessMemoryInfo(IntPtr process,ref MemoryCounters counters,uint size);
     [DllImport("kernel32.dll",SetLastError=true)] static extern bool AllocConsole();
     [DllImport("kernel32.dll")] static extern bool FreeConsole();
     [DllImport("kernel32.dll")] static extern uint GetConsoleCP();
@@ -187,9 +189,11 @@ public static class CompilerCliControl
             state["processId"]=child.Pid;state["processGroupId"]=child.Pid;state["creationFlags"]=0x204;
             Check(AssignProcessToJobObject(job,child.Process),"Cannot assign production process to single-process job");
             Check(ResumeThread(child.Thread)!=uint.MaxValue,"Cannot resume production process");
-            var timer=Stopwatch.StartNew();var descendants=new Dictionary<uint,long>();var observed=new List<object>();int polls=0;
+            var timer=Stopwatch.StartNew();var descendants=new Dictionary<uint,long>();var observed=new List<object>();int polls=0;ulong peakWorkingSet=0;
             while(WaitForSingleObject(child.Process,0)!=0)
             {
+                var sampleMemory=new MemoryCounters { Size=(uint)Marshal.SizeOf(typeof(MemoryCounters)) };
+                if(GetProcessMemoryInfo(child.Process,ref sampleMemory,sampleMemory.Size)) peakWorkingSet=Math.Max(peakWorkingSet,sampleMemory.PeakWorkingSet.ToUInt64());
                 Audit(child.Pid,childCreated,descendants,observed);polls++;
                 if(cancel && !(bool)state["signalSent"] && Interlocked.CompareExchange(ref freshEvents,0,0)!=0) {
                     Dictionary<string,object> buildStarted;
@@ -204,6 +208,11 @@ public static class CompilerCliControl
                 Thread.Sleep(10);
             }
             finished=true;uint exit;Check(GetExitCodeProcess(child.Process,out exit),"Cannot read production exit code");
+            var memory=new MemoryCounters { Size=(uint)Marshal.SizeOf(typeof(MemoryCounters)) };
+            if(GetProcessMemoryInfo(child.Process,ref memory,memory.Size)) peakWorkingSet=Math.Max(peakWorkingSet,memory.PeakWorkingSet.ToUInt64());
+            state["peakWorkingSetBytes"]=peakWorkingSet;state["memoryBoundary"]="Windows process lifetime peak observed while running and after exit when available";
+            long finalCreated,finalExited,kernelTicks,userTicks;
+            if(GetProcessTimes(child.Process,out finalCreated,out finalExited,out kernelTicks,out userTicks)) state["cpuMs"]=(kernelTicks+userTicks)/10000.0;
             Audit(child.Pid,childCreated,descendants,observed);state["processExitCode"]=exit;state["elapsedMs"]=timer.ElapsedMilliseconds;state["auditPolls"]=polls;state["descendants"]=observed.ToArray();
             if(observed.Count!=0) throw new Exception("Production process created descendants");
             if(cancel && (!(bool)state["signalSent"] || exit!=6)) throw new Exception("Real CtrlBreak cancellation was not verified");

@@ -36,9 +36,18 @@ def cache_layout(sdk, mod):
         'session', 'build-cache', 'intermediate', 'streams', 'generated', 'temp')})
 
 
-def session_directory(report, sdk, mod):
-    reported = report.get('cache', {}).get('sessionCacheDirectory')
-    return Path(reported) if reported else cache_layout(sdk, mod)['session']
+def session_directory(report, sdk, mod, content='base'):
+    if content not in ('base', 'apt', 'maps'):
+        raise ValueError('Unknown stream content: ' + content)
+    cache = report.get('cache', {})
+    groups = cache.get('groups')
+    # An aggregate's directory names the shared root. The selected group's
+    # report names the actual BAB session, including configured overrides.
+    if groups is not None:
+        reported = groups.get(content, {}).get('sessionCacheDirectory')
+    else:
+        reported = cache.get('sessionCacheDirectory')
+    return Path(reported) if reported else cache_layout(sdk, mod)['session'] / content
 
 
 def report_cache_root(report, sdk, mod):

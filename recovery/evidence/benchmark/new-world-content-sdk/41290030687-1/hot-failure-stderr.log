@@ -1,0 +1,77 @@
+[开始] 规划编译 | 0.0s
+[完成] 规划编译 | 0.0s
+[开始] 编译数据流 | 0.0s
+[开始] 0/15 base/Mod | 完成 0 | XML 0 | 复用文档 0 | 0.0s
+[开始] 0/15 | base  A0 X0 R0 | maps  A0 X0 R0 | 0.0s
+[开始] 0/15 | base  A0 X0 R0 | maps  A0 X0 R0 | apt  A0 X0 R0 | 0.0s
+[完成] 1/15 apt/chapterSelectComponent | 保存缓存 | 完成 5 | XML 0 | 复用文档 2 | 0.6s
+[开始] 1/15 | base 读缓存 A0 X0 R0 | maps XML/资产 A0 X0 R0 | apt  A0 X0 R0 | 0.7s
+[完成] 2/15 apt/feg_m_mainMenu3D | 保存缓存 | 完成 14 | XML 0 | 复用文档 2 | 0.0s
+[开始] 2/15 | base 读缓存 A0 X0 R0 | maps XML/资产 A0 X0 R0 | apt  A0 X0 R0 | 0.7s
+[完成] 3/15 apt/fem_m_onlineMultiplayer | 保存缓存 | 完成 56 | XML 0 | 复用文档 2 | 0.0s
+[开始] 3/15 | base 读缓存 A0 X0 R0 | maps XML/资产 A0 X0 R0 | apt  A0 X0 R0 | 0.7s
+[完成] 4/15 apt/fem_m_postgameRoundup | 保存缓存 | 完成 28 | XML 0 | 复用文档 2 | 0.0s
+[开始] 4/15 | base 读缓存 A0 X0 R0 | maps XML/资产 A0 X0 R0 | apt  A0 X0 R0 | 0.8s
+[完成] 5/15 apt/fe_shared_mainMenuLib | 保存缓存 | 完成 47 | XML 0 | 复用文档 2 | 0.0s
+[开始] 5/15 | base 读缓存 A0 X0 R0 | maps XML/资产 A0 X0 R0 | apt  A0 X0 R0 | 0.8s
+[完成] 6/15 apt/igm_PlayerTechStoreDialog | 保存缓存 | 完成 60 | XML 0 | 复用文档 2 | 0.0s
+[开始] 6/15 | base 读缓存 A0 X0 R0 | maps XML/资产 A3 X0 R2 | apt  A0 X0 R0 | 0.8s
+[完成] 7/15 apt/ig_missionMap | 保存缓存 | 完成 21 | XML 0 | 复用文档 2 | 0.0s
+[开始] 7/15 | base 读缓存 A0 X0 R0 | maps XML/资产 A980 X0 R2 | apt  A0 X0 R0 | 0.8s
+[完成] 8/15 apt/TacticalHUDBuildQueuePage | 保存缓存 | 完成 47 | XML 0 | 复用文档 2 | 0.0s
+[开始] 8/15 | base 读缓存 A0 X0 R0 | maps XML/资产 A1804 X0 R2 | apt  A0 X0 R0 | 0.9s
+[完成] 9/15 apt/TacticalHUDCommandListBox | 保存缓存 | 完成 3 | XML 0 | 复用文档 2 | 0.0s
+[开始] 9/15 | base 读缓存 A0 X0 R0 | maps XML/资产 A1804 X0 R2 | apt  A0 X0 R0 | 0.9s
+[完成] 10/15 apt/TacticalHUDMainCommandBar | 保存缓存 | 完成 50 | XML 0 | 复用文档 2 | 0.0s
+[开始] 10/15 | base 读缓存 A0 X0 R0 | maps XML/资产 A1804 X0 R2 | apt  A0 X0 R0 | 0.9s
+[完成] 11/15 apt/TacticalHUDPlayerPowersBar | 保存缓存 | 完成 3 | XML 0 | 复用文档 2 | 0.0s
+[开始] 11/15 | base 读缓存 A0 X0 R0 | maps XML/资产 A1804 X0 R2 | apt  A0 X0 R0 | 0.9s
+[完成] 12/15 apt/TacticalHUDRadar | 保存缓存 | 完成 34 | XML 0 | 复用文档 2 | 0.0s
+[开始] 12/15 | base 读缓存 A0 X0 R0 | maps XML/资产 A1804 X0 R2 | apt  A0 X0 R0 | 0.9s
+[完成] 13/15 apt/TacticalHUDSelectionDetails | 保存缓存 | 完成 115 | XML 0 | 复用文档 2 | 0.0s
+[warning] CORE_TRACE_WARNING Unknown asset 'Video:RA3_EA_logo' referenced from 'VideoEventList:RA3_EA_logo' in 'file://d:\a\_temp\new-world-original-current\inputs\the new world\data\additionalmaps\videoeventlist.xml'
+[warning] CORE_TRACE_WARNING Unknown asset 'OnDemandTextureImage:Giles' referenced from 'MissionTemplate:Allies_1' in 'file://d:\a\_temp\new-world-original-current\inputs\the new world\data\additionalmaps\campaigntemplates.xml'
+[warning] CORE_TRACE_WARNING Unknown asset 'OnDemandTextureImage:Warren' referenced from 'MissionTemplate:Allies_2' in 'file://d:\a\_temp\new-world-original-current\inputs\the new world\data\additionalmaps\campaigntemplates.xml'
+[warning] CORE_TRACE_WARNING Unknown asset 'OnDemandTextureImage:Lissette' referenced from 'MissionTemplate:Allies_3' in 'file://d:\a\_temp\new-world-original-current\inputs\the new world\data\additionalmaps\campaigntemplates.xml'
+[warning] CORE_TRACE_WARNING Unknown asset 'OnDemandTextureImage:Moskvin' referenced from 'MissionTemplate:Allies_4' in 'file://d:\a\_temp\new-world-original-current\inputs\the new world\data\additionalmaps\campaigntemplates.xml'
+[warning] CORE_TRACE_WARNING Unknown asset 'OnDemandTextureImage:Zhana' referenced from 'MissionTemplate:Allies_5' in 'file://d:\a\_temp\new-world-original-current\inputs\the new world\data\additionalmaps\campaigntemplates.xml'
+[warning] CORE_TRACE_WARNING Unknown asset 'OnDemandTextureImage:Oleg' referenced from 'MissionTemplate:Soviets_1' in 'file://d:\a\_temp\new-world-original-current\inputs\the new world\data\additionalmaps\campaigntemplates.xml'
+[warning] CORE_TRACE_WARNING Unknown asset 'OnDemandTextureImage:Shinzo' referenced from 'MissionTemplate:Japan_1' in 'file://d:\a\_temp\new-world-original-current\inputs\the new world\data\additionalmaps\campaigntemplates.xml'
+[warning] CORE_TRACE_WARNING Unknown asset 'OnDemandTextureImage:Kenji' referenced from 'MissionTemplate:Japan_2' in 'file://d:\a\_temp\new-world-original-current\inputs\the new world\data\additionalmaps\campaigntemplates.xml'
+[warning] CORE_TRACE_WARNING Unknown asset 'OnDemandTextureImage:Naomi' referenced from 'MissionTemplate:Japan_4' in 'file://d:\a\_temp\new-world-original-current\inputs\the new world\data\additionalmaps\campaigntemplates.xml'
+[warning] CORE_TRACE_WARNING Unknown asset 'TargetingBaseCompare:DefaultDistanceCompare' referenced from 'TargetingCompareList:CompleteTargetingCompareList' in 'file://d:\a\_temp\new-world-original-current\inputs\the new world\data\additionalmaps\mpgamerules.xml'
+[完成] 14/15 maps/MapMetaData_Mod | 保存缓存 | 完成 3,436 | XML 0 | 复用文档 20 | 1.2s
+[warning] CORE_TRACE_WARNING Could not load precompiled manifest D:\a\NewSdk\NewSdk\SDK\SuperCompilerCache\the_new_worl_4fbcf35dd225a91652bef03af84ebf10\streams\base\Mod\streams\static.manifest, file not found
+[warning] CORE_TRACE_WARNING Could not load precompiled manifest D:\a\NewSdk\NewSdk\SDK\SuperCompilerCache\the_new_worl_4fbcf35dd225a91652bef03af84ebf10\streams\base\Mod\streams\global.manifest, file not found
+[warning] CORE_TRACE_WARNING Could not load precompiled manifest D:\a\NewSdk\NewSdk\SDK\SuperCompilerCache\the_new_worl_4fbcf35dd225a91652bef03af84ebf10\streams\base\Mod\streams\audio.manifest, file not found
+[失败] 14/15 base/Mod | 保存缓存 | 完成 4,165 | XML 1 | 复用文档 2,726 | 2.1s
+[error] CONTENT_GROUP_FAILED BinaryAssetBuilder.BinaryAssetBuilderException: Instance GameObject:AlliedLegionnaireInfantry [942fff2d:ea8f676b] attempts to inherit from instance GameObject:BaseInfantry [942fff2d:2a17fd93] but source XML is missing.
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.OverrideInstance(InstanceDeclaration instance)
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.OverrideInstance(InstanceDeclaration instance)
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.ProcessOverrides()
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentContents(AssetDeclarationDocument& document, OutputManager outputManager, ProcessOptions op, Boolean generateOutput)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocument(String fileName, Boolean generateOutput, Boolean __outputStringHashes, Boolean& success)
+   at NewModCompiler.Application.CoreStreamCompiler.CompileCore(StreamContext context, CancellationToken cancellation)
+[失败] 编译数据流 | 2.2s
+[error] CORE_COMPILE_FAILED BinaryAssetBuilder.BinaryAssetBuilderException: Instance GameObject:AlliedLegionnaireInfantry [942fff2d:ea8f676b] attempts to inherit from instance GameObject:BaseInfantry [942fff2d:2a17fd93] but source XML is missing.
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.OverrideInstance(InstanceDeclaration instance)
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.OverrideInstance(InstanceDeclaration instance)
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.ProcessOverrides()
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentContents(AssetDeclarationDocument& document, OutputManager outputManager, ProcessOptions op, Boolean generateOutput)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocument(String fileName, Boolean generateOutput, Boolean __outputStringHashes, Boolean& success)
+   at NewModCompiler.Application.CoreStreamCompiler.CompileCore(StreamContext context, CancellationToken cancellation)
+[失败] 编译失败 | 总耗时 2.3s

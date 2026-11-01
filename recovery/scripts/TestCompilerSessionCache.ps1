@@ -63,7 +63,7 @@ function CacheFiles([string]$Destination){
     $session=(CacheAt $Destination).session
     foreach($file in @(Get-ChildItem -LiteralPath $session -File -Recurse -ErrorAction SilentlyContinue)){
         $relative=$file.FullName.Substring($session.Length).TrimStart([char[]]'\/')
-        if($relative -like 'BinaryAssetBuilder.SessionCache.xml*' -or $relative.StartsWith('.NewModCompiler'+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)){$files[$relative]=Hash $file.FullName}
+        if($file.Name -like 'BinaryAssetBuilder.SessionCache.xml*' -or $relative.Split([char[]]'\/') -contains '.NewModCompiler'){$files[$relative]=Hash $file.FullName}
     }
     return $files
 }
@@ -125,7 +125,7 @@ function LinkedHot($Case,$Before){
 }
 function DamagePackage([string]$Destination,[string]$Kind){
     $layout=CacheAt $Destination
-    if($Kind -eq 'xml'){$paths=@(Join-Path $layout.session 'BinaryAssetBuilder.SessionCache.xml')}
+    if($Kind -eq 'xml'){$paths=@(Get-ChildItem -LiteralPath $layout.session -Filter 'BinaryAssetBuilder.SessionCache.xml' -File -Recurse|ForEach-Object FullName)}
     elseif($Kind -eq 'intermediate'){$paths=@(Get-ChildItem -LiteralPath $layout.intermediate -Filter '*.asset' -File -Recurse|ForEach-Object FullName)}
     elseif($Kind -eq 'cdata'){$paths=@(@($layout.session,$layout.streams)|ForEach-Object{Get-ChildItem -LiteralPath $_ -Filter '*.cdata' -File -Recurse -ErrorAction SilentlyContinue|ForEach-Object FullName})}
     else{throw 'Unknown original cache corruption kind'}
@@ -384,17 +384,35 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         $script:contents='base,apt';$script:expectedArtifacts=8
         $plain=RunCli 'disabled' $mod $plainOut $false;Cache $plain 'disabled'
         $cold=RunCli 'cold' $mod $cachedOut $true -Extra @('--performance','summary');Cache $cold 'cold';SameOutputs $plain $cold;$script:hotParseCeiling=$cold.report.cache.xmlParse
-        Need ((@($cold.report.performance.counters|Where-Object name -eq 'cache.session.memoryReuse'|Measure-Object value -Sum).Sum) -eq 1) 'Second cold stream did not reuse the saved in-memory session'
+        Need ((@($cold.report.performance.counters|Where-Object name -eq 'cache.session.memoryReuse'|Measure-Object value -Sum).Sum) -eq 0) 'Cold Base/APT streams shared an in-memory session across content groups'
         $publishedBefore=StreamTimes $cachedOut
         $cacheTimes=@{}
         $cachedSession=(CacheAt $cachedOut).session
         foreach($file in Get-ChildItem -LiteralPath $cachedSession -File -Recurse){
-            if($file.Name -like 'BinaryAssetBuilder.SessionCache.xml*' -or (Within (Join-Path $cachedSession '.NewModCompiler') $file.FullName)){$cacheTimes[$file.FullName]=$file.LastWriteTimeUtc.Ticks}
+            if($file.Name -like 'BinaryAssetBuilder.SessionCache.xml*' -or $file.FullName.Split([char[]]'\/') -contains '.NewModCompiler'){$cacheTimes[$file.FullName]=$file.LastWriteTimeUtc.Ticks}
         }
         $hot=RunCli 'hot' $mod $cachedOut $true -Extra @('--performance','summary');Cache $hot 'hot';SameOutputs $plain $hot
-        Need ((@($hot.report.performance.counters|Where-Object name -eq 'cache.session.memoryReuse'|Measure-Object value -Sum).Sum) -eq 1) 'Second hot stream reparsed the shared saved session'
+        Need ((@($hot.report.performance.counters|Where-Object name -eq 'cache.session.memoryReuse'|Measure-Object value -Sum).Sum) -eq 0) 'Hot Base/APT streams shared an in-memory session across content groups'
         LinkedHot $hot $publishedBefore
         foreach($path in $cacheTimes.Keys){Need ([IO.File]::GetLastWriteTimeUtc($path).Ticks -eq $cacheTimes[$path]) 'Hot build rewrote unchanged SessionCache or CDATA'}
+        # Content groups have independent saved sessions; multiple entries in
+        # one APT group must still reuse that group's in-memory BAB session.
+        $aptMod=Join-Path $modeWork 'apt-multiple';MakeMod $aptMod $probe
+        Put "$aptMod/Data/AptUI/Second.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><AptAptData id="SessionPayloadSecond" File="payload.bin"/></AssetDeclaration>'
+        $aptOut=Join-Path $modeWork 'apt-multiple-cache';$aptPlainOut=Join-Path $modeWork 'apt-multiple-plain'
+        $script:contents='apt'
+        $aptPlain=RunCli 'apt-multiple-disabled' $aptMod $aptPlainOut $false
+        $aptCold=RunCli 'apt-multiple-cold' $aptMod $aptOut $true -Extra @('--performance','summary');SameOutputs $aptPlain $aptCold
+        $aptHot=RunCli 'apt-multiple-hot' $aptMod $aptOut $true -Extra @('--performance','summary');SameOutputs $aptPlain $aptHot
+        foreach($pair in @($aptCold,$aptHot)){
+            Need ((@($pair.report.performance.counters|Where-Object name -eq 'cache.session.memoryReuse'|Measure-Object value -Sum).Sum) -eq 1) 'APT entries did not reuse their group-owned in-memory session'
+            Need ($pair.report.cache.groups.apt -and !$pair.report.cache.groups.base -and !$pair.report.cache.groups.maps) 'APT-only build initialized another content group'
+        }
+        Need ($aptHot.report.cache.xmlParse -eq 0 -and $aptHot.report.cache.instanceCompile -eq 0) 'APT multi-entry hot cache reparsed or recompiled inputs'
+        foreach($directory in @((CacheAt $aptOut).session,(CacheAt $aptOut).build,(CacheAt $aptOut).intermediate)){
+            Need (!(Test-Path -LiteralPath (Join-Path $directory 'base')) -and !(Test-Path -LiteralPath (Join-Path $directory 'maps'))) 'APT-only build created unused group cache directories'
+        }
+        $script:contents='base,apt'
         $plainBefore=StreamTimes $plainOut
         $plainHot=RunCli 'disabled-hot-linked' $mod $plainOut $false;Cache $plainHot 'disabled';SameOutputs $plain $plainHot;LinkedHot $plainHot $plainBefore
         $damagedLinked=Get-ChildItem -LiteralPath (CacheAt $cachedOut).streams -Filter '*.imp' -Recurse -File|Select-Object -First 1
@@ -435,7 +453,7 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
             $changed=RunCli ($change.name+'-invalidated') $mod $cachedOut $true;Cache $changed $(if($change.name -eq 'schema'){'revalidated'}else{'hot'});SameOutputs $plain $changed;if($change.name -eq 'schema'){$script:hotParseCeiling=$changed.report.cache.xmlParse}
             $hot=RunCli ($change.name+'-hot') $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         }
-        Need (!(Test-Path (Join-Path (CacheAt $cachedOut).partition '.file-identities.json')) -and !(Test-Path (Join-Path (CacheAt $cachedOut).session '.NewModCompiler/session.identity'))) 'Removed hash/session sidecar was recreated'
+        Need (!(Test-Path (Join-Path (CacheAt $cachedOut).partition '.file-identities.json')) -and !(Test-Path (Join-Path (CacheAt $cachedOut).session 'base/.NewModCompiler/session.identity'))) 'Removed hash/session sidecar was recreated'
         Put "$runtime/unrelated.dll" 'Unloaded runtime neighbor A'
         Put "$runtime/unrelated.config" 'Unloaded runtime configuration'
         $neighbor=RunCli 'unrelated-runtime-files' $mod $cachedOut $true;Cache $neighbor 'hot';SameOutputs $plain $neighbor
@@ -552,11 +570,11 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         $optionsPlain=RunCli 'options-disabled' $optionsMod $optionsPlainOut $false
         $defaults=RunCli 'original-defaults-cold' $optionsMod $optionsOut $true -OriginalDefaults;SameOutputs $optionsPlain $defaults
         Need ($defaults.report.cache.sessionCache -and $defaults.report.cache.compressedSessionCache -and $defaults.report.cache.partialSessionCache -and !$defaults.report.cache.freezeSessionCache -and !$defaults.report.cache.alwaysTouchCache -and $defaults.report.cache.misses -gt 0) 'Original SDK cache defaults are not active'
-        Need (Test-Path -LiteralPath (Join-Path (CacheAt $optionsOut).session 'BinaryAssetBuilder.SessionCache.xml.deflate')) 'Default original Deflate file is absent'
+        Need (Test-Path -LiteralPath (Join-Path (CacheAt $optionsOut).session 'base/BinaryAssetBuilder.SessionCache.xml.deflate')) 'Default original Deflate file is absent'
         $defaultsHot=RunCli 'original-defaults-hot' $optionsMod $optionsOut $true -OriginalDefaults;SameOutputs $optionsPlain $defaultsHot
         Need ($defaultsHot.report.cache.documentReuse -gt 0 -and $defaultsHot.report.cache.instanceCompile -eq 0) 'Original default session did not reuse compiled documents'
         $xml=RunCli 'original-xml-switch' $optionsMod $optionsOut $true -OriginalDefaults -Extra @('--csc=false');SameOutputs $optionsPlain $xml
-        Need ((Test-Path -LiteralPath (Join-Path (CacheAt $optionsOut).session 'BinaryAssetBuilder.SessionCache.xml')) -and !(Test-Path -LiteralPath (Join-Path (CacheAt $optionsOut).session 'BinaryAssetBuilder.SessionCache.xml.deflate'))) 'XML/Deflate switch left an ambiguous active representation'
+        Need ((Test-Path -LiteralPath (Join-Path (CacheAt $optionsOut).session 'base/BinaryAssetBuilder.SessionCache.xml')) -and !(Test-Path -LiteralPath (Join-Path (CacheAt $optionsOut).session 'base/BinaryAssetBuilder.SessionCache.xml.deflate'))) 'XML/Deflate switch left an ambiguous active representation'
         $frozenBytes=CacheFiles $optionsOut
         SameLengthMutation "$optionsMod/Data/Armor.xml" '72.5%' '42.5%'
         $frozen=RunCli 'original-freeze-edit' $optionsMod $optionsOut $true -OriginalDefaults -Extra @('--fsc=true','--csc=false');CacheUnchanged $optionsOut $frozenBytes
@@ -594,7 +612,7 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         # The original format is unchanged; explicitly stage this test's raw BAB
         # state inside the allowed partition instead of permitting outside roots.
         $importRoots=CacheRoots $optionsMod ($optionsOut+'-original')
-        foreach($pair in @(@{source='session';target=$importRoots.session},@{source='cache';target=$importRoots.build},@{source='intermediate';target=$importRoots.intermediate})){
+        foreach($pair in @(@{source='session';target=(Join-Path $importRoots.session 'base')},@{source='cache';target=(Join-Path $importRoots.build 'base')},@{source='intermediate';target=(Join-Path $importRoots.intermediate 'base')})){
             New-Item -ItemType Directory -Force -Path $pair.target|Out-Null
             Copy-Item -Path (Join-Path (Join-Path $raw $pair.source) '*') -Destination $pair.target -Recurse
         }
@@ -608,9 +626,9 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         Put "$partialMod/Data/Broken.xml" '<AssetDeclaration>broken'
         $partialOut=Join-Path $modeWork 'partial-cache';$noPartialOut=Join-Path $modeWork 'no-partial-cache'
         $partialFailure=RunCli 'original-partial-failure' $partialMod $partialOut $true 4 -OriginalDefaults
-        Need ($partialFailure.report.cache.partialSessionsSaved -gt 0 -and (Test-Path -LiteralPath (Join-Path (CacheAt $partialOut).session 'BinaryAssetBuilder.SessionCache.xml.deflate'))) 'psc:true did not save completed document work after failure'
+        Need ($partialFailure.report.cache.partialSessionsSaved -gt 0 -and (Test-Path -LiteralPath (Join-Path (CacheAt $partialOut).session 'base/BinaryAssetBuilder.SessionCache.xml.deflate'))) 'psc:true did not save completed document work after failure'
         $noPartialFailure=RunCli 'original-no-partial-failure' $partialMod $noPartialOut $true 4 -OriginalDefaults -Extra @('--psc=false')
-        Need (!(Test-Path -LiteralPath (Join-Path (CacheAt $noPartialOut).session 'BinaryAssetBuilder.SessionCache.xml.deflate'))) 'psc:false saved an aborted session'
+        Need (!(Test-Path -LiteralPath (Join-Path (CacheAt $noPartialOut).session 'base/BinaryAssetBuilder.SessionCache.xml.deflate'))) 'psc:false saved an aborted session'
         Need (@(Get-ChildItem -LiteralPath (CacheAt $noPartialOut).build -Filter '*.asset' -File -Recurse).Count -gt 0) 'Original build cache did not retain successfully compiled assets from an aborted build'
         Put "$partialMod/Data/Broken.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"/>'
         $partialRetry=RunCli 'original-partial-retry' $partialMod $partialOut $true -OriginalDefaults

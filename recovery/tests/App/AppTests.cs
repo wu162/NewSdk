@@ -153,6 +153,8 @@ namespace NewModCompiler.Tests
                 root=Path.GetFullPath(args.Length==0 ? Path.Combine(Path.GetTempPath(),"NewModCompiler-App-"+Guid.NewGuid().ToString("N")) : args[0]);
                 if (Directory.Exists(root)) Directory.Delete(root,true); Directory.CreateDirectory(root);
                 assertions += PerformanceTests.Run();
+                assertions += BuildResourceGovernorTests.Run();
+                assertions += ContentBuildExecutorTests.Run(Path.Combine(root,"content-executor"));
                 assertions += ConsoleProgressTests.Run();
                 assertions += PlannerFlaTests.Run(Path.Combine(root,"fla-planner"));
 

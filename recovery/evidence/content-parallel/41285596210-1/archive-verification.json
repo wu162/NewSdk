@@ -1,0 +1,57 @@
+{
+  "sourceCommit": "649424312e27990586a5058911779fbe6ed6aaec",
+  "runId": 41285596210,
+  "runAttempt": 1,
+  "status": "failed",
+  "artifactId": 13075845141,
+  "artifactSha256": "9c1d840f7949118bbdc45f7ed149ab1f357d6e30d6daf31d1b370e001921aa42",
+  "downloadCount": 1,
+  "artifactSize": 3426783,
+  "runtimeFiles": [
+    {
+      "path": "content-product/bin/NewModCompiler.exe.config",
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "size": 201
+    },
+    {
+      "path": "content-product/bin/NewModCompiler.exe",
+      "sha256": "3fd28d960458899a0bdf6dbf294063bb318f2b239825bf92569887584e711104",
+      "size": 5045248
+    },
+    {
+      "path": "content-product/bin/antlr.runtime.dll",
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "size": 99328
+    },
+    {
+      "path": "content-product/validation/bin/NewModCompiler.exe.config",
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "size": 201
+    },
+    {
+      "path": "content-product/validation/bin/NewModCompiler.exe",
+      "sha256": "a3cb43386f92f36258ac72866c008a532118dbc937515960b583ce66838848ef",
+      "size": 5051392
+    },
+    {
+      "path": "content-product/validation/bin/antlr.runtime.dll",
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "size": 99328
+    }
+  ],
+  "passedScope": [
+    "Windows Release native product and production-object validation host",
+    "all App controlled contracts",
+    "CompilerPreparedBackend",
+    "CompilerCoreLifecycle",
+    "CompilerResourceLifecycle",
+    "CompilerStateLifecycle"
+  ],
+  "failure": "CompilerBackendLifecycle still required the former process-wide Core lease. Seven-selection CLI and Upheaval matrix did not start.",
+  "notAccepted": [
+    "seven-selection real CLI cold/hot byte matrix",
+    "BIG/SKUDEF matrix",
+    "actual CtrlBreak and retry",
+    "Upheaval comparison"
+  ]
+}

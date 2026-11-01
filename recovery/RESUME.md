@@ -1,3 +1,29 @@
+# 当前：The New World 原 SDK 性能对照已计量，冷态约 4.67 倍
+
+用户明确比较原版 SDK 与新版。测量 `54c21c2d` / [Windows 41290030687](https://github.com/wu162/NewSdk/actions/runs/41290030687)，
+新生产复用已验收 `1b9da37`。完整原源 13,391 文件、3.25GB，保留全部 Joypad/媒体，全部 15 流。
+冷态原 1933.785→新 413.703 秒（少 78.61%），同机 n1、OS 页缓存未控、loose 无 BIG。
+整体 **failure**：仅 mod.bin 的 330 DXT1 资产负载不同（59,793,151 字节）；原 SDK 热态83.691秒成功，
+新版热态2.490秒后因 AlliedLegionnaireInfantry→BaseInfantry 缓存继承源状态缺失 exit4，不能记热提速。
+资源记账含估算和大任务软准入，942,551,200 峰值不能据终态298,629,120预算断言严格无超额。
+最终 ZIP 已单次下载核对，冷态输出4058文件/侧；60四流直接复比，3998CDATA核对长度/SHA。
+入口：[性能/失败/范围](docs/NEW_WORLD_CONTENT_SDK_COMPARISON.md)、[证据](evidence/benchmark/new-world-content-sdk/41290030687-1/summary.json)。
+[PR #48](https://github.com/wu162/NewSdk/pull/48) 待审未合并；未改生产或剔资产换通过，禁止强推。
+
+# 当前：单进程按内容分组并行已验收（PR #48）
+
+分支 `feat/single-process-content-parallel`，基线 `recovery/legacy-sdk-cache` / `680c4f0c`。
+非空组独立 Owner/Core、任务级 DAG 就绪调度、AsyncLocal 状态隔离、分组 BAB 缓存、
+全构建 CPU/IO/在途结果预算及按流进度一起接入；失败/取消收尾后禁止发布。
+生产/测试 `1b9da37` / [Windows 41287090604](https://github.com/wu162/NewSdk/actions/runs/41287090604) 全部 success：
+新 Release/同对象宿主、App 3268 合同、六组真实 Core、58 CLI 样本及 58/58 报告 Schema 通过。
+最终归档单次下载核对六运行文件/源码及链接收据；18 对输出、每侧 1413 文件原字节相同。
+三组真实峰值 Owner=3；七组合冷热及 BIG/SKUDEF、真实 FLA/XML 与 MapMetaData、取消重试已覆盖。
+完整历史 Upheaval 仅 base 冷 n1 对照 53.098→32.521 秒；OS 页缓存未控，不作三组或通用提速结论。
+七组合调度矩阵用 Armor，另有定向业务；没有新完整 APT/Maps、原 SDK 或游戏验收。
+入口：[实现/范围/计量](docs/CONTENT_PARALLEL.md)、[最终独立收据](evidence/content-parallel/41287090604-1/archive-verification.json)。
+[PR #48](https://github.com/wu162/NewSdk/pull/48) 待审，未合并；早期失败和空报告协议缺陷的修复证据保留，禁止强推。
+
 # 当前：CLI 单行编译进度已验收（PR #47）
 
 分支 `feat/cli-build-progress`，基线 `recovery/legacy-sdk-cache` / `52d44c6`。

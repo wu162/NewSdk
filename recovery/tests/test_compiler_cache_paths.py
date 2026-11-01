@@ -32,7 +32,24 @@ class CacheLocationTests(unittest.TestCase):
             report = dict(cache=dict(sessionCacheDirectory=str(custom)))
             self.assertEqual(session_directory(report, sdk, mod), custom)
             self.assertEqual(report_cache_root(report, sdk, mod), layout['root'])
-            self.assertEqual(session_directory({}, sdk, mod), layout['session'])
+            self.assertEqual(session_directory({}, sdk, mod), layout['session'] / 'base')
+
+    def test_aggregate_selects_actual_content_partition(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            sdk, mod = root / 'sdk', root / 'mod'
+            sdk.mkdir(); mod.mkdir()
+            layout = cache_layout(sdk, mod)
+            custom = layout['root'] / 'validation/session'
+            report = dict(cache=dict(sessionCacheDirectory=str(custom), groups={
+                content: dict(sessionCacheDirectory=str(custom / content))
+                for content in ('base', 'apt')}))
+            self.assertEqual(session_directory(report, sdk, mod), custom / 'base')
+            self.assertEqual(session_directory(report, sdk, mod, 'apt'), custom / 'apt')
+            self.assertEqual(report_cache_root(report, sdk, mod), layout['root'])
+            self.assertFalse((layout['session'] / 'maps').exists())
+            with self.assertRaises(ValueError):
+                session_directory(report, sdk, mod, '../base')
 
 
 if __name__ == '__main__':

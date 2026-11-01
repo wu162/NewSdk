@@ -50,7 +50,7 @@ namespace NewModCompiler.Diagnostics
                         ClearLine();
                         writer.WriteLine("[{0}] 编译{1} | 总耗时 {2}",Label(status),Result(status),Seconds(value.ElapsedMilliseconds));
                     } else if (boundary=="stage-completed" || boundary=="stream-completed") {
-                        ClearLine(); writer.WriteLine(Fit(Format(value,Label(status),boundary=="stream-completed")));
+                        ClearLine(); writer.WriteLine(Fit(Format(value,Label(status),boundary=="stream-completed",true)));
                     } else if (interactive) {
                         Draw(Format(value,"进行",true));
                     } else if (boundary=="stage-started" || boundary=="stream-started") {
@@ -129,10 +129,38 @@ namespace NewModCompiler.Diagnostics
             foreach(char item in value) result.Append(char.IsControl(item) ? ' ' : item);
             return result.ToString();
         }
-        string Format(BuildProgressSnapshot value,string label,bool stream)
+        string Format(BuildProgressSnapshot value,string label,bool stream,bool individual=false)
         {
             string prefix="["+label+"] ";
             string time=Seconds(stream && value.Stream!=null ? value.StreamElapsedMilliseconds : value.StageElapsedMilliseconds);
+            if (stream && !individual && value.ActiveStreams!=null && value.ActiveStreams.Length>1) {
+                string head=prefix+value.StreamsCompleted.ToString(CultureInfo.InvariantCulture)+"/"+
+                    value.StreamsTotal.ToString(CultureInfo.InvariantCulture);
+                var result=new StringBuilder(head);
+                foreach(var active in value.ActiveStreams) {
+                    string name=Clean(active.Stream);
+                    int slash=name.IndexOf('/');
+                    if (slash>=0) name=name.Substring(0,slash);
+                    result.Append(" | ").Append(name).Append(' ').Append(ShortPhaseName(active.Phase))
+                        .Append(" A").Append(active.AssetsCompleted.ToString(CultureInfo.InvariantCulture))
+                        .Append(" X").Append(active.XmlParsed.ToString(CultureInfo.InvariantCulture))
+                        .Append(" R").Append(active.DocumentsReused.ToString(CultureInfo.InvariantCulture));
+                }
+                string tail=" | "+Seconds(value.StageElapsedMilliseconds);
+                string detailed=result.ToString()+tail;
+                if (!interactive || Cells(detailed)<width()) return detailed;
+                // Keep every active group visible on ordinary narrow consoles.
+                // Per-stream XML/reuse details remain in the completed row.
+                result=new StringBuilder(head);
+                foreach(var active in value.ActiveStreams) {
+                    string name=Clean(active.Stream);int slash=name.IndexOf('/');
+                    if(slash>=0)name=name.Substring(0,slash);
+                    string phase=active.Phase=="process" ? "XML" : ShortPhaseName(active.Phase);
+                    result.Append(" | ").Append(name).Append(':').Append(phase)
+                        .Append(" A").Append(active.AssetsCompleted.ToString(CultureInfo.InvariantCulture));
+                }
+                return result.Append(tail).ToString();
+            }
             if (stream && value.Stream!=null) {
                 string head=prefix+value.StreamsCompleted.ToString(CultureInfo.InvariantCulture)+"/"+
                     value.StreamsTotal.ToString(CultureInfo.InvariantCulture)+" ";
@@ -170,6 +198,10 @@ namespace NewModCompiler.Diagnostics
         static string StageName(string id)
         {
             switch(id) { case "plan":return "规划编译";case "compile":return "编译数据流";case "package":return "打包";case "publish":return "发布";default:return Clean(id); }
+        }
+        static string ShortPhaseName(string id)
+        {
+            switch(id) { case "initialize":return "准备";case "cache-load":return "读缓存";case "process":return "XML/资产";case "cache-save":return "写缓存";case "link":return "链接";default:return Clean(id); }
         }
         static string PhaseName(string id)
         {

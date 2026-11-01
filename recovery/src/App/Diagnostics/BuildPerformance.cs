@@ -5,7 +5,8 @@ using System.Linq;
 
 namespace NewModCompiler.Diagnostics
 {
-    // One synchronous build owns this collector. Names are fixed phase names
+    // Each owner has a private collector; the build thread merges it after join.
+    // Names are fixed phase names
     // (or asset types), never file/instance names, so memory does not grow per call.
     internal sealed class BuildPerformance
     {
@@ -23,6 +24,33 @@ namespace NewModCompiler.Diagnostics
             if (Enabled) {
                 entries = new Dictionary<string, Entry>(StringComparer.Ordinal);
                 counters = new Dictionary<string, Dictionary<string, Counter>>(StringComparer.Ordinal);
+            }
+        }
+
+        internal BuildPerformance CreateCollector() { return new BuildPerformance(level); }
+
+        // Called by the build thread only after the source owner has stopped.
+        // No worker writes another collector's scope stack or dictionaries.
+        internal void Merge(BuildPerformance source)
+        {
+            if (!Enabled || source==null || !source.Enabled) return;
+            foreach(var item in source.entries) {
+                Entry target;
+                if (!entries.TryGetValue(item.Key,out target))
+                    entries.Add(item.Key,target=new Entry { Name=item.Value.Name, StreamId=item.Value.StreamId });
+                target.Count+=item.Value.Count; target.Total+=item.Value.Total; target.Self+=item.Value.Self;
+                target.Max=Math.Max(target.Max,item.Value.Max);
+            }
+            foreach(var group in source.counters) {
+                Dictionary<string, Counter> targetGroup;
+                if (!counters.TryGetValue(group.Key,out targetGroup))
+                    counters.Add(group.Key,targetGroup=new Dictionary<string, Counter>(StringComparer.Ordinal));
+                foreach(var item in group.Value) {
+                    Counter target;
+                    if (!targetGroup.TryGetValue(item.Key,out target))
+                        targetGroup.Add(item.Key,target=new Counter { Maximum=item.Value.Maximum });
+                    target.Value=target.Maximum ? Math.Max(target.Value,item.Value.Value) : target.Value+item.Value.Value;
+                }
             }
         }
 

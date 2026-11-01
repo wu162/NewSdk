@@ -23,6 +23,8 @@ namespace NewModCompiler.Application
         NewModCompiler.Diagnostics.BuildPerformance performance;
         internal NewModCompiler.Diagnostics.BuildPerformance Performance { get { return performance ?? (performance = new NewModCompiler.Diagnostics.BuildPerformance(PerformanceLevel)); } }
         internal FileHashCache FileIdentities { get; set; }
+        internal BuildResourceGovernor ResourceGovernor { get; set; }
+        internal string ContentGroup { get; set; }
 #if NEWSdk_MONOLITHIC
         internal CoreInputPreparation InputPreparation { get; set; }
 #endif
@@ -46,6 +48,21 @@ namespace NewModCompiler.Application
         public string[] Arguments { get; set; }
         public IDictionary<string, EffectiveOption> Options { get; private set; }
         public BuildRequest() { JobsAuto=true; PerformanceLevel="off"; ModVersion="1.0"; GameVersion="1.12"; Options = new SortedDictionary<string, EffectiveOption>(StringComparer.Ordinal); }
+        internal void FreezeOptions()
+        {
+            var copy = new SortedDictionary<string, EffectiveOption>(StringComparer.Ordinal);
+            foreach (var option in Options) copy.Add(option.Key,new EffectiveOption {Value=option.Value.Value,Source=option.Value.Source});
+            Options = new System.Collections.ObjectModel.ReadOnlyDictionary<string, EffectiveOption>(copy);
+        }
+        internal BuildRequest ForContent(string content,BuildResourceGovernor governor)
+        {
+            var copy=(BuildRequest)MemberwiseClone();
+            copy.ContentGroup=content; copy.ResourceGovernor=governor;
+            copy.performance=Performance.CreateCollector();
+            copy.FileIdentities=new FileHashCache(copy.performance);
+            copy.FreezeOptions();
+            return copy;
+        }
     }
     public sealed class BuildTask
     {

@@ -1,0 +1,139 @@
+name: Single-process content parallel Release acceptance
+on:
+  push:
+    branches: [feat/single-process-content-parallel]
+    paths:
+      - '.github/workflows/content-parallel.yml'
+      - 'recovery/scripts/TestContentParallel.ps1'
+      - 'recovery/src/**'
+      - 'recovery/tests/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: content-parallel-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  content:
+    runs-on: windows-2022
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Parse changed PowerShell and check pinned Upheaval before native build
+        shell: pwsh
+        run: |
+          $tokens=$null; $errors=$null
+          [Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'recovery/scripts/TestContentParallel.ps1'),[ref]$tokens,[ref]$errors) | Out-Null
+          if($errors.Count){throw ($errors|Out-String)}
+          $tree=git rev-parse 'bacfc69fc3e71c8116d1f22b933b8b6173170ecf:SDK/Mods/Upheaval'
+          if($LASTEXITCODE -ne 0 -or $tree -cne '5551fc26a6f96b62613443e0d0fa2958c14cbce0'){throw 'Pinned complete Upheaval unavailable'}
+      - name: Managed App contracts before native compilation
+        shell: pwsh
+        run: |
+          $out='recovery/artifacts/content-app'
+          ./recovery/scripts/BuildApp.ps1 -Tests -Configuration Release -OutputDirectory $out
+          & "$out/NewModCompiler.AppTests.exe" 'C:\nsc-content-app' *> "$out/contracts.log"
+          if($LASTEXITCODE -ne 0){Get-Content "$out/contracts.log" -Tail 100; throw 'App contracts failed'}
+          Get-Content "$out/contracts.log" -Tail 12
+      - name: Reuse the independently verified Release when only tests or evidence changed
+        id: reuse
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference='Stop'
+          $source='6019719701eb651958592c33f7ee985af2f4b82b'
+          $sourceRun=41286126589; $artifactId=13075357674
+          $archiveHash='104de7d1b957aebbd2be09462a04783b7a97ed49f31c291b6883c8b068febc69'
+          $current=(git rev-parse HEAD).Trim()
+          git merge-base --is-ancestor $source $current
+          if($LASTEXITCODE -ne 0){'reused=false'|Add-Content $env:GITHUB_OUTPUT; Write-Host 'Pinned source is not an ancestor; a current Release build is required'; exit 0}
+          $changed=@(git diff --name-only $source $current)
+          if($LASTEXITCODE -ne 0){throw 'Cannot inspect production input closure'}
+          $allowed='^(?:\.github/workflows/content-parallel\.yml|recovery/scripts/TestContentParallel\.ps1|recovery/tests/.+|recovery/docs/CONTENT_PARALLEL\.md|recovery/evidence/content-parallel/.+|recovery/RESUME\.md)$'
+          if(@($changed|Where-Object{$_ -cnotmatch $allowed}).Count -ne 0 -or $changed -ccontains 'recovery/tests/CompilerValidationEntry.cpp'){
+            'reused=false'|Add-Content $env:GITHUB_OUTPUT
+            Write-Host 'Production or validation entry inputs changed; a current Release build is required'
+            exit 0
+          }
+          $prior=gh api "repos/$env:GITHUB_REPOSITORY/actions/runs/$sourceRun"|ConvertFrom-Json
+          if($LASTEXITCODE -ne 0 -or $prior.head_sha -cne $source -or $prior.status -cne 'completed'){throw 'Pinned source run identity/state differs'}
+          $jobs=gh api "repos/$env:GITHUB_REPOSITORY/actions/runs/$sourceRun/jobs"|ConvertFrom-Json
+          if($LASTEXITCODE -ne 0){throw 'Cannot inspect prior independent step outcomes'}
+          foreach($name in @('Managed App contracts before native compilation','Build one current Release and its production-object fixture host')){
+            $steps=@($jobs.jobs.steps|Where-Object name -CEQ $name)
+            if($steps.Count -ne 1 -or $steps[0].conclusion -cne 'success'){throw "Prior independent step did not succeed: $name"}
+          }
+          $artifact=gh api "repos/$env:GITHUB_REPOSITORY/actions/artifacts/$artifactId"|ConvertFrom-Json
+          if($LASTEXITCODE -ne 0 -or $artifact.expired -or $artifact.workflow_run.id -ne $sourceRun -or $artifact.workflow_run.head_sha -cne $source){throw 'Pinned artifact provenance differs or expired'}
+          $reuseRoot=(New-Item -ItemType Directory -Force 'work/content-reuse').FullName
+          $archive=Join-Path $reuseRoot 'archive.zip'
+          # PowerShell 7.4+ preserves native binary stdout when redirected.
+          if($PSVersionTable.PSVersion -lt [Version]'7.4'){throw 'Binary gh api archive download requires PowerShell 7.4+'}
+          gh api "repos/$env:GITHUB_REPOSITORY/actions/artifacts/$artifactId/zip" > $archive
+          if($LASTEXITCODE -ne 0 -or (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant() -cne $archiveHash){throw 'Pinned artifact archive identity differs'}
+          $extract=Join-Path $reuseRoot 'extract';Expand-Archive -LiteralPath $archive -DestinationPath $extract
+          $previous=Get-Content "$extract/content-validation/validation.json" -Raw|ConvertFrom-Json
+          $fixtures=@('CompilerPreparedBackend','CompilerCoreLifecycle','CompilerResourceLifecycle','CompilerStateLifecycle','CompilerBackendLifecycle','CompilerApplicationBuild')
+          if($previous.sourceCommit -cne $source -or @($previous.coreFixtures).Count -ne $fixtures.Count){throw 'Prior independent Core fixture inventory differs'}
+          foreach($fixture in $fixtures){
+            $result=Get-Content "$extract/content-validation/$fixture/result.json" -Raw|ConvertFrom-Json
+            if(!$result.succeeded -or $result.sourceCommit -cne $source -or $result.runId -ne $sourceRun -or @($previous.coreFixtures|Where-Object name -CEQ $fixture).Count -ne 1){throw "Prior fixture did not independently pass: $fixture"}
+          }
+          New-Item -ItemType Directory -Force 'recovery/artifacts'|Out-Null
+          Copy-Item -LiteralPath "$extract/content-product" -Destination 'recovery/artifacts/content-product' -Recurse
+          . ./recovery/scripts/CompilerValidation.Common.ps1
+          $product=(Resolve-Path 'recovery/artifacts/content-product').Path
+          $validation=Initialize-CompilerValidationRun $product (Join-Path $reuseRoot 'runtime-check') 'Release' $source
+          Complete-CompilerValidationRun $validation
+          $validationReceipt=Get-Content "$product/validation/build.json" -Raw|ConvertFrom-Json
+          if((Get-FileHash 'recovery/tests/CompilerValidationEntry.cpp' -Algorithm SHA256).Hash.ToLowerInvariant() -cne $validationReceipt.entrySource.sha256){throw 'Validation host entry source changed'}
+          $receipt=Join-Path $reuseRoot 'reuse.json'
+          @{schemaVersion=1;status='validated';binarySourceCommit=$source;testSourceCommit=$current;runId=$sourceRun;artifactId=$artifactId;archivePath=$archive;archiveSha256=$archiveHash;productExeSha256=$validation.productExeSha256;validationHostSha256=$validation.validationHostSha256;sourceRunConclusion=$prior.conclusion;sourceValidationStatus=$previous.status;acceptedPriorScope='Release and production-object host build, managed App and six independent Core fixtures passed; overall source run failed in the first CLI invocation. Current CLI tests rerun with unchanged binaries and their original receipts.';changedPaths=$changed}|ConvertTo-Json -Depth 8|Set-Content $receipt
+          'reused=true'|Add-Content $env:GITHUB_OUTPUT
+          "CONTENT_REUSE_RECEIPT=$receipt"|Add-Content $env:GITHUB_ENV
+          Write-Host "Reusing Release $source from $sourceRun; prior overall outcome remains $($prior.conclusion)"
+      - uses: actions/setup-dotnet@v4
+        if: steps.reuse.outputs.reused != 'true'
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: steps.reuse.outputs.reused != 'true'
+        with:
+          arch: x86
+      - name: Build one current Release and its production-object fixture host
+        if: steps.reuse.outputs.reused != 'true'
+        shell: pwsh
+        run: |
+          ./recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory recovery/artifacts/content-product
+          ./recovery/scripts/BuildCompilerValidationHost.ps1 -ProductBuildDirectory recovery/artifacts/content-product -OutputDirectory recovery/artifacts/content-product/validation
+      - name: Core contracts, seven selections, cold hot bytes, cancellation and one Upheaval comparison
+        shell: pwsh
+        run: |
+          $arguments=@{ProductBuildDirectory='recovery/artifacts/content-product';OutputDirectory='recovery/artifacts/content-validation'}
+          if($env:CONTENT_REUSE_RECEIPT){$arguments.ReuseReceiptPath=$env:CONTENT_REUSE_RECEIPT}
+          ./recovery/scripts/TestContentParallel.ps1 @arguments
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: content-parallel-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/content-app/contracts.log
+            work/content-reuse/reuse.json
+            recovery/artifacts/content-validation/
+            recovery/artifacts/content-product/build.json
+            recovery/artifacts/content-product/link-inputs.json
+            recovery/artifacts/content-product/**/*.log
+            recovery/artifacts/content-product/bin/
+            recovery/artifacts/content-product/validation/build.json
+            recovery/artifacts/content-product/validation/bin/
+          include-hidden-files: true
+          if-no-files-found: warn

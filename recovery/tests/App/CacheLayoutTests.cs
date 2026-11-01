@@ -96,6 +96,18 @@ namespace NewModCompiler.Tests
             Check(parse(other, "out-d", new string[0]).CacheLayout.CacheRoot != layout.CacheRoot, "Same-name MODs have independent partitions");
             Check(!Directory.Exists(layout.CacheBase) && !Directory.Exists(request.OutputRoot), "Planning creates no cache or output directory");
             Check(object.ReferenceEquals(layout, CacheLayout.ForRequest(request)), "One immutable layout per request");
+            foreach (string content in new[] {"base", "apt", "maps"}) {
+                var group = layout.ForContent(content);
+                Check(group.Content == content && group.Session == Path.Combine(layout.Session, content) &&
+                    group.BuildCache == Path.Combine(layout.BuildCache, content) && group.Intermediate == Path.Combine(layout.Intermediate, content),
+                    "Content owns its writable caches: " + content);
+            }
+            Check(!Directory.Exists(layout.CacheBase), "Describing content partitions creates no unused group cache");
+            Reject(() => layout.ForContent("../base"));
+            var serial = parse(mod, "serial-output", new[] {"--jobs", "1"}).CacheLayout.ForContent("apt");
+            var parallel = parse(mod, "parallel-output", new[] {"--jobs", "4"}).CacheLayout.ForContent("apt");
+            Check(serial.Session == parallel.Session && serial.BuildCache == parallel.BuildCache && serial.Intermediate == parallel.Intermediate,
+                "Serial and parallel use identical content cache identities");
             var task = new BuildTask {Content = "base", InputPath = Path.Combine(mod, "Data", "Mod.xml")};
             Check(layout.StreamDirectory(task) == Path.Combine(layout.Streams, "base", "Mod"), "Shared stream layout");
             Check(layout.BuildTempDirectory("build-a") != layout.BuildTempDirectory("build-b"), "Temporary inputs are scoped to a build ID");
@@ -104,6 +116,9 @@ namespace NewModCompiler.Tests
                 string directory = Path.Combine(layout.CacheRoot, "custom-" + key);
                 var custom = parse(mod, "custom-output", new[] {"/" + key + ":" + directory});
                 Check((key == "scd" ? custom.CacheLayout.Session : key == "bcd" ? custom.CacheLayout.BuildCache : custom.CacheLayout.Intermediate) == directory, "Partition-local override " + key);
+                var group = custom.CacheLayout.ForContent("maps");
+                Check((key == "scd" ? group.Session : key == "bcd" ? group.BuildCache : group.Intermediate) == Path.Combine(directory, "maps"),
+                    "Overrides retain group isolation: " + key);
                 foreach (string outside in new[] {mod, sdk, Path.Combine(root, "legacy-out"), Path.Combine(layout.CacheBase, "another-mod")})
                     Reject(() => parse(mod, "rejected-output", new[] {"/" + key + ":" + outside}));
             }

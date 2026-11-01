@@ -10,26 +10,37 @@ public static class AssetReport
 {
 	private const string DefaultFileName = "AssetReport.xml";
 
-	public static string FileName = DefaultFileName;
+	public static string FileName { get => CurrentState.FileName; set => CurrentState.FileName = value; }
 
-	public static string FileNameFullyQualified = null;
+	public static string FileNameFullyQualified { get => CurrentState.Path; set => CurrentState.Path = value; }
 
 	public static readonly string TypeName = "AssetReportTable";
 
-	private static XmlWriter AssetRecordWriter = null;
+	private static XmlWriter AssetRecordWriter { get => CurrentState.Writer; set => CurrentState.Writer = value; }
 
-	private static Stream AssetRecordStream = null;
+	private static Stream AssetRecordStream { get => CurrentState.Stream; set => CurrentState.Stream = value; }
 
-	private static IDictionary<string, bool> RecordedAssets = null;
+	private static IDictionary<string, bool> RecordedAssets { get => CurrentState.Assets; set => CurrentState.Assets = value; }
 
-	private static readonly object ScopeGate = new object();
+	internal sealed class State
+	{
+		internal readonly object Gate = new object();
+		internal XmlWriter Writer;
+		internal Stream Stream;
+		internal IDictionary<string, bool> Assets;
+		internal string FileName = DefaultFileName;
+		internal string Path;
+		internal ReportScope Scope;
+		internal bool Closing;
+	}
 
-	private static ReportScope CurrentScope;
+	private static State CurrentState => CompilationContext.Current.AssetReport;
+	private static object ScopeGate => CurrentState.Gate;
+	private static ReportScope CurrentScope { get => CurrentState.Scope; set => CurrentState.Scope = value; }
+	private static bool Closing { get => CurrentState.Closing; set => CurrentState.Closing = value; }
 
-	private static bool Closing;
-
-	// Scopes own sequential stream state. This does not make RecordAsset or
-	// the legacy public fields generally safe for concurrent use.
+	// Scopes own one context's sequential stream state. Separate contexts can
+	// keep report writers open concurrently without sharing writer or scope state.
 	public static IDisposable BeginScope()
 	{
 		lock (ScopeGate)
@@ -53,8 +64,9 @@ public static class AssetReport
 			throw new InvalidOperationException("Asset report scopes may only be used on their owning thread.");
 	}
 
-	private sealed class ReportScope : IDisposable
+	internal sealed class ReportScope : IDisposable
 	{
+		private readonly State state = CurrentState;
 		internal readonly int ThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
 		private readonly ReportScope parent = CurrentScope;
 		private readonly XmlWriter writer = AssetRecordWriter;
@@ -68,9 +80,11 @@ public static class AssetReport
 		{
 			XmlWriter childWriter;
 			Stream childStream;
-			lock (ScopeGate)
+			lock (state.Gate)
 			{
 				if (disposed) return;
+				if (!Object.ReferenceEquals(CurrentState, state))
+					throw new InvalidOperationException("Asset report scopes must be disposed in their creating compilation context.");
 				EnsureScopeThread();
 				if (Closing) throw new InvalidOperationException("Cannot dispose an asset report scope during Close.");
 				if (!Object.ReferenceEquals(CurrentScope, this))

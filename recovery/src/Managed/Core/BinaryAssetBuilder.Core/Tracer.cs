@@ -34,14 +34,23 @@ public class Tracer
 
 	private static Dictionary<string, Tracer> _Tracers;
 
-	public static TraceWriteHandler TraceWrite;
+	internal sealed class State
+    {
+        internal readonly object Gate = new object();
+        internal TraceWriteHandler Writer;
+        internal TraceKind Mask = TraceKind.Exception | TraceKind.Assert | TraceKind.Error | TraceKind.Warning | TraceKind.Message;
+        internal TraceScope Scope;
+        internal readonly AsyncLocal<int> Indent = new AsyncLocal<int>();
+        internal readonly AsyncLocal<DiagnosticCapture> Capture = new AsyncLocal<DiagnosticCapture>();
+    }
+    private static State CurrentState => CompilationContext.Current.Tracing;
+    public static TraceWriteHandler TraceWrite { get => CurrentState.Writer; set => CurrentState.Writer = value; }
 
-	private static LocalDataStoreSlot _IndentLevelStore;
 
-	private static TraceKind _TraceMask;
 
-	[ThreadStatic]
-	private static DiagnosticCapture _DiagnosticCapture;
+	private static TraceKind _TraceMask { get => CurrentState.Mask; set => CurrentState.Mask = value; }
+
+	private static DiagnosticCapture _DiagnosticCapture { get => CurrentState.Capture.Value; set => CurrentState.Capture.Value = value; }
 
 	// Each worker owns its diagnostic list. Delivery stays on the owner thread,
 	// where the build's trace callback and document context are installed.
@@ -101,27 +110,7 @@ public class Tracer
 
 	private bool _TraceEnabled;
 
-	private static int IndentLevel
-	{
-		get
-		{
-			int result = 0;
-			object data = Thread.GetData(_IndentLevelStore);
-			if (data == null)
-			{
-				Thread.SetData(_IndentLevelStore, 0);
-			}
-			else
-			{
-				result = (int)data;
-			}
-			return result;
-		}
-		set
-		{
-			Thread.SetData(_IndentLevelStore, value);
-		}
-	}
+    private static int IndentLevel { get => CurrentState.Indent.Value; set => CurrentState.Indent.Value = value; }
 
 	private TraceKind Options => _TraceMask;
 
@@ -141,8 +130,6 @@ public class Tracer
 			TraceKind.All
 		};
 		_Tracers = new Dictionary<string, Tracer>();
-		_IndentLevelStore = Thread.AllocateDataSlot();
-		_TraceMask = VerbosityLevels[1];
 	}
 
 	public static Tracer GetTracer(string name, string description)
@@ -164,8 +151,8 @@ public class Tracer
 		_TraceMask = VerbosityLevels[level];
 	}
 
-    private static readonly object ScopeGate = new object();
-    private static TraceScope _CurrentScope;
+    private static object ScopeGate => CurrentState.Gate;
+    private static TraceScope _CurrentScope { get => CurrentState.Scope; set => CurrentState.Scope = value; }
 
     // Replace rather than append the callback: one diagnostic must be delivered
     // once, and the caller's exact mask/delegate must survive a failed stream.
@@ -189,9 +176,10 @@ public class Tracer
             throw new InvalidOperationException("Trace scopes may only be used on their owning thread.");
     }
 
-    private sealed class TraceScope : IDisposable
+    internal sealed class TraceScope : IDisposable
     {
         internal readonly int ThreadId = Thread.CurrentThread.ManagedThreadId;
+        private readonly State state = CurrentState;
         private readonly TraceScope parent = _CurrentScope;
         private readonly TraceWriteHandler writer = TraceWrite;
         private readonly TraceKind mask = _TraceMask;
@@ -203,7 +191,7 @@ public class Tracer
             {
                 if (disposed) return;
                 EnsureScopeThread();
-                if (!Object.ReferenceEquals(_CurrentScope, this))
+                if (!ReferenceEquals(state, CurrentState) || !Object.ReferenceEquals(_CurrentScope, this))
                     throw new InvalidOperationException("Trace scopes must be disposed in reverse creation order.");
                 TraceWrite = writer;
                 _TraceMask = mask;

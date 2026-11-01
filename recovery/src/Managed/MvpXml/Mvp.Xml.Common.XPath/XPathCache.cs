@@ -8,7 +8,7 @@ namespace Mvp.Xml.Common.XPath;
 
 public sealed class XPathCache
 {
-	private static IDictionary<string, XPathExpression> _cache = new Dictionary<string, XPathExpression>();
+	private static readonly IDictionary<string, XPathExpression> _cache = new Dictionary<string, XPathExpression>();
 
 	private static IDictionary<string, XPathExpression> Cache => _cache;
 
@@ -18,12 +18,15 @@ public sealed class XPathCache
 
 	private static XPathExpression GetCompiledExpression(string expression, XPathNavigator source)
 	{
-		if (!Cache.TryGetValue(expression, out var value))
+		lock (Cache)
 		{
-			value = source.Compile(expression);
-			Cache[expression] = value;
+			if (!Cache.TryGetValue(expression, out var value))
+			{
+				value = source.Compile(expression);
+				Cache[expression] = value;
+			}
+			return value.Clone();
 		}
-		return value.Clone();
 	}
 
 	private static XmlNamespaceManager PrepareContext(XPathNavigator source, XmlNamespaceManager context, XmlPrefix[] prefixes, XPathVariable[] variables)

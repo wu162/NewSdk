@@ -50,7 +50,7 @@
 
 
 #ifdef DEBUG
-static int hoge, hogege;
+static thread_local int hoge, hogege;
 #endif
 
 

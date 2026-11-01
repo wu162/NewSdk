@@ -71,6 +71,19 @@ namespace NewModCompiler.Application
             catch (NotSupportedException error) { throw Invalid(error.Message); }
         }
 
+        // Both serial and parallel builds use the same content partition. A
+        // layout is only a path description; unused content creates no files or
+        // directories and never opens another group's legacy session.
+        public ContentCacheLayout ForContent(string content)
+        {
+            ValidateContent(content);
+            string session = Path.Combine(Session, content);
+            string buildCache = Path.Combine(BuildCache, content);
+            string intermediate = Path.Combine(Intermediate, content);
+            ValidatePath(session); ValidatePath(buildCache); ValidatePath(intermediate);
+            return new ContentCacheLayout(content, session, buildCache, intermediate);
+        }
+
         string CacheOption(BuildRequest request, string key, string directory)
         {
             EffectiveOption option;
@@ -86,7 +99,7 @@ namespace NewModCompiler.Application
         {
             if (task == null) throw new ArgumentNullException("task");
             string content = task.Content;
-            if (content != "base" && content != "apt" && content != "maps") throw Invalid("Unknown stream content: " + content);
+            ValidateContent(content);
             string name = Path.GetFileNameWithoutExtension(task.InputPath);
             ValidateSegment(name);
             string result = Path.Combine(Streams, content, name);
@@ -124,11 +137,28 @@ namespace NewModCompiler.Application
                 throw Invalid("Cache path requires a single directory name.");
             DiagnosticDirectory.ValidateSyntax(value);
         }
+        static void ValidateContent(string content)
+        {
+            if (content != "base" && content != "apt" && content != "maps") throw Invalid("Unknown stream content: " + content);
+        }
         static void ValidatePath(string path)
         {
             DiagnosticDirectory.ValidateSyntax(path);
             if (path.Length >= 248) throw Invalid("Cache directory exceeds the supported Win32/MAX_PATH limit: " + path);
         }
         static BuildFailure Invalid(string message) { return new BuildFailure(ExitCode.Arguments, "CLI_CACHE_PATH", message); }
+    }
+
+    public sealed class ContentCacheLayout
+    {
+        public string Content { get; private set; }
+        public string Session { get; private set; }
+        public string BuildCache { get; private set; }
+        public string Intermediate { get; private set; }
+
+        internal ContentCacheLayout(string content, string session, string buildCache, string intermediate)
+        {
+            Content = content; Session = session; BuildCache = buildCache; Intermediate = intermediate;
+        }
     }
 }

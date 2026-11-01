@@ -1,0 +1,2265 @@
+{
+  "schemaVersion": 1,
+  "runId": 41287090604,
+  "runAttempt": 1,
+  "workflowConclusion": "success",
+  "validationStatus": "passed",
+  "sampleCount": 58,
+  "binarySourceCommit": "1b9da37a00beb639c8c56590417ef51bb210c3cb",
+  "testSourceCommit": "1b9da37a00beb639c8c56590417ef51bb210c3cb",
+  "binaryReused": false,
+  "currentProductionAcceptance": true,
+  "sevenCombinations": [
+    {
+      "selection": "base",
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "coldMaximumCrossGroupIntervalOverlapMs": 0,
+      "coldGroupCompileMs": {
+        "base": 571.6167
+      },
+      "coldWallMs": {
+        "1": 870,
+        "4": 825
+      },
+      "hotWallMs": {
+        "1": 649,
+        "4": 600
+      },
+      "coldPeakWorkingSetBytes": {
+        "1": 52867072,
+        "4": 53264384
+      }
+    },
+    {
+      "selection": "apt",
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "coldMaximumCrossGroupIntervalOverlapMs": 0,
+      "coldGroupCompileMs": {
+        "apt": 670.668
+      },
+      "coldWallMs": {
+        "1": 906,
+        "4": 946
+      },
+      "hotWallMs": {
+        "1": 641,
+        "4": 642
+      },
+      "coldPeakWorkingSetBytes": {
+        "1": 53321728,
+        "4": 52932608
+      }
+    },
+    {
+      "selection": "maps",
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "coldMaximumCrossGroupIntervalOverlapMs": 0,
+      "coldGroupCompileMs": {
+        "maps": 699.1096
+      },
+      "coldWallMs": {
+        "1": 881,
+        "4": 979
+      },
+      "hotWallMs": {
+        "1": 626,
+        "4": 631
+      },
+      "coldPeakWorkingSetBytes": {
+        "1": 53039104,
+        "4": 53280768
+      }
+    },
+    {
+      "selection": "base,apt",
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 2,
+      "coldMaximumCrossGroupIntervalOverlapMs": 627.0468,
+      "coldGroupCompileMs": {
+        "base": 627.6176,
+        "apt": 791.8654
+      },
+      "coldWallMs": {
+        "1": 1160,
+        "4": 1061
+      },
+      "hotWallMs": {
+        "1": 827,
+        "4": 720
+      },
+      "coldPeakWorkingSetBytes": {
+        "1": 61030400,
+        "4": 63254528
+      }
+    },
+    {
+      "selection": "base,maps",
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 2,
+      "coldMaximumCrossGroupIntervalOverlapMs": 622.3988,
+      "coldGroupCompileMs": {
+        "base": 623.0111,
+        "maps": 728.0498
+      },
+      "coldWallMs": {
+        "1": 1173,
+        "4": 1000
+      },
+      "hotWallMs": {
+        "1": 821,
+        "4": 723
+      },
+      "coldPeakWorkingSetBytes": {
+        "1": 61054976,
+        "4": 63283200
+      }
+    },
+    {
+      "selection": "apt,maps",
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 2,
+      "coldMaximumCrossGroupIntervalOverlapMs": 673.8182,
+      "coldGroupCompileMs": {
+        "apt": 825.96,
+        "maps": 838.6406
+      },
+      "coldWallMs": {
+        "1": 1282,
+        "4": 1108
+      },
+      "hotWallMs": {
+        "1": 811,
+        "4": 735
+      },
+      "coldPeakWorkingSetBytes": {
+        "1": 60088320,
+        "4": 65302528
+      }
+    },
+    {
+      "selection": "base,apt,maps",
+      "groupCount": 3,
+      "maximumConcurrentOwnerCompileIntervals": 3,
+      "coldMaximumCrossGroupIntervalOverlapMs": 790.3869,
+      "coldGroupCompileMs": {
+        "base": 790.4046,
+        "apt": 951.923,
+        "maps": 949.5968
+      },
+      "coldWallMs": {
+        "1": 1594,
+        "4": 1218
+      },
+      "hotWallMs": {
+        "1": 1032,
+        "4": 852
+      },
+      "coldPeakWorkingSetBytes": {
+        "1": 62574592,
+        "4": 77201408
+      }
+    }
+  ],
+  "samples": [
+    {
+      "label": "base-j1-cold",
+      "selection": "base",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 870,
+      "cpuMs": 890.625,
+      "peakWorkingSetBytes": 52867072,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 579.7415
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 101120
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 256,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "base-j1-hot",
+      "selection": "base",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 649,
+      "cpuMs": 640.625,
+      "peakWorkingSetBytes": 48852992,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 372.8689
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 1,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1
+      }
+    },
+    {
+      "label": "base-j1-big",
+      "selection": "base",
+      "jobs": 1,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 623,
+      "cpuMs": 656.25,
+      "peakWorkingSetBytes": 49065984,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 362.4572
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 1,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1
+      }
+    },
+    {
+      "label": "base-j4-cold",
+      "selection": "base",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 825,
+      "cpuMs": 906.25,
+      "peakWorkingSetBytes": 53264384,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 571.6167
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 4,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 9451264
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 256,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "base-j4-hot",
+      "selection": "base",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 600,
+      "cpuMs": 609.375,
+      "peakWorkingSetBytes": 48349184,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 338.8603
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 1,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1
+      }
+    },
+    {
+      "label": "base-j4-big",
+      "selection": "base",
+      "jobs": 4,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 638,
+      "cpuMs": 640.625,
+      "peakWorkingSetBytes": 48738304,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 334.8548
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 1,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1
+      }
+    },
+    {
+      "label": "apt-j1-cold",
+      "selection": "apt",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 906,
+      "cpuMs": 1062.5,
+      "peakWorkingSetBytes": 53321728,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "apt": 644.2038
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 96512
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 2,
+        "documentReuse": 0,
+        "xmlParse": 2,
+        "instanceCompile": 512,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "apt-j1-hot",
+      "selection": "apt",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 641,
+      "cpuMs": 671.875,
+      "peakWorkingSetBytes": 51122176,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "apt": 364.2786
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 2,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 2
+      }
+    },
+    {
+      "label": "apt-j1-big",
+      "selection": "apt",
+      "jobs": 1,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 674,
+      "cpuMs": 609.375,
+      "peakWorkingSetBytes": 51097600,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "apt": 399.2119
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 2,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 2
+      }
+    },
+    {
+      "label": "apt-j4-cold",
+      "selection": "apt",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 946,
+      "cpuMs": 1203.125,
+      "peakWorkingSetBytes": 52932608,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "apt": 670.668
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 4,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 8450176
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 2,
+        "documentReuse": 0,
+        "xmlParse": 2,
+        "instanceCompile": 512,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "apt-j4-hot",
+      "selection": "apt",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 642,
+      "cpuMs": 609.375,
+      "peakWorkingSetBytes": 51183616,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "apt": 357.127
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 2,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 2
+      }
+    },
+    {
+      "label": "apt-j4-big",
+      "selection": "apt",
+      "jobs": 4,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 628,
+      "cpuMs": 671.875,
+      "peakWorkingSetBytes": 51351552,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "apt": 351.6162
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 2,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 2
+      }
+    },
+    {
+      "label": "maps-j1-cold",
+      "selection": "maps",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 881,
+      "cpuMs": 968.75,
+      "peakWorkingSetBytes": 53039104,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "maps": 619.4233
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 98816
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 2,
+        "documentReuse": 0,
+        "xmlParse": 2,
+        "instanceCompile": 512,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "maps-j1-hot",
+      "selection": "maps",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 626,
+      "cpuMs": 625,
+      "peakWorkingSetBytes": 51159040,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "maps": 373.4434
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 2,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 2
+      }
+    },
+    {
+      "label": "maps-j1-big",
+      "selection": "maps",
+      "jobs": 1,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 635,
+      "cpuMs": 640.625,
+      "peakWorkingSetBytes": 51109888,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "maps": 361.6116
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 2,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 2
+      }
+    },
+    {
+      "label": "maps-j4-cold",
+      "selection": "maps",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 979,
+      "cpuMs": 1140.625,
+      "peakWorkingSetBytes": 53280768,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "maps": 699.1096
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 4,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 7839040
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 2,
+        "documentReuse": 0,
+        "xmlParse": 2,
+        "instanceCompile": 512,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "maps-j4-hot",
+      "selection": "maps",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 631,
+      "cpuMs": 687.5,
+      "peakWorkingSetBytes": 51171328,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "maps": 359.3203
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 2,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 2
+      }
+    },
+    {
+      "label": "maps-j4-big",
+      "selection": "maps",
+      "jobs": 4,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 633,
+      "cpuMs": 671.875,
+      "peakWorkingSetBytes": 51245056,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "maps": 358.0113
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 2,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 2
+      }
+    },
+    {
+      "label": "base-apt-j1-cold",
+      "selection": "base,apt",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 1160,
+      "cpuMs": 1296.875,
+      "peakWorkingSetBytes": 61030400,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 490.7204,
+        "apt": 402.7986
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 96704
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 3,
+        "documentReuse": 0,
+        "xmlParse": 3,
+        "instanceCompile": 768,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "base-apt-j1-hot",
+      "selection": "base,apt",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 827,
+      "cpuMs": 796.875,
+      "peakWorkingSetBytes": 51683328,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 340.7635,
+        "apt": 209.8655
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 3,
+        "sessionPackageMisses": 0,
+        "documentReuse": 3,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 3
+      }
+    },
+    {
+      "label": "base-apt-j1-big",
+      "selection": "base,apt",
+      "jobs": 1,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 834,
+      "cpuMs": 875,
+      "peakWorkingSetBytes": 60198912,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 338.4113,
+        "apt": 217.7869
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 3,
+        "sessionPackageMisses": 0,
+        "documentReuse": 3,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 3
+      }
+    },
+    {
+      "label": "base-apt-j4-cold",
+      "selection": "base,apt",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 1061,
+      "cpuMs": 1625,
+      "peakWorkingSetBytes": 63254528,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 2,
+      "maximumCrossGroupIntervalOverlapMs": 627.0468,
+      "groupCompileMs": {
+        "base": 627.6176,
+        "apt": 791.8654
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 4,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 11656192
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 3,
+        "documentReuse": 0,
+        "xmlParse": 3,
+        "instanceCompile": 768,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "base-apt-j4-hot",
+      "selection": "base,apt",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 720,
+      "cpuMs": 984.375,
+      "peakWorkingSetBytes": 62164992,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 2,
+      "maximumCrossGroupIntervalOverlapMs": 435.0622,
+      "groupCompileMs": {
+        "base": 435.4995,
+        "apt": 446.1779
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 2,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 3,
+        "sessionPackageMisses": 0,
+        "documentReuse": 3,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 3
+      }
+    },
+    {
+      "label": "base-apt-j4-big",
+      "selection": "base,apt",
+      "jobs": 4,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 697,
+      "cpuMs": 984.375,
+      "peakWorkingSetBytes": 61239296,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 2,
+      "maximumCrossGroupIntervalOverlapMs": 417.4693,
+      "groupCompileMs": {
+        "base": 418.0251,
+        "apt": 427.5545
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 2,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 3,
+        "sessionPackageMisses": 0,
+        "documentReuse": 3,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 3
+      }
+    },
+    {
+      "label": "base-maps-j1-cold",
+      "selection": "base,maps",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 1173,
+      "cpuMs": 1328.125,
+      "peakWorkingSetBytes": 61054976,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 494.8861,
+        "maps": 411.6208
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 97472
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 3,
+        "documentReuse": 0,
+        "xmlParse": 3,
+        "instanceCompile": 768,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "base-maps-j1-hot",
+      "selection": "base,maps",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 821,
+      "cpuMs": 890.625,
+      "peakWorkingSetBytes": 51675136,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 332.528,
+        "maps": 217.594
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 3,
+        "sessionPackageMisses": 0,
+        "documentReuse": 3,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 3
+      }
+    },
+    {
+      "label": "base-maps-j1-big",
+      "selection": "base,maps",
+      "jobs": 1,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 816,
+      "cpuMs": 828.125,
+      "peakWorkingSetBytes": 51527680,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 336.7218,
+        "maps": 212.0109
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 3,
+        "sessionPackageMisses": 0,
+        "documentReuse": 3,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 3
+      }
+    },
+    {
+      "label": "base-maps-j4-cold",
+      "selection": "base,maps",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 1000,
+      "cpuMs": 1843.75,
+      "peakWorkingSetBytes": 63283200,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 2,
+      "maximumCrossGroupIntervalOverlapMs": 622.3988,
+      "groupCompileMs": {
+        "base": 623.0111,
+        "maps": 728.0498
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 4,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 8471360
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 3,
+        "documentReuse": 0,
+        "xmlParse": 3,
+        "instanceCompile": 768,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "base-maps-j4-hot",
+      "selection": "base,maps",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 723,
+      "cpuMs": 1031.25,
+      "peakWorkingSetBytes": 60321792,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 2,
+      "maximumCrossGroupIntervalOverlapMs": 429.2086,
+      "groupCompileMs": {
+        "base": 429.6443,
+        "maps": 454.93
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 2,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 3,
+        "sessionPackageMisses": 0,
+        "documentReuse": 3,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 3
+      }
+    },
+    {
+      "label": "base-maps-j4-big",
+      "selection": "base,maps",
+      "jobs": 4,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 723,
+      "cpuMs": 1078.125,
+      "peakWorkingSetBytes": 60612608,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 2,
+      "maximumCrossGroupIntervalOverlapMs": 437.5359,
+      "groupCompileMs": {
+        "base": 438.137,
+        "maps": 447.5974
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 2,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 3,
+        "sessionPackageMisses": 0,
+        "documentReuse": 3,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 3
+      }
+    },
+    {
+      "label": "apt-maps-j1-cold",
+      "selection": "apt,maps",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 1282,
+      "cpuMs": 1500,
+      "peakWorkingSetBytes": 60088320,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "apt": 601.9238,
+        "maps": 405.8403
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 96704
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 4,
+        "documentReuse": 0,
+        "xmlParse": 4,
+        "instanceCompile": 1024,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "apt-maps-j1-hot",
+      "selection": "apt,maps",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 811,
+      "cpuMs": 796.875,
+      "peakWorkingSetBytes": 59756544,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "apt": 353.945,
+        "maps": 196.5813
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 4,
+        "sessionPackageMisses": 0,
+        "documentReuse": 4,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 4
+      }
+    },
+    {
+      "label": "apt-maps-j1-big",
+      "selection": "apt,maps",
+      "jobs": 1,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 849,
+      "cpuMs": 859.375,
+      "peakWorkingSetBytes": 59678720,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "apt": 361.1536,
+        "maps": 198.9956
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 4,
+        "sessionPackageMisses": 0,
+        "documentReuse": 4,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 4
+      }
+    },
+    {
+      "label": "apt-maps-j4-cold",
+      "selection": "apt,maps",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 1108,
+      "cpuMs": 1812.5,
+      "peakWorkingSetBytes": 65302528,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 2,
+      "maximumCrossGroupIntervalOverlapMs": 673.8182,
+      "groupCompileMs": {
+        "apt": 825.96,
+        "maps": 838.6406
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 4,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 10423168
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 4,
+        "documentReuse": 0,
+        "xmlParse": 4,
+        "instanceCompile": 1024,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "apt-maps-j4-hot",
+      "selection": "apt,maps",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 735,
+      "cpuMs": 1000,
+      "peakWorkingSetBytes": 61845504,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 2,
+      "maximumCrossGroupIntervalOverlapMs": 436.6686,
+      "groupCompileMs": {
+        "apt": 458.5061,
+        "maps": 459.0121
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 2,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 4,
+        "sessionPackageMisses": 0,
+        "documentReuse": 4,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 4
+      }
+    },
+    {
+      "label": "apt-maps-j4-big",
+      "selection": "apt,maps",
+      "jobs": 4,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 731,
+      "cpuMs": 1000,
+      "peakWorkingSetBytes": 61669376,
+      "groupCount": 2,
+      "maximumConcurrentOwnerCompileIntervals": 2,
+      "maximumCrossGroupIntervalOverlapMs": 434.1256,
+      "groupCompileMs": {
+        "apt": 448.896,
+        "maps": 452.388
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 2,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 4,
+        "sessionPackageMisses": 0,
+        "documentReuse": 4,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 4
+      }
+    },
+    {
+      "label": "base-apt-maps-j1-cold",
+      "selection": "base,apt,maps",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 1594,
+      "cpuMs": 1921.875,
+      "peakWorkingSetBytes": 62574592,
+      "groupCount": 3,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 505.4109,
+        "apt": 404.1922,
+        "maps": 398.7629
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 98432
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 5,
+        "documentReuse": 0,
+        "xmlParse": 5,
+        "instanceCompile": 1280,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "base-apt-maps-j1-hot",
+      "selection": "base,apt,maps",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 1032,
+      "cpuMs": 1000,
+      "peakWorkingSetBytes": 60125184,
+      "groupCount": 3,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 333.9479,
+        "apt": 219.2911,
+        "maps": 208.2093
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 5,
+        "sessionPackageMisses": 0,
+        "documentReuse": 5,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 5
+      }
+    },
+    {
+      "label": "base-apt-maps-j1-big",
+      "selection": "base,apt,maps",
+      "jobs": 1,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 1067,
+      "cpuMs": 1093.75,
+      "peakWorkingSetBytes": 61280256,
+      "groupCount": 3,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 335.0992,
+        "apt": 210.7265,
+        "maps": 238.8038
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 5,
+        "sessionPackageMisses": 0,
+        "documentReuse": 5,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 5
+      }
+    },
+    {
+      "label": "base-apt-maps-j4-cold",
+      "selection": "base,apt,maps",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 1218,
+      "cpuMs": 2625,
+      "peakWorkingSetBytes": 77201408,
+      "groupCount": 3,
+      "maximumConcurrentOwnerCompileIntervals": 3,
+      "maximumCrossGroupIntervalOverlapMs": 790.3869,
+      "groupCompileMs": {
+        "base": 790.4046,
+        "apt": 951.923,
+        "maps": 949.5968
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 4,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 9060928
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 5,
+        "documentReuse": 0,
+        "xmlParse": 5,
+        "instanceCompile": 1280,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "base-apt-maps-j4-hot",
+      "selection": "base,apt,maps",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 852,
+      "cpuMs": 1656.25,
+      "peakWorkingSetBytes": 70483968,
+      "groupCount": 3,
+      "maximumConcurrentOwnerCompileIntervals": 3,
+      "maximumCrossGroupIntervalOverlapMs": 560.8198,
+      "groupCompileMs": {
+        "base": 560.835,
+        "apt": 572.3093,
+        "maps": 572.5037
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 3,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 5,
+        "sessionPackageMisses": 0,
+        "documentReuse": 5,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 5
+      }
+    },
+    {
+      "label": "base-apt-maps-j4-big",
+      "selection": "base,apt,maps",
+      "jobs": 4,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 846,
+      "cpuMs": 1515.625,
+      "peakWorkingSetBytes": 71737344,
+      "groupCount": 3,
+      "maximumConcurrentOwnerCompileIntervals": 3,
+      "maximumCrossGroupIntervalOverlapMs": 553.3009,
+      "groupCompileMs": {
+        "base": 553.5425,
+        "apt": 570.6319,
+        "maps": 571.0605
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 3,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 5,
+        "sessionPackageMisses": 0,
+        "documentReuse": 5,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 5
+      }
+    },
+    {
+      "label": "selected-apt-on",
+      "selection": "apt",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 619,
+      "cpuMs": 609.375,
+      "peakWorkingSetBytes": 51286016,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "apt": 358.9202
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 2,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 2
+      }
+    },
+    {
+      "label": "selected-apt-off",
+      "selection": "apt",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 614,
+      "cpuMs": 671.875,
+      "peakWorkingSetBytes": 51122176,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "apt": 357.786
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 2,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 2
+      }
+    },
+    {
+      "label": "fla-xml-j1-cold",
+      "selection": "apt",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 1100,
+      "cpuMs": 781.25,
+      "peakWorkingSetBytes": 53243904,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "apt": 823.0674
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 11324
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 2,
+        "documentReuse": 0,
+        "xmlParse": 2,
+        "instanceCompile": 15,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "fla-xml-j4-cold",
+      "selection": "apt",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 803,
+      "cpuMs": 875,
+      "peakWorkingSetBytes": 53772288,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "apt": 522.7985
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 4,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 71544
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 2,
+        "documentReuse": 0,
+        "xmlParse": 2,
+        "instanceCompile": 15,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "maps-business-j1-cold",
+      "selection": "maps",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 658,
+      "cpuMs": 625,
+      "peakWorkingSetBytes": 49012736,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "maps": 392.5622
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 542404
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 2,
+        "documentReuse": 0,
+        "xmlParse": 2,
+        "instanceCompile": 6,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "maps-business-j4-cold",
+      "selection": "maps",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 682,
+      "cpuMs": 781.25,
+      "peakWorkingSetBytes": 49274880,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "maps": 417.2763
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 4,
+        "peakIoTasks": 3,
+        "peakRetainedResultBytes": 697720
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 2,
+        "documentReuse": 0,
+        "xmlParse": 2,
+        "instanceCompile": 6,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "auto-empty",
+      "selection": "auto",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 2,
+      "wallMs": 156,
+      "cpuMs": 140.625,
+      "peakWorkingSetBytes": 26234880,
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": null,
+        "sessionPackageMisses": null,
+        "documentReuse": null,
+        "xmlParse": null,
+        "instanceCompile": null,
+        "linkedStreamsRestored": null
+      }
+    },
+    {
+      "label": "missing-base",
+      "selection": "base",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 2,
+      "wallMs": 170,
+      "cpuMs": 156.25,
+      "peakWorkingSetBytes": 26308608,
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": null,
+        "sessionPackageMisses": null,
+        "documentReuse": null,
+        "xmlParse": null,
+        "instanceCompile": null,
+        "linkedStreamsRestored": null
+      }
+    },
+    {
+      "label": "empty-optional",
+      "selection": "apt,maps",
+      "jobs": 4,
+      "format": "big",
+      "expectedExit": 0,
+      "wallMs": 170,
+      "cpuMs": 171.875,
+      "peakWorkingSetBytes": 26636288,
+      "groupCount": 0,
+      "maximumConcurrentOwnerCompileIntervals": 0,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {},
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 0,
+        "peakIoTasks": 0,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": null,
+        "sessionPackageMisses": null,
+        "documentReuse": null,
+        "xmlParse": null,
+        "instanceCompile": null,
+        "linkedStreamsRestored": null
+      }
+    },
+    {
+      "label": "auto-only-apt",
+      "selection": "auto",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 808,
+      "cpuMs": 953.125,
+      "peakWorkingSetBytes": 52998144,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "apt": 552.2993
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 4,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 8624704
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 256,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "no-base-neutral",
+      "selection": "auto",
+      "jobs": 4,
+      "format": "big",
+      "expectedExit": 2,
+      "wallMs": 169,
+      "cpuMs": 156.25,
+      "peakWorkingSetBytes": 26378240,
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": null,
+        "sessionPackageMisses": null,
+        "documentReuse": null,
+        "xmlParse": null,
+        "instanceCompile": null,
+        "linkedStreamsRestored": null
+      }
+    },
+    {
+      "label": "failed-group",
+      "selection": "base,apt,maps",
+      "jobs": 4,
+      "format": "big",
+      "expectedExit": 4,
+      "wallMs": 779,
+      "cpuMs": 1171.875,
+      "peakWorkingSetBytes": 71905280,
+      "groupCount": 3,
+      "maximumConcurrentOwnerCompileIntervals": 0,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 0,
+        "apt": 0,
+        "maps": 0
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 4,
+        "peakIoTasks": 0,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 3,
+        "documentReuse": 0,
+        "xmlParse": 3,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "actual-ctrlbreak",
+      "selection": "base,apt,maps",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 6,
+      "wallMs": 778,
+      "cpuMs": 1421.875,
+      "peakWorkingSetBytes": 69529600,
+      "groupCount": 3,
+      "maximumConcurrentOwnerCompileIntervals": 0,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 0,
+        "apt": 0,
+        "maps": 0
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 3,
+        "peakIoTasks": 0,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 3,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "retry-after-cancel",
+      "selection": "base,apt,maps",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 830,
+      "cpuMs": 1531.25,
+      "peakWorkingSetBytes": 71823360,
+      "groupCount": 3,
+      "maximumConcurrentOwnerCompileIntervals": 3,
+      "maximumCrossGroupIntervalOverlapMs": 548.9447,
+      "groupCompileMs": {
+        "base": 553.3785,
+        "apt": 564.1179,
+        "maps": 565.1338
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 3,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 0
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 5,
+        "sessionPackageMisses": 0,
+        "documentReuse": 5,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 2
+      }
+    },
+    {
+      "label": "upheaval-j1-cold",
+      "selection": "base",
+      "jobs": 1,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 53098,
+      "cpuMs": 57359.375,
+      "peakWorkingSetBytes": 189177856,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 52137.68
+      },
+      "resources": {
+        "requestedJobs": 1,
+        "cpuCapacity": 1,
+        "ioCapacity": 1,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 1,
+        "peakIoTasks": 1,
+        "peakRetainedResultBytes": 354573736
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 1732,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 910,
+        "instanceCompile": 3235,
+        "linkedStreamsRestored": 0
+      }
+    },
+    {
+      "label": "upheaval-j4-cold",
+      "selection": "base",
+      "jobs": 4,
+      "format": "loose",
+      "expectedExit": 0,
+      "wallMs": 32521,
+      "cpuMs": 61031.25,
+      "peakWorkingSetBytes": 185536512,
+      "groupCount": 1,
+      "maximumConcurrentOwnerCompileIntervals": 1,
+      "maximumCrossGroupIntervalOverlapMs": 0,
+      "groupCompileMs": {
+        "base": 31564.181
+      },
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 536838144,
+        "peakCpuTasks": 4,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 410060440
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 1732,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 910,
+        "instanceCompile": 3235,
+        "linkedStreamsRestored": 0
+      }
+    }
+  ],
+  "upheaval": {
+    "files": 2723,
+    "selection": "base",
+    "sourceTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0",
+    "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+    "pairCount": 1
+  },
+  "targetedContent": {
+    "apt": {
+      "xmlSha256": "5fc8430499fc419a682fbe8016ad38284f54e2691041892db752824309b15969",
+      "flaSha256": "48154c58ed261a782066c7aa32bc0c5a6f564f5b9703ef757b0f210e55372920",
+      "xmlSource": "SDK/Mods/XmlCompilerRecoveryApt/Data/FixturesApt.xml",
+      "entryCount": 2,
+      "flaSource": "ui/tests/fixtures/flash8-empty.fla",
+      "scope": "One accepted empty Flash8 project plus twelve accepted file-backed APT DataBlob assets; no full UI or game playback"
+    },
+    "maps": {
+      "scope": "Existing XSD-valid MapMetaData fixture roots only; not full map business acceptance",
+      "rootAssetsPerEntry": 3,
+      "entryCount": 2,
+      "sourceSha256": "798b5570f59ea658aa6c4a93b5d530b0672d02a52aeb4d7abde9359f8ae19086",
+      "source": "SDK/Mods/XmlCompilerRecoveryA/Data/FixturesA.xml"
+    }
+  },
+  "coreFixtures": [
+    {
+      "name": "CompilerPreparedBackend",
+      "checks": 5861217,
+      "passed": true
+    },
+    {
+      "name": "CompilerCoreLifecycle",
+      "checks": 597,
+      "passed": true
+    },
+    {
+      "name": "CompilerResourceLifecycle",
+      "checks": 85,
+      "passed": true
+    },
+    {
+      "name": "CompilerStateLifecycle",
+      "checks": 13,
+      "passed": true
+    },
+    {
+      "name": "CompilerBackendLifecycle",
+      "checks": 9887,
+      "passed": true
+    },
+    {
+      "name": "CompilerApplicationBuild",
+      "checks": 2480,
+      "passed": true
+    }
+  ],
+  "appContractAssertions": 3268,
+  "independentRawComparisonsPassed": 18,
+  "knownReportSchemaFailures": [],
+  "timingBoundary": "External controller process wall, per-stream owner Compile intervals from one build Stopwatch, Windows peak process working set. OS page cache uncontrolled; no speed threshold.",
+  "scope": "One Release product, private production-object Core/application contracts; all seven nonempty base/apt/maps selections with two entries in each optional group; jobs1/4 cold/hot loose bytes and BIG/SKUDEF bytes; actual process-job enforced cancellation/failure/retry; targeted real Flash8 FLA plus file-backed APT XML and existing MapMetaData fixtures with jobs1/4 cold comparisons; a single pinned complete Upheaval base jobs1/4 cold comparison. The seven-combination scheduling matrix uses Armor assets; targeted UI/Maps cases are not full UI/Maps, original SDK or game runtime acceptance.",
+  "limitations": [
+    "One measured sample per condition; no controlled OS page cache or universal speed claim.",
+    "Seven-combination scheduling fixtures use Armor assets; targeted Flash8/APT XML and MapMetaData fixtures cover a narrow business slice.",
+    "Upheaval comparison is one cold base-only jobs1/jobs4 pair; it does not prove cross-content overlap on complete Upheaval.",
+    "No new original SDK or game-runtime acceptance."
+  ],
+  "expectedSuccessSamples": 53,
+  "expectedFailureOrCancellationSamples": 5,
+  "expectedExitCounts": {
+    "0": 53,
+    "2": 3,
+    "4": 1,
+    "6": 1
+  },
+  "buildReportSchemaChecked": 58,
+  "buildReportSchemaPassed": 58,
+  "completeProtocolAcceptance": true
+}

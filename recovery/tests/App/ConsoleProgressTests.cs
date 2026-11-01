@@ -45,6 +45,42 @@ namespace NewModCompiler.Tests
             Check(!text.Replace("\r\n","\n").Contains("\r") && !text.Contains("%") && text.Contains("总耗时 1.2s"),"Redirected output contains CR/percentage or lacks final elapsed time");
 
             elapsed=0;state=new BuildProgressState(()=>elapsed);
+            var concurrent=new StringWriter();
+            using(var renderer=new ConsoleProgressRenderer(state,concurrent,true,()=>300,false)) {
+                state.SetPlan(3);state.StartStage("compile");
+                string[] ids={"base/Mod","apt/UI","maps/MapMetaData_A"};
+                foreach(string id in ids) state.StartStream(id);
+                var owners=ids.Select((id,index)=>new Thread(()=> {
+                    state.SetPhase(id,index==0 ? "cache-load" : "process");
+                    for(int count=0;count<1000;count++) state.RecordWork(id,index+1,1,2);
+                })).ToArray();
+                foreach(var owner in owners)owner.Start();
+                foreach(var owner in owners)owner.Join();
+                var snapshot=state.Snapshot();
+                Check(snapshot.ActiveStreams.Length==3 && snapshot.AssetsCompleted==6000 && snapshot.StreamsCompleted==0,
+                    "Concurrent streams disappeared or changed successful-flow progress");
+                for(int index=0;index<ids.Length;index++) {
+                    var active=snapshot.ActiveStreams.Single(item=>item.Stream==ids[index]);
+                    Check(active.AssetsCompleted==1000*(index+1) && active.XmlParsed==1000 && active.DocumentsReused==2000 &&
+                        active.Phase==(index==0 ? "cache-load" : "process"),"Work or phase crossed stream ownership");
+                }
+                elapsed=1000;renderer.Refresh();
+                text=concurrent.ToString().Split('\r').Last();
+                Check(text.Contains("base") && text.Contains("apt") && text.Contains("maps") && text.Contains("0/3"),
+                    "Concurrent console row omitted active groups or overall stream count");
+                state.CompleteStream(ids[0],"succeeded");
+                state.RecordWork(ids[0],100,100,100);
+                state.CompleteStream(ids[0],"succeeded");
+                snapshot=state.Snapshot();
+                Check(snapshot.StreamsCompleted==1 && snapshot.ActiveStreams.Length==2 && snapshot.AssetsCompleted==5000,
+                    "Completed stream counted twice or reset another active stream");
+                state.CompleteStream(ids[1],"cancelled");state.CompleteStream(ids[2],"failed");
+                state.CompleteStage("failed");state.Finish("failed");
+                Check(state.Snapshot().StreamsCompleted==1 && state.Snapshot().ActiveStreams.Length==0,
+                    "Failed/cancelled streams counted as successful or survived teardown");
+            }
+
+            elapsed=0;state=new BuildProgressState(()=>elapsed);
             var interactive=new StringWriter();
             using(var renderer=new ConsoleProgressRenderer(state,interactive,true,()=>400,false)) {
                 state.SetPlan(1);state.StartStage("compile");state.StartStream("base/LongStream");

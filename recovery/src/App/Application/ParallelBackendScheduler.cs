@@ -85,6 +85,7 @@ namespace NewModCompiler.Application
         readonly ParallelBackendMetrics metrics;
         readonly BuildPerformance performance;
         readonly Func<BackendResourcePolicy> sampler;
+        readonly BuildResourceGovernor governor;
         // OutputManager creates exactly one stable BinaryAsset for a complete
         // FileBase. Its reference is therefore the (OutputManager, FileBase) key.
         readonly Dictionary<BinaryAsset, PhysicalWork> registry = new Dictionary<BinaryAsset, PhysicalWork>();
@@ -136,14 +137,21 @@ namespace NewModCompiler.Application
             internal bool Verified, Finished;
         }
 
+        // Retain the seven-argument constructor used by the native scheduler
+        // lifecycle contract's reflection fixture.
         internal ParallelBackendScheduler(DocumentProcessor processor, string staging, int requestedJobs,
             ParallelBackendMetrics metrics, BuildPerformance performance, CancellationToken cancellation,
-            Func<BackendResourcePolicy> sampler = null)
+            Func<BackendResourcePolicy> sampler)
+            : this(processor, staging, requestedJobs, metrics, performance, cancellation, sampler, null) { }
+
+        internal ParallelBackendScheduler(DocumentProcessor processor, string staging, int requestedJobs,
+            ParallelBackendMetrics metrics, BuildPerformance performance, CancellationToken cancellation,
+            Func<BackendResourcePolicy> sampler = null, BuildResourceGovernor governor = null)
         {
             this.processor = processor; this.staging = staging; this.metrics = metrics;
-            this.performance = performance; this.cancellation = cancellation; this.sampler = sampler;
-            resources = sampler == null ? BackendResourcePolicy.Capture(requestedJobs) : sampler();
-            capacity = resources.Capacity; ioCapacity = resources.IoCapacity; budget = resources.ByteBudget;
+            this.performance = performance; this.cancellation = cancellation; this.sampler = sampler; this.governor = governor;
+            resources = sampler == null ? (governor == null ? BackendResourcePolicy.Capture(requestedJobs) : governor.RefreshPolicy() ?? BackendResourcePolicy.Capture(requestedJobs)) : sampler();
+            SetCapacities();
             nextSample = Stopwatch.GetTimestamp() + Math.Max(1, Stopwatch.Frequency / 10);
             RecordResources();
         }
@@ -163,13 +171,19 @@ namespace NewModCompiler.Application
             metrics.ResourceQuerySucceeded &= resources.MemoryQuerySucceeded;
             metrics.MaximumIoCapacity = Math.Max(metrics.MaximumIoCapacity, ioCapacity);
         }
+        void SetCapacities()
+        {
+            capacity = governor == null ? resources.Capacity : governor.CpuCapacity;
+            ioCapacity = governor == null ? resources.IoCapacity : governor.IoCapacity;
+            budget = governor == null ? resources.ByteBudget : governor.ByteBudget;
+        }
         void Refresh()
         {
             long now = Stopwatch.GetTimestamp();
             if (sampler == null && now < nextSample) return;
             nextSample = now + Math.Max(1, Stopwatch.Frequency / 10);
-            resources = sampler == null ? resources.RefreshMemoryBudget() : sampler();
-            capacity = resources.Capacity; ioCapacity = resources.IoCapacity; budget = resources.ByteBudget;
+            resources = sampler == null ? (governor == null ? resources.RefreshMemoryBudget() : governor.RefreshPolicy() ?? resources.RefreshMemoryBudget()) : sampler();
+            SetCapacities();
             RecordResources(); metrics.SampleMemory();
         }
         bool Fits(long bytes) { return bytes >= 0 && retained <= budget && bytes <= budget - retained; }
@@ -211,9 +225,16 @@ namespace NewModCompiler.Application
         }
         void WaitAny(IList<Task> tasks, int resource = 0)
         {
-            if (tasks.Count == 0) return;
+            if (tasks.Count == 0 && governor == null) return;
             long start = Start();
-            try { Task.WhenAny(tasks).GetAwaiter().GetResult(); }
+            try
+            {
+                using (governor == null ? null : governor.SuspendOwner())
+                {
+                    if (tasks.Count != 0) Task.WhenAny(tasks).GetAwaiter().GetResult();
+                    else governor.WaitForChange(governor.Version, cancellation);
+                }
+            }
             finally { long ticks = Elapsed(start); metrics.WaitTicks += ticks; if (resource == 1) metrics.CpuWaitTicks += ticks; else if (resource == 2) metrics.MemoryWaitTicks += ticks; }
             cancellation.ThrowIfCancellationRequested();
         }
@@ -225,11 +246,17 @@ namespace NewModCompiler.Application
                 WaitAny(CpuTasks(), 1); DrainReady(); Refresh();
             }
         }
-        void AdmitMemory(long bytes)
+        void AdmitMemory(PhysicalWork current, long bytes)
         {
             DrainReady(); Refresh();
-            while (retained > 0 && !Fits(bytes))
+            while (true)
             {
+                long additional = bytes - current.ReservedBytes;
+                if (additional <= 0 || (governor == null ? retained == 0 || Fits(additional) : governor.TryReserveMemory(additional)))
+                {
+                    if (governor != null && additional < 0) governor.AdjustMemory(additional);
+                    retained += additional; current.ReservedBytes = bytes; return;
+                }
                 var tasks = new List<Task>();
                 foreach (var work in active)
                 {
@@ -237,9 +264,17 @@ namespace NewModCompiler.Application
                     if (work.Compute != null) tasks.Add(work.Compute);
                     if (work.IO != null) tasks.Add(work.IO);
                 }
-                if (tasks.Count == 0) break;
+                if (tasks.Count == 0 && governor == null) return;
                 WaitAny(tasks, 2); DrainReady(); Refresh();
             }
+        }
+        void ResizeMemory(PhysicalWork work, long bytes)
+        {
+            long change = bytes - work.ReservedBytes;
+            retained += change; work.ReservedBytes = bytes;
+            // Allocation estimates can differ from a completed buffer's exact
+            // size. Account for the actual result before any further admission.
+            if (governor != null && change != 0) governor.AdjustMemory(change);
         }
 
         public AssetExecutionDocument BeginDocument(AssetDeclarationDocument document, OutputManager outputManager)
@@ -310,6 +345,7 @@ namespace NewModCompiler.Application
             PreparedBackendWork prepared = null;
             string reason = parallelCompilation ? "resource-capacity" : "frontend-expanded";
             bool accepted = false;
+            IDisposable cpuLease = null;
             long preparationBytes = 0;
             if (parallelCompilation && capacity > 1)
             {
@@ -320,10 +356,11 @@ namespace NewModCompiler.Application
             if (accepted)
             {
                 work.Prepared = prepared;
-                AdmitMemory(prepared.PreparedBytes); AdmitCpu(); Refresh();
-                if (capacity <= 1 || prepared.PreparedBytes > budget / 2 || !Fits(prepared.PreparedBytes))
+                AdmitMemory(work, prepared.PreparedBytes); AdmitCpu(); Refresh();
+                if (capacity <= 1 || prepared.PreparedBytes > budget / 2 ||
+                    (governor != null && (cpuLease = governor.TryAcquireCpu()) == null))
                 {
-                    prepared.Dispose(); work.Prepared = null; accepted = false; reason = "resource-budget";
+                    prepared.Dispose(); work.Prepared = null; ResizeMemory(work, 0); accepted = false; reason = "resource-budget";
                 }
             }
             if (!accepted)
@@ -340,37 +377,42 @@ namespace NewModCompiler.Application
                     // An owner encoder competes with retained IO results just
                     // like a worker. An oversized single item may run alone,
                     // after the previous reservations have actually released.
-                    AdmitMemory(preparationBytes);
-                    work.ReservedBytes = preparationBytes; retained += preparationBytes;
+                    AdmitMemory(work, preparationBytes);
                     SampleState();
                 }
                 compileCompatibility();
                 work.Buffer = asset.Buffer;
                 work.Location = AssetLocation.Memory; work.State = WorkState.Ready; work.ReadySince = Start();
                 long resultBytes = BufferBytes(work.Buffer);
-                retained += resultBytes - work.ReservedBytes; work.ReservedBytes = resultBytes;
+                ResizeMemory(work, resultBytes);
                 DrainReady(); return;
             }
-            if (declaration.HasCustomData)
+            try
             {
-                work.Directory = Path.Combine(staging, "backend-work", work.Identity.ToString("D8"));
-                Directory.CreateDirectory(work.Directory);
-                prepared.Declaration.CustomDataPath = Path.Combine(work.Directory, "payload.cdata");
-            }
-            // Owner-only verifiers run before the certified encoder. A known
-            // reentrant verifier runs in the same CPU call before encoding.
-            if (!parallelVerification) PublishVerification(first, RunVerification(first));
-            work.ReservedBytes = prepared.PreparedBytes; retained += work.ReservedBytes;
-            cancellation.ThrowIfCancellationRequested();
-            work.Compute = Task.Factory.StartNew(() => {
-                work.Diagnostics = Tracer.CaptureDiagnostics();
-                using (work.Diagnostics)
+                if (declaration.HasCustomData)
                 {
-                    bool verified = first.Verified || RunVerification(first);
-                    if (!verified) return new Computed { Verified = false };
-                    work.Encoded = true;
-                    return new Computed { Verified = true,
-                        Buffer = metrics.Execute(declaration.Handle.TypeName, prepared.Execute, out work.WorkTicks) };
+                    work.Directory = Path.Combine(staging, "backend-work", work.Identity.ToString("D8"));
+                    Directory.CreateDirectory(work.Directory);
+                    prepared.Declaration.CustomDataPath = Path.Combine(work.Directory, "payload.cdata");
+                }
+                // Owner-only verifiers run before the certified encoder. A known
+                // reentrant verifier runs in the same CPU call before encoding.
+                if (!parallelVerification) PublishVerification(first, RunVerification(first));
+                cancellation.ThrowIfCancellationRequested();
+            }
+            catch { cpuLease?.Dispose(); throw; }
+            work.Compute = Task.Factory.StartNew(() => {
+                using (cpuLease)
+                {
+                    work.Diagnostics = Tracer.CaptureDiagnostics();
+                    using (work.Diagnostics)
+                    {
+                        bool verified = first.Verified || RunVerification(first);
+                        if (!verified) return new Computed { Verified = false };
+                        work.Encoded = true;
+                        return new Computed { Verified = true,
+                            Buffer = metrics.Execute(declaration.Handle.TypeName, prepared.Execute, out work.WorkTicks) };
+                    }
                 }
             }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
             SampleState();
@@ -395,10 +437,18 @@ namespace NewModCompiler.Application
                 PublishVerification(request, RunVerification(request)); return;
             }
             AdmitCpu();
+            IDisposable cpuLease = governor == null ? null : governor.TryAcquireCpu();
+            if (governor != null && cpuLease == null)
+            {
+                PublishVerification(request, RunVerification(request)); return;
+            }
             verifying.Add(request);
             request.Verification = Task.Factory.StartNew(() => {
-                request.Diagnostics = Tracer.CaptureDiagnostics();
-                using (request.Diagnostics) return RunVerification(request);
+                using (cpuLease)
+                {
+                    request.Diagnostics = Tracer.CaptureDiagnostics();
+                    using (request.Diagnostics) return RunVerification(request);
+                }
             }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
         }
         void PublishVerification(Subscription request, bool result)
@@ -454,7 +504,7 @@ namespace NewModCompiler.Application
                             if (!work.Subscribers[0].Verified) PublishVerification(work.Subscribers[0], result.Verified);
                             work.Buffer = result.Buffer; work.Location = AssetLocation.Memory; work.State = WorkState.Ready; work.ReadySince = Start();
                             long bytes = Math.Max(work.ReservedBytes, BufferBytes(work.Buffer));
-                            retained += bytes - work.ReservedBytes; work.ReservedBytes = bytes;
+                            ResizeMemory(work, bytes);
                             progress = true;
                         }
                         if (work.IO != null && work.IO.IsCompleted)
@@ -488,18 +538,24 @@ namespace NewModCompiler.Application
                             if (slots == 0) break;
                             if (work.State != WorkState.Ready || !work.Subscribers[0].Verified) continue;
                             if (completingAcceptedOnly && !RequiredForPartialCompletion(work)) continue;
+                            IDisposable ioLease = governor == null ? null : governor.TryAcquireIo();
+                            if (governor != null && ioLease == null) break;
                             string cdata = work.Prepared == null ? work.Declaration.CustomDataPath : work.Prepared.Declaration.CustomDataPath;
                             long start = Start();
                             try { work.Commit = work.Asset.PrepareCommit(work.Location, work.Buffer, cdata); }
+                            catch { ioLease?.Dispose(); throw; }
                             finally { metrics.CommitTicks += Elapsed(start); }
                             long bytes = Math.Max(work.ReservedBytes, work.Commit.RetainedBytes);
-                            retained += bytes - work.ReservedBytes; work.ReservedBytes = bytes;
+                            ResizeMemory(work, bytes);
                             metrics.IoQueueTicks += Elapsed(work.ReadySince);
                             work.State = WorkState.Committing;
                             work.IO = Task.Factory.StartNew(() => {
-                                long ioStart = Start();
-                                try { work.Commit.ExecuteIO(); }
-                                finally { work.IoTicks = Elapsed(ioStart); }
+                                using (ioLease)
+                                {
+                                    long ioStart = Start();
+                                    try { work.Commit.ExecuteIO(); }
+                                    finally { work.IoTicks = Elapsed(ioStart); }
+                                }
                             }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
                             slots--; progress = true;
                         }
@@ -578,7 +634,7 @@ namespace NewModCompiler.Application
                 // current IO that can free that resource, never a FIFO head.
                 if (tasks.Count == 0 || waitsForIoSlot)
                     foreach (var work in active) if (work.IO != null) tasks.Add(work.IO);
-                if (tasks.Count == 0) throw new InvalidOperationException("Document has pending work without an executable dependency.");
+                if (tasks.Count == 0 && governor == null) throw new InvalidOperationException("Document has pending work without an executable dependency.");
                 WaitAny(tasks); DrainReady();
             }
             CompleteReady(document);
@@ -616,7 +672,7 @@ namespace NewModCompiler.Application
             while (active.Count != 0 || verifying.Count != 0)
             {
                 var tasks = ResourceTasks();
-                if (tasks.Count == 0) throw new InvalidOperationException("Asset work has no executable dependency.");
+                if (tasks.Count == 0 && governor == null) throw new InvalidOperationException("Asset work has no executable dependency.");
                 WaitAny(tasks); DrainReady();
             }
         }
@@ -631,12 +687,16 @@ namespace NewModCompiler.Application
                 for (int index = 0; index < work.Count; index++)
                 {
                     AdmitCpu();
-                    if (capacity <= 1) { long computeStart = Start(); try { result[index] = work[index](); } finally { metrics.FrontendComputeTicks += Elapsed(computeStart); } continue; }
+                    IDisposable cpuLease = capacity > 1 && governor != null ? governor.TryAcquireCpu() : null;
+                    if (capacity <= 1 || (governor != null && cpuLease == null)) { long computeStart = Start(); try { result[index] = work[index](); } finally { metrics.FrontendComputeTicks += Elapsed(computeStart); } continue; }
                     Func<T> compute = work[index];
                     var task = Task.Factory.StartNew(() => {
-                        long computeStart = Start();
-                        try { return compute(); }
-                        finally { Interlocked.Add(ref metrics.FrontendComputeTicks, Elapsed(computeStart)); }
+                        using (cpuLease)
+                        {
+                            long computeStart = Start();
+                            try { return compute(); }
+                            finally { Interlocked.Add(ref metrics.FrontendComputeTicks, Elapsed(computeStart)); }
+                        }
                     }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
                     tasks.Add(task, index); frontendTasks.Add(task);
                     CollectFrontend(tasks, result);
@@ -699,7 +759,7 @@ namespace NewModCompiler.Application
         void SampleState()
         {
             if (!metrics.Enabled) return;
-            metrics.PeakCpuTasks = Math.Max(metrics.PeakCpuTasks, RunningCpu());
+            metrics.PeakCpuTasks = Math.Max(metrics.PeakCpuTasks, RunningCpu() + (governor != null && governor.OwnerActive ? 1 : 0));
             metrics.PeakIoTasks = Math.Max(metrics.PeakIoTasks, RunningIO());
             metrics.PeakRetainedBytes = Math.Max(metrics.PeakRetainedBytes, retained);
             int awaiting = 0;
@@ -712,7 +772,7 @@ namespace NewModCompiler.Application
         {
             if (work.Released) return;
             work.Released = true;
-            retained -= work.ReservedBytes; work.ReservedBytes = 0;
+            ResizeMemory(work, 0);
             if (work.Prepared != null) { work.Prepared.Dispose(); work.Prepared = null; }
             work.Buffer = null; work.Compute = null; work.Commit = null; work.Committed = null;
             if (work.Directory != null && Directory.Exists(work.Directory)) Directory.Delete(work.Directory, true);

@@ -1,0 +1,355 @@
+{
+  "schemaVersion": 1,
+  "verifiedAtUtc": "2026-11-01T08:10:41.557496+00:00",
+  "runId": 41287090604,
+  "runAttempt": 1,
+  "artifactId": 13075808496,
+  "artifactUrl": "https://github.com/wu162/NewSdk/actions/runs/41287090604/artifacts/13075808496",
+  "archiveBytes": 96706437,
+  "archiveSha256": "7541c94bc3fb1d43555f6ab58f6b4a84688b1ce29a5a514631dfde7795e4acd6",
+  "archiveEntryCount": 3693,
+  "downloadCount": 1,
+  "binarySourceCommit": "1b9da37a00beb639c8c56590417ef51bb210c3cb",
+  "testSourceCommit": "1b9da37a00beb639c8c56590417ef51bb210c3cb",
+  "configuration": "Release",
+  "binaryReused": false,
+  "productionSourcesVerifiedAtBinaryCommit": 71,
+  "sourceReceiptHashForms": {
+    "windowsCrlfCheckoutBytes": 52,
+    "gitBlobBytes": 27
+  },
+  "sourceReceiptBoundary": "Windows source receipt SHA256 checked against git blobs with documented CRLF checkout conversion where required; output comparisons apply no transformations.",
+  "hostingSourceVerified": true,
+  "hostEntrySourceVerified": true,
+  "sameProductionLinkInputsVerified": 128,
+  "productionEntryOnlyDifferenceVerified": true,
+  "linkRecipeHashVerified": true,
+  "runtimeFiles": [
+    {
+      "kind": "production",
+      "path": "recovery/artifacts/content-product/bin/NewModCompiler.exe",
+      "bytes": 5046784,
+      "sha256": "6df773d0f9101713a53f42b36266c36d43d276513bcf62934626564e8f899680"
+    },
+    {
+      "kind": "production",
+      "path": "recovery/artifacts/content-product/bin/NewModCompiler.exe.config",
+      "bytes": 201,
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+    },
+    {
+      "kind": "production",
+      "path": "recovery/artifacts/content-product/bin/antlr.runtime.dll",
+      "bytes": 99328,
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    },
+    {
+      "kind": "validationHost",
+      "path": "recovery/artifacts/content-product/validation/bin/NewModCompiler.exe",
+      "bytes": 5052928,
+      "sha256": "ae338a0b02d1bd5e5fe2aedd00968b159a417d96748cab31e5ce597cec1c6a91"
+    },
+    {
+      "kind": "validationHost",
+      "path": "recovery/artifacts/content-product/validation/bin/NewModCompiler.exe.config",
+      "bytes": 201,
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+    },
+    {
+      "kind": "validationHost",
+      "path": "recovery/artifacts/content-product/validation/bin/antlr.runtime.dll",
+      "bytes": 99328,
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    }
+  ],
+  "coreFixtures": [
+    {
+      "name": "CompilerPreparedBackend",
+      "checks": 5861217,
+      "passed": true
+    },
+    {
+      "name": "CompilerCoreLifecycle",
+      "checks": 597,
+      "passed": true
+    },
+    {
+      "name": "CompilerResourceLifecycle",
+      "checks": 85,
+      "passed": true
+    },
+    {
+      "name": "CompilerStateLifecycle",
+      "checks": 13,
+      "passed": true
+    },
+    {
+      "name": "CompilerBackendLifecycle",
+      "checks": 9887,
+      "passed": true
+    },
+    {
+      "name": "CompilerApplicationBuild",
+      "checks": 2480,
+      "passed": true
+    }
+  ],
+  "appContractAssertions": 3268,
+  "all58ControllerJobsSingleProcessVerified": true,
+  "all58EventSequencesAndUniqueStreamTerminalsVerified": true,
+  "allReportedResourceBudgetsRespected": true,
+  "rawOutputComparisons": [
+    {
+      "left": "base-j1-cold",
+      "right": "base-j4-cold",
+      "scope": "seven-combination raw loose four streams",
+      "fileCount": 4,
+      "bytesPerSide": 67035,
+      "extensions": {
+        ".bin": 1,
+        ".imp": 1,
+        ".manifest": 1,
+        ".relo": 1
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "base-j1-big",
+      "right": "base-j4-big",
+      "scope": "seven-combination final BIG/SKUDEF",
+      "fileCount": 2,
+      "bytesPerSide": 103179,
+      "extensions": {
+        ".big": 1,
+        ".skudef": 1
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "apt-j1-cold",
+      "right": "apt-j4-cold",
+      "scope": "seven-combination raw loose four streams",
+      "fileCount": 8,
+      "bytesPerSide": 134082,
+      "extensions": {
+        ".bin": 2,
+        ".imp": 2,
+        ".manifest": 2,
+        ".relo": 2
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "apt-j1-big",
+      "right": "apt-j4-big",
+      "scope": "seven-combination final BIG/SKUDEF",
+      "fileCount": 2,
+      "bytesPerSide": 134442,
+      "extensions": {
+        ".big": 1,
+        ".skudef": 1
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "maps-j1-cold",
+      "right": "maps-j4-cold",
+      "scope": "seven-combination raw loose four streams",
+      "fileCount": 8,
+      "bytesPerSide": 140268,
+      "extensions": {
+        ".bin": 2,
+        ".imp": 2,
+        ".manifest": 2,
+        ".relo": 2
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "maps-j1-big",
+      "right": "maps-j4-big",
+      "scope": "seven-combination final BIG/SKUDEF",
+      "fileCount": 2,
+      "bytesPerSide": 140728,
+      "extensions": {
+        ".big": 1,
+        ".skudef": 1
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "base-apt-j1-cold",
+      "right": "base-apt-j4-cold",
+      "scope": "seven-combination raw loose four streams",
+      "fileCount": 12,
+      "bytesPerSide": 201117,
+      "extensions": {
+        ".bin": 3,
+        ".imp": 3,
+        ".manifest": 3,
+        ".relo": 3
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "base-apt-j1-big",
+      "right": "base-apt-j4-big",
+      "scope": "seven-combination final BIG/SKUDEF",
+      "fileCount": 2,
+      "bytesPerSide": 237557,
+      "extensions": {
+        ".big": 1,
+        ".skudef": 1
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "base-maps-j1-cold",
+      "right": "base-maps-j4-cold",
+      "scope": "seven-combination raw loose four streams",
+      "fileCount": 12,
+      "bytesPerSide": 207303,
+      "extensions": {
+        ".bin": 3,
+        ".imp": 3,
+        ".manifest": 3,
+        ".relo": 3
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "base-maps-j1-big",
+      "right": "base-maps-j4-big",
+      "scope": "seven-combination final BIG/SKUDEF",
+      "fileCount": 2,
+      "bytesPerSide": 243843,
+      "extensions": {
+        ".big": 1,
+        ".skudef": 1
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "apt-maps-j1-cold",
+      "right": "apt-maps-j4-cold",
+      "scope": "seven-combination raw loose four streams",
+      "fileCount": 16,
+      "bytesPerSide": 274350,
+      "extensions": {
+        ".bin": 4,
+        ".imp": 4,
+        ".manifest": 4,
+        ".relo": 4
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "apt-maps-j1-big",
+      "right": "apt-maps-j4-big",
+      "scope": "seven-combination final BIG/SKUDEF",
+      "fileCount": 2,
+      "bytesPerSide": 275106,
+      "extensions": {
+        ".big": 1,
+        ".skudef": 1
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "base-apt-maps-j1-cold",
+      "right": "base-apt-maps-j4-cold",
+      "scope": "seven-combination raw loose four streams",
+      "fileCount": 20,
+      "bytesPerSide": 341385,
+      "extensions": {
+        ".bin": 5,
+        ".imp": 5,
+        ".manifest": 5,
+        ".relo": 5
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "base-apt-maps-j1-big",
+      "right": "base-apt-maps-j4-big",
+      "scope": "seven-combination final BIG/SKUDEF",
+      "fileCount": 2,
+      "bytesPerSide": 378221,
+      "extensions": {
+        ".big": 1,
+        ".skudef": 1
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "selected-apt-on",
+      "right": "selected-apt-off",
+      "scope": "progress on/off raw bytes",
+      "fileCount": 8,
+      "bytesPerSide": 134082,
+      "extensions": {
+        ".bin": 2,
+        ".imp": 2,
+        ".manifest": 2,
+        ".relo": 2
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "fla-xml-j1-cold",
+      "right": "fla-xml-j4-cold",
+      "scope": "targeted Flash8 plus APT XML business fixtures",
+      "fileCount": 8,
+      "bytesPerSide": 2294,
+      "extensions": {
+        ".bin": 2,
+        ".imp": 2,
+        ".manifest": 2,
+        ".relo": 2
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "maps-business-j1-cold",
+      "right": "maps-business-j4-cold",
+      "scope": "targeted MapMetaData business fixtures",
+      "fileCount": 8,
+      "bytesPerSide": 6810,
+      "extensions": {
+        ".bin": 2,
+        ".imp": 2,
+        ".manifest": 2,
+        ".relo": 2
+      },
+      "rawBytesEqual": true
+    },
+    {
+      "left": "upheaval-j1-cold",
+      "right": "upheaval-j4-cold",
+      "scope": "pinned complete Upheaval base single cold pair",
+      "fileCount": 1295,
+      "bytesPerSide": 75093395,
+      "extensions": {
+        ".bin": 1,
+        ".imp": 1,
+        ".manifest": 1,
+        ".relo": 1,
+        ".cdata": 1291
+      },
+      "rawBytesEqual": true
+    }
+  ],
+  "knownReportSchemaFailures": [],
+  "acceptanceBoundary": "Current 1b9da37 Release and its production-object validation host were newly built in this successful run. This verifies six Core fixtures, 58 bounded CLI cases and all 58 build-report schemas including empty optional content; scope remains the recorded fixtures and base-only Upheaval comparison, not original SDK or game-runtime acceptance.",
+  "expectedSuccessSamples": 53,
+  "expectedFailureOrCancellationSamples": 5,
+  "expectedExitCounts": {
+    "0": 53,
+    "2": 3,
+    "4": 1,
+    "6": 1
+  },
+  "buildReportSchemaChecked": 58,
+  "buildReportSchemaPassed": 58,
+  "completeProtocolAcceptance": true
+}
