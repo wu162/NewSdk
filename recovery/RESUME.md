@@ -1,10 +1,13 @@
-# 当前：单进程按内容分组并行（实现检查点，待 Windows 验收）
+# 当前：单进程按内容分组并行（Release/Core 通过，CLI 矩阵验收中）
 
 分支 `feat/single-process-content-parallel`，基线 `recovery/legacy-sdk-cache` / `680c4f0c`。
 非空组独立 Owner/Core、任务级依赖就绪调度、AsyncLocal Core 状态、分组旧格式缓存、
 全构建 CPU/IO/在途内存预算和按流进度已一起接入。主线程合并日志/产物/报告，仅全部成功后打包。
-本地 App net48 Roslyn 与托管闭包编译、可移植预算/进度/性能/上下文合同已通过；
-尚未取得 Windows 原生 Release、真实 Core/CLI/取消、七组合冷热原字节及 Upheaval 结果，不能标为验收完成。
+生产 `60197197` / Windows `41286126589` 的 Release、全部 App 及六组真实 Core 合同通过，
+包括两个真实 Core Owner 同时编译、上下文隔离、实例约束和独立原字节 oracle。
+运行整体失败：CLI 脚本误把 BIG 专用身份参数传给 loose，尚未进入七组合矩阵。
+修正只涉及测试，核对生产输入闭包后复用该 Release；原来源与失败终态保留。
+真实 CLI/取消、七组合冷热原字节、APT/Maps 业务及 Upheaval 对照仍待验收，不能标为完成。
 入口：`docs/CONTENT_PARALLEL.md`、`scripts/TestContentParallel.ps1`、`content-parallel.yml`。
 禁止强推；PR 待审，合入仍需用户明确批准。
 

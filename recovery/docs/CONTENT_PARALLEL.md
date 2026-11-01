@@ -32,4 +32,11 @@ Core 哈希/trace/上下文合同通过。Linux 预检不代表 Windows 原生�
 并通过 `TestContentParallel.ps1` 覆盖七种非空组合、APT/maps 多入口、冷热、jobs1/4
 四流与 BIG/SKUDEF 原字节、实际 Compile 区间重叠、缺组缓存、进度开关、失败/取消/重试，
 以及一对完整历史 Upheaval base 编译。显式跨组 DAG 的就绪调度由 App 受控后端合同覆盖。
-当前 Windows 验收待执行，不将预检计为真实 SDK 或原版差分通过。
+生产 `60197197` 已在 Windows `41286126589` 新构建 Release，全部 App 及六组真实
+Core/应用合同通过，包括两个真实 Owner 的作用域内重叠和独立原字节 oracle。
+整体运行仍失败，首个 CLI 样本因脚本误传 BIG 专用参数而提前拒绝；矩阵尚未验收。
+后续脚本修正通过固定归档 SHA、原运行文件/同对象宿主收据及源码变更白名单核对后，
+复用该 Release。生产源码、SDK 或构建输入变化会触发新构建。二进制来源和测试来源分别记录。
+证据见 `evidence/content-parallel/41286126589-1`；更早失败也保留。
+FLA/XML 同 APT Owner 两入口及实际 MapMetaData 两入口另做定向 jobs1/4 原字节对照；
+七组合 Armor 入口用于调度/缓存矩阵，不冒充完整 APT/Maps 内容或游戏验收。

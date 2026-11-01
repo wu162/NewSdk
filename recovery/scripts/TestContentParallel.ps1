@@ -3,6 +3,7 @@
 param(
     [Parameter(Mandatory=$true)][string]$ProductBuildDirectory,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
+    [string]$ReuseReceiptPath,
     [ValidateRange(30,600)][int]$TimeoutSeconds=240
 )
 $ErrorActionPreference='Stop'
@@ -47,7 +48,9 @@ function RunBuild([string]$Label,[string]$Mod,[string]$Selection,[string]$Format
     $case=Join-Path $out $Label;$null=New-Item -ItemType Directory -Path $case
     $destination=Join-Path $work ('o'+$script:caseIndex);$script:caseIndex++
     $null=New-Item -ItemType Directory -Path $destination
-    $arguments=@('build','--sdk-root',$script:sdk,'--mod',$Mod,'--out',$destination,'--package-content',$Selection,'--package-format',$Format,'--jobs',[string]$Jobs,'--performance','summary','--mod-version','1.0','--skudef-name','parallel','--include-additional=false')+$Extra
+    $arguments=@('build','--sdk-root',$script:sdk,'--mod',$Mod,'--out',$destination,'--package-content',$Selection,'--package-format',$Format,'--jobs',[string]$Jobs,'--performance','summary','--include-additional=false')
+    if($Format -eq 'big'){$arguments+=@('--mod-version','1.0','--skudef-name','parallel')}
+    $arguments+=$Extra
     $env:NEWSDK_PROGRESS=if($ProgressOff){'off'}else{$null}
     $request=@{exe=$script:exe;cwd=(Split-Path $script:exe);arguments=$arguments;stdout="$case/stdout.log";stderr="$case/stderr.log";events="$destination/build.events.jsonl";cancel=$Cancel;timeoutSeconds=$TimeoutSeconds}
     $request|ConvertTo-Json -Depth 6|Set-Content "$case/request.json"
@@ -104,8 +107,21 @@ public static class ContentParallelBytes {
 '@
     $receipt=Get-Content "$product/build.json" -Raw|ConvertFrom-Json
     $script:exe=(Resolve-Path "$product/bin/NewModCompiler.exe").Path
-    Need ($receipt.sourceCommit -ceq $state.sourceCommit -and $receipt.configuration -ceq 'Release' -and (Hash $script:exe) -ceq $receipt.exeSha256) 'Current Release product identity differs'
-    $state.binarySourceCommit=$receipt.sourceCommit;$state.binarySha256=$receipt.exeSha256
+    Need ($receipt.configuration -ceq 'Release' -and (Hash $script:exe) -ceq $receipt.exeSha256) 'Release product executable/configuration identity differs'
+    $state.binarySourceCommit=$receipt.sourceCommit;$state.binarySha256=$receipt.exeSha256;$state.testSourceCommit=$state.sourceCommit
+    $state.binaryReused=$receipt.sourceCommit -cne $state.sourceCommit
+    if($state.binaryReused){
+        Need ([bool]$ReuseReceiptPath) 'A prior Release requires the explicit pinned reuse receipt'
+        $reuse=Get-Content -LiteralPath $ReuseReceiptPath -Raw|ConvertFrom-Json
+        $pinnedSource='6019719701eb651958592c33f7ee985af2f4b82b'
+        $pinnedArchive='104de7d1b957aebbd2be09462a04783b7a97ed49f31c291b6883c8b068febc69'
+        Need ($reuse.status -ceq 'validated' -and $reuse.binarySourceCommit -ceq $pinnedSource -and $receipt.sourceCommit -ceq $pinnedSource -and $reuse.testSourceCommit -ceq $state.sourceCommit -and $reuse.runId -eq 41286126589 -and $reuse.artifactId -eq 13075357674 -and $reuse.archiveSha256 -ceq $pinnedArchive -and (Hash $reuse.archivePath) -ceq $pinnedArchive) 'Pinned Release reuse provenance differs'
+        git -C $root merge-base --is-ancestor $pinnedSource $state.sourceCommit;Need ($LASTEXITCODE -eq 0) 'Reused production source is not an ancestor of current tests'
+        $changed=@(git -C $root diff --name-only $pinnedSource $state.sourceCommit);Need ($LASTEXITCODE -eq 0) 'Cannot inspect reused production input closure'
+        $allowed='^(?:\.github/workflows/content-parallel\.yml|recovery/scripts/TestContentParallel\.ps1|recovery/tests/.+|recovery/docs/CONTENT_PARALLEL\.md|recovery/evidence/content-parallel/.+|recovery/RESUME\.md)$'
+        Need (@($changed|Where-Object{$_ -cnotmatch $allowed}).Count -eq 0 -and $changed -cnotcontains 'recovery/tests/CompilerValidationEntry.cpp') 'Production/validation-host inputs changed outside the Release reuse closure'
+        $state.binaryReuse=$reuse
+    }
     $vswhere=Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
     $vs=& $vswhere -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
     Need ($LASTEXITCODE -eq 0 -and !!$vs) 'VS Roslyn compiler unavailable'
@@ -114,7 +130,7 @@ public static class ContentParallelBytes {
     . "$PSScriptRoot/CompilerValidation.Common.ps1"
     . "$PSScriptRoot/CompilerCacheLayout.ps1"
     $runtime=Join-Path $work 'core-runtime'
-    $validation=Initialize-CompilerValidationRun $product $runtime 'Release' $state.sourceCommit
+    $validation=Initialize-CompilerValidationRun $product $runtime 'Release' $state.binarySourceCommit
     $manifest=Get-Content "$root/recovery/build/Managed.Foundation.json" -Raw|ConvertFrom-Json
     foreach($fixture in @('CompilerPreparedBackend','CompilerCoreLifecycle','CompilerResourceLifecycle','CompilerStateLifecycle','CompilerBackendLifecycle','CompilerApplicationBuild')){
         $case=Join-Path $out $fixture;$null=New-Item -ItemType Directory -Path $case
@@ -135,7 +151,7 @@ public static class ContentParallelBytes {
         $body=Get-Content "$case/result.json" -Raw|ConvertFrom-Json
         Need ($body.succeeded -and $body.sourceCommit -ceq $state.sourceCommit) "$fixture assertions/source identity differ"
         Complete-CompilerValidationRun $validation
-        $state.coreFixtures+=@{name=$fixture;checks=$body.checks;sourceSha256=(Hash (Join-Path $root ('recovery/tests/'+$fixture+'.cs')));validationHostSha256=$validation.validationHostSha256};SaveState
+        $state.coreFixtures+=@{name=$fixture;binarySourceCommit=$state.binarySourceCommit;testSourceCommit=$state.sourceCommit;checks=$body.checks;sourceSha256=(Hash (Join-Path $root ('recovery/tests/'+$fixture+'.cs')));validationHostSha256=$validation.validationHostSha256};SaveState
     }
     $script:control=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory "$out/controller"
     $script:sdk=Join-Path $work 's';$null=New-Item -ItemType Directory -Path $script:sdk

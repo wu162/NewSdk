@@ -1,0 +1,25 @@
+{
+  "sourceCommit": "6019719701eb651958592c33f7ee985af2f4b82b",
+  "runId": 41286126589,
+  "runAttempt": 1,
+  "status": "failed",
+  "artifactId": 13075357674,
+  "artifactSha256": "104de7d1b957aebbd2be09462a04783b7a97ed49f31c291b6883c8b068febc69",
+  "downloadCount": 1,
+  "artifactSize": 3542542,
+  "productionExeSha256": "dd560fbd492a61a1585ded07b80de73a2dbc64ff54c7dd731bd97a49ea22d9ee",
+  "validationExeSha256": "f467099db91b22f6db3db2ab7ea7b89d68eea7522dc4a8079ab668baefd95510",
+  "sameProductionObjects": true,
+  "runtimeReceiptsVerified": true,
+  "passedScope": [
+    "Windows native Release product and same-object host",
+    "all App controlled contracts",
+    "CompilerPreparedBackend",
+    "CompilerCoreLifecycle",
+    "CompilerResourceLifecycle",
+    "CompilerStateLifecycle",
+    "CompilerBackendLifecycle",
+    "CompilerApplicationBuild"
+  ],
+  "failure": "First CLI sample rejected because the validation script passed BIG-only version/name arguments to loose output. No CLI matrix sample accepted. Production is unchanged by this script correction."
+}
