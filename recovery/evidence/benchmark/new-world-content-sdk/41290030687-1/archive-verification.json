@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "verifiedAtUtc": "2026-11-01T09:37:16.224211+00:00",
+  "runId": 41290030687,
+  "runAttempt": 1,
+  "artifactId": 13078555814,
+  "artifactUrl": "https://github.com/wu162/NewSdk/actions/runs/41290030687/artifacts/13078555814",
+  "archiveBytes": 458268637,
+  "archiveSha256": "5991dd7f428d5ec2b367ad69810e9b448a3859f0855261c0cc720d146c69f1d0",
+  "archiveSha256VerifiedOnce": true,
+  "downloadCount": 1,
+  "binarySourceCommit": "1b9da37a00beb639c8c56590417ef51bb210c3cb",
+  "measurementSourceCommit": "54c21c2d240825f243bcd0f23578e3b927e5ab9b",
+  "acceptedReleaseArtifactId": 13075808496,
+  "acceptedReleaseArchiveSha256": "7541c94bc3fb1d43555f6ab58f6b4a84688b1ce29a5a514631dfde7795e4acd6",
+  "acceptedReleaseArchiveVerification": "../../../content-parallel/41287090604-1/archive-verification.json",
+  "newRuntimeReceiptMatchesIndependentlyVerifiedRelease": true,
+  "newRuntimeFiles": [
+    {
+      "name": "antlr.runtime.dll",
+      "bytes": 99328,
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    },
+    {
+      "name": "NewModCompiler.exe",
+      "bytes": 5046784,
+      "sha256": "6df773d0f9101713a53f42b36266c36d43d276513bcf62934626564e8f899680"
+    },
+    {
+      "name": "NewModCompiler.exe.config",
+      "bytes": 201,
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+    }
+  ],
+  "newRuntimePayloadsNotDuplicatedInThisArchive": true,
+  "productionBuildReceiptMatchesPin": true,
+  "productionDependencyClosureChangedPaths": [],
+  "productionDependencyClosure": [
+    "SDK",
+    "recovery/src",
+    "recovery/build",
+    "recovery/probes",
+    "ui",
+    "recovery/scripts/Build*",
+    "recovery/scripts/PrepareLegacyTexture.ps1",
+    "recovery/scripts/RestoreUiDependencies.ps1"
+  ],
+  "sourceArchiveReceiptMatchesPinnedSizeMd5Sha256": true,
+  "sourceArchiveReDownloadedLocally": false,
+  "sourceFileCount": 13391,
+  "sourceBytes": 3254494799,
+  "allThreePreparationInventoriesEqual": true,
+  "sourceInventoryMetadataSha256": "98f43f1988adfdd1ac6f044a7037beac3b460eb7577cba30838ca918e77007df",
+  "originalSdkSourcePin": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+  "originalToolsTree": "10a9b868c74db96976c9c306dc587ec5de62965f",
+  "originalRuntimeFileCount": 424,
+  "originalExeDllCount": 27,
+  "originalRuntimeInventoryMatchesPreviouslyVerifiedSdk": true,
+  "originalRuntimeInventoryReference": "../../../refactor/new-world-71/41261694766-1/summary.json",
+  "originalExeDllFiles": [
+    {
+      "name": "antlr.astframe.dll",
+      "bytes": 6656,
+      "sha256": "f202b2befabb3b703b0389dceb4f542a606be4c1fb120fd267549a2bde7f34d4"
+    },
+    {
+      "name": "antlr.runtime.dll",
+      "bytes": 99328,
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    },
+    {
+      "name": "AssetMerge.exe",
+      "bytes": 116736,
+      "sha256": "639da001afc97177c624fe3fa358430b09550250f3a384678628a81f4e5edd82"
+    },
+    {
+      "name": "AssetResolver.exe",
+      "bytes": 13824,
+      "sha256": "21b9992ea770fc7ff21e92aa6ffd9c645ba80404fc8a5c68d233725f53090b93"
+    },
+    {
+      "name": "BinaryAssetBuilder.AudioCompiler.dll",
+      "bytes": 1232896,
+      "sha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139"
+    },
+    {
+      "name": "BinaryAssetBuilder.Core.dll",
+      "bytes": 212992,
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47"
+    },
+    {
+      "name": "BinaryAssetBuilder.exe",
+      "bytes": 36864,
+      "sha256": "f79c2fe743de251e59c9e1daee6930f4c58b1de3adf735f73aa7e9798c8c49af"
+    },
+    {
+      "name": "BinaryAssetBuilder.ExpressionEval.dll",
+      "bytes": 32768,
+      "sha256": "c2c872619b4391f5987d483597116fb33e0cbf09f3cebeeda9d0105cce18b5ac"
+    },
+    {
+      "name": "BinaryAssetBuilder.GameDataVerifier.dll",
+      "bytes": 9728,
+      "sha256": "497f29052a32dca2002857a3dbc88232bb66a19e3dfcfecbdf048c73417847f0"
+    },
+    {
+      "name": "BinaryAssetBuilder.Remote.dll",
+      "bytes": 3584,
+      "sha256": "126b4ab6c2c879b5f8ed7bb50e49a73e898fb6e082b7727d6424713cd8902135"
+    },
+    {
+      "name": "BinaryAssetBuilder.TextureCompiler.dll",
+      "bytes": 815104,
+      "sha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e"
+    },
+    {
+      "name": "BinaryAssetBuilder.Tokenizer.dll",
+      "bytes": 1654784,
+      "sha256": "ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603"
+    },
+    {
+      "name": "BinaryAssetBuilder.Utility.dll",
+      "bytes": 63488,
+      "sha256": "f71d8f4b10002637deb72eac68e14599e38bac07221f0ed2d1dfc751d8ffd96b"
+    },
+    {
+      "name": "BinaryAssetBuilder.W3XCompiler.dll",
+      "bytes": 159744,
+      "sha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1"
+    },
+    {
+      "name": "BinaryAssetBuilder.XmlCompiler.dll",
+      "bytes": 1933312,
+      "sha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6"
+    },
+    {
+      "name": "CC3Tools.dll",
+      "bytes": 161792,
+      "sha256": "923e5c12f1b1f9c408c19cfbf3d6bc6e15175b69b504b2e72ec914d439077a35"
+    },
+    {
+      "name": "EALA.Hash.dll",
+      "bytes": 26624,
+      "sha256": "b884317c4b322630d67c9e961edc475557945f86090ac9105c3977880d3dcece"
+    },
+    {
+      "name": "EALA.Metrics.dll",
+      "bytes": 16384,
+      "sha256": "bcf488c809a052fe920de95ec10975693ffa27f8d3e892a1cff510c4a118fa1c"
+    },
+    {
+      "name": "HashFix.exe",
+      "bytes": 322560,
+      "sha256": "005682dfa26e401799f18c775cc8b6e0e2b0cd3efa08438597bf46a765e4e72a"
+    },
+    {
+      "name": "LoDStreamBuilder.exe",
+      "bytes": 124928,
+      "sha256": "e28b665a17cbbf597b47a2069a6efd979da00b44021f8f73b6beb0fb076fac0b"
+    },
+    {
+      "name": "MakeBig.exe",
+      "bytes": 13312,
+      "sha256": "2eaa2dfa8473ed5a74b5901c65ab133ddea26f70c8cb2747a0d8725c6c5a7cf9"
+    },
+    {
+      "name": "MapAssetResolver.exe",
+      "bytes": 13824,
+      "sha256": "21b9992ea770fc7ff21e92aa6ffd9c645ba80404fc8a5c68d233725f53090b93"
+    },
+    {
+      "name": "ModAssetResolver.exe",
+      "bytes": 457728,
+      "sha256": "b16c35fbf4eb6bea683d1d9baff65d29c2b2131ef2e5493b996d196de7361bb0"
+    },
+    {
+      "name": "Mvp.Xml.dll",
+      "bytes": 176256,
+      "sha256": "75e86cde7ac2f4cdee06c1115550a6f44ccb22cbcfd4f57c5d5dd09c1fba78c9"
+    },
+    {
+      "name": "ReferenceFix.exe",
+      "bytes": 119296,
+      "sha256": "e7ff783032a119b3377462850670dd324506d2fa30be4fc44932b7b6c8052051"
+    },
+    {
+      "name": "W3XViewer.exe",
+      "bytes": 1634304,
+      "sha256": "3941fa25aca34cc10baf4b4eadd84b390868f5e84f96850ad717f01dd585510d"
+    },
+    {
+      "name": "WBAssetResolver.exe",
+      "bytes": 433152,
+      "sha256": "2340879685d5948447a100eabeb6abd6b8fd6b2be795d7be259e7c817418482e"
+    }
+  ],
+  "onlyOriginalRuntimeConfigStartupChanged": true,
+  "originalConfigSha256": "c70ba3231cec9a130fa170d2866836c020659bad2777dfb1d8dc61e914b666cb",
+  "effectiveConfigSha256": "d3f5abfbd0a0cf43b790458b2f2a650f35fd3bba1730809b55d646b453c1ed93",
+  "assetbuilderConfigUnchanged": true,
+  "inputAndRuntimeUnchangedChecks": {
+    "sdkUnchanged": true,
+    "modInputsUnchanged": true,
+    "runtimeUnchanged": true,
+    "rootExistenceUnchanged": true,
+    "schemaRestored": true
+  },
+  "sharedSchemaOverlay": {
+    "source": "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\The New World\\xsd",
+    "changed": [
+      {
+        "path": "AssetTypeLocomotorTemplate.xsd",
+        "sha256": "2c04dc9b5d4f7724f3a5eb057715d2b988ac7dcec1c3b72508a89ee0d94db601"
+      }
+    ],
+    "scope": "MOD-provided runtime Schema shared by both engines; production binaries unchanged"
+  },
+  "originalColdAndHotEach15SuccessfulBabStreams": true,
+  "cold4058OutputInventoriesEqualExceptBaseBin": true,
+  "cdataRecordedInventoryCount": 3998,
+  "cdataRecordedLengthShaEqual": true,
+  "cdataRawBytesComparedLocally": false,
+  "cdataRawComparisonBoundary": "The archive stores 60 linked vectors per engine and no CDATA payloads. The measurement cross-engine raw loop is entered only if differentMembers is empty, which was false here. CDATA equality is limited to the recorded length/SHA inventory.",
+  "linkedRawComparisonReference": "linked-stream-comparison.json",
+  "assetClassificationReference": "base-asset-differences.json",
+  "resourceObservation": {
+    "reportedColdPeakRetainedResultBytes": 942551200,
+    "reportedFinalByteBudget": 298629120,
+    "boundary": "These are historical peak retention and final dynamically refreshed budget, not simultaneous observations. This run does not establish a no-overshoot memory result; no time-aligned budget history was archived."
+  },
+  "protocol": {
+    "cold": {
+      "buildReportSchemaPassed": true,
+      "startedStreams": 15,
+      "uniqueStreamTerminals": true,
+      "publishedArtifacts": 4058,
+      "status": "succeeded",
+      "exitCode": 0
+    },
+    "hot": {
+      "buildReportSchemaPassed": true,
+      "startedStreams": 15,
+      "uniqueStreamTerminals": true,
+      "publishedArtifacts": 0,
+      "status": "failed",
+      "exitCode": 4
+    }
+  },
+  "overallAcceptance": false,
+  "sharedActualInputRootsAndOrderVerified": true,
+  "originalAndNewActualSchemaPathVerified": true,
+  "originalColdAndHotEntryOrderingVerified": true
+}

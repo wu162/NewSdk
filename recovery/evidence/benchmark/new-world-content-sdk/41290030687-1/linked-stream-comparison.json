@@ -1,0 +1,708 @@
+{
+  "provenance": {
+    "runId": "41290030687",
+    "runAttempt": "1",
+    "binarySourceCommit": "1b9da37a00beb639c8c56590417ef51bb210c3cb",
+    "binarySourceRun": "41287090604",
+    "measurementSource": "54c21c2d240825f243bcd0f23578e3b927e5ab9b",
+    "artifactId": 13078555814,
+    "artifactBytes": 458268637,
+    "artifactSha256": "5991dd7f428d5ec2b367ad69810e9b448a3859f0855261c0cc720d146c69f1d0",
+    "analysisHelper": "recovery/scripts/CompareLinkedAssetStreams.py",
+    "analysisHelperSha256": "877b0a3e389c22340eb57005d977171a8e79afb8cafd867ef4daee84d827985d"
+  },
+  "scope": "All 60 archived linked stream files are directly compared and manifest-bound; complete CDATA identity comparison is recorded by the Windows measurement controller but those files are not in this archive.",
+  "fullOutputFileCountEach": 4058,
+  "linkedFilesRecomparedLocallyEach": 60,
+  "linkedStreamsEach": 15,
+  "archivedLinkedFilesMatchMeasurementInventory": true,
+  "rawLinkedFilesEqual": 59,
+  "rawLinkedFilesDifferent": 1,
+  "differentLinkedMembers": {
+    "base/mod/mod.bin": {
+      "rawBytesEqual": false,
+      "oldBytes": 528376752,
+      "newBytes": 528376752,
+      "oldSha256": "f2b80d07b26a548ebe1416b7abedb2a766a68e757524d91931df345ccbc0dff7",
+      "newSha256": "a8531a3cbad6ca40555bb27ac623dc62f65a806960ded33973a4da64dcc4c042"
+    }
+  },
+  "allManifestFilesEqual": true,
+  "allImportsAndRelocationsEqual": true,
+  "cdataInventoryCountEach": 3998,
+  "cdataInventoriesEqual": true,
+  "cdataLocallyRecompared": false,
+  "cdataScope": "Identity equality verified from measurement.json outputFiles length/SHA256 records. Because base/mod/mod.bin differs, the controller skipped its cross-engine raw-byte loop for the full pair; raw CDATA is omitted from baseline-streams archive and was not cross-engine byte-compared locally.",
+  "streams": [
+    {
+      "manifest": "apt/chapterselectcomponent/chapterselectcomponent.manifest",
+      "oldAssetCount": 5,
+      "newAssetCount": 5,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 0,
+      "instanceDifferenceBytes": 0,
+      "classificationCounts": {},
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 545,
+          "newBytes": 545,
+          "oldSha256": "722d0dad1b0b7b7f94c4892be47347692d89936907a121d0083f3ac022bed5f0",
+          "newSha256": "722d0dad1b0b7b7f94c4892be47347692d89936907a121d0083f3ac022bed5f0"
+        },
+        ".bin": {
+          "rawBytesEqual": true,
+          "oldBytes": 137332,
+          "newBytes": 137332,
+          "oldSha256": "a62f197442a14dc5874a635e3c7a9cc850b0c3c0cb9fd0831b0eb901507fa88b",
+          "newSha256": "a62f197442a14dc5874a635e3c7a9cc850b0c3c0cb9fd0831b0eb901507fa88b"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 4,
+          "newBytes": 4,
+          "oldSha256": "3d98082f167c9519fbee142923ddbe3eb41818a32514d3b5bf4c41e7cf2fbbec",
+          "newSha256": "3d98082f167c9519fbee142923ddbe3eb41818a32514d3b5bf4c41e7cf2fbbec"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 44,
+          "newBytes": 44,
+          "oldSha256": "8a8d79f8007677077588907e4559e01ff3c0089a9e8e865b6e078fa4bf9cf244",
+          "newSha256": "8a8d79f8007677077588907e4559e01ff3c0089a9e8e865b6e078fa4bf9cf244"
+        }
+      }
+    },
+    {
+      "manifest": "apt/fe_shared_mainmenulib/fe_shared_mainmenulib.manifest",
+      "oldAssetCount": 47,
+      "newAssetCount": 47,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 0,
+      "instanceDifferenceBytes": 0,
+      "classificationCounts": {},
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 4231,
+          "newBytes": 4231,
+          "oldSha256": "c47f23f953606c7037ae9b439baada4ed516d08e7b4e9335fc8aad77fb026958",
+          "newSha256": "c47f23f953606c7037ae9b439baada4ed516d08e7b4e9335fc8aad77fb026958"
+        },
+        ".bin": {
+          "rawBytesEqual": true,
+          "oldBytes": 28247576,
+          "newBytes": 28247576,
+          "oldSha256": "384ce180a0f3b869a0e21feae748423646b191f244e94b9cd061dfea2d898756",
+          "newSha256": "384ce180a0f3b869a0e21feae748423646b191f244e94b9cd061dfea2d898756"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 4,
+          "newBytes": 4,
+          "oldSha256": "bbf98888d3bcb29e53196262467dce287d2e130b43700ab84642216e6a787121",
+          "newSha256": "bbf98888d3bcb29e53196262467dce287d2e130b43700ab84642216e6a787121"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 380,
+          "newBytes": 380,
+          "oldSha256": "e0b561d36c80355eb6f12971971552f02438c53554f9c034cb8e06d5689432b9",
+          "newSha256": "e0b561d36c80355eb6f12971971552f02438c53554f9c034cb8e06d5689432b9"
+        }
+      }
+    },
+    {
+      "manifest": "apt/feg_m_mainmenu3d/feg_m_mainmenu3d.manifest",
+      "oldAssetCount": 14,
+      "newAssetCount": 14,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 0,
+      "instanceDifferenceBytes": 0,
+      "classificationCounts": {},
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 1281,
+          "newBytes": 1281,
+          "oldSha256": "f7e04f10cd89c8389c620b870914e60f9ce4f2276647e24e4ee620711cef81f4",
+          "newSha256": "f7e04f10cd89c8389c620b870914e60f9ce4f2276647e24e4ee620711cef81f4"
+        },
+        ".bin": {
+          "rawBytesEqual": true,
+          "oldBytes": 2135624,
+          "newBytes": 2135624,
+          "oldSha256": "7348ab063b543af321694cdb1be7a0604e2a9e163ed0d34f0b4dbc52f81f9cce",
+          "newSha256": "7348ab063b543af321694cdb1be7a0604e2a9e163ed0d34f0b4dbc52f81f9cce"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 4,
+          "newBytes": 4,
+          "oldSha256": "6eb98647a25a148ad0986486081d96c7437498b09fe0b2bf267c684d7d6f58e8",
+          "newSha256": "6eb98647a25a148ad0986486081d96c7437498b09fe0b2bf267c684d7d6f58e8"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 116,
+          "newBytes": 116,
+          "oldSha256": "afc8032b112a00b2e8c53d876a9a3b285844b69af40c992577bebeef798428c7",
+          "newSha256": "afc8032b112a00b2e8c53d876a9a3b285844b69af40c992577bebeef798428c7"
+        }
+      }
+    },
+    {
+      "manifest": "apt/fem_m_onlinemultiplayer/fem_m_onlinemultiplayer.manifest",
+      "oldAssetCount": 56,
+      "newAssetCount": 56,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 0,
+      "instanceDifferenceBytes": 0,
+      "classificationCounts": {},
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 5200,
+          "newBytes": 5200,
+          "oldSha256": "fa6a473914b8be4a8754e6655568ecb00fec4f59832af0c754a8b1c0d0cb7976",
+          "newSha256": "fa6a473914b8be4a8754e6655568ecb00fec4f59832af0c754a8b1c0d0cb7976"
+        },
+        ".bin": {
+          "rawBytesEqual": true,
+          "oldBytes": 13725308,
+          "newBytes": 13725308,
+          "oldSha256": "e2f7009ed246f4538be9719070ceadafb8d3e9e9ad433b6bcfbc9714d2f10b23",
+          "newSha256": "e2f7009ed246f4538be9719070ceadafb8d3e9e9ad433b6bcfbc9714d2f10b23"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 4,
+          "newBytes": 4,
+          "oldSha256": "17f8d0c84fbf7be9cc0d219c1282a87339156d46a717f7b7732534c582e19a59",
+          "newSha256": "17f8d0c84fbf7be9cc0d219c1282a87339156d46a717f7b7732534c582e19a59"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 452,
+          "newBytes": 452,
+          "oldSha256": "80dc033c2f78d5cd49940cd3cebac3f43cbc95dbdd7b821553d098a9b1b2c58c",
+          "newSha256": "80dc033c2f78d5cd49940cd3cebac3f43cbc95dbdd7b821553d098a9b1b2c58c"
+        }
+      }
+    },
+    {
+      "manifest": "apt/fem_m_postgameroundup/fem_m_postgameroundup.manifest",
+      "oldAssetCount": 28,
+      "newAssetCount": 28,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 0,
+      "instanceDifferenceBytes": 0,
+      "classificationCounts": {},
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 2598,
+          "newBytes": 2598,
+          "oldSha256": "9e85130c07196209ee60127f24ef465c918159ce6d7f245ac20de4e0d6100e68",
+          "newSha256": "9e85130c07196209ee60127f24ef465c918159ce6d7f245ac20de4e0d6100e68"
+        },
+        ".bin": {
+          "rawBytesEqual": true,
+          "oldBytes": 14742544,
+          "newBytes": 14742544,
+          "oldSha256": "cd0959ef15d39053eeda710995907898f84a0bc5baf8eb4073a9b4847c79885d",
+          "newSha256": "cd0959ef15d39053eeda710995907898f84a0bc5baf8eb4073a9b4847c79885d"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 4,
+          "newBytes": 4,
+          "oldSha256": "10c8b5cc0ea7707bee0f46f721d6a346b2fdc4e1e54ecaed5ccc350adf36a575",
+          "newSha256": "10c8b5cc0ea7707bee0f46f721d6a346b2fdc4e1e54ecaed5ccc350adf36a575"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 228,
+          "newBytes": 228,
+          "oldSha256": "441e860f5db256f166aa7acd8bb37ac94090e868e1135747bc8201e78cf54472",
+          "newSha256": "441e860f5db256f166aa7acd8bb37ac94090e868e1135747bc8201e78cf54472"
+        }
+      }
+    },
+    {
+      "manifest": "apt/ig_missionmap/ig_missionmap.manifest",
+      "oldAssetCount": 21,
+      "newAssetCount": 21,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 0,
+      "instanceDifferenceBytes": 0,
+      "classificationCounts": {},
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 1775,
+          "newBytes": 1775,
+          "oldSha256": "dc8bc65e4b2f025a9e957d3eaa40b30dd87b97ead0070420b81ca6e978485e28",
+          "newSha256": "dc8bc65e4b2f025a9e957d3eaa40b30dd87b97ead0070420b81ca6e978485e28"
+        },
+        ".bin": {
+          "rawBytesEqual": true,
+          "oldBytes": 282524,
+          "newBytes": 282524,
+          "oldSha256": "c5da5bc11b609d2bcd80669a97c1e8a6af97e074cbf96cc45a9f897905b8e985",
+          "newSha256": "c5da5bc11b609d2bcd80669a97c1e8a6af97e074cbf96cc45a9f897905b8e985"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 4,
+          "newBytes": 4,
+          "oldSha256": "4b49a8914a6c380be3cd36f993a99a09f6446764e63769c123cffba4100f3c79",
+          "newSha256": "4b49a8914a6c380be3cd36f993a99a09f6446764e63769c123cffba4100f3c79"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 172,
+          "newBytes": 172,
+          "oldSha256": "9203cdf48f3f4dbe4b31a8873ab754e8e7d08996bb8712670a2006fdfd72dcb6",
+          "newSha256": "9203cdf48f3f4dbe4b31a8873ab754e8e7d08996bb8712670a2006fdfd72dcb6"
+        }
+      }
+    },
+    {
+      "manifest": "apt/igm_playertechstoredialog/igm_playertechstoredialog.manifest",
+      "oldAssetCount": 60,
+      "newAssetCount": 60,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 0,
+      "instanceDifferenceBytes": 0,
+      "classificationCounts": {},
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 5694,
+          "newBytes": 5694,
+          "oldSha256": "78b5214a95a1a21e743bab961903460b1f7691752c82e12715c31450667e6557",
+          "newSha256": "78b5214a95a1a21e743bab961903460b1f7691752c82e12715c31450667e6557"
+        },
+        ".bin": {
+          "rawBytesEqual": true,
+          "oldBytes": 6323252,
+          "newBytes": 6323252,
+          "oldSha256": "b8ffe6b306c09223d1bfbe9c8ee0a4c97638912941ed69d359bad970733b5536",
+          "newSha256": "b8ffe6b306c09223d1bfbe9c8ee0a4c97638912941ed69d359bad970733b5536"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 4,
+          "newBytes": 4,
+          "oldSha256": "01832005d36f4655f89bb8846fbd8e3e95019c10248eeca73ce51212dbf82797",
+          "newSha256": "01832005d36f4655f89bb8846fbd8e3e95019c10248eeca73ce51212dbf82797"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 484,
+          "newBytes": 484,
+          "oldSha256": "847e9bbbbbbd6d65dbb7b265aec7581520866d127a07cd70897d6e0991cd6796",
+          "newSha256": "847e9bbbbbbd6d65dbb7b265aec7581520866d127a07cd70897d6e0991cd6796"
+        }
+      }
+    },
+    {
+      "manifest": "apt/tacticalhudbuildqueuepage/tacticalhudbuildqueuepage.manifest",
+      "oldAssetCount": 47,
+      "newAssetCount": 47,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 0,
+      "instanceDifferenceBytes": 0,
+      "classificationCounts": {},
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 4458,
+          "newBytes": 4458,
+          "oldSha256": "9f6aacbe113cb6b7d10c75789dfff4411455d38d9433171a7264e2656daa72a4",
+          "newSha256": "9f6aacbe113cb6b7d10c75789dfff4411455d38d9433171a7264e2656daa72a4"
+        },
+        ".bin": {
+          "rawBytesEqual": true,
+          "oldBytes": 2143556,
+          "newBytes": 2143556,
+          "oldSha256": "ec0bd34e7219622966c75bc04cb6c10ab23c199e2ed07168ac9722cbe7b00aec",
+          "newSha256": "ec0bd34e7219622966c75bc04cb6c10ab23c199e2ed07168ac9722cbe7b00aec"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 4,
+          "newBytes": 4,
+          "oldSha256": "00bce5f9ea083692fdd69465e2f1982a0c06745fa2c927ad57f3f880a0cdd302",
+          "newSha256": "00bce5f9ea083692fdd69465e2f1982a0c06745fa2c927ad57f3f880a0cdd302"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 380,
+          "newBytes": 380,
+          "oldSha256": "d20daba9b37164a8c50c717c29758e8e8e2e5de044b9197f27bffc987dba0293",
+          "newSha256": "d20daba9b37164a8c50c717c29758e8e8e2e5de044b9197f27bffc987dba0293"
+        }
+      }
+    },
+    {
+      "manifest": "apt/tacticalhudcommandlistbox/tacticalhudcommandlistbox.manifest",
+      "oldAssetCount": 3,
+      "newAssetCount": 3,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 0,
+      "instanceDifferenceBytes": 0,
+      "classificationCounts": {},
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 368,
+          "newBytes": 368,
+          "oldSha256": "da2b9339e5ce6545e9a16cde726a82c29333ceec2ec53da4a82452331cc6cd2a",
+          "newSha256": "da2b9339e5ce6545e9a16cde726a82c29333ceec2ec53da4a82452331cc6cd2a"
+        },
+        ".bin": {
+          "rawBytesEqual": true,
+          "oldBytes": 7212,
+          "newBytes": 7212,
+          "oldSha256": "ac8acc5aa0257d3f32075eb3775ce5c7e07f683fbd2604e1893234ac7913b5ad",
+          "newSha256": "ac8acc5aa0257d3f32075eb3775ce5c7e07f683fbd2604e1893234ac7913b5ad"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 4,
+          "newBytes": 4,
+          "oldSha256": "52fc3ddf87ce2d919985ac445cfa327894d359e5d8d1ff8453b3fc8f6f71044a",
+          "newSha256": "52fc3ddf87ce2d919985ac445cfa327894d359e5d8d1ff8453b3fc8f6f71044a"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 28,
+          "newBytes": 28,
+          "oldSha256": "ee8042525ecde56db43071e20a2cc7d4e6a9313a63bb299004cf24bc08eee382",
+          "newSha256": "ee8042525ecde56db43071e20a2cc7d4e6a9313a63bb299004cf24bc08eee382"
+        }
+      }
+    },
+    {
+      "manifest": "apt/tacticalhudmaincommandbar/tacticalhudmaincommandbar.manifest",
+      "oldAssetCount": 50,
+      "newAssetCount": 50,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 0,
+      "instanceDifferenceBytes": 0,
+      "classificationCounts": {},
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 4737,
+          "newBytes": 4737,
+          "oldSha256": "7e73408066547b02d27d5a24c2267e07b68101b33c1d1fc4487187e305c98f7f",
+          "newSha256": "7e73408066547b02d27d5a24c2267e07b68101b33c1d1fc4487187e305c98f7f"
+        },
+        ".bin": {
+          "rawBytesEqual": true,
+          "oldBytes": 1087896,
+          "newBytes": 1087896,
+          "oldSha256": "dd6eb085268aafaf33c9dd45522eb4046e7e6fe9c0cbd83eacddee878e76e199",
+          "newSha256": "dd6eb085268aafaf33c9dd45522eb4046e7e6fe9c0cbd83eacddee878e76e199"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 4,
+          "newBytes": 4,
+          "oldSha256": "0cbd63c565768877e0f4ca029c45ac00f9eb72ae7103541a0ffe508a038bebb5",
+          "newSha256": "0cbd63c565768877e0f4ca029c45ac00f9eb72ae7103541a0ffe508a038bebb5"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 404,
+          "newBytes": 404,
+          "oldSha256": "da156397a2f58bc31d8bdf5f003dad4208f7e743818e9c29978d913695403f95",
+          "newSha256": "da156397a2f58bc31d8bdf5f003dad4208f7e743818e9c29978d913695403f95"
+        }
+      }
+    },
+    {
+      "manifest": "apt/tacticalhudplayerpowersbar/tacticalhudplayerpowersbar.manifest",
+      "oldAssetCount": 3,
+      "newAssetCount": 3,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 0,
+      "instanceDifferenceBytes": 0,
+      "classificationCounts": {},
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 391,
+          "newBytes": 391,
+          "oldSha256": "f806be89a7fdb18a36a29d81ae3745658c9c10883dafbe4b53858ddfeda1a1f3",
+          "newSha256": "f806be89a7fdb18a36a29d81ae3745658c9c10883dafbe4b53858ddfeda1a1f3"
+        },
+        ".bin": {
+          "rawBytesEqual": true,
+          "oldBytes": 4368,
+          "newBytes": 4368,
+          "oldSha256": "0b5385ae05f359790990bdad717da28907a24667e01cceeef78462c66d635536",
+          "newSha256": "0b5385ae05f359790990bdad717da28907a24667e01cceeef78462c66d635536"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 4,
+          "newBytes": 4,
+          "oldSha256": "d770d035572029bafe9053991101d09382d8783419234a499ff6f7970fd74318",
+          "newSha256": "d770d035572029bafe9053991101d09382d8783419234a499ff6f7970fd74318"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 28,
+          "newBytes": 28,
+          "oldSha256": "fa1d6107b463e763e769a924becf5e5a9d5c9d08c17862eea69d515aecfab7fa",
+          "newSha256": "fa1d6107b463e763e769a924becf5e5a9d5c9d08c17862eea69d515aecfab7fa"
+        }
+      }
+    },
+    {
+      "manifest": "apt/tacticalhudradar/tacticalhudradar.manifest",
+      "oldAssetCount": 34,
+      "newAssetCount": 34,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 0,
+      "instanceDifferenceBytes": 0,
+      "classificationCounts": {},
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 2925,
+          "newBytes": 2925,
+          "oldSha256": "b68632dfed8b47bb660e185640246a3ee681206e0f7c29bbd6fd75569f0cefdc",
+          "newSha256": "b68632dfed8b47bb660e185640246a3ee681206e0f7c29bbd6fd75569f0cefdc"
+        },
+        ".bin": {
+          "rawBytesEqual": true,
+          "oldBytes": 2304492,
+          "newBytes": 2304492,
+          "oldSha256": "ff7016c102ca6dac8869aad847a2e34cd83667fc6b8033f0817f61749e86caf9",
+          "newSha256": "ff7016c102ca6dac8869aad847a2e34cd83667fc6b8033f0817f61749e86caf9"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 4,
+          "newBytes": 4,
+          "oldSha256": "46242c6f42842a0694be6bbf92eff959d5083eb68a0ebb661b14e8e5e8769710",
+          "newSha256": "46242c6f42842a0694be6bbf92eff959d5083eb68a0ebb661b14e8e5e8769710"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 276,
+          "newBytes": 276,
+          "oldSha256": "2e16fd11083ff46dd9e6c8005e8e7f5d7ce8dde2dec218e5abcfe3b95b478c27",
+          "newSha256": "2e16fd11083ff46dd9e6c8005e8e7f5d7ce8dde2dec218e5abcfe3b95b478c27"
+        }
+      }
+    },
+    {
+      "manifest": "apt/tacticalhudselectiondetails/tacticalhudselectiondetails.manifest",
+      "oldAssetCount": 115,
+      "newAssetCount": 115,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 0,
+      "instanceDifferenceBytes": 0,
+      "classificationCounts": {},
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 11100,
+          "newBytes": 11100,
+          "oldSha256": "3722b6c0e51c85c1f2ca93902af9be25190226a01fca573ef5afaf05b7b37165",
+          "newSha256": "3722b6c0e51c85c1f2ca93902af9be25190226a01fca573ef5afaf05b7b37165"
+        },
+        ".bin": {
+          "rawBytesEqual": true,
+          "oldBytes": 2215748,
+          "newBytes": 2215748,
+          "oldSha256": "cb7bc04c1ed19ea488fd3770be8917db020405ed06e211780a318f616b5eec2c",
+          "newSha256": "cb7bc04c1ed19ea488fd3770be8917db020405ed06e211780a318f616b5eec2c"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 4,
+          "newBytes": 4,
+          "oldSha256": "91c8abebf8af4172d5717ceec1602dadd009c0c2ca0efa9bfcc5d9575ccea00d",
+          "newSha256": "91c8abebf8af4172d5717ceec1602dadd009c0c2ca0efa9bfcc5d9575ccea00d"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 924,
+          "newBytes": 924,
+          "oldSha256": "b16e81bfa61adc86c221d30d3f937a79a3338e5dc20930843af4ddfbaa0bdb94",
+          "newSha256": "b16e81bfa61adc86c221d30d3f937a79a3338e5dc20930843af4ddfbaa0bdb94"
+        }
+      }
+    },
+    {
+      "manifest": "base/mod/mod.manifest",
+      "oldAssetCount": 17801,
+      "newAssetCount": 17801,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 330,
+      "instanceDifferenceBytes": 59793151,
+      "classificationCounts": {
+        "texture-dds-DXT1-payload-only": 330
+      },
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 2628233,
+          "newBytes": 2628233,
+          "oldSha256": "95efab30da83f1b147a7f1e0ca893f94abe425232fd7a0d7e2f84b5f25b7ec21",
+          "newSha256": "95efab30da83f1b147a7f1e0ca893f94abe425232fd7a0d7e2f84b5f25b7ec21"
+        },
+        ".bin": {
+          "rawBytesEqual": false,
+          "oldBytes": 528376752,
+          "newBytes": 528376752,
+          "oldSha256": "f2b80d07b26a548ebe1416b7abedb2a766a68e757524d91931df345ccbc0dff7",
+          "newSha256": "a8531a3cbad6ca40555bb27ac623dc62f65a806960ded33973a4da64dcc4c042"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 124908,
+          "newBytes": 124908,
+          "oldSha256": "0fdc7e972ec7b51c1ceb00b6a0eb0b19f712457571291867d7c3f7da0cffe4d2",
+          "newSha256": "0fdc7e972ec7b51c1ceb00b6a0eb0b19f712457571291867d7c3f7da0cffe4d2"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 6107712,
+          "newBytes": 6107712,
+          "oldSha256": "947dfd1c1fdd188d08cca784f913944984748141f2a34dfb99eb8556496f4ca9",
+          "newSha256": "947dfd1c1fdd188d08cca784f913944984748141f2a34dfb99eb8556496f4ca9"
+        }
+      }
+    },
+    {
+      "manifest": "maps/mapmetadata_mod/mapmetadata_mod.manifest",
+      "oldAssetCount": 1970,
+      "newAssetCount": 1970,
+      "manifestEqual": true,
+      "streamChecksumEqual": true,
+      "onlyOldAssetCount": 0,
+      "onlyNewAssetCount": 0,
+      "metadataChangedAssetCount": 0,
+      "differentPayloadAssetCount": 0,
+      "instanceDifferenceBytes": 0,
+      "classificationCounts": {},
+      "files": {
+        ".manifest": {
+          "rawBytesEqual": true,
+          "oldBytes": 183443,
+          "newBytes": 183443,
+          "oldSha256": "9d3b8469d9ee0ff9277f0cc18ca0ab95339f2db2fa6d56e0fb705090b7dfcd77",
+          "newSha256": "9d3b8469d9ee0ff9277f0cc18ca0ab95339f2db2fa6d56e0fb705090b7dfcd77"
+        },
+        ".bin": {
+          "rawBytesEqual": true,
+          "oldBytes": 321316,
+          "newBytes": 321316,
+          "oldSha256": "c79e6b47ce83a8ec881cf4841811a806c56b43d9629aa6cb11499fe39d18b1f4",
+          "newSha256": "c79e6b47ce83a8ec881cf4841811a806c56b43d9629aa6cb11499fe39d18b1f4"
+        },
+        ".imp": {
+          "rawBytesEqual": true,
+          "oldBytes": 16272,
+          "newBytes": 16272,
+          "oldSha256": "3d00c2f5102b9ece50cc4560e560b651aec9d574e6d15b6d7f052b262f87cd1a",
+          "newSha256": "3d00c2f5102b9ece50cc4560e560b651aec9d574e6d15b6d7f052b262f87cd1a"
+        },
+        ".relo": {
+          "rawBytesEqual": true,
+          "oldBytes": 36504,
+          "newBytes": 36504,
+          "oldSha256": "4e29ea49201710f8e7ec169007538ecc238ff2428b9e701f8ca5a546f70c7729",
+          "newSha256": "4e29ea49201710f8e7ec169007538ecc238ff2428b9e701f8ca5a546f70c7729"
+        }
+      }
+    }
+  ],
+  "historicalDifferenceSummary": {
+    "baseline": "../../../refactor/new-world-71/41261694766-1/base-asset-differences.json",
+    "baselineRunId": "41261694766",
+    "baselineScope": "Original media with 89 Joypad declarations removed; this run retains every declaration.",
+    "historicalTotalAssetCount": 17712,
+    "currentTotalAssetCount": 17801,
+    "historicalDifferentAssetCount": 330,
+    "currentDifferentAssetCount": 330,
+    "sameDifferingAssetNames": true,
+    "historicalDifferentBytes": 59846863,
+    "currentDifferentBytes": 59793151,
+    "differenceBytesChange": -53712,
+    "originalSideHashChangedCount": 20,
+    "newSideHashChangedCount": 0,
+    "unchangedPairedChunkCount": 310,
+    "exactHistoricalDifferingChunks": false,
+    "interpretation": "All 330 new-side instance hashes match the historical new-side hashes. Twenty original-SDK Player texture instance hashes and their pairwise difference counts changed. The cause is not established; complete inputs and runs are not equated."
+  },
+  "limitations": [
+    "Whole output is not byte equivalent: base/mod/mod.bin differs.",
+    "Full-input hot build of the new compiler failed; cold asset classification does not validate hot-cache behavior.",
+    "The 20 changed historical original-SDK texture hashes have no established causal attribution."
+  ]
+}

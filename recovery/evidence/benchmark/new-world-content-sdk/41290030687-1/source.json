@@ -1,0 +1,12 @@
+{
+  "source": "https://www.moddb.com/mods/red-alert-the-new-world/downloads/the-new-world-71-source-code",
+  "filename": "The_New_World_7.1Source_Code.7z",
+  "bytes": 982990565,
+  "md5": "7baeedd038574044e977c6495564665a",
+  "sha256": "0c59ed425b1ab55d926bfec858c6f60a0186a5d46e4cb5b295e42891a5ecdb41",
+  "modRoot": "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\The New World",
+  "files": 13391,
+  "unpackedBytes": 3254494799,
+  "entry": "Data/Mod.xml",
+  "scope": "Full original source tree, including Art, Audio, Data, Additional and supplied xsd"
+}

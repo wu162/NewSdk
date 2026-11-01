@@ -1,3 +1,15 @@
+# 当前：The New World 原 SDK 性能对照已计量，冷态约 4.67 倍
+
+用户明确比较原版 SDK 与新版。测量 `54c21c2d` / [Windows 41290030687](https://github.com/wu162/NewSdk/actions/runs/41290030687)，
+新生产复用已验收 `1b9da37`。完整原源 13,391 文件、3.25GB，保留全部 Joypad/媒体，全部 15 流。
+冷态原 1933.785→新 413.703 秒（少 78.61%），同机 n1、OS 页缓存未控、loose 无 BIG。
+整体 **failure**：仅 mod.bin 的 330 DXT1 资产负载不同（59,793,151 字节）；原 SDK 热态83.691秒成功，
+新版热态2.490秒后因 AlliedLegionnaireInfantry→BaseInfantry 缓存继承源状态缺失 exit4，不能记热提速。
+资源记账含估算和大任务软准入，942,551,200 峰值不能据终态298,629,120预算断言严格无超额。
+最终 ZIP 已单次下载核对，冷态输出4058文件/侧；60四流直接复比，3998CDATA核对长度/SHA。
+入口：[性能/失败/范围](docs/NEW_WORLD_CONTENT_SDK_COMPARISON.md)、[证据](evidence/benchmark/new-world-content-sdk/41290030687-1/summary.json)。
+[PR #48](https://github.com/wu162/NewSdk/pull/48) 待审未合并；未改生产或剔资产换通过，禁止强推。
+
 # 当前：单进程按内容分组并行已验收（PR #48）
 
 分支 `feat/single-process-content-parallel`，基线 `recovery/legacy-sdk-cache` / `680c4f0c`。

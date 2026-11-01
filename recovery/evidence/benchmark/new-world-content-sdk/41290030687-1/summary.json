@@ -1,0 +1,546 @@
+{
+  "schemaVersion": 1,
+  "runId": 41290030687,
+  "runAttempt": 1,
+  "workflowConclusion": "failure",
+  "status": "failed",
+  "binarySourceCommit": "1b9da37a00beb639c8c56590417ef51bb210c3cb",
+  "binarySourceRun": 41287090604,
+  "measurementSourceCommit": "54c21c2d240825f243bcd0f23578e3b927e5ab9b",
+  "sourceArchive": {
+    "source": "https://www.moddb.com/mods/red-alert-the-new-world/downloads/the-new-world-71-source-code",
+    "filename": "The_New_World_7.1Source_Code.7z",
+    "bytes": 982990565,
+    "md5": "7baeedd038574044e977c6495564665a",
+    "sha256": "0c59ed425b1ab55d926bfec858c6f60a0186a5d46e4cb5b295e42891a5ecdb41",
+    "modRoot": "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\The New World",
+    "files": 13391,
+    "unpackedBytes": 3254494799,
+    "entry": "Data/Mod.xml",
+    "scope": "Full original source tree, including Art, Audio, Data, Additional and supplied xsd"
+  },
+  "inputPreparation": {
+    "fileCount": 13391,
+    "bytes": 3254494799,
+    "noDeclarationsOrMediaRemoved": true,
+    "entries": 15,
+    "contentGroups": {
+      "base": 1,
+      "apt": 13,
+      "maps": 1
+    },
+    "sharedInputInventoryEqual": true
+  },
+  "machine": {
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "processor": "AMD64 Family 25 Model 1 Stepping 1, AuthenticAMD",
+    "cpuCount": 4,
+    "imageVersion": "20261026.347.1"
+  },
+  "jobs": 4,
+  "performance": "off",
+  "packageFormat": "loose",
+  "samples": [
+    {
+      "engine": "new",
+      "phase": "cold",
+      "status": "passed",
+      "round": 0,
+      "wallMs": 413702.6704,
+      "cpuMs": 731515.625,
+      "peakWorkingSetBytes": 941387776,
+      "cacheBytes": 1786678439,
+      "exitCode": 0,
+      "partWallMs": {
+        "base": 406151.7521,
+        "apt": 3484.3738999999996,
+        "maps": 26855.773299999997
+      },
+      "peakConcurrentStreams": 3,
+      "streamIntervalUnionMs": 406151.75210000004,
+      "sharedOverheadMs": 7550.918299999961,
+      "cache": {
+        "hits": 0,
+        "misses": 8252,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 15,
+        "documentReuse": 0,
+        "xmlParse": 6354,
+        "instanceCompile": 22197,
+        "linkedStreamsRestored": 0,
+        "partialSessionsSaved": 0
+      },
+      "streamIntervals": [
+        {
+          "streamId": "base/Mod",
+          "startedMs": 38.4352,
+          "completedMs": 406190.1873
+        },
+        {
+          "streamId": "apt/chapterSelectComponent",
+          "startedMs": 38.4503,
+          "completedMs": 1470.3939
+        },
+        {
+          "streamId": "apt/feg_m_mainMenu3D",
+          "startedMs": 1473.2639,
+          "completedMs": 1526.2963
+        },
+        {
+          "streamId": "apt/fem_m_onlineMultiplayer",
+          "startedMs": 1527.44,
+          "completedMs": 1732.9998
+        },
+        {
+          "streamId": "apt/fem_m_postgameRoundup",
+          "startedMs": 1734.3084,
+          "completedMs": 2096.2117
+        },
+        {
+          "streamId": "apt/fe_shared_mainMenuLib",
+          "startedMs": 2097.7202,
+          "completedMs": 2570.2086
+        },
+        {
+          "streamId": "apt/igm_PlayerTechStoreDialog",
+          "startedMs": 2573.3135,
+          "completedMs": 2772.8253
+        },
+        {
+          "streamId": "apt/ig_missionMap",
+          "startedMs": 2774.556,
+          "completedMs": 2813.8395
+        },
+        {
+          "streamId": "apt/TacticalHUDBuildQueuePage",
+          "startedMs": 2815.467,
+          "completedMs": 2941.6226
+        },
+        {
+          "streamId": "apt/TacticalHUDCommandListBox",
+          "startedMs": 2943.5071,
+          "completedMs": 2974.6759
+        },
+        {
+          "streamId": "apt/TacticalHUDMainCommandBar",
+          "startedMs": 2976.011,
+          "completedMs": 3050.3014
+        },
+        {
+          "streamId": "apt/TacticalHUDPlayerPowersBar",
+          "startedMs": 3051.5602,
+          "completedMs": 3079.139
+        },
+        {
+          "streamId": "apt/TacticalHUDRadar",
+          "startedMs": 3080.3488,
+          "completedMs": 3166.197
+        },
+        {
+          "streamId": "apt/TacticalHUDSelectionDetails",
+          "startedMs": 3167.5279,
+          "completedMs": 3543.1372
+        },
+        {
+          "streamId": "maps/MapMetaData_Mod",
+          "startedMs": 38.4504,
+          "completedMs": 26894.2237
+        }
+      ],
+      "resources": {
+        "requestedJobs": 4,
+        "cpuCapacity": 4,
+        "ioCapacity": 4,
+        "byteBudget": 298629120,
+        "peakCpuTasks": 4,
+        "peakIoTasks": 4,
+        "peakRetainedResultBytes": 942551200
+      }
+    },
+    {
+      "engine": "original",
+      "phase": "cold",
+      "status": "passed",
+      "round": 0,
+      "wallMs": 1933785.0127,
+      "cpuMs": 1929406.25,
+      "peakWorkingSetBytes": 1180835840,
+      "cacheBytes": 1489033894,
+      "exitCode": 0,
+      "partWallMs": {
+        "apt": 33506.085700000316,
+        "base": 1884839.9359999998,
+        "maps": 15438.990999999987
+      },
+      "streams": [
+        {
+          "taskId": "base/Mod",
+          "content": "base",
+          "wallMs": 1884839.9359999998,
+          "cpuMs": 1881421.875,
+          "peakWorkingSetBytes": 1180835840,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/chapterSelectComponent",
+          "content": "apt",
+          "wallMs": 2275.686399999813,
+          "cpuMs": 2203.125,
+          "peakWorkingSetBytes": 105701376,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/feg_m_mainMenu3D",
+          "content": "apt",
+          "wallMs": 2266.601499999979,
+          "cpuMs": 2234.375,
+          "peakWorkingSetBytes": 121413632,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/fem_m_onlineMultiplayer",
+          "content": "apt",
+          "wallMs": 3155.5994000000283,
+          "cpuMs": 3171.875,
+          "peakWorkingSetBytes": 200753152,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/fem_m_postgameRoundup",
+          "content": "apt",
+          "wallMs": 3237.2598000001744,
+          "cpuMs": 3203.125,
+          "peakWorkingSetBytes": 198041600,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/fe_shared_mainMenuLib",
+          "content": "apt",
+          "wallMs": 4190.133400000377,
+          "cpuMs": 4187.5,
+          "peakWorkingSetBytes": 165597184,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/igm_PlayerTechStoreDialog",
+          "content": "apt",
+          "wallMs": 2640.398699999878,
+          "cpuMs": 2562.5,
+          "peakWorkingSetBytes": 151232512,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/ig_missionMap",
+          "content": "apt",
+          "wallMs": 2156.2456000001475,
+          "cpuMs": 2093.75,
+          "peakWorkingSetBytes": 106369024,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/TacticalHUDBuildQueuePage",
+          "content": "apt",
+          "wallMs": 2329.821400000128,
+          "cpuMs": 2265.625,
+          "peakWorkingSetBytes": 125906944,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/TacticalHUDCommandListBox",
+          "content": "apt",
+          "wallMs": 2127.393100000063,
+          "cpuMs": 2078.125,
+          "peakWorkingSetBytes": 104730624,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/TacticalHUDMainCommandBar",
+          "content": "apt",
+          "wallMs": 2282.3538000002372,
+          "cpuMs": 2218.75,
+          "peakWorkingSetBytes": 114225152,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/TacticalHUDPlayerPowersBar",
+          "content": "apt",
+          "wallMs": 2124.803599999723,
+          "cpuMs": 2078.125,
+          "peakWorkingSetBytes": 105074688,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/TacticalHUDRadar",
+          "content": "apt",
+          "wallMs": 2328.6223999998583,
+          "cpuMs": 2250.0,
+          "peakWorkingSetBytes": 126795776,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/TacticalHUDSelectionDetails",
+          "content": "apt",
+          "wallMs": 2391.166599999906,
+          "cpuMs": 2328.125,
+          "peakWorkingSetBytes": 124407808,
+          "exitCode": 0
+        },
+        {
+          "taskId": "maps/MapMetaData_Mod",
+          "content": "maps",
+          "wallMs": 15438.990999999987,
+          "cpuMs": 15109.375,
+          "peakWorkingSetBytes": 127918080,
+          "exitCode": 0
+        }
+      ]
+    },
+    {
+      "engine": "original",
+      "phase": "hot",
+      "status": "passed",
+      "round": 1,
+      "wallMs": 83690.93559999965,
+      "cpuMs": 82671.875,
+      "peakWorkingSetBytes": 191819776,
+      "cacheBytes": 1489316526,
+      "exitCode": 0,
+      "partWallMs": {
+        "apt": 29909.43679999964,
+        "base": 50780.08630000022,
+        "maps": 3001.4124999997875
+      },
+      "streams": [
+        {
+          "taskId": "base/Mod",
+          "content": "base",
+          "wallMs": 50780.08630000022,
+          "cpuMs": 50765.625,
+          "peakWorkingSetBytes": 191819776,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/chapterSelectComponent",
+          "content": "apt",
+          "wallMs": 2310.1934000001165,
+          "cpuMs": 2218.75,
+          "peakWorkingSetBytes": 112537600,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/feg_m_mainMenu3D",
+          "content": "apt",
+          "wallMs": 2278.883599999972,
+          "cpuMs": 2234.375,
+          "peakWorkingSetBytes": 112558080,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/fem_m_onlineMultiplayer",
+          "content": "apt",
+          "wallMs": 2298.5622999999578,
+          "cpuMs": 2265.625,
+          "peakWorkingSetBytes": 112685056,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/fem_m_postgameRoundup",
+          "content": "apt",
+          "wallMs": 2298.2083000001694,
+          "cpuMs": 2250.0,
+          "peakWorkingSetBytes": 112504832,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/fe_shared_mainMenuLib",
+          "content": "apt",
+          "wallMs": 2297.968299999866,
+          "cpuMs": 2250.0,
+          "peakWorkingSetBytes": 112422912,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/igm_PlayerTechStoreDialog",
+          "content": "apt",
+          "wallMs": 2296.894600000087,
+          "cpuMs": 2234.375,
+          "peakWorkingSetBytes": 112386048,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/ig_missionMap",
+          "content": "apt",
+          "wallMs": 2297.235599999567,
+          "cpuMs": 2187.5,
+          "peakWorkingSetBytes": 112447488,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/TacticalHUDBuildQueuePage",
+          "content": "apt",
+          "wallMs": 2297.599199999695,
+          "cpuMs": 2218.75,
+          "peakWorkingSetBytes": 112529408,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/TacticalHUDCommandListBox",
+          "content": "apt",
+          "wallMs": 2297.0272000002296,
+          "cpuMs": 2187.5,
+          "peakWorkingSetBytes": 112390144,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/TacticalHUDMainCommandBar",
+          "content": "apt",
+          "wallMs": 2311.981100000139,
+          "cpuMs": 2234.375,
+          "peakWorkingSetBytes": 112594944,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/TacticalHUDPlayerPowersBar",
+          "content": "apt",
+          "wallMs": 2315.078000000085,
+          "cpuMs": 2218.75,
+          "peakWorkingSetBytes": 112447488,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/TacticalHUDRadar",
+          "content": "apt",
+          "wallMs": 2296.8603999997868,
+          "cpuMs": 2234.375,
+          "peakWorkingSetBytes": 112652288,
+          "exitCode": 0
+        },
+        {
+          "taskId": "apt/TacticalHUDSelectionDetails",
+          "content": "apt",
+          "wallMs": 2312.9447999999684,
+          "cpuMs": 2312.5,
+          "peakWorkingSetBytes": 112607232,
+          "exitCode": 0
+        },
+        {
+          "taskId": "maps/MapMetaData_Mod",
+          "content": "maps",
+          "wallMs": 3001.4124999997875,
+          "cpuMs": 2859.375,
+          "peakWorkingSetBytes": 120332288,
+          "exitCode": 0
+        }
+      ]
+    },
+    {
+      "engine": "new",
+      "phase": "hot",
+      "status": "failed",
+      "round": 1,
+      "wallMs": 2489.738999999645,
+      "cpuMs": 3750.0,
+      "peakWorkingSetBytes": 132751360,
+      "exitCode": 4,
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "sessionPackageHits": 15,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2772,
+        "xmlParse": 1,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 14,
+        "partialSessionsSaved": 1
+      },
+      "streamIntervals": []
+    }
+  ],
+  "coldComparison": {
+    "nPerEngine": 1,
+    "originalWallMs": 1933785.0127,
+    "newWallMs": 413702.6704,
+    "speedup": 4.674335340475966,
+    "wallTimeReductionPercent": 78.60658409890262,
+    "all15StreamsSucceededForBoth": true,
+    "originalSequentialBabProcesses": 15,
+    "newCliProcesses": 1,
+    "newContentOwners": 3,
+    "newPeakConcurrentOwnerCompileIntervals": 3,
+    "outputFilesPerEngine": 4058,
+    "outputBytesPerEngine": 913154551,
+    "rawBytesEqual": false,
+    "differentMembers": [
+      "base/mod/mod.bin"
+    ],
+    "linkedStreamComparison": "linked-stream-comparison.json",
+    "assetClassification": "base-asset-differences.json",
+    "cdataLengthShaInventoryEqual": 3998,
+    "cdataRawPayloadsArchived": false
+  },
+  "hotComparison": {
+    "originalWallMs": 83690.93559999965,
+    "originalSucceeded": true,
+    "originalColdHotInventoriesEqual": true,
+    "newFailureWallMs": 2489.738999999645,
+    "newExitCode": 4,
+    "newPublication": "NotPublished",
+    "newArtifactCount": 0,
+    "newSucceeded": false,
+    "speedupEstablished": false,
+    "failureStream": "base/Mod",
+    "failure": "GameObject:AlliedLegionnaireInfantry attempts to inherit from GameObject:BaseInfantry but source XML is missing.",
+    "sameFailureClassAsHistoricalFullMod": true
+  },
+  "schemaOverlay": {
+    "source": "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\The New World\\xsd",
+    "changed": [
+      {
+        "path": "AssetTypeLocomotorTemplate.xsd",
+        "sha256": "2c04dc9b5d4f7724f3a5eb057715d2b988ac7dcec1c3b72508a89ee0d94db601"
+      }
+    ],
+    "scope": "MOD-provided runtime Schema shared by both engines; production binaries unchanged"
+  },
+  "unchangedChecks": {
+    "sdkUnchanged": true,
+    "modInputsUnchanged": true,
+    "runtimeUnchanged": true,
+    "rootExistenceUnchanged": true,
+    "schemaRestored": true
+  },
+  "resourceObservation": {
+    "reportedColdPeakRetainedResultBytes": 942551200,
+    "reportedFinalByteBudget": 298629120,
+    "boundary": "These are historical peak retention and final dynamically refreshed budget, not simultaneous observations. This run does not establish a no-overshoot memory result; no time-aligned budget history was archived."
+  },
+  "protocol": {
+    "cold": {
+      "buildReportSchemaPassed": true,
+      "startedStreams": 15,
+      "uniqueStreamTerminals": true,
+      "publishedArtifacts": 4058,
+      "status": "succeeded",
+      "exitCode": 0
+    },
+    "hot": {
+      "buildReportSchemaPassed": true,
+      "startedStreams": 15,
+      "uniqueStreamTerminals": true,
+      "publishedArtifacts": 0,
+      "status": "failed",
+      "exitCode": 4
+    }
+  },
+  "timingBoundary": "One same-VM cold pair, new first, independent empty compiler caches. OS page cache uncontrolled. Original totals sum 15 sequential BAB launch-to-exit intervals; new total is one CLI launch-to-exit interval. Owner Compile group durations overlap; total uses their union. Downloads, extraction, inventories and byte comparison are excluded.",
+  "limitations": [
+    "Overall workflow failed due to the new hot inheritance/cache failure; cold output identity also differs in one linked vector.",
+    "No complete hot-cache, incremental-edit, BIG/SKUDEF or game-runtime acceptance.",
+    "3998 CDATA matches are archive-recorded length/SHA inventories; no CDATA payloads are archived and no local raw comparison is claimed.",
+    "No performance attribution versus an earlier VM or versus the previous NewModCompiler version.",
+    "Memory peak and final dynamic budget are not contemporaneous; no no-overshoot claim from this run."
+  ],
+  "sharedActualInputRootsAndOrderVerified": true,
+  "originalAndNewActualSchemaPathVerified": true,
+  "originalColdAndHotEntryOrderingVerified": true
+}
