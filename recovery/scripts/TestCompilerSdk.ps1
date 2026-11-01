@@ -84,7 +84,7 @@ function VerifySdkBig([string]$Mode,$Runtime,$ModeOut,$Sdk,$Mod,$Tasks,$Original
     $bigOut=Join-Path $ModeOut 'big';New-Item -ItemType Directory -Path $bigOut|Out-Null
     $destination=Join-Path $script:short ($Mode.Substring(0,1)+'big')
     New-Item -ItemType Directory -Path $destination|Out-Null
-    $arguments=@('build','--mod',$Mod,'--sdk-root',$Sdk,'--out',$destination,'/sc:false','/bc:false',"/data:$Data","/art:$Art","/audio:$Audio")
+    $arguments=@('build','--mod',$Mod,'--sdk-root',$Sdk,'--out',$destination,'--mod-version','1.0','/sc:false','/bc:false',"/data:$Data","/art:$Art","/audio:$Audio")
     $audit=InvokeControlled ($Mode+'/big') (Join-Path $Runtime 'NewModCompiler.exe') $arguments $Runtime (Join-Path $destination 'build.events.jsonl') (Join-Path $bigOut 'process')
     Copy-Item -LiteralPath $destination -Destination (Join-Path $bigOut 'output') -Recurse
     $report=Get-Content (Join-Path $destination 'build-report.json') -Raw|ConvertFrom-Json
