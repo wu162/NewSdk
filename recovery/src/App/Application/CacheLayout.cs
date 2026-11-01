@@ -63,10 +63,12 @@ namespace NewModCompiler.Application
             if (request.CacheLayout != null) return request.CacheLayout;
             if (string.IsNullOrEmpty(request.ModRoot)) return null; // doctor without a MOD
             try { return request.CacheLayout = new CacheLayout(request); }
-            catch (BuildFailure) { throw; }
-            catch (Exception error) when (error is IOException || error is UnauthorizedAccessException || error is ArgumentException || error is NotSupportedException) {
-                throw Invalid(error.Message);
-            }
+            // Explicit handlers avoid exception-filter IL in the mixed-mode
+            // application's MSVC /LTCG link, while retaining the same failures.
+            catch (IOException error) { throw Invalid(error.Message); }
+            catch (UnauthorizedAccessException error) { throw Invalid(error.Message); }
+            catch (ArgumentException error) { throw Invalid(error.Message); }
+            catch (NotSupportedException error) { throw Invalid(error.Message); }
         }
 
         string CacheOption(BuildRequest request, string key, string directory)
