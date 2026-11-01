@@ -8,7 +8,13 @@ import * as vscode from 'vscode';
 import { installCompiler } from '../../src/compilerInstaller';
 
 interface Result { status: string; reason?: string; artifacts?: Array<{ path: string }>; diagnostics?: Array<{ code: string }> }
-interface State { status: string; progress?: { buildId?: string }; result?: Result }
+interface State {
+    status: string;
+    operation?: string;
+    config?: { modRoot: string };
+    progress?: { buildId?: string };
+    result?: Result;
+}
 interface ExtensionApi {
     getState(): State;
     getProject(): unknown;
@@ -126,9 +132,20 @@ async function runSuite(): Promise<void> {
     result = await timed(api.build());
     assert.notEqual((result ?? api.getState().result)?.status, 'succeeded');
     cases.push({ name: 'missing-report-never-success', status: 'passed' });
-    await select('MockSlow');
+    const slowMod = await select('MockSlow');
+    const canonicalSlowMod = await fs.realpath(slowMod);
+    const previousBuildId = api.getState().progress?.buildId;
     const stopped = timed(api.build());
-    await waitFor(() => Boolean(api.getState().progress?.buildId));
+    await waitFor(() => {
+        const state = api.getState();
+        return state.status === 'running' && state.operation === 'build'
+            && Boolean(state.progress?.buildId) && state.progress?.buildId !== previousBuildId
+            && state.config?.modRoot.toLowerCase() === canonicalSlowMod.toLowerCase();
+    });
+    const stoppingState = api.getState();
+    assert.equal(stoppingState.status, 'running', 'Stop must target the currently running build');
+    assert.ok(stoppingState.progress?.buildId, 'Current build must have started its own event stream');
+    assert.notEqual(stoppingState.progress.buildId, previousBuildId, 'Previous build state must not satisfy the stop precondition');
     api.stop();
     result = await stopped;
     assert.equal((result ?? api.getState().result)?.status, 'interrupted');

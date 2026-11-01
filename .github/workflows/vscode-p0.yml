@@ -69,13 +69,19 @@ jobs:
             'Real compiler tests SKIPPED: NEWSDK_COMPILER_URL is not configured. Protocol and extension-host checks do not establish P0 completion.' >> $env:GITHUB_STEP_SUMMARY
           }
           'Normal Ctrl+Break cancellation and real APT business fixtures remain required before declaring the full P0 acceptance complete.' >> $env:GITHUB_STEP_SUMMARY
-      - name: Save VSIX, protocol evidence and failure logs
+      - name: Save installable VSIX
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: NewSdk-Mod-Tools-P0-VSIX-${{ github.run_id }}-${{ github.run_attempt }}
+          path: vscode-extension/NewSdk-Mod-Tools-P0.vsix
+          if-no-files-found: warn
+      - name: Save protocol evidence and failure logs
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: NewSdk-Mod-Tools-P0-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            vscode-extension/NewSdk-Mod-Tools-P0.vsix
             vscode-extension/test-results/
             ${{ runner.temp }}/newsdk-p0-host/user-data/logs/
           if-no-files-found: warn
