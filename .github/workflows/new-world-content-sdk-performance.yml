@@ -73,7 +73,7 @@ jobs:
       - name: Download and hash the complete unmodified The New World 7.1 source
         shell: pwsh
         env:
-          NEW_WORLD_SOURCE_URL: ${{ inputs.source_url }}
+          NEW_WORLD_SOURCE_URL: ${{ inputs.source_url || 'https://fmt5.dl.dbolical.com/dl/2022/11/06/The_New_World_7.1Source_Code.7z?st=osApVjvLsBEUk2jD5ButWg==&e=1793522846' }}
         run: |
           $out="recovery/evidence/benchmark/new-world-content-sdk/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           $arguments=@('recovery/scripts/DownloadNewWorld71.py','--sdk-root','SDK','--archive',"$env:RUNNER_TEMP/The_New_World_7.1Source_Code.7z",'--output',"$out/source.json")
