@@ -1,8 +1,10 @@
-# 当前：7.1全15流冷性能已完成，TGA/8声道修复验证中
+# 当前：TGA/Wave8组件验收通过，已合入性能分支，修复版计时中
 
-[同机41256811133](https://github.com/wu162/NewSdk/actions/runs/41256811133) 两边15流均成功：原1457.887秒→新286.933秒（少80.32%，5.08倍）；各4057文件。整体outputs-differ：只base/mod/mod.bin不同，已定位330个DXT1 Texture的BC1压缩块，其他4056文件及全部其他类型相同。n1、OS页缓存未控、不含BIG；输入双方相同supported94裁剪版，生产8050f22d未改。完整[报告/边界/证据](docs/NEW_WORLD_71_SDK_COMPARISON.md)，热继承缓存失败仍未修复。
+生产 `24f83d2b` / [41260620635](https://github.com/wu162/NewSdk/actions/runs/41260620635) success：新D/R、原图246原三缓冲、边界9、Texture三路/31格式及小CLI、音频每配置4347原转录、100次EALayer3独立解码及52资产生产CLI缓存/并行通过。[身份/收据](evidence/codecs/new-world/41260620635-1/summary.json)。用户指定不额外编译整个MOD做codec验证，已删除对应控制器，未跑完整mymod。
 
-用户最新要求：codec修复无需完整MOD测试；组件确认后已明确授权将[PR #43](https://github.com/wu162/NewSdk/pull/43)合入本性能分支，再对修复版运行性能。修复分支fix/new-world-texture-audio-codecs的24f83d2b正在新组件/小CLI验证，先前41259222360按用户指示取消；全MOD/mymod额外验证控制器已删除。修复只解决实证TGA头/扩展与Wave8完整PC链，既有BC1字节边界保留。PR #42仍待审，用户未授权其合入legacy分支。禁止强推。
+用户明确授权的[PR#43](https://github.com/wu162/NewSdk/pull/43)已通过merge commit `a15e3c1e`合回本性能分支，禁强推。当前计量源299286c5，[41261694766](https://github.com/wu162/NewSdk/actions/runs/41261694766)运行：固定已验收Release5aa008d，原始贴图/音频不改，只剔除89Joypad，新旧各一次完整1+13+1冷编译；先新版，失败即停；无额外全MOD预检。结果待终态。
+
+旧supported94基线41256811133原1457.887→新286.933秒（少80.32%，5.08倍），15流均成功但整体outputs-differ：330个DXT1 Texture的BC1压缩块不同，其他4056文件长度/SHA一致。[详细报告](docs/NEW_WORLD_71_SDK_COMPARISON.md)。BC1字节边界与完整MOD热继承缓存失败仍保留，不冒充已修复。PR#42向legacy的合入未获用户授权。
 
 # 当前：音频身份差异已修复，原 SDK 全输入配对通过（PR #41）
 

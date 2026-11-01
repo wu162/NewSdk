@@ -1,15 +1,19 @@
 # RA3 EALayer3 V1
 
-## 本轮：真实8声道WAVE兼容性（实现中，尚未验收）
+## 本轮：8声道WAVE已通过组件与小CLI验收并合入性能分支
 
-从 `benchmark/new-world-71-sdk` / `6aeb8a8` 拉出 `fix/new-world-texture-audio-codecs`。原版
-[41258221174](https://github.com/wu162/NewSdk/actions/runs/41258221174) 的72个PCM8/16/24、
-127/128/129帧、NONE/XAS、RAM/streamed样例全部成功，8声道导入保持原序。
-候选已接通WAVE8标准/EXTENSIBLE读取、PCM/XAS、循环、重采样和四对EALayer3编码；
-AIFF/AIFC继续限原有1/2/4/6声道，ADP4继续仅mono/stereo。
-真实 `FX_kanade_spell.wav` 的SHA256为 `153891dd0a249385207c22a5bdf0962d706ad8bbc59d226d03d9de08a69f703e`。
-组件原三缓冲/CDATA、独立EALayer3解码和小型生产CLI验证尚待本轮Windows结果，
-不以旧1/2/4/6声道证据冒充新8声道验收。性能41256811133继续使用原已验收8050f22d，不被本修复替换。
+生产源码 `24f83d2b`，[Windows41260620635](https://github.com/wu162/NewSdk/actions/runs/41260620635) success。
+标准/EXTENSIBLE WAVE8 PCM8/16/24已接通NONE/XAS、循环、重采样和四对EALayer3；
+8声道保持原序，既有4/6重排不变；AIFF/AIFC仍限1/2/4/6，ADP4仍限mono/stereo。
+原SDK与候选D/R每配置4347条三缓冲/CDATA转录一致，含864条Wave8和4条真实WAVE；
+真实 `FX_kanade_spell.wav` 的XAS输出397648字节/SHA256 `892b3c9b00929a2adb28d88d8c455401ebac72d82313b7cb878c54851a75fd67` 三方相同。
+50个EALayer3输入在D/R共100次独立解码、声道/长度/Loop/波形与jobs1/4通过；
+生产CLI52个音频资产的冷jobs1/4、热、改WAV、独立重编及再次热态通过。正式运行仍为EXE/config/ANTLR三文件。
+
+[验收收据与运行文件身份](../evidence/codecs/new-world/41260620635-1/summary.json) 已保存。
+按用户要求未额外编译完整MOD或mymod用于本次codec验收。用户授权的[PR#43](https://github.com/wu162/NewSdk/pull/43)
+已以 `a15e3c1e` 合入性能分支；[修复版全15流性能41261694766](https://github.com/wu162/NewSdk/actions/runs/41261694766) 正在运行，
+新旧均使用原始媒体且只剔除89条Joypad；结果未完成前不量化修复后性能，也不把旧supported94计时混入。
 
 实现分支：`feature/ra3-ealayer3`，基线 `recovery/legacy-sdk-cache` / `eb503513`。
 实现及 Windows 验收已通过；[PR #34](https://github.com/wu162/NewSdk/pull/34)，未经用户批准不合并。
@@ -52,8 +56,8 @@ GPL/LGPL 的源码分发条件仍适用，分发二进制时应标明匹配的�
 `PcmEncodingResult`、`AssetBuffer`、字幕及 CustomData 输出；没有平行资产管线。
 
 - 输入沿用 integral WAVE/EXTENSIBLE、AIFF/AIFC NONE 的既有解析能力。编码器接收
-  1/2/4/6 声道浮点 PCM，4/6 声道以两个/三个独立 stereo 编码器交错。
-  WAVE4/6 原有重排仅做一次，AIFF 保持原序。
+  1/2/4/6/8 声道浮点 PCM，4/6/8 声道以两个/三个/四个独立 stereo 编码器交错。
+  WAVE4/6 原有重排仅做一次，WAVE8及AIFF保持原序；AIFF/AIFC输入仍限1/2/4/6。
 - 采样率：16000、22050、24000、32000、44100、48000 Hz。`PCSampleRate` 先走
   既有重采样。其它输出率明确拒绝，不自动改率或降级 PCM。
   所选上游 V1 启动解码器的 MPEG2.5 `sfreq` 分支没有初始化，未将

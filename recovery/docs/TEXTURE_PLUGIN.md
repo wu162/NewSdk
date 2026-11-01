@@ -128,3 +128,5 @@ Debug/Release 各31个常见格式组件用例、完整mip与半透明边界、�
 [evidence/texture/plugin-validation](../evidence/texture/plugin-validation)。
 常见格式矩阵现按独立用例集中收集失败，任一失败仍拒绝整组；没有降低像素阈值
 或原始四流/CDATA 差分要求。原失败不冒充成功；本轮验收使用恢复原身份并启用并行后的新构建产品。
+
+本轮 `24f83d2b` / [41260620635](https://github.com/wu162/NewSdk/actions/runs/41260620635) 已通过新生产D/R与相同对象host验证：255个输入中246个正例三缓冲与原DLL逐字节相同；9个边界/观察记录保留，原三路完整转录、31个CommonFormats及小型CLI的冷热/修改/失败重试均通过。原始归档已下载核验。[组件收据](../evidence/codecs/new-world/41260620635-1/summary.json)。用户要求的codec验收未编译完整MOD；PR#43已获授权合入性能分支，原始媒体只剔除89Joypad后的全15流计时另在41261694766运行。BC1既有压缩字节差异不在本修复内。
