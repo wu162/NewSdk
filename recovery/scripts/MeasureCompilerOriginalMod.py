@@ -140,6 +140,8 @@ def report(out, state):
                   (changes['removedAssetCount'], changes['normalizedTgaCount'])]
     if state.get('engineSelection') == 'new':
         lines += ['', 'New-compiler preflight only. No original/new performance comparison is claimed.']
+    if state.get('coldOnly'):
+        lines += ['', 'Cold-only selection. No hot-cache or incremental-edit result is claimed by this run.']
     (out / 'report.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
 
 
@@ -164,7 +166,10 @@ def main():
                         help='Omit the extra unchanged cache-disabled timing run for very large MODs')
     parser.add_argument('--source-adjustments', type=Path)
     parser.add_argument('--engine', choices=('both', 'new'), default='both')
+    parser.add_argument('--cold-only', action='store_true',
+                        help='Measure complete cold builds only; leave warm-cache failures as separate evidence')
     args = parser.parse_args()
+    need(not (args.cold_only and args.edit_file), 'Cold-only selection cannot include an edit workload')
     need(os.name == 'nt', 'Execution requires Windows')
     ctypes.WinDLL('kernel32', use_last_error=True).SetErrorMode(0x0001 | 0x0002 | 0x8000)
     repo = Path(__file__).resolve().parents[2]
@@ -180,6 +185,7 @@ def main():
         samples=[], pairs=[], errors=[], jobs=4, performance='off',
         fullContent=args.content != 'base', contentSelection=args.content)
     state['engineSelection'] = args.engine
+    state['coldOnly'] = args.cold_only
     if args.source_adjustments:
         state['sourceAdjustments'] = json.loads(args.source_adjustments.read_text(encoding='utf-8'))
     started = time.perf_counter()
@@ -388,6 +394,8 @@ def main():
             for trial in range(args.pairs + (0 if args.skip_extra_uncached else 1)):
                 mode = 'both-deflate' if trial < args.pairs else 'none'
                 phases = ('cold', 'hot', 'hot') if mode != 'none' else ('uncached',)
+                if args.cold_only and mode != 'none':
+                    phases = ('cold',)
                 if edit_path and mode != 'none':
                     phases += ('edited', 'hot-edited', 'restored')
                 for index, phase in enumerate(phases):

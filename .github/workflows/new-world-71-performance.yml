@@ -20,6 +20,10 @@ on:
         description: 'Remove unsupported base declarations and normalize unused APT TGA headers, identically for both engines'
         type: boolean
         default: false
+      cold_only:
+        description: 'Measure complete cold builds only; keep observed warm-cache failure evidence separately'
+        type: boolean
+        default: false
 permissions:
   contents: read
   actions: read
@@ -97,12 +101,12 @@ jobs:
             recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/source-adjustments.json
             recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/unsupported-base-textures.json
           if-no-files-found: error
-      - name: Preflight all 15 streams with the accepted new compiler before the long original cold build
+      - name: Preflight all 15 cold streams with the accepted new compiler before the long original build
         if: inputs.supported_fixture == true
         shell: pwsh
         run: |
           $out="recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          python recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/new-world-accepted/artifacts/core-lifecycle-product/Release --mod 'SDK/Mods/The New World' --mod-schema 'SDK/Mods/The New World/xsd' --content 'base,apt,global-metadata' --engine new --source-adjustments "$out/source-adjustments.json" --work "$env:RUNNER_TEMP/new-world-supported-preflight" --output "$out/preflight" --pairs 1 --skip-extra-uncached --timeout-seconds 900 --budget-seconds 1800
+          python recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/new-world-accepted/artifacts/core-lifecycle-product/Release --mod 'SDK/Mods/The New World' --mod-schema 'SDK/Mods/The New World/xsd' --content 'base,apt,global-metadata' --requested-head 'c7647a130c779e84b3ec669cb7235599488048b2' --engine new --cold-only --source-adjustments "$out/source-adjustments.json" --work "$env:RUNNER_TEMP/new-world-supported-preflight" --output "$out/preflight" --pairs 1 --skip-extra-uncached --timeout-seconds 900 --budget-seconds 1800
           if($LASTEXITCODE -ne 0){throw 'New compiler preflight failed; original long build was not started'}
       - uses: actions/upload-artifact@v4
         if: inputs.supported_fixture == true
@@ -115,6 +119,7 @@ jobs:
         env:
           NEW_WORLD_COMPONENTS_ONLY: ${{ inputs.components_only }}
           NEW_WORLD_SUPPORTED_FIXTURE: ${{ inputs.supported_fixture }}
+          NEW_WORLD_COLD_ONLY: ${{ inputs.cold_only }}
         run: |
           $out="recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/measurement"
           $contents=if($env:NEW_WORLD_COMPONENTS_ONLY -eq 'true'){@('apt','global-metadata')}else{@('base,apt,global-metadata')}
@@ -128,8 +133,12 @@ jobs:
             if($env:NEW_WORLD_COMPONENTS_ONLY -eq 'true'){
               $arguments+=@('--pairs','3','--timeout-seconds','300','--budget-seconds','900')
             }else{
-              $arguments+=@('--edit-file','Data/AutoAndBoat/AM_BOAT03.xml','--edit-old','MaxHealth="300"','--edit-new','MaxHealth="301"','--pairs','1','--rebuild-check','asset','--timeout-seconds','3600','--budget-seconds','5400')
+              $arguments+=@('--pairs','1','--timeout-seconds','3600','--budget-seconds','5400')
+              if($env:NEW_WORLD_COLD_ONLY -ne 'true'){
+                $arguments+=@('--edit-file','Data/AutoAndBoat/AM_BOAT03.xml','--edit-old','MaxHealth="300"','--edit-new','MaxHealth="301"','--rebuild-check','asset')
+              }
             }
+            if($env:NEW_WORLD_COLD_ONLY -eq 'true'){$arguments+='--cold-only'}
             python @arguments
             $results+=@($LASTEXITCODE)
             if(Test-Path "$currentOut/report.md"){Get-Content "$currentOut/report.md" -Encoding UTF8 | Add-Content $env:GITHUB_STEP_SUMMARY}

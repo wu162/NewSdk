@@ -1,3 +1,11 @@
+# 本轮：The New World 7.1 全15流冷编译通过，热缓存失败保留，PR #42
+
+用户要求源码放 SDK/Mods，必须编译基础、全部 APT 和全局数据，并先删不支持的基础数据。下载原包 MD5 `7baeedd038574044e977c6495564665a`；保留原包和备份，共剔除94条声明（89 Joypad、八声道 AudioFile及其唯一依赖AudioEvent、3个不支持TGA的Texture）；234张APT TGA只规范化未使用色表头字段，像素负载不变。本地与Windows调整前后哈希全部一致，15个入口保留。
+
+复用生产 `8050f22d` / Release `41244132060`，生产闭包未变。[41255726294](https://github.com/wu162/NewSdk/actions/runs/41255726294) 新版冷编译全部15流成功，344.285秒、4057输出文件；随后热编译在AlliedLegionnaireInfantry→BaseInfantry继承时丢失源XML，退出1。两次调用配置相同；冷编译已成功的步兵数据不继续删除。该运行整体failure、仅新版预检，**没有新旧同机速度比，也没有热态通过结果**。[摘要/失败记录](evidence/refactor/new-world-71/41255726294-1/summary.json)。
+
+下一步用相同94条剔除输入继续同机原版/新版全15流冷编译对照；新增显式cold-only选择，原热失败保留，不改生产EXE。结果必须区分耗时、原字节相同与否及未验证的热缓存/编辑；不跨VM或跨输入拼速度比。[草稿PR #42](https://github.com/wu162/NewSdk/pull/42)，禁止强推，未经用户明确批准不合并。
+
 # 当前：音频身份差异已修复，原 SDK 全输入配对通过（PR #41）
 
 生产源码 `8050f22d`，[Windows 41244132060](https://github.com/wu162/NewSdk/actions/runs/41244132060) 整体 success：Debug/Release 新构建、Core/CLI/取消、后端/缓存/会话、混合音频与旧会话升级、完整 mymod 原 SDK、两个三文件 ZIP、完整 Upheaval 22 样本均通过。[正式归档/D/R/ZIP 单次下载复算](evidence/refactor/audio-identity/41244132060-1/accepted-summary.json) 已保存。
