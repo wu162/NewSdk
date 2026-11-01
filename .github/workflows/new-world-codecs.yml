@@ -1,0 +1,38 @@
+name: The New World texture and audio codec compatibility
+on:
+  push:
+    branches: [fix/new-world-texture-audio-codecs]
+    paths:
+      - '.github/workflows/new-world-codecs.yml'
+      - 'recovery/src/**'
+      - 'recovery/scripts/TestAudioMultichannelOriginal.ps1'
+      - 'recovery/tests/AudioMultichannelOriginalProbe.cs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: new-world-codecs-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  original-eight-channel:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[new-world-codecs-oracle]')
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+            !/recovery/decompiled/
+      - name: Recover original WAVE eight-channel import ordering and PCM XAS bytes
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioMultichannelOriginal.ps1 -Channels @(8) -Frames @(127,128,129) -BitDepths @(8,16,24) -Repetitions 1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: new-world-codec-original-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
