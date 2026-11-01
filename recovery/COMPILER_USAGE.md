@@ -23,7 +23,7 @@
 ./NewModCompiler.exe doctor --sdk-root "C:\NewSdk\SDK"
 ```
 
-`doctor` 只要求 SDK 路径，检查 SDK 配置、Schema 和实际编译依赖，不要求 MOD 或输出目录，也不编译资产。成功会输出 `CORE_ENVIRONMENT_OK`；失败时先按标准错误中的诊断代码处理依赖。
+`doctor` 只要求 SDK 路径，检查 SDK 配置、Schema 和实际编译依赖，不要求 MOD、输出目录或显式 MOD 版本，也不编译资产。成功会输出 `CORE_ENVIRONMENT_OK`；失败时先按标准错误中的诊断代码处理依赖。
 
 ## 2. 准备 MOD 文件夹
 
@@ -44,13 +44,13 @@
 先看计划（只发现流，不实际编译）：
 
 ```powershell
-./NewModCompiler.exe plan --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example"
+./NewModCompiler.exe plan --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" --mod-version 1.0
 ```
 
 编译成 BIG：
 
 ```powershell
-./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example"
+./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" --mod-version 1.0
 ```
 
 仅编译基础数据并输出松散流：
@@ -59,7 +59,7 @@
 ./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\ExampleLoose" --package-content base --package-format loose
 ```
 
-默认 `--package-content auto`、`--package-format big`，输出 BIG + SKUDEF 并自动包含 Additional。只有 APT 或全局元数据的 MOD 也能直接编译，无需创建空的 Mod.xml。自动发现没有任何有效编译入口时以 `PLAN_NO_INPUTS` 报错；仅有 Additional 不算编译入口。正常编译无需填写平台或缓存开关。
+默认 `--package-content auto`、`--package-format big`，输出 BIG + SKUDEF 并自动包含 Additional。只有 APT 或全局元数据的 MOD 也能直接编译，无需创建空的 Mod.xml。自动发现没有任何有效编译入口时以 `PLAN_NO_INPUTS` 报错；仅有 Additional 不算编译入口。正常编译无需填写平台或缓存开关。最终格式为 BIG 的 `build` 和 `plan` 每次必须在命令行显式传入 `--mod-version`，项目预设或旧默认值均不能代替；loose（包括 development 派生的 loose）不要求显式版本，并保留原有包身份校验。
 
 普通帮助 `--help`（或 `-h`）只列出以下 10 个编译与性能参数，以及 `build`、`plan`、`doctor` 和帮助入口。高级能力通过 `--help-advanced` 查看，可直接与 `build` 使用。
 
@@ -71,7 +71,7 @@
 | `--package-content` | `auto`，或 `base,apt,global-metadata` 的组合 |
 | `--package-format` | `big`，也可显式选择 `loose` |
 | `--include-additional` | BIG 默认 true，loose 默认 false |
-| `--mod-version` | `1.0` |
+| `--mod-version` | 最终格式为 BIG 的 build/plan 每次必须在 CLI 显式指定；项目预设不能代替 |
 | `--skudef-name` | MOD 目录名 |
 | `--jobs` | `auto` 或正整数，默认 `auto` |
 | `--performance` | `off`、`summary`、`detailed`，默认 `off` |
@@ -88,7 +88,7 @@
 
 | 选项 | 默认值 / 效果 |
 | --- | --- |
-| `--mod-version` | `1.0`，生成 `<MOD目录名>_<版本>.big` |
+| `--mod-version` | BIG build/plan 每次在 CLI 显式指定，生成 `<MOD目录名>_<所传版本>.big`；项目值不能代替 |
 | `--skudef-name` | MOD 目录名，生成 `<基名>_<版本>.skudef`，其中 add-big 引用真实 BIG 文件名 |
 | `--include-additional=false` | BIG 默认自动包含，手动关闭时使用 false；先取 `SDK/Additional`，后由 `MOD/Additional` 同名文件覆盖，排除 `.asset` |
 
@@ -110,13 +110,13 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 }
 ```
 
-保存后通常只传 MOD 路径（需要时再覆盖版本号）：
+SDK 和输出路径可由项目提供；BIG `build`/`plan` 仍须每次在命令行传入 MOD 路径与版本号：
 
 ```powershell
 ./NewModCompiler.exe build --mod "C:\Mods\Example" --mod-version 2.8
 ```
 
-命令行覆盖项目预设，预设覆盖默认值；同一来源的冲突参数会报错。SDK 与输出路径可保存到项目，JSON 中相对路径以 MOD 目录为基准；命令行路径仍以调用目录为基准。还可保存内容选择、BIG 设置、`jobs` 及既有高级缓存与旧脚本设置（完整键列表见 [参数兼容表](CLI_COMPATIBILITY.md)）。不扩充项目格式；不要将其他旧 BAB 参数写入 JSON。`profile` 仍可供已有项目兼容使用，规则见下文。
+命令行覆盖项目预设，预设覆盖默认值；同一来源的冲突参数会报错。项目中的 `mod-version` 键继续被识别，但仅有预设版本不足以满足 BIG 的必填要求，必须用 CLI 版本覆盖。SDK 与输出路径可保存到项目，JSON 中相对路径以 MOD 目录为基准；命令行路径仍以调用目录为基准。还可保存内容选择、BIG 设置、`jobs` 及既有高级缓存与旧脚本设置（完整键列表见 [参数兼容表](CLI_COMPATIBILITY.md)）。不扩充项目格式；不要将其他旧 BAB 参数写入 JSON。`profile` 仍可供已有项目兼容使用，规则见下文。
 
 ## 6. 高级选项
 
@@ -135,8 +135,8 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 本分支恢复原 SDK 缓存默认值：会话 `/sc`、资产 `/bc`、部分会话 `/psc`、压缩 `/csc` 均默认 true；冻结 `/fsc` 和始终 touch `/atc` 默认 false。SDK 配置中的 `buildCacheRoot` 仍生效；`/bc` 未由命令行或项目预设显式指定时，默认值继续受 SDK `buildCache` 配置覆盖，命令行优先于项目预设。旧 defaultscript 显式使用 `/csc:false`，可用相同参数输出 XML：
 
 ```powershell
-./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" /csc:false
-./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" /sc:false /bc:false
+./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" /csc:false --mod-version 1.0
+./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" /sc:false /bc:false --mod-version 1.0
 ```
 
 `/sc` 按原文档、文件依赖、定义和继承复用解析与中间结果；`/bc` 按原类型/实例哈希复用资产，包括三种 Texture 路由。修改、新增、删除 MOD 输入均交由原 Core 判断，不再将整个 SDK/MOD 内容指纹作为冷失效开关。四流按原清单/流校验和原地复用；BIG 每次重新打包。

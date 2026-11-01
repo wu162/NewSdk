@@ -1,44 +1,46 @@
-name: CLI parameter simplification remaining SDK validation
+name: Required BIG mod version focused checks
 on:
   workflow_dispatch:
 permissions:
   contents: read
-  actions: read
-concurrency:
-  group: cli-simplification-${{ github.ref }}-${{ github.sha }}
-  cancel-in-progress: false
 jobs:
-  validate:
+  required-version:
     runs-on: windows-2022
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           persist-credentials: false
           sparse-checkout-cone-mode: false
           sparse-checkout: |
             /*
             !/recovery/evidence/
-      - name: Download exact prior successful fixture cases and runtimes
+      - name: Compile standalone CLI and run only required-version checks
         shell: pwsh
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           $ErrorActionPreference='Stop'
-          $headers=@{Authorization=('Bearer '+$env:GH_TOKEN);Accept='application/vnd.github+json'}
-          $zip=Join-Path $env:RUNNER_TEMP 'prior-fixture.zip'
-          Invoke-WebRequest -Uri 'https://api.github.com/repos/wu162/NewSdk/actions/artifacts/13069851893/zip' -Headers $headers -OutFile $zip
-          if((Get-FileHash $zip -Algorithm SHA256).Hash.ToLowerInvariant() -cne 'e0b915ec8c18849c1053f6abe33813e814c1e06bfcfc3a4279af3240c3efb966'){throw 'Prior fixture artifact digest mismatch'}
-          Expand-Archive -LiteralPath $zip -DestinationPath (Join-Path $env:RUNNER_TEMP 'prior-fixture')
-      - name: Recheck archived results and retry only two SDK configuration cases
-        shell: pwsh
-        run: |
-          ./work/RetryCliSdkConfig.ps1 -SourceCommit 5b40ed35e638a9962f7fbcd74227e29ccc32b85d -CandidateRuntime "$env:RUNNER_TEMP/prior-fixture/product" -BaselineRuntime "$env:RUNNER_TEMP/prior-fixture/baseline" -CandidateEvidence "$env:RUNNER_TEMP/prior-fixture"
+          $out='recovery/artifacts/version-required'
+          New-Item -ItemType Directory -Force $out|Out-Null
+          $vswhere=Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
+          $vs=& $vswhere -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
+          $csc=Join-Path $vs 'MSBuild/Current/Bin/Roslyn/csc.exe'
+          $refs=Join-Path ${env:ProgramFiles(x86)} 'Reference Assemblies/Microsoft/Framework/.NETFramework/v4.8'
+          $sources=@(Get-ChildItem recovery/src/App -Recurse -Filter '*.cs'|Sort-Object FullName|ForEach-Object FullName)
+          $sources+=@(Get-ChildItem recovery/tests/App -Filter '*.cs'|Sort-Object FullName|ForEach-Object FullName)
+          $sources+=(Resolve-Path work/VersionRequiredProbe.cs).Path
+          $arguments=@('/nologo','/noconfig','/nostdlib+','/target:exe','/platform:x86','/langversion:7.3','/optimize+','/main:NewModCompiler.Tests.VersionRequiredProbe',('/out:'+(Join-Path $out 'VersionRequiredProbe.exe')))
+          foreach($reference in @('mscorlib','System','System.Core','System.Web.Extensions','System.Xml')){$arguments+=('/reference:'+(Join-Path $refs ($reference+'.dll')))}
+          & $csc @arguments @sources *> "$out/compile.log"
+          if($LASTEXITCODE -ne 0){Get-Content "$out/compile.log";throw 'Focused CLI compilation failed'}
+          Copy-Item recovery/src/App/App.config "$out/VersionRequiredProbe.exe.config"
+          & "$out/VersionRequiredProbe.exe" "$env:RUNNER_TEMP/version-required-work" *> "$out/checks.log"
+          $result=$LASTEXITCODE
+          Get-Content "$out/checks.log"
+          if($result -ne 0){throw 'Required-version checks failed'}
+          @{sourceCommit='2bb4548cd47ea87a7955eb9e3744e950dbb7512d';validationCommit=$env:GITHUB_SHA;runId=$env:GITHUB_RUN_ID;succeeded=$true;scope='Only required BIG mod-version contracts; standalone CLI; no full App suite, native build or benchmark'}|ConvertTo-Json|Set-Content "$out/validation.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cli-simplification-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/artifacts/cli-simplification/**
-          include-hidden-files: true
+          name: required-version-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/artifacts/version-required/**
           if-no-files-found: error

@@ -195,6 +195,8 @@ namespace NewModCompiler.Cli
             request.AutoDetectContent = request.Options["package-content"].Value == "auto";
             request.Content = request.AutoDetectContent ? new [] {"base","apt","maps"} : request.Options["package-content"].Value.Split(',').Select(x => x == "global-metadata" ? "maps" : x).ToArray(); request.PackageFormat = request.Options["package-format"].Value; request.IncludeAdditional = request.Options["include-additional"].Value=="true"; request.FixNeutralAssets = request.Options["fix-neutral-assets"].Value=="true";
             BigPackage.ValidateRequest(request);
+            if (request.Command != "doctor" && request.PackageFormat == "big" && !commandLine.ContainsKey("mod-version"))
+                throw Bad("CLI_MOD_VERSION", "--mod-version is required on the command line for BIG build/plan.");
             return request;
         }
         static void Default(BuildRequest request, string key, string value) { if (!request.Options.ContainsKey(key)) request.Options[key] = new EffectiveOption { Value = value, Source = "default" }; }
@@ -250,7 +252,7 @@ namespace NewModCompiler.Cli
             "  --package-content auto|base,apt,global-metadata  Default auto; explicit combinations are supported.\n" +
             "  --package-format big|loose          Default big: BIG + SKUDEF.\n" +
             "  --include-additional=<true|false>   Default true for BIG, false for loose.\n" +
-            "  --mod-version <version>            Default 1.0.\n" +
+            "  --mod-version <version>            Required on the CLI for BIG build/plan; no BIG default.\n" +
             "  --skudef-name <basename>           Default MOD directory name.\n" +
             "  --jobs auto|<positive integer>      Default auto; 1 runs on the owner.\n" +
             "  --performance off|summary|detailed  Default off; timings go to build-report.json.\n" +
