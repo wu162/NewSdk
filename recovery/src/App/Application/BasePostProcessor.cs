@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading;
 using NewModCompiler.Diagnostics;
 
@@ -27,17 +26,14 @@ namespace NewModCompiler.Application
             var references=inputs.Files;
             var guards=new List<IDisposable>();bool created=false;
             try {
-                foreach(string directory in references.Select(Path.GetDirectoryName).Concat(new[]{sourceDirectory}).Distinct(StringComparer.OrdinalIgnoreCase))guards.Add(DiagnosticDirectory.Acquire(directory,false));
                 foreach(string path in references.Distinct(StringComparer.OrdinalIgnoreCase)) {RejectFile(path);guards.Add(new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.Read));}
                 string[] sourceFiles=Extensions.Select(ext=>sourceStem+ext).ToArray();foreach(string file in sourceFiles)RejectFile(file);
                 string cdata=Path.Combine(sourceStem,"cdata");string[] custom=new string[0];
                 if(Directory.Exists(cdata)) {
-                    guards.Add(DiagnosticDirectory.Acquire(cdata,false));
                     if(Directory.GetDirectories(cdata).Length!=0)throw new IOException("Neutral repair CDATA must contain only current stream files.");
                     custom=Directory.GetFiles(cdata);foreach(string file in custom) {RejectFile(file);if(!string.Equals(Path.GetExtension(file),".cdata",StringComparison.OrdinalIgnoreCase))throw new IOException("Unexpected neutral repair CDATA member.");}
                 } else if(File.Exists(cdata))throw new IOException("Neutral repair CDATA root is not a directory.");
-                cancellation.ThrowIfCancellationRequested();Directory.CreateDirectory(workDir);created=true;
-                guards.Add(DiagnosticDirectory.Acquire(workDir,false));
+                cancellation.ThrowIfCancellationRequested();DiagnosticDirectory.PrepareDirectory(workDir);created=true;
                 string targetStem=Path.Combine(workDir,"mod");
                 for(int i=0;i<Extensions.Length;i++)Copy(sourceFiles[i],targetStem+Extensions[i],cancellation);
                 foreach(string file in custom)Copy(file,Path.Combine(targetStem,"cdata",Path.GetFileName(file)),cancellation);
@@ -78,11 +74,9 @@ namespace NewModCompiler.Application
         static void Copy(string source,string destination,CancellationToken cancellation) {
             Directory.CreateDirectory(Path.GetDirectoryName(destination));
             using(var input=new FileStream(source,FileMode.Open,FileAccess.Read,FileShare.Read))
-            using(var output=new FileStream(destination,FileMode.CreateNew,FileAccess.ReadWrite,FileShare.None)) {
+            using(var output=new FileStream(destination,FileMode.CreateNew,FileAccess.Write,FileShare.None)) {
                 byte[] buffer=new byte[64*1024];int count;
                 while((count=input.Read(buffer,0,buffer.Length))!=0) {cancellation.ThrowIfCancellationRequested();output.Write(buffer,0,count);}
-                output.Flush(true);input.Position=0;output.Position=0;
-                using(var hash=SHA256.Create())if(!hash.ComputeHash(input).SequenceEqual(hash.ComputeHash(output)))throw new IOException("Neutral repair private stream copy differs from its accepted source.");
             }
         }
     }
