@@ -1,11 +1,16 @@
-# 当前：CLI 单行编译进度实现，验证中
+# 当前：CLI 单行编译进度已验收（PR #47）
 
 分支 `feat/cli-build-progress`，基线 `recovery/legacy-sdk-cache` / `52d44c6`。
 默认单行阶段/数据流进度、真实资产/XML/文档复用计数、警告/错误协调和重定向降级已接通；
 缓存、调度、算法及 JSONL Progress 的数据流语义保持原合同。
-Windows App/生产构建及完整 Upheaval 热缓存进度开/关三对测试待执行；暂未证明 <=1% 开销。
-入口：[实现与验证范围](docs/CLI_PROGRESS.md)、`.github/workflows/cli-progress.yml`。
-禁止强推；先提 PR，未经用户明确批准不合并。
+源码 `6a69c0e8` / [Windows 41281916951](https://github.com/wu162/NewSdk/actions/runs/41281916951)
+全部 success：Release、App/真实 Core/应用流水线、CtrlBreak/失败/重试、冷/热计数及原字节通过。
+同机完整历史 Upheaval 的 base loose 热缓存真实控制台三对：开启中位 2754.3291ms、
+关闭 2766.9984ms，开销 -0.4579%，达到本轮 <=1% 目标；不作为普遍提速结论。
+1859 条警告的逐条重画已合并为每秒恢复；首轮 25.8046% 超标及早期失败保留。
+最终归档单次下载后复核 ZIP/三运行文件/同对象宿主身份；未测 Debug、全 APT/maps、原 SDK 或游戏验收。
+入口：[实现与验证范围](docs/CLI_PROGRESS.md)、[收据](evidence/cli-progress/41281916951-1/summary.json)。
+[PR #47](https://github.com/wu162/NewSdk/pull/47) 待审，未合并；禁止强推，合入仍需用户明确批准。
 
 # 此前：SuperCompilerCache 集中缓存改造完成（PR #46）
 
