@@ -18,6 +18,8 @@ import subprocess
 import time
 import xml.etree.ElementTree as ET
 
+from CompilerCachePaths import cache_root
+
 MODES = {
     'none': (False, False, False),
     'asset': (True, False, False),
@@ -285,8 +287,12 @@ def run(args):
                                '--package-content', 'base', '--package-format', 'loose',
                                '/bc:' + str(bc).lower(), '/sc:' + str(sc).lower(),
                                '/csc:' + str(compressed).lower(), '/psc:true', '/fsc:false', '/atc:false']
-                    if not sc:
-                        command += ['/iod:' + str(work / 'fresh-intermediate' / label)]
+                    # Cache modes remain isolated while every writable cache
+                    # path stays in this MOD's SDK partition.
+                    profile = cache_root(sdk, workload['modRoot']) / 'validation' / ('bench-' + hashlib.sha256(str(destination).encode()).hexdigest()[:12])
+                    intermediate = profile / ('intermediate' if sc else 'fresh-' + str(round_index))
+                    command += ['/scd:' + str(profile / 'session'), '/bcd:' + str(profile / 'assets'),
+                                '/iod:' + str(intermediate)]
                     sample = {'workload': workload['name'], 'mode': mode, 'phase': phase,
                               'assetCacheApplicable': bool(eligibility[workload['name']]['cacheableTypes']),
                               'round': round_index, 'status': 'started', 'command': command,
@@ -321,11 +327,7 @@ def run(args):
                     require(files == baselines[workload['name']], 'Output differs from no-cache: ' + label)
                     sample.update({'status': 'passed', 'reportElapsedMs': report['elapsedMs'],
                                    'cache': report['cache'], 'outputFiles': files,
-                                   'cacheBytes': sum(p.stat().st_size for p in destination.rglob('*')
-                                                     if p.is_file() and 'published' not in p.relative_to(destination).parts
-                                                     and (p.suffix in ('.asset', '.cdata')
-                                                          or p.name.startswith('BinaryAssetBuilder.SessionCache.xml')
-                                                          or '.NewModCompiler' in p.relative_to(destination).parts))})
+                                   'cacheBytes': sum(p.stat().st_size for p in profile.rglob('*') if p.is_file())})
                     print('CACHE_BENCHMARK_SAMPLE ' + json.dumps({k: sample[k] for k in
                           ('workload', 'mode', 'phase', 'wallMs', 'cpuMs', 'status')}), flush=True)
                     save(output, state)

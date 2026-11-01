@@ -18,6 +18,8 @@ import wave
 import xml.etree.ElementTree as ET
 import zlib
 
+from CompilerCachePaths import cache_root
+
 NS = 'uri:ea.com:eala:asset'
 XI = 'http://www.w3.org/2001/XInclude'
 HISTORICAL = 'bacfc69fc3e71c8116d1f22b933b8b6173170ecf'
@@ -548,7 +550,7 @@ def cases(workload):
     return rows
 
 
-def apply_case(workload, case, destination):
+def apply_case(workload, case, destination, cache=None):
     """Mutate a restored working baseline, returning actual changed-input counts.
 
     Source/cache snapshots must be restored by the caller before each repeat.
@@ -556,6 +558,7 @@ def apply_case(workload, case, destination):
     external-input edits report their dependent assets separately.
     """
     mod, destination = Path(workload['modRoot']), Path(destination)
+    cache = Path(cache) if cache is not None else cache_root(workload['sdkRoot'], mod)
     data = mod / 'Data/L8'
     identifier = case['id']
     changed, assets, materials = set(), 0, 0
@@ -708,7 +711,7 @@ def apply_case(workload, case, destination):
         selected = str((mod / fixture['path']).resolve()).replace('\\', '/').casefold()
         entry = next(path for identifier, path in stream_entries(mod) if identifier == fixture['streamId'])
         selected_entry = str(entry.resolve()).replace('\\', '/').casefold()
-        candidates = sorted(p for p in destination.rglob('BinaryAssetBuilder.SessionCache.xml*')
+        candidates = sorted(p for p in cache.rglob('BinaryAssetBuilder.SessionCache.xml*')
                             if p.name in ('BinaryAssetBuilder.SessionCache.xml',
                                           'BinaryAssetBuilder.SessionCache.xml.deflate'))
         for path in candidates:
@@ -737,7 +740,7 @@ def apply_case(workload, case, destination):
                 break
         need(metadata_documents > 0, 'Selected actual stream has no serialized document metadata')
     elif identifier in ('C10', 'F07-session-all'):
-        paths = sorted(destination.rglob('BinaryAssetBuilder.SessionCache.xml*'))
+        paths = sorted(cache.rglob('BinaryAssetBuilder.SessionCache.xml*'))
         paths = [p for p in paths if p.is_file() and p.name in
                  ('BinaryAssetBuilder.SessionCache.xml', 'BinaryAssetBuilder.SessionCache.xml.deflate')]
         need(paths, 'No real SessionCache metadata found')
@@ -745,7 +748,7 @@ def apply_case(workload, case, destination):
             parent = paths[0].parent
             paths = [p for p in paths if p.parent == parent]
         for path in paths:
-            deleted.append(path.relative_to(destination).as_posix())
+            deleted.append(str(path.resolve()))
             path.unlink()
     elif identifier == 'C11':
         paths = sorted(p for p in (destination / 'published').rglob('*')
@@ -833,19 +836,16 @@ def apply_case(workload, case, destination):
         # Native asset-cache entries need not be consulted by a fully linked
         # hot build. Remove actual stream CDATA, keeping the session backup so
         # the successful fallback restoration path is really required.
-        paths = sorted(p for p in destination.rglob('*.cdata') if p.is_file() and
-                       'streams' in p.relative_to(destination).parts and
-                       'published' not in p.relative_to(destination).parts and
-                       '.NewModCompiler' not in p.relative_to(destination).parts)
+        paths = sorted(p for p in (cache / 'streams').rglob('*.cdata') if p.is_file())
         need(len(paths) >= 32, 'Fewer than 32 actual stream CDATAs available')
         for path in paths[:32]:
-            deleted.append(path.relative_to(destination).as_posix())
+            deleted.append(str(path.resolve()))
             path.unlink()
     elif identifier == 'F07-linked':
-        paths = sorted(p for p in destination.rglob('*.bin') if 'published' not in p.relative_to(destination).parts)
+        paths = sorted(p for p in (cache / 'streams').rglob('*.bin') if p.is_file())
         need(paths, 'No actual linked-stream .bin found')
         paths[0].unlink()
-        deleted.append(paths[0].relative_to(destination).as_posix())
+        deleted.append(str(paths[0].resolve()))
     elif identifier.startswith('F08-'):
         edit_armor([mod / path for path in case['paths']])
     elif identifier == 'F09-mtime':

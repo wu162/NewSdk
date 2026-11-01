@@ -14,6 +14,8 @@ import statistics
 import subprocess
 import time
 
+from CompilerCachePaths import cache_root
+
 from BenchmarkCompilerCache import (MODES, cache_eligibility, inventory,
     output_inventory, process_metrics, read_json, require, validate_sample)
 
@@ -31,15 +33,32 @@ def root_arguments(roots):
         '/' + name + ':' + ';'.join(roots[name + 'Paths']) for name in ('data', 'art', 'audio')]
 
 
+def cache_profile(engine, workload, profile, prepared):
+    if engine != 'new':
+        return profile
+    return cache_root(prepared['sdkRoot'], workload['modRoot']) / 'validation' / ('paired-' + hashlib.sha256(str(profile).encode()).hexdigest()[:12])
+
+
+def sdk_source_inventory(sdk, workloads):
+    # Only the tested MOD partitions are writable. Keep other MODs' partitions
+    # in the snapshot, along with every ordinary SDK input.
+    base = Path(sdk).resolve()
+    partitions = tuple(cache_root(base, row['modRoot']).relative_to(base).as_posix().casefold() + '/'
+                       for row in workloads)
+    return {name: value for name, value in inventory(sdk).items()
+            if not name.replace('\\', '/').casefold().startswith(partitions)}
+
+
 def invocation(engine, workload, mode, profile, round_index, prepared, original):
     bc, sc, compressed = MODES[mode]
     flags = ['/bc:' + str(bc).lower(), '/sc:' + str(sc).lower(), '/csc:' + str(compressed).lower(),
              '/psc:true', '/fsc:false', '/atc:false', '/ss:true', '/pc:true', '/slowclean:true',
              '/tp:Win32', '/ls:true', '/tl:3', '/el:0']
-    intermediate = profile / ('intermediate' if sc else 'fresh-' + str(round_index))
-    session = profile / ('session' if sc else 'fresh-session-' + str(round_index))
+    storage = cache_profile(engine, workload, profile, prepared)
+    intermediate = storage / ('intermediate' if sc else 'fresh-' + str(round_index))
+    session = storage / ('session' if sc else 'fresh-session-' + str(round_index))
     flags += ['/iod:' + str(intermediate), '/scd:' + str(session),
-              '/bcp:' + str(profile / 'assets')] + root_arguments(workload['effectiveInputRoots'])
+              '/bcp:' + str(storage / 'assets')] + root_arguments(workload['effectiveInputRoots'])
     if engine == 'new':
         return [str(Path(prepared['runtimeDirectory']) / 'NewModCompiler.exe'), 'build',
                 '--sdk-root', prepared['sdkRoot'], '--mod', workload['modRoot'],
@@ -218,7 +237,7 @@ def run(args):
     for w in workloads:
         expected = {f['path']: {'bytes': f['bytes'], 'sha256': f['sha256']} for f in w['files']}
         require(inputs[w['name']] == expected, 'Shared MOD changed since preparation')
-    sdk_inputs = inventory(sdk)
+    sdk_inputs = sdk_source_inventory(sdk, workloads)
     root_exists = {p: Path(p).is_dir() for w in workloads for key in ('dataPaths', 'artPaths', 'audioPaths')
                    for p in w['effectiveInputRoots'][key]}
     write_json(output / 'shared-inputs.json', {'sdk': sdk_inputs, 'workloads': inputs,
@@ -257,9 +276,11 @@ def run(args):
             label = 'warmup-' + engine
         evidence = output / label
         profile = work / ('warmup' if warmup else 'measured') / w['name'] / mode / engine
+        storage = cache_profile(engine, w, profile, prepared)
         for name in ('assets', 'session' if MODES[mode][1] else 'fresh-session-' + str(round_index),
-                     'streams', 'product',
                      'intermediate' if MODES[mode][1] else 'fresh-' + str(round_index)):
+            (storage / name).mkdir(parents=True, exist_ok=True)
+        for name in ('streams', 'product'):
             (profile / name).mkdir(parents=True, exist_ok=True)
         command = invocation(engine, w, mode, profile, round_index, prepared, original)
         sample = measure(command, sdk, evidence, min(args.timeout_seconds, remaining), environment)
@@ -284,7 +305,7 @@ def run(args):
         files, paths = stream_inventory(target)
         sample['outputFiles'] = files
         sample['cacheBytes'] = sum(p.stat().st_size for dirname in ('assets', 'session', 'intermediate')
-                                   for p in (profile / dirname).rglob('*') if p.is_file())
+                                   for p in (storage / dirname).rglob('*') if p.is_file())
         sample['status'] = 'validated'
         return sample, paths
 
@@ -340,7 +361,7 @@ def run(args):
         state['error'] = type(error).__name__ + ': ' + str(error)
     finally:
         state['elapsedSeconds'] = time.perf_counter() - started
-        state['sdkUnchanged'] = inventory(sdk) == sdk_inputs
+        state['sdkUnchanged'] = sdk_source_inventory(sdk, workloads) == sdk_inputs
         state['inputsUnchanged'] = all(inventory(w['modRoot']) == inputs[w['name']] for w in workloads)
         state['rootExistenceUnchanged'] = all(Path(p).is_dir() == value for p, value in root_exists.items())
         state['runtimeUnchanged'] = inventory(runtime) == expected_runtime and inventory(old_runtime) == expected_old

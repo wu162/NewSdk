@@ -32,13 +32,13 @@ function DifferentOutputs($Left,$Right){
     foreach($key in $Left.files.Keys){Need ($Right.files.ContainsKey($key)) "Changed fixture omitted $key";if((Hash $Left.files[$key]) -cne (Hash $Right.files[$key])){$changed=$true}}
     Need $changed 'Input mutation did not exercise any observable compiled output change'
 }
-function CacheFiles([string]$Destination){
-    $files=@{};$cache=Join-Path $Destination 'cache'
+function CacheFiles([string]$Mod,[string]$Destination){
+    $files=@{};$cache=BuildCacheDirectory $Mod $Destination
     if(Test-Path -LiteralPath $cache){Get-ChildItem -LiteralPath $cache -File -Recurse|ForEach-Object{$files[$_.FullName.Substring($cache.Length)]=Hash $_.FullName}}
     return $files
 }
-function CacheUnchanged([string]$Destination,$Before){
-    $after=CacheFiles $Destination;Need ($after.Count -eq $Before.Count) 'Failed/cancelled build persisted additional asset-cache files'
+function CacheUnchanged([string]$Mod,[string]$Destination,$Before){
+    $after=CacheFiles $Mod $Destination;Need ($after.Count -eq $Before.Count) 'Failed/cancelled build persisted additional asset-cache files'
     foreach($key in $Before.Keys){Need ($after.ContainsKey($key) -and $after[$key] -ceq $Before[$key]) 'Failed/cancelled build changed previously confirmed asset-cache bytes'}
 }
 function Cache($Case,[string]$Expected){
@@ -80,10 +80,15 @@ function MakeMod([string]$Path,[string]$Probe){
     [IO.File]::WriteAllText("$Path/Data/AptUI/Payload.xml",'<AssetDeclaration xmlns="uri:ea.com:eala:asset"><AptAptData id="BuildCachePayload" File="payload.bin"/></AssetDeclaration>')
     [IO.File]::WriteAllBytes("$Path/Data/AptUI/payload.bin",[byte[]](1,2,3,4,5,6,7))
 }
+. "$PSScriptRoot/CompilerCacheLayout.ps1"
+function ModCacheRoot([string]$Mod){return Get-CompilerTestCacheRoot $script:sdk $Mod}
+function BuildCacheDirectory([string]$Mod,[string]$Destination){
+    return Join-Path (ModCacheRoot $Mod) ('validation/'+[IO.Path]::GetFileName($Destination)+'/assets')
+}
 function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[int]$Expected=0,[bool]$Cancel=$false,[string]$HoldReadFile=$null,[string[]]$Extra=@()){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     New-Item -ItemType Directory -Force -Path $Destination|Out-Null
-    $arguments=@('build','--sc=false','--iod',(Join-Path $caseOut 'intermediate'),'--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content','base,apt',('--bc='+$Enabled.ToString().ToLowerInvariant()))+$Extra
+    $arguments=@('build','--sc=false','--iod',(Join-Path (ModCacheRoot $Mod) ('validation/'+$Name+'/intermediate')),'--bcd',(BuildCacheDirectory $Mod $Destination),'--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content','base,apt',('--bc='+$Enabled.ToString().ToLowerInvariant()))+$Extra
     $events=Join-Path $Destination 'build.events.jsonl';$report=Join-Path $Destination 'build-report.json'
     $request=@{exe=$script:exe;cwd=$script:runtime;arguments=$arguments;stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=$events;cancel=$Cancel;timeoutSeconds=$TimeoutSeconds}
     if($HoldReadFile){$request.holdReadFile=$HoldReadFile}
@@ -234,21 +239,21 @@ try{
         $runtimeChange=RunCli 'runtime-content-invalidated' $mod $cachedOut $true;Cache $runtimeChange 'hot';SameOutputs $changedPlain $runtimeChange
         $runtimeHot=RunCli 'runtime-content-hot' $mod $cachedOut $true;Cache $runtimeHot 'hot';SameOutputs $changedPlain $runtimeHot
         $other=Join-Path $modeWork 'b';MakeMod $other ($probe.Replace('72.5%','32.5%'))
-        $otherCold=RunCli 'second-mod' $other $cachedOut $true;Cache $otherCold 'hot'
+        $otherCold=RunCli 'second-mod' $other $cachedOut $true;Cache $otherCold 'cold'
         $otherPlain=RunCli 'second-mod-no-cache' $other $plainOut $false;SameOutputs $otherPlain $otherCold
         $returnA=RunCli 'first-mod-return' $mod $cachedOut $true;Cache $returnA 'hot';SameOutputs $changedPlain $returnA
         $armorPath="$mod/Data/Armor.xml";$valid=[IO.File]::ReadAllBytes($armorPath)
-        $confirmed=CacheFiles $cachedOut
+        $confirmed=CacheFiles $mod $cachedOut
         [IO.File]::WriteAllText($armorPath,'<AssetDeclaration>broken')
         $failed=RunCli 'invalid-include' $mod $cachedOut $true 4
-        CacheUnchanged $cachedOut $confirmed
+        CacheUnchanged $mod $cachedOut $confirmed
         [IO.File]::WriteAllBytes($armorPath,$valid)
         $retry=RunCli 'retry-after-invalid-include' $mod $cachedOut $true;SameOutputs $changedPlain $retry
-        $confirmed=CacheFiles $cachedOut
+        $confirmed=CacheFiles $mod $cachedOut
         $cancelled=RunCli 'actual-cancel' $mod $cachedOut $true 6 $true
-        CacheUnchanged $cachedOut $confirmed
+        CacheUnchanged $mod $cachedOut $confirmed
         $afterCancel=RunCli 'retry-after-actual-cancel' $mod $cachedOut $true;SameOutputs $changedPlain $afterCancel
-        $held=@($afterCancel.report.artifacts)[0].Path
+        $held=Join-Path (Join-Path (ModCacheRoot $mod) 'streams') ([IO.Path]::GetRelativePath((Join-Path $cachedOut 'published'),@($afterCancel.report.artifacts)[0].Path))
         $lockedHot=RunCli 'unchanged-locked-output' $mod $cachedOut $true 0 $false $held;SameOutputs $changedPlain $lockedHot
 
         $unrelated=Join-Path $cachedOut 'published/unrelated.keep'

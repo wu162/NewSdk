@@ -6,7 +6,7 @@ on:
       - '.github/workflows/supercompiler-cache-app.yml'
       - 'recovery/src/App/**'
       - 'recovery/tests/App/**'
-      - 'recovery/scripts/BuildApp.ps1'
+      - 'recovery/scripts/*.ps1'
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,7 +22,15 @@ jobs:
           sparse-checkout: |
             /recovery/src/App/
             /recovery/tests/App/
-            /recovery/scripts/BuildApp.ps1
+            /recovery/scripts/
+      - name: Parse PowerShell validation scripts without running their matrices
+        shell: pwsh
+        run: |
+          foreach ($script in Get-ChildItem recovery/scripts -Filter '*.ps1' -File) {
+            $tokens = $null; $errors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($script.FullName, [ref]$tokens, [ref]$errors) | Out-Null
+            if ($errors.Count) { throw ($errors | Out-String) }
+          }
       - name: Compile only the managed App contract host
         shell: pwsh
         run: |

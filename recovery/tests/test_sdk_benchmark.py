@@ -63,6 +63,25 @@ class ComparisonChecks(unittest.TestCase):
             with self.assertRaises(ValueError):
                 B.stream_inventory(root / 'original')
 
+    def test_sdk_inventory_only_excludes_the_tested_mod_partition(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            sdk, mod = root / 'sdk', root / 'mod'
+            sdk.mkdir()
+            mod.mkdir()
+            owned = B.cache_root(sdk, mod) / 'session' / 'cache.xml'
+            sibling = sdk / 'SuperCompilerCache' / 'another-mod' / 'sentinel.keep'
+            for path in (owned, sibling, sdk / 'ordinary-input.xml'):
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b'original')
+            workloads = [dict(modRoot=str(mod))]
+            before = B.sdk_source_inventory(sdk, workloads)
+            self.assertEqual(len(before), 2)
+            owned.write_bytes(b'allowed build cache update')
+            self.assertEqual(B.sdk_source_inventory(sdk, workloads), before)
+            sibling.write_bytes(b'illegal write in another MOD partition')
+            self.assertNotEqual(B.sdk_source_inventory(sdk, workloads), before)
+
     def test_unmatched_or_failed_measurements_do_not_produce_comparisons(self):
         def sample(engine, duration, status='passed'):
             return dict(workload='w', mode='none', phase='uncached', engine=engine, status=status,

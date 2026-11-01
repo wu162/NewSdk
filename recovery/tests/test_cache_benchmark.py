@@ -78,7 +78,7 @@ class BenchmarkChecks(unittest.TestCase):
         self.assertEqual(rows[1]['wallMsMedian'], 60)
         self.assertAlmostEqual(rows[1]['speedupVsNoCache'], 200 / 60)
 
-    def test_output_inventory_rejects_extra_bytes_and_escaped_artifacts(self):
+    def test_output_inventory_uses_current_allowlist_and_rejects_escaped_artifacts(self):
         with tempfile.TemporaryDirectory() as root:
             published = Path(root) / 'published'
             published.mkdir()
@@ -90,8 +90,8 @@ class BenchmarkChecks(unittest.TestCase):
             result = dict(artifacts=artifacts)
             self.assertEqual(len(bench.output_inventory(root, result)), 4)
             (published / 'extra.cdata').write_bytes(b'unreported')
-            with self.assertRaises(ValueError):
-                bench.output_inventory(root, result)
+            self.assertEqual(len(bench.output_inventory(root, result)), 4)
+            self.assertNotIn('extra.cdata', bench.output_inventory(root, result))
             artifacts[0]['Path'] = str(Path(root) / 'outside.manifest')
             with self.assertRaises(ValueError):
                 bench.output_inventory(root, result)

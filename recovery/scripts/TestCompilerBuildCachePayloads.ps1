@@ -60,10 +60,15 @@ function SameLengthMutation([string]$Path,[string]$From,[string]$To){
     [IO.File]::SetLastWriteTimeUtc($Path,$stamp)
     Need (([IO.File]::ReadAllBytes($Path)).Length -eq $before.Length -and [IO.File]::GetLastWriteTimeUtc($Path) -eq $stamp) 'Mutation did not preserve exact input length and timestamp'
 }
+. "$PSScriptRoot/CompilerCacheLayout.ps1"
+function ModCacheRoot([string]$Mod){return Get-CompilerTestCacheRoot $script:sdk $Mod}
+function BuildCacheDirectory([string]$Mod,[string]$Destination){
+    return Join-Path (ModCacheRoot $Mod) ('validation/'+[IO.Path]::GetFileName($Destination)+'/assets')
+}
 function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[int]$Expected=0,[bool]$Cancel=$false,[string]$HoldReadFile=$null,[string[]]$Extra=@()){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     New-Item -ItemType Directory -Force -Path $Destination|Out-Null
-    $arguments=@('build','--sc=false','--iod',(Join-Path $caseOut 'intermediate'),'--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content','base',('--bc='+$Enabled.ToString().ToLowerInvariant()))+$Extra
+    $arguments=@('build','--sc=false','--iod',(Join-Path (ModCacheRoot $Mod) ('validation/'+$Name+'/intermediate')),'--bcd',(BuildCacheDirectory $Mod $Destination),'--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content','base',('--bc='+$Enabled.ToString().ToLowerInvariant()))+$Extra
     $events=Join-Path $Destination 'build.events.jsonl';$report=Join-Path $Destination 'build-report.json'
     $request=@{exe=$script:exe;cwd=$script:runtime;arguments=$arguments;stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=$events;cancel=$Cancel;timeoutSeconds=$TimeoutSeconds}
     if($HoldReadFile){$request.holdReadFile=$HoldReadFile}

@@ -13,6 +13,7 @@ import subprocess
 import time
 
 from BenchmarkCompilerCache import inventory, process_metrics
+from CompilerCachePaths import cache_root
 from HotCacheWorkload import allocate_id, instance_hash
 from MeasureCompilerCachePaired import git, need, product
 
@@ -141,6 +142,8 @@ def run(args):
             report_path=destination/'build-report.json';report_path.unlink(missing_ok=True)
             command=[str(binaries[label]),'build','--sdk-root',str(repo/'SDK'),'--mod',str(mod),'--out',str(destination),
                      '--package-content','base','--package-format','loose','--include-additional=false','--jobs','4','--performance',performance]
+            profile=cache_root(repo/'SDK',mod)/'validation'/'incremental'/label
+            command += ['/scd:'+str(profile/'session'),'/bcd:'+str(profile/'assets'),'/iod:'+str(profile/'intermediate')]
             row=dict(implementation=label,scenario=scenario,phase=phase,generation=generation,performance=performance,trial=trial,status='started',command=command)
             state['samples'].append(row);save(out,state)
             try:
@@ -211,7 +214,8 @@ def run(args):
                 if scenario=='session-metadata-missing':
                     deleted={}
                     for label,destination in destinations.items():
-                        paths=[p for p in (destination/'BinaryAssetBuilder.SessionCache.xml',destination/'BinaryAssetBuilder.SessionCache.xml.deflate') if p.exists()]
+                        session=cache_root(repo/'SDK',mod)/'validation'/'incremental'/label/'session'
+                        paths=[p for p in (session/'BinaryAssetBuilder.SessionCache.xml',session/'BinaryAssetBuilder.SessionCache.xml.deflate') if p.exists()]
                         need(paths,'No session metadata to remove')
                         deleted[label]=[str(p) for p in paths]
                         for p in paths:p.unlink()

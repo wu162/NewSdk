@@ -3,6 +3,7 @@
 param([Parameter(Mandatory=$true)][string]$CompilerDirectory,[Parameter(Mandatory=$true)][string]$OutputDirectory,[ValidateRange(15,600)][int]$TimeoutSeconds=180)
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/CompilerCliOutputs.ps1"
+. "$PSScriptRoot/CompilerCacheLayout.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite CLI acceptance evidence: $OutputDirectory"}
@@ -15,11 +16,15 @@ function Within([string]$Directory,[string]$Path){
     $base=[IO.Path]::GetFullPath($Directory).TrimEnd([char[]]'\/');$full=[IO.Path]::GetFullPath($Path)
     $full.Equals($base,[StringComparison]::OrdinalIgnoreCase) -or $full.StartsWith($base+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)
 }
-function Snapshot([string]$Directory){
-    $map=@{};Get-ChildItem -LiteralPath $Directory -File -Recurse|ForEach-Object{$map[$_.FullName.Substring($Directory.Length)]=Hash $_.FullName};$map
+function Snapshot([string]$Directory,[string[]]$Excluded=@()){
+    $map=@{};Get-ChildItem -LiteralPath $Directory -File -Recurse|ForEach-Object{
+        $file=$_;$excludedFile=$false
+        foreach($partition in $Excluded){if(Within $partition $file.FullName){$excludedFile=$true;break}}
+        if(!$excludedFile){$map[$file.FullName.Substring($Directory.Length)]=Hash $file.FullName}
+    };$map
 }
-function Unchanged([string]$Directory,$Expected){
-    $actual=Snapshot $Directory;Need ($actual.Count -eq $Expected.Count) "Input tree changed: $Directory"
+function Unchanged([string]$Directory,$Expected,[string[]]$Excluded=@()){
+    $actual=Snapshot $Directory $Excluded;Need ($actual.Count -eq $Expected.Count) "Input tree changed: $Directory"
     foreach($key in $Expected.Keys){Need ($actual.ContainsKey($key) -and $actual[$key] -ceq $Expected[$key]) "Input mutated: $Directory$key"}
 }
 function MakeMod([string]$Path,[string]$Probe){
@@ -30,6 +35,7 @@ function MakeMod([string]$Path,[string]$Probe){
     [IO.File]::WriteAllText((Join-Path $Path 'Data/AdditionalMaps/MapMetaData_One.xml'),$Probe.Replace('Default="72.5%"','Default="42.5%"'))
 }
 function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string]$Selection,[int]$Expected,[int]$StreamCount,[bool]$Cancel=$false,[string[]]$Extra=@(),[string]$HoldReadFile=$null,[int]$CustomDataCount=0,[string]$ReuseDestination=$null){
+    if($Mod -and !$script:legacyCacheLayout){$script:allowedCachePartitions.Add((Get-CompilerTestCacheRoot $Sdk $Mod))|Out-Null}
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     $destination=if($ReuseDestination){$ReuseDestination}else{Join-Path $script:modeWork ('o'+$script:caseIndex)};$script:caseIndex++
     New-Item -ItemType Directory -Force -Path $destination|Out-Null
@@ -219,6 +225,8 @@ try {
         $runtimeSnapshot=Snapshot $runtime
         $script:modeState=@{configuration=$mode;fixtureAssetScope='Known schema-valid Armor probes in base/APT/maps entry paths test orchestration; not new APT/map payload coverage';passed=$false;exeSha256=$exeHash;runtimeInputs=$runtimeSnapshot;textureDeployment=$textureDeployment;cases=@();baselineCases=@()};$state.modes+=,$modeState
         $sdk=(New-Item -ItemType Directory -Path (Join-Path $modeWork 's')).FullName
+        $script:legacyCacheLayout=$reuse
+        $script:allowedCachePartitions=[Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
         New-Item -ItemType Directory -Path "$sdk/tools","$sdk/Schemas"|Out-Null
         Copy-Item -LiteralPath (Join-Path $sourceSdk 'Schemas/xsd') -Destination "$sdk/Schemas" -Recurse
         Copy-Item -LiteralPath (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config') -Destination "$sdk/tools"
@@ -244,7 +252,8 @@ try {
         $empty=RunCli 'empty-optional' 'build' $emptyMod $sdk 'apt,maps' 0 0
         Need (@($empty.report.plan.Skipped).Count -eq 2) 'Empty optional groups were not explicitly skipped'
         $compressed=RunCli 'compressed-session-cache' 'build' $mod $sdk 'base' 0 1 $false @('--csc=true')
-        Need ($compressed.report.cache.compressedSessionCache -and (Test-Path -LiteralPath (Join-Path $compressed.destination 'BinaryAssetBuilder.SessionCache.xml.deflate'))) 'Original compressed session cache was not produced'
+        $sessionRoot=if($reuse){$compressed.destination}else{$compressed.report.cache.sessionCacheDirectory}
+        Need ($sessionRoot -and $compressed.report.cache.compressedSessionCache -and (Test-Path -LiteralPath (Join-Path $sessionRoot 'BinaryAssetBuilder.SessionCache.xml.deflate'))) 'Original compressed session cache was not produced'
         $badMod=Join-Path $modeWork '坏 XML MOD';New-Item -ItemType Directory -Path "$badMod/Data"|Out-Null
         [IO.File]::WriteAllText("$badMod/Data/Mod.xml",'<AssetDeclaration>broken')
         $bad=RunCli 'bad-xml' 'build' $badMod $sdk 'base' 4 1
@@ -388,7 +397,7 @@ try {
             foreach($inputFile in $uiPrepared.sourceInputs){Need ((Hash (Join-Path $root $inputFile.path)) -ceq $inputFile.sha256) 'Real UI preparation source changed'}
             $uiReceipt.inputsUnchanged=$true;$uiReceipt.coldOutputsIdentical=$true;$uiReceipt.originalFourOutputsIdentical=$true;$uiReceipt.originalCustomDataIdentical=$true;$uiReceipt.inlineTexturePayloadVerified=$true;$uiReceipt.succeeded=$true
         } finally {$uiReceipt|ConvertTo-Json -Depth 14|Set-Content "$modeOut/real-ui-validation.json"}
-        Unchanged $mod $modSnapshot;Unchanged $asciiMod $asciiSnapshot;Unchanged $sdk $sdkSnapshot;Unchanged $runtime $runtimeSnapshot
+        Unchanged $mod $modSnapshot;Unchanged $asciiMod $asciiSnapshot;Unchanged $sdk $sdkSnapshot @($script:allowedCachePartitions);Unchanged $runtime $runtimeSnapshot
         $modeState.passed=$true
     }
     Unchanged (Join-Path $sourceSdk 'Schemas/xsd') $schemaSnapshot

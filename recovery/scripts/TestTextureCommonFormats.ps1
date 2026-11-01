@@ -6,11 +6,12 @@ param(
 )
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/CompilerValidation.Common.ps1"
+. "$PSScriptRoot/CompilerCacheLayout.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerDirectory=(Resolve-Path $CompilerDirectory).Path
 if(Test-Path $OutputDirectory){throw "Refusing to overwrite common texture evidence: $OutputDirectory"}
 $out=(New-Item -ItemType Directory $OutputDirectory).FullName
-$work=Join-Path ([IO.Path]::GetTempPath()) ('texture-common-'+[Guid]::NewGuid().ToString('N'))
+$work=Join-Path ([IO.Path]::GetTempPath()) ('tc'+[Guid]::NewGuid().ToString('N').Substring(0,8))
 $state=@{schemaVersion=1;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';configurations=@();productionCli=@();failures=@();scope='Common formats through production plugin objects and real MOD CLI; independent DDS/BC decode, Core schema/file preprocessing, cache invalidation, missing-input retry; no game runtime claim'}
 function Invoke-CommonTool([string]$Command,[string[]]$Arguments,[string]$Directory,[string]$Log,[bool]$CollectFailure=$false){
     Push-Location $Directory
@@ -31,7 +32,10 @@ function Equal-TextureOutputs($Left,$Right){
 function Run-TextureCli([string]$Name,[string]$Destination,[bool]$Cache=$true,[int]$Expected=0,[string]$Jobs='1'){
     $case=(New-Item -ItemType Directory -Path (Join-Path $script:cliEvidence $Name)).FullName
     New-Item -ItemType Directory -Path $Destination -Force|Out-Null
-    $arguments=@('build','--mod',$script:cliMod,'--sdk-root',$script:cliSdk,'--out',$Destination,'--jobs',$Jobs,'--package-format','loose','--package-content','base','--performance','detailed',('--sc='+$Cache.ToString().ToLowerInvariant()),('--bc='+$Cache.ToString().ToLowerInvariant()),'--iod',($Destination+'-intermediate'))
+    # Distinct explicit namespaces retain the cold jobs1/jobs4/auto oracles;
+    # changing --out alone now intentionally shares a MOD's SDK cache.
+    $namespace=Join-Path (Get-CompilerTestCacheRoot $script:cliSdk $script:cliMod) ('tests/'+[IO.Path]::GetFileName($Destination))
+    $arguments=@('build','--mod',$script:cliMod,'--sdk-root',$script:cliSdk,'--out',$Destination,'--jobs',$Jobs,'--package-format','loose','--package-content','base','--performance','detailed',('--sc='+$Cache.ToString().ToLowerInvariant()),('--bc='+$Cache.ToString().ToLowerInvariant()),'--scd',(Join-Path $namespace 'session'),'--bcd',(Join-Path $namespace 'build-cache'),'--iod',(Join-Path $namespace 'intermediate'))
     $events=Join-Path $Destination 'build.events.jsonl';$report=Join-Path $Destination 'build-report.json'
     @{exe=$script:cliExe;cwd=$script:cliRuntime;arguments=$arguments;stdout=(Join-Path $case 'stdout.log');stderr=(Join-Path $case 'stderr.log');events=$events;cancel=$false;timeoutSeconds=$TimeoutSeconds}|ConvertTo-Json -Depth 6|Set-Content "$case/request.json"
     & $script:cliControl "$case/request.json" "$case/control.json" *> "$case/controller.log"
