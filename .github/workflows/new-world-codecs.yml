@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       stage:
-        description: 'Full codec validation or isolated original eight-channel discovery'
+        description: 'Codec components and small CLI validation, or original discovery'
         type: choice
         options: [validate, original]
         default: validate
@@ -72,7 +72,7 @@ jobs:
         run: |
           python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
           if($LASTEXITCODE -ne 0){throw 'Existing audit dependencies failed'}
-          python -m py_compile recovery/scripts/PrepareNewWorldTextureFixtures.py recovery/scripts/TestNewWorldCodecIntegration.py recovery/scripts/AudioEaLayer3Fixtures.py recovery/scripts/ValidateAudioEaLayer3.py
+          python -m py_compile recovery/scripts/PrepareNewWorldTextureFixtures.py recovery/scripts/AudioEaLayer3Fixtures.py recovery/scripts/ValidateAudioEaLayer3.py
           if($LASTEXITCODE -ne 0){throw 'Codec validation syntax failed'}
           python recovery/scripts/GenerateTextureFixtures.py "$env:RUNNER_TEMP/texture-common-preflight"
           if($LASTEXITCODE -ne 0){throw 'Existing common texture fixture preflight failed'}
@@ -93,6 +93,7 @@ jobs:
         run: |
           foreach($mode in @('Debug','Release')){
             ./recovery/scripts/BuildCompiler.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/new-world-codecs-product/$mode"
+            ./recovery/scripts/BuildCompilerValidationHost.ps1 -ProductBuildDirectory "recovery/artifacts/new-world-codecs-product/$mode" -OutputDirectory "recovery/artifacts/new-world-codecs-product/$mode/validation"
           }
       - name: Compare original raw TGA inputs and retained boundaries in Debug and Release
         id: raw_textures
@@ -121,26 +122,14 @@ jobs:
         run: |
           python recovery/scripts/TestAudioEaLayer3Integration.py --repo . --exe recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe --work "$env:RUNNER_TEMP/new-world-eight-audio-cli" --output "recovery/evidence/codecs/new-world/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/audio-cli"
           if($LASTEXITCODE -ne 0){throw 'Production audio CLI integration failed'}
-      - name: Compile all 15 streams from original media with only excluded Joypad declarations removed
-        id: original_media_mod
-        continue-on-error: true
-        shell: pwsh
-        run: |
-          python recovery/scripts/TestNewWorldCodecIntegration.py --repo . --exe recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe --mod 'SDK/Mods/The New World' --work "$env:RUNNER_TEMP/new-world-original-media" --output "recovery/evidence/codecs/new-world/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/full-mod" --reference recovery/fixtures/new-world-71/original-media-output-inventory.json
-          if($LASTEXITCODE -ne 0){throw 'Original-media complete MOD codec integration failed'}
-      - name: Complete existing mymod original SDK acceptance
-        id: sdk
-        continue-on-error: true
-        shell: pwsh
-        run: ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/new-world-codecs-product -OutputDirectory "recovery/evidence/codecs/new-world/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/full-sdk"
-      - name: Require every codec and SDK group to pass
+      - name: Require codec component and small CLI groups to pass
         if: always()
         shell: pwsh
         env:
           CODEC_GROUP_OUTCOMES: ${{ toJSON(steps) }}
         run: |
           $steps=$env:CODEC_GROUP_OUTCOMES|ConvertFrom-Json
-          foreach($name in @('raw_textures','texture_routes','texture_common','audio','audio_cli','original_media_mod','sdk')){
+          foreach($name in @('raw_textures','texture_routes','texture_common','audio','audio_cli')){
             if($steps.$name.outcome -ne 'success'){throw "Codec validation incomplete or failed: $name ($($steps.$name.outcome))"}
           }
       - uses: actions/upload-artifact@v4

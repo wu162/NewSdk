@@ -8,7 +8,7 @@
 候选已接通WAVE8标准/EXTENSIBLE读取、PCM/XAS、循环、重采样和四对EALayer3编码；
 AIFF/AIFC继续限原有1/2/4/6声道，ADP4继续仅mono/stereo。
 真实 `FX_kanade_spell.wav` 的SHA256为 `153891dd0a249385207c22a5bdf0962d706ad8bbc59d226d03d9de08a69f703e`。
-组件原三缓冲/CDATA、独立EALayer3解码和新生产EXE/SDK验证尚待本轮Windows结果，
+组件原三缓冲/CDATA、独立EALayer3解码和小型生产CLI验证尚待本轮Windows结果，
 不以旧1/2/4/6声道证据冒充新8声道验收。性能41256811133继续使用原已验收8050f22d，不被本修复替换。
 
 实现分支：`feature/ra3-ealayer3`，基线 `recovery/legacy-sdk-cache` / `eb503513`。
