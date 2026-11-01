@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 import shutil
 
@@ -47,7 +48,10 @@ def prepare(mod, catalog, backup, output, unsupported_textures=None):
             return None
         key = str(candidate.resolve()).lower()
         return bad_textures.get(key) if key in lookup else None
-    candidate_types = excluded | {kind for kind, name in UNSUPPORTED_INSTANCES} | ({'Texture', 'OnDemandTexture'} if bad_textures else set())
+    candidate_types = excluded | {kind for kind, name in UNSUPPORTED_INSTANCES}
+    candidate_tags = re.compile(rb'<(?:[A-Za-z_][\w.-]*:)?(?:' +
+                                b'|'.join(re.escape(name.encode('ascii')) for name in candidate_types) + rb')(?=[\s/>])')
+    bad_names = [Path(path).name.encode('utf-8').lower() for path in bad_textures]
     documents = sorted(path for folder in ('Data', 'Art') for path in (mod / folder).rglob('*')
                        if path.suffix.lower() == '.xml')
     for path in documents:
@@ -55,7 +59,8 @@ def prepare(mod, catalog, backup, output, unsupported_textures=None):
         if relative.parts[1].lower() in ('aptui', 'additionalmaps'):
             continue
         data = path.read_bytes()
-        if not any(name.encode('ascii') in data for name in candidate_types):
+        visible = re.sub(rb'<!--.*?-->|<!\[CDATA\[.*?\]\]>|<\?.*?\?>', b'', data, flags=re.S)
+        if not candidate_tags.search(visible) and not any(name in visible.lower() for name in bad_names):
             continue
         spans = [tag for tag in xml_tags(data)
                  if 'elementEnd' in tag and tag['topId'] and
