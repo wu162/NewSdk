@@ -14,6 +14,15 @@ namespace NewModCompiler.Tests
         static void Check(bool value,string message) { ++checks; if(!value) throw new Exception("Build defaults: "+message); }
         static void Put(string path,string text="<AssetDeclaration/>") { Directory.CreateDirectory(Path.GetDirectoryName(path)); File.WriteAllText(path,text); }
         static void Reject(string code,Action action) { try { action(); throw new Exception("Accepted "+code); } catch(BuildFailure e) { Check(e.Code==code,"Expected "+code+", got "+e.Code); } }
+        static void RejectCli(string[] arguments)
+        {
+            var previous=Console.Error;var error=new StringWriter();
+            try {
+                Console.SetError(error);
+                Check(Program.Main(arguments)==(int)ExitCode.Arguments,"Unsupported options must return CLI exit code 2");
+                Check(error.ToString().Contains("CLI_"),"Unsupported options must fail before Core execution");
+            } finally { Console.SetError(previous); }
+        }
         public static int Run(string root)
         {
             checks=0;
@@ -23,6 +32,39 @@ namespace NewModCompiler.Tests
             var standard=parse(new string[0]);
             Check(standard.PackageFormat=="big" && standard.IncludeAdditional && !standard.FixNeutralAssets,"Standard package defaults");
             Check(standard.AutoDetectContent && standard.GameVersion=="1.12" && standard.ModVersion=="1.0","Automatic content and identity defaults");
+            Check(standard.JobsAuto && standard.RequestedJobs==0 && standard.PerformanceLevel=="off","Automatic jobs and disabled performance defaults");
+            string[] ordinary={"mod","sdk-root","out","package-content","package-format","include-additional","mod-version","skudef-name","jobs","performance"};
+            foreach(string key in ordinary) Check(Options.Help.Contains("--"+key),"Ordinary help includes "+key);
+            foreach(string key in new[]{"profile","fix-neutral-assets","game-version","log","events","report"})
+                Check(!Options.Help.Contains("--"+key),"Ordinary help hides "+key);
+            foreach(string key in new[]{"fix-neutral-assets","game-version","log","events","report"})
+                Check(Options.AdvancedHelp.Contains("--"+key),"Advanced help includes "+key);
+            foreach(string key in new[]{"ss","pc","slowclean","sc","bc","csc","psc","fsc","atc","scd","scp","bcd","bcp","iod","dr","data","art","audio","tl"})
+                Check(Options.AdvancedHelp.Contains("/"+key),"Advanced help includes "+key);
+            var allOrdinary=parse(new[]{"--package-content","base,apt,global-metadata","--package-format","big","--include-additional=false","--mod-version","2.0","--skudef-name","Launcher","--jobs","2","--performance","detailed"});
+            Check(allOrdinary.Content.SequenceEqual(new[]{"base","apt","maps"}) && allOrdinary.ModVersion=="2.0" && allOrdinary.SkudefName=="Launcher" && !allOrdinary.IncludeAdditional && !allOrdinary.JobsAuto && allOrdinary.RequestedJobs==2 && allOrdinary.PerformanceLevel=="detailed","All ten ordinary parameters remain usable together");
+            foreach(string key in new[]{"ss","pc","slowclean","sc","bc","csc","psc"}) {
+                var disabled=parse(new[]{"/"+key+":false"});
+                Check(disabled.Options[key].Value=="false" && disabled.Options[key].Source=="commandLine","Direct advanced override preserves value and source: "+key);
+            }
+            Check(parse(new[]{"--fix-neutral-assets"}).FixNeutralAssets && !parse(new[]{"--fix-neutral-assets=false"}).FixNeutralAssets,"Neutral repair is directly available and explicitly disabled");
+            Reject("PACKAGE_NEUTRAL_CONTENT",()=>parse(new[]{"--package-format","loose","--fix-neutral-assets=true"}));
+            Reject("PACKAGE_NEUTRAL_CONTENT",()=>parse(new[]{"--package-content","apt","--fix-neutral-assets=true"}));
+            foreach(string command in new[]{"plan","build"}) {
+                string[] prefix={command,"--mod",mod,"--sdk-root",sdk,"--out",output};
+                foreach(string option in new[]{"/sp:ignored.xsd","/bcn:default","/bps:4096","/cpf:asset","/el:1","/ls:false","/tp:Xbox360","/gui:false","/res:false","/pers:false","/mp:false","/poe:false","/sf:false","/sh:false","--unknown=value"})
+                    RejectCli(prefix.Concat(new[]{option}).ToArray());
+                foreach(string key in new[]{"oof","vf","oar","osh","oix","mr"}) {
+                    Check(Options.Parse(prefix.Concat(new[]{"/"+key+":false"}).ToArray()).Options[key].Value=="false","Legacy false remains accepted: "+key);
+                    RejectCli(prefix.Concat(new[]{"/"+key+":true"}).ToArray());
+                }
+                Check(Options.Parse(prefix.Concat(new[]{"/tp:Win32","/ls:true","/el:0"}).ToArray()).Options["tp"].Value=="Win32","Fixed compatibility values remain accepted");
+            }
+            Check(!Directory.Exists(output),"Rejected CLI requests do not create outputs or diagnostic files");
+            foreach(string key in new[]{"BC","scp"}) {
+                var manual=new BuildRequest();manual.Options[key]=new EffectiveOption{Value="false",Source="commandLine"};
+                Reject("CLI_UNKNOWN",()=>Options.ValidateCapabilities(manual));
+            }
             foreach(string profile in new[]{"standard","development","advanced"}) {
                 var request=parse(new[]{"--profile",profile});
                 Check(request.PackageFormat==(profile=="development"?"loose":"big"),"Profile output format");
@@ -65,7 +107,15 @@ namespace NewModCompiler.Tests
             Check(parse(new string[0]).ModVersion=="2.7", "Existing numeric project versions remain accepted");
             var development=parse(new[]{"--profile","development","--mod-version","3.1"});
             Check(development.PackageFormat=="loose" && development.ModVersion=="3.1" && development.GameVersion=="1.12", "Development can reuse project package identity and CLI version overrides");
+            Check(development.Options["package-format"].Source=="default","Development-derived loose retains default provenance");
             Reject("PACKAGE_IDENTITY_FORMAT",()=>parse(new[]{"--package-format","loose","--mod-version","3.1"}));
+            Reject("PACKAGE_IDENTITY_FORMAT",()=>parse(new[]{"--profile","development","--package-format","loose","--mod-version","3.1"}));
+            File.WriteAllText(project,"{\"profile\":\"development\",\"package-format\":\"big\",\"mod-version\":\"2.7\"}");
+            Check(parse(new string[0]).PackageFormat=="big","Project format overrides compatibility profile default");
+            Reject("PACKAGE_IDENTITY_FORMAT",()=>parse(new[]{"--package-format","loose"}));
+            File.WriteAllText(project,"{\"profile\":\"development\",\"mod-version\":\"2.7\",\"skudef-name\":\"SavedName\"}");
+            Check(parse(new string[0]).PackageFormat=="loose" && parse(new[]{"--profile","advanced"}).PackageFormat=="big","Saved identity survives derived loose and CLI profile override");
+            File.WriteAllText(project,"{\"tp\":\"Xbox360\"}");Reject("CLI_PLATFORM",()=>parse(new string[0]));
             File.WriteAllText(project,"null");Reject("PROJECT_INVALID",()=>parse(new string[0]));
             File.WriteAllText(project,"{\"out\":null}");Reject("PROJECT_OPTION",()=>parse(new string[0]));
             File.Delete(project);

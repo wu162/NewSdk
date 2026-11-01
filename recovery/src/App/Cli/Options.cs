@@ -14,16 +14,27 @@ namespace NewModCompiler.Cli
             {"od","out"}, {"scd","session-cache-directory"}, {"scp","session-cache-directory"},
             {"bcd","build-cache-directory"}, {"bcp","build-cache-directory"}
         };
-        static readonly HashSet<string> Values = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
-            "jobs","performance","profile","mod","sdk-root","out","events","report","log","package-content","package-format","mod-version","game-version","skudef-name",
-            "sp","dr","art","audio","data","iod","session-cache-directory","build-cache-directory",
-            "bcn","tp","bps","cpf","tl","el"
+        static readonly HashSet<string> Ordinary = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
+            "mod","sdk-root","out","package-content","package-format","include-additional","mod-version","skudef-name","jobs","performance"
+        };
+        static readonly HashSet<string> Advanced = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
+            "fix-neutral-assets","game-version","sc","bc","csc","psc","fsc","atc","session-cache-directory","build-cache-directory","iod",
+            "ss","pc","slowclean","dr","data","art","audio","tl","log","events","report"
+        };
+        // These entries preserve old invocations, without introducing user modes
+        // or implying that fixed runtime settings can be changed.
+        static readonly HashSet<string> Compatibility = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
+            "profile","tp","ls","el","oof","vf","oar","osh","oix","mr"
+        };
+        static readonly Dictionary<string, string> FixedCompatibilityValues = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) {
+            {"ls","true"}, {"el","0"},
+            {"oof","false"}, {"vf","false"}, {"oar","false"}, {"osh","false"}, {"oix","false"}, {"mr","false"}
         };
         static readonly HashSet<string> Booleans = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
             "fix-neutral-assets","include-additional","sc","bc","csc","psc","fsc","atc","slowclean","pc","ls","ss","oof","vf","oar","osh","oix","mr"
         };
         static readonly HashSet<string> Unsupported = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
-            "gui","res","pers","mp","poe","sf","sh"
+            "gui","res","pers","mp","poe","sf","sh","sp","bcn","bps","cpf"
         };
         static BuildFailure Bad(string code, string message) { return new BuildFailure(ExitCode.Arguments, code, message); }
         static void Set(IDictionary<string, EffectiveOption> options, string key, string value, string source)
@@ -34,6 +45,26 @@ namespace NewModCompiler.Cli
             options[key] = new EffectiveOption { Value = value, Source = source };
         }
         static string Canonical(string key) { string canonical; return Aliases.TryGetValue(key, out canonical) ? canonical : key.ToLowerInvariant(); }
+        static void ValidateName(string key)
+        {
+            if (Unsupported.Contains(key)) throw Bad("CLI_UNSUPPORTED", "Legacy option /" + key + " is unsupported by this nonresident command line host.");
+            if (!Ordinary.Contains(key) && !Advanced.Contains(key) && !Compatibility.Contains(key)) throw Bad("CLI_UNKNOWN", "Unknown option: " + key);
+        }
+        // Shared by CLI planning/building and programmatic Core initialization.
+        // Capability rules belong here; the backend only maps accepted settings.
+        public static void ValidateCapabilities(BuildRequest request)
+        {
+            if (request == null) throw new ArgumentNullException("request");
+            foreach (var option in request.Options) {
+                string key = option.Key;
+                if (!string.Equals(key, Canonical(key), StringComparison.Ordinal)) throw Bad("CLI_UNKNOWN", "Effective option key must be canonical: " + key);
+                ValidateName(key);
+                if (option.Value == null || string.IsNullOrWhiteSpace(option.Value.Value)) throw Bad("CLI_VALUE", "Missing value for " + key);
+                string value = NormalizeValue(key, option.Value.Value), fixedValue;
+                if (FixedCompatibilityValues.TryGetValue(key, out fixedValue) && !string.Equals(value, fixedValue, StringComparison.OrdinalIgnoreCase))
+                    throw Bad("CLI_UNSUPPORTED", "Option " + key + "=" + value + " is unsupported; only " + fixedValue + " is accepted for compatibility.");
+            }
+        }
         static string NormalizeValue(string key, string value)
         {
             if (Booleans.Contains(key)) {
@@ -89,8 +120,7 @@ namespace NewModCompiler.Cli
                 else if (legacy) { arg = arg.Substring(1); split = arg.IndexOf(':'); }
                 else throw Bad("CLI_POSITIONAL", "Unexpected argument: " + arg);
                 key = Canonical(split >= 0 ? arg.Substring(0, split) : arg);
-                if (Unsupported.Contains(key)) throw Bad("CLI_UNSUPPORTED", "Legacy option /" + key + " is unsupported by this nonresident command line host.");
-                if (!Values.Contains(key) && !Booleans.Contains(key)) throw Bad("CLI_UNKNOWN", "Unknown option: " + key);
+                ValidateName(key);
                 if (split >= 0) value = arg.Substring(split + 1);
                 else if (Booleans.Contains(key)) value = "true";
                 else { if (++i >= args.Length) throw Bad("CLI_VALUE", "Missing value for " + key); value = args[i]; }
@@ -127,6 +157,7 @@ namespace NewModCompiler.Cli
             Default(request, "package-format", request.Options["profile"].Value == "development" ? "loose" : "big");
             // Additional is automatic only for packaging. Explicit loose calls remain valid.
             Default(request,"include-additional",request.Options["package-format"].Value == "big" ? "true" : "false"); Default(request,"tp","Win32");
+            ValidateCapabilities(request);
             if (!request.Options.ContainsKey("sdk-root")) throw Bad("CLI_SDK", "--sdk-root is required; it is independent of --mod.");
             request.SdkRoot = FullPath(request.Options["sdk-root"].Value);
             if (!Directory.Exists(request.SdkRoot)) throw new BuildFailure(ExitCode.Environment, "SDK_MISSING", "SDK root does not exist: " + request.SdkRoot);
@@ -210,20 +241,31 @@ namespace NewModCompiler.Cli
                 }
             } catch (BuildFailure) { throw; } catch (Exception e) { throw Bad("PROJECT_INVALID", "Invalid project preset: " + e.Message); }
         }
-        public const string Help = "NewModCompiler build|plan --mod <directory> [--sdk-root <directory>] [--out <directory>] [--mod-version <version>]\n" +
-            "Standard (default): auto-detect base, APT UI and global metadata; publish BIG + SKUDEF, including SDK then MOD Additional (excluding .asset). Empty MOD inputs fail.\n" +
-            "Development: --profile development defaults to loose streams for iteration. All profiles use original SDK cache defaults: sc/bc/csc/psc=true, fsc/atc=false.\n" +
-            "Advanced: --profile advanced uses standard defaults; --help-advanced lists compatibility controls. Explicit options override profile defaults.\n" +
-            "Save sdk-root, out, profile and package settings in MOD/newmodcompiler.json; CLI overrides the project. SDK and output paths are required from CLI or project.\n" +
-            "Backends: --jobs auto|<positive integer> (default auto); jobs=1 runs on the owner. Original SDK caches remain enabled.\n" +
-            "Performance: --performance off|summary|detailed (default off). Timings are aggregated in build-report.json.\n" +
-            "NewModCompiler doctor --sdk-root <directory>\n";
+        public const string Help = "NewModCompiler build|plan --mod <directory> [options]\n" +
+            "NewModCompiler doctor --sdk-root <directory>\n" +
+            "NewModCompiler --help|-h|--help-advanced\n" +
+            "  --mod <directory>                  MOD source directory; always required for build/plan.\n" +
+            "  --sdk-root <directory>             SDK directory; CLI or project required.\n" +
+            "  --out <directory>                  Separate output directory; CLI or project required.\n" +
+            "  --package-content auto|base,apt,global-metadata  Default auto; explicit combinations are supported.\n" +
+            "  --package-format big|loose          Default big: BIG + SKUDEF.\n" +
+            "  --include-additional=<true|false>   Default true for BIG, false for loose.\n" +
+            "  --mod-version <version>            Default 1.0.\n" +
+            "  --skudef-name <basename>           Default MOD directory name.\n" +
+            "  --jobs auto|<positive integer>      Default auto; 1 runs on the owner.\n" +
+            "  --performance off|summary|detailed  Default off; timings go to build-report.json.\n" +
+            "By default, auto-detect base, APT UI and global metadata; include SDK then MOD Additional (excluding .asset). Empty MOD inputs fail.\n" +
+            "Existing MOD/newmodcompiler.json presets remain supported: CLI overrides project values, then defaults apply.\n" +
+            "Use --help-advanced for cache, resource-root, diagnostic and neutral-repair controls.\n";
         public const string AdvancedHelp = Help +
-            "Selection: --package-content auto|base,apt,global-metadata (maps remains an alias); explicit selections preserve partial-build behavior.\n" +
-            "Packaging: --package-format big|loose --include-additional=<true|false> --fix-neutral-assets=<true|false>\n" +
-            "Identity: --mod-version <version> (1.0) --game-version <version> (1.12) --skudef-name <basename>\n" +
-            "Compatibility: /ss:true /pc:true /slowclean:true are defaults; each accepts false. Win32 and linked streams are fixed runtime behavior; legacy /tp:Win32 and /ls:true remain accepted.\n" +
-            "Cache: /sc /bc /csc /psc /fsc /atc accept true|false. /scd (/scp), /bcd (/bcp) and /iod select original session, asset and intermediate directories.\n" +
-            "Additional overwrites compiled files and SDK files using old script precedence; conflicts emit warnings. Neutral repair is off by default and requires extracted reference streams. AssetMerge is not used.\n";
+            "Advanced options are directly usable with build/plan; no mode switch is required.\n" +
+            "  --fix-neutral-assets=<true|false>   Default false; requires base content in BIG and existing extracted reference streams, including Worldbuilder.\n" +
+            "  --game-version <version>           Default 1.12; changes only the SKUDEF field.\n" +
+            "Cache: /sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false; each accepts true|false. SDK buildCache config can override the default /bc.\n" +
+            "Cache directories: /scd:<directory> (/scp alias), /bcd:<directory> (/bcp alias), /iod:<directory>.\n" +
+            "Legacy script controls: /ss:true /pc:true /slowclean:true; each also accepts false.\n" +
+            "Resource roots: /dr:<directory> /data:<search-paths> /art:<search-paths> /audio:<search-paths>.\n" +
+            "Diagnostics: /tl:0..9 (default 3), --log <file>, --events <file>, --report <file>.\n" +
+            "Additional overwrites compiled files and SDK files using old script precedence; conflicts emit warnings. Neutral repair works on private stream copies before LoD and does not download reference data.\n";
     }
 }
