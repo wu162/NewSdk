@@ -63,7 +63,7 @@ jobs:
           gh api "repos/$env:GITHUB_REPOSITORY/actions/artifacts/$artifactId/zip" > $archive
           if($LASTEXITCODE -ne 0 -or (Get-FileHash $archive -Algorithm SHA256).Hash.ToLowerInvariant() -cne $archiveSha){throw 'Accepted archive SHA differs'}
           Expand-Archive -LiteralPath $archive -DestinationPath work/new-world-content/accepted
-          $product=(Resolve-Path work/new-world-content/accepted/content-product).Path
+          $product=(Resolve-Path work/new-world-content/accepted/recovery/artifacts/content-product).Path
           . ./recovery/scripts/CompilerValidation.Common.ps1
           $identity=Initialize-CompilerValidationRun $product (Join-Path $PWD 'work/new-world-content/runtime-check') 'Release' $source
           Complete-CompilerValidationRun $identity
@@ -87,7 +87,7 @@ jobs:
         shell: pwsh
         run: |
           $out="recovery/evidence/benchmark/new-world-content-sdk/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          python -u recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/new-world-content/accepted/content-product --binary-manifest work/new-world-content/binary-manifest.json --mod 'SDK/Mods/The New World' --mod-schema 'SDK/Mods/The New World/xsd' --content 'base,apt,global-metadata' --expected-streams 15 --requested-head $env:GITHUB_SHA --work "$env:RUNNER_TEMP/new-world-original-current" --output "$out/measurement" --pairs 1 --hot-rounds 1 --skip-extra-uncached --first-engine new --continue-on-build-failure --timeout-seconds 3600 --budget-seconds 6500
+          python -u recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/new-world-content/accepted/recovery/artifacts/content-product --binary-manifest work/new-world-content/binary-manifest.json --mod 'SDK/Mods/The New World' --mod-schema 'SDK/Mods/The New World/xsd' --content 'base,apt,global-metadata' --expected-streams 15 --requested-head $env:GITHUB_SHA --work "$env:RUNNER_TEMP/new-world-original-current" --output "$out/measurement" --pairs 1 --hot-rounds 1 --skip-extra-uncached --first-engine new --continue-on-build-failure --timeout-seconds 3600 --budget-seconds 6500
           $result=$LASTEXITCODE
           if(Test-Path "$out/measurement/report.md"){Get-Content "$out/measurement/report.md" -Encoding UTF8|Add-Content $env:GITHUB_STEP_SUMMARY}
           if($result -ne 0){throw 'Comparison retained failures or raw output differences; inspect the report'}
