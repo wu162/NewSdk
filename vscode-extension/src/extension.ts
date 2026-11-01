@@ -1,0 +1,345 @@
+import * as vscode from 'vscode';
+import * as path from 'node:path';
+import * as fs from 'node:fs/promises';
+import { CompilerRunner, RunConfiguration } from './compilerRunner';
+import { installCompiler, validateCompilerExecutable } from './compilerInstaller';
+import { canonicalPath, discoverProject, DiscoveredProject, GlobalSettings, ProjectSettings,
+    resolveProjectSettings, ResolvedProjectSettings, containsPath, validateModVersion, validateOutputDirectory } from './project';
+import { NewSdkSidebar, UiModel } from './sidebar';
+import { NewSdkWorkbench } from './workbench';
+import { NewSdkDiagnostics } from './diagnostics';
+
+const projectStorageKey = 'newsdk.projects.v1';
+const lastProjectKey = 'newsdk.lastProject';
+
+export interface ConfigurationValues {
+    compilerPath: string;
+    sdkRoot: string;
+    outputDirectory: string;
+    modVersion: string;
+}
+
+/** Public automation surface also exercised inside a real VS Code extension host. */
+export interface NewSdkApi {
+    getState(): CompilerRunner['state'];
+    getProject(): DiscoveredProject | undefined;
+    selectProject(root: string): Promise<void>;
+    configure(values: ConfigurationValues): Promise<void>;
+    build(): ReturnType<CompilerRunner['build']>;
+    plan(): ReturnType<CompilerRunner['plan']>;
+    stop(): void;
+    showWorkbench(): void;
+}
+
+export async function activate(context: vscode.ExtensionContext): Promise<NewSdkApi> {
+    const runner = new CompilerRunner();
+    const sidebar = new NewSdkSidebar();
+    const diagnostics = new NewSdkDiagnostics();
+    const log = vscode.window.createOutputChannel('NewSdk 扩展日志');
+    let project: DiscoveredProject | undefined;
+    let settings: ResolvedProjectSettings | undefined;
+    let localMessage: string | undefined;
+    let commandInProgress = false;
+    const workbench = new NewSdkWorkbench(context.extensionUri, (command, value) => {
+        // The webview only passes command names and an artifact index/version.
+        void vscode.commands.executeCommand(command, value);
+    });
+    const tree = vscode.window.createTreeView('newsdk.sidebar', { treeDataProvider: sidebar });
+    context.subscriptions.push(runner, sidebar, diagnostics, log, workbench, tree);
+
+    function globals(): GlobalSettings {
+        const config = vscode.workspace.getConfiguration('newsdk');
+        return { compilerPath: config.get<string>('compilerPath') || undefined, sdkRoot: config.get<string>('sdkRoot') || undefined };
+    }
+    function savedProjects(): Record<string, ProjectSettings> {
+        return context.globalState.get<Record<string, ProjectSettings>>(projectStorageKey, {});
+    }
+    function ensureSupported(): void {
+        if (process.platform !== 'win32') throw new Error('NewSdk P0 仅支持 Windows 本地 VS Code。');
+        if (vscode.env.remoteName) throw new Error('请在 Windows 本地 VS Code 中使用 NewSdk；P0 不支持远程窗口。');
+        if (!vscode.workspace.isTrusted) throw new Error('信任此工作区后才能配置和启动编译器。');
+        if (vscode.workspace.workspaceFolders?.some(folder => folder.uri.scheme !== 'file')) {
+            throw new Error('P0 需要本地文件系统中的 MOD 目录。');
+        }
+    }
+    function ensureIdle(): void {
+        if (runner.active) throw new Error('请先等待当前任务结束，或停止任务后再修改项目与配置。');
+    }
+    async function exclusive<T>(action: () => Promise<T>): Promise<T> {
+        if (commandInProgress) throw new Error('请先完成当前配置或编译操作。');
+        commandInProgress = true;
+        try { return await action(); } finally { commandInProgress = false; }
+    }
+    function render(): void {
+        const state = runner.state;
+        const current = state.config?.modRoot === project?.root;
+        // Full trace stays in JSONL; the UI only needs stream lifecycle events.
+        const displayProgress = <T extends NonNullable<typeof state.progress>>(value: T): T => ({ ...value,
+            events: value.events.filter(event => event.eventType === 'StreamStarted' || event.eventType === 'StreamCompleted') });
+        const progress = current && state.progress ? displayProgress(state.progress) : undefined;
+        const result = current && state.result ? displayProgress(state.result) : undefined;
+        const model: UiModel = {
+            project: project ? { name: project.name, root: project.root, contents: { ...project.contents } } : undefined,
+            config: settings,
+            active: runner.active,
+            status: current ? state.status : 'idle',
+            operation: current ? state.operation : undefined,
+            elapsedMs: current ? state.elapsedMs : undefined,
+            progress, result, plan: progress?.plan,
+            message: localMessage ?? (current ? state.message : undefined)
+                ?? (process.platform !== 'win32' ? 'P0 仅支持 Windows 本地 VS Code。' : undefined),
+        };
+        sidebar.update(model);
+        workbench.update(model);
+        diagnostics.update(result?.diagnostics ?? progress?.diagnostics ?? [], project?.root);
+        void vscode.commands.executeCommand('setContext', 'newsdk.running', runner.active);
+    }
+    async function refresh(): Promise<void> {
+        if (project) settings = await resolveProjectSettings(project.root, savedProjects()[project.identity], globals());
+        render();
+    }
+    async function saveProject(patch: Partial<ProjectSettings>): Promise<void> {
+        ensureIdle();
+        if (!project) throw new Error('请先选择 MOD 根目录。');
+        const all = savedProjects();
+        all[project.identity] = { ...all[project.identity], root: project.root, ...patch };
+        await context.globalState.update(projectStorageKey, all);
+        await refresh();
+    }
+    async function selectProject(root: string): Promise<void> {
+        ensureIdle();
+        const next = await discoverProject(root);
+        const resolved = await resolveProjectSettings(next.root, savedProjects()[next.identity], globals());
+        ensureIdle();
+        project = next;
+        settings = resolved;
+        localMessage = undefined;
+        diagnostics.clear();
+        await context.globalState.update(lastProjectKey, next.root);
+        render();
+    }
+    async function pickFolder(title: string, initial?: string): Promise<string | undefined> {
+        const selected = await vscode.window.showOpenDialog({ title, canSelectFiles: false, canSelectFolders: true,
+            canSelectMany: false, defaultUri: initial ? vscode.Uri.file(initial) : undefined, openLabel: '选择目录' });
+        if (!selected?.[0]) return undefined;
+        if (selected[0].scheme !== 'file') throw new Error('请选择 Windows 本地目录。');
+        return selected[0].fsPath;
+    }
+    async function chooseProject(): Promise<void> {
+        ensureSupported();
+        ensureIdle();
+        const root = await pickFolder('选择 MOD 根目录', project?.root);
+        if (root) await selectProject(root);
+    }
+    async function chooseCompiler(): Promise<void> {
+        ensureSupported();
+        ensureIdle();
+        const choice = await vscode.window.showQuickPick(['选择现有 NewModCompiler.exe', '从提供的 HTTPS ZIP 链接下载'],
+            { title: '配置编译器', placeHolder: '编译器包单独提供，不包含在插件中' });
+        if (!choice) return;
+        let compilerPath: string;
+        if (choice.startsWith('选择')) {
+            const selected = await vscode.window.showOpenDialog({ title: '选择 NewModCompiler.exe', canSelectMany: false,
+                canSelectFiles: true, canSelectFolders: false, filters: { 'Windows 编译器': ['exe'] } });
+            if (!selected?.[0]) return;
+            compilerPath = (await validateCompilerExecutable(selected[0].fsPath)).executablePath;
+        } else {
+            const url = await vscode.window.showInputBox({ title: '编译器 ZIP 下载链接', ignoreFocusOut: true,
+                placeHolder: 'https://…', validateInput: value => {
+                    try { const parsed = new URL(value); return parsed.protocol === 'https:' && !parsed.username && !parsed.password
+                        ? undefined : '请输入不含用户名和密码的 HTTPS 链接。'; } catch { return '请输入有效的 HTTPS 链接。'; }
+                } });
+            if (!url) return;
+            const expectedSha256 = await vscode.window.showInputBox({ title: 'SHA-256（可留空）', ignoreFocusOut: true,
+                prompt: '留空时记录实际下载哈希；提供校验值时必须匹配。', validateInput: value => !value || /^[a-f0-9]{64}$/i.test(value)
+                    ? undefined : '请输入 64 位十六进制 SHA-256。' });
+            if (expectedSha256 === undefined) return;
+            const secretKey = `newsdk.downloadAuthorization:${new URL(url).origin}`;
+            const authMode = await vscode.window.showQuickPick(['无需认证', '输入 Authorization 请求头', '使用已保存的认证'],
+                { title: '编译器下载认证', placeHolder: '令牌只保存到 VS Code SecretStorage' });
+            if (!authMode) return;
+            let authorization: string | undefined;
+            if (authMode === '输入 Authorization 请求头') {
+                authorization = await vscode.window.showInputBox({ title: 'Authorization 请求头值', password: true,
+                    ignoreFocusOut: true, placeHolder: 'Bearer … / token …' });
+                if (!authorization) return;
+                await context.secrets.store(secretKey, authorization);
+            } else if (authMode === '使用已保存的认证') {
+                authorization = await context.secrets.get(secretKey);
+                if (!authorization) throw new Error('此下载站点尚未保存认证，请重新输入。');
+            }
+            compilerPath = await vscode.window.withProgress({ location: vscode.ProgressLocation.Notification,
+                title: '下载并验证 NewSdk 编译器', cancellable: true }, async (_progress, token) => {
+                const abort = new AbortController();
+                const subscription = token.onCancellationRequested(() => abort.abort());
+                try {
+                    const installed = await installCompiler({ url, expectedSha256: expectedSha256 || undefined,
+                        storageDirectory: context.globalStorageUri.fsPath, signal: abort.signal,
+                        headers: authorization ? { Authorization: authorization } : undefined,
+                        proxyUrl: vscode.workspace.getConfiguration('http').get<string>('proxy') || undefined });
+                    log.appendLine(`编译器来源：${installed.sourceUrl}\nSHA-256：${installed.sha256}`);
+                    return installed.executablePath;
+                } finally { subscription.dispose(); }
+            });
+        }
+        await vscode.workspace.getConfiguration('newsdk').update('compilerPath', compilerPath, vscode.ConfigurationTarget.Global);
+        await refresh();
+    }
+    async function chooseSdk(): Promise<void> {
+        ensureSupported(); ensureIdle();
+        const root = await pickFolder('选择 SDK 根目录', settings?.sdkRoot ?? globals().sdkRoot);
+        if (!root) return;
+        const physical = await canonicalPath(root);
+        if (!(await fs.stat(physical)).isDirectory()) throw new Error('SDK 根路径必须是目录。');
+        if (settings?.outputDirectory && project) await validateOutputDirectory(settings.outputDirectory, project.root, physical);
+        await vscode.workspace.getConfiguration('newsdk').update('sdkRoot', physical, vscode.ConfigurationTarget.Global);
+        await refresh();
+    }
+    async function chooseOutput(): Promise<void> {
+        ensureSupported(); ensureIdle();
+        if (!project) await chooseProject();
+        if (!project) return;
+        if (!settings?.sdkRoot) await chooseSdk();
+        if (!settings?.sdkRoot) return;
+        const root = await pickFolder('选择输出目录（须在 SDK 与 MOD 输入目录之外）', settings.outputDirectory);
+        if (!root) return;
+        await saveProject({ outputDirectory: await validateOutputDirectory(root, project.root, settings.sdkRoot) });
+    }
+    async function setVersion(value?: unknown): Promise<void> {
+        ensureSupported(); ensureIdle();
+        if (!project) await chooseProject();
+        if (!project) return;
+        const version = typeof value === 'string' ? value : await vscode.window.showInputBox({ title: 'MOD 版本',
+            value: settings?.modVersion ?? '', ignoreFocusOut: true, prompt: '每次 plan/build 都会显式传给编译器。',
+            validateInput: input => { try { validateModVersion(input); return undefined; } catch (error) { return message(error); } } });
+        if (version === undefined) return;
+        await saveProject({ modVersion: validateModVersion(version) });
+    }
+    async function configureInteractive(): Promise<void> {
+        ensureSupported(); ensureIdle();
+        if (!project) await chooseProject();
+        if (!project) return;
+        await chooseCompiler();
+        if (!globals().compilerPath) return;
+        await chooseSdk();
+        if (!settings?.sdkRoot) return;
+        await chooseOutput();
+        if (!settings?.outputDirectory) return;
+        await setVersion();
+        if (settings?.modVersion) await runner.doctor(await runConfiguration(false));
+    }
+    async function runConfiguration(prompt: boolean): Promise<RunConfiguration> {
+        ensureSupported(); ensureIdle();
+        if (!project && prompt) await chooseProject();
+        await refresh();
+        if (prompt && (!settings?.compilerPath || !settings.sdkRoot || !settings.outputDirectory || !settings.modVersion)) {
+            await configureInteractive();
+        }
+        if (!project || !settings?.compilerPath || !settings.sdkRoot || !settings.outputDirectory || !settings.modVersion) {
+            throw new Error('请先配置编译器、SDK、输出目录和 MOD 版本。');
+        }
+        const compiler = await validateCompilerExecutable(settings.compilerPath);
+        return { compilerPath: compiler.executablePath, sdkRoot: settings.sdkRoot, modRoot: project.root,
+            outputDirectory: await validateOutputDirectory(settings.outputDirectory, project.root, settings.sdkRoot),
+            modVersion: validateModVersion(settings.modVersion) };
+    }
+    async function configure(values: ConfigurationValues): Promise<void> {
+        ensureSupported(); ensureIdle();
+        if (!project) throw new Error('请先选择 MOD 根目录。');
+        const compiler = await validateCompilerExecutable(values.compilerPath);
+        const sdk = await canonicalPath(values.sdkRoot);
+        const output = await validateOutputDirectory(values.outputDirectory, project.root, sdk);
+        const version = validateModVersion(values.modVersion);
+        const config = vscode.workspace.getConfiguration('newsdk');
+        await config.update('compilerPath', compiler.executablePath, vscode.ConfigurationTarget.Global);
+        await config.update('sdkRoot', sdk, vscode.ConfigurationTarget.Global);
+        await saveProject({ outputDirectory: output, modVersion: version });
+    }
+    async function build(): ReturnType<CompilerRunner['build']> {
+        const config = await runConfiguration(true);
+        localMessage = undefined;
+        workbench.show();
+        return runner.build(config);
+    }
+    async function plan(): ReturnType<CompilerRunner['plan']> {
+        const config = await runConfiguration(true);
+        localMessage = undefined;
+        workbench.show();
+        return runner.plan(config);
+    }
+    async function openRecord(kind: 'events' | 'report' | 'log'): Promise<void> {
+        const state = runner.state;
+        if (state.config?.modRoot !== project?.root || !state.paths?.[kind] || !state.progress?.buildId) {
+            throw new Error('当前项目尚未确认本轮编译记录；启动与环境诊断请查看任务终端。');
+        }
+        if (kind === 'report' && state.result?.report?.buildId !== state.progress.buildId) {
+            throw new Error('尚未确认本轮最终报告，不能展示之前的报告。');
+        }
+        const file = state.paths[kind];
+        try { await fs.access(file); } catch { throw new Error(`本轮尚未生成此文件：${path.basename(file)}`); }
+        await vscode.window.showTextDocument(await vscode.workspace.openTextDocument(vscode.Uri.file(file)), { preview: false });
+    }
+    async function openOutput(): Promise<void> {
+        if (!settings?.outputDirectory) throw new Error('请先配置输出目录。');
+        await vscode.env.openExternal(vscode.Uri.file(settings.outputDirectory));
+    }
+    async function openArtifact(index: unknown): Promise<void> {
+        const result = runner.state.config?.modRoot === project?.root ? runner.state.result : undefined;
+        if (typeof index !== 'number' || !Number.isSafeInteger(index) || index < 0 || !result?.artifacts[index]) {
+            throw new Error('请选择本轮报告确认的产物。');
+        }
+        await vscode.commands.executeCommand('revealFileInOS', vscode.Uri.file(result.artifacts[index].path));
+    }
+    function register(id: string, action: (...args: unknown[]) => unknown): void {
+        context.subscriptions.push(vscode.commands.registerCommand(id, async (...args: unknown[]) => {
+            try { return await action(...args); }
+            catch (error) {
+                localMessage = message(error);
+                log.appendLine(localMessage);
+                render();
+                void vscode.window.showErrorMessage(`NewSdk：${localMessage}`);
+                return undefined;
+            }
+        }));
+    }
+    register('newsdk.selectProject', () => exclusive(chooseProject));
+    register('newsdk.configure', () => exclusive(configureInteractive));
+    register('newsdk.configureCompiler', () => exclusive(chooseCompiler));
+    register('newsdk.configureSdk', () => exclusive(chooseSdk));
+    register('newsdk.configureOutput', () => exclusive(chooseOutput));
+    register('newsdk.setVersion', value => exclusive(() => setVersion(value)));
+    register('newsdk.build', () => exclusive(build));
+    register('newsdk.plan', () => exclusive(plan));
+    register('newsdk.doctor', () => exclusive(async () => runner.doctor(await runConfiguration(true))));
+    register('newsdk.stop', () => runner.stop());
+    register('newsdk.openWorkbench', () => workbench.show());
+    register('newsdk.openLog', () => openRecord('log'));
+    register('newsdk.openEvents', () => openRecord('events'));
+    register('newsdk.openReport', () => openRecord('report'));
+    register('newsdk.openOutput', openOutput);
+    register('newsdk.openArtifact', openArtifact);
+    context.subscriptions.push(runner.onDidChange(() => { localMessage = undefined; render(); }));
+    context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(event => {
+        if (event.affectsConfiguration('newsdk')) void refresh().catch(error => { localMessage = message(error); render(); });
+    }));
+
+    // Restoring a selection only reads source files; configuration is never written into the MOD.
+    const folders = vscode.workspace.workspaceFolders ?? [];
+    const last = context.globalState.get<string>(lastProjectKey);
+    const localFolders = folders.filter(folder => folder.uri.scheme === 'file');
+    const lastInWorkspace = last && localFolders.some(folder => containsPath(folder.uri.fsPath, last));
+    const initial = localFolders.length === 1 ? localFolders[0].uri.fsPath
+        : lastInWorkspace || localFolders.length === 0 ? last : undefined;
+    if (initial) {
+        try { await selectProject(initial); } catch (error) { localMessage = message(error); }
+    }
+    render();
+    return { getState: () => runner.state, getProject: () => project,
+        selectProject: root => exclusive(() => selectProject(root)), configure: values => exclusive(() => configure(values)),
+        build: () => exclusive(build), plan: () => exclusive(plan),
+        stop: () => runner.stop(), showWorkbench: () => workbench.show() };
+}
+
+function message(error: unknown): string { return error instanceof Error ? error.message : String(error); }
+
+export function deactivate(): void { /* ExtensionContext subscriptions own all resources. */ }

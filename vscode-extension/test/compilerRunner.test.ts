@@ -1,0 +1,204 @@
+import { test } from 'node:test';
+import * as assert from 'node:assert/strict';
+import { compilerArguments, diagnosticPaths, ProjectRunLocks, RunConfiguration } from '../src/compilerArguments';
+
+const configuration: RunConfiguration = {
+    compilerPath: 'C:\\Compiler folder\\NewModCompiler.exe',
+    sdkRoot: 'D:\\SDK & tools',
+    modRoot: 'D:\\MODs\\中文 MOD; $(echo attack)',
+    outputDirectory: 'E:\\Builds\\中文 MOD',
+    modVersion: '1.0',
+};
+
+test('build and plan preserve hostile-looking paths as single argv values and explicitly supply BIG version', () => {
+    for (const operation of ['plan', 'build'] as const) {
+        const args = compilerArguments(operation, configuration);
+        assert.equal(args[args.indexOf('--mod') + 1], configuration.modRoot);
+        assert.equal(args[args.indexOf('--sdk-root') + 1], configuration.sdkRoot);
+        assert.equal(args[args.indexOf('--mod-version') + 1], '1.0');
+        assert.equal(args[args.indexOf('--package-content') + 1], 'auto');
+        assert.equal(args[args.indexOf('--package-format') + 1], 'big');
+        assert.ok(args.includes('--include-additional=true'));
+        assert.ok(!args.includes('--events -'));
+        assert.ok(!args.includes('--jobs'));
+        assert.ok(!args.includes('/ss'));
+    }
+});
+
+test('doctor requires only SDK, and cannot accidentally compile a MOD', () => {
+    assert.deepEqual(compilerArguments('doctor', { ...configuration, modRoot: '', outputDirectory: '', modVersion: '' }),
+        ['doctor', '--sdk-root', configuration.sdkRoot]);
+});
+
+test('plan and build diagnostics never overwrite one another', () => {
+    assert.deepEqual(diagnosticPaths('build', configuration.outputDirectory), {
+        events: 'E:\\Builds\\中文 MOD\\build.events.jsonl',
+        report: 'E:\\Builds\\中文 MOD\\build-report.json',
+        log: 'E:\\Builds\\中文 MOD\\build.log',
+    });
+    const plan = diagnosticPaths('plan', configuration.outputDirectory);
+    assert.ok(plan.report.endsWith('plan-report.json'));
+    assert.ok(plan.events.endsWith('plan.events.jsonl'));
+});
+
+test('BIG calls reject missing version rather than relying on preset or compiler default', () => {
+    assert.throws(() => compilerArguments('plan', { ...configuration, modVersion: ' ' }), /版本/);
+    assert.throws(() => compilerArguments('build', { ...configuration, modVersion: '' }), /版本/);
+});
+
+test('physical project lock blocks overlapping actions, releases idempotently and permits retry', () => {
+    const locks = new ProjectRunLocks();
+    const release = locks.acquire('canonical-mod');
+    assert.throws(() => locks.acquire('canonical-mod'), /正在运行/);
+    const independent = locks.acquire('another-mod');
+    independent();
+    release();
+    release();
+    locks.acquire('canonical-mod')();
+});
+
+// Exercise the task lifecycle and real protocol reducer without starting VS Code.
+// The Windows host suite separately verifies the actual VS Code task APIs.
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
+import * as os from 'node:os';
+
+type Listener<T> = (value: T) => unknown;
+class MockEmitter<T> {
+    private listeners = new Set<Listener<T>>();
+    event = (listener: Listener<T>) => {
+        this.listeners.add(listener);
+        return { dispose: () => this.listeners.delete(listener) };
+    };
+    fire(value: T): void { for (const listener of this.listeners) listener(value); }
+    dispose(): void { this.listeners.clear(); }
+}
+class MockProcess {
+    constructor(readonly process: string, readonly args: string[], readonly options: unknown) { }
+}
+class MockTask {
+    presentationOptions?: unknown;
+    isBackground?: boolean;
+    constructor(readonly definition: Record<string, string>, readonly scope: unknown,
+        readonly name: string, readonly source: string, readonly execution: MockProcess) { }
+}
+interface MockExecution { task: MockTask; terminate(): void }
+const taskProcessEnded = new MockEmitter<{ execution: MockExecution; exitCode?: number }>();
+const taskEnded = new MockEmitter<{ execution: MockExecution }>();
+const launchedTasks: MockTask[] = [];
+let taskBehavior: (execution: MockExecution) => Promise<void> = async () => undefined;
+const mockVscode = {
+    EventEmitter: MockEmitter,
+    Task: MockTask,
+    ProcessExecution: MockProcess,
+    TaskScope: { Workspace: 1 },
+    TaskRevealKind: { Always: 1 },
+    TaskPanelKind: { Dedicated: 1 },
+    env: {},
+    workspace: { isTrusted: true },
+    tasks: {
+        onDidEndTaskProcess: taskProcessEnded.event,
+        onDidEndTask: taskEnded.event,
+        executeTask: async (task: MockTask): Promise<MockExecution> => {
+            launchedTasks.push(task);
+            const execution: MockExecution = { task, terminate: () => endExecution(execution, undefined) };
+            queueMicrotask(() => { void taskBehavior(execution); });
+            return execution;
+        },
+    },
+};
+function endExecution(execution: MockExecution, exitCode: number | undefined): void {
+    taskProcessEnded.fire({ execution, exitCode });
+    taskEnded.fire({ execution });
+}
+function loadRunnerWithMock(): typeof import('../src/compilerRunner') {
+    const loader = require('node:module') as { _load: (request: string, parent: unknown, isMain: boolean) => unknown };
+    const original = loader._load;
+    loader._load = function (request, parent, isMain) {
+        return request === 'vscode' ? mockVscode : original.call(this, request, parent, isMain);
+    };
+    try { return require('../src/compilerRunner') as typeof import('../src/compilerRunner'); }
+    finally { loader._load = original; }
+}
+async function writeSuccessfulEvidence(task: MockTask): Promise<void> {
+    const args = task.execution.args;
+    const eventsFile = args[args.indexOf('--events') + 1];
+    const reportFile = args[args.indexOf('--report') + 1];
+    await fs.mkdir(path.dirname(eventsFile), { recursive: true });
+    const id = task.definition.runId;
+    const common = { schemaVersion: '1.0', buildId: id, level: 'info', timestampUtc: new Date().toISOString(), elapsedMs: 1 };
+    await fs.writeFile(eventsFile, [
+        { ...common, sequence: 1, eventType: 'BuildStarted' },
+        { ...common, sequence: 2, eventType: 'BuildFinished', payload: { status: 'succeeded', exitCode: 0 } },
+    ].map(event => JSON.stringify(event)).join('\n') + '\n');
+    await fs.writeFile(reportFile, JSON.stringify({
+        schemaVersion: '1.0', buildId: id, status: 'succeeded', exitCode: 0,
+        artifacts: [], diagnostics: [], plan: { Tasks: [], Skipped: [] },
+        publicationDirectory: path.join(path.dirname(reportFile), 'published'),
+    }));
+}
+
+test('task lifecycle rejects doctor failure and stale evidence, and forced stop allows a clean retry', async () => {
+    const actualPlatform = Object.getOwnPropertyDescriptor(process, 'platform')!;
+    Object.defineProperty(process, 'platform', { value: 'win32', configurable: true });
+    const temporary = await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-runner-'));
+    const { CompilerRunner } = loadRunnerWithMock();
+    const runner = new CompilerRunner();
+    const config: RunConfiguration = {
+        compilerPath: path.join(temporary, 'compiler', 'NewModCompiler.exe'),
+        sdkRoot: path.join(temporary, 'sdk'), modRoot: path.join(temporary, 'mod'),
+        outputDirectory: path.join(temporary, 'output'), modVersion: '1.0',
+    };
+    try {
+        for (const directory of [path.dirname(config.compilerPath), config.sdkRoot, config.modRoot]) {
+            await fs.mkdir(directory);
+        }
+        await fs.writeFile(config.compilerPath, 'fixture');
+        taskBehavior = async execution => endExecution(execution, 3);
+        const doctorFailed = await runner.build(config);
+        assert.equal(doctorFailed.status, 'failed');
+        assert.match(doctorFailed.reason, /环境检查失败/);
+        assert.deepEqual(launchedTasks.map(task => task.definition.operation), ['doctor']);
+        assert.equal(runner.active, false);
+
+        taskBehavior = async execution => {
+            if (execution.task.definition.operation === 'build') await writeSuccessfulEvidence(execution.task);
+            endExecution(execution, 0);
+        };
+        assert.equal((await runner.build(config)).status, 'succeeded');
+
+        // Startup exits before replacing diagnostics: the old report still says
+        // succeeded, but must never certify this new invocation.
+        taskBehavior = async execution => endExecution(execution,
+            execution.task.definition.operation === 'doctor' ? 0 : 3);
+        const stale = await runner.build(config);
+        assert.notEqual(stale.status, 'succeeded');
+        assert.deepEqual(stale.artifacts, []);
+
+        let buildHasStarted!: () => void;
+        const started = new Promise<void>(resolve => { buildHasStarted = resolve; });
+        taskBehavior = async execution => {
+            if (execution.task.definition.operation === 'doctor') endExecution(execution, 0);
+            else buildHasStarted();
+        };
+        const pending = runner.build(config);
+        await started;
+        runner.stop();
+        const interrupted = await pending;
+        assert.equal(interrupted.status, 'interrupted');
+        assert.equal(runner.active, false);
+        assert.deepEqual(interrupted.artifacts, []);
+
+        taskBehavior = async execution => {
+            if (execution.task.definition.operation === 'build') await writeSuccessfulEvidence(execution.task);
+            endExecution(execution, 0);
+        };
+        const retry = await runner.build(config);
+        assert.equal(retry.status, 'succeeded');
+        assert.equal(runner.active, false);
+    } finally {
+        runner.dispose();
+        Object.defineProperty(process, 'platform', actualPlatform);
+        await fs.rm(temporary, { recursive: true, force: true });
+    }
+});

@@ -1,0 +1,80 @@
+name: NewSdk VS Code P0
+
+on:
+  push:
+    branches: [feat/vscode-p0]
+    paths: ['vscode-extension/**', '.github/workflows/vscode-p0.yml']
+  pull_request:
+    paths: ['vscode-extension/**', '.github/workflows/vscode-p0.yml']
+  workflow_dispatch:
+    inputs:
+      full_acceptance:
+        description: '运行额外真实编译器内容发现组合（仍不等于全部 P0 验收）'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vscode-p0-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  windows-extension:
+    runs-on: windows-2022
+    timeout-minutes: 35
+    defaults:
+      run:
+        working-directory: vscode-extension
+        shell: pwsh
+    env:
+      NEWSDK_COMPILER_URL: ${{ secrets.NEWSDK_COMPILER_URL }}
+      NEWSDK_COMPILER_SHA256: ${{ secrets.NEWSDK_COMPILER_SHA256 }}
+      NEWSDK_COMPILER_AUTHORIZATION: ${{ secrets.NEWSDK_COMPILER_AUTHORIZATION }}
+      NEWSDK_ACCEPTANCE: ${{ inputs.full_acceptance && 'full' || 'smoke' }}
+      NEWSDK_TEST_ROOT: ${{ runner.temp }}/newsdk-p0-host
+      NEWSDK_TEST_EVIDENCE: ${{ github.workspace }}/vscode-extension/test-results
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: vscode-extension/package-lock.json
+      - name: Install extension dependencies
+        run: npm ci
+      - name: Compile and run protocol, configuration and ZIP boundary tests
+        run: |
+          New-Item -ItemType Directory -Force test-results | Out-Null
+          npm test 2>&1 | Tee-Object test-results/unit-tests.log
+          if ($LASTEXITCODE -ne 0) { throw 'Extension unit tests failed' }
+      - name: Package installable VSIX without bundling compiler
+        run: |
+          npm run package 2>&1 | Tee-Object test-results/package.log
+          if ($LASTEXITCODE -ne 0) { throw 'VSIX packaging failed' }
+      - name: Real Windows VS Code host, task lifecycle and optional packaged compiler
+        run: |
+          npm run test:host 2>&1 | Tee-Object test-results/extension-host.log
+          if ($LASTEXITCODE -ne 0) { throw 'Windows extension-host tests failed' }
+      - name: Record compiler availability and acceptance scope
+        if: always()
+        run: |
+          if ($env:NEWSDK_COMPILER_URL) {
+            'Packaged compiler URL supplied. See real-compiler.json for the actual executed cases.' >> $env:GITHUB_STEP_SUMMARY
+          } else {
+            'Real compiler tests SKIPPED: NEWSDK_COMPILER_URL is not configured. Protocol and extension-host checks do not establish P0 completion.' >> $env:GITHUB_STEP_SUMMARY
+          }
+          'Normal Ctrl+Break cancellation and real APT business fixtures remain required before declaring the full P0 acceptance complete.' >> $env:GITHUB_STEP_SUMMARY
+      - name: Save VSIX, protocol evidence and failure logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: NewSdk-Mod-Tools-P0-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            vscode-extension/NewSdk-Mod-Tools-P0.vsix
+            vscode-extension/test-results/
+            ${{ runner.temp }}/newsdk-p0-host/user-data/logs/
+          if-no-files-found: warn
