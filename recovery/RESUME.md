@@ -1,3 +1,17 @@
+# 当前：官方中立地编修复与配置已验收
+
+分支 `fix/neutral-worldbuilder-config`，从用户指定的 `recovery/legacy-sdk-cache` / `680c4f0c` 开始，
+已按用户纠正把 `release/compiler-2026.11.01-harness` / `feadec6e` 的修改带入本分支；未修改该发布分支。
+完整官方15931资产四流已入库，1.3GB bin以156个独立Deflate块保存，按引用随机读取。
+MOD JSON和EXE appSettings均可设置fix-neutral-assets，CLI优先。
+生产/测试 `f74da90f`，[Windows 41319194413](https://github.com/wu162/NewSdk/actions/runs/41319194413) 全success：
+D/R新构建、App各1879、10组原修复差分、12个Core fixture、31个CLI用例及各8次真实小MOD通过；
+实际改1哈希/补5资产，12个BIG成员与原HashFix→Resolver→LoD→MakeBig原字节相同。
+两个三文件ZIP独立解压冷编译通过；未完整大型MOD/游戏验收，旧LoD合成尾字节差异按原确定合同保留。
+[说明与边界](docs/NEUTRAL_WORLDBUILDER.md)、[收据](evidence/neutral-worldbuilder/41319194413-1/summary.json)。
+用户已明确授权打包发布；新标签 `compiler-2026.11.01-neutral` 的实际发布状态以GitHub为准。
+禁止强推，未获另行批准不把本分支合入其他开发分支。
+
 # 当前：Joypad 并行版已发布（PR #49 未合并）
 
 11 个 Joypad 根已显式认证到 worker，metadata 路由 284→295；原 TypeId/版本/字节布局与缓存身份不变。

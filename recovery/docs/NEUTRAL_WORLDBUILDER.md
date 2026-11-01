@@ -63,12 +63,23 @@ python recovery/scripts/ImportWorldbuilderReferences.py unpack --parts SDK/built
 
 ## 验证范围
 
-`recovery/fixtures/neutral-worldbuilder` 是两个资产的小型 MOD：覆盖 `AM_Box01`
-触发真实官方身份修正，`ObjectCreationList` 引用 Worldbuilder 专属 `AM_Bench`
-触发模型等递归补入。没有人为改参考哈希或伪造 payload。
+`recovery/fixtures/neutral-worldbuilder` 是两个 GameObject 的小型 MOD：覆盖 `AM_Box01`
+触发真实官方身份修正，另一个对象通过 `GatherSlavesUpdate.SlaveTemplate` 强引用
+Worldbuilder 专属 `AM_Bench`，触发模型及三张纹理递归补入。没有人为改参考哈希或伪造 payload。
 
 `neutral-worldbuilder.yml` 构建 Debug/Release，执行 App、真实 Core/CLI及原版
-HashFix/Resolver/LoD组件差分；随后验证全局配置、项目配置和CLI覆盖、关闭开关、
+HashFix/Resolver组件差分与确定性 LoD 合同；随后验证全局配置、项目配置和CLI覆盖、关闭开关、
 缺参考失败与恢复重试，比较官方原工具 HashFix→Resolver→LoD→MakeBig 的全部BIG成员原始字节。
-正式运行结果以本页后续收据链接为准；脚本存在不表示验收已经通过。
+[Windows 41319194413](https://github.com/wu162/NewSdk/actions/runs/41319194413)
+整体通过，生产与测试源码均为 `f74da90fd8461fcb983acebcb694d66aeb8dbfdd`。
+Debug/Release 各1879项 App 合同、10组原版修复组件、12个真实 Core fixture、31个CLI用例通过。
+每种配置8个小MOD用例：实际修正1项哈希，递归补入5个官方资产，BIG的全部12个成员原始字节
+与原版完整处理链一致。两个三文件ZIP均独立解压后完成冷编译，BIG/SKUDEF与生产结果相同。
+归档和运行文件身份见 [验收收据](../evidence/neutral-worldbuilder/41319194413-1/summary.json)。
 本轮不代表完整大型MOD或游戏内验收。
+
+历史联合合成 LoD 的5个单资产样例仍保留原字节失败：原工具越界将来源表末尾 NUL
+写成01，新编译器按已确定合同保留00，见 [原始诊断与修复合同](../P7_LOD_ORIGINAL_TAIL.md)。
+原默认联合测试及断言未删；本轮相关组件使用 `--hashfix-resolver-only`，对全部10个样例
+的两个修改相关阶段逐字节比较。LoD 的完整逻辑表复制由 Debug/Release App 合同校验，
+真实官方小MOD及独立ZIP部署继续要求原版 LoD/MakeBig 输出全部成员字节相同。

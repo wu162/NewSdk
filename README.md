@@ -4,6 +4,11 @@
 
 ## 获取工具
 
+本轮中立地编修复版见 [compiler-2026.11.01-neutral Release](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01-neutral)。
+已带入 `release/compiler-2026.11.01-harness` 的修改；[Windows 41319194413](https://github.com/wu162/NewSdk/actions/runs/41319194413)
+的 Debug/Release、Core/CLI、小MOD原处理链及独立ZIP均通过。编译器 ZIP 保持三个运行文件，官方参考数据另附独立ZIP。
+配置和验证边界见 [中立地编修复说明](recovery/docs/NEUTRAL_WORLDBUILDER.md)。
+
 Joypad 并行版已发布：[NewModCompiler 2026.11.01](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01)。普通使用选择 `NewModCompiler-Win32-Release.zip`，Debug 供调试。11 个独立根已纳入 worker，四平台与 45 资产小 MOD、缓存、原 SDK 四流及独立 ZIP 验收通过；本轮未运行大型 MOD 或全量 SDK 编译。[范围与二进制来源](recovery/docs/components/xml/XML_JOYPAD.md)。发行附件及自动标签归档均不含编译器源码；源码变更仍在 PR #49，未合并。以下 `8fe12ca9b` 记录保留为历史。
 
 生产/测试源码 `8fe12ca9b` 的 [Windows 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818) 已整体通过：Debug/Release 构建、原元数据完整转录、组件与实际四 worker 并行、缓存、完整 mymod 原版对照、两个独立三文件 ZIP，以及完整 Upheaval 22 样本。插件版本 `4202` 和三个 ProcessingHash 保留原 DLL 值。
@@ -44,6 +49,6 @@ loose（包括兼容 development 派生的 loose）和 `doctor` 不要求显式�
 
 核心编译、单进程 base/apt/maps、日志/协议、构建与会话缓存、默认 BIG/SKUDEF、Additional、纯 C# MakeBig 入 EXE 已有历史验收。当前源码 Texture 三文件产品及并行改动的状态见 [Texture 说明](recovery/docs/TEXTURE_PLUGIN.md)。原工具的特定 LoD 来源表尾字节差异见 [说明](recovery/P7_LOD_ORIGINAL_TAIL.md)。
 
-AssetMerge 已按用户要求排除。WBData 下载、提取、读取器与依赖真实 WBData 的验收已取消，均不作为本次重构完成条件。完整 UI/runtime、中文纹理路径仍有未覆盖范围；原 SDK 缓存完整恢复的当前验证状态见 [缓存说明](recovery/docs/LEGACY_INCREMENTAL_CACHE.md)。
+AssetMerge 已按用户要求排除。本分支按最新请求补充[官方 Worldbuilder 1.12 中立地编参考数据与配置支持](recovery/docs/NEUTRAL_WORLDBUILDER.md)：`--fix-neutral-assets=true` 可由 MOD JSON 或 EXE 配置设置，完整官方 payload 以分块压缩形式保存在 Git，按实际引用解压。真实验证结果及边界见该说明。完整 UI/runtime、中文纹理路径仍有未覆盖范围；原 SDK 缓存完整恢复的当前验证状态见 [缓存说明](recovery/docs/LEGACY_INCREMENTAL_CACHE.md)。
 
 版本与必要旧参数已形成[明确合同](recovery/CLI_COMPATIBILITY.md)，LoD 对原工具越界采用完整表复制的确定性修复，专项与最终生产/ZIP验收已通过；不把这些未完成项目表述为全功能兼容。当前不支持的参数明确拒绝。压缩/部分/冻结会话、touch、原缓存目录和 `/iod` 已接入本分支，完整生产缓存矩阵、mymod 原版差分及独立 ZIP 门槛已通过[运行 40814401237](https://github.com/wu162/NewSdk/actions/runs/40814401237)，准确覆盖边界见缓存说明；额外预编译及替代输出/资产报告等选项尚未开放；并非每个旧 BAB 参数都已支持。开发续接见 [REFACTOR_RESUME](recovery/REFACTOR_RESUME.md)，历史实施设计见 [重构方案](recovery/NewSdk_ModCompiler_Refactor_Plan.md)。
