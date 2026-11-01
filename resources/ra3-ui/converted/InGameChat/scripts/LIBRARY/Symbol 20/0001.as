@@ -1,0 +1,9 @@
+if(_parent.isBuddyChat)
+{
+   stop();
+}
+else
+{
+   gotoAndStop("_enabled");
+   play();
+}

@@ -1,0 +1,37 @@
+on(press){
+   if(_parent.isEnabled)
+   {
+      gotoAndStop("_down");
+      play();
+   }
+}
+on(release){
+   if(_parent.isEnabled)
+   {
+      gotoAndStop("_release");
+      play();
+   }
+   fscommand(qualifyName(_parent,"OnClicked"),"");
+}
+on(rollOver){
+   if(_parent.isEnabled)
+   {
+      gotoAndStop("_over");
+      play();
+      RollOver.gotoAndPlay("_show");
+      RollOverTop.gotoAndPlay("_show");
+   }
+   _parent.isMouseOver = true;
+   fscommand(qualifyName(_parent,"OnRollOver"),"");
+}
+on(rollOut){
+   if(_parent.isEnabled)
+   {
+      gotoAndStop("_up");
+      play();
+      RollOver.gotoAndPlay("_hide");
+      RollOverTop.gotoAndPlay("_hide");
+   }
+   _parent.isMouseOver = false;
+   fscommand(qualifyName(_parent,"OnRollOut"),"");
+}

@@ -1,0 +1,146 @@
+[
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0001.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "sha256": "95f515ed96c7b23a08483be9a48b1d63ee20156fe29560951605a83d1b1c818b",
+    "originalCodeSha256": "95f515ed96c7b23a08483be9a48b1d63ee20156fe29560951605a83d1b1c818b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0002.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 2,
+    "sha256": "3e5d3d3d5a7e6ecea2933bfc0ad8ff23b23b6b86586d50ead8647e4719c7bf31",
+    "originalCodeSha256": "3e5d3d3d5a7e6ecea2933bfc0ad8ff23b23b6b86586d50ead8647e4719c7bf31",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0003.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 3,
+    "sha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
+    "originalCodeSha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0004.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 4,
+    "sha256": "9a7efe4838183a468da3e4271a9d35572338b7b4252af54ddcb187a4305a70bf",
+    "originalCodeSha256": "9a7efe4838183a468da3e4271a9d35572338b7b4252af54ddcb187a4305a70bf",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0005.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 5,
+    "sha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
+    "originalCodeSha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0006.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 6,
+    "sha256": "9a7efe4838183a468da3e4271a9d35572338b7b4252af54ddcb187a4305a70bf",
+    "originalCodeSha256": "9a7efe4838183a468da3e4271a9d35572338b7b4252af54ddcb187a4305a70bf",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0007.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 7,
+    "sha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
+    "originalCodeSha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0008.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 8,
+    "sha256": "9a7efe4838183a468da3e4271a9d35572338b7b4252af54ddcb187a4305a70bf",
+    "originalCodeSha256": "9a7efe4838183a468da3e4271a9d35572338b7b4252af54ddcb187a4305a70bf",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0009.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 9,
+    "sha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
+    "originalCodeSha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0010.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 10,
+    "sha256": "9a7efe4838183a468da3e4271a9d35572338b7b4252af54ddcb187a4305a70bf",
+    "originalCodeSha256": "9a7efe4838183a468da3e4271a9d35572338b7b4252af54ddcb187a4305a70bf",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0011.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 11,
+    "sha256": "b344ceb860e4c00e01c61e859b7b028ab15f89fac061de77740f4739f3205e6d",
+    "originalCodeSha256": "b344ceb860e4c00e01c61e859b7b028ab15f89fac061de77740f4739f3205e6d",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0012.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 12,
+    "sha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
+    "originalCodeSha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0013.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 13,
+    "sha256": "9a7efe4838183a468da3e4271a9d35572338b7b4252af54ddcb187a4305a70bf",
+    "originalCodeSha256": "9a7efe4838183a468da3e4271a9d35572338b7b4252af54ddcb187a4305a70bf",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0014.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 14,
+    "sha256": "58374417b60b54379f206be3fa6da4dec385fa107bfdcbac734f5c7783400eac",
+    "originalCodeSha256": "58374417b60b54379f206be3fa6da4dec385fa107bfdcbac734f5c7783400eac",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0015.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 15,
+    "sha256": "3c01a39adb7467c4897c50f862c9b8b65260c324d68934abd661b99b82e0508d",
+    "originalCodeSha256": "3c01a39adb7467c4897c50f862c9b8b65260c324d68934abd661b99b82e0508d",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0016.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 16,
+    "sha256": "9a7efe4838183a468da3e4271a9d35572338b7b4252af54ddcb187a4305a70bf",
+    "originalCodeSha256": "9a7efe4838183a468da3e4271a9d35572338b7b4252af54ddcb187a4305a70bf",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0017.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 17,
+    "sha256": "e1e7c8617b2a9cca776882a894366d486639316fdfe30ab5b5829ce2afd39358",
+    "originalCodeSha256": "e1e7c8617b2a9cca776882a894366d486639316fdfe30ab5b5829ce2afd39358",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/S09_Objective_Briefing/scripts/DOMDocument/0018.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 18,
+    "sha256": "e0363a3a22e6220266540b25ba5cbdd6b7b089279eeb77d668af52992197390e",
+    "originalCodeSha256": "e0363a3a22e6220266540b25ba5cbdd6b7b089279eeb77d668af52992197390e",
+    "normalizedConstructEvents": 0
+  }
+]

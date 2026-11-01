@@ -1,0 +1,43 @@
+{
+  "localizedCount": 6,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 3.xml",
+      "url": "../../common/hud/ig_libHUD.swf",
+      "identifier": "Dummy",
+      "name": "Symbol 3"
+    },
+    {
+      "file": "LIBRARY/Symbol 33.xml",
+      "url": "../../common/hud/ig_libHUD.swf",
+      "identifier": "WhiteRectangle",
+      "name": "Symbol 33"
+    },
+    {
+      "file": "LIBRARY/Symbol 4.xml",
+      "url": "../../common/hud/ig_libHUD.swf",
+      "identifier": "SimpleRenderingSurface",
+      "name": "Symbol 4"
+    },
+    {
+      "file": "LIBRARY/Symbol 42.xml",
+      "url": "HelpBox.swf",
+      "identifier": "HelpBoxSite",
+      "name": "Symbol 42"
+    },
+    {
+      "file": "LIBRARY/Symbol 46.xml",
+      "url": "../../common/hud/ig_libHUD.swf",
+      "identifier": "InputShield",
+      "name": "Symbol 46"
+    },
+    {
+      "file": "LIBRARY/Symbol 47.xml",
+      "url": "../../common/hud/ig_libHUD.swf",
+      "identifier": "LoadMovieStage",
+      "name": "Symbol 47"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

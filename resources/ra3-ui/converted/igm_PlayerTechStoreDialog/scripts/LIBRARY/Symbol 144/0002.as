@@ -1,0 +1,3 @@
+onClipEvent(construct){
+   label = "Confirm";
+}

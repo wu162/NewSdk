@@ -1,0 +1,43 @@
+{
+  "localizedCount": 6,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 21.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollingListbox.swf",
+      "identifier": "std_mouseScrollingListboxSymbol",
+      "name": "Symbol 21"
+    },
+    {
+      "file": "LIBRARY/Symbol 22.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollbar.swf",
+      "identifier": "std_mouseScrollbarSymbol",
+      "name": "Symbol 22"
+    },
+    {
+      "file": "LIBRARY/Symbol 23.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 23"
+    },
+    {
+      "file": "LIBRARY/Symbol 24.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollingListbox.swf",
+      "identifier": "std_mouseListboxEntryRenderImageElementSymbol",
+      "name": "Symbol 24"
+    },
+    {
+      "file": "LIBRARY/Symbol 26.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollingListbox.swf",
+      "identifier": "std_mouseListboxEntryColorSwatchElementSymbol",
+      "name": "Symbol 26"
+    },
+    {
+      "file": "LIBRARY/Symbol 28.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollingListbox.swf",
+      "identifier": "std_mouseListboxEntryTextElementSymbol",
+      "name": "Symbol 28"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

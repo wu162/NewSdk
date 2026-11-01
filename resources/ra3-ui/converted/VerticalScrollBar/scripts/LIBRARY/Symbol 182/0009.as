@@ -1,0 +1,17 @@
+on(press){
+   _parent.OnScrollButtonPress(this);
+   gotoAndStop("_down");
+   play();
+}
+on(release){
+   gotoAndStop("_over");
+   play();
+}
+on(rollOver){
+   gotoAndStop("_over");
+   play();
+}
+on(rollOut){
+   gotoAndStop("_up");
+   play();
+}

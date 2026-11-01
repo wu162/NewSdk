@@ -1,0 +1,18 @@
+[
+  {
+    "path": "converted/ig_missionMapHotSpotLayer/scripts/DOMDocument/0001.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "sha256": "864e229e693ef5c5cb06bc8e4bd9dc0aea281b818905b1fd2e4a4f7f76de20d7",
+    "originalCodeSha256": "864e229e693ef5c5cb06bc8e4bd9dc0aea281b818905b1fd2e4a4f7f76de20d7",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/ig_missionMapHotSpotLayer/scripts/LIBRARY/Symbol 3/0001.as",
+    "xflXml": "LIBRARY/Symbol 3.xml",
+    "scriptOrdinal": 1,
+    "sha256": "860cc17f78a0de8e6623597ae6b0cff911990be3ad17e1acfb30a49eb7c52261",
+    "originalCodeSha256": "860cc17f78a0de8e6623597ae6b0cff911990be3ad17e1acfb30a49eb7c52261",
+    "normalizedConstructEvents": 0
+  }
+]

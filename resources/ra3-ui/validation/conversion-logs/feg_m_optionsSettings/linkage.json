@@ -1,0 +1,73 @@
+{
+  "localizedCount": 11,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 100.xml",
+      "url": "../cafe/mouseComponents/std_mouseDropDownMenu.swf",
+      "identifier": "std_mouseDropDownMenuSymbol",
+      "name": "Symbol 100"
+    },
+    {
+      "file": "LIBRARY/Symbol 129.xml",
+      "url": "../cafe/mouseComponents/std_mouseRadioButton.swf",
+      "identifier": "std_mouseRadioButtonSymbol",
+      "name": "Symbol 129"
+    },
+    {
+      "file": "LIBRARY/Symbol 130.xml",
+      "url": "../cafe/mouseComponents/std_mouseRadioButton.swf",
+      "identifier": "std_mouseRadioButtonControllerSymbol",
+      "name": "Symbol 130"
+    },
+    {
+      "file": "LIBRARY/Symbol 57.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "lowerScreenBar Symbol",
+      "name": "Symbol 57"
+    },
+    {
+      "file": "LIBRARY/Symbol 58.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "ScreenTitleBarSymbol",
+      "name": "Symbol 58"
+    },
+    {
+      "file": "LIBRARY/Symbol 63.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollingListbox.swf",
+      "identifier": "std_mouseScrollingListboxSymbol",
+      "name": "Symbol 63"
+    },
+    {
+      "file": "LIBRARY/Symbol 64.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollbar.swf",
+      "identifier": "std_mouseScrollbarSymbol",
+      "name": "Symbol 64"
+    },
+    {
+      "file": "LIBRARY/Symbol 84.xml",
+      "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+      "identifier": "std_MouseCheckBoxSymbol",
+      "name": "Symbol 84"
+    },
+    {
+      "file": "LIBRARY/Symbol 85.xml",
+      "url": "../cafe/mouseComponents/std_mouseSlider.swf",
+      "identifier": "std_mouseSliderSymbol",
+      "name": "Symbol 85"
+    },
+    {
+      "file": "LIBRARY/Symbol 86.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 86"
+    },
+    {
+      "file": "LIBRARY/Symbol 99.xml",
+      "url": "../../cafe/mouseComponents/std_mouseTextInputField.swf",
+      "identifier": "std_mouseTextInputFieldSymbol",
+      "name": "Symbol 99"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

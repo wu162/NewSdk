@@ -1,0 +1,37 @@
+{
+  "localizedCount": 5,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 14.xml",
+      "url": "../cafe/mouseComponents/std_mouseDropDownMenu.swf",
+      "identifier": "std_mouseDropDownMenuSymbol",
+      "name": "Symbol 14"
+    },
+    {
+      "file": "LIBRARY/Symbol 15.xml",
+      "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+      "identifier": "std_MouseCheckBoxSymbol",
+      "name": "Symbol 15"
+    },
+    {
+      "file": "LIBRARY/Symbol 18.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 18"
+    },
+    {
+      "file": "LIBRARY/Symbol 25.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollingListbox.swf",
+      "identifier": "std_mouseScrollingListboxSymbol",
+      "name": "Symbol 25"
+    },
+    {
+      "file": "LIBRARY/Symbol 26.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollbar.swf",
+      "identifier": "std_mouseScrollbarSymbol",
+      "name": "Symbol 26"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

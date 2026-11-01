@@ -1,0 +1,98 @@
+[
+  {
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/DOMDocument/0001.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "sha256": "7dc3f39748544d47dc7dc8f3cc9002d6c35f39fe2753aae156613dc0f8079702",
+    "originalCodeSha256": "7dc3f39748544d47dc7dc8f3cc9002d6c35f39fe2753aae156613dc0f8079702",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 1/0001.as",
+    "xflXml": "LIBRARY/Symbol 1.xml",
+    "scriptOrdinal": 1,
+    "sha256": "146c51dbe148154dfeb73f08ceeda2c007cead03ee20e65d0692228a628dccad",
+    "originalCodeSha256": "146c51dbe148154dfeb73f08ceeda2c007cead03ee20e65d0692228a628dccad",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 1/0002.as",
+    "xflXml": "LIBRARY/Symbol 1.xml",
+    "scriptOrdinal": 2,
+    "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 11/0001.as",
+    "xflXml": "LIBRARY/Symbol 11.xml",
+    "scriptOrdinal": 1,
+    "sha256": "237c7dbf084165bdece723abfd71ccd49571d8c89c2519b02d126f5e8acea6da",
+    "originalCodeSha256": "237c7dbf084165bdece723abfd71ccd49571d8c89c2519b02d126f5e8acea6da",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 11/0002.as",
+    "xflXml": "LIBRARY/Symbol 11.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 16/0001.as",
+    "xflXml": "LIBRARY/Symbol 16.xml",
+    "scriptOrdinal": 1,
+    "sha256": "8f9eeb753187112f03eb3c58d3d54c5256e3b9f5cea67b7096934f77009ba3bf",
+    "originalCodeSha256": "8f9eeb753187112f03eb3c58d3d54c5256e3b9f5cea67b7096934f77009ba3bf",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 16/0002.as",
+    "xflXml": "LIBRARY/Symbol 16.xml",
+    "scriptOrdinal": 2,
+    "sha256": "b46dad4d7e687821c92dacea583df6a2e5f531ee0ff0b58441d5157ccb1dd651",
+    "originalCodeSha256": "b46dad4d7e687821c92dacea583df6a2e5f531ee0ff0b58441d5157ccb1dd651",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 16/0003.as",
+    "xflXml": "LIBRARY/Symbol 16.xml",
+    "scriptOrdinal": 3,
+    "sha256": "eb85d1a88f0a23d9478d58ca5c9f910deaea501ac4313d26dadbef801785d365",
+    "originalCodeSha256": "eb85d1a88f0a23d9478d58ca5c9f910deaea501ac4313d26dadbef801785d365",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 16/0004.as",
+    "xflXml": "LIBRARY/Symbol 16.xml",
+    "scriptOrdinal": 4,
+    "sha256": "a68831f333de6fb68bfdc30f159b3d13ce0b1fc90c0dc8aa49acec1129070a46",
+    "originalCodeSha256": "0a230dae639ced0715fb43e6dab6180f25528f447f30dc113e10ee0b232c785b",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 16/0005.as",
+    "xflXml": "LIBRARY/Symbol 16.xml",
+    "scriptOrdinal": 5,
+    "sha256": "4731cf4bfdaf6d1252d79aa8684ebfb6810ee743d1c8f6ed3a2ed03ad5041674",
+    "originalCodeSha256": "4731cf4bfdaf6d1252d79aa8684ebfb6810ee743d1c8f6ed3a2ed03ad5041674",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 16/0006.as",
+    "xflXml": "LIBRARY/Symbol 16.xml",
+    "scriptOrdinal": 6,
+    "sha256": "d355f7bae7a205f6b8fd7a123928868f01591299a1a1dd8d0170570a0acef6c0",
+    "originalCodeSha256": "e20e3a283bda0dab358c89a1f188ecebf62b48445ee943f98c3c9f9b5bf012b5",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 17/0001.as",
+    "xflXml": "LIBRARY/Symbol 17.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  }
+]

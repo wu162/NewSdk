@@ -1,0 +1,1 @@
+gotoAndPlay("_" + imageLabel);

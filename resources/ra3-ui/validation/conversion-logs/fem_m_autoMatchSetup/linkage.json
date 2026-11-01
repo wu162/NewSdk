@@ -1,0 +1,25 @@
+{
+  "localizedCount": 3,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 1.xml",
+      "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+      "identifier": "std_MouseCheckBoxSymbol",
+      "name": "Symbol 1"
+    },
+    {
+      "file": "LIBRARY/Symbol 2.xml",
+      "url": "../cafe/mouseComponents/std_mouseDropDownMenu.swf",
+      "identifier": "std_mouseDropDownMenuSymbol",
+      "name": "Symbol 2"
+    },
+    {
+      "file": "LIBRARY/Symbol 3.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 3"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

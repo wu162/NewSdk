@@ -1,0 +1,90 @@
+[
+  {
+    "path": "converted/TacticalHUDEnergyMeter/scripts/DOMDocument/0001.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "sha256": "caaaac7928bdf2355cf5357bb2856b123ad92dc93b1035ec83b8ebdce5e30246",
+    "originalCodeSha256": "caaaac7928bdf2355cf5357bb2856b123ad92dc93b1035ec83b8ebdce5e30246",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDEnergyMeter/scripts/DOMDocument/0002.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 2,
+    "sha256": "8c0f612ee99e152ad37fa2cded66231f02789179308dec5e84825950cbe7fa4e",
+    "originalCodeSha256": "593308af3cc7103216ebf37560befb913b157a99d40972b139812528aaf58007",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDEnergyMeter/scripts/LIBRARY/Symbol 10/0001.as",
+    "xflXml": "LIBRARY/Symbol 10.xml",
+    "scriptOrdinal": 1,
+    "sha256": "d2d9a1f9df3d9e405d56c5c6275b58dcdd29e7a2a9e2919954c7ec4b5ddeeb93",
+    "originalCodeSha256": "d2d9a1f9df3d9e405d56c5c6275b58dcdd29e7a2a9e2919954c7ec4b5ddeeb93",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDEnergyMeter/scripts/LIBRARY/Symbol 20/0001.as",
+    "xflXml": "LIBRARY/Symbol 20.xml",
+    "scriptOrdinal": 1,
+    "sha256": "4b348dab9a1d69a6bc914a8349027c193873bba4c6c61a0d5c6e237f2c7a4076",
+    "originalCodeSha256": "4b348dab9a1d69a6bc914a8349027c193873bba4c6c61a0d5c6e237f2c7a4076",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDEnergyMeter/scripts/LIBRARY/Symbol 20/0002.as",
+    "xflXml": "LIBRARY/Symbol 20.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDEnergyMeter/scripts/LIBRARY/Symbol 20/0003.as",
+    "xflXml": "LIBRARY/Symbol 20.xml",
+    "scriptOrdinal": 3,
+    "sha256": "f874f3d4bf657274b7e9167595101acc25717c6c0978eaf5a5805381533a0769",
+    "originalCodeSha256": "f874f3d4bf657274b7e9167595101acc25717c6c0978eaf5a5805381533a0769",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDEnergyMeter/scripts/LIBRARY/Symbol 20/0004.as",
+    "xflXml": "LIBRARY/Symbol 20.xml",
+    "scriptOrdinal": 4,
+    "sha256": "0befc355a4787e617210d793c4c7c95b98c68a53e04d5a706c8c6fc73b6f2add",
+    "originalCodeSha256": "0befc355a4787e617210d793c4c7c95b98c68a53e04d5a706c8c6fc73b6f2add",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDEnergyMeter/scripts/LIBRARY/Symbol 7/0001.as",
+    "xflXml": "LIBRARY/Symbol 7.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDEnergyMeter/scripts/LIBRARY/Symbol 7/0002.as",
+    "xflXml": "LIBRARY/Symbol 7.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDEnergyMeter/scripts/LIBRARY/Symbol 7/0003.as",
+    "xflXml": "LIBRARY/Symbol 7.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDEnergyMeter/scripts/LIBRARY/Symbol 7/0004.as",
+    "xflXml": "LIBRARY/Symbol 7.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  }
+]

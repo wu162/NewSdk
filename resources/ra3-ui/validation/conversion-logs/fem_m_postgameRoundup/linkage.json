@@ -1,0 +1,49 @@
+{
+  "localizedCount": 7,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 103.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 103"
+    },
+    {
+      "file": "LIBRARY/Symbol 104.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "ScreenTitleBarSymbol",
+      "name": "Symbol 104"
+    },
+    {
+      "file": "LIBRARY/Symbol 29.xml",
+      "url": "../cafe/mouseComponents/std_mouseRadioButton.swf",
+      "identifier": "std_mouseRadioButtonControllerSymbol",
+      "name": "Symbol 29"
+    },
+    {
+      "file": "LIBRARY/Symbol 30.xml",
+      "url": "../cafe/mouseComponents/std_mouseRadioButton.swf",
+      "identifier": "std_mouseRadioButtonSymbol",
+      "name": "Symbol 30"
+    },
+    {
+      "file": "LIBRARY/Symbol 68.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollingListbox.swf",
+      "identifier": "std_mouseScrollingListboxSymbol",
+      "name": "Symbol 68"
+    },
+    {
+      "file": "LIBRARY/Symbol 69.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollbar.swf",
+      "identifier": "std_mouseScrollbarSymbol",
+      "name": "Symbol 69"
+    },
+    {
+      "file": "LIBRARY/Symbol 77.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "lowerScreenBar Symbol",
+      "name": "Symbol 77"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

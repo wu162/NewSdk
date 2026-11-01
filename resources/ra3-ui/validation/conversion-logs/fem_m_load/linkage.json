@@ -1,0 +1,19 @@
+{
+  "localizedCount": 2,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 38.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "lowerScreenBar Symbol",
+      "name": "Symbol 38"
+    },
+    {
+      "file": "LIBRARY/Symbol 47.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "ScreenTitleBarSymbol",
+      "name": "Symbol 47"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

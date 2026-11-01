@@ -1,0 +1,19 @@
+{
+  "localizedCount": 2,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 14.xml",
+      "url": "../../common/hud/ig_libHUD.swf",
+      "identifier": "BlackRectangle",
+      "name": "Symbol 14"
+    },
+    {
+      "file": "LIBRARY/Symbol 15.xml",
+      "url": "../../common/hud/ig_libHUD.swf",
+      "identifier": "WhiteRectangle",
+      "name": "Symbol 15"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

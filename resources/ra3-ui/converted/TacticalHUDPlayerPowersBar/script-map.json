@@ -1,0 +1,50 @@
+[
+  {
+    "path": "converted/TacticalHUDPlayerPowersBar/scripts/DOMDocument/0001.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "sha256": "daf7b069450268d07d7f407f84ecba4347a6427af0c0603acd725ebb95de2f83",
+    "originalCodeSha256": "daf7b069450268d07d7f407f84ecba4347a6427af0c0603acd725ebb95de2f83",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDPlayerPowersBar/scripts/LIBRARY/Symbol 1/0001.as",
+    "xflXml": "LIBRARY/Symbol 1.xml",
+    "scriptOrdinal": 1,
+    "sha256": "bbbd27ff42832a83eea610bdec54c7e26b2fe8189477d972103861e1c857126a",
+    "originalCodeSha256": "bbbd27ff42832a83eea610bdec54c7e26b2fe8189477d972103861e1c857126a",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDPlayerPowersBar/scripts/LIBRARY/Symbol 2/0001.as",
+    "xflXml": "LIBRARY/Symbol 2.xml",
+    "scriptOrdinal": 1,
+    "sha256": "146c51dbe148154dfeb73f08ceeda2c007cead03ee20e65d0692228a628dccad",
+    "originalCodeSha256": "146c51dbe148154dfeb73f08ceeda2c007cead03ee20e65d0692228a628dccad",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDPlayerPowersBar/scripts/LIBRARY/Symbol 2/0002.as",
+    "xflXml": "LIBRARY/Symbol 2.xml",
+    "scriptOrdinal": 2,
+    "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDPlayerPowersBar/scripts/LIBRARY/Symbol 3/0001.as",
+    "xflXml": "LIBRARY/Symbol 3.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDPlayerPowersBar/scripts/LIBRARY/Symbol 3/0002.as",
+    "xflXml": "LIBRARY/Symbol 3.xml",
+    "scriptOrdinal": 2,
+    "sha256": "3ebadeb9d49863b8aec2324b0e53e325a7ff499243f05837d92d9a0db90802af",
+    "originalCodeSha256": "3c6c8dbc18dde6717911572638ca2e5ec070edc3ce8c692f804e1f85d3d25393",
+    "normalizedConstructEvents": 1
+  }
+]

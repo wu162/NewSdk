@@ -1,0 +1,34 @@
+[
+  {
+    "path": "converted/NotificationPopUp/scripts/DOMDocument/0001.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "sha256": "5bdb4ab9f6929483f35f8b40670a910bdf7bfd6e6c3ff1781f72a2cc27ff99c2",
+    "originalCodeSha256": "5bdb4ab9f6929483f35f8b40670a910bdf7bfd6e6c3ff1781f72a2cc27ff99c2",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/NotificationPopUp/scripts/DOMDocument/0002.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/NotificationPopUp/scripts/DOMDocument/0003.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 3,
+    "sha256": "6e6cea10361519b47b3ac1f0ed156719196c0083b0e643fedea162b0de21d90d",
+    "originalCodeSha256": "6e6cea10361519b47b3ac1f0ed156719196c0083b0e643fedea162b0de21d90d",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/NotificationPopUp/scripts/LIBRARY/Symbol 14/0001.as",
+    "xflXml": "LIBRARY/Symbol 14.xml",
+    "scriptOrdinal": 1,
+    "sha256": "a596acef87bea8171d6882d977ed8f4c9baec190735a084a72de074bc3e965c4",
+    "originalCodeSha256": "a596acef87bea8171d6882d977ed8f4c9baec190735a084a72de074bc3e965c4",
+    "normalizedConstructEvents": 0
+  }
+]

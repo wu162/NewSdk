@@ -1,0 +1,116 @@
+{
+  "movie": "sampleMissionBriefing",
+  "issue": "Decoded WAV frame count differs from SWF MP3 sampleCount retained in XFL metadata",
+  "originalSwfSound": {
+    "format": 2,
+    "sampleCount": 267380,
+    "seekSamples": 1661
+  },
+  "decodedWave": {
+    "channels": 1,
+    "sampleWidthBytes": 2,
+    "sampleRate": 11025,
+    "frames": 268483,
+    "pcmBytes": 536966
+  },
+  "incorrectConsumedBytes": 534760,
+  "unconsumedBytes": 2206,
+  "conversionRepair": {
+    "field": "DOMSoundItem.sampleCount",
+    "before": 267380,
+    "after": 268483,
+    "payloadModified": false,
+    "pcmPayloadSha256": "93642dcbdaaa6c06f531882a64df121fa5eadca5826e4a02f9e9c5bb68484966"
+  },
+  "structureValidation": {
+    "source": "/workspace/work/sound-analysis/sampleMissionBriefing-corrected.fla",
+    "compilerAssemblySha256": "45f3343ef3dc9f384f2d9d38dc8d76a911efd4b63e226307b423178fc4c75d65",
+    "runtime": ".NET 8.0.33",
+    "mode": "structure-only",
+    "structurePassed": 1,
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "elapsedMilliseconds": 140,
+    "requestedMutation": null,
+    "mutationPerformed": false,
+    "movies": [
+      {
+        "movie": "sampleMissionBriefing-corrected",
+        "source": "/workspace/work/sound-analysis/sampleMissionBriefing-corrected.fla",
+        "relativeSource": "sampleMissionBriefing-corrected.fla",
+        "flaSha256": "4b2647211ae75879d8fd232fc29c5cfc69c51a831887694f7e7c2afd9f98de42",
+        "status": "passed",
+        "compilationStatus": "not-requested",
+        "structure": {
+          "status": "passed",
+          "revision": 56,
+          "scenes": 1,
+          "libraryItems": 20,
+          "mediaItems": 17,
+          "parsedPages": 21,
+          "parsedMediaPayloads": 17,
+          "allStreamsFullyConsumed": true,
+          "staticTextFieldsPresent": 0,
+          "dynamicTextFieldsPresent": 335,
+          "potentialStaticFonts": [],
+          "runtimeImportedLibraryItems": 0
+        },
+        "assets": 0,
+        "assetTypes": null,
+        "inputs": null,
+        "streams": null,
+        "mutation": null,
+        "elapsedMilliseconds": 75,
+        "error": null,
+        "exception": null
+      }
+    ]
+  },
+  "compileValidation": {
+    "source": "/workspace/work/sound-analysis/sampleMissionBriefing-corrected.fla",
+    "compilerAssemblySha256": "45f3343ef3dc9f384f2d9d38dc8d76a911efd4b63e226307b423178fc4c75d65",
+    "runtime": ".NET 8.0.33",
+    "mode": "structure-and-production-compilation",
+    "structurePassed": 1,
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "elapsedMilliseconds": 471,
+    "requestedMutation": null,
+    "mutationPerformed": false,
+    "movies": [
+      {
+        "movie": "sampleMissionBriefing-corrected",
+        "source": "/workspace/work/sound-analysis/sampleMissionBriefing-corrected.fla",
+        "relativeSource": "sampleMissionBriefing-corrected.fla",
+        "flaSha256": "4b2647211ae75879d8fd232fc29c5cfc69c51a831887694f7e7c2afd9f98de42",
+        "status": "failed",
+        "compilationStatus": "failed",
+        "structure": {
+          "status": "passed",
+          "revision": 56,
+          "scenes": 1,
+          "libraryItems": 20,
+          "mediaItems": 17,
+          "parsedPages": 21,
+          "parsedMediaPayloads": 17,
+          "allStreamsFullyConsumed": true,
+          "staticTextFieldsPresent": 0,
+          "dynamicTextFieldsPresent": 335,
+          "potentialStaticFonts": [],
+          "runtimeImportedLibraryItems": 0
+        },
+        "assets": 0,
+        "assetTypes": null,
+        "inputs": null,
+        "streams": null,
+        "mutation": null,
+        "elapsedMilliseconds": 422,
+        "error": "System.IO.InvalidDataException: Could not compile Flash 8 FLA '/workspace/work/sound-analysis/validation-compile/sampleMissionBriefing-corrected/.source/sampleMissionBriefing-corrected.fla': Embedded audio is not supported by the RA3 UI asset compiler.",
+        "exception": "System.IO.InvalidDataException: Could not compile Flash 8 FLA '/workspace/work/sound-analysis/validation-compile/sampleMissionBriefing-corrected/.source/sampleMissionBriefing-corrected.fla': Embedded audio is not supported by the RA3 UI asset compiler.\n ---> System.NotSupportedException: Embedded audio is not supported by the RA3 UI asset compiler.\n   at BinaryAssetBuilder.UiCompiler.Compilation.FlaCompiler.SoundEvent(FlaRecord frame) in /workspace/NewSdk/ui/src/Compilation/FlaCompiler.cs:line 245\n   at BinaryAssetBuilder.UiCompiler.Compilation.FlaCompiler.Timeline.Events(List`1 output, Int32 index) in /workspace/NewSdk/ui/src/Compilation/FlaCompiler.cs:line 225\n   at BinaryAssetBuilder.UiCompiler.Compilation.FlaCompiler.Compile() in /workspace/NewSdk/ui/src/Compilation/FlaCompiler.cs:line 51\n   at BinaryAssetBuilder.UiCompiler.Plugin.CompileAssets(String path, String name) in /workspace/NewSdk/ui/src/Plugin.cs:line 92\n   --- End of inner exception stack trace ---\n   at BinaryAssetBuilder.UiCompiler.Plugin.CompileAssets(String path, String name) in /workspace/NewSdk/ui/src/Plugin.cs:line 97\n   at BinaryAssetBuilder.UiCompiler.Plugin.CompileFolder(String sourceDirectory, String outputBase) in /workspace/NewSdk/ui/src/Plugin.cs:line 77\n   at Program.<Main>$(String[] args) in /workspace/work/validation/Program.cs:line 53"
+      }
+    ]
+  },
+  "limitations": "Normalizes authoring source duration to the actual decoded waveform. No samples are dropped or added; this does not assert sample-accurate MP3 delay compensation."
+}

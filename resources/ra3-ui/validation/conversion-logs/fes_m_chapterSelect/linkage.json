@@ -1,0 +1,37 @@
+{
+  "localizedCount": 5,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 10.xml",
+      "url": "screens/fe_m_assetsGameSetup.swf",
+      "identifier": "MapPreviewComponent",
+      "name": "Symbol 10"
+    },
+    {
+      "file": "LIBRARY/Symbol 13.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "ScreenTitleBarSymbol",
+      "name": "Symbol 13"
+    },
+    {
+      "file": "LIBRARY/Symbol 3.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "lowerScreenBar Symbol",
+      "name": "Symbol 3"
+    },
+    {
+      "file": "LIBRARY/Symbol 6.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 6"
+    },
+    {
+      "file": "LIBRARY/Symbol 7.xml",
+      "url": "../mouse/Components/mouse_chapterSelectComponent.swf",
+      "identifier": "chapterSelectComponentSymbol",
+      "name": "Symbol 7"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

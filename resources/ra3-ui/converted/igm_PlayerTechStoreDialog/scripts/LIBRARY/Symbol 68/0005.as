@@ -1,0 +1,12 @@
+on(press){
+   OnPress();
+}
+on(release){
+   OnRelease();
+}
+on(rollOver){
+   OnRollOver();
+}
+on(rollOut){
+   OnRollOut();
+}

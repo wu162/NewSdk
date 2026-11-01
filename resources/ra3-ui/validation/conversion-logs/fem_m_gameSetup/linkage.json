@@ -1,0 +1,43 @@
+{
+  "localizedCount": 6,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 13.xml",
+      "url": "../mouse/Components/chatComponent.swf",
+      "identifier": "chatComponentSymbol",
+      "name": "Symbol 13"
+    },
+    {
+      "file": "LIBRARY/Symbol 28.xml",
+      "url": "screens/fe_m_assetsGameSetup.swf",
+      "identifier": "playerSlotMC",
+      "name": "Symbol 28"
+    },
+    {
+      "file": "LIBRARY/Symbol 29.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "ScreenTitleBarSymbol",
+      "name": "Symbol 29"
+    },
+    {
+      "file": "LIBRARY/Symbol 3.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "lowerScreenBar Symbol",
+      "name": "Symbol 3"
+    },
+    {
+      "file": "LIBRARY/Symbol 4.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 4"
+    },
+    {
+      "file": "LIBRARY/Symbol 5.xml",
+      "url": "screens/fe_m_assetsGameSetup.swf",
+      "identifier": "gameSettings",
+      "name": "Symbol 5"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

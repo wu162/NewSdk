@@ -1,0 +1,2 @@
+gotoAndStop("_over");
+play();

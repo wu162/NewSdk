@@ -1,0 +1,1 @@
+LabelTF.textColor = 0;

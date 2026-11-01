@@ -1,0 +1,37 @@
+{
+  "localizedCount": 5,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 24.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "lowerScreenBar Symbol",
+      "name": "Symbol 24"
+    },
+    {
+      "file": "LIBRARY/Symbol 25.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 25"
+    },
+    {
+      "file": "LIBRARY/Symbol 26.xml",
+      "url": "../cafe/mouseComponents/std_mouseRadioButton.swf",
+      "identifier": "std_mouseRadioButtonSymbol",
+      "name": "Symbol 26"
+    },
+    {
+      "file": "LIBRARY/Symbol 27.xml",
+      "url": "../cafe/mouseComponents/std_mouseRadioButton.swf",
+      "identifier": "std_mouseRadioButtonControllerSymbol",
+      "name": "Symbol 27"
+    },
+    {
+      "file": "LIBRARY/Symbol 31.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "ScreenTitleBarSymbol",
+      "name": "Symbol 31"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

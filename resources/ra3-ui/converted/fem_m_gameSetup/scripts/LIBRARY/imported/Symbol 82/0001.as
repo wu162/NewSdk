@@ -1,0 +1,5 @@
+#initclip
+interface IListboxEventListener
+{
+}
+#endinitclip

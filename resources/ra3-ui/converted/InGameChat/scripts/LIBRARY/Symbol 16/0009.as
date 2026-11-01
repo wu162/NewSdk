@@ -1,0 +1,17 @@
+on(rollOver){
+   gotoAndStop("_over");
+   play();
+   _root.PlaySound("Gui_ShellMapMouseOver");
+}
+on(release){
+   _root.GameCode(this.gameCode);
+   gotoAndStop("_down");
+   play();
+}
+on(press){
+   _root.PlaySound("Gui_ShellMapSelect");
+}
+on(rollOut){
+   gotoAndStop("_rollout");
+   play();
+}

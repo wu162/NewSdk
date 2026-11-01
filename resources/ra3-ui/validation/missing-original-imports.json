@@ -1,0 +1,3511 @@
+{
+  "method": "Read ImportAssets/ImportAssets2 and exact ExportAssets tables. Recursively parse PlaceObject/PlaceObject2/PlaceObject3 tags, including all DefineSprite timelines, plus raw DefineShape bitmap fills, button-state references and dynamic-text font references. Build directed character dependency graphs from root timeline id 0 and from public exported symbols. Cross-check original EAF files with the same parser.",
+  "offsetConvention": "Zero-based byte offsets into the full decompressed SWF/EAF including its eight-byte header; tagIndexInTimeline is zero-based and timelineFrame is one-based.",
+  "limits": "Reachability is static and independent of ActionScript control flow. Exported-library reachability identifies public runtime symbols with real missing bitmap-fill dependencies; it does not prove any particular game branch executes them. No alias or substitute asset is applied. FFDec dependency helpers may omit unresolved bitmap fills, so raw SWF bitfields are parsed directly.",
+  "totalMovies": 7,
+  "missingSymbolCount": 15,
+  "missingLibrarySymbolCount": 11,
+  "missingExportedSymbolCount": 4,
+  "rootReachableMissingSymbolCount": 12,
+  "exportedLibraryOnlyMissingSymbolCount": 3,
+  "allMissingSymbolsHaveDirectReferences": true,
+  "allMissingSymbolsReachableFromRootOrExports": true,
+  "allMissingSymbolsHaveDirectPlacements": false,
+  "allMissingSymbolsDisplayListReachableFromRoot": false,
+  "allSwfAndEafMissingImportTablesAgree": true,
+  "allSwfAndEafStructuralUsesAgree": true,
+  "conclusion": "All fifteen missing symbols across seven movies have real structural uses. Twelve are reachable from root display lists; skins has three missing bitmap fills used by public exported symbols. These seven movies cannot be claimed to be complete standalone reconstructions from the supplied pack. The dropdown spelling candidate is not an established safe alias.",
+  "movies": [
+    {
+      "movie": "LoadScreenImage",
+      "swf": {
+        "path": "LoadScreenImage/LoadScreenImage.swf",
+        "bytes": 13359,
+        "sha256": "a8a4652195ff859f6756b5dfadbc430b21bae1524d0342f9e111f18769ca16ba",
+        "swfVersion": 7,
+        "tagCounts": {
+          "0": 12,
+          "1": 22,
+          "2": 3,
+          "9": 1,
+          "12": 5,
+          "26": 27,
+          "32": 1,
+          "36": 2,
+          "37": 2,
+          "39": 11,
+          "43": 1,
+          "48": 1,
+          "56": 6,
+          "57": 1,
+          "59": 5
+        },
+        "missingImports": [
+          {
+            "characterId": 1,
+            "exportName": "ShellContent_HideWideScreen",
+            "url": "ShellContent.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 1,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 26,
+              "url": "ShellContent.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 1,
+                  "exportName": "ShellContent_HideWideScreen"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 16,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7408,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 16
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 16,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7408,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 16
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 20,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7881,
+                "characterId": 17,
+                "depth": 1,
+                "instanceName": "LoadScreenImage",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 17,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7622,
+                "characterId": 16,
+                "depth": 1,
+                "instanceName": "Screen",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 17
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 16,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7408,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 16
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": true,
+            "shortestExportDependencyPath": {
+              "exportName": "LoadScreenImageClass",
+              "exportedCharacterId": 17,
+              "path": [
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 1,
+                  "timelineCharacterId": 17,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 7622,
+                  "characterId": 16,
+                  "depth": 1,
+                  "instanceName": "Screen",
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 17
+                },
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 1,
+                  "timelineCharacterId": 16,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 7408,
+                  "characterId": 1,
+                  "depth": 1,
+                  "instanceName": null,
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 16
+                }
+              ]
+            },
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          }
+        ],
+        "attachmentApiLiteralCounts": {
+          "attachMovie": 0,
+          "duplicateMovieClip": 1,
+          "loadMovie": 0,
+          "eval": 0
+        },
+        "allMissingImportsHaveDirectReferences": true,
+        "allMissingImportsReachableFromRootOrExports": true,
+        "allMissingImportsHaveDirectPlacements": true,
+        "allMissingImportsDisplayListReachableFromRoot": true
+      },
+      "eaf": {
+        "path": "LoadScreenImage/LoadScreenImage.eaf",
+        "bytes": 8580,
+        "sha256": "95e749f5cab5bfbbf171e2e57f854ac86af995f7de88fe85419d5911cd8730cb",
+        "swfVersion": 7,
+        "tagCounts": {
+          "0": 12,
+          "1": 22,
+          "2": 3,
+          "9": 1,
+          "12": 5,
+          "26": 27,
+          "32": 1,
+          "36": 2,
+          "37": 2,
+          "39": 11,
+          "43": 1,
+          "48": 1,
+          "56": 6,
+          "57": 1,
+          "59": 5
+        },
+        "missingImports": [
+          {
+            "characterId": 1,
+            "exportName": "ShellContent_HideWideScreen",
+            "url": "ShellContent.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 1,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 26,
+              "url": "ShellContent.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 1,
+                  "exportName": "ShellContent_HideWideScreen"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 16,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7237,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 16
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 16,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7237,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 16
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 20,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7710,
+                "characterId": 17,
+                "depth": 1,
+                "instanceName": "LoadScreenImage",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 17,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7451,
+                "characterId": 16,
+                "depth": 1,
+                "instanceName": "Screen",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 17
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 16,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7237,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 16
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": true,
+            "shortestExportDependencyPath": {
+              "exportName": "LoadScreenImageClass",
+              "exportedCharacterId": 17,
+              "path": [
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 1,
+                  "timelineCharacterId": 17,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 7451,
+                  "characterId": 16,
+                  "depth": 1,
+                  "instanceName": "Screen",
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 17
+                },
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 1,
+                  "timelineCharacterId": 16,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 7237,
+                  "characterId": 1,
+                  "depth": 1,
+                  "instanceName": null,
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 16
+                }
+              ]
+            },
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          }
+        ],
+        "attachmentApiLiteralCounts": {
+          "attachMovie": 0,
+          "duplicateMovieClip": 1,
+          "loadMovie": 0,
+          "eval": 0
+        },
+        "allMissingImportsHaveDirectReferences": true,
+        "allMissingImportsReachableFromRootOrExports": true,
+        "allMissingImportsHaveDirectPlacements": true,
+        "allMissingImportsDisplayListReachableFromRoot": true
+      },
+      "swfAndEafMissingImportTablesAgree": true,
+      "swfAndEafStructuralUsesAgree": true
+    },
+    {
+      "movie": "LoadScreen",
+      "swf": {
+        "path": "LoadScreen/LoadScreen.swf",
+        "bytes": 885586,
+        "sha256": "068d9858f2f37dd04552d71e95069563fa4d49617a04f3552bdf951538c7a56a",
+        "swfVersion": 7,
+        "tagCounts": {
+          "0": 23,
+          "1": 33,
+          "2": 4,
+          "9": 1,
+          "12": 14,
+          "20": 1,
+          "22": 1,
+          "26": 64,
+          "28": 3,
+          "32": 1,
+          "35": 1,
+          "36": 2,
+          "37": 7,
+          "39": 22,
+          "43": 1,
+          "48": 1,
+          "57": 4
+        },
+        "missingImports": [
+          {
+            "characterId": 1,
+            "exportName": "ListBox",
+            "url": "GameWindowGadgets.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 3,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 2177,
+              "url": "GameWindowGadgets.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 1,
+                  "exportName": "ListBox"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 4,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 2213,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": "MapInfo",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 4,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 2213,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": "MapInfo",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 4,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 2213,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": "MapInfo",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [
+              2267,
+              2332
+            ],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 2,
+            "exportName": "ShellContent_HideWideScreen",
+            "url": "ShellContent.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 5,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 2350,
+              "url": "ShellContent.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 2,
+                  "exportName": "ShellContent_HideWideScreen"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 6,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 2401,
+                "characterId": 2,
+                "depth": 4,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 6,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 2401,
+                "characterId": 2,
+                "depth": 4,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 6,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 2401,
+                "characterId": 2,
+                "depth": 4,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 5,
+            "exportName": "Commander NameFlash",
+            "url": "Commander.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 10,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 865350,
+              "url": "Commander.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 5,
+                  "exportName": "Commander NameFlash"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 11,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 865390,
+                "characterId": 5,
+                "depth": 105,
+                "instanceName": "Difficulty",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 11,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 865390,
+                "characterId": 5,
+                "depth": 105,
+                "instanceName": "Difficulty",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 11,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 865390,
+                "characterId": 5,
+                "depth": 105,
+                "instanceName": "Difficulty",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 11,
+            "exportName": "CurrentMapWin",
+            "url": "MpGameSetup.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 19,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 879310,
+              "url": "MpGameSetup.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 11,
+                  "exportName": "CurrentMapWin"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 0,
+                "timelineCharacterId": 12,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 879356,
+                "characterId": 11,
+                "depth": 1,
+                "instanceName": "CurrentMap",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 12
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 0,
+                "timelineCharacterId": 12,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 879356,
+                "characterId": 11,
+                "depth": 1,
+                "instanceName": "CurrentMap",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 12
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 21,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 879498,
+                "characterId": 12,
+                "depth": 138,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 0,
+                "timelineCharacterId": 12,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 879356,
+                "characterId": 11,
+                "depth": 1,
+                "instanceName": "CurrentMap",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 12
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          }
+        ],
+        "attachmentApiLiteralCounts": {
+          "attachMovie": 0,
+          "duplicateMovieClip": 1,
+          "loadMovie": 0,
+          "eval": 0
+        },
+        "allMissingImportsHaveDirectReferences": true,
+        "allMissingImportsReachableFromRootOrExports": true,
+        "allMissingImportsHaveDirectPlacements": true,
+        "allMissingImportsDisplayListReachableFromRoot": true
+      },
+      "eaf": {
+        "path": "LoadScreen/LoadScreen.eaf",
+        "bytes": 872974,
+        "sha256": "3de940861c1bed2f3852d3a91172fb96858a71b9b78bd62527c1adc138cb7fb1",
+        "swfVersion": 7,
+        "tagCounts": {
+          "0": 23,
+          "1": 33,
+          "2": 4,
+          "9": 1,
+          "12": 14,
+          "20": 1,
+          "22": 1,
+          "26": 64,
+          "28": 3,
+          "32": 1,
+          "35": 1,
+          "36": 2,
+          "37": 7,
+          "39": 22,
+          "43": 1,
+          "48": 1,
+          "57": 4
+        },
+        "missingImports": [
+          {
+            "characterId": 1,
+            "exportName": "ListBox",
+            "url": "GameWindowGadgets.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 3,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 2075,
+              "url": "GameWindowGadgets.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 1,
+                  "exportName": "ListBox"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 4,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 2111,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": "MapInfo",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 4,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 2111,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": "MapInfo",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 4,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 2111,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": "MapInfo",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [
+              2166,
+              2231
+            ],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 2,
+            "exportName": "ShellContent_HideWideScreen",
+            "url": "ShellContent.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 5,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 2248,
+              "url": "ShellContent.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 2,
+                  "exportName": "ShellContent_HideWideScreen"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 6,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 2299,
+                "characterId": 2,
+                "depth": 4,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 6,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 2299,
+                "characterId": 2,
+                "depth": 4,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 6,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 2299,
+                "characterId": 2,
+                "depth": 4,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 5,
+            "exportName": "Commander NameFlash",
+            "url": "Commander.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 10,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 865250,
+              "url": "Commander.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 5,
+                  "exportName": "Commander NameFlash"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 11,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 865290,
+                "characterId": 5,
+                "depth": 105,
+                "instanceName": "Difficulty",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 11,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 865290,
+                "characterId": 5,
+                "depth": 105,
+                "instanceName": "Difficulty",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 11,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 865290,
+                "characterId": 5,
+                "depth": 105,
+                "instanceName": "Difficulty",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 11,
+            "exportName": "CurrentMapWin",
+            "url": "MpGameSetup.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 19,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 879204,
+              "url": "MpGameSetup.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 11,
+                  "exportName": "CurrentMapWin"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 0,
+                "timelineCharacterId": 12,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 879250,
+                "characterId": 11,
+                "depth": 1,
+                "instanceName": "CurrentMap",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 12
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 0,
+                "timelineCharacterId": 12,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 879250,
+                "characterId": 11,
+                "depth": 1,
+                "instanceName": "CurrentMap",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 12
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 21,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 879392,
+                "characterId": 12,
+                "depth": 138,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 0,
+                "timelineCharacterId": 12,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 879250,
+                "characterId": 11,
+                "depth": 1,
+                "instanceName": "CurrentMap",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 12
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          }
+        ],
+        "attachmentApiLiteralCounts": {
+          "attachMovie": 0,
+          "duplicateMovieClip": 1,
+          "loadMovie": 0,
+          "eval": 0
+        },
+        "allMissingImportsHaveDirectReferences": true,
+        "allMissingImportsReachableFromRootOrExports": true,
+        "allMissingImportsHaveDirectPlacements": true,
+        "allMissingImportsDisplayListReachableFromRoot": true
+      },
+      "swfAndEafMissingImportTablesAgree": true,
+      "swfAndEafStructuralUsesAgree": true
+    },
+    {
+      "movie": "testCafeUI",
+      "swf": {
+        "path": "testCafeUI/testCafeUI.swf",
+        "bytes": 88782,
+        "sha256": "933daeb82d688f9bbc5e5873573f0a53bbaad9b68fe91ecd48d256b392ffd073",
+        "swfVersion": 7,
+        "tagCounts": {
+          "0": 12,
+          "1": 133,
+          "2": 11,
+          "9": 1,
+          "12": 14,
+          "20": 3,
+          "26": 42,
+          "34": 2,
+          "37": 2,
+          "39": 11,
+          "43": 14,
+          "48": 1,
+          "56": 152,
+          "57": 8,
+          "59": 4
+        },
+        "missingImports": [
+          {
+            "characterId": 27,
+            "exportName": "stdMouseDropDownMenuSymbol",
+            "url": "../cafe/mouseComponents/std_mouseDropDownMenu.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 177,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 71874,
+              "url": "../cafe/mouseComponents/std_mouseDropDownMenu.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 27,
+                  "exportName": "stdMouseDropDownMenuSymbol"
+                }
+              ],
+              "missingLibrary": false
+            },
+            "reason": "missing-exported-symbol",
+            "libraryEvidence": {
+              "path": "std_mouseDropDownMenu/std_mouseDropDownMenu.swf",
+              "sha256": "4832e612a3bf1019f362b6bca2100d0a006550d5e9db303383bec2566983f8de",
+              "exportedSymbols": [
+                {
+                  "exportName": "ColorSwatchDropdownContentSymbol",
+                  "characterId": 27
+                },
+                {
+                  "exportName": "DropdownButtonContent",
+                  "characterId": 9
+                },
+                {
+                  "exportName": "DropdownButtonHitRegion",
+                  "characterId": 5
+                },
+                {
+                  "exportName": "RenderImageDropdownContentSymbol",
+                  "characterId": 25
+                },
+                {
+                  "exportName": "TextDropdownMenuContentSymbol",
+                  "characterId": 29
+                },
+                {
+                  "exportName": "std_mouseDropDownMenuSymbol",
+                  "characterId": 14
+                },
+                {
+                  "exportName": "std_mouseDropdownMenuVisRef",
+                  "characterId": 13
+                }
+              ],
+              "swfAndEafExportTablesAgree": true,
+              "caseInsensitiveNameMatches": [],
+              "normalizedSpellingCandidates": [
+                "std_mouseDropDownMenuSymbol"
+              ],
+              "safeAliasEstablished": false,
+              "aliasApplied": false,
+              "aliasNote": "ExportAssets uses exact identifier names. Similar spelling alone does not establish identical symbol identity."
+            },
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 178,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 71961,
+                "characterId": 27,
+                "depth": 7,
+                "instanceName": "dropDownMenuUI",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 178,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 71961,
+                "characterId": 27,
+                "depth": 7,
+                "instanceName": "dropDownMenuUI",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 178,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 71961,
+                "characterId": 27,
+                "depth": 7,
+                "instanceName": "dropDownMenuUI",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 28,
+            "exportName": "MultiColumnScrollBoxSymbol",
+            "url": "../cafe/mouseComponents/std_mouseScrollTextBox.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 179,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 72232,
+              "url": "../cafe/mouseComponents/std_mouseScrollTextBox.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 28,
+                  "exportName": "MultiColumnScrollBoxSymbol"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 180,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 72320,
+                "characterId": 28,
+                "depth": 9,
+                "instanceName": "multiCol_SS",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 180,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 72320,
+                "characterId": 28,
+                "depth": 9,
+                "instanceName": "multiCol_SS",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 180,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 72320,
+                "characterId": 28,
+                "depth": 9,
+                "instanceName": "multiCol_SS",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 31,
+            "exportName": "stdMouseScrollingTextListSymbol",
+            "url": "../cafe/mouseComponents/std_mouseScrollTextBox.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 185,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 72971,
+              "url": "../cafe/mouseComponents/std_mouseScrollTextBox.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 31,
+                  "exportName": "stdMouseScrollingTextListSymbol"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 186,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 73064,
+                "characterId": 31,
+                "depth": 26,
+                "instanceName": "uiScrollingTextBox",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 186,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 73064,
+                "characterId": 31,
+                "depth": 26,
+                "instanceName": "uiScrollingTextBox",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 186,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 73064,
+                "characterId": 31,
+                "depth": 26,
+                "instanceName": "uiScrollingTextBox",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          }
+        ],
+        "attachmentApiLiteralCounts": {
+          "attachMovie": 0,
+          "duplicateMovieClip": 0,
+          "loadMovie": 0,
+          "eval": 0
+        },
+        "allMissingImportsHaveDirectReferences": true,
+        "allMissingImportsReachableFromRootOrExports": true,
+        "allMissingImportsHaveDirectPlacements": true,
+        "allMissingImportsDisplayListReachableFromRoot": true
+      },
+      "eaf": {
+        "path": "testCafeUI/testCafeUI.eaf",
+        "bytes": 72740,
+        "sha256": "f26dd940420ae9fe9a872b1626c8ff91f8835e5f1903bcc26bd7910782515575",
+        "swfVersion": 7,
+        "tagCounts": {
+          "0": 12,
+          "1": 133,
+          "2": 11,
+          "9": 1,
+          "12": 14,
+          "20": 3,
+          "26": 42,
+          "34": 2,
+          "37": 2,
+          "39": 11,
+          "43": 14,
+          "48": 1,
+          "56": 152,
+          "57": 8,
+          "59": 4
+        },
+        "missingImports": [
+          {
+            "characterId": 27,
+            "exportName": "stdMouseDropDownMenuSymbol",
+            "url": "../cafe/mouseComponents/std_mouseDropDownMenu.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 177,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 71819,
+              "url": "../cafe/mouseComponents/std_mouseDropDownMenu.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 27,
+                  "exportName": "stdMouseDropDownMenuSymbol"
+                }
+              ],
+              "missingLibrary": false
+            },
+            "reason": "missing-exported-symbol",
+            "libraryEvidence": {
+              "path": "std_mouseDropDownMenu/std_mouseDropDownMenu.swf",
+              "sha256": "4832e612a3bf1019f362b6bca2100d0a006550d5e9db303383bec2566983f8de",
+              "exportedSymbols": [
+                {
+                  "exportName": "ColorSwatchDropdownContentSymbol",
+                  "characterId": 27
+                },
+                {
+                  "exportName": "DropdownButtonContent",
+                  "characterId": 9
+                },
+                {
+                  "exportName": "DropdownButtonHitRegion",
+                  "characterId": 5
+                },
+                {
+                  "exportName": "RenderImageDropdownContentSymbol",
+                  "characterId": 25
+                },
+                {
+                  "exportName": "TextDropdownMenuContentSymbol",
+                  "characterId": 29
+                },
+                {
+                  "exportName": "std_mouseDropDownMenuSymbol",
+                  "characterId": 14
+                },
+                {
+                  "exportName": "std_mouseDropdownMenuVisRef",
+                  "characterId": 13
+                }
+              ],
+              "swfAndEafExportTablesAgree": true,
+              "caseInsensitiveNameMatches": [],
+              "normalizedSpellingCandidates": [
+                "std_mouseDropDownMenuSymbol"
+              ],
+              "safeAliasEstablished": false,
+              "aliasApplied": false,
+              "aliasNote": "ExportAssets uses exact identifier names. Similar spelling alone does not establish identical symbol identity."
+            },
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 178,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 71906,
+                "characterId": 27,
+                "depth": 7,
+                "instanceName": "dropDownMenuUI",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 178,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 71906,
+                "characterId": 27,
+                "depth": 7,
+                "instanceName": "dropDownMenuUI",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 178,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 71906,
+                "characterId": 27,
+                "depth": 7,
+                "instanceName": "dropDownMenuUI",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 28,
+            "exportName": "MultiColumnScrollBoxSymbol",
+            "url": "../cafe/mouseComponents/std_mouseScrollTextBox.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 179,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 72168,
+              "url": "../cafe/mouseComponents/std_mouseScrollTextBox.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 28,
+                  "exportName": "MultiColumnScrollBoxSymbol"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 180,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 72256,
+                "characterId": 28,
+                "depth": 9,
+                "instanceName": "multiCol_SS",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 180,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 72256,
+                "characterId": 28,
+                "depth": 9,
+                "instanceName": "multiCol_SS",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 180,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 72256,
+                "characterId": 28,
+                "depth": 9,
+                "instanceName": "multiCol_SS",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 31,
+            "exportName": "stdMouseScrollingTextListSymbol",
+            "url": "../cafe/mouseComponents/std_mouseScrollTextBox.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 185,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 72868,
+              "url": "../cafe/mouseComponents/std_mouseScrollTextBox.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 31,
+                  "exportName": "stdMouseScrollingTextListSymbol"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 186,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 72961,
+                "characterId": 31,
+                "depth": 26,
+                "instanceName": "uiScrollingTextBox",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 186,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 72961,
+                "characterId": 31,
+                "depth": 26,
+                "instanceName": "uiScrollingTextBox",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 186,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 72961,
+                "characterId": 31,
+                "depth": 26,
+                "instanceName": "uiScrollingTextBox",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          }
+        ],
+        "attachmentApiLiteralCounts": {
+          "attachMovie": 0,
+          "duplicateMovieClip": 0,
+          "loadMovie": 0,
+          "eval": 0
+        },
+        "allMissingImportsHaveDirectReferences": true,
+        "allMissingImportsReachableFromRootOrExports": true,
+        "allMissingImportsHaveDirectPlacements": true,
+        "allMissingImportsDisplayListReachableFromRoot": true
+      },
+      "swfAndEafMissingImportTablesAgree": true,
+      "swfAndEafStructuralUsesAgree": true
+    },
+    {
+      "movie": "InGameChat",
+      "swf": {
+        "path": "InGameChat/InGameChat.swf",
+        "bytes": 12781,
+        "sha256": "f0a11c1d5717945bd1a11d1ec0c46e4ec900a196d48a37210c20094dacd1e054",
+        "swfVersion": 7,
+        "tagCounts": {
+          "0": 10,
+          "1": 270,
+          "2": 6,
+          "9": 1,
+          "12": 13,
+          "26": 87,
+          "28": 9,
+          "32": 1,
+          "34": 1,
+          "36": 3,
+          "37": 2,
+          "39": 9,
+          "43": 12,
+          "48": 2,
+          "57": 1
+        },
+        "missingImports": [
+          {
+            "characterId": 19,
+            "exportName": "TextEntry",
+            "url": "GameWindowGadgets.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 20,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 11107,
+              "url": "GameWindowGadgets.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 19,
+                  "exportName": "TextEntry"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 14,
+                "timelineCharacterId": 20,
+                "timelineFrame": 9,
+                "uncompressedFileOffset": 11333,
+                "characterId": 19,
+                "depth": 1,
+                "instanceName": "InGameChatEntry",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 20
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 14,
+                "timelineCharacterId": 20,
+                "timelineFrame": 9,
+                "uncompressedFileOffset": 11333,
+                "characterId": 19,
+                "depth": 1,
+                "instanceName": "InGameChatEntry",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 20
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 27,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 12759,
+                "characterId": 25,
+                "depth": 1,
+                "instanceName": "panel",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 2,
+                "timelineCharacterId": 25,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 12454,
+                "characterId": 24,
+                "depth": 2,
+                "instanceName": "mcInGameChat",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 25
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 4,
+                "timelineCharacterId": 24,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 12330,
+                "characterId": 20,
+                "depth": 10,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 24
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 14,
+                "timelineCharacterId": 20,
+                "timelineFrame": 9,
+                "uncompressedFileOffset": 11333,
+                "characterId": 19,
+                "depth": 1,
+                "instanceName": "InGameChatEntry",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 20
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [
+              11397,
+              11462
+            ],
+            "declaredButUnreferenced": false
+          }
+        ],
+        "attachmentApiLiteralCounts": {
+          "attachMovie": 0,
+          "duplicateMovieClip": 0,
+          "loadMovie": 0,
+          "eval": 0
+        },
+        "allMissingImportsHaveDirectReferences": true,
+        "allMissingImportsReachableFromRootOrExports": true,
+        "allMissingImportsHaveDirectPlacements": true,
+        "allMissingImportsDisplayListReachableFromRoot": true
+      },
+      "eaf": {
+        "path": "InGameChat/InGameChat.eaf",
+        "bytes": 9165,
+        "sha256": "85bd4b4e5a9402548d39f6382cffa945afb431c2f0b4bfb467472d9222f0191d",
+        "swfVersion": 7,
+        "tagCounts": {
+          "0": 10,
+          "1": 270,
+          "2": 6,
+          "9": 1,
+          "12": 13,
+          "26": 87,
+          "28": 9,
+          "32": 1,
+          "34": 1,
+          "36": 3,
+          "37": 2,
+          "39": 9,
+          "43": 12,
+          "48": 2,
+          "57": 1
+        },
+        "missingImports": [
+          {
+            "characterId": 19,
+            "exportName": "TextEntry",
+            "url": "GameWindowGadgets.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 20,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 10908,
+              "url": "GameWindowGadgets.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 19,
+                  "exportName": "TextEntry"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 14,
+                "timelineCharacterId": 20,
+                "timelineFrame": 9,
+                "uncompressedFileOffset": 11112,
+                "characterId": 19,
+                "depth": 1,
+                "instanceName": "InGameChatEntry",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 20
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 14,
+                "timelineCharacterId": 20,
+                "timelineFrame": 9,
+                "uncompressedFileOffset": 11112,
+                "characterId": 19,
+                "depth": 1,
+                "instanceName": "InGameChatEntry",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 20
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 27,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 12444,
+                "characterId": 25,
+                "depth": 1,
+                "instanceName": "panel",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 2,
+                "timelineCharacterId": 25,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 12145,
+                "characterId": 24,
+                "depth": 2,
+                "instanceName": "mcInGameChat",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 25
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 4,
+                "timelineCharacterId": 24,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 12021,
+                "characterId": 20,
+                "depth": 10,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 24
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 14,
+                "timelineCharacterId": 20,
+                "timelineFrame": 9,
+                "uncompressedFileOffset": 11112,
+                "characterId": 19,
+                "depth": 1,
+                "instanceName": "InGameChatEntry",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 20
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [
+              11177,
+              11242
+            ],
+            "declaredButUnreferenced": false
+          }
+        ],
+        "attachmentApiLiteralCounts": {
+          "attachMovie": 0,
+          "duplicateMovieClip": 0,
+          "loadMovie": 0,
+          "eval": 0
+        },
+        "allMissingImportsHaveDirectReferences": true,
+        "allMissingImportsReachableFromRootOrExports": true,
+        "allMissingImportsHaveDirectPlacements": true,
+        "allMissingImportsDisplayListReachableFromRoot": true
+      },
+      "swfAndEafMissingImportTablesAgree": true,
+      "swfAndEafStructuralUsesAgree": true
+    },
+    {
+      "movie": "LoadScreenCampaign",
+      "swf": {
+        "path": "LoadScreenCampaign/LoadScreenCampaign.swf",
+        "bytes": 13790,
+        "sha256": "823bf14968efcb505fa19d457ec6319a31c4603160963c8a2448bd47f43ee445",
+        "swfVersion": 7,
+        "tagCounts": {
+          "0": 13,
+          "1": 24,
+          "2": 3,
+          "9": 1,
+          "12": 6,
+          "26": 30,
+          "32": 1,
+          "36": 2,
+          "37": 3,
+          "39": 12,
+          "43": 1,
+          "48": 1,
+          "56": 6,
+          "57": 2,
+          "59": 5
+        },
+        "missingImports": [
+          {
+            "characterId": 1,
+            "exportName": "ShellContent_HideWideScreen",
+            "url": "ShellContent.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 1,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 26,
+              "url": "ShellContent.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 1,
+                  "exportName": "ShellContent_HideWideScreen"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 19,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7514,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 19
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 19,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7514,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 19
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 23,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 8025,
+                "characterId": 20,
+                "depth": 1,
+                "instanceName": "LoadScreenCampaign",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 20,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7760,
+                "characterId": 19,
+                "depth": 1,
+                "instanceName": "Screen",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 20
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 19,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7514,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 19
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": true,
+            "shortestExportDependencyPath": {
+              "exportName": "LoadScreenCampaignClass",
+              "exportedCharacterId": 20,
+              "path": [
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 1,
+                  "timelineCharacterId": 20,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 7760,
+                  "characterId": 19,
+                  "depth": 1,
+                  "instanceName": "Screen",
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 20
+                },
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 1,
+                  "timelineCharacterId": 19,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 7514,
+                  "characterId": 1,
+                  "depth": 1,
+                  "instanceName": null,
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 19
+                }
+              ]
+            },
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 17,
+            "exportName": "ShellButtons Small",
+            "url": "ShellButtons.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 17,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 7200,
+              "url": "ShellButtons.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 17,
+                  "exportName": "ShellButtons Small"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 0,
+                "timelineCharacterId": 18,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7252,
+                "characterId": 17,
+                "depth": 1,
+                "instanceName": "StartGame",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 18
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 0,
+                "timelineCharacterId": 18,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7252,
+                "characterId": 17,
+                "depth": 1,
+                "instanceName": "StartGame",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 18
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 23,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 8025,
+                "characterId": 20,
+                "depth": 1,
+                "instanceName": "LoadScreenCampaign",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 20,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7760,
+                "characterId": 19,
+                "depth": 1,
+                "instanceName": "Screen",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 20
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 7,
+                "timelineCharacterId": 19,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7730,
+                "characterId": 18,
+                "depth": 14,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 19
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 0,
+                "timelineCharacterId": 18,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7252,
+                "characterId": 17,
+                "depth": 1,
+                "instanceName": "StartGame",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 18
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": true,
+            "shortestExportDependencyPath": {
+              "exportName": "LoadScreenCampaignClass",
+              "exportedCharacterId": 20,
+              "path": [
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 1,
+                  "timelineCharacterId": 20,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 7760,
+                  "characterId": 19,
+                  "depth": 1,
+                  "instanceName": "Screen",
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 20
+                },
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 7,
+                  "timelineCharacterId": 19,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 7730,
+                  "characterId": 18,
+                  "depth": 14,
+                  "instanceName": null,
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 19
+                },
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 0,
+                  "timelineCharacterId": 18,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 7252,
+                  "characterId": 17,
+                  "depth": 1,
+                  "instanceName": "StartGame",
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 18
+                }
+              ]
+            },
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          }
+        ],
+        "attachmentApiLiteralCounts": {
+          "attachMovie": 0,
+          "duplicateMovieClip": 1,
+          "loadMovie": 0,
+          "eval": 0
+        },
+        "allMissingImportsHaveDirectReferences": true,
+        "allMissingImportsReachableFromRootOrExports": true,
+        "allMissingImportsHaveDirectPlacements": true,
+        "allMissingImportsDisplayListReachableFromRoot": true
+      },
+      "eaf": {
+        "path": "LoadScreenCampaign/LoadScreenCampaign.eaf",
+        "bytes": 8767,
+        "sha256": "4ab0e544ef9647b15618ad3c06ab2397ae7d2a5bfaec8caff9017324e3372613",
+        "swfVersion": 7,
+        "tagCounts": {
+          "0": 13,
+          "1": 24,
+          "2": 3,
+          "9": 1,
+          "12": 6,
+          "26": 30,
+          "32": 1,
+          "36": 2,
+          "37": 3,
+          "39": 12,
+          "43": 1,
+          "48": 1,
+          "56": 6,
+          "57": 2,
+          "59": 5
+        },
+        "missingImports": [
+          {
+            "characterId": 1,
+            "exportName": "ShellContent_HideWideScreen",
+            "url": "ShellContent.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 1,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 26,
+              "url": "ShellContent.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 1,
+                  "exportName": "ShellContent_HideWideScreen"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 19,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7363,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 19
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 19,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7363,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 19
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 23,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7874,
+                "characterId": 20,
+                "depth": 1,
+                "instanceName": "LoadScreenCampaign",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 20,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7609,
+                "characterId": 19,
+                "depth": 1,
+                "instanceName": "Screen",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 20
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 19,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7363,
+                "characterId": 1,
+                "depth": 1,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 19
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": true,
+            "shortestExportDependencyPath": {
+              "exportName": "LoadScreenCampaignClass",
+              "exportedCharacterId": 20,
+              "path": [
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 1,
+                  "timelineCharacterId": 20,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 7609,
+                  "characterId": 19,
+                  "depth": 1,
+                  "instanceName": "Screen",
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 20
+                },
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 1,
+                  "timelineCharacterId": 19,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 7363,
+                  "characterId": 1,
+                  "depth": 1,
+                  "instanceName": null,
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 19
+                }
+              ]
+            },
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 17,
+            "exportName": "ShellButtons Small",
+            "url": "ShellButtons.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 17,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 7069,
+              "url": "ShellButtons.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 17,
+                  "exportName": "ShellButtons Small"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 0,
+                "timelineCharacterId": 18,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7121,
+                "characterId": 17,
+                "depth": 1,
+                "instanceName": "StartGame",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 18
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 0,
+                "timelineCharacterId": 18,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7121,
+                "characterId": 17,
+                "depth": 1,
+                "instanceName": "StartGame",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 18
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 23,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7874,
+                "characterId": 20,
+                "depth": 1,
+                "instanceName": "LoadScreenCampaign",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 1,
+                "timelineCharacterId": 20,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7609,
+                "characterId": 19,
+                "depth": 1,
+                "instanceName": "Screen",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 20
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 7,
+                "timelineCharacterId": 19,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7579,
+                "characterId": 18,
+                "depth": 14,
+                "instanceName": null,
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 19
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 0,
+                "timelineCharacterId": 18,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 7121,
+                "characterId": 17,
+                "depth": 1,
+                "instanceName": "StartGame",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 18
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": true,
+            "shortestExportDependencyPath": {
+              "exportName": "LoadScreenCampaignClass",
+              "exportedCharacterId": 20,
+              "path": [
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 1,
+                  "timelineCharacterId": 20,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 7609,
+                  "characterId": 19,
+                  "depth": 1,
+                  "instanceName": "Screen",
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 20
+                },
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 7,
+                  "timelineCharacterId": 19,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 7579,
+                  "characterId": 18,
+                  "depth": 14,
+                  "instanceName": null,
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 19
+                },
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 0,
+                  "timelineCharacterId": 18,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 7121,
+                  "characterId": 17,
+                  "depth": 1,
+                  "instanceName": "StartGame",
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 18
+                }
+              ]
+            },
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          }
+        ],
+        "attachmentApiLiteralCounts": {
+          "attachMovie": 0,
+          "duplicateMovieClip": 1,
+          "loadMovie": 0,
+          "eval": 0
+        },
+        "allMissingImportsHaveDirectReferences": true,
+        "allMissingImportsReachableFromRootOrExports": true,
+        "allMissingImportsHaveDirectPlacements": true,
+        "allMissingImportsDisplayListReachableFromRoot": true
+      },
+      "swfAndEafMissingImportTablesAgree": true,
+      "swfAndEafStructuralUsesAgree": true
+    },
+    {
+      "movie": "TacticalPlayerStatusDialog",
+      "swf": {
+        "path": "TacticalPlayerStatusDialog/TacticalPlayerStatusDialog.swf",
+        "bytes": 43699,
+        "sha256": "94c8b47bc1b1b39cebfb7ad8f8a98afb32fa9e14b5ec6499ce9dd90fcda26b1f",
+        "swfVersion": 7,
+        "tagCounts": {
+          "0": 21,
+          "1": 35,
+          "2": 4,
+          "9": 1,
+          "12": 5,
+          "20": 1,
+          "22": 2,
+          "26": 60,
+          "28": 1,
+          "36": 5,
+          "37": 11,
+          "39": 20,
+          "43": 1,
+          "48": 1,
+          "56": 1,
+          "57": 2
+        },
+        "missingImports": [
+          {
+            "characterId": 18,
+            "exportName": "ShellButtons Small",
+            "url": "ShellButtons.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 20,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 18482,
+              "url": "ShellButtons.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 18,
+                  "exportName": "ShellButtons Small"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 3,
+                "timelineCharacterId": 43,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 22924,
+                "characterId": 18,
+                "depth": 6,
+                "instanceName": "closeButton",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 43
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 3,
+                "timelineCharacterId": 43,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 22924,
+                "characterId": 18,
+                "depth": 6,
+                "instanceName": "closeButton",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 43
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 46,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 23242,
+                "characterId": 43,
+                "depth": 1,
+                "instanceName": "dialog",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 3,
+                "timelineCharacterId": 43,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 22924,
+                "characterId": 18,
+                "depth": 6,
+                "instanceName": "closeButton",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 43
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          }
+        ],
+        "attachmentApiLiteralCounts": {
+          "attachMovie": 1,
+          "duplicateMovieClip": 0,
+          "loadMovie": 1,
+          "eval": 0
+        },
+        "allMissingImportsHaveDirectReferences": true,
+        "allMissingImportsReachableFromRootOrExports": true,
+        "allMissingImportsHaveDirectPlacements": true,
+        "allMissingImportsDisplayListReachableFromRoot": true
+      },
+      "eaf": {
+        "path": "TacticalPlayerStatusDialog/TacticalPlayerStatusDialog.eaf",
+        "bytes": 36586,
+        "sha256": "21f6042821c6b1bedf402ebb6a0e70a4fa2848809b18cc1aeedf5f29b74f4f71",
+        "swfVersion": 7,
+        "tagCounts": {
+          "0": 21,
+          "1": 35,
+          "2": 4,
+          "9": 1,
+          "12": 5,
+          "20": 1,
+          "22": 2,
+          "26": 60,
+          "28": 1,
+          "36": 5,
+          "37": 11,
+          "39": 20,
+          "43": 1,
+          "48": 1,
+          "56": 1,
+          "57": 2
+        },
+        "missingImports": [
+          {
+            "characterId": 18,
+            "exportName": "ShellButtons Small",
+            "url": "ShellButtons.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 20,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 18256,
+              "url": "ShellButtons.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 18,
+                  "exportName": "ShellButtons Small"
+                }
+              ],
+              "missingLibrary": true
+            },
+            "reason": "missing-library",
+            "libraryEvidence": null,
+            "directReferences": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 3,
+                "timelineCharacterId": 43,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 22622,
+                "characterId": 18,
+                "depth": 6,
+                "instanceName": "closeButton",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 43
+              }
+            ],
+            "directPlacements": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 3,
+                "timelineCharacterId": 43,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 22622,
+                "characterId": 18,
+                "depth": 6,
+                "instanceName": "closeButton",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 43
+              }
+            ],
+            "displayListReachableFromRoot": true,
+            "shortestRootPlacementPath": [
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 46,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 22931,
+                "characterId": 43,
+                "depth": 1,
+                "instanceName": "dialog",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 0
+              },
+              {
+                "tagCode": 26,
+                "tagIndexInTimeline": 3,
+                "timelineCharacterId": 43,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 22622,
+                "characterId": 18,
+                "depth": 6,
+                "instanceName": "closeButton",
+                "referenceKind": "display-placement",
+                "sourceCharacterId": 43
+              }
+            ],
+            "reachableFromExportedRuntimeSymbol": false,
+            "shortestExportDependencyPath": null,
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          }
+        ],
+        "attachmentApiLiteralCounts": {
+          "attachMovie": 1,
+          "duplicateMovieClip": 0,
+          "loadMovie": 1,
+          "eval": 0
+        },
+        "allMissingImportsHaveDirectReferences": true,
+        "allMissingImportsReachableFromRootOrExports": true,
+        "allMissingImportsHaveDirectPlacements": true,
+        "allMissingImportsDisplayListReachableFromRoot": true
+      },
+      "swfAndEafMissingImportTablesAgree": true,
+      "swfAndEafStructuralUsesAgree": true
+    },
+    {
+      "movie": "skins",
+      "swf": {
+        "path": "skins/skins.swf",
+        "bytes": 49018,
+        "sha256": "6692abd37f12ae7d7ac16217f0aed174cabfb5cc7a6a6a59428aaf04812b23ec",
+        "swfVersion": 7,
+        "tagCounts": {
+          "0": 15,
+          "1": 326,
+          "2": 8,
+          "9": 1,
+          "12": 30,
+          "20": 1,
+          "22": 1,
+          "26": 132,
+          "28": 1,
+          "34": 3,
+          "36": 1,
+          "37": 3,
+          "39": 14,
+          "43": 28,
+          "48": 2,
+          "56": 1541,
+          "57": 3
+        },
+        "missingImports": [
+          {
+            "characterId": 6,
+            "exportName": "unCheckedCBox",
+            "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 9,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 756,
+              "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 6,
+                  "exportName": "unCheckedCBox"
+                }
+              ],
+              "missingLibrary": false
+            },
+            "reason": "missing-exported-symbol",
+            "libraryEvidence": {
+              "path": "std_MouseCheckBox/std_MouseCheckBox.swf",
+              "sha256": "b345a171717e96565ff7e7ceb72f9e56608a0994abe3e9e6d4e3e7564be35f55",
+              "exportedSymbols": [
+                {
+                  "exportName": "GameSetupCheckBoxContentClip",
+                  "characterId": 10
+                },
+                {
+                  "exportName": "GameSetupcheckBoxMC",
+                  "characterId": 7
+                },
+                {
+                  "exportName": "GameSetupcheckBoxMCDisable",
+                  "characterId": 24
+                },
+                {
+                  "exportName": "cbHitRegionButtonSymbol",
+                  "characterId": 9
+                },
+                {
+                  "exportName": "checkBoxContentClipSymbol",
+                  "characterId": 22
+                },
+                {
+                  "exportName": "checkBoxMCDisable_Symbol",
+                  "characterId": 26
+                },
+                {
+                  "exportName": "checkBoxMC_Symbol",
+                  "characterId": 17
+                },
+                {
+                  "exportName": "std_MouseCheckBoxSymbol",
+                  "characterId": 23
+                },
+                {
+                  "exportName": "std_MouseCheckBox_labelSymbol",
+                  "characterId": 20
+                }
+              ],
+              "swfAndEafExportTablesAgree": true,
+              "caseInsensitiveNameMatches": [],
+              "normalizedSpellingCandidates": [],
+              "safeAliasEstablished": false,
+              "aliasApplied": false,
+              "aliasNote": "ExportAssets uses exact identifier names. Similar spelling alone does not establish identical symbol identity."
+            },
+            "directReferences": [
+              {
+                "tagCode": 2,
+                "tagIndexInTimeline": 10,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 826,
+                "characterId": 6,
+                "sourceCharacterId": 7,
+                "referenceKind": "shape-bitmap-fill"
+              }
+            ],
+            "directPlacements": [],
+            "displayListReachableFromRoot": false,
+            "shortestRootPlacementPath": null,
+            "reachableFromExportedRuntimeSymbol": true,
+            "shortestExportDependencyPath": {
+              "exportName": "checkBoxMC_Symbol",
+              "exportedCharacterId": 10,
+              "path": [
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 1,
+                  "timelineCharacterId": 10,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 1021,
+                  "characterId": 7,
+                  "depth": 1,
+                  "instanceName": null,
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 10
+                },
+                {
+                  "tagCode": 2,
+                  "tagIndexInTimeline": 10,
+                  "timelineCharacterId": 0,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 826,
+                  "characterId": 6,
+                  "sourceCharacterId": 7,
+                  "referenceKind": "shape-bitmap-fill"
+                }
+              ]
+            },
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 8,
+            "exportName": "AptCheckboxCheckedEnabled.tga",
+            "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 11,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 876,
+              "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 8,
+                  "exportName": "AptCheckboxCheckedEnabled.tga"
+                }
+              ],
+              "missingLibrary": false
+            },
+            "reason": "missing-exported-symbol",
+            "libraryEvidence": {
+              "path": "std_MouseCheckBox/std_MouseCheckBox.swf",
+              "sha256": "b345a171717e96565ff7e7ceb72f9e56608a0994abe3e9e6d4e3e7564be35f55",
+              "exportedSymbols": [
+                {
+                  "exportName": "GameSetupCheckBoxContentClip",
+                  "characterId": 10
+                },
+                {
+                  "exportName": "GameSetupcheckBoxMC",
+                  "characterId": 7
+                },
+                {
+                  "exportName": "GameSetupcheckBoxMCDisable",
+                  "characterId": 24
+                },
+                {
+                  "exportName": "cbHitRegionButtonSymbol",
+                  "characterId": 9
+                },
+                {
+                  "exportName": "checkBoxContentClipSymbol",
+                  "characterId": 22
+                },
+                {
+                  "exportName": "checkBoxMCDisable_Symbol",
+                  "characterId": 26
+                },
+                {
+                  "exportName": "checkBoxMC_Symbol",
+                  "characterId": 17
+                },
+                {
+                  "exportName": "std_MouseCheckBoxSymbol",
+                  "characterId": 23
+                },
+                {
+                  "exportName": "std_MouseCheckBox_labelSymbol",
+                  "characterId": 20
+                }
+              ],
+              "swfAndEafExportTablesAgree": true,
+              "caseInsensitiveNameMatches": [],
+              "normalizedSpellingCandidates": [],
+              "safeAliasEstablished": false,
+              "aliasApplied": false,
+              "aliasNote": "ExportAssets uses exact identifier names. Similar spelling alone does not establish identical symbol identity."
+            },
+            "directReferences": [
+              {
+                "tagCode": 2,
+                "tagIndexInTimeline": 12,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 962,
+                "characterId": 8,
+                "sourceCharacterId": 9,
+                "referenceKind": "shape-bitmap-fill"
+              }
+            ],
+            "directPlacements": [],
+            "displayListReachableFromRoot": false,
+            "shortestRootPlacementPath": null,
+            "reachableFromExportedRuntimeSymbol": true,
+            "shortestExportDependencyPath": {
+              "exportName": "checkBoxMC_Symbol",
+              "exportedCharacterId": 10,
+              "path": [
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 13,
+                  "timelineCharacterId": 10,
+                  "timelineFrame": 10,
+                  "uncompressedFileOffset": 1062,
+                  "characterId": 9,
+                  "depth": 1,
+                  "instanceName": null,
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 10
+                },
+                {
+                  "tagCode": 2,
+                  "tagIndexInTimeline": 12,
+                  "timelineCharacterId": 0,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 962,
+                  "characterId": 8,
+                  "sourceCharacterId": 9,
+                  "referenceKind": "shape-bitmap-fill"
+                }
+              ]
+            },
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 13,
+            "exportName": "highlight3",
+            "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 49,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 2133,
+              "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 13,
+                  "exportName": "highlight3"
+                }
+              ],
+              "missingLibrary": false
+            },
+            "reason": "missing-exported-symbol",
+            "libraryEvidence": {
+              "path": "std_MouseCheckBox/std_MouseCheckBox.swf",
+              "sha256": "b345a171717e96565ff7e7ceb72f9e56608a0994abe3e9e6d4e3e7564be35f55",
+              "exportedSymbols": [
+                {
+                  "exportName": "GameSetupCheckBoxContentClip",
+                  "characterId": 10
+                },
+                {
+                  "exportName": "GameSetupcheckBoxMC",
+                  "characterId": 7
+                },
+                {
+                  "exportName": "GameSetupcheckBoxMCDisable",
+                  "characterId": 24
+                },
+                {
+                  "exportName": "cbHitRegionButtonSymbol",
+                  "characterId": 9
+                },
+                {
+                  "exportName": "checkBoxContentClipSymbol",
+                  "characterId": 22
+                },
+                {
+                  "exportName": "checkBoxMCDisable_Symbol",
+                  "characterId": 26
+                },
+                {
+                  "exportName": "checkBoxMC_Symbol",
+                  "characterId": 17
+                },
+                {
+                  "exportName": "std_MouseCheckBoxSymbol",
+                  "characterId": 23
+                },
+                {
+                  "exportName": "std_MouseCheckBox_labelSymbol",
+                  "characterId": 20
+                }
+              ],
+              "swfAndEafExportTablesAgree": true,
+              "caseInsensitiveNameMatches": [],
+              "normalizedSpellingCandidates": [],
+              "safeAliasEstablished": false,
+              "aliasApplied": false,
+              "aliasNote": "ExportAssets uses exact identifier names. Similar spelling alone does not establish identical symbol identity."
+            },
+            "directReferences": [
+              {
+                "tagCode": 2,
+                "tagIndexInTimeline": 50,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 2196,
+                "characterId": 13,
+                "sourceCharacterId": 14,
+                "referenceKind": "shape-bitmap-fill"
+              }
+            ],
+            "directPlacements": [],
+            "displayListReachableFromRoot": false,
+            "shortestRootPlacementPath": null,
+            "reachableFromExportedRuntimeSymbol": true,
+            "shortestExportDependencyPath": {
+              "exportName": "ckeckBoxContentClipSymbol",
+              "exportedCharacterId": 15,
+              "path": [
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 17,
+                  "timelineCharacterId": 15,
+                  "timelineFrame": 11,
+                  "uncompressedFileOffset": 6406,
+                  "characterId": 14,
+                  "depth": 3,
+                  "instanceName": null,
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 15
+                },
+                {
+                  "tagCode": 2,
+                  "tagIndexInTimeline": 50,
+                  "timelineCharacterId": 0,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 2196,
+                  "characterId": 13,
+                  "sourceCharacterId": 14,
+                  "referenceKind": "shape-bitmap-fill"
+                }
+              ]
+            },
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          }
+        ],
+        "attachmentApiLiteralCounts": {
+          "attachMovie": 0,
+          "duplicateMovieClip": 0,
+          "loadMovie": 0,
+          "eval": 0
+        },
+        "allMissingImportsHaveDirectReferences": true,
+        "allMissingImportsReachableFromRootOrExports": true,
+        "allMissingImportsHaveDirectPlacements": false,
+        "allMissingImportsDisplayListReachableFromRoot": false
+      },
+      "eaf": {
+        "path": "skins/skins.eaf",
+        "bytes": 3081,
+        "sha256": "a4b58c4425718f9bc122f243bf373307f82ff273329937661d7aec17b5ac6838",
+        "swfVersion": 7,
+        "tagCounts": {
+          "0": 15,
+          "1": 326,
+          "2": 8,
+          "9": 1,
+          "12": 30,
+          "20": 1,
+          "22": 1,
+          "26": 132,
+          "28": 1,
+          "34": 3,
+          "36": 1,
+          "37": 3,
+          "39": 14,
+          "43": 28,
+          "48": 2,
+          "56": 1541,
+          "57": 3
+        },
+        "missingImports": [
+          {
+            "characterId": 6,
+            "exportName": "unCheckedCBox",
+            "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 9,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 756,
+              "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 6,
+                  "exportName": "unCheckedCBox"
+                }
+              ],
+              "missingLibrary": false
+            },
+            "reason": "missing-exported-symbol",
+            "libraryEvidence": {
+              "path": "std_MouseCheckBox/std_MouseCheckBox.swf",
+              "sha256": "b345a171717e96565ff7e7ceb72f9e56608a0994abe3e9e6d4e3e7564be35f55",
+              "exportedSymbols": [
+                {
+                  "exportName": "GameSetupCheckBoxContentClip",
+                  "characterId": 10
+                },
+                {
+                  "exportName": "GameSetupcheckBoxMC",
+                  "characterId": 7
+                },
+                {
+                  "exportName": "GameSetupcheckBoxMCDisable",
+                  "characterId": 24
+                },
+                {
+                  "exportName": "cbHitRegionButtonSymbol",
+                  "characterId": 9
+                },
+                {
+                  "exportName": "checkBoxContentClipSymbol",
+                  "characterId": 22
+                },
+                {
+                  "exportName": "checkBoxMCDisable_Symbol",
+                  "characterId": 26
+                },
+                {
+                  "exportName": "checkBoxMC_Symbol",
+                  "characterId": 17
+                },
+                {
+                  "exportName": "std_MouseCheckBoxSymbol",
+                  "characterId": 23
+                },
+                {
+                  "exportName": "std_MouseCheckBox_labelSymbol",
+                  "characterId": 20
+                }
+              ],
+              "swfAndEafExportTablesAgree": true,
+              "caseInsensitiveNameMatches": [],
+              "normalizedSpellingCandidates": [],
+              "safeAliasEstablished": false,
+              "aliasApplied": false,
+              "aliasNote": "ExportAssets uses exact identifier names. Similar spelling alone does not establish identical symbol identity."
+            },
+            "directReferences": [
+              {
+                "tagCode": 2,
+                "tagIndexInTimeline": 10,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 826,
+                "characterId": 6,
+                "sourceCharacterId": 7,
+                "referenceKind": "shape-bitmap-fill"
+              }
+            ],
+            "directPlacements": [],
+            "displayListReachableFromRoot": false,
+            "shortestRootPlacementPath": null,
+            "reachableFromExportedRuntimeSymbol": true,
+            "shortestExportDependencyPath": {
+              "exportName": "checkBoxMC_Symbol",
+              "exportedCharacterId": 10,
+              "path": [
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 1,
+                  "timelineCharacterId": 10,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 1021,
+                  "characterId": 7,
+                  "depth": 1,
+                  "instanceName": null,
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 10
+                },
+                {
+                  "tagCode": 2,
+                  "tagIndexInTimeline": 10,
+                  "timelineCharacterId": 0,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 826,
+                  "characterId": 6,
+                  "sourceCharacterId": 7,
+                  "referenceKind": "shape-bitmap-fill"
+                }
+              ]
+            },
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 8,
+            "exportName": "AptCheckboxCheckedEnabled.tga",
+            "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 11,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 876,
+              "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 8,
+                  "exportName": "AptCheckboxCheckedEnabled.tga"
+                }
+              ],
+              "missingLibrary": false
+            },
+            "reason": "missing-exported-symbol",
+            "libraryEvidence": {
+              "path": "std_MouseCheckBox/std_MouseCheckBox.swf",
+              "sha256": "b345a171717e96565ff7e7ceb72f9e56608a0994abe3e9e6d4e3e7564be35f55",
+              "exportedSymbols": [
+                {
+                  "exportName": "GameSetupCheckBoxContentClip",
+                  "characterId": 10
+                },
+                {
+                  "exportName": "GameSetupcheckBoxMC",
+                  "characterId": 7
+                },
+                {
+                  "exportName": "GameSetupcheckBoxMCDisable",
+                  "characterId": 24
+                },
+                {
+                  "exportName": "cbHitRegionButtonSymbol",
+                  "characterId": 9
+                },
+                {
+                  "exportName": "checkBoxContentClipSymbol",
+                  "characterId": 22
+                },
+                {
+                  "exportName": "checkBoxMCDisable_Symbol",
+                  "characterId": 26
+                },
+                {
+                  "exportName": "checkBoxMC_Symbol",
+                  "characterId": 17
+                },
+                {
+                  "exportName": "std_MouseCheckBoxSymbol",
+                  "characterId": 23
+                },
+                {
+                  "exportName": "std_MouseCheckBox_labelSymbol",
+                  "characterId": 20
+                }
+              ],
+              "swfAndEafExportTablesAgree": true,
+              "caseInsensitiveNameMatches": [],
+              "normalizedSpellingCandidates": [],
+              "safeAliasEstablished": false,
+              "aliasApplied": false,
+              "aliasNote": "ExportAssets uses exact identifier names. Similar spelling alone does not establish identical symbol identity."
+            },
+            "directReferences": [
+              {
+                "tagCode": 2,
+                "tagIndexInTimeline": 12,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 962,
+                "characterId": 8,
+                "sourceCharacterId": 9,
+                "referenceKind": "shape-bitmap-fill"
+              }
+            ],
+            "directPlacements": [],
+            "displayListReachableFromRoot": false,
+            "shortestRootPlacementPath": null,
+            "reachableFromExportedRuntimeSymbol": true,
+            "shortestExportDependencyPath": {
+              "exportName": "checkBoxMC_Symbol",
+              "exportedCharacterId": 10,
+              "path": [
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 13,
+                  "timelineCharacterId": 10,
+                  "timelineFrame": 10,
+                  "uncompressedFileOffset": 1062,
+                  "characterId": 9,
+                  "depth": 1,
+                  "instanceName": null,
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 10
+                },
+                {
+                  "tagCode": 2,
+                  "tagIndexInTimeline": 12,
+                  "timelineCharacterId": 0,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 962,
+                  "characterId": 8,
+                  "sourceCharacterId": 9,
+                  "referenceKind": "shape-bitmap-fill"
+                }
+              ]
+            },
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          },
+          {
+            "characterId": 13,
+            "exportName": "highlight3",
+            "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+            "importTable": {
+              "tagCode": 57,
+              "tagIndexInTimeline": 49,
+              "timelineCharacterId": 0,
+              "timelineFrame": 1,
+              "uncompressedFileOffset": 2133,
+              "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+              "symbolCount": 1,
+              "assets": [
+                {
+                  "characterId": 13,
+                  "exportName": "highlight3"
+                }
+              ],
+              "missingLibrary": false
+            },
+            "reason": "missing-exported-symbol",
+            "libraryEvidence": {
+              "path": "std_MouseCheckBox/std_MouseCheckBox.swf",
+              "sha256": "b345a171717e96565ff7e7ceb72f9e56608a0994abe3e9e6d4e3e7564be35f55",
+              "exportedSymbols": [
+                {
+                  "exportName": "GameSetupCheckBoxContentClip",
+                  "characterId": 10
+                },
+                {
+                  "exportName": "GameSetupcheckBoxMC",
+                  "characterId": 7
+                },
+                {
+                  "exportName": "GameSetupcheckBoxMCDisable",
+                  "characterId": 24
+                },
+                {
+                  "exportName": "cbHitRegionButtonSymbol",
+                  "characterId": 9
+                },
+                {
+                  "exportName": "checkBoxContentClipSymbol",
+                  "characterId": 22
+                },
+                {
+                  "exportName": "checkBoxMCDisable_Symbol",
+                  "characterId": 26
+                },
+                {
+                  "exportName": "checkBoxMC_Symbol",
+                  "characterId": 17
+                },
+                {
+                  "exportName": "std_MouseCheckBoxSymbol",
+                  "characterId": 23
+                },
+                {
+                  "exportName": "std_MouseCheckBox_labelSymbol",
+                  "characterId": 20
+                }
+              ],
+              "swfAndEafExportTablesAgree": true,
+              "caseInsensitiveNameMatches": [],
+              "normalizedSpellingCandidates": [],
+              "safeAliasEstablished": false,
+              "aliasApplied": false,
+              "aliasNote": "ExportAssets uses exact identifier names. Similar spelling alone does not establish identical symbol identity."
+            },
+            "directReferences": [
+              {
+                "tagCode": 2,
+                "tagIndexInTimeline": 50,
+                "timelineCharacterId": 0,
+                "timelineFrame": 1,
+                "uncompressedFileOffset": 2196,
+                "characterId": 13,
+                "sourceCharacterId": 14,
+                "referenceKind": "shape-bitmap-fill"
+              }
+            ],
+            "directPlacements": [],
+            "displayListReachableFromRoot": false,
+            "shortestRootPlacementPath": null,
+            "reachableFromExportedRuntimeSymbol": true,
+            "shortestExportDependencyPath": {
+              "exportName": "ckeckBoxContentClipSymbol",
+              "exportedCharacterId": 15,
+              "path": [
+                {
+                  "tagCode": 26,
+                  "tagIndexInTimeline": 17,
+                  "timelineCharacterId": 15,
+                  "timelineFrame": 11,
+                  "uncompressedFileOffset": 6406,
+                  "characterId": 14,
+                  "depth": 3,
+                  "instanceName": null,
+                  "referenceKind": "display-placement",
+                  "sourceCharacterId": 15
+                },
+                {
+                  "tagCode": 2,
+                  "tagIndexInTimeline": 50,
+                  "timelineCharacterId": 0,
+                  "timelineFrame": 1,
+                  "uncompressedFileOffset": 2196,
+                  "characterId": 13,
+                  "sourceCharacterId": 14,
+                  "referenceKind": "shape-bitmap-fill"
+                }
+              ]
+            },
+            "nameLiteralOffsetsOutsideImportTable": [],
+            "declaredButUnreferenced": false
+          }
+        ],
+        "attachmentApiLiteralCounts": {
+          "attachMovie": 0,
+          "duplicateMovieClip": 0,
+          "loadMovie": 0,
+          "eval": 0
+        },
+        "allMissingImportsHaveDirectReferences": true,
+        "allMissingImportsReachableFromRootOrExports": true,
+        "allMissingImportsHaveDirectPlacements": false,
+        "allMissingImportsDisplayListReachableFromRoot": false
+      },
+      "swfAndEafMissingImportTablesAgree": true,
+      "swfAndEafStructuralUsesAgree": true
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "localizedCount": 6,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 13.xml",
+      "url": "../mouse/Components/chatComponent.swf",
+      "identifier": "chatComponentSymbol",
+      "name": "Symbol 13"
+    },
+    {
+      "file": "LIBRARY/Symbol 14.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollingListbox.swf",
+      "identifier": "std_mouseScrollingListboxSymbol",
+      "name": "Symbol 14"
+    },
+    {
+      "file": "LIBRARY/Symbol 15.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollbar.swf",
+      "identifier": "std_mouseScrollbarSymbol",
+      "name": "Symbol 15"
+    },
+    {
+      "file": "LIBRARY/Symbol 16.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 16"
+    },
+    {
+      "file": "LIBRARY/Symbol 17.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "ScreenTitleBarSymbol",
+      "name": "Symbol 17"
+    },
+    {
+      "file": "LIBRARY/Symbol 3.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "lowerScreenBar Symbol",
+      "name": "Symbol 3"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

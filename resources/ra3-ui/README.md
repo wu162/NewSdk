@@ -2,7 +2,7 @@
 
 基于 `recovery/legacy-sdk-cache` 的 `52d44c6267385055df6da91ecdc6ee2b44f467a9`，专用资源分支 `resources/ra3-ui-assets`。
 
-当前检查点：原始包、全部解压资产和本地转换工具已保存，转换与验证进行中，不能将本检查点当成转换验收。
+当前检查点：原始包和全部解压资产已保存，174 个二进制 FLA 与 4,432 个实际 include 使用的 AS 已导出。完整编译兼容修复与最终验收进行中；本检查点不代表全部界面编译通过。
 
 - `source/ra3ui/`：原包全部 6,284 个文件，包含 174 个 SWF 及原有 EAF、APT、CONST、DAT、几何、纹理和其他配套文件。
 - `original/ra3ui.7z.001`–`.003`：原始压缩包按 64 MiB 分块，避免 GitHub 单文件 100 MiB 限制，不使用 Git LFS。

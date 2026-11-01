@@ -1,0 +1,19 @@
+{
+  "localizedCount": 2,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 5.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 5"
+    },
+    {
+      "file": "LIBRARY/Symbol 6.xml",
+      "url": "../../cafe/mouseComponents/std_mouseTextInputField.swf",
+      "identifier": "std_mouseTextInputFieldSymbol",
+      "name": "Symbol 6"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

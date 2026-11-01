@@ -1,0 +1,11 @@
+JPEXS Free Flash Decompiler v.26.4.0
+------------------------------------
+Nov 01, 2026 5:52:53 AM com.jpexs.decompiler.flash.SWF resolveImported
+WARNING: Imported character from URL ../cafe/mouseComponents/std_MouseCheckBox.swf not found: imported name = unCheckedCBox, imported id = 6
+Nov 01, 2026 5:52:53 AM com.jpexs.decompiler.flash.SWF resolveImported
+WARNING: Imported character from URL ../cafe/mouseComponents/std_MouseCheckBox.swf not found: imported name = AptCheckboxCheckedEnabled.tga, imported id = 8
+Nov 01, 2026 5:52:53 AM com.jpexs.decompiler.flash.SWF resolveImported
+WARNING: Imported character from URL ../cafe/mouseComponents/std_MouseCheckBox.swf not found: imported name = highlight3, imported id = 13
+Exporting XFL...
+Export finished. Total export time: 00:02.618
+OK

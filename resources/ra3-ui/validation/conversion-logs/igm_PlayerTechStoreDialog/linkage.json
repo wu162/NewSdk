@@ -1,0 +1,31 @@
+{
+  "localizedCount": 4,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 50.xml",
+      "url": "../../common/hud/ig_libHUD.swf",
+      "identifier": "BlackRectangle",
+      "name": "Symbol 50"
+    },
+    {
+      "file": "LIBRARY/Symbol 56.xml",
+      "url": "../../common/hud/ig_libHUD.swf",
+      "identifier": "RenderImage",
+      "name": "Symbol 56"
+    },
+    {
+      "file": "LIBRARY/Symbol 61.xml",
+      "url": "../../common/hud/ig_libHUD.swf",
+      "identifier": "RenderImageDisabled",
+      "name": "Symbol 61"
+    },
+    {
+      "file": "LIBRARY/Symbol 69.xml",
+      "url": "HelpBox.swf",
+      "identifier": "HelpBoxSite",
+      "name": "Symbol 69"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

@@ -1,0 +1,402 @@
+[
+  {
+    "path": "converted/TacticalHUDRadar/scripts/DOMDocument/0001.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "sha256": "60bfe612b23c3dc19ce8d94172263288d73986cc4a2e43bb42bb3be2292f0a74",
+    "originalCodeSha256": "60bfe612b23c3dc19ce8d94172263288d73986cc4a2e43bb42bb3be2292f0a74",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/DOMDocument/0002.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 2,
+    "sha256": "989333a81222d7386c70eca7493bddec61c1e18f292f787735a42bff871688d5",
+    "originalCodeSha256": "989333a81222d7386c70eca7493bddec61c1e18f292f787735a42bff871688d5",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 104/0001.as",
+    "xflXml": "LIBRARY/Symbol 104.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 105/0001.as",
+    "xflXml": "LIBRARY/Symbol 105.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 106/0001.as",
+    "xflXml": "LIBRARY/Symbol 106.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 106/0002.as",
+    "xflXml": "LIBRARY/Symbol 106.xml",
+    "scriptOrdinal": 2,
+    "sha256": "7db036800c2b12180542a4470e264738a6072395556b13974e540be5a90d6577",
+    "originalCodeSha256": "7db036800c2b12180542a4470e264738a6072395556b13974e540be5a90d6577",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 106/0003.as",
+    "xflXml": "LIBRARY/Symbol 106.xml",
+    "scriptOrdinal": 3,
+    "sha256": "8eb05c76cd67f7d2475ddac36397104b50afdd325e559253bba7b3d1b4db13be",
+    "originalCodeSha256": "8eb05c76cd67f7d2475ddac36397104b50afdd325e559253bba7b3d1b4db13be",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 106/0004.as",
+    "xflXml": "LIBRARY/Symbol 106.xml",
+    "scriptOrdinal": 4,
+    "sha256": "4ad2ac5c20d54fc213fce65d0c791ce19345f95c26de9780bf4e2f3c27945cde",
+    "originalCodeSha256": "4ad2ac5c20d54fc213fce65d0c791ce19345f95c26de9780bf4e2f3c27945cde",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 106/0005.as",
+    "xflXml": "LIBRARY/Symbol 106.xml",
+    "scriptOrdinal": 5,
+    "sha256": "263410fe8f09570793f9a6418df13537e99841234100e90a2942bab5ecff5302",
+    "originalCodeSha256": "263410fe8f09570793f9a6418df13537e99841234100e90a2942bab5ecff5302",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 106/0006.as",
+    "xflXml": "LIBRARY/Symbol 106.xml",
+    "scriptOrdinal": 6,
+    "sha256": "ee1365f9e32cff600b02bd547b2943244bfa2435bee63d3e8715e79868e9560d",
+    "originalCodeSha256": "ee1365f9e32cff600b02bd547b2943244bfa2435bee63d3e8715e79868e9560d",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 106/0007.as",
+    "xflXml": "LIBRARY/Symbol 106.xml",
+    "scriptOrdinal": 7,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 16/0001.as",
+    "xflXml": "LIBRARY/Symbol 16.xml",
+    "scriptOrdinal": 1,
+    "sha256": "3367cd1ac656e1197ef5270696a10fddd6a40a33764fcab17566993d3b781e65",
+    "originalCodeSha256": "3367cd1ac656e1197ef5270696a10fddd6a40a33764fcab17566993d3b781e65",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 16/0002.as",
+    "xflXml": "LIBRARY/Symbol 16.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c0982c59e916855b4a56cbe247099cb29cc305e6322de3477e78db1f0d0f460b",
+    "originalCodeSha256": "c0982c59e916855b4a56cbe247099cb29cc305e6322de3477e78db1f0d0f460b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 16/0003.as",
+    "xflXml": "LIBRARY/Symbol 16.xml",
+    "scriptOrdinal": 3,
+    "sha256": "04942c4965740850a055f96205aadd2f1c36556c7c1fc644b11f2fd90ebd1790",
+    "originalCodeSha256": "04942c4965740850a055f96205aadd2f1c36556c7c1fc644b11f2fd90ebd1790",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 16/0004.as",
+    "xflXml": "LIBRARY/Symbol 16.xml",
+    "scriptOrdinal": 4,
+    "sha256": "1c2e4fa07e6b57dfc5024a999487ef10f966502b257e5eaf6c17af37c9879cad",
+    "originalCodeSha256": "1c2e4fa07e6b57dfc5024a999487ef10f966502b257e5eaf6c17af37c9879cad",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 26/0001.as",
+    "xflXml": "LIBRARY/Symbol 26.xml",
+    "scriptOrdinal": 1,
+    "sha256": "2dfc7c783c189f6216e4a068f6dce3752d3a6183f30ade9f91eda180620e1ea5",
+    "originalCodeSha256": "2dfc7c783c189f6216e4a068f6dce3752d3a6183f30ade9f91eda180620e1ea5",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 34/0001.as",
+    "xflXml": "LIBRARY/Symbol 34.xml",
+    "scriptOrdinal": 1,
+    "sha256": "735155adf76dbe661a89b6d29f06d431450e05f804a1d642dde79ccf7be1c0d9",
+    "originalCodeSha256": "735155adf76dbe661a89b6d29f06d431450e05f804a1d642dde79ccf7be1c0d9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 34/0002.as",
+    "xflXml": "LIBRARY/Symbol 34.xml",
+    "scriptOrdinal": 2,
+    "sha256": "2ccfddd2bae2d05535574d7fe8b3814267a80d30281a6d6a23f2d9459ae48e06",
+    "originalCodeSha256": "2ccfddd2bae2d05535574d7fe8b3814267a80d30281a6d6a23f2d9459ae48e06",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 34/0003.as",
+    "xflXml": "LIBRARY/Symbol 34.xml",
+    "scriptOrdinal": 3,
+    "sha256": "a7abbc1f8be647d5ee4756d08fdda2575283af409a42a0e1640b94e8c9581f3c",
+    "originalCodeSha256": "a7abbc1f8be647d5ee4756d08fdda2575283af409a42a0e1640b94e8c9581f3c",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 35/0001.as",
+    "xflXml": "LIBRARY/Symbol 35.xml",
+    "scriptOrdinal": 1,
+    "sha256": "1a4074a07534d4fb6b6f99cfe5af491cbbacec398ab348f3915e6acf68b47489",
+    "originalCodeSha256": "1a4074a07534d4fb6b6f99cfe5af491cbbacec398ab348f3915e6acf68b47489",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 40/0001.as",
+    "xflXml": "LIBRARY/Symbol 40.xml",
+    "scriptOrdinal": 1,
+    "sha256": "85e73fd4fb2668ef9cd06b16b9d6dff15754d3a28a9f70fc7deb7746a0e1912d",
+    "originalCodeSha256": "85e73fd4fb2668ef9cd06b16b9d6dff15754d3a28a9f70fc7deb7746a0e1912d",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 5/0001.as",
+    "xflXml": "LIBRARY/Symbol 5.xml",
+    "scriptOrdinal": 1,
+    "sha256": "167629380e67aac3d91af2450059b724ad194bc1279b0ac03b847ab2909f8d6c",
+    "originalCodeSha256": "167629380e67aac3d91af2450059b724ad194bc1279b0ac03b847ab2909f8d6c",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 5/0002.as",
+    "xflXml": "LIBRARY/Symbol 5.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 5/0003.as",
+    "xflXml": "LIBRARY/Symbol 5.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 5/0004.as",
+    "xflXml": "LIBRARY/Symbol 5.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 5/0005.as",
+    "xflXml": "LIBRARY/Symbol 5.xml",
+    "scriptOrdinal": 5,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 5/0006.as",
+    "xflXml": "LIBRARY/Symbol 5.xml",
+    "scriptOrdinal": 6,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 56/0001.as",
+    "xflXml": "LIBRARY/Symbol 56.xml",
+    "scriptOrdinal": 1,
+    "sha256": "04942c4965740850a055f96205aadd2f1c36556c7c1fc644b11f2fd90ebd1790",
+    "originalCodeSha256": "04942c4965740850a055f96205aadd2f1c36556c7c1fc644b11f2fd90ebd1790",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 56/0002.as",
+    "xflXml": "LIBRARY/Symbol 56.xml",
+    "scriptOrdinal": 2,
+    "sha256": "1c2e4fa07e6b57dfc5024a999487ef10f966502b257e5eaf6c17af37c9879cad",
+    "originalCodeSha256": "1c2e4fa07e6b57dfc5024a999487ef10f966502b257e5eaf6c17af37c9879cad",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 67/0001.as",
+    "xflXml": "LIBRARY/Symbol 67.xml",
+    "scriptOrdinal": 1,
+    "sha256": "04942c4965740850a055f96205aadd2f1c36556c7c1fc644b11f2fd90ebd1790",
+    "originalCodeSha256": "04942c4965740850a055f96205aadd2f1c36556c7c1fc644b11f2fd90ebd1790",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 67/0002.as",
+    "xflXml": "LIBRARY/Symbol 67.xml",
+    "scriptOrdinal": 2,
+    "sha256": "1c2e4fa07e6b57dfc5024a999487ef10f966502b257e5eaf6c17af37c9879cad",
+    "originalCodeSha256": "1c2e4fa07e6b57dfc5024a999487ef10f966502b257e5eaf6c17af37c9879cad",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 72/0001.as",
+    "xflXml": "LIBRARY/Symbol 72.xml",
+    "scriptOrdinal": 1,
+    "sha256": "04942c4965740850a055f96205aadd2f1c36556c7c1fc644b11f2fd90ebd1790",
+    "originalCodeSha256": "04942c4965740850a055f96205aadd2f1c36556c7c1fc644b11f2fd90ebd1790",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 72/0002.as",
+    "xflXml": "LIBRARY/Symbol 72.xml",
+    "scriptOrdinal": 2,
+    "sha256": "1c2e4fa07e6b57dfc5024a999487ef10f966502b257e5eaf6c17af37c9879cad",
+    "originalCodeSha256": "1c2e4fa07e6b57dfc5024a999487ef10f966502b257e5eaf6c17af37c9879cad",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 77/0001.as",
+    "xflXml": "LIBRARY/Symbol 77.xml",
+    "scriptOrdinal": 1,
+    "sha256": "105cefac408201fbb3f9b9b439d75eadc7d28d7fae355ecac4d6c99c59b3953f",
+    "originalCodeSha256": "105cefac408201fbb3f9b9b439d75eadc7d28d7fae355ecac4d6c99c59b3953f",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 77/0002.as",
+    "xflXml": "LIBRARY/Symbol 77.xml",
+    "scriptOrdinal": 2,
+    "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 77/0003.as",
+    "xflXml": "LIBRARY/Symbol 77.xml",
+    "scriptOrdinal": 3,
+    "sha256": "b0e426e7ade6ae4beca9029ac713d0492921605bd3e12fd3b14a4182ae599bb2",
+    "originalCodeSha256": "b0e426e7ade6ae4beca9029ac713d0492921605bd3e12fd3b14a4182ae599bb2",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 79/0001.as",
+    "xflXml": "LIBRARY/Symbol 79.xml",
+    "scriptOrdinal": 1,
+    "sha256": "a61daa9a1fe391b5249e05dee05a5c8bb1082a5040e84f5a8c03d4f2e6b0fded",
+    "originalCodeSha256": "a61daa9a1fe391b5249e05dee05a5c8bb1082a5040e84f5a8c03d4f2e6b0fded",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 79/0002.as",
+    "xflXml": "LIBRARY/Symbol 79.xml",
+    "scriptOrdinal": 2,
+    "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 81/0001.as",
+    "xflXml": "LIBRARY/Symbol 81.xml",
+    "scriptOrdinal": 1,
+    "sha256": "b2e444fa73ac7c24bd6209a2db980a3f4814acfbe6971cda453c05cef9260cf2",
+    "originalCodeSha256": "b2e444fa73ac7c24bd6209a2db980a3f4814acfbe6971cda453c05cef9260cf2",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 81/0002.as",
+    "xflXml": "LIBRARY/Symbol 81.xml",
+    "scriptOrdinal": 2,
+    "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 82/0001.as",
+    "xflXml": "LIBRARY/Symbol 82.xml",
+    "scriptOrdinal": 1,
+    "sha256": "8aeabc53c0c053e65d5a5766ee6ac337f9f100a5ab366f7e0bfe6e59b860f06f",
+    "originalCodeSha256": "8aeabc53c0c053e65d5a5766ee6ac337f9f100a5ab366f7e0bfe6e59b860f06f",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 82/0002.as",
+    "xflXml": "LIBRARY/Symbol 82.xml",
+    "scriptOrdinal": 2,
+    "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 83/0001.as",
+    "xflXml": "LIBRARY/Symbol 83.xml",
+    "scriptOrdinal": 1,
+    "sha256": "b5bbda36ce05f405c4d768be85cd167a7eb3abc7eba900b625a19c81d32b0878",
+    "originalCodeSha256": "b5bbda36ce05f405c4d768be85cd167a7eb3abc7eba900b625a19c81d32b0878",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 83/0002.as",
+    "xflXml": "LIBRARY/Symbol 83.xml",
+    "scriptOrdinal": 2,
+    "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 84/0001.as",
+    "xflXml": "LIBRARY/Symbol 84.xml",
+    "scriptOrdinal": 1,
+    "sha256": "84146f5cf7d77d4601e539dcc3d6a7c209fd8cf0d9db9c9f604251215a1b9042",
+    "originalCodeSha256": "84146f5cf7d77d4601e539dcc3d6a7c209fd8cf0d9db9c9f604251215a1b9042",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 86/0001.as",
+    "xflXml": "LIBRARY/Symbol 86.xml",
+    "scriptOrdinal": 1,
+    "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 93/0001.as",
+    "xflXml": "LIBRARY/Symbol 93.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 93/0002.as",
+    "xflXml": "LIBRARY/Symbol 93.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 93/0003.as",
+    "xflXml": "LIBRARY/Symbol 93.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDRadar/scripts/LIBRARY/Symbol 93/0004.as",
+    "xflXml": "LIBRARY/Symbol 93.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  }
+]

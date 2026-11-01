@@ -1,0 +1,85 @@
+{
+  "localizedCount": 13,
+  "localized": [
+    {
+      "file": "DOMDocument.xml",
+      "url": "..\\common\\shell\\missionBriefings\\fe_missionBriefingAssets.swf",
+      "identifier": "red_fade.png",
+      "name": "Bitmap 4.png"
+    },
+    {
+      "file": "DOMDocument.xml",
+      "url": "..\\common\\shell\\missionBriefings\\fe_missionBriefingAssets.swf",
+      "identifier": "TV_lines.png",
+      "name": "Bitmap 5.png"
+    },
+    {
+      "file": "DOMDocument.xml",
+      "url": "..\\common\\shell\\missionBriefings\\fe_missionBriefingAssets.swf",
+      "identifier": "ticker_stripe.png",
+      "name": "Bitmap 12.png"
+    },
+    {
+      "file": "LIBRARY/Symbol 1.xml",
+      "url": "..\\common\\shell\\missionBriefings\\fe_missionBriefingAssets.swf",
+      "identifier": "global_map2",
+      "name": "Symbol 1"
+    },
+    {
+      "file": "LIBRARY/Symbol 11.xml",
+      "url": "..\\common\\shell\\missionBriefings\\fe_missionBriefingAssets.swf",
+      "identifier": "RULERS",
+      "name": "Symbol 11"
+    },
+    {
+      "file": "LIBRARY/Symbol 15.xml",
+      "url": "..\\common\\shell\\missionBriefings\\fe_missionBriefingAssets.swf",
+      "identifier": "scanline",
+      "name": "Symbol 15"
+    },
+    {
+      "file": "LIBRARY/Symbol 16.xml",
+      "url": "..\\common\\shell\\missionBriefings\\fe_missionBriefingAssets.swf",
+      "identifier": "line",
+      "name": "Symbol 16"
+    },
+    {
+      "file": "LIBRARY/Symbol 17.xml",
+      "url": "..\\common\\shell\\missionBriefings\\fe_missionBriefingAssets.swf",
+      "identifier": "brackets square",
+      "name": "Symbol 17"
+    },
+    {
+      "file": "LIBRARY/Symbol 18.xml",
+      "url": "..\\common\\shell\\missionBriefings\\fe_missionBriefingAssets.swf",
+      "identifier": "flashing square",
+      "name": "Symbol 18"
+    },
+    {
+      "file": "LIBRARY/Symbol 2.xml",
+      "url": "..\\common\\shell\\missionBriefings\\fe_missionBriefingAssets.swf",
+      "identifier": "grid",
+      "name": "Symbol 2"
+    },
+    {
+      "file": "LIBRARY/Symbol 22.xml",
+      "url": "..\\common\\shell\\missionBriefings\\fe_missionBriefingAssets.swf",
+      "identifier": "white bracket",
+      "name": "Symbol 22"
+    },
+    {
+      "file": "LIBRARY/Symbol 3.xml",
+      "url": "..\\common\\shell\\missionBriefings\\fe_missionBriefingAssets.swf",
+      "identifier": "blacktored",
+      "name": "Symbol 3"
+    },
+    {
+      "file": "LIBRARY/Symbol 8.xml",
+      "url": "..\\common\\shell\\missionBriefings\\fe_missionBriefingAssets.swf",
+      "identifier": "black frame",
+      "name": "Symbol 8"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

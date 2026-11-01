@@ -1,0 +1,17 @@
+on(press){
+   gotoAndStop("_down");
+   play();
+}
+on(release){
+   gotoAndStop("_over");
+   play();
+   _parent._parent.OnLineWidthButtonClicked(this);
+}
+on(rollOver){
+   gotoAndStop("_over");
+   play();
+}
+on(rollOut){
+   gotoAndStop("_up");
+   play();
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "path": "converted/blockTextComponent/scripts/DOMDocument/0001.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "sha256": "087bbb7861e1f524c9c300af97c24a6116e6cc560692374ecd5281cd691349cc",
+    "originalCodeSha256": "21db4894d8e6d2ea026d95e9a917f398ac3e69059eb2209d27048c1d1bf8c1c3",
+    "normalizedConstructEvents": 1
+  }
+]

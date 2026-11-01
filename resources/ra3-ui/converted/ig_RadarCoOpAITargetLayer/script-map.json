@@ -1,0 +1,50 @@
+[
+  {
+    "path": "converted/ig_RadarCoOpAITargetLayer/scripts/DOMDocument/0001.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "sha256": "f534e2f874641f27c4509cd059a3a5121378edc3514bccadfc4f2b63aeb0adad",
+    "originalCodeSha256": "f534e2f874641f27c4509cd059a3a5121378edc3514bccadfc4f2b63aeb0adad",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/ig_RadarCoOpAITargetLayer/scripts/DOMDocument/0002.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 2,
+    "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/ig_RadarCoOpAITargetLayer/scripts/LIBRARY/Symbol 7/0001.as",
+    "xflXml": "LIBRARY/Symbol 7.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/ig_RadarCoOpAITargetLayer/scripts/LIBRARY/Symbol 7/0002.as",
+    "xflXml": "LIBRARY/Symbol 7.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/ig_RadarCoOpAITargetLayer/scripts/LIBRARY/Symbol 7/0003.as",
+    "xflXml": "LIBRARY/Symbol 7.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/ig_RadarCoOpAITargetLayer/scripts/LIBRARY/Symbol 8/0001.as",
+    "xflXml": "LIBRARY/Symbol 8.xml",
+    "scriptOrdinal": 1,
+    "sha256": "ee255ce58ae010cd2c0330eaaba1a58d8450ba3aedd90cbfa48e48cbf990902f",
+    "originalCodeSha256": "ee255ce58ae010cd2c0330eaaba1a58d8450ba3aedd90cbfa48e48cbf990902f",
+    "normalizedConstructEvents": 0
+  }
+]

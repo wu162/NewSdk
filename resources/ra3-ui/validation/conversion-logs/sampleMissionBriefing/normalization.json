@@ -1,0 +1,13 @@
+{
+  "soundSampleCountCorrections": [
+    {
+      "audio": "LIBRARY/sound31.wav",
+      "originalDeclaredSamples": 267380,
+      "decodedPcmSamples": 268483,
+      "previouslyUnaccountedPcmBytes": 2206,
+      "wavSha256": "dd16afd255a824f8153d727fadb5283450924c925b5c66b535ce30e75d90919b",
+      "pcmPreserved": true
+    }
+  ],
+  "shadowedExports": []
+}

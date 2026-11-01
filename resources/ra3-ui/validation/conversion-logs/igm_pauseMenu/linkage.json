@@ -1,0 +1,19 @@
+{
+  "localizedCount": 2,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 26.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 26"
+    },
+    {
+      "file": "LIBRARY/Symbol 33.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollbar.swf",
+      "identifier": "std_mouseScrollbarSymbol",
+      "name": "Symbol 33"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

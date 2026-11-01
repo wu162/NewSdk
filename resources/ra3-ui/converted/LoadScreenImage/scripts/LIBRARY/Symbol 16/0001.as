@@ -1,0 +1,1 @@
+_root.LoadScreenImage.RegisterLoadingString(LoadingString);

@@ -1,0 +1,2402 @@
+[
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/DOMDocument/0001.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "sha256": "e73347a64ab67db7e17cdff9890d26c3fd8b49f91f2ffdcf7966f0b29cedbbf2",
+    "originalCodeSha256": "e73347a64ab67db7e17cdff9890d26c3fd8b49f91f2ffdcf7966f0b29cedbbf2",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/DOMDocument/0002.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/DOMDocument/0003.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/DOMDocument/0004.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/DOMDocument/0005.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 5,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/DOMDocument/0006.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 6,
+    "sha256": "dcd896a8eb673cd135c035ad7dfd645c864d4f799b745cb5bce6aa0a7d969d98",
+    "originalCodeSha256": "dcd896a8eb673cd135c035ad7dfd645c864d4f799b745cb5bce6aa0a7d969d98",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/DOMDocument/0007.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 7,
+    "sha256": "4c8cb9a6c4cc210e1f497c506287c85e84db95046af49b8f3be57f5ae16e3486",
+    "originalCodeSha256": "4c8cb9a6c4cc210e1f497c506287c85e84db95046af49b8f3be57f5ae16e3486",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/DOMDocument/0008.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 8,
+    "sha256": "4421a1cd72f7b98a33c31d4a8370345981563d56b3ee76633c50225302b9a926",
+    "originalCodeSha256": "4421a1cd72f7b98a33c31d4a8370345981563d56b3ee76633c50225302b9a926",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/DOMDocument/0009.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 9,
+    "sha256": "ccf7ad21b5a79b89722fa8ab9c79a33a5259d527a15311655b20f3f6d3e13ada",
+    "originalCodeSha256": "ccf7ad21b5a79b89722fa8ab9c79a33a5259d527a15311655b20f3f6d3e13ada",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/DOMDocument/0010.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 10,
+    "sha256": "21fd6c8878125e01bcbc3e2f450c4cc5ffcc8bcc50c37428c0b73b017fa54ae4",
+    "originalCodeSha256": "21fd6c8878125e01bcbc3e2f450c4cc5ffcc8bcc50c37428c0b73b017fa54ae4",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/DOMDocument/0011.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 11,
+    "sha256": "e7c7d29225732ae78a3765be50d73a64afc26c4c081499aefa2e7de5a5eccbc7",
+    "originalCodeSha256": "892c3433e6ae0efdccfd2113e6e231d0e71b8eb8289702db707b1a49c90df0eb",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 104/0001.as",
+    "xflXml": "LIBRARY/Symbol 104.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 104/0002.as",
+    "xflXml": "LIBRARY/Symbol 104.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 104/0003.as",
+    "xflXml": "LIBRARY/Symbol 104.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 104/0004.as",
+    "xflXml": "LIBRARY/Symbol 104.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 105/0001.as",
+    "xflXml": "LIBRARY/Symbol 105.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 105/0002.as",
+    "xflXml": "LIBRARY/Symbol 105.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 105/0003.as",
+    "xflXml": "LIBRARY/Symbol 105.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 105/0004.as",
+    "xflXml": "LIBRARY/Symbol 105.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 112/0001.as",
+    "xflXml": "LIBRARY/Symbol 112.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 112/0002.as",
+    "xflXml": "LIBRARY/Symbol 112.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 112/0003.as",
+    "xflXml": "LIBRARY/Symbol 112.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 112/0004.as",
+    "xflXml": "LIBRARY/Symbol 112.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 113/0001.as",
+    "xflXml": "LIBRARY/Symbol 113.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 113/0002.as",
+    "xflXml": "LIBRARY/Symbol 113.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 113/0003.as",
+    "xflXml": "LIBRARY/Symbol 113.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 113/0004.as",
+    "xflXml": "LIBRARY/Symbol 113.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 12/0001.as",
+    "xflXml": "LIBRARY/Symbol 12.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 12/0002.as",
+    "xflXml": "LIBRARY/Symbol 12.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 12/0003.as",
+    "xflXml": "LIBRARY/Symbol 12.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 12/0004.as",
+    "xflXml": "LIBRARY/Symbol 12.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 120/0001.as",
+    "xflXml": "LIBRARY/Symbol 120.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 120/0002.as",
+    "xflXml": "LIBRARY/Symbol 120.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 120/0003.as",
+    "xflXml": "LIBRARY/Symbol 120.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 120/0004.as",
+    "xflXml": "LIBRARY/Symbol 120.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 123/0001.as",
+    "xflXml": "LIBRARY/Symbol 123.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 123/0002.as",
+    "xflXml": "LIBRARY/Symbol 123.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 123/0003.as",
+    "xflXml": "LIBRARY/Symbol 123.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 123/0004.as",
+    "xflXml": "LIBRARY/Symbol 123.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 130/0001.as",
+    "xflXml": "LIBRARY/Symbol 130.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 130/0002.as",
+    "xflXml": "LIBRARY/Symbol 130.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 130/0003.as",
+    "xflXml": "LIBRARY/Symbol 130.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 130/0004.as",
+    "xflXml": "LIBRARY/Symbol 130.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 131/0001.as",
+    "xflXml": "LIBRARY/Symbol 131.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 131/0002.as",
+    "xflXml": "LIBRARY/Symbol 131.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 131/0003.as",
+    "xflXml": "LIBRARY/Symbol 131.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 131/0004.as",
+    "xflXml": "LIBRARY/Symbol 131.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 138/0001.as",
+    "xflXml": "LIBRARY/Symbol 138.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 138/0002.as",
+    "xflXml": "LIBRARY/Symbol 138.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 138/0003.as",
+    "xflXml": "LIBRARY/Symbol 138.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 138/0004.as",
+    "xflXml": "LIBRARY/Symbol 138.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 139/0001.as",
+    "xflXml": "LIBRARY/Symbol 139.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 139/0002.as",
+    "xflXml": "LIBRARY/Symbol 139.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 139/0003.as",
+    "xflXml": "LIBRARY/Symbol 139.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 139/0004.as",
+    "xflXml": "LIBRARY/Symbol 139.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 146/0001.as",
+    "xflXml": "LIBRARY/Symbol 146.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 146/0002.as",
+    "xflXml": "LIBRARY/Symbol 146.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 146/0003.as",
+    "xflXml": "LIBRARY/Symbol 146.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 146/0004.as",
+    "xflXml": "LIBRARY/Symbol 146.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 147/0001.as",
+    "xflXml": "LIBRARY/Symbol 147.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 147/0002.as",
+    "xflXml": "LIBRARY/Symbol 147.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 147/0003.as",
+    "xflXml": "LIBRARY/Symbol 147.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 147/0004.as",
+    "xflXml": "LIBRARY/Symbol 147.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 15/0001.as",
+    "xflXml": "LIBRARY/Symbol 15.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 15/0002.as",
+    "xflXml": "LIBRARY/Symbol 15.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 15/0003.as",
+    "xflXml": "LIBRARY/Symbol 15.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 15/0004.as",
+    "xflXml": "LIBRARY/Symbol 15.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 154/0001.as",
+    "xflXml": "LIBRARY/Symbol 154.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 154/0002.as",
+    "xflXml": "LIBRARY/Symbol 154.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 154/0003.as",
+    "xflXml": "LIBRARY/Symbol 154.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 154/0004.as",
+    "xflXml": "LIBRARY/Symbol 154.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 155/0001.as",
+    "xflXml": "LIBRARY/Symbol 155.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 155/0002.as",
+    "xflXml": "LIBRARY/Symbol 155.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 155/0003.as",
+    "xflXml": "LIBRARY/Symbol 155.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 155/0004.as",
+    "xflXml": "LIBRARY/Symbol 155.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 162/0001.as",
+    "xflXml": "LIBRARY/Symbol 162.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 162/0002.as",
+    "xflXml": "LIBRARY/Symbol 162.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 162/0003.as",
+    "xflXml": "LIBRARY/Symbol 162.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 162/0004.as",
+    "xflXml": "LIBRARY/Symbol 162.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 163/0001.as",
+    "xflXml": "LIBRARY/Symbol 163.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 163/0002.as",
+    "xflXml": "LIBRARY/Symbol 163.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 163/0003.as",
+    "xflXml": "LIBRARY/Symbol 163.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 163/0004.as",
+    "xflXml": "LIBRARY/Symbol 163.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 170/0001.as",
+    "xflXml": "LIBRARY/Symbol 170.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 170/0002.as",
+    "xflXml": "LIBRARY/Symbol 170.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 170/0003.as",
+    "xflXml": "LIBRARY/Symbol 170.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 170/0004.as",
+    "xflXml": "LIBRARY/Symbol 170.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 171/0001.as",
+    "xflXml": "LIBRARY/Symbol 171.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 171/0002.as",
+    "xflXml": "LIBRARY/Symbol 171.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 171/0003.as",
+    "xflXml": "LIBRARY/Symbol 171.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 171/0004.as",
+    "xflXml": "LIBRARY/Symbol 171.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 178/0001.as",
+    "xflXml": "LIBRARY/Symbol 178.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 178/0002.as",
+    "xflXml": "LIBRARY/Symbol 178.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 178/0003.as",
+    "xflXml": "LIBRARY/Symbol 178.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 178/0004.as",
+    "xflXml": "LIBRARY/Symbol 178.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 179/0001.as",
+    "xflXml": "LIBRARY/Symbol 179.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 179/0002.as",
+    "xflXml": "LIBRARY/Symbol 179.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 179/0003.as",
+    "xflXml": "LIBRARY/Symbol 179.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 179/0004.as",
+    "xflXml": "LIBRARY/Symbol 179.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 186/0001.as",
+    "xflXml": "LIBRARY/Symbol 186.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 186/0002.as",
+    "xflXml": "LIBRARY/Symbol 186.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 186/0003.as",
+    "xflXml": "LIBRARY/Symbol 186.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 186/0004.as",
+    "xflXml": "LIBRARY/Symbol 186.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 187/0001.as",
+    "xflXml": "LIBRARY/Symbol 187.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 187/0002.as",
+    "xflXml": "LIBRARY/Symbol 187.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 187/0003.as",
+    "xflXml": "LIBRARY/Symbol 187.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 187/0004.as",
+    "xflXml": "LIBRARY/Symbol 187.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 194/0001.as",
+    "xflXml": "LIBRARY/Symbol 194.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 194/0002.as",
+    "xflXml": "LIBRARY/Symbol 194.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 194/0003.as",
+    "xflXml": "LIBRARY/Symbol 194.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 194/0004.as",
+    "xflXml": "LIBRARY/Symbol 194.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 195/0001.as",
+    "xflXml": "LIBRARY/Symbol 195.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 195/0002.as",
+    "xflXml": "LIBRARY/Symbol 195.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 195/0003.as",
+    "xflXml": "LIBRARY/Symbol 195.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 195/0004.as",
+    "xflXml": "LIBRARY/Symbol 195.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 202/0001.as",
+    "xflXml": "LIBRARY/Symbol 202.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 202/0002.as",
+    "xflXml": "LIBRARY/Symbol 202.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 202/0003.as",
+    "xflXml": "LIBRARY/Symbol 202.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 202/0004.as",
+    "xflXml": "LIBRARY/Symbol 202.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 203/0001.as",
+    "xflXml": "LIBRARY/Symbol 203.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 203/0002.as",
+    "xflXml": "LIBRARY/Symbol 203.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 203/0003.as",
+    "xflXml": "LIBRARY/Symbol 203.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 203/0004.as",
+    "xflXml": "LIBRARY/Symbol 203.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 210/0001.as",
+    "xflXml": "LIBRARY/Symbol 210.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 210/0002.as",
+    "xflXml": "LIBRARY/Symbol 210.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 210/0003.as",
+    "xflXml": "LIBRARY/Symbol 210.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 210/0004.as",
+    "xflXml": "LIBRARY/Symbol 210.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 211/0001.as",
+    "xflXml": "LIBRARY/Symbol 211.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 211/0002.as",
+    "xflXml": "LIBRARY/Symbol 211.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 211/0003.as",
+    "xflXml": "LIBRARY/Symbol 211.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 211/0004.as",
+    "xflXml": "LIBRARY/Symbol 211.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 218/0001.as",
+    "xflXml": "LIBRARY/Symbol 218.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 218/0002.as",
+    "xflXml": "LIBRARY/Symbol 218.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 218/0003.as",
+    "xflXml": "LIBRARY/Symbol 218.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 218/0004.as",
+    "xflXml": "LIBRARY/Symbol 218.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 219/0001.as",
+    "xflXml": "LIBRARY/Symbol 219.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 219/0002.as",
+    "xflXml": "LIBRARY/Symbol 219.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 219/0003.as",
+    "xflXml": "LIBRARY/Symbol 219.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 219/0004.as",
+    "xflXml": "LIBRARY/Symbol 219.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 22/0001.as",
+    "xflXml": "LIBRARY/Symbol 22.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 22/0002.as",
+    "xflXml": "LIBRARY/Symbol 22.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 22/0003.as",
+    "xflXml": "LIBRARY/Symbol 22.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 22/0004.as",
+    "xflXml": "LIBRARY/Symbol 22.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 220/0001.as",
+    "xflXml": "LIBRARY/Symbol 220.xml",
+    "scriptOrdinal": 1,
+    "sha256": "146c51dbe148154dfeb73f08ceeda2c007cead03ee20e65d0692228a628dccad",
+    "originalCodeSha256": "146c51dbe148154dfeb73f08ceeda2c007cead03ee20e65d0692228a628dccad",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 220/0002.as",
+    "xflXml": "LIBRARY/Symbol 220.xml",
+    "scriptOrdinal": 2,
+    "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 229/0001.as",
+    "xflXml": "LIBRARY/Symbol 229.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 229/0002.as",
+    "xflXml": "LIBRARY/Symbol 229.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 229/0003.as",
+    "xflXml": "LIBRARY/Symbol 229.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 229/0004.as",
+    "xflXml": "LIBRARY/Symbol 229.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 23/0001.as",
+    "xflXml": "LIBRARY/Symbol 23.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 23/0002.as",
+    "xflXml": "LIBRARY/Symbol 23.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 23/0003.as",
+    "xflXml": "LIBRARY/Symbol 23.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 23/0004.as",
+    "xflXml": "LIBRARY/Symbol 23.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 235/0001.as",
+    "xflXml": "LIBRARY/Symbol 235.xml",
+    "scriptOrdinal": 1,
+    "sha256": "0ac1d95b8bb78970770a67e53b76af1b1936e2363b3e7cce04a611c8978f2ab1",
+    "originalCodeSha256": "0ac1d95b8bb78970770a67e53b76af1b1936e2363b3e7cce04a611c8978f2ab1",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 235/0002.as",
+    "xflXml": "LIBRARY/Symbol 235.xml",
+    "scriptOrdinal": 2,
+    "sha256": "7a4ca841f42858b31a5f01e6401acee8f16399302956fe41d8281ce24d241024",
+    "originalCodeSha256": "7a4ca841f42858b31a5f01e6401acee8f16399302956fe41d8281ce24d241024",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 235/0003.as",
+    "xflXml": "LIBRARY/Symbol 235.xml",
+    "scriptOrdinal": 3,
+    "sha256": "54591c607fcab40696102466083974a899abd45db3d67f689b5c9fde5da64093",
+    "originalCodeSha256": "54591c607fcab40696102466083974a899abd45db3d67f689b5c9fde5da64093",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 235/0004.as",
+    "xflXml": "LIBRARY/Symbol 235.xml",
+    "scriptOrdinal": 4,
+    "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 235/0005.as",
+    "xflXml": "LIBRARY/Symbol 235.xml",
+    "scriptOrdinal": 5,
+    "sha256": "32237923f3444a6ce279bf1b0ac0c6447d40ad713e68153df4c19c63d1188cc2",
+    "originalCodeSha256": "32237923f3444a6ce279bf1b0ac0c6447d40ad713e68153df4c19c63d1188cc2",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 236/0001.as",
+    "xflXml": "LIBRARY/Symbol 236.xml",
+    "scriptOrdinal": 1,
+    "sha256": "302d12ca515d49da893e7272a2d9e0f426ec2aef19874bb9d6994a15d71a8760",
+    "originalCodeSha256": "302d12ca515d49da893e7272a2d9e0f426ec2aef19874bb9d6994a15d71a8760",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 236/0002.as",
+    "xflXml": "LIBRARY/Symbol 236.xml",
+    "scriptOrdinal": 2,
+    "sha256": "6dbbd130e7fa39e24a8613595a729f7e0eaad8475279170d8af0775d62dff4c9",
+    "originalCodeSha256": "a900a8d14d62ea977ea624ed8268937a6a6f4876529b02379aabeb2c8c1198d2",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 236/0003.as",
+    "xflXml": "LIBRARY/Symbol 236.xml",
+    "scriptOrdinal": 3,
+    "sha256": "e1fe16866aca51baee8940cfb9ee17edf31cfc7a506240985cd327345fd2da9f",
+    "originalCodeSha256": "2c4872dd14f3c4277696caa5fd5569ff8888d83f11b97f17e54314f20975649c",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 236/0004.as",
+    "xflXml": "LIBRARY/Symbol 236.xml",
+    "scriptOrdinal": 4,
+    "sha256": "8b87192edeb33dd93c6d0e9fbe1258a0672948d9afc5370411ceba78dddeb2cb",
+    "originalCodeSha256": "8bd380eca7ee7bff1de80cabbaec95470482475a4c154fe2872faf244a46f294",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 236/0005.as",
+    "xflXml": "LIBRARY/Symbol 236.xml",
+    "scriptOrdinal": 5,
+    "sha256": "41828e8126f8ac7227bcd33238260aa07777f7e2e69c7e0d95fedf36590d1fa0",
+    "originalCodeSha256": "28a454ebe05d18ede929aadb5c7cfdfda4245a25f8cdb7406675a82a18e91314",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 236/0006.as",
+    "xflXml": "LIBRARY/Symbol 236.xml",
+    "scriptOrdinal": 6,
+    "sha256": "4d5c9fca40c1da373edc7179ee74d23d2109647ab5f60f133ec75e8740b03348",
+    "originalCodeSha256": "2b5c35c7caf0aae5bd408a18d81568533bb291a7d00f8b83a6ecc8bf4a2f7142",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 236/0007.as",
+    "xflXml": "LIBRARY/Symbol 236.xml",
+    "scriptOrdinal": 7,
+    "sha256": "4b10cdec8bad84229677029c11b49538f4c13d805eca8d9f6f208fa066ee7428",
+    "originalCodeSha256": "eaa8f4a049061e52200ffd2d420a913a64bc19c39c5d398c568c4951132f07da",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 236/0008.as",
+    "xflXml": "LIBRARY/Symbol 236.xml",
+    "scriptOrdinal": 8,
+    "sha256": "3605331c252b915106ed3e4a1d10af95dad072264d7c5fd03a2cb7eec5bc6894",
+    "originalCodeSha256": "ff0fb245bc0d7411062f90459dd029e1088bcedfc56b6e8d01f364cf34a35fa3",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 236/0009.as",
+    "xflXml": "LIBRARY/Symbol 236.xml",
+    "scriptOrdinal": 9,
+    "sha256": "82adf90f60f8a0a9d3570bcd97dfb0cd845b2fa1e064749b33f244c25e948128",
+    "originalCodeSha256": "f0cce7493dfe84ce8c25b5c5e7e473236598c0b7b4e7b60673b14506b0b1deca",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 244/0001.as",
+    "xflXml": "LIBRARY/Symbol 244.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 244/0002.as",
+    "xflXml": "LIBRARY/Symbol 244.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 244/0003.as",
+    "xflXml": "LIBRARY/Symbol 244.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 244/0004.as",
+    "xflXml": "LIBRARY/Symbol 244.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 247/0001.as",
+    "xflXml": "LIBRARY/Symbol 247.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 247/0002.as",
+    "xflXml": "LIBRARY/Symbol 247.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 247/0003.as",
+    "xflXml": "LIBRARY/Symbol 247.xml",
+    "scriptOrdinal": 3,
+    "sha256": "6cd35087cc358cb7bb487abb46ba7a39625a5e6cae5fdd47aacfe6dd3faf305d",
+    "originalCodeSha256": "6cd35087cc358cb7bb487abb46ba7a39625a5e6cae5fdd47aacfe6dd3faf305d",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 255/0001.as",
+    "xflXml": "LIBRARY/Symbol 255.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 255/0002.as",
+    "xflXml": "LIBRARY/Symbol 255.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 255/0003.as",
+    "xflXml": "LIBRARY/Symbol 255.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 255/0004.as",
+    "xflXml": "LIBRARY/Symbol 255.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 256/0001.as",
+    "xflXml": "LIBRARY/Symbol 256.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 256/0002.as",
+    "xflXml": "LIBRARY/Symbol 256.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 256/0003.as",
+    "xflXml": "LIBRARY/Symbol 256.xml",
+    "scriptOrdinal": 3,
+    "sha256": "6cd35087cc358cb7bb487abb46ba7a39625a5e6cae5fdd47aacfe6dd3faf305d",
+    "originalCodeSha256": "6cd35087cc358cb7bb487abb46ba7a39625a5e6cae5fdd47aacfe6dd3faf305d",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 257/0001.as",
+    "xflXml": "LIBRARY/Symbol 257.xml",
+    "scriptOrdinal": 1,
+    "sha256": "21d2c075b5022ede194da4afaed4a5f8d04fb566005c29362726effdab8250e7",
+    "originalCodeSha256": "21d2c075b5022ede194da4afaed4a5f8d04fb566005c29362726effdab8250e7",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 257/0002.as",
+    "xflXml": "LIBRARY/Symbol 257.xml",
+    "scriptOrdinal": 2,
+    "sha256": "05afc28f3f32e8c201f86bf763f47f158014e192ed71b2f6da946624d3b0a787",
+    "originalCodeSha256": "05afc28f3f32e8c201f86bf763f47f158014e192ed71b2f6da946624d3b0a787",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 257/0003.as",
+    "xflXml": "LIBRARY/Symbol 257.xml",
+    "scriptOrdinal": 3,
+    "sha256": "99ee9a1d548608a58597efac45248b8cda04a9441214e0d6b3315c72e6bbe234",
+    "originalCodeSha256": "99ee9a1d548608a58597efac45248b8cda04a9441214e0d6b3315c72e6bbe234",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 257/0004.as",
+    "xflXml": "LIBRARY/Symbol 257.xml",
+    "scriptOrdinal": 4,
+    "sha256": "6a29b5b56e2ec78f79e3ffbf18c58e1ab27a1b364d16a9de445fed6f0a56d176",
+    "originalCodeSha256": "6a29b5b56e2ec78f79e3ffbf18c58e1ab27a1b364d16a9de445fed6f0a56d176",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 264/0001.as",
+    "xflXml": "LIBRARY/Symbol 264.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 264/0002.as",
+    "xflXml": "LIBRARY/Symbol 264.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 264/0003.as",
+    "xflXml": "LIBRARY/Symbol 264.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 264/0004.as",
+    "xflXml": "LIBRARY/Symbol 264.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 271/0001.as",
+    "xflXml": "LIBRARY/Symbol 271.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 271/0002.as",
+    "xflXml": "LIBRARY/Symbol 271.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 271/0003.as",
+    "xflXml": "LIBRARY/Symbol 271.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 271/0004.as",
+    "xflXml": "LIBRARY/Symbol 271.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 272/0001.as",
+    "xflXml": "LIBRARY/Symbol 272.xml",
+    "scriptOrdinal": 1,
+    "sha256": "281bca98f2d78a348d6e871ae14c850cd9a914194d05934eb6a2c090e620360a",
+    "originalCodeSha256": "281bca98f2d78a348d6e871ae14c850cd9a914194d05934eb6a2c090e620360a",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 272/0002.as",
+    "xflXml": "LIBRARY/Symbol 272.xml",
+    "scriptOrdinal": 2,
+    "sha256": "43c057010011843ac41dfa2d1872fffd5ed46389c732ab62ab1b907894777d08",
+    "originalCodeSha256": "4a36c8ac2594e7db709317632b958160ddbe83acd046519255eac34ceb4cead7",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 272/0003.as",
+    "xflXml": "LIBRARY/Symbol 272.xml",
+    "scriptOrdinal": 3,
+    "sha256": "f46d7822541e46615ffe9b3259391e8d46507e4dc727eb244bfa3699cbb56c2c",
+    "originalCodeSha256": "c0824503e562bfb117bb9dfd8aa853f9ac3e7cb8ff5caa6d6e75ce3254db7f9b",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 272/0004.as",
+    "xflXml": "LIBRARY/Symbol 272.xml",
+    "scriptOrdinal": 4,
+    "sha256": "1792622985867242b200060346bf130b8221d8a168453b08dfef147ef3b3983e",
+    "originalCodeSha256": "fe6ba511ca9c549b7c4baa0c47b4d92da1ba79fbe1be5e1ce8fbe0a2e21a65e1",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 272/0005.as",
+    "xflXml": "LIBRARY/Symbol 272.xml",
+    "scriptOrdinal": 5,
+    "sha256": "de3b23714f3ac9bd7ee32324ea8e7ccc3468082d53256d8b4926efe9dcbb62a2",
+    "originalCodeSha256": "5141b0bdb4b289ace4d3821c450891a1ecdf0d111f7fc7c8088fd288cc536ef6",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 275/0001.as",
+    "xflXml": "LIBRARY/Symbol 275.xml",
+    "scriptOrdinal": 1,
+    "sha256": "237c7dbf084165bdece723abfd71ccd49571d8c89c2519b02d126f5e8acea6da",
+    "originalCodeSha256": "237c7dbf084165bdece723abfd71ccd49571d8c89c2519b02d126f5e8acea6da",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 275/0002.as",
+    "xflXml": "LIBRARY/Symbol 275.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 276/0001.as",
+    "xflXml": "LIBRARY/Symbol 276.xml",
+    "scriptOrdinal": 1,
+    "sha256": "bbbd27ff42832a83eea610bdec54c7e26b2fe8189477d972103861e1c857126a",
+    "originalCodeSha256": "bbbd27ff42832a83eea610bdec54c7e26b2fe8189477d972103861e1c857126a",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 277/0001.as",
+    "xflXml": "LIBRARY/Symbol 277.xml",
+    "scriptOrdinal": 1,
+    "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 278/0001.as",
+    "xflXml": "LIBRARY/Symbol 278.xml",
+    "scriptOrdinal": 1,
+    "sha256": "7aa29b378cea14920e2f5755aedf2b8860103ce7941862326259af16653b3a76",
+    "originalCodeSha256": "7aa29b378cea14920e2f5755aedf2b8860103ce7941862326259af16653b3a76",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 278/0002.as",
+    "xflXml": "LIBRARY/Symbol 278.xml",
+    "scriptOrdinal": 2,
+    "sha256": "e7c7d29225732ae78a3765be50d73a64afc26c4c081499aefa2e7de5a5eccbc7",
+    "originalCodeSha256": "892c3433e6ae0efdccfd2113e6e231d0e71b8eb8289702db707b1a49c90df0eb",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 281/0001.as",
+    "xflXml": "LIBRARY/Symbol 281.xml",
+    "scriptOrdinal": 1,
+    "sha256": "237c7dbf084165bdece723abfd71ccd49571d8c89c2519b02d126f5e8acea6da",
+    "originalCodeSha256": "237c7dbf084165bdece723abfd71ccd49571d8c89c2519b02d126f5e8acea6da",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 281/0002.as",
+    "xflXml": "LIBRARY/Symbol 281.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 284/0001.as",
+    "xflXml": "LIBRARY/Symbol 284.xml",
+    "scriptOrdinal": 1,
+    "sha256": "6216fc7a44fe648bcd103ec90a916f93ec70ba79e0bef83a3817931be9706df1",
+    "originalCodeSha256": "3b1350b422672f9c1a6895a643b1067fbc2045963526e6bbd40292fdc9c356c9",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 284/0002.as",
+    "xflXml": "LIBRARY/Symbol 284.xml",
+    "scriptOrdinal": 2,
+    "sha256": "d40d241a7811957eb9865386080db5296f63c8ec8d7d959955eba64c81a64746",
+    "originalCodeSha256": "d40d241a7811957eb9865386080db5296f63c8ec8d7d959955eba64c81a64746",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 295/0001.as",
+    "xflXml": "LIBRARY/Symbol 295.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 295/0002.as",
+    "xflXml": "LIBRARY/Symbol 295.xml",
+    "scriptOrdinal": 2,
+    "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 296/0001.as",
+    "xflXml": "LIBRARY/Symbol 296.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 296/0002.as",
+    "xflXml": "LIBRARY/Symbol 296.xml",
+    "scriptOrdinal": 2,
+    "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 297/0001.as",
+    "xflXml": "LIBRARY/Symbol 297.xml",
+    "scriptOrdinal": 1,
+    "sha256": "4984065d7606a89dd284508d67d32bcbcc473398b4025313a14903bdf1bc3701",
+    "originalCodeSha256": "4984065d7606a89dd284508d67d32bcbcc473398b4025313a14903bdf1bc3701",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 30/0001.as",
+    "xflXml": "LIBRARY/Symbol 30.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 30/0002.as",
+    "xflXml": "LIBRARY/Symbol 30.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 30/0003.as",
+    "xflXml": "LIBRARY/Symbol 30.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 30/0004.as",
+    "xflXml": "LIBRARY/Symbol 30.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 300/0001.as",
+    "xflXml": "LIBRARY/Symbol 300.xml",
+    "scriptOrdinal": 1,
+    "sha256": "fc259c0a99117384402cc2b60c70ed0bf2a8d3f206d2a593c6019b057f4181f1",
+    "originalCodeSha256": "fc259c0a99117384402cc2b60c70ed0bf2a8d3f206d2a593c6019b057f4181f1",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 307/0001.as",
+    "xflXml": "LIBRARY/Symbol 307.xml",
+    "scriptOrdinal": 1,
+    "sha256": "b32dec691c49a758ea8ebb8819f51e4db0d8ae1dc7a40fe3b7493a8e4a652eb5",
+    "originalCodeSha256": "b32dec691c49a758ea8ebb8819f51e4db0d8ae1dc7a40fe3b7493a8e4a652eb5",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 307/0002.as",
+    "xflXml": "LIBRARY/Symbol 307.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 307/0003.as",
+    "xflXml": "LIBRARY/Symbol 307.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 307/0004.as",
+    "xflXml": "LIBRARY/Symbol 307.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 307/0005.as",
+    "xflXml": "LIBRARY/Symbol 307.xml",
+    "scriptOrdinal": 5,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 307/0006.as",
+    "xflXml": "LIBRARY/Symbol 307.xml",
+    "scriptOrdinal": 6,
+    "sha256": "6c2801b307f1b73116912997e0783413e66132913ad236c6025ead2ef62cabb7",
+    "originalCodeSha256": "6c2801b307f1b73116912997e0783413e66132913ad236c6025ead2ef62cabb7",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 307/0007.as",
+    "xflXml": "LIBRARY/Symbol 307.xml",
+    "scriptOrdinal": 7,
+    "sha256": "6c2801b307f1b73116912997e0783413e66132913ad236c6025ead2ef62cabb7",
+    "originalCodeSha256": "6c2801b307f1b73116912997e0783413e66132913ad236c6025ead2ef62cabb7",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 307/0008.as",
+    "xflXml": "LIBRARY/Symbol 307.xml",
+    "scriptOrdinal": 8,
+    "sha256": "6c2801b307f1b73116912997e0783413e66132913ad236c6025ead2ef62cabb7",
+    "originalCodeSha256": "6c2801b307f1b73116912997e0783413e66132913ad236c6025ead2ef62cabb7",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 31/0001.as",
+    "xflXml": "LIBRARY/Symbol 31.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 31/0002.as",
+    "xflXml": "LIBRARY/Symbol 31.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 31/0003.as",
+    "xflXml": "LIBRARY/Symbol 31.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 31/0004.as",
+    "xflXml": "LIBRARY/Symbol 31.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 314/0001.as",
+    "xflXml": "LIBRARY/Symbol 314.xml",
+    "scriptOrdinal": 1,
+    "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
+    "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 314/0002.as",
+    "xflXml": "LIBRARY/Symbol 314.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 314/0003.as",
+    "xflXml": "LIBRARY/Symbol 314.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 314/0004.as",
+    "xflXml": "LIBRARY/Symbol 314.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 38/0001.as",
+    "xflXml": "LIBRARY/Symbol 38.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 38/0002.as",
+    "xflXml": "LIBRARY/Symbol 38.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 38/0003.as",
+    "xflXml": "LIBRARY/Symbol 38.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 38/0004.as",
+    "xflXml": "LIBRARY/Symbol 38.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 39/0001.as",
+    "xflXml": "LIBRARY/Symbol 39.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 39/0002.as",
+    "xflXml": "LIBRARY/Symbol 39.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 39/0003.as",
+    "xflXml": "LIBRARY/Symbol 39.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 39/0004.as",
+    "xflXml": "LIBRARY/Symbol 39.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 46/0001.as",
+    "xflXml": "LIBRARY/Symbol 46.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 46/0002.as",
+    "xflXml": "LIBRARY/Symbol 46.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 46/0003.as",
+    "xflXml": "LIBRARY/Symbol 46.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 46/0004.as",
+    "xflXml": "LIBRARY/Symbol 46.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 47/0001.as",
+    "xflXml": "LIBRARY/Symbol 47.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 47/0002.as",
+    "xflXml": "LIBRARY/Symbol 47.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 47/0003.as",
+    "xflXml": "LIBRARY/Symbol 47.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 47/0004.as",
+    "xflXml": "LIBRARY/Symbol 47.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 5/0001.as",
+    "xflXml": "LIBRARY/Symbol 5.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 5/0002.as",
+    "xflXml": "LIBRARY/Symbol 5.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 54/0001.as",
+    "xflXml": "LIBRARY/Symbol 54.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 54/0002.as",
+    "xflXml": "LIBRARY/Symbol 54.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 54/0003.as",
+    "xflXml": "LIBRARY/Symbol 54.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 54/0004.as",
+    "xflXml": "LIBRARY/Symbol 54.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 57/0001.as",
+    "xflXml": "LIBRARY/Symbol 57.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 57/0002.as",
+    "xflXml": "LIBRARY/Symbol 57.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 57/0003.as",
+    "xflXml": "LIBRARY/Symbol 57.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 57/0004.as",
+    "xflXml": "LIBRARY/Symbol 57.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 64/0001.as",
+    "xflXml": "LIBRARY/Symbol 64.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 64/0002.as",
+    "xflXml": "LIBRARY/Symbol 64.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 64/0003.as",
+    "xflXml": "LIBRARY/Symbol 64.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 64/0004.as",
+    "xflXml": "LIBRARY/Symbol 64.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 65/0001.as",
+    "xflXml": "LIBRARY/Symbol 65.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 65/0002.as",
+    "xflXml": "LIBRARY/Symbol 65.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 65/0003.as",
+    "xflXml": "LIBRARY/Symbol 65.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 65/0004.as",
+    "xflXml": "LIBRARY/Symbol 65.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 72/0001.as",
+    "xflXml": "LIBRARY/Symbol 72.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 72/0002.as",
+    "xflXml": "LIBRARY/Symbol 72.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 72/0003.as",
+    "xflXml": "LIBRARY/Symbol 72.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 72/0004.as",
+    "xflXml": "LIBRARY/Symbol 72.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 73/0001.as",
+    "xflXml": "LIBRARY/Symbol 73.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 73/0002.as",
+    "xflXml": "LIBRARY/Symbol 73.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 73/0003.as",
+    "xflXml": "LIBRARY/Symbol 73.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 73/0004.as",
+    "xflXml": "LIBRARY/Symbol 73.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 80/0001.as",
+    "xflXml": "LIBRARY/Symbol 80.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 80/0002.as",
+    "xflXml": "LIBRARY/Symbol 80.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 80/0003.as",
+    "xflXml": "LIBRARY/Symbol 80.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 80/0004.as",
+    "xflXml": "LIBRARY/Symbol 80.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 81/0001.as",
+    "xflXml": "LIBRARY/Symbol 81.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 81/0002.as",
+    "xflXml": "LIBRARY/Symbol 81.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 81/0003.as",
+    "xflXml": "LIBRARY/Symbol 81.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 81/0004.as",
+    "xflXml": "LIBRARY/Symbol 81.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 88/0001.as",
+    "xflXml": "LIBRARY/Symbol 88.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 88/0002.as",
+    "xflXml": "LIBRARY/Symbol 88.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 88/0003.as",
+    "xflXml": "LIBRARY/Symbol 88.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 88/0004.as",
+    "xflXml": "LIBRARY/Symbol 88.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 89/0001.as",
+    "xflXml": "LIBRARY/Symbol 89.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 89/0002.as",
+    "xflXml": "LIBRARY/Symbol 89.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 89/0003.as",
+    "xflXml": "LIBRARY/Symbol 89.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 89/0004.as",
+    "xflXml": "LIBRARY/Symbol 89.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 96/0001.as",
+    "xflXml": "LIBRARY/Symbol 96.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 96/0002.as",
+    "xflXml": "LIBRARY/Symbol 96.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 96/0003.as",
+    "xflXml": "LIBRARY/Symbol 96.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 96/0004.as",
+    "xflXml": "LIBRARY/Symbol 96.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 97/0001.as",
+    "xflXml": "LIBRARY/Symbol 97.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 97/0002.as",
+    "xflXml": "LIBRARY/Symbol 97.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 97/0003.as",
+    "xflXml": "LIBRARY/Symbol 97.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalHUDSelectionDetails/scripts/LIBRARY/Symbol 97/0004.as",
+    "xflXml": "LIBRARY/Symbol 97.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  }
+]

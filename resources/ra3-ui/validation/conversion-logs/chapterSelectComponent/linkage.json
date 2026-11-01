@@ -1,0 +1,25 @@
+{
+  "localizedCount": 3,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 5.xml",
+      "url": "../cafe/mouseComponents/std_mouseRadioButton.swf",
+      "identifier": "std_mouseRadioButtonControllerSymbol",
+      "name": "Symbol 5"
+    },
+    {
+      "file": "LIBRARY/Symbol 6.xml",
+      "url": "../cafe/mouseComponents/std_mouseRadioButton.swf",
+      "identifier": "std_mouseRadioButtonSymbol",
+      "name": "Symbol 6"
+    },
+    {
+      "file": "LIBRARY/Symbol 7.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollingListbox.swf",
+      "identifier": "std_mouseScrollingListboxSymbol",
+      "name": "Symbol 7"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

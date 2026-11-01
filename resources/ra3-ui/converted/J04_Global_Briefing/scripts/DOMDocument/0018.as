@@ -1,0 +1,2 @@
+stop();
+instanceName.loadMovie();

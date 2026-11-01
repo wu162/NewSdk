@@ -1,0 +1,25 @@
+{
+  "localizedCount": 3,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 49.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollingListbox.swf",
+      "identifier": "std_mouseScrollingListboxSymbol",
+      "name": "Symbol 49"
+    },
+    {
+      "file": "LIBRARY/Symbol 50.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollbar.swf",
+      "identifier": "std_mouseScrollbarSymbol",
+      "name": "Symbol 50"
+    },
+    {
+      "file": "LIBRARY/Symbol 54.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 54"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

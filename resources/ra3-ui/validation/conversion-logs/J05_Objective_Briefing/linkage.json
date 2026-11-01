@@ -1,0 +1,43 @@
+{
+  "localizedCount": 6,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 12.xml",
+      "url": "fe_objectiveBriefingsAssets.swf",
+      "identifier": "box 2 fill",
+      "name": "Symbol 12"
+    },
+    {
+      "file": "LIBRARY/Symbol 13.xml",
+      "url": "fe_objectiveBriefingsAssets.swf",
+      "identifier": "box 2 outline",
+      "name": "Symbol 13"
+    },
+    {
+      "file": "LIBRARY/Symbol 14.xml",
+      "url": "fe_objectiveBriefingsAssets.swf",
+      "identifier": "OI Primary Build",
+      "name": "Symbol 14"
+    },
+    {
+      "file": "LIBRARY/Symbol 15.xml",
+      "url": "fe_objectiveBriefingsAssets.swf",
+      "identifier": "blue arrow wide mask",
+      "name": "Symbol 15"
+    },
+    {
+      "file": "LIBRARY/Symbol 19.xml",
+      "url": "fe_objectiveBriefingsAssets.swf",
+      "identifier": "blue arrow thin mask",
+      "name": "Symbol 19"
+    },
+    {
+      "file": "LIBRARY/Symbol 5.xml",
+      "url": "fe_objectiveBriefingsAssets.swf",
+      "identifier": "Map frame",
+      "name": "Symbol 5"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

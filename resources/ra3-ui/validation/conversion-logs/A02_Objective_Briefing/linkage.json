@@ -1,0 +1,43 @@
+{
+  "localizedCount": 6,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 10.xml",
+      "url": "fe_objectiveBriefingsAssets.swf",
+      "identifier": "OI Primary Move",
+      "name": "Symbol 10"
+    },
+    {
+      "file": "LIBRARY/Symbol 5.xml",
+      "url": "fe_objectiveBriefingsAssets.swf",
+      "identifier": "Map frame",
+      "name": "Symbol 5"
+    },
+    {
+      "file": "LIBRARY/Symbol 6.xml",
+      "url": "fe_objectiveBriefingsAssets.swf",
+      "identifier": "box 2 fill",
+      "name": "Symbol 6"
+    },
+    {
+      "file": "LIBRARY/Symbol 7.xml",
+      "url": "fe_objectiveBriefingsAssets.swf",
+      "identifier": "box 2 outline",
+      "name": "Symbol 7"
+    },
+    {
+      "file": "LIBRARY/Symbol 8.xml",
+      "url": "fe_objectiveBriefingsAssets.swf",
+      "identifier": "OI Primary Capture",
+      "name": "Symbol 8"
+    },
+    {
+      "file": "LIBRARY/Symbol 9.xml",
+      "url": "fe_objectiveBriefingsAssets.swf",
+      "identifier": "OI Primary Attack",
+      "name": "Symbol 9"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

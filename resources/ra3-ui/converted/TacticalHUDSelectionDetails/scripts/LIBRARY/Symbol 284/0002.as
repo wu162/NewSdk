@@ -1,0 +1,9 @@
+on(rollOver){
+   fscommand(qualifyName(_parent,"OnPortraitRollOver"),"");
+}
+on(rollOut){
+   fscommand(qualifyName(_parent,"OnPortraitRollOut"),"");
+}
+on(release){
+   fscommand(qualifyName(_parent,"OnPortraitRelease"),"");
+}

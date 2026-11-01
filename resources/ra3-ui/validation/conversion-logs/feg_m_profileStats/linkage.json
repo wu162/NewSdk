@@ -1,0 +1,31 @@
+{
+  "localizedCount": 4,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 3.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "lowerScreenBar Symbol",
+      "name": "Symbol 3"
+    },
+    {
+      "file": "LIBRARY/Symbol 4.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "ScreenTitleBarSymbol",
+      "name": "Symbol 4"
+    },
+    {
+      "file": "LIBRARY/Symbol 6.xml",
+      "url": "../mouse/Components/careerStatsComponent.swf",
+      "identifier": "careerStatsComponentSymbol",
+      "name": "Symbol 6"
+    },
+    {
+      "file": "LIBRARY/Symbol 7.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 7"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

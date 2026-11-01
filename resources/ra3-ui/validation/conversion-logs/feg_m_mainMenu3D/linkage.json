@@ -1,0 +1,55 @@
+{
+  "localizedCount": 8,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 1.xml",
+      "url": "..\\common\\shell\\fe_shared_mainMenuLib.swf",
+      "identifier": "floorAnimationSymbol",
+      "name": "Symbol 1"
+    },
+    {
+      "file": "LIBRARY/Symbol 11.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 11"
+    },
+    {
+      "file": "LIBRARY/Symbol 2.xml",
+      "url": "..\\common\\shell\\fe_shared_mainMenuLib.swf",
+      "identifier": "cityscapeMC Symbol",
+      "name": "Symbol 2"
+    },
+    {
+      "file": "LIBRARY/Symbol 3.xml",
+      "url": "../cafe/mouseComponents/std_MouseAccordionButton.swf",
+      "identifier": "std_AccordionMenuSymbol",
+      "name": "Symbol 3"
+    },
+    {
+      "file": "LIBRARY/Symbol 32.xml",
+      "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+      "identifier": "std_MouseCheckBoxSymbol",
+      "name": "Symbol 32"
+    },
+    {
+      "file": "LIBRARY/Symbol 36.xml",
+      "url": "./screens/fe_m_assets.swf",
+      "identifier": "newProfileMC",
+      "name": "Symbol 36"
+    },
+    {
+      "file": "LIBRARY/Symbol 4.xml",
+      "url": "..\\common\\shell\\fe_shared_mainMenuLib.swf",
+      "identifier": "libertySymbol",
+      "name": "Symbol 4"
+    },
+    {
+      "file": "LIBRARY/Symbol 5.xml",
+      "url": "..\\common\\shell\\fe_shared_mainMenuLib.swf",
+      "identifier": "hammer&SickleSymbol",
+      "name": "Symbol 5"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

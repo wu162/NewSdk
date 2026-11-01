@@ -1,0 +1,58 @@
+[
+  {
+    "path": "converted/LoadScreenCampaign/scripts/LIBRARY/Symbol 11/0001.as",
+    "xflXml": "LIBRARY/Symbol 11.xml",
+    "scriptOrdinal": 1,
+    "sha256": "1ab85d48d23b064c1da30d51a69203c7b07f87d138a3547741b958c83a70ed0b",
+    "originalCodeSha256": "1ab85d48d23b064c1da30d51a69203c7b07f87d138a3547741b958c83a70ed0b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/LoadScreenCampaign/scripts/LIBRARY/Symbol 16/0001.as",
+    "xflXml": "LIBRARY/Symbol 16.xml",
+    "scriptOrdinal": 1,
+    "sha256": "78747830da0398f136bf0cf8ce2b7cd2d0b4184c4d2043ae1c0da2956e628f7b",
+    "originalCodeSha256": "78747830da0398f136bf0cf8ce2b7cd2d0b4184c4d2043ae1c0da2956e628f7b",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/LoadScreenCampaign/scripts/LIBRARY/Symbol 18/0001.as",
+    "xflXml": "LIBRARY/Symbol 18.xml",
+    "scriptOrdinal": 1,
+    "sha256": "d0b27a2288d8a8752cb2a73947876ffd9621233b2d29ddd369d0f978a2aaa6dd",
+    "originalCodeSha256": "d0b27a2288d8a8752cb2a73947876ffd9621233b2d29ddd369d0f978a2aaa6dd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/LoadScreenCampaign/scripts/LIBRARY/Symbol 19/0001.as",
+    "xflXml": "LIBRARY/Symbol 19.xml",
+    "scriptOrdinal": 1,
+    "sha256": "38704041b5ec5556a09d8a0a02c970f1489e1c74bf23115601d40ad1c664b082",
+    "originalCodeSha256": "38704041b5ec5556a09d8a0a02c970f1489e1c74bf23115601d40ad1c664b082",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/LoadScreenCampaign/scripts/LIBRARY/Symbol 19/0002.as",
+    "xflXml": "LIBRARY/Symbol 19.xml",
+    "scriptOrdinal": 2,
+    "sha256": "36bfe6ac4ffad4d692f4715eb7dd913b1173c3b75a5bc060d8927c411bdf17b6",
+    "originalCodeSha256": "b0e76579b2bb9d7e09612ed7002793a124ec34b4c5aa1add2492d82ce0dac6d8",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/LoadScreenCampaign/scripts/LIBRARY/Symbol 20/0001.as",
+    "xflXml": "LIBRARY/Symbol 20.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/LoadScreenCampaign/scripts/LIBRARY/Symbol 20/0002.as",
+    "xflXml": "LIBRARY/Symbol 20.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  }
+]

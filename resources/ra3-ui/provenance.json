@@ -33,9 +33,13 @@
   "converter": {
     "name": "JPEXS Free Flash Decompiler",
     "version": "26.4.0",
-    "format": "fla:f8",
+    "format": "MX2004 (CFB, Contents 0x38)",
     "upstreamUrl": "https://github.com/jindrapetrik/jpexs-decompiler/releases/tag/version26.4.0",
     "distribution": "tooling/ffdec_26.4.0.zip",
-    "distributionSha256": "56ce960aeafc7caf034e2052ba49f878a883f7c7ca690da6eeffca9587b5e4b9"
-  }
+    "distributionSha256": "56ce960aeafc7caf034e2052ba49f878a883f7c7ca690da6eeffca9587b5e4b9",
+    "legacyTimelineWrapper": "tools/LegacyXflExport.java",
+    "sharing": "Resolve known imports by movie basename; inline only resolved library definitions; retain explicit missing-library inventory",
+    "actionScript": "Real scripts externalized with relative #include; on(construct) event normalized to onClipEvent(construct)"
+  },
+  "offlinePolicy": "All originals, outputs and FFDec distribution are committed on this resource branch. No workflow was added or dispatched to download them."
 }

@@ -1,0 +1,79 @@
+{
+  "localizedCount": 12,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 33.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollingListbox.swf",
+      "identifier": "ScrollingListboxBackgroundPlate",
+      "name": "Symbol 33"
+    },
+    {
+      "file": "LIBRARY/Symbol 34.xml",
+      "url": ".\\Components\\fe_onlineComponents.swf",
+      "identifier": "BuddyListComponentSymbol",
+      "name": "Symbol 34"
+    },
+    {
+      "file": "LIBRARY/Symbol 39.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 39"
+    },
+    {
+      "file": "LIBRARY/Symbol 50.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollingListbox.swf",
+      "identifier": "std_mouseScrollingListboxSymbol",
+      "name": "Symbol 50"
+    },
+    {
+      "file": "LIBRARY/Symbol 51.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollbar.swf",
+      "identifier": "std_mouseScrollbarSymbol",
+      "name": "Symbol 51"
+    },
+    {
+      "file": "LIBRARY/Symbol 55.xml",
+      "url": "../mouse/Components/chatComponent.swf",
+      "identifier": "chatComponentSymbol",
+      "name": "Symbol 55"
+    },
+    {
+      "file": "LIBRARY/Symbol 59.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "lowerScreenBar Symbol",
+      "name": "Symbol 59"
+    },
+    {
+      "file": "LIBRARY/Symbol 60.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "ScreenTitleBarSymbol",
+      "name": "Symbol 60"
+    },
+    {
+      "file": "LIBRARY/Symbol 62.xml",
+      "url": ".\\Components\\fe_onlineComponents.swf",
+      "identifier": "PlayerListComponentSymbol",
+      "name": "Symbol 62"
+    },
+    {
+      "file": "LIBRARY/Symbol 63.xml",
+      "url": ".\\Components\\fe_onlineComponents.swf",
+      "identifier": "LobbyListComponentSymbol",
+      "name": "Symbol 63"
+    },
+    {
+      "file": "LIBRARY/Symbol 65.xml",
+      "url": "../cafe/mouseComponents/std_mouseRadioButton.swf",
+      "identifier": "std_mouseRadioButtonSymbol",
+      "name": "Symbol 65"
+    },
+    {
+      "file": "LIBRARY/Symbol 66.xml",
+      "url": "../cafe/mouseComponents/std_mouseRadioButton.swf",
+      "identifier": "std_mouseRadioButtonControllerSymbol",
+      "name": "Symbol 66"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "path": "converted/ig_InfoBox/scripts/DOMDocument/0001.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "sha256": "91185f7bb80025e8337f5fd220c8d5bfd18b8fa3bb889b657edab081a801c4a5",
+    "originalCodeSha256": "91185f7bb80025e8337f5fd220c8d5bfd18b8fa3bb889b657edab081a801c4a5",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/ig_InfoBox/scripts/LIBRARY/Symbol 8/0001.as",
+    "xflXml": "LIBRARY/Symbol 8.xml",
+    "scriptOrdinal": 1,
+    "sha256": "45e5ff34400bd65e213076ef6439a7da595e1e51f382b554866a8f1aa9572311",
+    "originalCodeSha256": "0d66bd60c8de8b04b36972ae5cd713de56a00d80b017f4331711e3e79c21630d",
+    "normalizedConstructEvents": 1
+  }
+]

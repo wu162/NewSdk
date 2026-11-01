@@ -1,0 +1,79 @@
+{
+  "localizedCount": 12,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 118.xml",
+      "url": "../cafe/mouseComponents/std_MouseButton.swf",
+      "identifier": "std_MousebuttonSymbol",
+      "name": "Symbol 118"
+    },
+    {
+      "file": "LIBRARY/Symbol 123.xml",
+      "url": "../mouse/Components/chatComponent.swf",
+      "identifier": "chatComponentSymbol",
+      "name": "Symbol 123"
+    },
+    {
+      "file": "LIBRARY/Symbol 127.xml",
+      "url": "./screens/fe_m_assets.swf",
+      "identifier": "lowerScreenBar MC",
+      "name": "Symbol 127"
+    },
+    {
+      "file": "LIBRARY/Symbol 128.xml",
+      "url": ".\\Components\\fe_m_generalScreenComponents.swf",
+      "identifier": "ScreenTitleBarSymbol",
+      "name": "Symbol 128"
+    },
+    {
+      "file": "LIBRARY/Symbol 134.xml",
+      "url": ".\\Components\\fe_onlineComponents.swf",
+      "identifier": "LobbyListComponentSymbol",
+      "name": "Symbol 134"
+    },
+    {
+      "file": "LIBRARY/Symbol 135.xml",
+      "url": ".\\Components\\fe_onlineComponents.swf",
+      "identifier": "PlayerListComponentSymbol",
+      "name": "Symbol 135"
+    },
+    {
+      "file": "LIBRARY/Symbol 161.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollingListbox.swf",
+      "identifier": "std_mouseScrollingListboxSymbol",
+      "name": "Symbol 161"
+    },
+    {
+      "file": "LIBRARY/Symbol 163.xml",
+      "url": "../cafe/mouseComponents/std_mouseScrollbar.swf",
+      "identifier": "std_mouseScrollbarSymbol",
+      "name": "Symbol 163"
+    },
+    {
+      "file": "LIBRARY/Symbol 170.xml",
+      "url": "../../cafe/mouseComponents/std_mouseTextInputField.swf",
+      "identifier": "std_mouseTextInputFieldSymbol",
+      "name": "Symbol 170"
+    },
+    {
+      "file": "LIBRARY/Symbol 174.xml",
+      "url": "../mouse/Components/careerStatsComponent.swf",
+      "identifier": "careerStatsComponentSymbol",
+      "name": "Symbol 174"
+    },
+    {
+      "file": "LIBRARY/Symbol 95.xml",
+      "url": "../cafe/mouseComponents/std_MouseCheckBox.swf",
+      "identifier": "std_MouseCheckBoxSymbol",
+      "name": "Symbol 95"
+    },
+    {
+      "file": "LIBRARY/Symbol 98.xml",
+      "url": "../cafe/mouseComponents/std_mouseDropDownMenu.swf",
+      "identifier": "std_mouseDropDownMenuSymbol",
+      "name": "Symbol 98"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

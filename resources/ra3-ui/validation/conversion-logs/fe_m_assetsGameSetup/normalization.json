@@ -1,0 +1,11 @@
+{
+  "soundSampleCountCorrections": [],
+  "shadowedExports": [
+    {
+      "identifier": "yellowBar",
+      "keptCharacterId": 53,
+      "unexportedCharacterId": 30,
+      "xml": "LIBRARY/Symbol 30.xml"
+    }
+  ]
+}

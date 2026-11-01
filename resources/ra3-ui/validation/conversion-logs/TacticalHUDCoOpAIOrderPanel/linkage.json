@@ -1,0 +1,19 @@
+{
+  "localizedCount": 2,
+  "localized": [
+    {
+      "file": "LIBRARY/Symbol 100.xml",
+      "url": "HelpBox.swf",
+      "identifier": "HelpBoxSite",
+      "name": "Symbol 100"
+    },
+    {
+      "file": "LIBRARY/Symbol 101.xml",
+      "url": "../../common/hud/ig_libHUD.swf",
+      "identifier": "RenderImage",
+      "name": "Symbol 101"
+    }
+  ],
+  "unresolvedCount": 0,
+  "unresolved": []
+}

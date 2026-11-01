@@ -1,0 +1,1 @@
+LabelTF.textColor = std_config.std_Mousebutton_Unselected_textColor;

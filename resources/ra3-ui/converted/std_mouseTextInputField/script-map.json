@@ -1,0 +1,26 @@
+[
+  {
+    "path": "converted/std_mouseTextInputField/scripts/LIBRARY/Symbol 12/0001.as",
+    "xflXml": "LIBRARY/Symbol 12.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/std_mouseTextInputField/scripts/LIBRARY/Symbol 12/0002.as",
+    "xflXml": "LIBRARY/Symbol 12.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/std_mouseTextInputField/scripts/LIBRARY/Symbol 12/0003.as",
+    "xflXml": "LIBRARY/Symbol 12.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  }
+]

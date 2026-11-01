@@ -1,0 +1,34 @@
+[
+  {
+    "path": "converted/feg_m_credits/scripts/DOMDocument/0001.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "sha256": "3713873b80007a1a688c1ef5a76b9377f002818dbab77857f8f4d59f84c90c04",
+    "originalCodeSha256": "3713873b80007a1a688c1ef5a76b9377f002818dbab77857f8f4d59f84c90c04",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/feg_m_credits/scripts/DOMDocument/0002.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 2,
+    "sha256": "90d6920dee18a114f10ceb37f452d065bd83372bd57153aa83007e601cedc05f",
+    "originalCodeSha256": "8ed34c4fd8fc8b664c56f72d251d26f6657ed930c0814d2b9e9623c0c47f71e3",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/feg_m_credits/scripts/DOMDocument/0003.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 3,
+    "sha256": "70cd8bb8062d9e6039c5c050c51a072e5bdf93548455ba847ab715c2416abe31",
+    "originalCodeSha256": "fb802e6c3d5804c36eba6db179f212fffd9e78e4dad031bbecf969351b9084cc",
+    "normalizedConstructEvents": 1
+  },
+  {
+    "path": "converted/feg_m_credits/scripts/LIBRARY/Symbol 5/0001.as",
+    "xflXml": "LIBRARY/Symbol 5.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  }
+]

@@ -1,0 +1,16 @@
+on(press){
+   _parent.HandlePress();
+}
+on(release){
+   _parent.HandleRelease();
+}
+on(releaseOutside){
+   _parent.HandleRelease();
+   _parent.HandleRollOut();
+}
+on(rollOver){
+   _parent.HandleRollOver();
+}
+on(rollOut){
+   _parent.HandleRollOut();
+}

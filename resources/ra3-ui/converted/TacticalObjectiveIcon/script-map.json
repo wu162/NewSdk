@@ -1,0 +1,154 @@
+[
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/DOMDocument/0001.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "sha256": "08894ad52eba1f0871d8aed8902c95978a4d7ab38684396f2fac7b24739ad7e5",
+    "originalCodeSha256": "08894ad52eba1f0871d8aed8902c95978a4d7ab38684396f2fac7b24739ad7e5",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 13/0001.as",
+    "xflXml": "LIBRARY/Symbol 13.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 13/0002.as",
+    "xflXml": "LIBRARY/Symbol 13.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 13/0003.as",
+    "xflXml": "LIBRARY/Symbol 13.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 13/0004.as",
+    "xflXml": "LIBRARY/Symbol 13.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 13/0005.as",
+    "xflXml": "LIBRARY/Symbol 13.xml",
+    "scriptOrdinal": 5,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 24/0001.as",
+    "xflXml": "LIBRARY/Symbol 24.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 24/0002.as",
+    "xflXml": "LIBRARY/Symbol 24.xml",
+    "scriptOrdinal": 2,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 24/0003.as",
+    "xflXml": "LIBRARY/Symbol 24.xml",
+    "scriptOrdinal": 3,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 24/0004.as",
+    "xflXml": "LIBRARY/Symbol 24.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 24/0005.as",
+    "xflXml": "LIBRARY/Symbol 24.xml",
+    "scriptOrdinal": 5,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 28/0001.as",
+    "xflXml": "LIBRARY/Symbol 28.xml",
+    "scriptOrdinal": 1,
+    "sha256": "bbbd27ff42832a83eea610bdec54c7e26b2fe8189477d972103861e1c857126a",
+    "originalCodeSha256": "bbbd27ff42832a83eea610bdec54c7e26b2fe8189477d972103861e1c857126a",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 30/0001.as",
+    "xflXml": "LIBRARY/Symbol 30.xml",
+    "scriptOrdinal": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 30/0002.as",
+    "xflXml": "LIBRARY/Symbol 30.xml",
+    "scriptOrdinal": 2,
+    "sha256": "9bdf225f8842d58e952952c85467187c768778f0a34d6366df07fc45610de8f0",
+    "originalCodeSha256": "9bdf225f8842d58e952952c85467187c768778f0a34d6366df07fc45610de8f0",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 30/0003.as",
+    "xflXml": "LIBRARY/Symbol 30.xml",
+    "scriptOrdinal": 3,
+    "sha256": "aedd8da85703358fad6fe578869341a558de6403dfc4c0bb749a2dc1f009412a",
+    "originalCodeSha256": "aedd8da85703358fad6fe578869341a558de6403dfc4c0bb749a2dc1f009412a",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 30/0004.as",
+    "xflXml": "LIBRARY/Symbol 30.xml",
+    "scriptOrdinal": 4,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 31/0001.as",
+    "xflXml": "LIBRARY/Symbol 31.xml",
+    "scriptOrdinal": 1,
+    "sha256": "d26f2c7ff968fb6e290f388d1376bcc459c17f83b5efa09c80751ca3eb4e8670",
+    "originalCodeSha256": "d26f2c7ff968fb6e290f388d1376bcc459c17f83b5efa09c80751ca3eb4e8670",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 31/0002.as",
+    "xflXml": "LIBRARY/Symbol 31.xml",
+    "scriptOrdinal": 2,
+    "sha256": "92d37ac9dadd132e6198543bb4fb08a1df6e0f79853530f0d366e997218b99d6",
+    "originalCodeSha256": "92d37ac9dadd132e6198543bb4fb08a1df6e0f79853530f0d366e997218b99d6",
+    "normalizedConstructEvents": 0
+  },
+  {
+    "path": "converted/TacticalObjectiveIcon/scripts/LIBRARY/Symbol 31/0003.as",
+    "xflXml": "LIBRARY/Symbol 31.xml",
+    "scriptOrdinal": 3,
+    "sha256": "eb9deb11e54a1fde7b58170a83e50bc344885004e24fb5839955240b008a0921",
+    "originalCodeSha256": "eb9deb11e54a1fde7b58170a83e50bc344885004e24fb5839955240b008a0921",
+    "normalizedConstructEvents": 0
+  }
+]

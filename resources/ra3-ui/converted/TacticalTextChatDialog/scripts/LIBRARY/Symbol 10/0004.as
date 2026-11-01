@@ -1,0 +1,10 @@
+on(press){
+   fscommand(qualifyName(_parent,"OnButtonClicked"),"");
+   fscommand(qualifyName(_parent,"OnSendClicked"),"");
+}
+on(rollOver){
+   fscommand(qualifyName(_parent,"OnButtonRollOver"),"");
+}
+on(rollOut){
+   fscommand(qualifyName(_parent,"OnButtonRollOut"),"");
+}
