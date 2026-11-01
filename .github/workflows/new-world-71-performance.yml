@@ -114,6 +114,11 @@ jobs:
           name: new-world-preflight-${{ github.run_id }}-${{ github.run_attempt }}
           path: recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/preflight/**
           if-no-files-found: error
+      - name: Release uploaded preflight temporary copies and caches
+        if: inputs.supported_fixture == true
+        shell: pwsh
+        run: |
+          Remove-Item -LiteralPath "$env:RUNNER_TEMP/new-world-supported-preflight" -Recurse -Force
       - name: Compile all entries in selected content groups with paired cold hot and optional XML edit measurements
         shell: pwsh
         env:
