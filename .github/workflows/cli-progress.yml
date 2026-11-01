@@ -66,9 +66,12 @@ jobs:
             recovery/artifacts/cli-progress-app/contracts.log
             recovery/artifacts/cli-progress-validation/
             recovery/artifacts/cli-progress-product/build.json
+            recovery/artifacts/cli-progress-product/link-inputs.json
             recovery/artifacts/cli-progress-product/*-build.log
             recovery/artifacts/cli-progress-product/link.log
             recovery/artifacts/cli-progress-product/obj/foundation/*.log
             recovery/artifacts/cli-progress-product/obj/native/logs/
             recovery/artifacts/cli-progress-product/bin/
+            recovery/artifacts/cli-progress-product/validation/build.json
+            recovery/artifacts/cli-progress-product/validation/bin/
           if-no-files-found: warn
