@@ -1,3 +1,11 @@
+# 当前：TGA/Wave8已合入性能分支，修复版全15流冷计量完成
+
+用户授权的PR#43已以 `a15e3c1e` 合入本分支。生产 `24f83d2b` / [41260620635](https://github.com/wu162/NewSdk/actions/runs/41260620635) 组件与小CLI success；未额外编译整个MOD或mymod做codec验收。TGA原图246三缓冲、边界9、原三路/31格式、D/R每配置4347音频转录、100次EALayer3独立解码及52资产小CLI通过。[组件身份收据](evidence/codecs/new-world/41260620635-1/summary.json)。
+
+[修复后41261694766](https://github.com/wu162/NewSdk/actions/runs/41261694766) 已完成新旧全部1+13+1流冷编译，各4058文件：原1921.681秒→新410.182秒（少78.66%，4.68倍）。双方原始媒体不改，只剔除89Joypad；固定已验收Release5aa008d，计量源299286c5，无额外完整预检。整体outputs-differ，仅mod.bin的330个DXT1/BC1块不同，59846863字节差异与旧基线完全相同；其他4057文件身份一致，真实8声道CDATA两方原SHA相同。n1、OS页缓存未控、不含BIG，不能拿别VM的旧94条基线算修复前后提速。[完整报告/边界/证据](docs/NEW_WORLD_71_SDK_COMPARISON.md)。
+
+本地SDK/Mods源码已恢复原贴图与8声道声明，仅89Joypad仍剔除；原包/备份保留。完整MOD热继承缓存历史失败及BC1字节边界未修复，不冒充整组原字节等价或全热态验收。用户于2026-11-01明确批准[PR #42](https://github.com/wu162/NewSdk/pull/42)合入 `recovery/legacy-sdk-cache`；合并状态及提交以GitHub为准。合入包含已验收的TGA/Wave8修复与性能脚本、证据，BC1差异和完整MOD热继承缓存边界继续保留。Mod源码仍仅在本地SDK/Mods，Actions运行时从ModDB下载。禁止强推。
+
 # 当前：音频身份差异已修复，原 SDK 全输入配对通过（PR #41）
 
 生产源码 `8050f22d`，[Windows 41244132060](https://github.com/wu162/NewSdk/actions/runs/41244132060) 整体 success：Debug/Release 新构建、Core/CLI/取消、后端/缓存/会话、混合音频与旧会话升级、完整 mymod 原 SDK、两个三文件 ZIP、完整 Upheaval 22 样本均通过。[正式归档/D/R/ZIP 单次下载复算](evidence/refactor/audio-identity/41244132060-1/accepted-summary.json) 已保存。

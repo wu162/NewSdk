@@ -1,5 +1,21 @@
 # RA3 EALayer3 V1
 
+## 本轮：8声道WAVE已通过组件与小CLI验收并合入性能分支
+
+生产源码 `24f83d2b`，[Windows41260620635](https://github.com/wu162/NewSdk/actions/runs/41260620635) success。
+标准/EXTENSIBLE WAVE8 PCM8/16/24已接通NONE/XAS、循环、重采样和四对EALayer3；
+8声道保持原序，既有4/6重排不变；AIFF/AIFC仍限1/2/4/6，ADP4仍限mono/stereo。
+原SDK与候选D/R每配置4347条三缓冲/CDATA转录一致，含864条Wave8和4条真实WAVE；
+真实 `FX_kanade_spell.wav` 的XAS输出397648字节/SHA256 `892b3c9b00929a2adb28d88d8c455401ebac72d82313b7cb878c54851a75fd67` 三方相同。
+50个EALayer3输入在D/R共100次独立解码、声道/长度/Loop/波形与jobs1/4通过；
+生产CLI52个音频资产的冷jobs1/4、热、改WAV、独立重编及再次热态通过。正式运行仍为EXE/config/ANTLR三文件。
+
+[验收收据与运行文件身份](../evidence/codecs/new-world/41260620635-1/summary.json) 已保存。
+按用户要求未额外编译完整MOD或mymod用于本次codec验收。用户授权的[PR#43](https://github.com/wu162/NewSdk/pull/43)
+已以 `a15e3c1e` 合入性能分支；[修复版全15流性能41261694766](https://github.com/wu162/NewSdk/actions/runs/41261694766) 已完成，原SDK1921.681→修复版410.182秒；新旧均用原始媒体、仅剔除89Joypad。
+各4058输出，真实8声道XAS原SHA一致；仅330个既有BC1资产块不同，未声称全输出等价。
+[完整同机计量与边界](../docs/NEW_WORLD_71_SDK_COMPARISON.md)。
+
 实现分支：`feature/ra3-ealayer3`，基线 `recovery/legacy-sdk-cache` / `eb503513`。
 实现及 Windows 验收已通过；[PR #34](https://github.com/wu162/NewSdk/pull/34)，未经用户批准不合并。
 
@@ -41,8 +57,8 @@ GPL/LGPL 的源码分发条件仍适用，分发二进制时应标明匹配的�
 `PcmEncodingResult`、`AssetBuffer`、字幕及 CustomData 输出；没有平行资产管线。
 
 - 输入沿用 integral WAVE/EXTENSIBLE、AIFF/AIFC NONE 的既有解析能力。编码器接收
-  1/2/4/6 声道浮点 PCM，4/6 声道以两个/三个独立 stereo 编码器交错。
-  WAVE4/6 原有重排仅做一次，AIFF 保持原序。
+  1/2/4/6/8 声道浮点 PCM，4/6/8 声道以两个/三个/四个独立 stereo 编码器交错。
+  WAVE4/6 原有重排仅做一次，WAVE8及AIFF保持原序；AIFF/AIFC输入仍限1/2/4/6。
 - 采样率：16000、22050、24000、32000、44100、48000 Hz。`PCSampleRate` 先走
   既有重采样。其它输出率明确拒绝，不自动改率或降级 PCM。
   所选上游 V1 启动解码器的 MPEG2.5 `sfreq` 分支没有初始化，未将

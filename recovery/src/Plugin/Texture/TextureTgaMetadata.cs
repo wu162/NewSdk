@@ -25,7 +25,10 @@ namespace Recovered.Compiler.Texture
             uint extension=Dword(data,footer),developer=Dword(data,footer+4);
             if(extension!=0){
                 if(!Add(regions,extension,495,start,footer))return false;int ext=(int)extension;
-                if(Word(data,ext)!=495||data[ext+494]>4)return false;
+                // Some D3DX-compatible writers leave the extension size word
+                // zero (for example TNW 7.1 VIPEMP.tga). The footer still owns
+                // a complete 495-byte extension; do not weaken its region bounds.
+                int size=Word(data,ext);if((size!=0&&size!=495)||data[ext+494]>4)return false;
                 // The already accepted DevIL writer declares 495 but emits 507
                 // bytes with shifted fields. Its bounded legacy validator owns it.
                 if(Text(data,ext+438,"Developer's Image Library (DevIL)"))return false;
