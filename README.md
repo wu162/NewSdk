@@ -4,7 +4,7 @@
 
 ## 获取工具
 
-Joypad 并行候选现已重新打包：[下载待确认的 Debug/Release 运行包](https://github.com/wu162/NewSdk/actions/runs/41300821811/artifacts/13081475771)。11 个独立根已纳入 worker，四平台与 45 资产小 MOD、缓存、原 SDK 四流及独立 ZIP 验收通过；本轮未运行大型 MOD 或全量 SDK 编译。[范围与二进制来源](recovery/docs/components/xml/XML_JOYPAD.md)。包不含源码，尚未发布 Release，须用户明确确认。以下 `8fe12ca9b` 记录保留为历史。
+Joypad 并行版已发布：[NewModCompiler 2026.11.01](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01)。普通使用选择 `NewModCompiler-Win32-Release.zip`，Debug 供调试。11 个独立根已纳入 worker，四平台与 45 资产小 MOD、缓存、原 SDK 四流及独立 ZIP 验收通过；本轮未运行大型 MOD 或全量 SDK 编译。[范围与二进制来源](recovery/docs/components/xml/XML_JOYPAD.md)。发行附件及自动标签归档均不含编译器源码；源码变更仍在 PR #49，未合并。以下 `8fe12ca9b` 记录保留为历史。
 
 生产/测试源码 `8fe12ca9b` 的 [Windows 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818) 已整体通过：Debug/Release 构建、原元数据完整转录、组件与实际四 worker 并行、缓存、完整 mymod 原版对照、两个独立三文件 ZIP，以及完整 Upheaval 22 样本。插件版本 `4202` 和三个 ProcessingHash 保留原 DLL 值。
 [常见格式与并行 CLI 收据](recovery/evidence/texture/plugin-validation/41185772818-1/common-summary.json)已入库：D/R 各31组件结果与上一轮原字节相同，16个真实CLI用例通过。本轮 Debug/Release 包见[本轮产物归档](https://github.com/wu162/NewSdk/actions/runs/41185772818/artifacts/13037167160)；最终归档已下载复算，Debug/Release 六份运行文件及两个三文件 ZIP 均与生产构建和发布清单核对通过，详见[完整验收摘要](recovery/evidence/texture/plugin-validation/41185772818-1/full-summary.json)。上一轮 `4c74bf64b` 的[验收记录](https://github.com/wu162/NewSdk/actions/runs/41180859852)保留为历史，历史 `compiler-main` 发行见[发行说明](recovery/COMPILER_RELEASE.md)。

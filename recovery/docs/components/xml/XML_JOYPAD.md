@@ -40,7 +40,7 @@ Debug/Release 共 18 次实际 CLI：jobs1/4/auto、默认缓存冷/热、换输
 只含 D/R 三文件 ZIP、两个 manifest、说明、构建元数据和 SHA256SUMS。已下载复算全部
 校验项，包内与生产字节匹配，不含源码。没有运行大型 MOD、完整 mymod/全量 SDK 编译、
 性能基准或游戏内 UI 验收；小负载的真实并行不能直接推出大型 MOD 提速。
-尚未发布 Release 或创建发行标签，仍须用户明确确认。
+用户已明确批准并发布 [compiler-2026.11.01](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01)。两个发行 ZIP 与确认包逐字节相同；独立标签快照仅含 README 和元数据，自动归档也无源码。七份附件大小/SHA256 与远端一致，见[发行收据](../../../evidence/releases/compiler-2026.11.01/published.json)。源码 PR #49 未合并。
 
 ## 独立资产恢复与历史原字节证据
 

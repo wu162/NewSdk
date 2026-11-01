@@ -10,7 +10,7 @@
 
 默认 `/sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false` 不变，Texture 继续使用原 BAB 缓存格式，目录统一位于当前 SDK 的 MOD 专属分区，插件版本 `4202` 和三个 ProcessingHash 保留原 DLL 值。工具不会因切换实现自动清理缓存或更换身份；BC1 编码字节可能与既有产物不同，切换时应在无构建运行时清理当前 MOD 的缓存分区。无需关闭 SessionCache 来使用多 worker。`--sc=false --bc=false --jobs 1|4` 可作纯冷态吞吐对照。没有新增动作缓存、额外持久结果或文件哈希体系。
 
-Joypad 新并行范围见 [Joypad 说明](docs/components/xml/XML_JOYPAD.md)。本次只验证定向组件与 45 资产小 MOD，源运行目录和独立三文件 ZIP 的 jobs1/4/auto、缓存、编辑和原 SDK 四流对照已通过；没有运行大型 MOD 或全量 SDK 编译。上述 `8fe12ca9b` 的纹理/完整 MOD 结果为历史证据，未冒充本轮重测。新包仍待用户明确确认后发布。
+Joypad 新并行范围见 [Joypad 说明](docs/components/xml/XML_JOYPAD.md)。本次只验证定向组件与 45 资产小 MOD，源运行目录和独立三文件 ZIP 的 jobs1/4/auto、缓存、编辑和原 SDK 四流对照已通过；没有运行大型 MOD 或全量 SDK 编译。上述 `8fe12ca9b` 的纹理/完整 MOD 结果为历史证据，未冒充本轮重测。Joypad 并行包已按用户明确批准发布：[2026.11.01 Release](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01)。
 
 ## 1. 安装与检查
 

@@ -1,5 +1,7 @@
 # 发行验收脚本修复（2026-11-01）
 
+后续 Joypad 并行扩展已通过限定小型验收，用户随后明确批准发布：[2026.11.01 Release](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01)。本页以下保留此前纯验收修复阶段与待确认包的历史范围，当前行为与发行来源见 [Joypad 说明](components/xml/XML_JOYPAD.md)。
+
 基线为 `recovery/legacy-sdk-cache` 的 `680c4f0c4439bd7435addebfc57a1a16c3c320e3`。
 本次发现并修复的是验收脚本对已合入行为的旧假设；没有修改编译器生产源码、SDK、UI、生成代码或编译链接输入。
 修复位于 [PR #49](https://github.com/wu162/NewSdk/pull/49)，未合并。用户要求先修复、打包，确认后才能发布；本轮不创建 Release 或发行标签。

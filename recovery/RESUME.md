@@ -1,9 +1,9 @@
-# 当前：Joypad 已加入并行，重新打包待确认（PR #49）
+# 当前：Joypad 并行版已发布（PR #49 未合并）
 
 11 个 Joypad 根已显式认证到 worker，metadata 路由 284→295；原 TypeId/版本/字节布局与缓存身份不变。
 生产 `a75840ef` 的 D/R 只构建一次；[最终 41300821811](https://github.com/wu162/NewSdk/actions/runs/41300821811) success，严格复用已通过的组件/CLI 范围，45 资产小 MOD、实际 worker 重叠、串并行/缓存/原 SDK 四流与独立三文件 ZIP 均通过。
 按用户要求未运行大型 MOD 或完整 mymod/全量 SDK 编译，没有新性能或游戏内结论。
-[新待确认包](https://github.com/wu162/NewSdk/actions/runs/41300821811/artifacts/13081475771)、[范围与来源](docs/components/xml/XML_JOYPAD.md)。源码和修复仍在 [PR #49](https://github.com/wu162/NewSdk/pull/49)，未合并；未创建 Release/发行标签，用户明确确认后才能发布。禁止强推。
+用户已明确批准发布：[compiler-2026.11.01](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01) 已公开并设为 Latest，两个 ZIP 与确认包逐字节相同，七附件和自动文档归档均复核通过；[发行收据](evidence/releases/compiler-2026.11.01/published.json)、[范围与来源](docs/components/xml/XML_JOYPAD.md)。源码和修复仍在 [PR #49](https://github.com/wu162/NewSdk/pull/49)，未合并；禁止强推，后续合入仍须用户明确批准。
 
 # 此前：发行验收误报已修复，待确认包（PR #49）
 
