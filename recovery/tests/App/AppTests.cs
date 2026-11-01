@@ -203,9 +203,9 @@ namespace NewModCompiler.Tests
                 }
                 Check(Request("base").Options["sc"].Value=="true" && Request("base").Options["bc"].Value=="true","Original SDK session and asset caches must default on");
                 Reject("CLI_CONFLICT","/sc:true","/sc:false"); Reject("CLI_BOOLEAN","/sc:cached");
-                var paths=Request("base","/art:ART:shared;relative art","/audio:one;two","/data:relative;second","/dr:relative root","/oix:true","/mr:false");
+                var paths=Request("base","/art:ART:shared;relative art","/audio:one;two","/data:relative;second","/dr:relative root","/oix:false","/mr:false");
                 Check(paths.Options["art"].Value=="ART:shared;relative art" && paths.Options["audio"].Value=="one;two" && paths.Options["data"].Value=="relative;second" && paths.Options["dr"].Value=="relative root","Legacy ordered paths and DataRoot preserved for Core");
-                Check(paths.Options["oix"].Value=="true" && paths.Options["mr"].Value=="false","oix and mr are booleans");
+                Check(paths.Options["oix"].Value=="false" && paths.Options["mr"].Value=="false","Disabled legacy booleans remain compatible");
                 var dependency=plan.Tasks[2]; var consumer=plan.Tasks[0]; consumer.Dependencies=new [] {dependency.Id};
                 var ordered=Planner.OrderTasks(new [] {consumer,dependency,dependency}); Check(ordered.Length==2 && ordered[0].Id==dependency.Id,"Dependency order and exact task deduplication");
                 dependency.Dependencies=new [] {consumer.Id}; try { Planner.OrderTasks(new [] {consumer,dependency}); throw new Exception("Cycle accepted"); } catch (BuildFailure e) { Check(e.Code=="PLAN_CYCLE","Dependency cycle rejected"); }

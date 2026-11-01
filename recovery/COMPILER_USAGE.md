@@ -1,10 +1,10 @@
 # NewModCompiler 使用说明
 
-适用开发分支：`feat/texture-plugin`（基于 `recovery/legacy-sdk-cache`）（本轮状态见 [续接入口](RESUME.md)，源码依据见 [并行输入说明](docs/TOKENIZER_PARALLEL_INPUT.md)）；历史发行主线为 `compiler-main`。目标平台为 Windows/Win32、.NET Framework 4.8；本工具负责从现有 MOD 源码生成流文件或 BIG/SKUDEF，不包含旧 GUI。最终发行状态与下载链接见 [发行说明](COMPILER_RELEASE.md)。新增包版本参数的最终验收结果以该页为准。
+适用开发分支：`recovery/legacy-sdk-cache`（本轮状态见 [续接入口](RESUME.md)，源码依据见 [并行输入说明](docs/TOKENIZER_PARALLEL_INPUT.md)）；历史发行主线为 `compiler-main`。目标平台为 Windows/Win32、.NET Framework 4.8；本工具负责从现有 MOD 源码生成流文件或 BIG/SKUDEF，不包含旧 GUI。最终发行状态与下载链接见 [发行说明](COMPILER_RELEASE.md)。新增包版本参数的最终验收结果以该页为准。
 
 ## 后端并行与旧缓存
 
-`--jobs auto|<正整数>` 默认 auto，表示 CPU 和当前 Win32 可用内存共同约束的 worker 上限；`--jobs 1` 保留 owner 串行对照，`--jobs 4` 允许最多四个已认证后端任务。三个 profile、plan/build 和 `newmodcompiler.json` 的 `"jobs": "auto"` 或整数均支持。修改 jobs 不改变原缓存身份。
+`--jobs auto|<正整数>` 默认 auto，表示 CPU 和当前 Win32 可用内存共同约束的 worker 上限；`--jobs 1` 保留 owner 串行对照，`--jobs 4` 允许最多四个已认证后端任务。`plan`、`build` 和 `newmodcompiler.json` 的 `"jobs": "auto"` 或整数均支持。修改 jobs 不改变原缓存身份。
 
 并行路由包括 GameObject、WeaponTemplate、ArmorTemplate、W3DAnimation/W3DMesh、精确内建编码器的 NONE/XAS AudioFile（无显式 PCSampleRate）、MP3 passthrough、284 个认证 XML metadata TypeId、四类 APT，以及本轮接入的 `Texture`、`OnDemandTexture`、`TerrainTextureAtlas`。纹理在 owner 准备只读输入租约并按图像尺寸、DDS 长度或图集工作量计入预算，解码和编码在 worker 执行；S3 临时状态与懒初始化表按线程隔离。资源不足、输入租约失败、纹理头无法识别、APT 非 ASCII 路径或未认证后端回到 owner。Core XML 前端、验证、缓存、诊断与输出提交保持 owner 顺序。源码 `8fe12ca9b` 已通过 [Windows 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818) 的 Debug/Release 实际四 worker、原元数据完整转录、组件、缓存、完整 mymod、独立 ZIP 及 Upheaval 22 样本验收；[常见格式与16个CLI用例收据](evidence/texture/plugin-validation/41185772818-1/common-summary.json)已入库。
 
@@ -23,11 +23,11 @@
 ./NewModCompiler.exe doctor --sdk-root "C:\NewSdk\SDK"
 ```
 
-`doctor` 检查 SDK 配置、Schema 和实际编译依赖，不编译资产。成功会输出 `CORE_ENVIRONMENT_OK`；失败时先按标准错误中的诊断代码处理依赖。
+`doctor` 只要求 SDK 路径，检查 SDK 配置、Schema 和实际编译依赖，不要求 MOD、输出目录或显式 MOD 版本，也不编译资产。成功会输出 `CORE_ENVIRONMENT_OK`；失败时先按标准错误中的诊断代码处理依赖。
 
 ## 2. 准备 MOD 文件夹
 
-`--mod` 必须指向 MOD 目录，不是单个 XML、manifest 或 babproj。默认自动识别以下入口：
+`--mod` 必须在命令行中指定 MOD 目录，不是单个 XML、manifest 或 babproj；项目预设不能代替 MOD 位置。默认自动识别以下入口：
 
 | 内容 | MOD 内入口 | 行为 |
 | --- | --- | --- |
@@ -44,13 +44,13 @@
 先看计划（只发现流，不实际编译）：
 
 ```powershell
-./NewModCompiler.exe plan --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example"
+./NewModCompiler.exe plan --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" --mod-version 1.0
 ```
 
 编译成 BIG：
 
 ```powershell
-./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example"
+./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" --mod-version 1.0
 ```
 
 仅编译基础数据并输出松散流：
@@ -59,15 +59,22 @@
 ./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\ExampleLoose" --package-content base --package-format loose
 ```
 
-默认使用标准构建：`--package-content auto`，格式 `big`，自动包含 Additional。只有 APT 或全局元数据的 MOD 也能直接编译，无需创建空的 Mod.xml。自动发现没有任何有效编译入口时以 `PLAN_NO_INPUTS` 报错；仅有 Additional 不算编译入口。
+默认 `--package-content auto`、`--package-format big`，输出 BIG + SKUDEF 并自动包含 Additional。只有 APT 或全局元数据的 MOD 也能直接编译，无需创建空的 Mod.xml。自动发现没有任何有效编译入口时以 `PLAN_NO_INPUTS` 报错；仅有 Additional 不算编译入口。正常编译无需填写平台或缓存开关。最终格式为 BIG 的 `build` 和 `plan` 每次必须在命令行显式传入 `--mod-version`，项目预设或旧默认值均不能代替；loose（包括 development 派生的 loose）不要求显式版本，并保留原有包身份校验。
 
-| 构建方式 | 用法 | 默认输出 / 用途 |
-| --- | --- | --- |
-| 标准构建 | `build`（或 `--profile standard`） | 自动识别内容，BIG + SKUDEF，自动包含 Additional |
-| 开发构建 | `--profile development` | 自动识别内容，输出 loose 流文件，便于迭代 |
-| 高级构建 | `--profile advanced`、`--help-advanced` | 标准默认值，按需使用兼容开关与显式内容选择 |
+普通帮助 `--help`（或 `-h`）只列出以下 10 个编译与性能参数，以及 `build`、`plan`、`doctor` 和帮助入口。高级能力通过 `--help-advanced` 查看，可直接与 `build` 使用。
 
-模式只提供默认值，显式参数和项目设置优先；三个模式均不改变任何缓存选项。开发模式派生的 loose 输出允许保留项目的包版本/名称设置，这些设置只在以后标准打包时使用；显式 `--package-format loose` 的原有校验继续保留。
+| 参数 | 默认值 / 用途 |
+| --- | --- |
+| `--mod` | 必需的 MOD 源码目录，每次在命令行指定 |
+| `--sdk-root` | SDK 目录，可保存到项目预设 |
+| `--out` | 独立输出目录，可保存到项目预设 |
+| `--package-content` | `auto`，或 `base,apt,global-metadata` 的组合 |
+| `--package-format` | `big`，也可显式选择 `loose` |
+| `--include-additional` | BIG 默认 true，loose 默认 false |
+| `--mod-version` | 最终格式为 BIG 的 build/plan 每次必须在 CLI 显式指定；项目预设不能代替 |
+| `--skudef-name` | MOD 目录名 |
+| `--jobs` | `auto` 或正整数，默认 `auto` |
+| `--performance` | `off`、`summary`、`detailed`，默认 `off` |
 
 `--package-content base|apt|global-metadata` 或逗号组合仍提供原有的部分编译，旧名 `maps` 完全兼容。显式选择为空的可选组时继续保留上一代，不生成空 BIG；没有改变部分编译和完整打包机制。
 
@@ -76,19 +83,18 @@
 ## 4. 包名、版本和附加文件
 
 ```powershell
-./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" --package-format big --mod-version 2.7-beta --game-version 1.12 --skudef-name ExampleLauncher --include-additional=true
+./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" --mod-version 2.7-beta --skudef-name ExampleLauncher --include-additional=true
 ```
 
 | 选项 | 默认值 / 效果 |
 | --- | --- |
-| `--mod-version` | `1.0`，生成 `<MOD目录名>_<版本>.big` |
-| `--game-version`（高级） | 默认固定 `1.12`，仅需兼容其他版本时手动设置 |
+| `--mod-version` | BIG build/plan 每次在 CLI 显式指定，生成 `<MOD目录名>_<所传版本>.big`；项目值不能代替 |
 | `--skudef-name` | MOD 目录名，生成 `<基名>_<版本>.skudef`，其中 add-big 引用真实 BIG 文件名 |
 | `--include-additional=false` | BIG 默认自动包含，手动关闭时使用 false；先取 `SDK/Additional`，后由 `MOD/Additional` 同名文件覆盖，排除 `.asset` |
 
-以上示例发布 `Example_2.7-beta.big` 和 `ExampleLauncher_2.7-beta.skudef`。版本/名称选项仅用于 BIG；MOD 版本使用 ASCII 字母/数字/点/下划线/连字符，SKUDEF 名称为单个 ASCII 文件基名。当前 BIG 也要求 MOD 目录基名为 ASCII。游戏版本字段可配置，不代表已验证其他游戏版本的实际运行。
+以上示例发布 `Example_2.7-beta.big` 和 `ExampleLauncher_2.7-beta.skudef`。版本/名称选项仅用于 BIG；MOD 版本使用 ASCII 字母/数字/点/下划线/连字符，SKUDEF 名称为单个 ASCII 文件基名。当前 BIG 也要求 MOD 目录基名为 ASCII。高级游戏版本字段见下文。
 
-Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT 版本文件，这是保留的旧脚本行为。发生 SDK/MOD 同名覆盖或 Additional 覆盖已编译包成员时，日志、JSONL 和报告记录 `ADDITIONAL_OVERWRITE` 警告；仍按旧顺序继续打包。中立资产修复 `--fix-neutral-assets` 继续默认关闭。默认 base BIG 包含 `data/mod.*` 与低/中 LoD 流；APT、maps 和 CDATA 布局见 [打包说明](P7_PACKAGING.md)。APT 的 `.version` 空格/CRLF 标记与 MOD 包版本是两件事。
+Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT 版本文件，这是保留的旧脚本行为。发生 SDK/MOD 同名覆盖或 Additional 覆盖已编译包成员时，日志、JSONL 和报告记录 `ADDITIONAL_OVERWRITE` 警告；仍按旧顺序继续打包。默认 base BIG 包含 `data/mod.*` 与低/中 LoD 流；APT、maps 和 CDATA 布局见 [打包说明](P7_PACKAGING.md)。APT 的 `.version` 空格/CRLF 标记与 MOD 包版本是两件事。
 
 布尔值使用 `--include-additional=true`、`--include-additional=false`，或单独裸开关启用；不要写成 `--include-additional true`。
 
@@ -104,23 +110,33 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 }
 ```
 
-保存后通常只传 MOD 路径（需要时再覆盖版本号）：
+SDK 和输出路径可由项目提供；BIG `build`/`plan` 仍须每次在命令行传入 MOD 路径与版本号：
 
 ```powershell
 ./NewModCompiler.exe build --mod "C:\Mods\Example" --mod-version 2.8
 ```
 
-命令行覆盖项目预设，预设覆盖默认值；同一来源的冲突参数会报错。SDK 与输出路径可保存到项目，JSON 中相对路径以 MOD 目录为基准；命令行路径仍以调用目录为基准。还可保存 `profile`、内容选择、BIG 设置以及 `ss`、`pc`、`slowclean`（完整列表见 [参数兼容表](CLI_COMPATIBILITY.md)）；后三者默认 true，可用 false 覆盖。Win32 与链接流属于固定行为，旧 `/tp:Win32`、`/ls:true` 调用仍接受。不要将其他旧 BAB 参数写入 JSON。
+命令行覆盖项目预设，预设覆盖默认值；同一来源的冲突参数会报错。项目中的 `mod-version` 键继续被识别，但仅有预设版本不足以满足 BIG 的必填要求，必须用 CLI 版本覆盖。SDK 与输出路径可保存到项目，JSON 中相对路径以 MOD 目录为基准；命令行路径仍以调用目录为基准。还可保存内容选择、BIG 设置、`jobs` 及既有高级缓存与旧脚本设置（完整键列表见 [参数兼容表](CLI_COMPATIBILITY.md)）。不扩充项目格式；不要将其他旧 BAB 参数写入 JSON。`profile` 仍可供已有项目兼容使用，规则见下文。
 
-## 6. 缓存与资源根
+## 6. 高级选项
+
+这些选项继续可用，直接与 `build` 使用，不要求任何 `--profile` 设置；`--help-advanced` 列出高级帮助。
+
+### 游戏版本与中立修复
+
+`--game-version` 默认 `1.12`，只控制 SKUDEF 的 `mod-game` 字段，不改变资产编译，也不代表已验证其他游戏版本的实际运行。
+
+`--fix-neutral-assets=false` 为默认值，不执行中立修复。显式 `--fix-neutral-assets=true` 仅限包含 base 的 BIG，仍沿用 `HashFix → ModAssetResolver`：预检已有参考文件，复制私有四流，修正后再生成 LoD。缺少 Worldbuilder 等参考文件时报告 `PACKAGE_NEUTRAL_REFERENCE_MISSING`。本工具不下载或提取 WBData，也不新增自动修复；已有组件差分及生产零插入链证据不能当作完整游戏中立资产验收。
+
+### 缓存与资源根
 
 稳定排序 `/ss`、预编译引用策略 `/pc` 和慢清理 `/slowclean` 默认开启，与旧编译脚本一致，通常不必手动填写；确有需要可分别传入 `/ss:false`、`/pc:false`、`/slowclean:false`。这些选项不依赖缓存开关。
 
-本分支恢复原 SDK 缓存默认值：会话 `/sc`、资产 `/bc`、部分会话 `/psc`、压缩 `/csc` 均默认 true；冻结 `/fsc` 和始终 touch `/atc` 默认 false。SDK 配置中的 `buildCache` 和 `buildCacheRoot` 仍生效，显式命令行优先。旧 defaultscript 显式使用 `/csc:false`，可用相同参数输出 XML：
+本分支恢复原 SDK 缓存默认值：会话 `/sc`、资产 `/bc`、部分会话 `/psc`、压缩 `/csc` 均默认 true；冻结 `/fsc` 和始终 touch `/atc` 默认 false。SDK 配置中的 `buildCacheRoot` 仍生效；`/bc` 未由命令行或项目预设显式指定时，默认值继续受 SDK `buildCache` 配置覆盖，命令行优先于项目预设。旧 defaultscript 显式使用 `/csc:false`，可用相同参数输出 XML：
 
 ```powershell
-./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" /csc:false
-./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" /sc:false /bc:false
+./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" /csc:false --mod-version 1.0
+./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" /sc:false /bc:false --mod-version 1.0
 ```
 
 `/sc` 按原文档、文件依赖、定义和继承复用解析与中间结果；`/bc` 按原类型/实例哈希复用资产，包括三种 Texture 路由。修改、新增、删除 MOD 输入均交由原 Core 判断，不再将整个 SDK/MOD 内容指纹作为冷失效开关。四流按原清单/流校验和原地复用；BIG 每次重新打包。
@@ -135,9 +151,15 @@ BIG/SKUDEF 包缓存已移除；每次构建都会从本轮编译结果重新打
 
 资源搜索 `/dr`、`/data`、`/art`、`/audio` 保留原根与顺序，包含配置的外部资源根。清理时可删除选定缓存目录中的会话 XML/Deflate、其 `.old`、资产文件及 `.NewModCompiler` 状态；保留 `published` 可保留上一代正式产物。
 
-## 7. 日志、取消与自动化
+### 旧脚本兼容入口
 
-默认诊断文件均在输出根：`build.log`、`build.events.jsonl`、`build-report.json`。可以使用 `--log <文件>`、`--events <文件>`、`--report <文件>` 改位置，但不得覆盖输入、published、工作区或彼此冲突。当前不支持用 `--events -` 向标准输出发送事件。
+`--profile` 仅为已有脚本和项目保留，不再作为操作模式推荐，也不控制高级参数的使用权限。`standard`、`advanced` 均保持 BIG 默认值；`development` 仅在项目预设和命令行均未显式设置 `package-format` 时提供 loose 默认值，选项来源仍为默认值。由它派生的 loose 允许保留包版本/名称供以后 BIG 打包使用；显式 `--package-format loose` 仍按原规则拒绝非默认包版本/名称。profile 不改变缓存设置。
+
+`/od` 是 `--out` 别名，`maps` 是 `global-metadata` 别名，内部任务 ID/报告/输出目录仍使用 `maps`。`/tp:Win32`、`/ls:true` 和 `/el:0` 仅为固定行为兼容接受。其他固定值、未支持的旧能力及无效布尔值的处理见 [参数兼容表](CLI_COMPATIBILITY.md)；`plan` 和 `build` 均在进入执行前以参数错误退出码 2 拒绝。
+
+## 7. 高级诊断、取消与自动化
+
+`/tl:0..9` 设置诊断级别，默认 3。默认诊断文件均在输出根：`build.log`、`build.events.jsonl`、`build-report.json`。可以使用 `--log <文件>`、`--events <文件>`、`--report <文件>` 改位置，但不得覆盖输入、published、工作区或彼此冲突。当前不支持用 `--events -` 向标准输出发送事件。
 
 自动化应同时核对退出码、最终报告的 `status/exitCode` 和本次 `buildId`。JSONL 按 `sequence` 排序，以 `BuildFinished` 为正常终态；不要把上次文件或仅“进程消失”当作构建成功。协议细节见 [协议文档](protocol/README.md)。
 
@@ -162,11 +184,8 @@ BIG/SKUDEF 包缓存已移除；每次构建都会从本轮编译结果重新打
 | `PACKAGE_IDENTITY_FORMAT` | 包版本/名称选项必须与 --package-format big 一起使用 |
 | `PACKAGE_IDENTITY_INVALID` | 检查版本或文件基名是否含目录、换行或非法字符 |
 | `PACKAGE_NAME_UNSUPPORTED` | 将 MOD 文件夹基名改为 ASCII 后使用 BIG |
-| `PACKAGE_NEUTRAL_REFERENCE_MISSING` | 关闭可选中立修复；只有环境已提供完整参考文件时才启用 |
-| `CORE_OPTION_UNSUPPORTED` | 按 CLI 兼容表移除未支持的旧选项，不能认为解析器认识名称就代表支持 |
+| `CLI_UNSUPPORTED` | 按 CLI 兼容表移除未支持的旧选项；plan/build 均在执行前拒绝 |
 | doctor 失败 | 保留标准错误诊断，检查 SDK 路径、.NET/VC 运行库和包内三个运行文件是否完整；历史五文件包另需原 Texture 依赖 |
-
-`--fix-neutral-assets=true` 默认关闭，仅限包含 base 的 BIG；需要已有完整 Worldbuilder 参考文件。WBData 下载、提取和依赖其真实数据的验收已按要求取消，不会自动为你补齐。已有验证为组件差分及生产零插入链，不能当作完整游戏中立资产验收。
 
 LoD 明确修复原工具的表尾越界：完整保留逻辑名称/来源表，不复制越界产生的尾字节；详见 [兼容策略](P7_LOD_ORIGINAL_TAIL.md)。完整 UI/runtime、中文纹理路径、混合纹理会话缓存仍有未覆盖范围。AssetMerge 不属于新流程。
 

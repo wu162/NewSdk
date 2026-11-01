@@ -172,26 +172,20 @@ namespace NewModCompiler.Application
 
         void ValidateOptions(BuildRequest candidate)
         {
+            NewModCompiler.Cli.Options.ValidateCapabilities(candidate);
             traceLevel = 3; buildCacheEnabled = sessionCacheEnabled = true;
             compressedSessionCache = partialSessionCache = true; freezeSessionCache = alwaysTouchCache = false;
             stableSortEnabled = usePrecompiled = forceSlowCleanup = true;
             BigPackage.ValidateRequest(candidate);
             if(candidate.Command=="build" && candidate.FixNeutralAssets) BasePostProcessor.ValidateReferences(candidate.SdkRoot);
-            var ordinary = new HashSet<string>(new[] { "jobs", "performance", "profile", "mod", "sdk-root", "out", "events", "report", "log", "package-content", "package-format", "mod-version", "game-version", "skudef-name", "include-additional", "fix-neutral-assets", "dr", "data", "art", "audio", "session-cache-directory", "build-cache-directory", "iod" }, StringComparer.OrdinalIgnoreCase);
-            var disabled = new HashSet<string>(new[] { "oof", "vf", "oar", "osh", "oix", "mr" }, StringComparer.OrdinalIgnoreCase);
             foreach (var option in candidate.Options)
             {
-                if (option.Value == null) throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", "A Core option has no effective value: " + option.Key);
                 string key = option.Key, value = option.Value.Value;
-                if (key == "package-format" && !string.Equals(value, "loose", StringComparison.OrdinalIgnoreCase) && !string.Equals(value,"big",StringComparison.OrdinalIgnoreCase))
-                    throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Package format must be loose or big; BIG supports base/apt/maps.");
-                if (ordinary.Contains(key)) continue;
-                if (key == "bc" && (string.Equals(value, "true", StringComparison.OrdinalIgnoreCase) || string.Equals(value, "false", StringComparison.OrdinalIgnoreCase))) { buildCacheEnabled = string.Equals(value, "true", StringComparison.OrdinalIgnoreCase); continue; }
-                if (key == "sc" && (string.Equals(value, "true", StringComparison.OrdinalIgnoreCase) || string.Equals(value, "false", StringComparison.OrdinalIgnoreCase))) { sessionCacheEnabled = string.Equals(value, "true", StringComparison.OrdinalIgnoreCase); continue; }
+                if (key == "bc") { buildCacheEnabled = bool.Parse(value); continue; }
+                if (key == "sc") { sessionCacheEnabled = bool.Parse(value); continue; }
                 if (key == "csc" || key == "psc" || key == "fsc" || key == "atc")
                 {
-                    bool enabled;
-                    if (!bool.TryParse(value, out enabled)) throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", key + " expects true or false.");
+                    bool enabled = bool.Parse(value);
                     if (key == "csc") compressedSessionCache = enabled;
                     else if (key == "psc") partialSessionCache = enabled;
                     else if (key == "fsc") freezeSessionCache = enabled;
@@ -200,20 +194,13 @@ namespace NewModCompiler.Application
                 }
                 if (key == "ss" || key == "pc" || key == "slowclean")
                 {
-                    bool enabled;
-                    if (!bool.TryParse(value, out enabled)) throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", key + " expects true or false.");
+                    bool enabled = bool.Parse(value);
                     if (key == "ss") stableSortEnabled = enabled;
                     else if (key == "pc") usePrecompiled = enabled;
                     else forceSlowCleanup = enabled;
                     continue;
                 }
-                if (disabled.Contains(key) && string.Equals(value, "false", StringComparison.OrdinalIgnoreCase)) continue;
-                if (key == "tp" && string.Equals(value, "Win32", StringComparison.OrdinalIgnoreCase)) continue;
-                if (key == "ls" && string.Equals(value, "true", StringComparison.OrdinalIgnoreCase)) continue;
-                if (key == "el" && value == "0") continue;
-                int level;
-                if (key == "tl" && int.TryParse(value, out level) && level >= 0 && level <= 9) { traceLevel = level; continue; }
-                throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Core backend does not support option " + key + "=" + value + ". See CLI_COMPATIBILITY.md for the supported host and output options.");
+                if (key == "tl") traceLevel = int.Parse(value, System.Globalization.CultureInfo.InvariantCulture);
             }
         }
 

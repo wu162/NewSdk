@@ -19,23 +19,26 @@
 
 ```powershell
 ./NewModCompiler.exe doctor --sdk-root C:\NewSdk\SDK
-./NewModCompiler.exe plan --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example
-./NewModCompiler.exe build --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example
+./NewModCompiler.exe plan --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --mod-version 1.0
+./NewModCompiler.exe build --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --mod-version 1.0
 ```
 
-`--mod` 指向 MOD 文件夹。默认自动发现 base、APT UI、全局元数据，输出 BIG + SKUDEF；开发模式 `--profile development` 默认 loose。`--package-content global-metadata` 兼容旧名 `maps`。成功构建的最终文件位于输出根下 `published`，默认 BIG/SKUDEF 名称为 `<MOD目录名>_1.0`。构建同时输出日志、JSONL 事件及最终报告，适合后续界面调用；不启动旧 GUI 或 BAB 子进程。
+`--mod` 指向 MOD 文件夹。默认自动发现 base、APT UI、全局元数据，输出 BIG + SKUDEF 并包含 Additional；需要松散流时显式使用 `--package-format loose`。`--package-content global-metadata` 兼容旧名 `maps`。成功构建的最终文件位于输出根下 `published`，上例显式传入版本 `1.0`，BIG/SKUDEF 名称为 `<MOD目录名>_1.0`。构建同时输出日志、JSONL 事件及最终报告，适合后续界面调用；不启动旧 GUI 或 BAB 子进程。
 
-- `--mod-version 2.7-beta`、`--game-version 1.12`、`--skudef-name ExampleLauncher`：设置 BIG/SKUDEF 身份，默认值保持旧脚本行为。
-- `/bc:true|false`：构建资产缓存默认开启，保留原 SDK 类型/实例哈希布局。
-- `/sc:true|false`：会话缓存默认开启，三种 Texture 路由可复用；`/csc`、`/psc` 默认 true，`/fsc`、`/atc` 默认 false。
-- `--include-additional=false`：BIG 默认自动包含 SDK/Additional，再由 MOD/Additional 覆盖；使用 false 可关闭，排除 `.asset`，覆盖冲突记录警告。
-- `--fix-neutral-assets=true`：仅 base BIG 可用的显式中立修复；默认关闭，要求已有完整 Worldbuilder 参考四文件，缺失时报错。
+普通帮助 `--help` 列出 MOD/SDK/输出路径、内容与格式、Additional、MOD 版本、SKUDEF 名称、并行任务数及性能统计共 10 个参数。`--jobs auto`、`--performance off` 为默认值。
+
+- `--mod-version 2.7-beta`、`--skudef-name ExampleLauncher`：设置 BIG/SKUDEF 身份。最终格式为 BIG 的 `build`/`plan` 每次必须在命令行显式传入版本，项目预设不能代替；名称默认为 MOD 目录名。
+- `--include-additional=false`：关闭默认 Additional；开启时先取 SDK/Additional，再由 MOD/Additional 覆盖，排除 `.asset`，覆盖冲突记录警告。
+
+loose（包括兼容 development 派生的 loose）和 `doctor` 不要求显式版本；显式 loose 仍保留原包身份校验。
+
+高级能力仍可直接使用，通过 `--help-advanced` 和[高级选项说明](recovery/COMPILER_USAGE.md#6-高级选项)查看。`--profile` 仅保留旧脚本兼容行为，详见[参数兼容表](recovery/CLI_COMPATIBILITY.md)。
 
 布尔值使用等号，或单独裸开关启用；不要写成 `--include-additional true`。详细包布局见 [P7 打包合同](recovery/P7_PACKAGING.md)。
 
 ## 已完成与范围
 
-核心编译、单进程 base/apt/maps、日志/协议、构建与会话缓存、默认 BIG/SKUDEF、Additional、纯 C# MakeBig 入 EXE 已有历史验收。当前源码 Texture 三文件产品及并行改动的状态见 [Texture 说明](recovery/docs/TEXTURE_PLUGIN.md)。中立修复已覆盖组件差分及生产零插入链，完整游戏插入不在已验证范围内。原工具的特定 LoD 来源表尾字节差异见 [说明](recovery/P7_LOD_ORIGINAL_TAIL.md)。
+核心编译、单进程 base/apt/maps、日志/协议、构建与会话缓存、默认 BIG/SKUDEF、Additional、纯 C# MakeBig 入 EXE 已有历史验收。当前源码 Texture 三文件产品及并行改动的状态见 [Texture 说明](recovery/docs/TEXTURE_PLUGIN.md)。原工具的特定 LoD 来源表尾字节差异见 [说明](recovery/P7_LOD_ORIGINAL_TAIL.md)。
 
 AssetMerge 已按用户要求排除。WBData 下载、提取、读取器与依赖真实 WBData 的验收已取消，均不作为本次重构完成条件。完整 UI/runtime、中文纹理路径仍有未覆盖范围；原 SDK 缓存完整恢复的当前验证状态见 [缓存说明](recovery/docs/LEGACY_INCREMENTAL_CACHE.md)。
 
