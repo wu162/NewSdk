@@ -78,6 +78,7 @@ namespace NewModCompiler.Tests
             try {BasePostProcessor.ValidateReferences(sdk);throw new Exception("Missing indexed Worldbuilder block accepted");}
             catch(BuildFailure error){Check(error.Code=="PACKAGE_NEUTRAL_REFERENCE_MISSING" && error.Message.Contains(part),"Missing indexed block was not clearly reported");}
             using(var cancellation=new CancellationTokenSource()){cancellation.Cancel();string cancelled=Path.Combine(root,"cancelled");try{BasePostProcessor.Prepare(source+".manifest",sdk,cancelled,cancellation.Token);throw new Exception("Cancelled repair accepted");}catch(OperationCanceledException){Check(!Directory.Exists(cancelled),"Cancelled repair created staging");}}
+            checks+=GameWorldbuilderDataTests.Run(Path.Combine(root,"game-data"));
             return checks;
         }
     }

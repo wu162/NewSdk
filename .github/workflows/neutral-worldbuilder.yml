@@ -21,6 +21,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   validate:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[neutral-build]')
     runs-on: windows-2022
     timeout-minutes: 40
     steps:
