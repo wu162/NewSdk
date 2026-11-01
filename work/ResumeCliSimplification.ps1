@@ -1,7 +1,10 @@
-# Temporary Windows validation harness; not part of the implementation branch.
+# Resume only the fixture stage with verified, unchanged Windows binaries.
 [CmdletBinding()]
 param(
     [Parameter(Mandatory=$true)][string]$SourceCommit,
+    [Parameter(Mandatory=$true)][string]$CandidateRuntime,
+    [Parameter(Mandatory=$true)][string]$BaselineRuntime,
+    [Parameter(Mandatory=$true)][string]$CandidateEvidence,
     [string]$BaselineCommit='9fd3557eea3a33479a99f22872b2034b11b74c2b'
 )
 $ErrorActionPreference='Stop'
@@ -22,73 +25,51 @@ function Same([hashtable]$Before,[hashtable]$After,[string]$Name){
     Need ($Before.Count -eq $After.Count) "$Name file count differs"
     foreach($key in $Before.Keys){Need ($After.ContainsKey($key) -and $Before[$key].sha256 -ceq $After[$key].sha256 -and $Before[$key].bytes -eq $After[$key].bytes) "$Name raw file differs: $key"}
 }
-$state=@{baselineCommit=$BaselineCommit;sourceCommit=$SourceCommit;validationCommit=$env:GITHUB_SHA;runId=$env:GITHUB_RUN_ID;succeeded=$false;cases=@();comparisons=@();scope='Release App contracts, one production Release build, baseline App recompiled/relinked against identical native/Foundation inputs, same-input small Armor base/APT/metadata fixture; no benchmark or full MOD claim'}
+$state=@{baselineCommit=$BaselineCommit;sourceCommit=$SourceCommit;validationCommit=$env:GITHUB_SHA;runId=$env:GITHUB_RUN_ID;succeeded=$false;cases=@();comparisons=@();scope='Reuse successful Release App contracts and candidate production build from run41271617644; accepted baseline Release from run41270490335; only resume same-input small Armor base/APT/metadata CLI checks; no additional builds, benchmark or full MOD claim';candidateArtifact=@{id=13069274015;sha256='df837c63493bb0df8bd973d2e502c23c1c2b5ad796cae88f98a4f3c933b46b49'};baselineArtifact=@{id=13069292067;sha256='8eaa2b2b713ce8939623a84020e4112dad4a8873e85351d1ede879f65a70a696'}}
 try {
-    # Sharing baseline native/Foundation inputs is valid only if their complete source/build/SDK closure is unchanged.
-    $changed=@(git diff --name-only $BaselineCommit $SourceCommit -- recovery/src recovery/build recovery/scripts SDK)
-    Need ($LASTEXITCODE -eq 0) 'Cannot compare production input closure'
-    $unexpected=@($changed|Where-Object{$_ -notlike 'recovery/src/App/*'})
-    Need ($unexpected.Count -eq 0) ('Baseline non-App production inputs differ: '+($unexpected -join ', '))
+    $candidateBuildCommit='5c79cb57feb93314d388936b84e85c46e02a5599'
+    $baselineBuildCommit='1f0cea03083f2219e43fa35f3dd44df73158310e'
+    foreach($pair in @(@($candidateBuildCommit,$SourceCommit),@($baselineBuildCommit,$BaselineCommit))){
+        & git diff --quiet $pair[0] $pair[1] -- recovery/src recovery/build recovery/scripts recovery/probes SDK
+        Need ($LASTEXITCODE -eq 0) ('Runtime production input closure differs: '+$pair[0]+' to '+$pair[1])
+    }
+    $changed=@(git diff --name-only $BaselineCommit $SourceCommit -- recovery/src recovery/build recovery/scripts recovery/probes SDK)
+    Need ($LASTEXITCODE -eq 0) 'Cannot compare baseline/candidate production closure'
+    Need (@($changed|Where-Object{$_ -notlike 'recovery/src/App/*'}).Count -eq 0) 'Non-App production inputs differ between baseline and candidate'
     $state.changedProductionInputs=$changed
-
-    $app=Join-Path $out 'app'
-    New-Item -ItemType Directory -Force $app|Out-Null
-    try {& "$repo/recovery/scripts/TestApp.ps1" -Configuration Release -OutputDirectory $app *> "$app/test-app.log";Need ($LASTEXITCODE -eq 0) 'Release App contract tests failed'}
-    catch {Get-Content "$app/test-app.log" -Tail 80|Out-Host;throw}
-    Get-Content "$app/test-app.log" -Tail 12|Out-Host
-    $state.appContractsPassed=$true
-
-    $product=Join-Path $out 'product'
-    & "$repo/recovery/scripts/BuildCompiler.ps1" -Configuration Release -OutputDirectory $product
-    Need ($LASTEXITCODE -eq 0) 'Release production build failed'
+    $prior=Get-Content (Join-Path $CandidateEvidence 'validation.json') -Raw|ConvertFrom-Json
+    Need ($prior.runId -ceq '41271617644' -and $prior.sourceCommit -ceq $SourceCommit -and $prior.validationCommit -ceq $candidateBuildCommit -and $prior.appContractsPassed -and !$prior.succeeded -and $prior.error.Contains('Baseline production relink failed')) 'Prior successful App/build stages do not match known harness failure'
+    $appLog=Join-Path $CandidateEvidence 'app/test-app.log'
+    Need (([IO.File]::ReadAllText($appLog)).Contains('PASS App contract assertions=1603;')) 'Prior Release App success log is missing'
+    $app=Join-Path $out 'app';New-Item -ItemType Directory -Force $app|Out-Null
+    Copy-Item -LiteralPath $appLog -Destination "$app/test-app.log"
+    Copy-Item -LiteralPath (Join-Path $CandidateEvidence 'validation.json') -Destination (Join-Path $out 'prior-validation.json')
+    $state.appContractsPassed=$true;$state.appContractAssertions=1603;$state.appContractsRunId='41271617644';$state.appContractsReused=$true
+    $product=Join-Path $out 'product';$baseline=Join-Path $out 'baseline'
+    Copy-Item -LiteralPath $CandidateRuntime -Destination $product -Recurse
+    Copy-Item -LiteralPath $BaselineRuntime -Destination $baseline -Recurse
     $build=Get-Content "$product/build.json" -Raw|ConvertFrom-Json
-    $recipe=Get-Content "$product/link-inputs.json" -Raw|ConvertFrom-Json
-    $candidateExe=Join-Path $product 'bin/NewModCompiler.exe'
-    Need ((Hash $candidateExe) -ceq $build.exeSha256) 'Candidate executable differs from build receipt'
-    $state.candidateExeSha256=Hash $candidateExe
-
-    # Recompile only baseline App sources. Preserve native/Foundation/bridge/resource input bytes and the real entry point.
-    $baseline=Join-Path $out 'baseline'
-    $baselineSource=Join-Path $work 'baseline-source'
-    $baselineObj=Join-Path $baseline 'obj';$baselineBin=Join-Path $baseline 'bin'
-    New-Item -ItemType Directory -Force $baselineSource,$baselineObj,$baselineBin|Out-Null
-    $archive=Join-Path $work 'baseline-app.zip'
-    & git archive --format=zip "--output=$archive" $BaselineCommit recovery/src/App
-    Need ($LASTEXITCODE -eq 0) 'Baseline App source archive failed'
-    Expand-Archive -LiteralPath $archive -DestinationPath $baselineSource
-    $baselineApp=Join-Path $baselineSource 'recovery/src/App'
-    $appModule=Join-Path $baselineObj 'Managed.Application.netmodule'
-    $appSourceRoot=[IO.Path]::GetFullPath((Join-Path $repo 'recovery/src/App'))+[IO.Path]::DirectorySeparatorChar
-    $arguments=@(foreach($line in [IO.File]::ReadAllLines("$product/obj/Application.rsp")){
-        if($line.StartsWith('/out:',[StringComparison]::OrdinalIgnoreCase)){'/out:"'+$appModule+'"'}
-        elseif(!$line.Trim('"').StartsWith($appSourceRoot,[StringComparison]::OrdinalIgnoreCase)){$line}
-    })
-    $arguments+=@(Get-ChildItem -LiteralPath $baselineApp -Recurse -Filter '*.cs' -File|Sort-Object FullName|ForEach-Object{'"'+$_.FullName+'"'})
-    $rsp=Join-Path $baselineObj 'Application.rsp'
-    [IO.File]::WriteAllLines($rsp,[string[]]$arguments,[Text.UTF8Encoding]::new($false))
-    $packageLine=(& dotnet nuget locals global-packages --list)
-    Need ($LASTEXITCODE -eq 0) 'Cannot locate fixed Roslyn compiler'
-    $packageRoot=($packageLine -replace '^global-packages:\s*','').Trim()
-    $csc=Join-Path $packageRoot 'microsoft.net.compilers.toolset/4.0.1/tasks/net472/csc.exe'
-    & $csc ('@'+$rsp) *> "$baseline/application-build.log"
-    if($LASTEXITCODE -ne 0){Get-Content "$baseline/application-build.log" -Tail 80|Out-Host;throw 'Baseline App compilation failed'}
-    $candidateModule=@($recipe.inputs|Where-Object{$_.kind -ceq 'application'})[0].path
-    $baselineExe=Join-Path $baselineBin 'NewModCompiler.exe'
-    $linkArguments=@(foreach($argument in $recipe.arguments){
-        if($argument -ceq $candidateModule){$appModule}
-        elseif($argument.StartsWith('/OUT:',[StringComparison]::OrdinalIgnoreCase)){'/OUT:'+$baselineExe}
-        elseif($argument.StartsWith('/IMPLIB:',[StringComparison]::OrdinalIgnoreCase)){'/IMPLIB:'+(Join-Path $baselineObj 'EaLayer3Exports.lib')}
-        else{$argument}
-    })
-    foreach($sharedInput in @($recipe.inputs|Where-Object{$_.kind -cne 'application'})){Need ((Hash $sharedInput.path) -ceq $sharedInput.sha256) ('Shared link input changed: '+$sharedInput.path)}
-    $linkRsp=Join-Path $baselineObj 'Link.rsp'
-    [IO.File]::WriteAllLines($linkRsp,[string[]]@($linkArguments|ForEach-Object{'"'+$_+'"'}),[Text.UTF8Encoding]::new($false))
-    & link.exe ('@'+$linkRsp) *> "$baseline/link.log"
-    if($LASTEXITCODE -ne 0){Get-Content "$baseline/link.log" -Tail 80|Out-Host;throw 'Baseline production relink failed'}
-    Copy-Item -LiteralPath "$baselineApp/App.config" -Destination ($baselineExe+'.config')
-    Copy-Item -LiteralPath "$repo/SDK/tools/antlr.runtime.dll" -Destination $baselineBin
-    $state.baselineExeSha256=Hash $baselineExe
-    @{baselineCommit=$BaselineCommit;candidateSourceCommit=$SourceCommit;appModuleSha256=(Hash $appModule);exeSha256=$state.baselineExeSha256;sharedLinkInputs=@($recipe.inputs|Where-Object{$_.kind -cne 'application'});arguments=$linkArguments}|ConvertTo-Json -Depth 10|Set-Content "$baseline/build.json"
+    $baselineBuild=Get-Content "$baseline/build.json" -Raw|ConvertFrom-Json
+    Need ($build.sourceCommit -ceq $candidateBuildCommit -and $build.configuration -ceq 'Release' -and $build.backendIntegrated -and $build.exeSha256 -ceq $prior.candidateExeSha256) 'Candidate build receipt mismatch'
+    Need ($baselineBuild.sourceCommit -ceq $baselineBuildCommit -and $baselineBuild.configuration -ceq 'Release' -and $baselineBuild.backendIntegrated) 'Accepted baseline build receipt mismatch'
+    $acceptedText=@(git show ($SourceCommit+':recovery/evidence/joypad/41270490335-1/summary.json'))
+    Need ($LASTEXITCODE -eq 0) 'Accepted baseline evidence is unavailable in implementation commit'
+    $accepted=($acceptedText -join "`n")|ConvertFrom-Json
+    Need ($accepted.succeeded -and $accepted.sourceCommit -ceq $baselineBuildCommit -and $accepted.runId -ceq '41270490335' -and $accepted.workflowConclusion -ceq 'success' -and $accepted.artifactSha256 -ceq $state.baselineArtifact.sha256) 'Accepted baseline evidence identity mismatch'
+    $baselineIdentity=@($accepted.configurations|Where-Object{$_.configuration -ceq 'Release'})[0]
+    foreach($file in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){
+        Need ((Hash (Join-Path "$baseline/bin" $file)) -ceq $baselineIdentity.runtimeFiles.$file) ('Accepted baseline runtime identity differs: '+$file)
+    }
+    $candidateExe=Join-Path $product 'bin/NewModCompiler.exe';$baselineExe=Join-Path $baseline 'bin/NewModCompiler.exe'
+    Need ((Hash $candidateExe) -ceq $build.exeSha256 -and (Hash $candidateExe) -ceq '6120e780cbf3f2d8735d308d184a846815dcc2446bfab60bd60202a6bfa91b0c') 'Candidate EXE identity differs'
+    Need ((Hash $baselineExe) -ceq $baselineBuild.exeSha256) 'Baseline EXE differs from accepted receipt'
+    foreach($file in @('NewModCompiler.exe.config','antlr.runtime.dll')){
+        Need ((Hash (Join-Path "$product/bin" $file)) -ceq $baselineIdentity.runtimeFiles.$file) ('Candidate unchanged runtime dependency differs: '+$file)
+    }
+    Need (@(Get-ChildItem "$product/bin" -File).Count -eq 3 -and @(Get-ChildItem "$baseline/bin" -File).Count -eq 3) 'Runtime file inventory differs'
+    $state.candidateExeSha256=Hash $candidateExe;$state.baselineExeSha256=Hash $baselineExe
+    $state.candidateBinarySourceCommit=$candidateBuildCommit;$state.candidateBuildRunId='41271617644';$state.baselineBinarySourceCommit=$baselineBuildCommit;$state.baselineBuildRunId='41270490335';$state.productionBuildReused=$true
+    $state.priorValidationFailure='Baseline relink failure in temporary harness only; original App and candidate production-build successes are reused independently.'
 
     # Reuse TestCompilerCli.ps1's known schema-valid Armor fixture and entry-path layout.
     $sdk=Join-Path $work 'sdk';$mod=Join-Path $work 'fixture'
