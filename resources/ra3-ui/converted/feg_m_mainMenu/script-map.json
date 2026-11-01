@@ -1,50 +1,104 @@
 [
   {
-    "path": "converted/feg_m_mainMenu/scripts/DOMDocument/0001.as",
+    "path": "converted/feg_m_mainMenu/scripts/feg_m_mainMenu/feg_m_mainMenu_frame_0001_feg_m_mainMenu.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "9c19051266614e4d3b3022280dfa9dd82c11fd1e859b6f3a668338c5a70aba97",
     "originalCodeSha256": "9c19051266614e4d3b3022280dfa9dd82c11fd1e859b6f3a668338c5a70aba97",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "feg_m_mainMenu",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "feg_m_mainMenu",
+      "actionBasis": "function-call:feg_m_mainMenu"
+    }
   },
   {
-    "path": "converted/feg_m_mainMenu/scripts/DOMDocument/0002.as",
+    "path": "converted/feg_m_mainMenu/scripts/quitButton/quitButton_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "f89fb44b9037ddd971c0fe4afbef08d21441df8db8f8aeaf88bbc9da375af373",
     "originalCodeSha256": "865e250b072843a172b61b2e523377f9bfd270af31838bc89d55700fd24e430c",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "quitButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_mainMenu/scripts/DOMDocument/0003.as",
+    "path": "converted/feg_m_mainMenu/scripts/optionsButton/optionsButton_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "e351b80b581b034f175046970943728514b0e74a9376acd2f948fe6ce5760c50",
     "originalCodeSha256": "fdc409f2117c24a73328d1070463c46dc0e3c5e65eada01fffd303ef7c1f2977",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "optionsButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_mainMenu/scripts/DOMDocument/0004.as",
+    "path": "converted/feg_m_mainMenu/scripts/multiPlayerButton/multiPlayerButton_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 4,
     "sha256": "482ce12e21745f4a3ccc2c1a57bcd08a0585b423924fb6655a19db81e2053213",
     "originalCodeSha256": "7d958a1fc4cd5156a47b118a6cc15f6295f3bde0c315b65531e3c4c3fb2cf968",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "multiPlayerButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_mainMenu/scripts/DOMDocument/0005.as",
+    "path": "converted/feg_m_mainMenu/scripts/singlePlayerButton/singlePlayerButton_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 5,
     "sha256": "a283a31fdbd802548b1c532fde611e454eb6cce95d8bc52d9625b223e6df9d09",
     "originalCodeSha256": "eb434c9dace4f98ffe9fb97f78536f241051ea7cd044c2da237b26bed4b261b8",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "singlePlayerButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_mainMenu/scripts/LIBRARY/Symbol 3/0001.as",
+    "path": "converted/feg_m_mainMenu/scripts/std_MousebuttonSymbol/std_MousebuttonSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 3.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_MousebuttonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

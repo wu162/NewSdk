@@ -1,0 +1,1420 @@
+{
+  "comparedMovies": 157,
+  "allFourStreamsUnchanged": 157,
+  "allBinaryStreamsUnchanged": 157,
+  "movies": [
+    {
+      "movie": "A01_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A01_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A02_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A02_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A03_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A03_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A04_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A04_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A05_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A05_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A06_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A06_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A07_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A07_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A08_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A08_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A09_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "A09_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "GlobalClasses",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "HUDTickerPanel",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "HUDVoiceChatControlPanel",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "HelpBox",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "InGameChat",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "InGameCheckbox",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J01_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J01_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J02_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J02_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J03_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J03_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J04_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J04_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J05_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J05_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J06_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J06_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J07_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J07_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J08_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J08_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J09_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "J09_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "LoadScreen",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "NotificationPopUp",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "PopUpFactionLogo",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S01_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S01_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S02_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S02_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S03_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S03_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S04_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S04_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S05_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S05_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S06_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S06_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S07_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S07_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S08_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S08_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S09_Global_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "S09_Objective_Briefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "StandardCommandButton",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalEndGameDialog",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUD",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDBeaconStage",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDBuildQueuePage",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDCoOpAIOrderPanel",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDCommandListBox",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDCommandModeBar",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDEnergyMeter",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDExperiencePanel",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDMainCommandBar",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDObjectiveIndicatorStage",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDObserverControlPanel",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDPlayerPowersBar",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDRadar",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDSelectionDetails",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDSelectionRefinementPage",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDSpecialPowerTimers",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalHUDTelestratorControlPanel",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalMissionHotSpotPopUp",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalMpBeaconDialog",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalObjectiveIcon",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalObjectiveIndicatorPopUp",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalObjectiveIntroPopUp",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalPlayerPowerCommandButton",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalPlayerStatusDialog",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalQuickChatDialog",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "TacticalTextChatDialog",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "VerticalScrollBar",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "YesNoDialog",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "careerStatsComponent",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "chapterSelectComponent",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "chatComponent",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fe_components",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fe_m_assets",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fe_m_generalScreenComponents",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fe_missionBriefingAssets",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fe_objectiveBriefingsAssets",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fe_onlineComponents",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fe_shared_mainMenuLib",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "feg_m_background",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "feg_m_comLink",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "feg_m_contextMenu",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "feg_m_credits",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "feg_m_disconnect",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "feg_m_filmArchiveTheatre",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "feg_m_load",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "feg_m_main",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "feg_m_mainMenu",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "feg_m_mainMenu3D",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "feg_m_messageBox",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "feg_m_newLoadContinue",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "feg_m_optionsSettings",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "feg_m_tutorialMenu",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fem_m_autoMatchSearch",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fem_m_autoMatchSetup",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fem_m_battleCast",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fem_m_load",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fem_m_onlineMultiplayer",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fem_m_postgameRoundup",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fes_m_missionBriefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fes_m_objectivesBriefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fes_m_postgameRoundup",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "fes_m_singleplayerMenu",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "ig_AITargetIndicator",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "ig_DrawableOverlayStage",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "ig_HUD",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "ig_InfoBox",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "ig_RadarBridgeLayer",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "ig_RadarCoOpAITargetLayer",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "ig_RadarObjectivesLayer",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "ig_libHUD",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "ig_missionMap",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "ig_missionMapHotSpotLayer",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "igm_GadgetFlashStage",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "igm_PlayerTechStoreDialog",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "igm_UnitIntroDialog",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "igm_pauseMenu",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "igm_replayControlPanel",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "igm_shellRoot",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "libProgressBar",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "main_mouse",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "mouse_chapterSelectComponent",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "sampleObjectiveBriefing",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "skins",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "std_MouseAccordionButton",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "std_MouseButton",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "std_MouseCheckBox",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "std_mouseDropDownMenu",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "std_mouseRadioButton",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "std_mouseScrollbar",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "std_mouseScrollingListbox",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "std_mouseSlider",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    },
+    {
+      "movie": "std_mouseTextInputField",
+      "unchangedStreams": {
+        "manifest": true,
+        "bin": true,
+        "relo": true,
+        "imp": true
+      }
+    }
+  ]
+}

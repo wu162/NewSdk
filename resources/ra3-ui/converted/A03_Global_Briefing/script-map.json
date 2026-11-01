@@ -1,146 +1,308 @@
 [
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0001.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0001_define_playSound_CrossHairFlash_label_wait.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "93b9df28439887369dcf3dad08578504926abbd0080ee155f45913ea2f0e93ac",
     "originalCodeSha256": "93b9df28439887369dcf3dad08578504926abbd0080ee155f45913ea2f0e93ac",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "_wait",
+      "event": "",
+      "action": "define_playSound_CrossHairFlash",
+      "actionBasis": "function-declaration:playSound_CrossHairFlash"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0002.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0002_playSound_start_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "594e58bac641405e22a2c4628a246e53ac26bfd85b6f5c11a9933e4fadce9e25",
     "originalCodeSha256": "594e58bac641405e22a2c4628a246e53ac26bfd85b6f5c11a9933e4fadce9e25",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 2,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_start",
+      "actionBasis": "function-call:playSound_start"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0003.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0013_playSound_SwipeHorizontal_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "d2e6e4ceace174887e11ecbc3171adf25f438d5362bd3d180c40f8c6aa4b5f99",
     "originalCodeSha256": "d2e6e4ceace174887e11ecbc3171adf25f438d5362bd3d180c40f8c6aa4b5f99",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 13,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_SwipeHorizontal",
+      "actionBasis": "function-call:playSound_SwipeHorizontal"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0004.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0036_playSound_CrossHairMove_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 4,
     "sha256": "46d68a315f37f3b37062a70e78f74aae3a61f19aff594b1f2f02dfb9ae4a0465",
     "originalCodeSha256": "46d68a315f37f3b37062a70e78f74aae3a61f19aff594b1f2f02dfb9ae4a0465",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 36,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_CrossHairMove",
+      "actionBasis": "function-call:playSound_CrossHairMove"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0005.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0181_playSound_CrossHairFlash_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 5,
     "sha256": "8d9c1452fd2353e729d3953aff42d2906f4ff5545a8ee97524dad49b5a168758",
     "originalCodeSha256": "8d9c1452fd2353e729d3953aff42d2906f4ff5545a8ee97524dad49b5a168758",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 181,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_CrossHairFlash",
+      "actionBasis": "function-call:playSound_CrossHairFlash"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0006.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0190_playSound_ZoomIn_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 6,
     "sha256": "58374417b60b54379f206be3fa6da4dec385fa107bfdcbac734f5c7783400eac",
     "originalCodeSha256": "58374417b60b54379f206be3fa6da4dec385fa107bfdcbac734f5c7783400eac",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 190,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_ZoomIn",
+      "actionBasis": "function-call:playSound_ZoomIn"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0007.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0198_playSound_CrossHairMove_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 7,
     "sha256": "46d68a315f37f3b37062a70e78f74aae3a61f19aff594b1f2f02dfb9ae4a0465",
     "originalCodeSha256": "46d68a315f37f3b37062a70e78f74aae3a61f19aff594b1f2f02dfb9ae4a0465",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 198,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_CrossHairMove",
+      "actionBasis": "function-call:playSound_CrossHairMove"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0008.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0209_playSound_CrossHairFlash_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 8,
     "sha256": "8d9c1452fd2353e729d3953aff42d2906f4ff5545a8ee97524dad49b5a168758",
     "originalCodeSha256": "8d9c1452fd2353e729d3953aff42d2906f4ff5545a8ee97524dad49b5a168758",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 209,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_CrossHairFlash",
+      "actionBasis": "function-call:playSound_CrossHairFlash"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0009.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0220_playSound_ZoomOut_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 9,
     "sha256": "78b51fe89c4c103f4ba26310f290ab61e246a94acd7ff4dff4a7103a1b2e286d",
     "originalCodeSha256": "78b51fe89c4c103f4ba26310f290ab61e246a94acd7ff4dff4a7103a1b2e286d",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 220,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_ZoomOut",
+      "actionBasis": "function-call:playSound_ZoomOut"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0010.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0229_playSound_photoFlash_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 10,
     "sha256": "f90b5299ee7d61740217ddbf1c19ed77dc5c241da5a4bbf10ef7b2f1772d2258",
     "originalCodeSha256": "f90b5299ee7d61740217ddbf1c19ed77dc5c241da5a4bbf10ef7b2f1772d2258",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 229,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_photoFlash",
+      "actionBasis": "function-call:playSound_photoFlash"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0011.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0344_playSound_PhotoSlideIn_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 11,
     "sha256": "fb26356804b656f5f42dc558f5b7ef919d966b6002805bdd89d7bd8529160d73",
     "originalCodeSha256": "fb26356804b656f5f42dc558f5b7ef919d966b6002805bdd89d7bd8529160d73",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 344,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_PhotoSlideIn",
+      "actionBasis": "function-call:playSound_PhotoSlideIn"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0012.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0355_playSound_PhotoFlash_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 12,
     "sha256": "8f2cb1d39085d9a59b5dbdf3fbbcc6ae7c126d9451cfed4ff7833fbd61e3b3f5",
     "originalCodeSha256": "8f2cb1d39085d9a59b5dbdf3fbbcc6ae7c126d9451cfed4ff7833fbd61e3b3f5",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 355,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_PhotoFlash",
+      "actionBasis": "function-call:playSound_PhotoFlash"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0013.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0470_playSound_PhotoSlideIn_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 13,
     "sha256": "fb26356804b656f5f42dc558f5b7ef919d966b6002805bdd89d7bd8529160d73",
     "originalCodeSha256": "fb26356804b656f5f42dc558f5b7ef919d966b6002805bdd89d7bd8529160d73",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 470,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_PhotoSlideIn",
+      "actionBasis": "function-call:playSound_PhotoSlideIn"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0014.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0480_playSound_PhotoFlash_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 14,
     "sha256": "8f2cb1d39085d9a59b5dbdf3fbbcc6ae7c126d9451cfed4ff7833fbd61e3b3f5",
     "originalCodeSha256": "8f2cb1d39085d9a59b5dbdf3fbbcc6ae7c126d9451cfed4ff7833fbd61e3b3f5",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 480,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_PhotoFlash",
+      "actionBasis": "function-call:playSound_PhotoFlash"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0015.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0596_playSound_PhotoSlideIn_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 15,
     "sha256": "fb26356804b656f5f42dc558f5b7ef919d966b6002805bdd89d7bd8529160d73",
     "originalCodeSha256": "fb26356804b656f5f42dc558f5b7ef919d966b6002805bdd89d7bd8529160d73",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 596,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_PhotoSlideIn",
+      "actionBasis": "function-call:playSound_PhotoSlideIn"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0016.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0606_playSound_PhotoPlace_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 16,
     "sha256": "47a376407bed965a1ac80f74f0d9549de704cb4685b49c2c5d3b2892bc773785",
     "originalCodeSha256": "47a376407bed965a1ac80f74f0d9549de704cb4685b49c2c5d3b2892bc773785",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 606,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_PhotoPlace",
+      "actionBasis": "function-call:playSound_PhotoPlace"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0017.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0629_playSound_CrossHairFlash_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 17,
     "sha256": "8d9c1452fd2353e729d3953aff42d2906f4ff5545a8ee97524dad49b5a168758",
     "originalCodeSha256": "8d9c1452fd2353e729d3953aff42d2906f4ff5545a8ee97524dad49b5a168758",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 629,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_CrossHairFlash",
+      "actionBasis": "function-call:playSound_CrossHairFlash"
+    }
   },
   {
-    "path": "converted/A03_Global_Briefing/scripts/DOMDocument/0018.as",
+    "path": "converted/A03_Global_Briefing/scripts/A03_Global_Briefing/A03_Global_Briefing_frame_0645_loadMovie_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 18,
     "sha256": "01636367778ed8febc081b4ccf7534868a7d60493e42de8c9b809518adb4f020",
     "originalCodeSha256": "01636367778ed8febc081b4ccf7534868a7d60493e42de8c9b809518adb4f020",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "A03_Global_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 645,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "loadMovie",
+      "actionBasis": "function-call:loadMovie"
+    }
   }
 ]

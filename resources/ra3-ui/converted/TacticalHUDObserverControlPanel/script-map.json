@@ -1,186 +1,393 @@
 [
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/DOMDocument/0001.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel_frame_0001_define_SetVisibility.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "20a4935fc075f2c0e33920d3bb5ace2f230efb60cebf10227c7275028f026197",
     "originalCodeSha256": "20a4935fc075f2c0e33920d3bb5ace2f230efb60cebf10227c7275028f026197",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDObserverControlPanel",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_SetVisibility",
+      "actionBasis": "function-declaration:SetVisibility"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 27/0001.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/leftButton/leftButton_frame_0010_stop_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 27.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "leftButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 27/0002.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/leftButton/leftButton_frame_0020_stop_label_up.as",
     "xflXml": "LIBRARY/Symbol 27.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "leftButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 27/0003.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/leftButton/leftButton_frame_0030_stop_label_over.as",
     "xflXml": "LIBRARY/Symbol 27.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "leftButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 27/0004.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/leftButton/leftButton_frame_0040_stop_label_down.as",
     "xflXml": "LIBRARY/Symbol 27.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "leftButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 40,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 27/0005.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/leftButton/leftButton_frame_0011_press_label_up.as",
     "xflXml": "LIBRARY/Symbol 27.xml",
     "scriptOrdinal": 5,
     "sha256": "57234a88948b7618bbccd6f530a02faa9dce6090db2159058c1b005a45601299",
     "originalCodeSha256": "57234a88948b7618bbccd6f530a02faa9dce6090db2159058c1b005a45601299",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "leftButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 11,
+      "frameLabel": "_up",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 29/0001.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/rightButton/rightButton_frame_0010_stop_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "rightButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 29/0002.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/rightButton/rightButton_frame_0020_stop_label_up.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "rightButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 29/0003.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/rightButton/rightButton_frame_0030_stop_label_over.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "rightButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 29/0004.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/rightButton/rightButton_frame_0040_stop_label_down.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "rightButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 40,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 29/0005.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/rightButton/rightButton_frame_0011_press_label_up.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 5,
     "sha256": "63a1463d68a799aec62db5d3610313e23b09b25305da543d8f659d51185298d7",
     "originalCodeSha256": "63a1463d68a799aec62db5d3610313e23b09b25305da543d8f659d51185298d7",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "rightButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 11,
+      "frameLabel": "_up",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 33/0001.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/modeSpinner/modeSpinner_frame_0001_define_SetLeftButtonEnabled.as",
     "xflXml": "LIBRARY/Symbol 33.xml",
     "scriptOrdinal": 1,
     "sha256": "6cee0da02b77fa57c522f2ac7b80f1be22c39bf2d01f44a414675878037ca04c",
     "originalCodeSha256": "6cee0da02b77fa57c522f2ac7b80f1be22c39bf2d01f44a414675878037ca04c",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "modeSpinner",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_SetLeftButtonEnabled",
+      "actionBasis": "function-declaration:SetLeftButtonEnabled"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 33/0002.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/modeSpinner/modeSpinner_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 33.xml",
     "scriptOrdinal": 2,
     "sha256": "355b12d5e0be30edb4a3a75a3c397047b2c3141d7734ba7bb94b96ca3e2ca893",
     "originalCodeSha256": "355b12d5e0be30edb4a3a75a3c397047b2c3141d7734ba7bb94b96ca3e2ca893",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "modeSpinner",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 42/0001.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/TitleFrame/TitleFrame_frame_0001_stop_label_mini.as",
     "xflXml": "LIBRARY/Symbol 42.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TitleFrame",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_mini",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 42/0002.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/TitleFrame/TitleFrame_frame_0010_stop_label_max.as",
     "xflXml": "LIBRARY/Symbol 42.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TitleFrame",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_max",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 52/0001.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel_frame_0001_stop_label_minimize.as",
     "xflXml": "LIBRARY/Symbol 52.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDObserverControlPanel",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "_minimize",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 52/0002.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel_frame_0010_stop_label_maximize.as",
     "xflXml": "LIBRARY/Symbol 52.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDObserverControlPanel",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "_maximize",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 52/0003.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel_frame_0001_press_label_minimize.as",
     "xflXml": "LIBRARY/Symbol 52.xml",
     "scriptOrdinal": 3,
     "sha256": "1addedcd92a6ce3908848b85171c77ae9227b0210139aeef085cf23ab5c60531",
     "originalCodeSha256": "1addedcd92a6ce3908848b85171c77ae9227b0210139aeef085cf23ab5c60531",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDObserverControlPanel",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "_minimize",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 52/0004.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel_frame_0010_press_label_maximize.as",
     "xflXml": "LIBRARY/Symbol 52.xml",
     "scriptOrdinal": 4,
     "sha256": "67db2097f333060b83a9e4fb594eea71c7212a67ebf08e73a916c6d197f58645",
     "originalCodeSha256": "67db2097f333060b83a9e4fb594eea71c7212a67ebf08e73a916c6d197f58645",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDObserverControlPanel",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "_maximize",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 53/0001.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/Observer/Observer_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 53.xml",
     "scriptOrdinal": 1,
     "sha256": "6566f418449bc1fb819af50beca110255b1a3b1b92110e453a1330fc5cdffa1b",
     "originalCodeSha256": "6566f418449bc1fb819af50beca110255b1a3b1b92110e453a1330fc5cdffa1b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "Observer",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 54/0001.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/panel/panel_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 54.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 54/0002.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/panel/panel_frame_0012_stop_label_open.as",
     "xflXml": "LIBRARY/Symbol 54.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 12,
+      "frameLabel": "_open",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDObserverControlPanel/scripts/LIBRARY/Symbol 54/0003.as",
+    "path": "converted/TacticalHUDObserverControlPanel/scripts/panel/panel_frame_0022_stop_label_close.as",
     "xflXml": "LIBRARY/Symbol 54.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 22,
+      "frameLabel": "_close",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

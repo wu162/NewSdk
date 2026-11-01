@@ -21,7 +21,9 @@ input dependencies, compiler DLL
 identity, and hashes of the four final streams. A failing movie is not counted
 as a successful production compilation merely because its FLA parses correctly.
 
---mutate-real selects scripts/DOMDocument/0001.as from the selected movie. It
+--mutate-real reads the selected movie's script-map.json and selects the original
+DOMDocument.xml scriptOrdinal=1 entry, using its current meaningful AS filename.
+Both movie-relative and converted/<Movie>/... resource-relative paths work. It
 copies the movie into an isolated temporary source directory, appends a trace
 marker to that existing included AS file, and recompiles. It checks that the
 final binary changes, the marker was absent from baseline and present after

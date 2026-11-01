@@ -1,50 +1,104 @@
 [
   {
-    "path": "converted/ig_libHUD/scripts/LIBRARY/Symbol 16/0001.as",
+    "path": "converted/ig_libHUD/scripts/SimpleRenderingSurface/SimpleRenderingSurface_frame_0001_define_onUnload.as",
     "xflXml": "LIBRARY/Symbol 16.xml",
     "scriptOrdinal": 1,
     "sha256": "a61daa9a1fe391b5249e05dee05a5c8bb1082a5040e84f5a8c03d4f2e6b0fded",
     "originalCodeSha256": "a61daa9a1fe391b5249e05dee05a5c8bb1082a5040e84f5a8c03d4f2e6b0fded",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "SimpleRenderingSurface",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_onUnload",
+      "actionBasis": "function-declaration:onUnload"
+    }
   },
   {
-    "path": "converted/ig_libHUD/scripts/LIBRARY/Symbol 16/0002.as",
+    "path": "converted/ig_libHUD/scripts/shape/shape_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 16.xml",
     "scriptOrdinal": 2,
     "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
     "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "shape",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/ig_libHUD/scripts/LIBRARY/Symbol 19/0001.as",
+    "path": "converted/ig_libHUD/scripts/InputShield/InputShield_frame_0001_define_Raise.as",
     "xflXml": "LIBRARY/Symbol 19.xml",
     "scriptOrdinal": 1,
     "sha256": "5f4d904d7386c37e867937c56fa6e9d39b0823dfa880f13b80fecc467c95172b",
     "originalCodeSha256": "5f4d904d7386c37e867937c56fa6e9d39b0823dfa880f13b80fecc467c95172b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "InputShield",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_Raise",
+      "actionBasis": "function-declaration:Raise"
+    }
   },
   {
-    "path": "converted/ig_libHUD/scripts/LIBRARY/Symbol 2/0001.as",
+    "path": "converted/ig_libHUD/scripts/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as",
     "xflXml": "LIBRARY/Symbol 2.xml",
     "scriptOrdinal": 1,
     "sha256": "bbbd27ff42832a83eea610bdec54c7e26b2fe8189477d972103861e1c857126a",
     "originalCodeSha256": "bbbd27ff42832a83eea610bdec54c7e26b2fe8189477d972103861e1c857126a",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "LoadMovieStage",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_OnContentLoaded",
+      "actionBasis": "function-declaration:OnContentLoaded"
+    }
   },
   {
-    "path": "converted/ig_libHUD/scripts/LIBRARY/Symbol 9/0001.as",
+    "path": "converted/ig_libHUD/scripts/AttachMovieClipStage/AttachMovieClipStage_frame_0001_define_AttachContent.as",
     "xflXml": "LIBRARY/Symbol 9.xml",
     "scriptOrdinal": 1,
     "sha256": "74cf7830852ebadbfb2175b4684e9b370a01d79887f9270679b086bd1db62cca",
     "originalCodeSha256": "74cf7830852ebadbfb2175b4684e9b370a01d79887f9270679b086bd1db62cca",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "AttachMovieClipStage",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_AttachContent",
+      "actionBasis": "function-declaration:AttachContent"
+    }
   },
   {
-    "path": "converted/ig_libHUD/scripts/LIBRARY/Symbol 9/0002.as",
+    "path": "converted/ig_libHUD/scripts/placeholder/placeholder_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 9.xml",
     "scriptOrdinal": 2,
     "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
     "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "placeholder",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   }
 ]

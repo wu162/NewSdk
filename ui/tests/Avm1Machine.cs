@@ -11,6 +11,7 @@ internal sealed class Avm1Machine
     {
         internal readonly Dictionary<string, object> Values = new(StringComparer.Ordinal);
         internal readonly Dictionary<string, (object Getter, object Setter)> Accessors = new(StringComparer.Ordinal);
+        internal readonly List<ObjectValue> Interfaces = new();
         internal ObjectValue Parent;
     }
     private sealed class Function
@@ -87,6 +88,20 @@ internal sealed class Avm1Machine
     private static string Text(object value) => value == null ? "null" : Convert.ToString(value, CultureInfo.InvariantCulture);
     private static double Number(object value) => value == null ? 0 : value is bool b ? b ? 1 : 0 : double.TryParse(Text(value), NumberStyles.Float, CultureInfo.InvariantCulture, out double n) ? n : double.NaN;
     private static bool Truth(object value) => value != null && !(value is Missing) && (value is bool b ? b : value is string s ? s.Length != 0 : value is ObjectValue || value is Function || Number(value) != 0 && !double.IsNaN(Number(value)));
+    private static bool InstanceOf(object value, object constructor)
+    {
+        if (!(value is ObjectValue instance) || !(constructor is Function target)) return false;
+        var pending = new Stack<ObjectValue>(); var seen = new HashSet<ObjectValue>();
+        if (instance.Parent != null) pending.Push(instance.Parent);
+        while (pending.Count != 0)
+        {
+            var prototype = pending.Pop(); if (!seen.Add(prototype)) continue;
+            if (ReferenceEquals(prototype, target.Prototype)) return true;
+            if (prototype.Parent != null) pending.Push(prototype.Parent);
+            foreach (var implemented in prototype.Interfaces) pending.Push(implemented);
+        }
+        return false;
+    }
     private object Execute(Code code, Scope scope, object[] registers)
     {
         byte[] bytes = code.Bytes; var stack = new List<object>(); int pc = code.Start;
@@ -141,6 +156,8 @@ internal sealed class Avm1Machine
                 case 0x3d: case 0x40: case 0x52: case 0x53:
                     { object callable, self; if (opcode == 0x52 || opcode == 0x53) { string name = Text(Pop()); self = Pop(); callable = name.Length == 0 ? self : Get(self, name); } else { string name = Text(Pop()); self = global; callable = GetVariable(scope, name); } int count = (int)Number(Pop()); var args = new object[count]; for (int i = 0; i < count; i++) args[i] = Pop(); if (opcode == 0x40 || opcode == 0x53) { if (!(callable is Function f)) throw new Exception("Not a constructor"); var instance = new ObjectValue { Parent = f.Prototype }; Call(f, instance, args); stack.Add(instance); } else stack.Add(Call(callable, self, args)); break; }
                 case 0x69: { var parent = (Function)Pop(); var child = (Function)Pop(); child.Base = parent; child.Prototype.Parent = parent.Prototype; break; }
+                case 0x2c: { var constructor = (Function)Pop(); int count = (int)Number(Pop()); constructor.Prototype.Interfaces.Clear(); for (int i = 0; i < count; i++) constructor.Prototype.Interfaces.Add(((Function)Pop()).Prototype); break; }
+                case 0x54: { object constructor = Pop(), instance = Pop(); stack.Add(InstanceOf(instance, constructor)); break; }
                 case 0x42: { int count = (int)Number(Pop()); var array = new ObjectValue(); for (int i = 0; i < count; i++) array.Values[i.ToString()] = Pop(); array.Values["length"] = count; stack.Add(array); break; }
                 case 0x43: { int count = (int)Number(Pop()); var obj = new ObjectValue(); for (int i = 0; i < count; i++) { object v = Pop(); obj.Values[Text(Pop())] = v; } stack.Add(obj); break; }
                 case 0x55: { var obj = (ObjectValue)Pop(); stack.Add(null); foreach (string key in obj.Values.Keys) stack.Add(key); break; }

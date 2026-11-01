@@ -1,122 +1,257 @@
 [
   {
-    "path": "converted/TacticalEndGameDialog/scripts/DOMDocument/0001.as",
+    "path": "converted/TacticalEndGameDialog/scripts/TacticalEndGameDialog/TacticalEndGameDialog_frame_0001_define_SetEndGameType.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "442e879e99e839ff7f698d17873a98f3b0725d78f798f00353aa9eedaffa1060",
     "originalCodeSha256": "442e879e99e839ff7f698d17873a98f3b0725d78f798f00353aa9eedaffa1060",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalEndGameDialog",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_SetEndGameType",
+      "actionBasis": "function-declaration:SetEndGameType"
+    }
   },
   {
-    "path": "converted/TacticalEndGameDialog/scripts/DOMDocument/0002.as",
+    "path": "converted/TacticalEndGameDialog/scripts/TacticalEndGameDialog/TacticalEndGameDialog_frame_0037_gotoAndStop_label_loop.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "94179340a8829b52a28f3801cdfa8e7a9420a236d8e42e8c57fae346d23c9436",
     "originalCodeSha256": "94179340a8829b52a28f3801cdfa8e7a9420a236d8e42e8c57fae346d23c9436",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalEndGameDialog",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 37,
+      "frameLabel": "_loop",
+      "event": "",
+      "action": "gotoAndStop",
+      "actionBasis": "function-call:gotoAndStop"
+    }
   },
   {
-    "path": "converted/TacticalEndGameDialog/scripts/DOMDocument/0003.as",
+    "path": "converted/TacticalEndGameDialog/scripts/TacticalEndGameDialog/TacticalEndGameDialog_frame_0043_fscommand_label_close.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "6e6cea10361519b47b3ac1f0ed156719196c0083b0e643fedea162b0de21d90d",
     "originalCodeSha256": "6e6cea10361519b47b3ac1f0ed156719196c0083b0e643fedea162b0de21d90d",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalEndGameDialog",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 43,
+      "frameLabel": "_close",
+      "event": "",
+      "action": "fscommand",
+      "actionBasis": "function-call:fscommand"
+    }
   },
   {
-    "path": "converted/TacticalEndGameDialog/scripts/LIBRARY/Symbol 20/0001.as",
+    "path": "converted/TacticalEndGameDialog/scripts/imageMC/imageMC_frame_0001_gotoAndPlay_label_Allies.as",
     "xflXml": "LIBRARY/Symbol 20.xml",
     "scriptOrdinal": 1,
     "sha256": "5034d01f2565af0160ed77c8bb1bf7b0a5abf702af2c244527ad02a248a7a120",
     "originalCodeSha256": "5034d01f2565af0160ed77c8bb1bf7b0a5abf702af2c244527ad02a248a7a120",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "imageMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "gotoAndPlay",
+      "actionBasis": "function-call:gotoAndPlay"
+    }
   },
   {
-    "path": "converted/TacticalEndGameDialog/scripts/LIBRARY/Symbol 20/0002.as",
+    "path": "converted/TacticalEndGameDialog/scripts/imageMC/imageMC_frame_0010_stop_label_Allies.as",
     "xflXml": "LIBRARY/Symbol 20.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "imageMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalEndGameDialog/scripts/LIBRARY/Symbol 20/0003.as",
+    "path": "converted/TacticalEndGameDialog/scripts/imageMC/imageMC_frame_0020_stop_label_Soviet.as",
     "xflXml": "LIBRARY/Symbol 20.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "imageMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalEndGameDialog/scripts/LIBRARY/Symbol 20/0004.as",
+    "path": "converted/TacticalEndGameDialog/scripts/imageMC/imageMC_frame_0030_stop_label_Japan.as",
     "xflXml": "LIBRARY/Symbol 20.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "imageMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalEndGameDialog/scripts/LIBRARY/Symbol 21/0001.as",
+    "path": "converted/TacticalEndGameDialog/scripts/panel/panel_frame_0010_stop_label_GameOver.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "GameOver",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalEndGameDialog/scripts/LIBRARY/Symbol 21/0002.as",
+    "path": "converted/TacticalEndGameDialog/scripts/panel/panel_frame_0020_stop_label_Victory.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "Victory",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalEndGameDialog/scripts/LIBRARY/Symbol 21/0003.as",
+    "path": "converted/TacticalEndGameDialog/scripts/panel/panel_frame_0030_stop_label_Defeat.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "Defeat",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalEndGameDialog/scripts/LIBRARY/Symbol 21/0004.as",
+    "path": "converted/TacticalEndGameDialog/scripts/panel/panel_frame_0001_load_label_GameOver.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 4,
     "sha256": "b8a5c0f4951fb8980897c868322f3df3dfa9401a277b92f20b00ccbf0fccb96f",
     "originalCodeSha256": "b8a5c0f4951fb8980897c868322f3df3dfa9401a277b92f20b00ccbf0fccb96f",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "GameOver",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalEndGameDialog/scripts/LIBRARY/Symbol 9/0001.as",
+    "path": "converted/TacticalEndGameDialog/scripts/imageMC/imageMC_frame_0001_gotoAndPlay_label_Allies_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 9.xml",
     "scriptOrdinal": 1,
     "sha256": "5034d01f2565af0160ed77c8bb1bf7b0a5abf702af2c244527ad02a248a7a120",
     "originalCodeSha256": "5034d01f2565af0160ed77c8bb1bf7b0a5abf702af2c244527ad02a248a7a120",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "imageMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "gotoAndPlay",
+      "actionBasis": "function-call:gotoAndPlay"
+    }
   },
   {
-    "path": "converted/TacticalEndGameDialog/scripts/LIBRARY/Symbol 9/0002.as",
+    "path": "converted/TacticalEndGameDialog/scripts/imageMC/imageMC_frame_0010_stop_label_Allies_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 9.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "imageMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalEndGameDialog/scripts/LIBRARY/Symbol 9/0003.as",
+    "path": "converted/TacticalEndGameDialog/scripts/imageMC/imageMC_frame_0020_stop_label_Soviet_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 9.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "imageMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalEndGameDialog/scripts/LIBRARY/Symbol 9/0004.as",
+    "path": "converted/TacticalEndGameDialog/scripts/imageMC/imageMC_frame_0030_stop_label_Japan_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 9.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "imageMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

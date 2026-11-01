@@ -11,6 +11,7 @@ Check(SageHash.Symbol("AptGeometryData") == 1034587168u, "SAGE geometry type has
 Check(SageHash.Symbol("Texture") != 0, "Texture type ID");
 RuntimeFixture.VerifyArchitecture(Check);
 ClassDependencyTests.Run(Check);
+MarkerInterfaceTests.Run(Check);
 GeometryTests.Run(Check);
 RuntimeLayoutTests.Run(Check);
 void RunScript(string source, string expected)

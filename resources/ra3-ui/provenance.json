@@ -39,7 +39,8 @@
     "distributionSha256": "56ce960aeafc7caf034e2052ba49f878a883f7c7ca690da6eeffca9587b5e4b9",
     "legacyTimelineWrapper": "tools/LegacyXflExport.java",
     "sharing": "Resolve known imports by movie basename; inline only resolved library definitions; retain explicit missing-library inventory",
-    "actionScript": "Real scripts externalized with relative #include; on(construct) event normalized to onClipEvent(construct)"
+    "actionScript": "4432 semantic timeline/action filenames referenced by FLA #include; 53 actual AS2 class/interface files recovered from original SWF with explicit FFDec class-field settings"
   },
-  "offlinePolicy": "All originals, outputs and FFDec distribution are committed on this resource branch. No workflow was added or dispatched to download them."
+  "offlinePolicy": "All originals, outputs and FFDec distribution are committed on this resource branch. No workflow was added or dispatched to download them.",
+  "verification": "validation/summary.json"
 }

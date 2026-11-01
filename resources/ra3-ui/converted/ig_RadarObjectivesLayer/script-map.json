@@ -1,82 +1,172 @@
 [
   {
-    "path": "converted/ig_RadarObjectivesLayer/scripts/DOMDocument/0001.as",
+    "path": "converted/ig_RadarObjectivesLayer/scripts/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer_frame_0001_define_Resize.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "c303d4ee06aa6be7bd9af34e4d86a453b0ec67da995ce4c42066e7ffeb206f54",
     "originalCodeSha256": "c303d4ee06aa6be7bd9af34e4d86a453b0ec67da995ce4c42066e7ffeb206f54",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ig_RadarObjectivesLayer",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_Resize",
+      "actionBasis": "function-declaration:Resize"
+    }
   },
   {
-    "path": "converted/ig_RadarObjectivesLayer/scripts/DOMDocument/0002.as",
+    "path": "converted/ig_RadarObjectivesLayer/scripts/sizer/sizer_frame_0001_load.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
     "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "sizer",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/ig_RadarObjectivesLayer/scripts/LIBRARY/Symbol 12/0001.as",
+    "path": "converted/ig_RadarObjectivesLayer/scripts/primary/primary_frame_0075_stop.as",
     "xflXml": "LIBRARY/Symbol 12.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "primary",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 75,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_RadarObjectivesLayer/scripts/LIBRARY/Symbol 13/0001.as",
+    "path": "converted/ig_RadarObjectivesLayer/scripts/ObjectiveIndicator/ObjectiveIndicator_frame_0001_gotoAndPlay_label_Attack.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 1,
     "sha256": "19763a5a61f67eb8604408f7139365e5052a455c1072c373276f1428232fbaae",
     "originalCodeSha256": "19763a5a61f67eb8604408f7139365e5052a455c1072c373276f1428232fbaae",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ObjectiveIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "Attack",
+      "event": "",
+      "action": "gotoAndPlay",
+      "actionBasis": "function-call:gotoAndPlay"
+    }
   },
   {
-    "path": "converted/ig_RadarObjectivesLayer/scripts/LIBRARY/Symbol 13/0002.as",
+    "path": "converted/ig_RadarObjectivesLayer/scripts/ObjectiveIndicator/ObjectiveIndicator_frame_0010_stop_label_Attack.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ObjectiveIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "Attack",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_RadarObjectivesLayer/scripts/LIBRARY/Symbol 13/0003.as",
+    "path": "converted/ig_RadarObjectivesLayer/scripts/ObjectiveIndicator/ObjectiveIndicator_frame_0020_stop_label_Protect.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ObjectiveIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "Protect",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_RadarObjectivesLayer/scripts/LIBRARY/Symbol 13/0004.as",
+    "path": "converted/ig_RadarObjectivesLayer/scripts/ObjectiveIndicator/ObjectiveIndicator_frame_0030_stop_label_Capture.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ObjectiveIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Capture",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_RadarObjectivesLayer/scripts/LIBRARY/Symbol 13/0005.as",
+    "path": "converted/ig_RadarObjectivesLayer/scripts/ObjectiveIndicator/ObjectiveIndicator_frame_0040_stop_label_Build.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ObjectiveIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 40,
+      "frameLabel": "Build",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_RadarObjectivesLayer/scripts/LIBRARY/Symbol 13/0006.as",
+    "path": "converted/ig_RadarObjectivesLayer/scripts/ObjectiveIndicator/ObjectiveIndicator_frame_0050_stop_label_Move.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 6,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ObjectiveIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 50,
+      "frameLabel": "Move",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_RadarObjectivesLayer/scripts/LIBRARY/Symbol 6/0001.as",
+    "path": "converted/ig_RadarObjectivesLayer/scripts/bonus/bonus_frame_0075_stop.as",
     "xflXml": "LIBRARY/Symbol 6.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bonus",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 75,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

@@ -1,178 +1,376 @@
 [
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 16/0001.as",
+    "path": "converted/std_mouseRadioButton/scripts/checkBoxMC/checkBoxMC_frame_0001_timelineActions_label_unChecked.as",
     "xflXml": "LIBRARY/Symbol 16.xml",
     "scriptOrdinal": 1,
     "sha256": "78f9ed4cff5cff97092e390662f82985eee69824b1f33894669cabfe10c933be",
     "originalCodeSha256": "78f9ed4cff5cff97092e390662f82985eee69824b1f33894669cabfe10c933be",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_unChecked",
+      "event": "",
+      "action": "timelineActions",
+      "actionBasis": "timeline-actions-without-named-function"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 16/0002.as",
+    "path": "converted/std_mouseRadioButton/scripts/checkBoxMC/checkBoxMC_frame_0009_stop_label_unChecked.as",
     "xflXml": "LIBRARY/Symbol 16.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 9,
+      "frameLabel": "_unChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 16/0003.as",
+    "path": "converted/std_mouseRadioButton/scripts/checkBoxMC/checkBoxMC_frame_0010_timelineActions_label_checked.as",
     "xflXml": "LIBRARY/Symbol 16.xml",
     "scriptOrdinal": 3,
     "sha256": "713e447d17ad9a6c587c0358fa0c812bc9f7651e02e4cf32b537f6f873a2f682",
     "originalCodeSha256": "713e447d17ad9a6c587c0358fa0c812bc9f7651e02e4cf32b537f6f873a2f682",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "timelineActions",
+      "actionBasis": "timeline-actions-without-named-function"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 16/0004.as",
+    "path": "converted/std_mouseRadioButton/scripts/checkBoxMC/checkBoxMC_frame_0019_stop_label_checked.as",
     "xflXml": "LIBRARY/Symbol 16.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 19,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 21/0001.as",
+    "path": "converted/std_mouseRadioButton/scripts/ChapterSelectRadioButtonContentC/ChapterSelectRadioButtonContentC_frame_0003_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ChapterSelectRadioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 3,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 21/0002.as",
+    "path": "converted/std_mouseRadioButton/scripts/ChapterSelectRadioButtonContentC/ChapterSelectRadioButtonContentC_frame_0006_stop_label_selected.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ChapterSelectRadioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 6,
+      "frameLabel": "_selected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 21/0003.as",
+    "path": "converted/std_mouseRadioButton/scripts/ChapterSelectRadioButtonContentC/ChapterSelectRadioButtonContentC_frame_0009_stop_label_unselected.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ChapterSelectRadioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unselected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 21/0004.as",
+    "path": "converted/std_mouseRadioButton/scripts/ChapterSelectRadioButtonContentC/ChapterSelectRadioButtonContentC_frame_0012_stop_label_selectedRollover.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ChapterSelectRadioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 12,
+      "frameLabel": "_selectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 21/0005.as",
+    "path": "converted/std_mouseRadioButton/scripts/ChapterSelectRadioButtonContentC/ChapterSelectRadioButtonContentC_frame_0015_stop_label_unselectedRollover.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ChapterSelectRadioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 15,
+      "frameLabel": "_unselectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 21/0006.as",
+    "path": "converted/std_mouseRadioButton/scripts/ChapterSelectRadioButtonContentC/ChapterSelectRadioButtonContentC_frame_0018_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 6,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ChapterSelectRadioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 18,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 21/0007.as",
+    "path": "converted/std_mouseRadioButton/scripts/ChapterSelectRadioButtonContentC/ChapterSelectRadioButtonContentC_frame_0021_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 7,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ChapterSelectRadioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 21,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 24/0001.as",
+    "path": "converted/std_mouseRadioButton/scripts/radioButtonMC/radioButtonMC_frame_0009_stop_label_unChecked.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 24/0002.as",
+    "path": "converted/std_mouseRadioButton/scripts/radioButtonMC/radioButtonMC_frame_0019_stop_label_checked.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 19,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 30/0001.as",
+    "path": "converted/std_mouseRadioButton/scripts/radioButtonContentClip/radioButtonContentClip_frame_0003_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 3,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 30/0002.as",
+    "path": "converted/std_mouseRadioButton/scripts/radioButtonContentClip/radioButtonContentClip_frame_0006_stop_label_selected.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 6,
+      "frameLabel": "_selected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 30/0003.as",
+    "path": "converted/std_mouseRadioButton/scripts/radioButtonContentClip/radioButtonContentClip_frame_0009_stop_label_unselected.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unselected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 30/0004.as",
+    "path": "converted/std_mouseRadioButton/scripts/radioButtonContentClip/radioButtonContentClip_frame_0012_stop_label_selectedRollover.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 12,
+      "frameLabel": "_selectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 30/0005.as",
+    "path": "converted/std_mouseRadioButton/scripts/radioButtonContentClip/radioButtonContentClip_frame_0015_stop_label_unselectedRollover.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 15,
+      "frameLabel": "_unselectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 30/0006.as",
+    "path": "converted/std_mouseRadioButton/scripts/radioButtonContentClip/radioButtonContentClip_frame_0018_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 6,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 18,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 30/0007.as",
+    "path": "converted/std_mouseRadioButton/scripts/radioButtonContentClip/radioButtonContentClip_frame_0021_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 7,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 21,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 31/0001.as",
+    "path": "converted/std_mouseRadioButton/scripts/std_mouseRadioButtonSymbol/std_mouseRadioButtonSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 31.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseRadioButtonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseRadioButton/scripts/LIBRARY/Symbol 8/0001.as",
+    "path": "converted/std_mouseRadioButton/scripts/labelMC/labelMC_frame_0001_set_visible.as",
     "xflXml": "LIBRARY/Symbol 8.xml",
     "scriptOrdinal": 1,
     "sha256": "4fc92384cee4bd15d02e1721a2a8f26a4ee2ad1f0f2381615fe9744f5df6e933",
     "originalCodeSha256": "4fc92384cee4bd15d02e1721a2a8f26a4ee2ad1f0f2381615fe9744f5df6e933",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "labelMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "set_visible",
+      "actionBasis": "property-assignment:_visible"
+    }
   }
 ]

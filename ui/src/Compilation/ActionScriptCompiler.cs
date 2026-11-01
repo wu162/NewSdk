@@ -252,9 +252,33 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
         }
         internal static As2Class CompileClass(string source, Func<string, As2Class> require, IReadOnlyDictionary<string, string> implicitTypes = null, Func<string, As2Class> requireBase = null)
         {
-            var c = new ActionScriptCompiler(source); c.Imports(require); c.classResolver = require; if (implicitTypes != null) foreach (var type in implicitTypes) if (!c.aliases.ContainsKey(type.Key)) c.aliases.Add(type.Key, type.Value); c.Eat("dynamic"); c.Need("class"); string name = c.Qualified(), leaf = name.Substring(name.LastIndexOf('.') + 1); string parent = c.Eat("extends") ? c.Qualified() : "Object";
+            var c = new ActionScriptCompiler(source); c.Imports(require); c.classResolver = require; if (implicitTypes != null) foreach (var type in implicitTypes) if (!c.aliases.ContainsKey(type.Key)) c.aliases.Add(type.Key, type.Value);
+            bool dynamicClass = c.Eat("dynamic");
+            if (c.Eat("interface"))
+            {
+                if (dynamicClass) throw c.Error("An interface cannot be dynamic.");
+                string interfaceName = c.Qualified();
+                if (!c.Eat("{") || !c.Eat("}")) throw c.Error("Only empty AS2 marker interfaces are supported; interface members and inheritance are not supported.");
+                c.Eat(";"); c.Need("<eof>");
+                return c.MarkerInterface(interfaceName);
+            }
+            c.Need("class"); string name = c.Qualified(), leaf = name.Substring(name.LastIndexOf('.') + 1); string parent = c.Eat("extends") ? c.Qualified() : "Object";
             if (c.aliases.TryGetValue(parent, out string qualified)) parent = qualified;
-            var baseClass = (requireBase ?? require)(parent); var result = new As2Class { Name = name, BaseName = parent }; if (baseClass != null) { result.InstanceMembers.UnionWith(baseClass.InstanceMembers); result.StaticMembers.UnionWith(baseClass.StaticMembers); }
+            var baseClass = (requireBase ?? require)(parent); if (baseClass?.IsInterface == true) throw c.Error("A class cannot extend an interface: " + parent);
+            var result = new As2Class { Name = name, BaseName = parent };
+            var interfaces = new List<string>();
+            if (c.Eat("implements"))
+            {
+                do
+                {
+                    string implemented = c.Qualified(); if (c.aliases.TryGetValue(implemented, out string interfaceType)) implemented = interfaceType;
+                    if (interfaces.Contains(implemented, StringComparer.Ordinal)) throw c.Error("Duplicate implemented interface: " + implemented);
+                    var marker = (requireBase ?? require)(implemented);
+                    if (marker == null || !marker.IsInterface) throw c.Error("Implemented type must be an interface: " + implemented);
+                    interfaces.Add(implemented); result.InitializerDependencies.Add(implemented);
+                } while (c.Eat(","));
+            }
+            if (baseClass != null) { result.InstanceMembers.UnionWith(baseClass.InstanceMembers); result.StaticMembers.UnionWith(baseClass.StaticMembers); }
             if (parent == "MovieClip") result.InstanceMembers.UnionWith(new[] { "_x", "_y", "_alpha", "_width", "_height", "_visible", "_rotation", "_xscale", "_yscale", "_parent", "_root", "_name", "_currentframe", "_totalframes", "attachMovie", "createEmptyMovieClip", "removeMovieClip", "duplicateMovieClip", "swapDepths", "getDepth", "getNextHighestDepth", "localToGlobal", "globalToLocal", "hitTest", "startDrag", "stopDrag" });
             c.aliases[leaf] = name; c.classContext = result; c.Need("{");
             var functions = new List<Tuple<bool, string, int, string>>(); var fields = new List<Tuple<bool, string, Node>>();
@@ -283,6 +307,14 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
             string[] parts = name.Split('.'); for (int i = 1; i < parts.Length; i++)
             { Node package = PathNode(string.Join(".", parts.Take(i))); ActionLabel exists = c.code.Label(); c.Emit(package); c.code.Push(UndefinedValue.Instance); c.code.Op(0x66); c.code.Op(0x12); c.code.Jump(0x9d, exists); c.Assign(package, new Node("object"), "="); c.code.Op(0x17); c.code.Mark(exists); }
             c.Assign(ctor, constructor, "="); c.code.Op(0x17); c.Emit(ctor); c.Emit(PathNode(parent)); c.code.Op(0x69);
+            if (interfaces.Count != 0)
+            {
+                // AVM1 ImplementsOp pops constructor, count, then interface
+                // constructors. The final APT encoder writes this operandless
+                // opcode directly, preserving runtime instanceof semantics.
+                foreach (string implemented in interfaces) c.Emit(PathNode(implemented));
+                c.code.Push(interfaces.Count); c.Emit(ctor); c.code.Op(0x2c);
+            }
             foreach (var field in fields.Where(f => !f.Item1)) { c.Assign(new Node("member", null, null, prototype, new Node("literal", null, field.Item2)), new Node("literal", null, UndefinedValue.Instance), "="); c.code.Op(0x17); }
             foreach (var method in methods.Where(m => m.Item4.Length == 0)) { c.Assign(new Node("member", null, null, method.Item1 ? ctor : prototype, new Node("literal", null, method.Item2)), method.Item3, "="); c.code.Op(0x17); }
             foreach (var accessors in methods.Where(m => m.Item4.Length != 0).GroupBy(m => Tuple.Create(m.Item1, m.Item2)))
@@ -290,6 +322,22 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
             c.staticInitialization = true;
             foreach (var field in fields.Where(f => f.Item1)) { c.Assign(new Node("member", null, null, ctor, new Node("literal", null, field.Item2)), field.Item3, "="); c.code.Op(0x17); }
             c.code.Mark(done); result.Code = c.code.Finish(); return result;
+        }
+        private As2Class MarkerInterface(string name)
+        {
+            Node target = PathNode(name); ActionLabel done = code.Label();
+            Emit(target); code.Push(UndefinedValue.Instance); code.Op(0x66); code.Op(0x12); code.Jump(0x9d, done);
+            string[] parts = name.Split('.');
+            for (int i = 1; i < parts.Length; i++)
+            {
+                Node package = PathNode(string.Join(".", parts.Take(i))); ActionLabel exists = code.Label();
+                Emit(package); code.Push(UndefinedValue.Instance); code.Op(0x66); code.Op(0x12); code.Jump(0x9d, exists);
+                Assign(package, new Node("object"), "="); code.Op(0x17); code.Mark(exists);
+            }
+            // A marker interface is an empty constructor with a prototype. It
+            // has no class inheritance or method/field initialization.
+            Assign(target, new Node("function", "", Tuple.Create(new List<string>(), new Code().Finish(true))), "="); code.Op(0x17);
+            code.Mark(done); return new As2Class { Name = name, IsInterface = true, Code = code.Finish() };
         }
         internal static IReadOnlyList<EventProgram> CompileHandlers(string source, bool button)
         {

@@ -1,98 +1,206 @@
 [
   {
-    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/DOMDocument/0001.as",
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/TacticalHUDSpecialPowerTimers/TacticalHUDSpecialPowerTimers_frame_0001_define_TimerClipStack.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "7dc3f39748544d47dc7dc8f3cc9002d6c35f39fe2753aae156613dc0f8079702",
     "originalCodeSha256": "7dc3f39748544d47dc7dc8f3cc9002d6c35f39fe2753aae156613dc0f8079702",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDSpecialPowerTimers",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_TimerClipStack",
+      "actionBasis": "function-declaration:TimerClipStack"
+    }
   },
   {
-    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 1/0001.as",
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
     "xflXml": "LIBRARY/Symbol 1.xml",
     "scriptOrdinal": 1,
     "sha256": "146c51dbe148154dfeb73f08ceeda2c007cead03ee20e65d0692228a628dccad",
     "originalCodeSha256": "146c51dbe148154dfeb73f08ceeda2c007cead03ee20e65d0692228a628dccad",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "HelpBoxSite",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_GetHelpBoxPos",
+      "actionBasis": "function-declaration:GetHelpBoxPos"
+    }
   },
   {
-    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 1/0002.as",
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 1.xml",
     "scriptOrdinal": 2,
     "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
     "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "HelpBoxSite",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 11/0001.as",
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/timerText/timerText_frame_0001_gotoAndPlay.as",
     "xflXml": "LIBRARY/Symbol 11.xml",
     "scriptOrdinal": 1,
     "sha256": "237c7dbf084165bdece723abfd71ccd49571d8c89c2519b02d126f5e8acea6da",
     "originalCodeSha256": "237c7dbf084165bdece723abfd71ccd49571d8c89c2519b02d126f5e8acea6da",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "timerText",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "gotoAndPlay",
+      "actionBasis": "function-call:gotoAndPlay"
+    }
   },
   {
-    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 11/0002.as",
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/timerText/timerText_frame_0002_stop.as",
     "xflXml": "LIBRARY/Symbol 11.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "timerText",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 2,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 16/0001.as",
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/Timer/Timer_frame_0001_define_OnTimerRollOver.as",
     "xflXml": "LIBRARY/Symbol 16.xml",
     "scriptOrdinal": 1,
     "sha256": "8f9eeb753187112f03eb3c58d3d54c5256e3b9f5cea67b7096934f77009ba3bf",
     "originalCodeSha256": "8f9eeb753187112f03eb3c58d3d54c5256e3b9f5cea67b7096934f77009ba3bf",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "Timer",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_OnTimerRollOver",
+      "actionBasis": "function-declaration:OnTimerRollOver"
+    }
   },
   {
-    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 16/0002.as",
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/Timer/Timer_frame_0007_onEnterFrame_label_down.as",
     "xflXml": "LIBRARY/Symbol 16.xml",
     "scriptOrdinal": 2,
     "sha256": "b46dad4d7e687821c92dacea583df6a2e5f531ee0ff0b58441d5157ccb1dd651",
     "originalCodeSha256": "b46dad4d7e687821c92dacea583df6a2e5f531ee0ff0b58441d5157ccb1dd651",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "Timer",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 7,
+      "frameLabel": "_down",
+      "event": "onEnterFrame",
+      "action": "onEnterFrame",
+      "actionBasis": "assigned-event:onEnterFrame"
+    }
   },
   {
-    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 16/0003.as",
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/Timer/Timer_frame_0012_onEnterFrame_label_up.as",
     "xflXml": "LIBRARY/Symbol 16.xml",
     "scriptOrdinal": 3,
     "sha256": "eb85d1a88f0a23d9478d58ca5c9f910deaea501ac4313d26dadbef801785d365",
     "originalCodeSha256": "eb85d1a88f0a23d9478d58ca5c9f910deaea501ac4313d26dadbef801785d365",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "Timer",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 12,
+      "frameLabel": "_up",
+      "event": "onEnterFrame",
+      "action": "onEnterFrame",
+      "actionBasis": "assigned-event:onEnterFrame"
+    }
   },
   {
-    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 16/0004.as",
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/image/image_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 16.xml",
     "scriptOrdinal": 4,
     "sha256": "a68831f333de6fb68bfdc30f159b3d13ce0b1fc90c0dc8aa49acec1129070a46",
     "originalCodeSha256": "0a230dae639ced0715fb43e6dab6180f25528f447f30dc113e10ee0b232c785b",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "image",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 16/0005.as",
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/Timer/Timer_frame_0001_press.as",
     "xflXml": "LIBRARY/Symbol 16.xml",
     "scriptOrdinal": 5,
     "sha256": "4731cf4bfdaf6d1252d79aa8684ebfb6810ee743d1c8f6ed3a2ed03ad5041674",
     "originalCodeSha256": "4731cf4bfdaf6d1252d79aa8684ebfb6810ee743d1c8f6ed3a2ed03ad5041674",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "Timer",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   },
   {
-    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 16/0006.as",
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/helpSite/helpSite_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 16.xml",
     "scriptOrdinal": 6,
     "sha256": "d355f7bae7a205f6b8fd7a123928868f01591299a1a1dd8d0170570a0acef6c0",
     "originalCodeSha256": "e20e3a283bda0dab358c89a1f188ecebf62b48445ee943f98c3c9f9b5bf012b5",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "helpSite",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/LIBRARY/Symbol 17/0001.as",
+    "path": "converted/TacticalHUDSpecialPowerTimers/scripts/TacticalHUDSpecialPowerTimers/TacticalHUDSpecialPowerTimers_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 17.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDSpecialPowerTimers",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

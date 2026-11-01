@@ -1,282 +1,597 @@
 [
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 44/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/showHideContentMCSymbol/showHideContentMCSymbol_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 44.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "showHideContentMCSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 44/0002.as",
+    "path": "converted/fe_onlineComponents/scripts/showHideContentMCSymbol/showHideContentMCSymbol_frame_0020_stop_label_selected.as",
     "xflXml": "LIBRARY/Symbol 44.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "showHideContentMCSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_selected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 44/0003.as",
+    "path": "converted/fe_onlineComponents/scripts/showHideContentMCSymbol/showHideContentMCSymbol_frame_0030_stop_label_unselected.as",
     "xflXml": "LIBRARY/Symbol 44.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "showHideContentMCSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_unselected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 44/0004.as",
+    "path": "converted/fe_onlineComponents/scripts/showHideContentMCSymbol/showHideContentMCSymbol_frame_0040_stop_label_selectedRollover.as",
     "xflXml": "LIBRARY/Symbol 44.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "showHideContentMCSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 40,
+      "frameLabel": "_selectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 44/0005.as",
+    "path": "converted/fe_onlineComponents/scripts/showHideContentMCSymbol/showHideContentMCSymbol_frame_0050_stop_label_unselectedRollover.as",
     "xflXml": "LIBRARY/Symbol 44.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "showHideContentMCSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 50,
+      "frameLabel": "_unselectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 44/0006.as",
+    "path": "converted/fe_onlineComponents/scripts/showHideContentMCSymbol/showHideContentMCSymbol_frame_0060_stop_label_downState.as",
     "xflXml": "LIBRARY/Symbol 44.xml",
     "scriptOrdinal": 6,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "showHideContentMCSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 60,
+      "frameLabel": "_downState",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 44/0007.as",
+    "path": "converted/fe_onlineComponents/scripts/showHideContentMCSymbol/showHideContentMCSymbol_frame_0087_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 44.xml",
     "scriptOrdinal": 7,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "showHideContentMCSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 87,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 44/0008.as",
+    "path": "converted/fe_onlineComponents/scripts/showHideContentMCSymbol/showHideContentMCSymbol_frame_0120_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 44.xml",
     "scriptOrdinal": 8,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "showHideContentMCSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 120,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 50/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/std_mouseScrollbarSymbol/std_mouseScrollbarSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 50.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseScrollbarSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 51/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/uiScrollBar/uiScrollBar_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 51.xml",
     "scriptOrdinal": 1,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "uiScrollBar",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 51/0002.as",
+    "path": "converted/fe_onlineComponents/scripts/lobbyListTextBox/lobbyListTextBox_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 51.xml",
     "scriptOrdinal": 2,
     "sha256": "b91aa2d1a2fa3d25cbcbdfb7aa0d26c549e92d9fa42407006e75eb5c03a3be02",
     "originalCodeSha256": "dd97e0d70f2c74170fb9dc62a6f831857f871ca2198dadb58fc14a732af8b1a8",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "lobbyListTextBox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 54/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/std_MousebuttonSymbol/std_MousebuttonSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 54.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_MousebuttonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 63/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/showListOfLobbiesButton/showListOfLobbiesButton_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 63.xml",
     "scriptOrdinal": 1,
     "sha256": "ebda0e652f57aebfed20468c192df79bcd8ee1561c9eef68e26e31f2aa69b493",
     "originalCodeSha256": "f33047e6c2a4d46b7a5167c123d1d33b3409a16bda97b6f289143e32e66610e8",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "showListOfLobbiesButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 65/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/showListOfLobbiesButton/showListOfLobbiesButton_frame_0001_construct_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 65.xml",
     "scriptOrdinal": 1,
     "sha256": "ebda0e652f57aebfed20468c192df79bcd8ee1561c9eef68e26e31f2aa69b493",
     "originalCodeSha256": "f33047e6c2a4d46b7a5167c123d1d33b3409a16bda97b6f289143e32e66610e8",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "showListOfLobbiesButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 67/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/showListOfLobbiesButton/showListOfLobbiesButton_frame_0001_construct_occurrence_03.as",
     "xflXml": "LIBRARY/Symbol 67.xml",
     "scriptOrdinal": 1,
     "sha256": "ebda0e652f57aebfed20468c192df79bcd8ee1561c9eef68e26e31f2aa69b493",
     "originalCodeSha256": "f33047e6c2a4d46b7a5167c123d1d33b3409a16bda97b6f289143e32e66610e8",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "showListOfLobbiesButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 69/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/uiScrollBar/uiScrollBar_frame_0001_construct_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 69.xml",
     "scriptOrdinal": 1,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "uiScrollBar",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 69/0002.as",
+    "path": "converted/fe_onlineComponents/scripts/ListTextBox/ListTextBox_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 69.xml",
     "scriptOrdinal": 2,
     "sha256": "421ea847b44ed52887e0d68cfbfd6c2288e008ecf279757110fd14c0901ee3c5",
     "originalCodeSha256": "518929d5f416c1f91cb1b294b16463dfe1a54e7560d4eb226f18582f67bb406e",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "ListTextBox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 70/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/gameListTextBox/gameListTextBox_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 70.xml",
     "scriptOrdinal": 1,
     "sha256": "a6707147c545a44888d5b1d529ced007755b66aba65b51189bc09e985a8b0446",
     "originalCodeSha256": "851de4b1b6fa6ff7c303e38cd80a55c18eef3de495d558e1d326e34641010b3e",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "gameListTextBox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 70/0002.as",
+    "path": "converted/fe_onlineComponents/scripts/uiScrollBar/uiScrollBar_frame_0001_construct_occurrence_03.as",
     "xflXml": "LIBRARY/Symbol 70.xml",
     "scriptOrdinal": 2,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "uiScrollBar",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 71/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/uiScrollBar/uiScrollBar_frame_0001_construct_occurrence_04.as",
     "xflXml": "LIBRARY/Symbol 71.xml",
     "scriptOrdinal": 1,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "uiScrollBar",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 71/0002.as",
+    "path": "converted/fe_onlineComponents/scripts/playerListTextBox/playerListTextBox_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 71.xml",
     "scriptOrdinal": 2,
     "sha256": "421ea847b44ed52887e0d68cfbfd6c2288e008ecf279757110fd14c0901ee3c5",
     "originalCodeSha256": "518929d5f416c1f91cb1b294b16463dfe1a54e7560d4eb226f18582f67bb406e",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "playerListTextBox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 72/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/scrollbar/scrollbar_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 72.xml",
     "scriptOrdinal": 1,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "scrollbar",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 72/0002.as",
+    "path": "converted/fe_onlineComponents/scripts/listbox/listbox_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 72.xml",
     "scriptOrdinal": 2,
     "sha256": "db67657a6b4e6b75927432261eaa4551d27eda777d67c7f17734ef09036b2de3",
     "originalCodeSha256": "1f9275fc6e47693db69ee7e507457c5668a74c3c608c2c46a5261d07e1a485b9",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "listbox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/Symbol 74/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/BuddyStatusIconSymbol/BuddyStatusIconSymbol_frame_0001_set_alpha.as",
     "xflXml": "LIBRARY/Symbol 74.xml",
     "scriptOrdinal": 1,
     "sha256": "022fc565d8bb326e18cff6727d54fa316cb9db61c6c70f5d816a2a9cbc21bf07",
     "originalCodeSha256": "022fc565d8bb326e18cff6727d54fa316cb9db61c6c70f5d816a2a9cbc21bf07",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "BuddyStatusIconSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "set_alpha",
+      "actionBasis": "property-assignment:_alpha"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/imported/Symbol 10/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/arrowBottomMC/arrowBottomMC_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 10.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/imported/Symbol 10/0002.as",
+    "path": "converted/fe_onlineComponents/scripts/arrowBottomMC/arrowBottomMC_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 10.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/imported/Symbol 10/0003.as",
+    "path": "converted/fe_onlineComponents/scripts/arrowBottomMC/arrowBottomMC_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 10.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/imported/Symbol 10/0004.as",
+    "path": "converted/fe_onlineComponents/scripts/arrowBottomMC/arrowBottomMC_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/imported/Symbol 10.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/imported/Symbol 11/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/arrowTopMC/arrowTopMC_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 11.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/imported/Symbol 11/0002.as",
+    "path": "converted/fe_onlineComponents/scripts/arrowTopMC/arrowTopMC_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 11.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/imported/Symbol 11/0003.as",
+    "path": "converted/fe_onlineComponents/scripts/arrowTopMC/arrowTopMC_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 11.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/imported/Symbol 11/0004.as",
+    "path": "converted/fe_onlineComponents/scripts/arrowTopMC/arrowTopMC_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/imported/Symbol 11.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/imported/Symbol 9/0001.as",
+    "path": "converted/fe_onlineComponents/scripts/thumbMC/thumbMC_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 9.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/imported/Symbol 9/0002.as",
+    "path": "converted/fe_onlineComponents/scripts/thumbMC/thumbMC_frame_0020_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 9.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_onlineComponents/scripts/LIBRARY/imported/Symbol 9/0003.as",
+    "path": "converted/fe_onlineComponents/scripts/thumbMC/thumbMC_frame_0030_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 9.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

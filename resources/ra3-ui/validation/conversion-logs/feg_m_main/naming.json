@@ -1,0 +1,19 @@
+[
+  {
+    "oldPath": "converted/feg_m_main/scripts/DOMDocument/0001.as",
+    "newPath": "converted/feg_m_main/scripts/feg_m_main/feg_m_main_frame_0001_feg_m_main_label_init.as",
+    "relativeOldPath": "scripts/DOMDocument/0001.as",
+    "relativeNewPath": "scripts/feg_m_main/feg_m_main_frame_0001_feg_m_main_label_init.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "frameNumber": 1,
+    "frameLabel": "_init",
+    "owner": "feg_m_main",
+    "ownerBasis": "movie-name-fallback",
+    "event": "",
+    "action": "feg_m_main",
+    "actionBasis": "function-call:feg_m_main",
+    "occurrence": 1,
+    "sha256": "f84cb0a38966e32caac477ce70954fc70df0f43bc2c4080489ed0a55c615014c"
+  }
+]

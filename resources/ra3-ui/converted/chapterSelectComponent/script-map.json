@@ -1,82 +1,172 @@
 [
   {
-    "path": "converted/chapterSelectComponent/scripts/LIBRARY/Symbol 6/0001.as",
+    "path": "converted/chapterSelectComponent/scripts/std_mouseRadioButtonSymbol/std_mouseRadioButtonSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 6.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseRadioButtonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/chapterSelectComponent/scripts/LIBRARY/Symbol 8/0001.as",
+    "path": "converted/chapterSelectComponent/scripts/missionList/missionList_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 8.xml",
     "scriptOrdinal": 1,
     "sha256": "1ac61e66dfe485d75d05dda686ef14b0f1565a5d42d6b3d7bc15e50a7acbf62d",
     "originalCodeSha256": "48a064fada3367021a6ae737c8d076827134e1361b32936089f4a08772c51a8b",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "missionList",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/chapterSelectComponent/scripts/LIBRARY/Symbol 8/0002.as",
+    "path": "converted/chapterSelectComponent/scripts/radioButton_hard/radioButton_hard_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 8.xml",
     "scriptOrdinal": 2,
     "sha256": "6abb0880948feb94c9b618dc386216b39f4f147b8b57cbd4830267c89c81f881",
     "originalCodeSha256": "f4c0afed7d17668a5f98fbb3cad3e5c08305dabb37a51f07b81ce2b8e056388f",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radioButton_hard",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/chapterSelectComponent/scripts/LIBRARY/Symbol 8/0003.as",
+    "path": "converted/chapterSelectComponent/scripts/radioButton_medium/radioButton_medium_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 8.xml",
     "scriptOrdinal": 3,
     "sha256": "200667a49852b4822a48a48f139428660b6a9840842e3484448e6df7783c5bb1",
     "originalCodeSha256": "4622f90ad8e316b299062908e32a29ac163bde8e8ae714a6751c2d165a6e6357",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radioButton_medium",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/chapterSelectComponent/scripts/LIBRARY/Symbol 8/0004.as",
+    "path": "converted/chapterSelectComponent/scripts/radioButton_easy/radioButton_easy_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 8.xml",
     "scriptOrdinal": 4,
     "sha256": "5ad78a7431e3bfb56a01afd131135211fe4879422f7c8bf08e62242a28241210",
     "originalCodeSha256": "07f6eb879b73ae705005bb1f83ff9ece150dfe6ad708f06d7f50de404ff420a7",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radioButton_easy",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/chapterSelectComponent/scripts/LIBRARY/Symbol 8/0005.as",
+    "path": "converted/chapterSelectComponent/scripts/radioController_difficulty/radioController_difficulty_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 8.xml",
     "scriptOrdinal": 5,
     "sha256": "8d4e754ce06ffd4db440d643d4707496dc28fa36f4ed410433afcb45349332ba",
     "originalCodeSha256": "c6a7ff502254a778a33606fcd069ebded345ee1c5159f1a2b0777501ad18734e",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radioController_difficulty",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/chapterSelectComponent/scripts/LIBRARY/Symbol 8/0006.as",
+    "path": "converted/chapterSelectComponent/scripts/radioButton_japan/radioButton_japan_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 8.xml",
     "scriptOrdinal": 6,
     "sha256": "13d6796e843407c02da7f08822afeeaf0f562b2598a5c80aa9ea34f45d63ff20",
     "originalCodeSha256": "4a84c3b2ea0c3cecc6bebf10ad381c24f3b6179167418b1d1717ef79b2988c4d",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radioButton_japan",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/chapterSelectComponent/scripts/LIBRARY/Symbol 8/0007.as",
+    "path": "converted/chapterSelectComponent/scripts/radioButton_allies/radioButton_allies_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 8.xml",
     "scriptOrdinal": 7,
     "sha256": "8ad7c1ebbfa63acda04f0c86912d3a8957636734d9976c35206bd4d48aa77cc6",
     "originalCodeSha256": "8e4de901cb8a777914f83846652b096000124eb3cb4d412fa1f551170586c7ee",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radioButton_allies",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/chapterSelectComponent/scripts/LIBRARY/Symbol 8/0008.as",
+    "path": "converted/chapterSelectComponent/scripts/radioButton_soviets/radioButton_soviets_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 8.xml",
     "scriptOrdinal": 8,
     "sha256": "f1297a303598cf7f6ba89361e8be2a05040ed848252710f9effd5e64e2b7a9ee",
     "originalCodeSha256": "477be3fbe7ca6115835b72ff5854a5cc3548c6b322cd4e95fae3b808136e3064",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radioButton_soviets",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/chapterSelectComponent/scripts/LIBRARY/Symbol 8/0009.as",
+    "path": "converted/chapterSelectComponent/scripts/radioController_faction/radioController_faction_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 8.xml",
     "scriptOrdinal": 9,
     "sha256": "8d4e754ce06ffd4db440d643d4707496dc28fa36f4ed410433afcb45349332ba",
     "originalCodeSha256": "c6a7ff502254a778a33606fcd069ebded345ee1c5159f1a2b0777501ad18734e",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radioController_faction",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   }
 ]

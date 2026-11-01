@@ -1,162 +1,342 @@
 [
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/DOMDocument/0001.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton_frame_0001_define_SetEnabled.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "3026a3ca072407a8659da97e15b71f80fb6bddae15d22808924fd0251dcc706c",
     "originalCodeSha256": "3026a3ca072407a8659da97e15b71f80fb6bddae15d22808924fd0251dcc706c",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalPlayerPowerCommandButton",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_SetEnabled",
+      "actionBasis": "function-declaration:SetEnabled"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/DOMDocument/0002.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton_frame_0010_timelineActions.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "7d0cb4a720d5e283947b7b31cf68dd9da816abb14623815d4e86272af063dc9a",
     "originalCodeSha256": "7d0cb4a720d5e283947b7b31cf68dd9da816abb14623815d4e86272af063dc9a",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalPlayerPowerCommandButton",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "",
+      "event": "",
+      "action": "timelineActions",
+      "actionBasis": "timeline-actions-without-named-function"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/DOMDocument/0003.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/bttn/bttn_frame_0001_load.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
     "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bttn",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 108/0001.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton_frame_0001_define_OnCurrentFactionChanged_label_Allies.as",
     "xflXml": "LIBRARY/Symbol 108.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalPlayerPowerCommandButton",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 108/0002.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton_frame_0010_stop_label_Allies.as",
     "xflXml": "LIBRARY/Symbol 108.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalPlayerPowerCommandButton",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 108/0003.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton_frame_0020_stop_label_Soviet.as",
     "xflXml": "LIBRARY/Symbol 108.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalPlayerPowerCommandButton",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 108/0004.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton_frame_0030_stop_label_Japan.as",
     "xflXml": "LIBRARY/Symbol 108.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalPlayerPowerCommandButton",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 110/0001.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/bttn/bttn_frame_0009_stop_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 110.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bttn",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 9,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 110/0002.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/bttn/bttn_frame_0019_stop_label_up.as",
     "xflXml": "LIBRARY/Symbol 110.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bttn",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 19,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 110/0003.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/bttn/bttn_frame_0029_stop_label_over.as",
     "xflXml": "LIBRARY/Symbol 110.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bttn",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 29,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 110/0004.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/bttn/bttn_frame_0039_stop_label_down.as",
     "xflXml": "LIBRARY/Symbol 110.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bttn",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 39,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 110/0005.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/bttn/bttn_frame_0050_gotoAndStop_label_release.as",
     "xflXml": "LIBRARY/Symbol 110.xml",
     "scriptOrdinal": 5,
     "sha256": "13ff84494b8437e4c5d2a70cbb84d70607350856605c248fdee822587cb9accc",
     "originalCodeSha256": "13ff84494b8437e4c5d2a70cbb84d70607350856605c248fdee822587cb9accc",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bttn",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 50,
+      "frameLabel": "_release",
+      "event": "",
+      "action": "gotoAndStop",
+      "actionBasis": "function-call:gotoAndStop"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 110/0006.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/quantityText/quantityText_frame_0001_load_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 110.xml",
     "scriptOrdinal": 6,
     "sha256": "f14b218a1c3b0c8f129fe8f42cdb11e59413c8fef54b7da4f46ac9fb91eeb107",
     "originalCodeSha256": "f14b218a1c3b0c8f129fe8f42cdb11e59413c8fef54b7da4f46ac9fb91eeb107",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "quantityText",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_disabled",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 110/0007.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/disabledImage/disabledImage_frame_0001_construct_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 110.xml",
     "scriptOrdinal": 7,
     "sha256": "9b664d39cb84eee19d476f3a90ee99f92efa01308e4160a80fe5cdb36c2100ac",
     "originalCodeSha256": "d83e755660cd2c22077b28f097024ac42a86094e41e982e619e5cb778040875c",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "disabledImage",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_disabled",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 110/0008.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/image/image_frame_0010_construct_label_up.as",
     "xflXml": "LIBRARY/Symbol 110.xml",
     "scriptOrdinal": 8,
     "sha256": "a356d2fcb572f2bccecd6052da99e1101cbe13ba6c756813ab3b8156c9d9ab2b",
     "originalCodeSha256": "114bd31eb4bfe1a9968be2e1301e6be570c2011511ba8e18c2b6788be223ef2c",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "image",
+      "ownerBasis": "instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_up",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 110/0009.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/bttn/bttn_frame_0001_press_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 110.xml",
     "scriptOrdinal": 9,
     "sha256": "70a685c05a18b06c1602726f7eae08a4275283257f8f201fb2123b166ac89851",
     "originalCodeSha256": "70a685c05a18b06c1602726f7eae08a4275283257f8f201fb2123b166ac89851",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bttn",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_disabled",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 93/0001.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/timerOverlay0/timerOverlay0_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 93.xml",
     "scriptOrdinal": 1,
     "sha256": "ec3d41fc3faa692cbe9e33b721732bf8195737571dee3482efe1aed17d3ec3b9",
     "originalCodeSha256": "ec3d41fc3faa692cbe9e33b721732bf8195737571dee3482efe1aed17d3ec3b9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "timerOverlay0",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 98/0001.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/RollOverTop/RollOverTop_frame_0005_stop.as",
     "xflXml": "LIBRARY/Symbol 98.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "RollOverTop",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 98/0002.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/RollOverTop/RollOverTop_frame_0013_stop_label_show.as",
     "xflXml": "LIBRARY/Symbol 98.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "RollOverTop",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 13,
+      "frameLabel": "_show",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalPlayerPowerCommandButton/scripts/LIBRARY/Symbol 98/0003.as",
+    "path": "converted/TacticalPlayerPowerCommandButton/scripts/RollOverTop/RollOverTop_frame_0023_stop_label_hide.as",
     "xflXml": "LIBRARY/Symbol 98.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "RollOverTop",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 23,
+      "frameLabel": "_hide",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

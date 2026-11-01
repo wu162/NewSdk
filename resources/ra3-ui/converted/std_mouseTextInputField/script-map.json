@@ -1,26 +1,53 @@
 [
   {
-    "path": "converted/std_mouseTextInputField/scripts/LIBRARY/Symbol 12/0001.as",
+    "path": "converted/std_mouseTextInputField/scripts/std_mouseTextInputFieldSymbol/std_mouseTextInputFieldSymbol_frame_0003_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 12.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseTextInputFieldSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 3,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseTextInputField/scripts/LIBRARY/Symbol 12/0002.as",
+    "path": "converted/std_mouseTextInputField/scripts/std_mouseTextInputFieldSymbol/std_mouseTextInputFieldSymbol_frame_0006_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 12.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseTextInputFieldSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 6,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseTextInputField/scripts/LIBRARY/Symbol 12/0003.as",
+    "path": "converted/std_mouseTextInputField/scripts/std_mouseTextInputFieldSymbol/std_mouseTextInputFieldSymbol_frame_0009_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 12.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseTextInputFieldSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

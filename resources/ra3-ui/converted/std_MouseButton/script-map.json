@@ -1,90 +1,189 @@
 [
   {
-    "path": "converted/std_MouseButton/scripts/LIBRARY/Symbol 13/0001.as",
+    "path": "converted/std_MouseButton/scripts/Roll_Over_State_Symbol/Roll_Over_State_Symbol_frame_0017_stop.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "Roll Over State Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 17,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseButton/scripts/LIBRARY/Symbol 25/0001.as",
+    "path": "converted/std_MouseButton/scripts/buttonContentSymbol/buttonContentSymbol_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "buttonContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseButton/scripts/LIBRARY/Symbol 25/0002.as",
+    "path": "converted/std_MouseButton/scripts/buttonContentSymbol/buttonContentSymbol_frame_0020_stop_label_selected.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "buttonContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_selected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseButton/scripts/LIBRARY/Symbol 25/0003.as",
+    "path": "converted/std_MouseButton/scripts/buttonContentSymbol/buttonContentSymbol_frame_0030_stop_label_unselected.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "buttonContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_unselected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseButton/scripts/LIBRARY/Symbol 25/0004.as",
+    "path": "converted/std_MouseButton/scripts/buttonContentSymbol/buttonContentSymbol_frame_0040_stop_label_selectedRollover.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "buttonContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 40,
+      "frameLabel": "_selectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseButton/scripts/LIBRARY/Symbol 25/0005.as",
+    "path": "converted/std_MouseButton/scripts/buttonContentSymbol/buttonContentSymbol_frame_0050_stop_label_unselectedRollover.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "buttonContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 50,
+      "frameLabel": "_unselectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseButton/scripts/LIBRARY/Symbol 25/0006.as",
+    "path": "converted/std_MouseButton/scripts/buttonContentSymbol/buttonContentSymbol_frame_0053_stop_label_downState.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 6,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "buttonContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 53,
+      "frameLabel": "_downState",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseButton/scripts/LIBRARY/Symbol 25/0007.as",
+    "path": "converted/std_MouseButton/scripts/buttonContentSymbol/buttonContentSymbol_frame_0055_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 7,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "buttonContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 55,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/std_MouseButton/scripts/LIBRARY/Symbol 25/0008.as",
+    "path": "converted/std_MouseButton/scripts/buttonContentSymbol/buttonContentSymbol_frame_0058_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 8,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "buttonContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 58,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   },
   {
-    "path": "converted/std_MouseButton/scripts/LIBRARY/Symbol 30/0001.as",
+    "path": "converted/std_MouseButton/scripts/std_MousebuttonSymbol/std_MousebuttonSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_MousebuttonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseButton/scripts/LIBRARY/Symbol 5/0001.as",
+    "path": "converted/std_MouseButton/scripts/Hilite_Clip_Symbol/Hilite_Clip_Symbol_frame_0023_stop.as",
     "xflXml": "LIBRARY/Symbol 5.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "Hilite Clip Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 23,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

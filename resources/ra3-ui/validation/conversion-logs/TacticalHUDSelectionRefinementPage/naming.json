@@ -1,0 +1,19 @@
+[
+  {
+    "oldPath": "converted/TacticalHUDSelectionRefinementPage/scripts/DOMDocument/0001.as",
+    "newPath": "converted/TacticalHUDSelectionRefinementPage/scripts/TacticalHUDSelectionRefinementPa/TacticalHUDSelectionRefinementPa_frame_0001_define_GetCommandListBox.as",
+    "relativeOldPath": "scripts/DOMDocument/0001.as",
+    "relativeNewPath": "scripts/TacticalHUDSelectionRefinementPa/TacticalHUDSelectionRefinementPa_frame_0001_define_GetCommandListBox.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "frameNumber": 1,
+    "frameLabel": "",
+    "owner": "TacticalHUDSelectionRefinementPage",
+    "ownerBasis": "movie-name-fallback",
+    "event": "",
+    "action": "define_GetCommandListBox",
+    "actionBasis": "function-declaration:GetCommandListBox",
+    "occurrence": 1,
+    "sha256": "ec718609c166dc107f1fedf7b27286bcf11df85179d47528dbefc747e578fcb7"
+  }
+]

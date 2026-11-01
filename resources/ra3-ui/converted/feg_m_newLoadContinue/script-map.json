@@ -1,50 +1,104 @@
 [
   {
-    "path": "converted/feg_m_newLoadContinue/scripts/DOMDocument/0001.as",
+    "path": "converted/feg_m_newLoadContinue/scripts/feg_m_newLoadContinue/feg_m_newLoadContinue_frame_0001_feg_m_newLoadContinue.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "acbad596ddc5077eaa567fc1700e090debbc7f983051188746afe98ad3cdc68f",
     "originalCodeSha256": "acbad596ddc5077eaa567fc1700e090debbc7f983051188746afe98ad3cdc68f",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "feg_m_newLoadContinue",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "feg_m_newLoadContinue",
+      "actionBasis": "function-call:feg_m_newLoadContinue"
+    }
   },
   {
-    "path": "converted/feg_m_newLoadContinue/scripts/DOMDocument/0002.as",
+    "path": "converted/feg_m_newLoadContinue/scripts/button_Back/button_Back_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "357731f8901ff0e12524d3b9eb816d0b649e8f4aca805df8df5923e65dbcdc29",
     "originalCodeSha256": "3cca1f6a05586fb374a565dd1b02e47bf349ca20babb6ee0db4aa357b9e23213",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "button_Back",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_newLoadContinue/scripts/DOMDocument/0003.as",
+    "path": "converted/feg_m_newLoadContinue/scripts/button_Load/button_Load_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "03e8b6cdd0c2c413059672415225283c62cb7ff8ad293306592013f9e990567e",
     "originalCodeSha256": "915412a31c0ab14e5b02110065235cdcc0d7d6cb9ce521f22aeef249942e805a",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "button_Load",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_newLoadContinue/scripts/DOMDocument/0004.as",
+    "path": "converted/feg_m_newLoadContinue/scripts/button_Continue/button_Continue_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 4,
     "sha256": "f59f187ef39fe6cef6593f20ff6bcd6077e298be779121771a48eb7141e961c8",
     "originalCodeSha256": "267dd3b621787dac2c0223d4a557229516195cc5d2af31da9894d7875a304b7b",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "button_Continue",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_newLoadContinue/scripts/DOMDocument/0005.as",
+    "path": "converted/feg_m_newLoadContinue/scripts/button_New/button_New_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 5,
     "sha256": "5014bbcbd477a9d4250bf7ac6d47eed88414d00323f83fb5df00184e65a7663d",
     "originalCodeSha256": "95710eba9ea3cc0ddb270f1765bdfeb975dc40e01df19a7b9d23ef8991edbc61",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "button_New",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_newLoadContinue/scripts/LIBRARY/Symbol 3/0001.as",
+    "path": "converted/feg_m_newLoadContinue/scripts/std_MousebuttonSymbol/std_MousebuttonSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 3.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_MousebuttonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

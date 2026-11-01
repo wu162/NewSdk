@@ -1,898 +1,1906 @@
 [
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/DOMDocument/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnSubTabsInitialized.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "41d41a9e6f7eafd162376752007d05aecf28d5ebbcefb7961796df2754388e11",
     "originalCodeSha256": "41d41a9e6f7eafd162376752007d05aecf28d5ebbcefb7961796df2754388e11",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_OnSubTabsInitialized",
+      "actionBasis": "function-declaration:OnSubTabsInitialized"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/DOMDocument/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/subTabHelpSite/subTabHelpSite_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "67dc4027c57b3f938f068e42f550f28bb647487db93d871d12d5e2cb8ab37b90",
     "originalCodeSha256": "e3a53c27aab2d6c2d63187b020f3f0adb8b93cfd642f68c0c9918a982f9170f3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "subTabHelpSite",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 104/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies.as",
     "xflXml": "LIBRARY/Symbol 104.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 104/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies.as",
     "xflXml": "LIBRARY/Symbol 104.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 104/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet.as",
     "xflXml": "LIBRARY/Symbol 104.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 104/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan.as",
     "xflXml": "LIBRARY/Symbol 104.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 107/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 107.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 107/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 107.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 107/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 107.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 107/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 107.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 108/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/spinRightButton/spinRightButton_frame_0001_define_SetEnabled_label_up.as",
     "xflXml": "LIBRARY/Symbol 108.xml",
     "scriptOrdinal": 1,
     "sha256": "bb3f6ca7d5777b4d2da65790bcfd73ecdde3199a1e4e0179a3861163f71c1ec0",
     "originalCodeSha256": "bb3f6ca7d5777b4d2da65790bcfd73ecdde3199a1e4e0179a3861163f71c1ec0",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "spinRightButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "define_SetEnabled",
+      "actionBasis": "function-declaration:SetEnabled"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 108/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/spinRightButton/spinRightButton_frame_0009_stop_label_up.as",
     "xflXml": "LIBRARY/Symbol 108.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "spinRightButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 9,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 108/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/spinRightButton/spinRightButton_frame_0019_stop_label_over.as",
     "xflXml": "LIBRARY/Symbol 108.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "spinRightButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 19,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 108/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/spinRightButton/spinRightButton_frame_0029_stop_label_down.as",
     "xflXml": "LIBRARY/Symbol 108.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "spinRightButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 29,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 108/0005.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/spinRightButton/spinRightButton_frame_0039_gotoAndStop_label_release.as",
     "xflXml": "LIBRARY/Symbol 108.xml",
     "scriptOrdinal": 5,
     "sha256": "07f8ed27e1070749d5aaf5b2a46bbfdc796c1b3dfbdd7e101dc807ceac0c12f2",
     "originalCodeSha256": "07f8ed27e1070749d5aaf5b2a46bbfdc796c1b3dfbdd7e101dc807ceac0c12f2",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "spinRightButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 39,
+      "frameLabel": "_release",
+      "event": "",
+      "action": "gotoAndStop",
+      "actionBasis": "function-call:gotoAndStop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 108/0006.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/spinRightButton/spinRightButton_frame_0050_stop_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 108.xml",
     "scriptOrdinal": 6,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "spinRightButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 50,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 108/0007.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/spinRightButton/spinRightButton_frame_0001_press_label_up.as",
     "xflXml": "LIBRARY/Symbol 108.xml",
     "scriptOrdinal": 7,
     "sha256": "28ee4fa6e94f37632a8355b8c75267a981e2a9ee0db0f7a98778879cefa11ef6",
     "originalCodeSha256": "28ee4fa6e94f37632a8355b8c75267a981e2a9ee0db0f7a98778879cefa11ef6",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "spinRightButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_up",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 116/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_03.as",
     "xflXml": "LIBRARY/Symbol 116.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 116/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_03.as",
     "xflXml": "LIBRARY/Symbol 116.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 116/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_03.as",
     "xflXml": "LIBRARY/Symbol 116.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 116/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_03.as",
     "xflXml": "LIBRARY/Symbol 116.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 119/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_04.as",
     "xflXml": "LIBRARY/Symbol 119.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 119/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_04.as",
     "xflXml": "LIBRARY/Symbol 119.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 119/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_04.as",
     "xflXml": "LIBRARY/Symbol 119.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 119/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_04.as",
     "xflXml": "LIBRARY/Symbol 119.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 12/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/flashClip/flashClip_frame_0005_stop_label_off.as",
     "xflXml": "LIBRARY/Symbol 12.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "flashClip",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_off",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 12/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/flashClip/flashClip_frame_0035_gotoAndStop_label_on.as",
     "xflXml": "LIBRARY/Symbol 12.xml",
     "scriptOrdinal": 2,
     "sha256": "3f2e6e68a840c6e9b24eeb851f3774c97685803a4899cbddbcb3ad0bb862049c",
     "originalCodeSha256": "3f2e6e68a840c6e9b24eeb851f3774c97685803a4899cbddbcb3ad0bb862049c",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "flashClip",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 35,
+      "frameLabel": "_on",
+      "event": "",
+      "action": "gotoAndStop",
+      "actionBasis": "function-call:gotoAndStop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 120/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/spinLeftButton/spinLeftButton_frame_0001_define_SetEnabled_label_up.as",
     "xflXml": "LIBRARY/Symbol 120.xml",
     "scriptOrdinal": 1,
     "sha256": "bb3f6ca7d5777b4d2da65790bcfd73ecdde3199a1e4e0179a3861163f71c1ec0",
     "originalCodeSha256": "bb3f6ca7d5777b4d2da65790bcfd73ecdde3199a1e4e0179a3861163f71c1ec0",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "spinLeftButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "define_SetEnabled",
+      "actionBasis": "function-declaration:SetEnabled"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 120/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/spinLeftButton/spinLeftButton_frame_0009_stop_label_up.as",
     "xflXml": "LIBRARY/Symbol 120.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "spinLeftButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 9,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 120/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/spinLeftButton/spinLeftButton_frame_0019_stop_label_over.as",
     "xflXml": "LIBRARY/Symbol 120.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "spinLeftButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 19,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 120/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/spinLeftButton/spinLeftButton_frame_0029_stop_label_down.as",
     "xflXml": "LIBRARY/Symbol 120.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "spinLeftButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 29,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 120/0005.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/spinLeftButton/spinLeftButton_frame_0039_gotoAndStop_label_release.as",
     "xflXml": "LIBRARY/Symbol 120.xml",
     "scriptOrdinal": 5,
     "sha256": "07f8ed27e1070749d5aaf5b2a46bbfdc796c1b3dfbdd7e101dc807ceac0c12f2",
     "originalCodeSha256": "07f8ed27e1070749d5aaf5b2a46bbfdc796c1b3dfbdd7e101dc807ceac0c12f2",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "spinLeftButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 39,
+      "frameLabel": "_release",
+      "event": "",
+      "action": "gotoAndStop",
+      "actionBasis": "function-call:gotoAndStop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 120/0006.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/spinLeftButton/spinLeftButton_frame_0050_stop_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 120.xml",
     "scriptOrdinal": 6,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "spinLeftButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 50,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 120/0007.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/spinLeftButton/spinLeftButton_frame_0001_press_label_up.as",
     "xflXml": "LIBRARY/Symbol 120.xml",
     "scriptOrdinal": 7,
     "sha256": "28ee4fa6e94f37632a8355b8c75267a981e2a9ee0db0f7a98778879cefa11ef6",
     "originalCodeSha256": "28ee4fa6e94f37632a8355b8c75267a981e2a9ee0db0f7a98778879cefa11ef6",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "spinLeftButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_up",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 121/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/subTabs/subTabs_frame_0001_define_GetTabButtonIndex.as",
     "xflXml": "LIBRARY/Symbol 121.xml",
     "scriptOrdinal": 1,
     "sha256": "46f2127ac0c28c6ff169f414894822aad47839ed952501a73a9cc8ef1f280dad",
     "originalCodeSha256": "46f2127ac0c28c6ff169f414894822aad47839ed952501a73a9cc8ef1f280dad",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "subTabs",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_GetTabButtonIndex",
+      "actionBasis": "function-declaration:GetTabButtonIndex"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 20/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_05.as",
     "xflXml": "LIBRARY/Symbol 20.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 20/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_05.as",
     "xflXml": "LIBRARY/Symbol 20.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 20/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_05.as",
     "xflXml": "LIBRARY/Symbol 20.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 20/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_05.as",
     "xflXml": "LIBRARY/Symbol 20.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 25/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_06.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 25/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_06.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 25/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_06.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 25/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_06.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 30/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_07.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 30/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_07.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 30/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_07.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 30/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_07.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 35/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_08.as",
     "xflXml": "LIBRARY/Symbol 35.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 35/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_08.as",
     "xflXml": "LIBRARY/Symbol 35.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 35/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_08.as",
     "xflXml": "LIBRARY/Symbol 35.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 35/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_08.as",
     "xflXml": "LIBRARY/Symbol 35.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 40/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_09.as",
     "xflXml": "LIBRARY/Symbol 40.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 40/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_09.as",
     "xflXml": "LIBRARY/Symbol 40.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 40/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_09.as",
     "xflXml": "LIBRARY/Symbol 40.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 40/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_09.as",
     "xflXml": "LIBRARY/Symbol 40.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 45/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_10.as",
     "xflXml": "LIBRARY/Symbol 45.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 45/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_10.as",
     "xflXml": "LIBRARY/Symbol 45.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 45/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_10.as",
     "xflXml": "LIBRARY/Symbol 45.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 45/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_10.as",
     "xflXml": "LIBRARY/Symbol 45.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 46/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_gotoAndStop_label_Str.as",
     "xflXml": "LIBRARY/Symbol 46.xml",
     "scriptOrdinal": 1,
     "sha256": "b4d9dcc290380286737ed7c2ecbd48f24f062086a8f43380097ff27c4ef2cbc4",
     "originalCodeSha256": "b4d9dcc290380286737ed7c2ecbd48f24f062086a8f43380097ff27c4ef2cbc4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "_Str",
+      "event": "",
+      "action": "gotoAndStop",
+      "actionBasis": "function-call:gotoAndStop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 53/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_11.as",
     "xflXml": "LIBRARY/Symbol 53.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 53/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_11.as",
     "xflXml": "LIBRARY/Symbol 53.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 53/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_11.as",
     "xflXml": "LIBRARY/Symbol 53.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 53/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_11.as",
     "xflXml": "LIBRARY/Symbol 53.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 56/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_12.as",
     "xflXml": "LIBRARY/Symbol 56.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 56/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_12.as",
     "xflXml": "LIBRARY/Symbol 56.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 56/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_12.as",
     "xflXml": "LIBRARY/Symbol 56.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 56/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_12.as",
     "xflXml": "LIBRARY/Symbol 56.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 59/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_13.as",
     "xflXml": "LIBRARY/Symbol 59.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 59/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_13.as",
     "xflXml": "LIBRARY/Symbol 59.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 59/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_13.as",
     "xflXml": "LIBRARY/Symbol 59.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 59/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_13.as",
     "xflXml": "LIBRARY/Symbol 59.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 62/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_14.as",
     "xflXml": "LIBRARY/Symbol 62.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 62/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_14.as",
     "xflXml": "LIBRARY/Symbol 62.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 62/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_14.as",
     "xflXml": "LIBRARY/Symbol 62.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 62/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_14.as",
     "xflXml": "LIBRARY/Symbol 62.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 65/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_15.as",
     "xflXml": "LIBRARY/Symbol 65.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 65/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_15.as",
     "xflXml": "LIBRARY/Symbol 65.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 65/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_15.as",
     "xflXml": "LIBRARY/Symbol 65.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 65/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_15.as",
     "xflXml": "LIBRARY/Symbol 65.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 68/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_16.as",
     "xflXml": "LIBRARY/Symbol 68.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 68/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_16.as",
     "xflXml": "LIBRARY/Symbol 68.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 68/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_16.as",
     "xflXml": "LIBRARY/Symbol 68.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 68/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_16.as",
     "xflXml": "LIBRARY/Symbol 68.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 71/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_17.as",
     "xflXml": "LIBRARY/Symbol 71.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 71/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_17.as",
     "xflXml": "LIBRARY/Symbol 71.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 71/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_17.as",
     "xflXml": "LIBRARY/Symbol 71.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 71/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_17.as",
     "xflXml": "LIBRARY/Symbol 71.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 72/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_gotoAndStop_label_Str_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 72.xml",
     "scriptOrdinal": 1,
     "sha256": "b4d9dcc290380286737ed7c2ecbd48f24f062086a8f43380097ff27c4ef2cbc4",
     "originalCodeSha256": "b4d9dcc290380286737ed7c2ecbd48f24f062086a8f43380097ff27c4ef2cbc4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "_Str",
+      "event": "",
+      "action": "gotoAndStop",
+      "actionBasis": "function-call:gotoAndStop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 73/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TabButton/TabButton_frame_0001_set_client_label_up.as",
     "xflXml": "LIBRARY/Symbol 73.xml",
     "scriptOrdinal": 1,
     "sha256": "a26520702dbfedbccb7d35252c369be8e5492929f419d2eb3f4b8962c4b0c7c4",
     "originalCodeSha256": "a26520702dbfedbccb7d35252c369be8e5492929f419d2eb3f4b8962c4b0c7c4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TabButton",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "set_client",
+      "actionBasis": "property-assignment:client"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 73/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TabButton/TabButton_frame_0010_stop_label_up.as",
     "xflXml": "LIBRARY/Symbol 73.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TabButton",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 73/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TabButton/TabButton_frame_0020_stop_label_over.as",
     "xflXml": "LIBRARY/Symbol 73.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TabButton",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 73/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TabButton/TabButton_frame_0030_stop_label_down.as",
     "xflXml": "LIBRARY/Symbol 73.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TabButton",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 73/0005.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TabButton/TabButton_frame_0040_stop_label_selected.as",
     "xflXml": "LIBRARY/Symbol 73.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TabButton",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 40,
+      "frameLabel": "_selected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 73/0006.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TabButton/TabButton_frame_0001_press_label_up.as",
     "xflXml": "LIBRARY/Symbol 73.xml",
     "scriptOrdinal": 6,
     "sha256": "5851a49e9689bc9e664d8c60004f354d38716fa509cf7b4d503a2a2f2674de93",
     "originalCodeSha256": "5851a49e9689bc9e664d8c60004f354d38716fa509cf7b4d503a2a2f2674de93",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TabButton",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "_up",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 75/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/BuildQueuePage/BuildQueuePage_frame_0001_define_GetCommandList.as",
     "xflXml": "LIBRARY/Symbol 75.xml",
     "scriptOrdinal": 1,
     "sha256": "97a520b7e02d8be7986f55d7ea698490d0d7cc5146b93c7853adce3da224ed84",
     "originalCodeSha256": "97a520b7e02d8be7986f55d7ea698490d0d7cc5146b93c7853adce3da224ed84",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "BuildQueuePage",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_GetCommandList",
+      "actionBasis": "function-declaration:GetCommandList"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 84/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_18.as",
     "xflXml": "LIBRARY/Symbol 84.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 84/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_18.as",
     "xflXml": "LIBRARY/Symbol 84.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 84/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_18.as",
     "xflXml": "LIBRARY/Symbol 84.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 84/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_18.as",
     "xflXml": "LIBRARY/Symbol 84.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 85/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/HelpBoxSite/HelpBoxSite_frame_0001_define_GetHelpBoxPos.as",
     "xflXml": "LIBRARY/Symbol 85.xml",
     "scriptOrdinal": 1,
     "sha256": "146c51dbe148154dfeb73f08ceeda2c007cead03ee20e65d0692228a628dccad",
     "originalCodeSha256": "146c51dbe148154dfeb73f08ceeda2c007cead03ee20e65d0692228a628dccad",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "HelpBoxSite",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_GetHelpBoxPos",
+      "actionBasis": "function-declaration:GetHelpBoxPos"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 85/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/HelpBoxSite/HelpBoxSite_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 85.xml",
     "scriptOrdinal": 2,
     "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
     "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "HelpBoxSite",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 9/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0001_define_OnCurrentFactionChanged_label_Allies_occurrence_19.as",
     "xflXml": "LIBRARY/Symbol 9.xml",
     "scriptOrdinal": 1,
     "sha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
     "originalCodeSha256": "c342b375a241b58c8ed76c0b3535065d40a190c86dfc8e7a01143adca32749a9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 9/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0010_stop_label_Allies_occurrence_19.as",
     "xflXml": "LIBRARY/Symbol 9.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Allies",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 9/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0020_stop_label_Soviet_occurrence_19.as",
     "xflXml": "LIBRARY/Symbol 9.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Soviet",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 9/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage_frame_0030_stop_label_Japan_occurrence_19.as",
     "xflXml": "LIBRARY/Symbol 9.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBuildQueuePage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Japan",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 96/0001.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/tabOutline/tabOutline_frame_0005_stop_label_none.as",
     "xflXml": "LIBRARY/Symbol 96.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tabOutline",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_none",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 96/0002.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/tabOutline/tabOutline_frame_0010_stop_label_0.as",
     "xflXml": "LIBRARY/Symbol 96.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tabOutline",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_0",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 96/0003.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/tabOutline/tabOutline_frame_0015_stop_label_1.as",
     "xflXml": "LIBRARY/Symbol 96.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tabOutline",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_1",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 96/0004.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/tabOutline/tabOutline_frame_0020_stop_label_2.as",
     "xflXml": "LIBRARY/Symbol 96.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tabOutline",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_2",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 96/0005.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/tabOutline/tabOutline_frame_0025_stop_label_3.as",
     "xflXml": "LIBRARY/Symbol 96.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tabOutline",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_3",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBuildQueuePage/scripts/LIBRARY/Symbol 96/0006.as",
+    "path": "converted/TacticalHUDBuildQueuePage/scripts/tabOutline/tabOutline_frame_0030_stop_label_4.as",
     "xflXml": "LIBRARY/Symbol 96.xml",
     "scriptOrdinal": 6,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tabOutline",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_4",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

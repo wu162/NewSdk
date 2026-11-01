@@ -1,482 +1,1022 @@
 [
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/DOMDocument/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/fes_m_postgameRoundup/fes_m_postgameRoundup_frame_0001_fes_m_postgameRoundup.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "181f5c894b896086c663e50b738f6ca8956b338ec28f683396a1c29bdbd40f39",
     "originalCodeSha256": "181f5c894b896086c663e50b738f6ca8956b338ec28f683396a1c29bdbd40f39",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "fes_m_postgameRoundup",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "fes_m_postgameRoundup",
+      "actionBasis": "function-call:fes_m_postgameRoundup"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/DOMDocument/0002.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/btnLoadGame/btnLoadGame_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "b1dd7754f4709043b0165cb7e64e67df9d0b53a23de373d7eca873bd8f1fabd7",
     "originalCodeSha256": "742aca2c7ca226a9c8f293c35ca1ffd93b5aa562083543d196955917f460a8d7",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "btnLoadGame",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/DOMDocument/0003.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/btnNext/btnNext_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "9bd39ab3fb66fcc9619a97a89e28a55793c6444662e826f3bc18985a69253ba1",
     "originalCodeSha256": "ad1f789de9b57f09746973414629d2ba91d161b1f8448cea9297b506072f9fdc",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "btnNext",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/DOMDocument/0004.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/btnMainMenu/btnMainMenu_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 4,
     "sha256": "7b32b56c04fe17da3a056e895a8d644b794ac408b77f1af5941c889b5386ea45",
     "originalCodeSha256": "b3ace441e5bfbfa600381513654b1f452cd13450a6750db8621e78722b27ff34",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "btnMainMenu",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/DOMDocument/0005.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/ScreenTitleBarSymbol/ScreenTitleBarSymbol_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 5,
     "sha256": "890d49b22692c0b008ed0e055b117a3f8781a1356b161017a7eb4f91a384eb14",
     "originalCodeSha256": "5c18a79c51601e0fc834792a3737f200178b5f16e7185b987d2d9accfbd8ad47",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "ScreenTitleBarSymbol",
+      "ownerBasis": "instance-library-linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 114/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/std_mouseScrollbarSymbol/std_mouseScrollbarSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 114.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseScrollbarSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 118/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/sbStats/sbStats_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 118.xml",
     "scriptOrdinal": 1,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "sbStats",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 118/0002.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/lbStats/lbStats_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 118.xml",
     "scriptOrdinal": 2,
     "sha256": "70c42ae9e6313c95d0d9c7bb3fac174e71c653ffbfc7d7a41f68cbd1706faa2b",
     "originalCodeSha256": "08ee41f101035218142568687c28e9d7f54ac219137f160c681f64895cc1e10b",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "lbStats",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 119/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/std_MousebuttonSymbol/std_MousebuttonSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 119.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_MousebuttonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 121/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/btnUnits/btnUnits_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 121.xml",
     "scriptOrdinal": 1,
     "sha256": "34faad9adc639c0fb048a064749164890988e954604b0239bd97fd36e379ef50",
     "originalCodeSha256": "a16f7c4dff70dcec722acc8449218028b65e40bef753c5a4a7af3623b84f3031",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "btnUnits",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 121/0002.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/btnStructures/btnStructures_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 121.xml",
     "scriptOrdinal": 2,
     "sha256": "3d4722dc8be657350b354b00a415fc3a8a4a49bf80c61a9fd637e5722a510135",
     "originalCodeSha256": "0afc2747a8f70e3d524ed55a4d1a692e43cedd0275fa5450b6511d9d857e1476",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "btnStructures",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 121/0003.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/btnResources/btnResources_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 121.xml",
     "scriptOrdinal": 3,
     "sha256": "2672fa1c8b698fe089d76d814a37a223f530a55eeb37f296eb473fc350836953",
     "originalCodeSha256": "e0fe89e706ffa80025721e8cbaeeca0bfd17e3ab73546dd87a49244b0b7a835d",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "btnResources",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 121/0004.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/btnStats/btnStats_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 121.xml",
     "scriptOrdinal": 4,
     "sha256": "b4316cfdc676bef29b111b41602bde1c65f0a58d0cbe6d4fbf66eacde184f723",
     "originalCodeSha256": "7319b499c7d583b06c4e3db35e2de5fa4024ce3f137d7fae702be464ae28538b",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "btnStats",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 19/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/tabButtonContentClip/tabButtonContentClip_frame_0008_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 19.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tabButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 8,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 19/0002.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/tabButtonContentClip/tabButtonContentClip_frame_0016_stop_label_selected.as",
     "xflXml": "LIBRARY/Symbol 19.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tabButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 16,
+      "frameLabel": "_selected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 19/0003.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/tabButtonContentClip/tabButtonContentClip_frame_0024_stop_label_unselected.as",
     "xflXml": "LIBRARY/Symbol 19.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tabButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 24,
+      "frameLabel": "_unselected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 19/0004.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/tabButtonContentClip/tabButtonContentClip_frame_0032_stop_label_selectedRollover.as",
     "xflXml": "LIBRARY/Symbol 19.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tabButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 32,
+      "frameLabel": "_selectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 19/0005.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/tabButtonContentClip/tabButtonContentClip_frame_0040_stop_label_unselectedRollover.as",
     "xflXml": "LIBRARY/Symbol 19.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tabButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 40,
+      "frameLabel": "_unselectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 19/0006.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/tabButtonContentClip/tabButtonContentClip_frame_0048_stop_label_downState.as",
     "xflXml": "LIBRARY/Symbol 19.xml",
     "scriptOrdinal": 6,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tabButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 48,
+      "frameLabel": "_downState",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 19/0007.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/tabButtonContentClip/tabButtonContentClip_frame_0056_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 19.xml",
     "scriptOrdinal": 7,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tabButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 56,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 19/0008.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/tabButtonContentClip/tabButtonContentClip_frame_0064_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 19.xml",
     "scriptOrdinal": 8,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tabButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 64,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 24/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/top_radioButtonMC/top_radioButtonMC_frame_0009_stop_label_unChecked.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 24/0002.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/top_radioButtonMC/top_radioButtonMC_frame_0019_stop_label_checked.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 19,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 25/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/top_radioButtonContentClip/top_radioButtonContentClip_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 25/0002.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/top_radioButtonContentClip/top_radioButtonContentClip_frame_0020_stop_label_selected.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_selected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 25/0003.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/top_radioButtonContentClip/top_radioButtonContentClip_frame_0030_stop_label_unselected.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_unselected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 25/0004.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/top_radioButtonContentClip/top_radioButtonContentClip_frame_0040_stop_label_selectedRollover.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 40,
+      "frameLabel": "_selectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 25/0005.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/top_radioButtonContentClip/top_radioButtonContentClip_frame_0050_stop_label_unselectedRollover.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 50,
+      "frameLabel": "_unselectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 25/0006.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/top_radioButtonContentClip/top_radioButtonContentClip_frame_0060_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 6,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 60,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 25/0007.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/top_radioButtonContentClip/top_radioButtonContentClip_frame_0070_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 7,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 70,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 30/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/radioButtonMC/radioButtonMC_frame_0009_stop_label_unChecked.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 30/0002.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/radioButtonMC/radioButtonMC_frame_0019_stop_label_checked.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 19,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 39/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/radioButtonContentClip/radioButtonContentClip_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 39.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 39/0002.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/radioButtonContentClip/radioButtonContentClip_frame_0020_stop_label_selected.as",
     "xflXml": "LIBRARY/Symbol 39.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_selected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 39/0003.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/radioButtonContentClip/radioButtonContentClip_frame_0030_stop_label_unselected.as",
     "xflXml": "LIBRARY/Symbol 39.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_unselected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 39/0004.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/radioButtonContentClip/radioButtonContentClip_frame_0040_stop_label_selectedRollover.as",
     "xflXml": "LIBRARY/Symbol 39.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 40,
+      "frameLabel": "_selectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 39/0005.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/radioButtonContentClip/radioButtonContentClip_frame_0050_stop_label_unselectedRollover.as",
     "xflXml": "LIBRARY/Symbol 39.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 50,
+      "frameLabel": "_unselectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 39/0006.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/radioButtonContentClip/radioButtonContentClip_frame_0060_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 39.xml",
     "scriptOrdinal": 6,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 60,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 39/0007.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/radioButtonContentClip/radioButtonContentClip_frame_0070_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 39.xml",
     "scriptOrdinal": 7,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 70,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 44/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/ts_radioButtonMC/ts_radioButtonMC_frame_0009_stop_label_unChecked.as",
     "xflXml": "LIBRARY/Symbol 44.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ts_radioButtonMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 44/0002.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/ts_radioButtonMC/ts_radioButtonMC_frame_0019_stop_label_checked.as",
     "xflXml": "LIBRARY/Symbol 44.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ts_radioButtonMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 19,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 48/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/ts_radioButtonContentClip/ts_radioButtonContentClip_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 48.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ts_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 48/0002.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/ts_radioButtonContentClip/ts_radioButtonContentClip_frame_0020_stop_label_selected.as",
     "xflXml": "LIBRARY/Symbol 48.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ts_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_selected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 48/0003.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/ts_radioButtonContentClip/ts_radioButtonContentClip_frame_0030_stop_label_unselected.as",
     "xflXml": "LIBRARY/Symbol 48.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ts_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_unselected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 48/0004.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/ts_radioButtonContentClip/ts_radioButtonContentClip_frame_0040_stop_label_selectedRollover.as",
     "xflXml": "LIBRARY/Symbol 48.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ts_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 40,
+      "frameLabel": "_selectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 48/0005.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/ts_radioButtonContentClip/ts_radioButtonContentClip_frame_0050_stop_label_unselectedRollover.as",
     "xflXml": "LIBRARY/Symbol 48.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ts_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 50,
+      "frameLabel": "_unselectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 48/0006.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/ts_radioButtonContentClip/ts_radioButtonContentClip_frame_0060_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 48.xml",
     "scriptOrdinal": 6,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ts_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 60,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 48/0007.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/ts_radioButtonContentClip/ts_radioButtonContentClip_frame_0070_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 48.xml",
     "scriptOrdinal": 7,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ts_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 70,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/Symbol 86/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/graphUnits/graphUnits_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 86.xml",
     "scriptOrdinal": 1,
     "sha256": "43af3b1defe8d130b4c52da921015443f0aed466f2510f695fdbee4982e60248",
     "originalCodeSha256": "18aad9d1558d64a6199b7828b447bfab738503c063b50193a4de5065b53d5601",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "graphUnits",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/imported/Symbol 14/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/thumbMC/thumbMC_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 14.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/imported/Symbol 14/0002.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/thumbMC/thumbMC_frame_0020_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 14.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/imported/Symbol 14/0003.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/thumbMC/thumbMC_frame_0030_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 14.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/imported/Symbol 15/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/arrowBottomMC/arrowBottomMC_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 15.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/imported/Symbol 15/0002.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/arrowBottomMC/arrowBottomMC_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 15.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/imported/Symbol 15/0003.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/arrowBottomMC/arrowBottomMC_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 15.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/imported/Symbol 15/0004.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/arrowBottomMC/arrowBottomMC_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/imported/Symbol 15.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/imported/Symbol 16/0001.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/arrowTopMC/arrowTopMC_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 16.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/imported/Symbol 16/0002.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/arrowTopMC/arrowTopMC_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 16.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/imported/Symbol 16/0003.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/arrowTopMC/arrowTopMC_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 16.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fes_m_postgameRoundup/scripts/LIBRARY/imported/Symbol 16/0004.as",
+    "path": "converted/fes_m_postgameRoundup/scripts/arrowTopMC/arrowTopMC_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/imported/Symbol 16.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

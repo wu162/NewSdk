@@ -25,7 +25,7 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
             foreach (string file in Directory.EnumerateFiles(root, "*", SearchOption.AllDirectories).Where(p => Path.GetExtension(p).Equals(".as", StringComparison.OrdinalIgnoreCase)).OrderBy(p => p, StringComparer.Ordinal))
             {
                 string relative = file.Substring(root.Length).Replace('\\', '/'); if (files.ContainsKey(relative)) throw new InvalidDataException("Ambiguous AS path: " + relative); files.Add(relative, file);
-                string source = Read(file); string masked = Mask(source); var match = Regex.Match(masked, @"\bclass\s+([\w.$]+)", RegexOptions.CultureInvariant);
+                string source = Read(file); string masked = Mask(source); var match = Regex.Match(masked, @"\b(?:class|interface)\s+([\w.$]+)", RegexOptions.CultureInvariant);
                 if (match.Success) { string name = match.Groups[1].Value; if (classes.ContainsKey(name)) throw new InvalidDataException("Duplicate AS2 class " + name); classes.Add(name, file); }
             }
         }
@@ -146,6 +146,7 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
     {
         internal string Name;
         internal string BaseName;
+        internal bool IsInterface;
         internal ActionProgram Code;
         internal readonly HashSet<string> InitializerDependencies = new HashSet<string>(StringComparer.Ordinal);
         internal readonly HashSet<string> InstanceMembers = new HashSet<string>(StringComparer.Ordinal);

@@ -1,210 +1,444 @@
 [
   {
-    "path": "converted/LoadScreen/scripts/DOMDocument/0001.as",
+    "path": "converted/LoadScreen/scripts/LoadScreen/LoadScreen_frame_0001_define_GameCode.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "658985289f84058f862e752c972401f3b81a4eb72c4ae5d89697f6b3a47d989c",
     "originalCodeSha256": "658985289f84058f862e752c972401f3b81a4eb72c4ae5d89697f6b3a47d989c",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "LoadScreen",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_GameCode",
+      "actionBasis": "function-declaration:GameCode"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/DOMDocument/0002.as",
+    "path": "converted/LoadScreen/scripts/LoadScreen/LoadScreen_frame_0002_AnimsOpen_label_internetAdv.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "3fe78dceeba785b5f7c63d2aab9f6eda997cdb6410a5b0d13993843739d46a30",
     "originalCodeSha256": "3fe78dceeba785b5f7c63d2aab9f6eda997cdb6410a5b0d13993843739d46a30",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "LoadScreen",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 2,
+      "frameLabel": "_internetAdv",
+      "event": "",
+      "action": "AnimsOpen",
+      "actionBasis": "function-call:AnimsOpen"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/DOMDocument/0003.as",
+    "path": "converted/LoadScreen/scripts/LoadScreen/LoadScreen_frame_0011_stop_label_internetAdv.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "LoadScreen",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 11,
+      "frameLabel": "_internetAdv",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/DOMDocument/0004.as",
+    "path": "converted/LoadScreen/scripts/AptMapPreview_Picture/AptMapPreview_Picture_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 4,
     "sha256": "757e45fe96cfdaa1ed0013fbb60002f431b220aae18059f368131c6c7b4203ac",
     "originalCodeSha256": "c4014812a9a02c247b7f331f87d8ffd40b3cd463b2797b28e7d5fe5ff1487997",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "AptMapPreview::Picture",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 15/0001.as",
+    "path": "converted/LoadScreen/scripts/StringInst/StringInst_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 15.xml",
     "scriptOrdinal": 1,
     "sha256": "f82641771f877f8d8345fe974c6625c5009a657a6d842888b2f713dcb1bb52de",
     "originalCodeSha256": "f82641771f877f8d8345fe974c6625c5009a657a6d842888b2f713dcb1bb52de",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "StringInst",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 23/0001.as",
+    "path": "converted/LoadScreen/scripts/Bar/Bar_frame_0001_define_AddSegment.as",
     "xflXml": "LIBRARY/Symbol 23.xml",
     "scriptOrdinal": 1,
     "sha256": "09d5e916fe49210695ac3752677206e2757d2e2dcd4bff5bbfd47b910761db2c",
     "originalCodeSha256": "09d5e916fe49210695ac3752677206e2757d2e2dcd4bff5bbfd47b910761db2c",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "Bar",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_AddSegment",
+      "actionBasis": "function-declaration:AddSegment"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 25/0001.as",
+    "path": "converted/LoadScreen/scripts/Bar0/Bar0_frame_0001_define_SetPercent.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 1,
     "sha256": "15c1dadd213f3175e60ecdcfb7554fbcf512ba1602845821e33c318c3f87705e",
     "originalCodeSha256": "15c1dadd213f3175e60ecdcfb7554fbcf512ba1602845821e33c318c3f87705e",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "Bar0",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_SetPercent",
+      "actionBasis": "function-declaration:SetPercent"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 26/0001.as",
+    "path": "converted/LoadScreen/scripts/ProgressBars/ProgressBars_frame_0001_define_SetBarTo.as",
     "xflXml": "LIBRARY/Symbol 26.xml",
     "scriptOrdinal": 1,
     "sha256": "f409e6c15f65210efea96a7de70950f63fef0c1c772ef3c9c28e78523aeefe03",
     "originalCodeSha256": "f409e6c15f65210efea96a7de70950f63fef0c1c772ef3c9c28e78523aeefe03",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ProgressBars",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_SetBarTo",
+      "actionBasis": "function-declaration:SetBarTo"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 29/0001.as",
+    "path": "converted/LoadScreen/scripts/Level/Level_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 1,
     "sha256": "1a41d93c9d88d183d963e3af23715d5945dc0ac76700ec8e3113cf625af80758",
     "originalCodeSha256": "896db66450945c51f2ce9b63e1e8393c59bd529039a618641a00f2ea46dcda48",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "Level",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 29/0002.as",
+    "path": "converted/LoadScreen/scripts/Level/Level_frame_0001_construct_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 2,
     "sha256": "588abb11e2f747ceed6bcf9d50ecdf40d9554914e4ff168b08e317a91bdb9ffc",
     "originalCodeSha256": "2a04cad9c7e890c051e7907a8ed9a52694ea6e1afdd0deebcf440d5bf12ab0e2",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "Level",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 29/0003.as",
+    "path": "converted/LoadScreen/scripts/Level/Level_frame_0001_construct_occurrence_03.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 3,
     "sha256": "b384603989fe652d9b3673c3d54edd3fceb50a54c5cb673311dd46f3185916fc",
     "originalCodeSha256": "1a3a43c92f951f66fb2217fdc5648c4c278814cf4efdd034160581fe585a74fc",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "Level",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 29/0004.as",
+    "path": "converted/LoadScreen/scripts/Level/Level_frame_0001_construct_occurrence_04.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 4,
     "sha256": "32dae96dadc93cc969569c6c29b575131bc3e6f722b2c689ac8a8e00c748e7a8",
     "originalCodeSha256": "c04f3f56008010a99d76d709e5b841ccc07abb52a9cfe26e506d06b195d92ccf",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "Level",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 29/0005.as",
+    "path": "converted/LoadScreen/scripts/Level/Level_frame_0001_construct_occurrence_05.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 5,
     "sha256": "b12ffcc58214ce68cd1ec95d33118dc66e230ed9f3758460fb85530df2c5daf5",
     "originalCodeSha256": "ea34c7177564fdd09ee4738c0dbc66fb535f97e28579cbc448f742fc0bd01954",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "Level",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 29/0006.as",
+    "path": "converted/LoadScreen/scripts/Level/Level_frame_0001_construct_occurrence_06.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 6,
     "sha256": "e874f0562a69182b839e2e3c6be486b4e268d361e549117b30fd9ca2c5b5a094",
     "originalCodeSha256": "2814b17a5e47696dbe60ec00661a682607c755e093323de0232320d416bd1c0c",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "Level",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 29/0007.as",
+    "path": "converted/LoadScreen/scripts/Level/Level_frame_0001_construct_occurrence_07.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 7,
     "sha256": "9139f4812afd8ae0658f3bf02c43760d2bfb6a9318763a4520a8b012537cd7c0",
     "originalCodeSha256": "5918d2a0db83eef02e520ba13336cbe9ed6aad22bf5cfbaad2fac68a42ad9742",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "Level",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 29/0008.as",
+    "path": "converted/LoadScreen/scripts/Level/Level_frame_0001_construct_occurrence_08.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 8,
     "sha256": "d87bc9743b8ad4993e88619c81a4732aa5a26fd95bd8841b4e192c245ed4cfd3",
     "originalCodeSha256": "abbb7bf7788de49c4f7256d1cb3d444982c91e032aeb8ccf1a61efa3661a84ed",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "Level",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 30/0001.as",
+    "path": "converted/LoadScreen/scripts/ArmyName/ArmyName_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 1,
     "sha256": "ff03205962a8f30682a294e39c99b5f012fa2f15e7aceacec8d6310f78036952",
     "originalCodeSha256": "b5117ff8344b8ae5d8beed18cae17190c4af632f015262317d96006b4aedfea2",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "ArmyName",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 30/0002.as",
+    "path": "converted/LoadScreen/scripts/TeamNumber/TeamNumber_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 2,
     "sha256": "ba15df35fbdf68890e9996e4091e27476c2bf2aad558cda6a3946c2ffff3b250",
     "originalCodeSha256": "ad6d695b8e8a71aeaa337ac40c7fe0992426b15f0c45b0db0464bce5ee4168e7",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "TeamNumber",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 30/0003.as",
+    "path": "converted/LoadScreen/scripts/PlayerName/PlayerName_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 3,
     "sha256": "9c37f00bc24da2ac02acfb3e2e82a0762323e5b78a59a825bfee172fcb296b60",
     "originalCodeSha256": "47bccc479be4e715b4826594dea74162a7b6c697dfa8b203b4380e0bbba918a3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "PlayerName",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 34/0001.as",
+    "path": "converted/LoadScreen/scripts/LoadScreen/LoadScreen_frame_0001_timelineActions.as",
     "xflXml": "LIBRARY/Symbol 34.xml",
     "scriptOrdinal": 1,
     "sha256": "11fe3dbd2c5efbbfe0a3b5af4508fe8af9ad3a0aee6b43675c9df759cd10a607",
     "originalCodeSha256": "11fe3dbd2c5efbbfe0a3b5af4508fe8af9ad3a0aee6b43675c9df759cd10a607",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "LoadScreen",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "timelineActions",
+      "actionBasis": "timeline-actions-without-named-function"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 35/0001.as",
+    "path": "converted/LoadScreen/scripts/pageTitle/pageTitle_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 35.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "pageTitle",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 43/0001.as",
+    "path": "converted/LoadScreen/scripts/LoadScreen/LoadScreen_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 43.xml",
     "scriptOrdinal": 1,
     "sha256": "b4a281d17286b6c48c618fdc0b0ff695ed8356e6f0e5c8470979947c44e960ff",
     "originalCodeSha256": "b4a281d17286b6c48c618fdc0b0ff695ed8356e6f0e5c8470979947c44e960ff",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "LoadScreen",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 43/0002.as",
+    "path": "converted/LoadScreen/scripts/LoadScreen/LoadScreen_frame_0001_load_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 43.xml",
     "scriptOrdinal": 2,
     "sha256": "0a93af8f65bb76d902a25efced601f929415b97e8dd2961bae6d607befc41b38",
     "originalCodeSha256": "0a93af8f65bb76d902a25efced601f929415b97e8dd2961bae6d607befc41b38",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "LoadScreen",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 43/0003.as",
+    "path": "converted/LoadScreen/scripts/LoadScreen/LoadScreen_frame_0001_load_occurrence_03.as",
     "xflXml": "LIBRARY/Symbol 43.xml",
     "scriptOrdinal": 3,
     "sha256": "44b7bcd82a017b15f7b81d9f5c2300903f3f20ef7f0624c1a700573e592d473b",
     "originalCodeSha256": "44b7bcd82a017b15f7b81d9f5c2300903f3f20ef7f0624c1a700573e592d473b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "LoadScreen",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 43/0004.as",
+    "path": "converted/LoadScreen/scripts/LoadScreen/LoadScreen_frame_0001_load_occurrence_04.as",
     "xflXml": "LIBRARY/Symbol 43.xml",
     "scriptOrdinal": 4,
     "sha256": "2ab77780488ed4e4b11103e91288ef3343e877c8b41e9f6519661e96f207246e",
     "originalCodeSha256": "2ab77780488ed4e4b11103e91288ef3343e877c8b41e9f6519661e96f207246e",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "LoadScreen",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/LoadScreen/scripts/LIBRARY/Symbol 44/0001.as",
+    "path": "converted/LoadScreen/scripts/textAnim/textAnim_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 44.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "textAnim",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

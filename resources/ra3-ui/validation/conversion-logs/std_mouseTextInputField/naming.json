@@ -1,0 +1,53 @@
+[
+  {
+    "oldPath": "converted/std_mouseTextInputField/scripts/LIBRARY/Symbol 12/0001.as",
+    "newPath": "converted/std_mouseTextInputField/scripts/std_mouseTextInputFieldSymbol/std_mouseTextInputFieldSymbol_frame_0003_stop_label_disable.as",
+    "relativeOldPath": "scripts/LIBRARY/Symbol 12/0001.as",
+    "relativeNewPath": "scripts/std_mouseTextInputFieldSymbol/std_mouseTextInputFieldSymbol_frame_0003_stop_label_disable.as",
+    "xflXml": "LIBRARY/Symbol 12.xml",
+    "scriptOrdinal": 1,
+    "frameNumber": 3,
+    "frameLabel": "_disable",
+    "owner": "std_mouseTextInputFieldSymbol",
+    "ownerBasis": "linkageIdentifier",
+    "event": "",
+    "action": "stop",
+    "actionBasis": "function-call:stop",
+    "occurrence": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd"
+  },
+  {
+    "oldPath": "converted/std_mouseTextInputField/scripts/LIBRARY/Symbol 12/0002.as",
+    "newPath": "converted/std_mouseTextInputField/scripts/std_mouseTextInputFieldSymbol/std_mouseTextInputFieldSymbol_frame_0006_stop_label_highlight.as",
+    "relativeOldPath": "scripts/LIBRARY/Symbol 12/0002.as",
+    "relativeNewPath": "scripts/std_mouseTextInputFieldSymbol/std_mouseTextInputFieldSymbol_frame_0006_stop_label_highlight.as",
+    "xflXml": "LIBRARY/Symbol 12.xml",
+    "scriptOrdinal": 2,
+    "frameNumber": 6,
+    "frameLabel": "_highlight",
+    "owner": "std_mouseTextInputFieldSymbol",
+    "ownerBasis": "linkageIdentifier",
+    "event": "",
+    "action": "stop",
+    "actionBasis": "function-call:stop",
+    "occurrence": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd"
+  },
+  {
+    "oldPath": "converted/std_mouseTextInputField/scripts/LIBRARY/Symbol 12/0003.as",
+    "newPath": "converted/std_mouseTextInputField/scripts/std_mouseTextInputFieldSymbol/std_mouseTextInputFieldSymbol_frame_0009_stop_label_unhighlight.as",
+    "relativeOldPath": "scripts/LIBRARY/Symbol 12/0003.as",
+    "relativeNewPath": "scripts/std_mouseTextInputFieldSymbol/std_mouseTextInputFieldSymbol_frame_0009_stop_label_unhighlight.as",
+    "xflXml": "LIBRARY/Symbol 12.xml",
+    "scriptOrdinal": 3,
+    "frameNumber": 9,
+    "frameLabel": "_unhighlight",
+    "owner": "std_mouseTextInputFieldSymbol",
+    "ownerBasis": "linkageIdentifier",
+    "event": "",
+    "action": "stop",
+    "actionBasis": "function-call:stop",
+    "occurrence": 1,
+    "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd"
+  }
+]

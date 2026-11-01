@@ -1,226 +1,478 @@
 [
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 10/0001.as",
+    "path": "converted/skins/scripts/checkBoxMC_Symbol/checkBoxMC_Symbol_frame_0009_stop_label_unChecked.as",
     "xflXml": "LIBRARY/Symbol 10.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxMC_Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 10/0002.as",
+    "path": "converted/skins/scripts/checkBoxMC_Symbol/checkBoxMC_Symbol_frame_0019_stop_label_checked.as",
     "xflXml": "LIBRARY/Symbol 10.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxMC_Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 19,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 15/0001.as",
+    "path": "converted/skins/scripts/ckeckBoxContentClipSymbol/ckeckBoxContentClipSymbol_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 15.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ckeckBoxContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 15/0002.as",
+    "path": "converted/skins/scripts/ckeckBoxContentClipSymbol/ckeckBoxContentClipSymbol_frame_0020_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 15.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ckeckBoxContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 15/0003.as",
+    "path": "converted/skins/scripts/ckeckBoxContentClipSymbol/ckeckBoxContentClipSymbol_frame_0030_stop_label_intro.as",
     "xflXml": "LIBRARY/Symbol 15.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ckeckBoxContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 15/0004.as",
+    "path": "converted/skins/scripts/ckeckBoxContentClipSymbol/ckeckBoxContentClipSymbol_frame_0040_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 15.xml",
     "scriptOrdinal": 4,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ckeckBoxContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 40,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 15/0005.as",
+    "path": "converted/skins/scripts/ckeckBoxContentClipSymbol/ckeckBoxContentClipSymbol_frame_0055_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 15.xml",
     "scriptOrdinal": 5,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ckeckBoxContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 55,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 21/0001.as",
+    "path": "converted/skins/scripts/std_slider_labelSymbol/std_slider_labelSymbol_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_slider_labelSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 21/0002.as",
+    "path": "converted/skins/scripts/std_slider_labelSymbol/std_slider_labelSymbol_frame_0020_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_slider_labelSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 21/0003.as",
+    "path": "converted/skins/scripts/std_slider_labelSymbol/std_slider_labelSymbol_frame_0030_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_slider_labelSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 26/0001.as",
+    "path": "converted/skins/scripts/std_slider_tickMCSymbol/std_slider_tickMCSymbol_frame_0005_stop_label_off.as",
     "xflXml": "LIBRARY/Symbol 26.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_slider_tickMCSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 5,
+      "frameLabel": "_off",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 26/0002.as",
+    "path": "converted/skins/scripts/std_slider_tickMCSymbol/std_slider_tickMCSymbol_frame_0010_stop_label_on.as",
     "xflXml": "LIBRARY/Symbol 26.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_slider_tickMCSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_on",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 27/0001.as",
+    "path": "converted/skins/scripts/std_slider_tickSymbol/std_slider_tickSymbol_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 27.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_slider_tickSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 27/0002.as",
+    "path": "converted/skins/scripts/std_slider_tickSymbol/std_slider_tickSymbol_frame_0020_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 27.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_slider_tickSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 27/0003.as",
+    "path": "converted/skins/scripts/std_slider_tickSymbol/std_slider_tickSymbol_frame_0030_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 27.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_slider_tickSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 30/0001.as",
+    "path": "converted/skins/scripts/std_slider_arrowSymbol/std_slider_arrowSymbol_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_slider_arrowSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 30/0002.as",
+    "path": "converted/skins/scripts/std_slider_arrowSymbol/std_slider_arrowSymbol_frame_0020_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_slider_arrowSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 30/0003.as",
+    "path": "converted/skins/scripts/std_slider_arrowSymbol/std_slider_arrowSymbol_frame_0030_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_slider_arrowSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 30/0004.as",
+    "path": "converted/skins/scripts/std_slider_arrowSymbol/std_slider_arrowSymbol_frame_0040_stop_label_toggle.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_slider_arrowSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 40,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 31/0001.as",
+    "path": "converted/skins/scripts/sliderContentSymbol/sliderContentSymbol_frame_0010_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 31.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "sliderContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 31/0002.as",
+    "path": "converted/skins/scripts/sliderContentSymbol/sliderContentSymbol_frame_0020_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 31.xml",
     "scriptOrdinal": 2,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "sliderContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 31/0003.as",
+    "path": "converted/skins/scripts/sliderContentSymbol/sliderContentSymbol_frame_0035_introComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 31.xml",
     "scriptOrdinal": 3,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "sliderContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 35,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 36/0001.as",
+    "path": "converted/skins/scripts/buttonContentSymbol/buttonContentSymbol_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 36.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "buttonContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 36/0002.as",
+    "path": "converted/skins/scripts/buttonContentSymbol/buttonContentSymbol_frame_0020_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 36.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "buttonContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 36/0003.as",
+    "path": "converted/skins/scripts/buttonContentSymbol/buttonContentSymbol_frame_0030_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 36.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "buttonContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 36/0004.as",
+    "path": "converted/skins/scripts/buttonContentSymbol/buttonContentSymbol_frame_0040_stop_label_downState.as",
     "xflXml": "LIBRARY/Symbol 36.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "buttonContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 40,
+      "frameLabel": "_downState",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 36/0005.as",
+    "path": "converted/skins/scripts/buttonContentSymbol/buttonContentSymbol_frame_0067_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 36.xml",
     "scriptOrdinal": 5,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "buttonContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 67,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/skins/scripts/LIBRARY/Symbol 36/0006.as",
+    "path": "converted/skins/scripts/buttonContentSymbol/buttonContentSymbol_frame_0100_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 36.xml",
     "scriptOrdinal": 6,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "buttonContentSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 100,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   }
 ]

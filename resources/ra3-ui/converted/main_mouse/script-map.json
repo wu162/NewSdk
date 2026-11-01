@@ -1,10 +1,19 @@
 [
   {
-    "path": "converted/main_mouse/scripts/DOMDocument/0001.as",
+    "path": "converted/main_mouse/scripts/main_mouse/main_mouse_frame_0001_define_gblSMChangeScreen.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "cd90ba7f1b642ee029d594cbb4f4d73d86fe7fb0fb8bb9ab2c8c8d1c334c9452",
     "originalCodeSha256": "cd90ba7f1b642ee029d594cbb4f4d73d86fe7fb0fb8bb9ab2c8c8d1c334c9452",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "main_mouse",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_gblSMChangeScreen",
+      "actionBasis": "function-declaration:gblSMChangeScreen"
+    }
   }
 ]

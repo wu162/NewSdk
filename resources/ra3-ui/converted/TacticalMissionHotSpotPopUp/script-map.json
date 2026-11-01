@@ -1,90 +1,189 @@
 [
   {
-    "path": "converted/TacticalMissionHotSpotPopUp/scripts/DOMDocument/0001.as",
+    "path": "converted/TacticalMissionHotSpotPopUp/scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0001_define_Move.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "45aae9c74429241c2b386d03f7fb534e4efe4e8821ed2994e59e02993631f40e",
     "originalCodeSha256": "45aae9c74429241c2b386d03f7fb534e4efe4e8821ed2994e59e02993631f40e",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalMissionHotSpotPopUp",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_Move",
+      "actionBasis": "function-declaration:Move"
+    }
   },
   {
-    "path": "converted/TacticalMissionHotSpotPopUp/scripts/DOMDocument/0002.as",
+    "path": "converted/TacticalMissionHotSpotPopUp/scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0005_stop.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalMissionHotSpotPopUp",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 5,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalMissionHotSpotPopUp/scripts/DOMDocument/0003.as",
+    "path": "converted/TacticalMissionHotSpotPopUp/scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0010_fscommand_label_close.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "6e6cea10361519b47b3ac1f0ed156719196c0083b0e643fedea162b0de21d90d",
     "originalCodeSha256": "6e6cea10361519b47b3ac1f0ed156719196c0083b0e643fedea162b0de21d90d",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalMissionHotSpotPopUp",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "_close",
+      "event": "",
+      "action": "fscommand",
+      "actionBasis": "function-call:fscommand"
+    }
   },
   {
-    "path": "converted/TacticalMissionHotSpotPopUp/scripts/LIBRARY/Symbol 13/0001.as",
+    "path": "converted/TacticalMissionHotSpotPopUp/scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0005_stop_label_up.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalMissionHotSpotPopUp",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 5,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalMissionHotSpotPopUp/scripts/LIBRARY/Symbol 13/0002.as",
+    "path": "converted/TacticalMissionHotSpotPopUp/scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0010_stop_label_over.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalMissionHotSpotPopUp",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalMissionHotSpotPopUp/scripts/LIBRARY/Symbol 13/0003.as",
+    "path": "converted/TacticalMissionHotSpotPopUp/scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0015_stop_label_down.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalMissionHotSpotPopUp",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 15,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalMissionHotSpotPopUp/scripts/LIBRARY/Symbol 13/0004.as",
+    "path": "converted/TacticalMissionHotSpotPopUp/scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0001_load_label_up.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 4,
     "sha256": "cf8d772e43390f2ff8988f56e03e632be53ccdd34a50db79a612f452898c3fa8",
     "originalCodeSha256": "cf8d772e43390f2ff8988f56e03e632be53ccdd34a50db79a612f452898c3fa8",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalMissionHotSpotPopUp",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "_up",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalMissionHotSpotPopUp/scripts/LIBRARY/Symbol 13/0005.as",
+    "path": "converted/TacticalMissionHotSpotPopUp/scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0011_load_label_down.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 5,
     "sha256": "cf8d772e43390f2ff8988f56e03e632be53ccdd34a50db79a612f452898c3fa8",
     "originalCodeSha256": "cf8d772e43390f2ff8988f56e03e632be53ccdd34a50db79a612f452898c3fa8",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalMissionHotSpotPopUp",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 11,
+      "frameLabel": "_down",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalMissionHotSpotPopUp/scripts/LIBRARY/Symbol 13/0006.as",
+    "path": "converted/TacticalMissionHotSpotPopUp/scripts/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp_frame_0001_press_label_up.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 6,
     "sha256": "e40ce93ee40cd904fffda1e05a7c51d56a8e85e6e90dc5fcf38881a53658ee25",
     "originalCodeSha256": "e40ce93ee40cd904fffda1e05a7c51d56a8e85e6e90dc5fcf38881a53658ee25",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalMissionHotSpotPopUp",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "_up",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   },
   {
-    "path": "converted/TacticalMissionHotSpotPopUp/scripts/LIBRARY/Symbol 19/0001.as",
+    "path": "converted/TacticalMissionHotSpotPopUp/scripts/panel/panel_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 19.xml",
     "scriptOrdinal": 1,
     "sha256": "8fde6b1fee9c4a21b9c4e73af38ea45de1ce373007413988cbae46fcbf1e423a",
     "originalCodeSha256": "8fde6b1fee9c4a21b9c4e73af38ea45de1ce373007413988cbae46fcbf1e423a",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalMissionHotSpotPopUp/scripts/LIBRARY/Symbol 19/0002.as",
+    "path": "converted/TacticalMissionHotSpotPopUp/scripts/panel/panel_frame_0001_load_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 19.xml",
     "scriptOrdinal": 2,
     "sha256": "25d304a439c21fc00ad00569a594e0828570e8de8b50a76da48754ab6bc90d7f",
     "originalCodeSha256": "25d304a439c21fc00ad00569a594e0828570e8de8b50a76da48754ab6bc90d7f",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   }
 ]

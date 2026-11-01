@@ -1,0 +1,36 @@
+[
+  {
+    "oldPath": "converted/ig_missionMapHotSpotLayer/scripts/DOMDocument/0001.as",
+    "newPath": "converted/ig_missionMapHotSpotLayer/scripts/ig_missionMapHotSpotLayer/ig_missionMapHotSpotLayer_frame_0001_define_AddIndicator.as",
+    "relativeOldPath": "scripts/DOMDocument/0001.as",
+    "relativeNewPath": "scripts/ig_missionMapHotSpotLayer/ig_missionMapHotSpotLayer_frame_0001_define_AddIndicator.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "frameNumber": 1,
+    "frameLabel": "",
+    "owner": "ig_missionMapHotSpotLayer",
+    "ownerBasis": "movie-name-fallback",
+    "event": "",
+    "action": "define_AddIndicator",
+    "actionBasis": "function-declaration:AddIndicator",
+    "occurrence": 1,
+    "sha256": "864e229e693ef5c5cb06bc8e4bd9dc0aea281b818905b1fd2e4a4f7f76de20d7"
+  },
+  {
+    "oldPath": "converted/ig_missionMapHotSpotLayer/scripts/LIBRARY/Symbol 3/0001.as",
+    "newPath": "converted/ig_missionMapHotSpotLayer/scripts/HotSpotIndicator/HotSpotIndicator_frame_0001_define_Move.as",
+    "relativeOldPath": "scripts/LIBRARY/Symbol 3/0001.as",
+    "relativeNewPath": "scripts/HotSpotIndicator/HotSpotIndicator_frame_0001_define_Move.as",
+    "xflXml": "LIBRARY/Symbol 3.xml",
+    "scriptOrdinal": 1,
+    "frameNumber": 1,
+    "frameLabel": "",
+    "owner": "HotSpotIndicator",
+    "ownerBasis": "linkageIdentifier",
+    "event": "",
+    "action": "define_Move",
+    "actionBasis": "function-declaration:Move",
+    "occurrence": 1,
+    "sha256": "860cc17f78a0de8e6623597ae6b0cff911990be3ad17e1acfb30a49eb7c52261"
+  }
+]

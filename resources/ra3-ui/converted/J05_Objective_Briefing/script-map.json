@@ -1,114 +1,240 @@
 [
   {
-    "path": "converted/J05_Objective_Briefing/scripts/DOMDocument/0001.as",
+    "path": "converted/J05_Objective_Briefing/scripts/J05_Objective_Briefing/J05_Objective_Briefing_frame_0001_define_playSound_Arrow_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "95f515ed96c7b23a08483be9a48b1d63ee20156fe29560951605a83d1b1c818b",
     "originalCodeSha256": "95f515ed96c7b23a08483be9a48b1d63ee20156fe29560951605a83d1b1c818b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "J05_Objective_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "define_playSound_Arrow",
+      "actionBasis": "function-declaration:playSound_Arrow"
+    }
   },
   {
-    "path": "converted/J05_Objective_Briefing/scripts/DOMDocument/0002.as",
+    "path": "converted/J05_Objective_Briefing/scripts/J05_Objective_Briefing/J05_Objective_Briefing_frame_0003_playSound_Start_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "4fe720f4cd18de4f89b6f7a34d45cacc3142899a2395e49a1efd6f93384b5e1d",
     "originalCodeSha256": "4fe720f4cd18de4f89b6f7a34d45cacc3142899a2395e49a1efd6f93384b5e1d",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "J05_Objective_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 3,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_Start",
+      "actionBasis": "function-call:playSound_Start"
+    }
   },
   {
-    "path": "converted/J05_Objective_Briefing/scripts/DOMDocument/0003.as",
+    "path": "converted/J05_Objective_Briefing/scripts/J05_Objective_Briefing/J05_Objective_Briefing_frame_0050_playSound_ZoomIn_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "58374417b60b54379f206be3fa6da4dec385fa107bfdcbac734f5c7783400eac",
     "originalCodeSha256": "58374417b60b54379f206be3fa6da4dec385fa107bfdcbac734f5c7783400eac",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "J05_Objective_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 50,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_ZoomIn",
+      "actionBasis": "function-call:playSound_ZoomIn"
+    }
   },
   {
-    "path": "converted/J05_Objective_Briefing/scripts/DOMDocument/0004.as",
+    "path": "converted/J05_Objective_Briefing/scripts/J05_Objective_Briefing/J05_Objective_Briefing_frame_0060_playSound_SquareTargetFlash_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 4,
     "sha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
     "originalCodeSha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "J05_Objective_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 60,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_SquareTargetFlash",
+      "actionBasis": "function-call:playSound_SquareTargetFlash"
+    }
   },
   {
-    "path": "converted/J05_Objective_Briefing/scripts/DOMDocument/0005.as",
+    "path": "converted/J05_Objective_Briefing/scripts/J05_Objective_Briefing/J05_Objective_Briefing_frame_0090_playSound_SquareTargetFlash_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 5,
     "sha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
     "originalCodeSha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "J05_Objective_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 90,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_SquareTargetFlash",
+      "actionBasis": "function-call:playSound_SquareTargetFlash"
+    }
   },
   {
-    "path": "converted/J05_Objective_Briefing/scripts/DOMDocument/0006.as",
+    "path": "converted/J05_Objective_Briefing/scripts/J05_Objective_Briefing/J05_Objective_Briefing_frame_0120_playSound_SquareTargetFlash_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 6,
     "sha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
     "originalCodeSha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "J05_Objective_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 120,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_SquareTargetFlash",
+      "actionBasis": "function-call:playSound_SquareTargetFlash"
+    }
   },
   {
-    "path": "converted/J05_Objective_Briefing/scripts/DOMDocument/0007.as",
+    "path": "converted/J05_Objective_Briefing/scripts/J05_Objective_Briefing/J05_Objective_Briefing_frame_0180_playSound_MI05_ImperialIntel02_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 7,
     "sha256": "c073cc122e7e0611c0569d7901364311080d939972e2994b1e995ed1c21884b9",
     "originalCodeSha256": "c073cc122e7e0611c0569d7901364311080d939972e2994b1e995ed1c21884b9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "J05_Objective_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 180,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_MI05_ImperialIntel02",
+      "actionBasis": "function-call:playSound_MI05_ImperialIntel02"
+    }
   },
   {
-    "path": "converted/J05_Objective_Briefing/scripts/DOMDocument/0008.as",
+    "path": "converted/J05_Objective_Briefing/scripts/J05_Objective_Briefing/J05_Objective_Briefing_frame_0200_playSound_SquareTargetFlash_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 8,
     "sha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
     "originalCodeSha256": "cdb8b7748cebd198e266b0a34a8787becfeeab74eabd3cb917bbae4e6ec4b521",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "J05_Objective_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 200,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_SquareTargetFlash",
+      "actionBasis": "function-call:playSound_SquareTargetFlash"
+    }
   },
   {
-    "path": "converted/J05_Objective_Briefing/scripts/DOMDocument/0009.as",
+    "path": "converted/J05_Objective_Briefing/scripts/J05_Objective_Briefing/J05_Objective_Briefing_frame_0220_playSound_GreenMarkerFlash_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 9,
     "sha256": "9a7efe4838183a468da3e4271a9d35572338b7b4252af54ddcb187a4305a70bf",
     "originalCodeSha256": "9a7efe4838183a468da3e4271a9d35572338b7b4252af54ddcb187a4305a70bf",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "J05_Objective_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 220,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_GreenMarkerFlash",
+      "actionBasis": "function-call:playSound_GreenMarkerFlash"
+    }
   },
   {
-    "path": "converted/J05_Objective_Briefing/scripts/DOMDocument/0010.as",
+    "path": "converted/J05_Objective_Briefing/scripts/J05_Objective_Briefing/J05_Objective_Briefing_frame_0240_playSound_MI05_ImperialIntel03_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 10,
     "sha256": "c095159de3a0f97445284a13d97284bac90f1e9d1dd3e4da72249e1fb0faf955",
     "originalCodeSha256": "c095159de3a0f97445284a13d97284bac90f1e9d1dd3e4da72249e1fb0faf955",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "J05_Objective_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 240,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_MI05_ImperialIntel03",
+      "actionBasis": "function-call:playSound_MI05_ImperialIntel03"
+    }
   },
   {
-    "path": "converted/J05_Objective_Briefing/scripts/DOMDocument/0011.as",
+    "path": "converted/J05_Objective_Briefing/scripts/J05_Objective_Briefing/J05_Objective_Briefing_frame_0244_playSound_Arrow_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 11,
     "sha256": "6ab94d39c06918f4583eba1e00b4b7acdae07528a9d73b2616c5e184619c1c37",
     "originalCodeSha256": "6ab94d39c06918f4583eba1e00b4b7acdae07528a9d73b2616c5e184619c1c37",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "J05_Objective_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 244,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_Arrow",
+      "actionBasis": "function-call:playSound_Arrow"
+    }
   },
   {
-    "path": "converted/J05_Objective_Briefing/scripts/DOMDocument/0012.as",
+    "path": "converted/J05_Objective_Briefing/scripts/J05_Objective_Briefing/J05_Objective_Briefing_frame_0268_playSound_Arrow_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 12,
     "sha256": "6ab94d39c06918f4583eba1e00b4b7acdae07528a9d73b2616c5e184619c1c37",
     "originalCodeSha256": "6ab94d39c06918f4583eba1e00b4b7acdae07528a9d73b2616c5e184619c1c37",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "J05_Objective_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 268,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_Arrow",
+      "actionBasis": "function-call:playSound_Arrow"
+    }
   },
   {
-    "path": "converted/J05_Objective_Briefing/scripts/DOMDocument/0013.as",
+    "path": "converted/J05_Objective_Briefing/scripts/J05_Objective_Briefing/J05_Objective_Briefing_frame_0300_playSound_Arrow_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 13,
     "sha256": "6ab94d39c06918f4583eba1e00b4b7acdae07528a9d73b2616c5e184619c1c37",
     "originalCodeSha256": "6ab94d39c06918f4583eba1e00b4b7acdae07528a9d73b2616c5e184619c1c37",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "J05_Objective_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 300,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "playSound_Arrow",
+      "actionBasis": "function-call:playSound_Arrow"
+    }
   },
   {
-    "path": "converted/J05_Objective_Briefing/scripts/DOMDocument/0014.as",
+    "path": "converted/J05_Objective_Briefing/scripts/J05_Objective_Briefing/J05_Objective_Briefing_frame_0360_requestHideSubtitle_label_run.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 14,
     "sha256": "e0363a3a22e6220266540b25ba5cbdd6b7b089279eeb77d668af52992197390e",
     "originalCodeSha256": "e0363a3a22e6220266540b25ba5cbdd6b7b089279eeb77d668af52992197390e",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "J05_Objective_Briefing",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 360,
+      "frameLabel": "_run",
+      "event": "",
+      "action": "requestHideSubtitle",
+      "actionBasis": "function-call:requestHideSubtitle"
+    }
   }
 ]

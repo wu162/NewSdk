@@ -1,34 +1,70 @@
 [
   {
-    "path": "converted/ig_DrawableOverlayStage/scripts/DOMDocument/0001.as",
+    "path": "converted/ig_DrawableOverlayStage/scripts/ig_DrawableOverlayStage/ig_DrawableOverlayStage_frame_0001_define_LoadContent.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "40e1df2565ee520af133c30111fd0a6ce95e6bec64b1636a28accfccc9332492",
     "originalCodeSha256": "40e1df2565ee520af133c30111fd0a6ce95e6bec64b1636a28accfccc9332492",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ig_DrawableOverlayStage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_LoadContent",
+      "actionBasis": "function-declaration:LoadContent"
+    }
   },
   {
-    "path": "converted/ig_DrawableOverlayStage/scripts/DOMDocument/0002.as",
+    "path": "converted/ig_DrawableOverlayStage/scripts/ig_DrawableOverlayStage/ig_DrawableOverlayStage_frame_0001_load.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
     "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ig_DrawableOverlayStage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/ig_DrawableOverlayStage/scripts/LIBRARY/Symbol 1/0001.as",
+    "path": "converted/ig_DrawableOverlayStage/scripts/LayerClip/LayerClip_frame_0001_define_OnContentLoaded.as",
     "xflXml": "LIBRARY/Symbol 1.xml",
     "scriptOrdinal": 1,
     "sha256": "18495ce0d8190537fccfc2d4f0c1d33e7f5c89f5d78c76c1c4e7d19ab8b1bffa",
     "originalCodeSha256": "18495ce0d8190537fccfc2d4f0c1d33e7f5c89f5d78c76c1c4e7d19ab8b1bffa",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "LayerClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_OnContentLoaded",
+      "actionBasis": "function-declaration:OnContentLoaded"
+    }
   },
   {
-    "path": "converted/ig_DrawableOverlayStage/scripts/LIBRARY/Symbol 2/0001.as",
+    "path": "converted/ig_DrawableOverlayStage/scripts/ig_DrawableOverlayStage/ig_DrawableOverlayStage_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 2.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ig_DrawableOverlayStage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

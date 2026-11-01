@@ -1,250 +1,529 @@
 [
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/DOMDocument/0001.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/TacticalHUDBeaconStage/TacticalHUDBeaconStage_frame_0001_define_CreateBeaconIndicator.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "09b2b1baee90365fea7f4babd315f2e0903b576d7302b193d0730ef7a83c9f3c",
     "originalCodeSha256": "09b2b1baee90365fea7f4babd315f2e0903b576d7302b193d0730ef7a83c9f3c",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBeaconStage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_CreateBeaconIndicator",
+      "actionBasis": "function-declaration:CreateBeaconIndicator"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 20/0001.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/TacticalHUDBeaconStage/TacticalHUDBeaconStage_frame_0001_Color.as",
     "xflXml": "LIBRARY/Symbol 20.xml",
     "scriptOrdinal": 1,
     "sha256": "d0da8df2df0a62ca5353ea8a6c893fb20727d93c0a80ee9862b53e1839363f45",
     "originalCodeSha256": "d0da8df2df0a62ca5353ea8a6c893fb20727d93c0a80ee9862b53e1839363f45",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalHUDBeaconStage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "Color",
+      "actionBasis": "function-call:Color"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 24/0001.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/MpBeaconMessage/MpBeaconMessage_frame_0001_qualifyName.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 1,
     "sha256": "f34868d97a02be373de3f76665a40cf23d97f5e6e3085c8b1ca7a58db19b2e4a",
     "originalCodeSha256": "f34868d97a02be373de3f76665a40cf23d97f5e6e3085c8b1ca7a58db19b2e4a",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "MpBeaconMessage",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "qualifyName",
+      "actionBasis": "function-call:qualifyName"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 31/0001.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/selectionEffect/selectionEffect_frame_0001_stop_label_stop.as",
     "xflXml": "LIBRARY/Symbol 31.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "selectionEffect",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_stop",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 31/0002.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/selectionEffect/selectionEffect_frame_0015_gotoAndStop_label_play.as",
     "xflXml": "LIBRARY/Symbol 31.xml",
     "scriptOrdinal": 2,
     "sha256": "c218e72a749559b487fac147ed7a27aad9b714002fef6b4769b2c0b4d9b6aa55",
     "originalCodeSha256": "c218e72a749559b487fac147ed7a27aad9b714002fef6b4769b2c0b4d9b6aa55",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "selectionEffect",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_play",
+      "event": "",
+      "action": "gotoAndStop",
+      "actionBasis": "function-call:gotoAndStop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 32/0001.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/AIHoldBeaconIndicator/AIHoldBeaconIndicator_frame_0001_define_SetVisibility.as",
     "xflXml": "LIBRARY/Symbol 32.xml",
     "scriptOrdinal": 1,
     "sha256": "1d980a6c9137f240b4985c01338f6f9ee2159e17aae69ea2b609a33d65416495",
     "originalCodeSha256": "1d980a6c9137f240b4985c01338f6f9ee2159e17aae69ea2b609a33d65416495",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "AIHoldBeaconIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_SetVisibility",
+      "actionBasis": "function-declaration:SetVisibility"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 32/0002.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/AIHoldBeaconIndicator/AIHoldBeaconIndicator_frame_0001_release.as",
     "xflXml": "LIBRARY/Symbol 32.xml",
     "scriptOrdinal": 2,
     "sha256": "eb9deb11e54a1fde7b58170a83e50bc344885004e24fb5839955240b008a0921",
     "originalCodeSha256": "eb9deb11e54a1fde7b58170a83e50bc344885004e24fb5839955240b008a0921",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "AIHoldBeaconIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "release",
+      "action": "release",
+      "actionBasis": "event-handler:on(release)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 37/0001.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/AIAssaultBeaconIndicator/AIAssaultBeaconIndicator_frame_0001_define_SetVisibility.as",
     "xflXml": "LIBRARY/Symbol 37.xml",
     "scriptOrdinal": 1,
     "sha256": "1d980a6c9137f240b4985c01338f6f9ee2159e17aae69ea2b609a33d65416495",
     "originalCodeSha256": "1d980a6c9137f240b4985c01338f6f9ee2159e17aae69ea2b609a33d65416495",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "AIAssaultBeaconIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_SetVisibility",
+      "actionBasis": "function-declaration:SetVisibility"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 37/0002.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/AIAssaultBeaconIndicator/AIAssaultBeaconIndicator_frame_0001_release.as",
     "xflXml": "LIBRARY/Symbol 37.xml",
     "scriptOrdinal": 2,
     "sha256": "eb9deb11e54a1fde7b58170a83e50bc344885004e24fb5839955240b008a0921",
     "originalCodeSha256": "eb9deb11e54a1fde7b58170a83e50bc344885004e24fb5839955240b008a0921",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "AIAssaultBeaconIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "release",
+      "action": "release",
+      "actionBasis": "event-handler:on(release)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 6/0001.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/arrow/arrow_frame_0001_release.as",
     "xflXml": "LIBRARY/Symbol 6.xml",
     "scriptOrdinal": 1,
     "sha256": "779cffbf474be1dce359e5ab964c6ed7ddc48eaa99d4bdc850af83291ecd373a",
     "originalCodeSha256": "779cffbf474be1dce359e5ab964c6ed7ddc48eaa99d4bdc850af83291ecd373a",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrow",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "release",
+      "action": "release",
+      "actionBasis": "event-handler:on(release)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 7/0001.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/MpBeaconIndicator/MpBeaconIndicator_frame_0001_define_SetVisibility.as",
     "xflXml": "LIBRARY/Symbol 7.xml",
     "scriptOrdinal": 1,
     "sha256": "bc08e8304c5b7858aba94567e2f251e8f934a9092c420006908da69e94be2f95",
     "originalCodeSha256": "bc08e8304c5b7858aba94567e2f251e8f934a9092c420006908da69e94be2f95",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "MpBeaconIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_SetVisibility",
+      "actionBasis": "function-declaration:SetVisibility"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 76/0001.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/minuteMC/minuteMC_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 76.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "minuteMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 76/0002.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/minuteMC/minuteMC_frame_0002_stop.as",
     "xflXml": "LIBRARY/Symbol 76.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "minuteMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 2,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 76/0003.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/minuteMC/minuteMC_frame_0003_stop.as",
     "xflXml": "LIBRARY/Symbol 76.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "minuteMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 3,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 76/0004.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/minuteMC/minuteMC_frame_0004_stop.as",
     "xflXml": "LIBRARY/Symbol 76.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "minuteMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 4,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 76/0005.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/minuteMC/minuteMC_frame_0005_stop.as",
     "xflXml": "LIBRARY/Symbol 76.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "minuteMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 76/0006.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/minuteMC/minuteMC_frame_0006_stop.as",
     "xflXml": "LIBRARY/Symbol 76.xml",
     "scriptOrdinal": 6,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "minuteMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 6,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 76/0007.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/minuteMC/minuteMC_frame_0007_stop.as",
     "xflXml": "LIBRARY/Symbol 76.xml",
     "scriptOrdinal": 7,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "minuteMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 7,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 76/0008.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/minuteMC/minuteMC_frame_0008_stop.as",
     "xflXml": "LIBRARY/Symbol 76.xml",
     "scriptOrdinal": 8,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "minuteMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 8,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 76/0009.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/minuteMC/minuteMC_frame_0009_stop.as",
     "xflXml": "LIBRARY/Symbol 76.xml",
     "scriptOrdinal": 9,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "minuteMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 9,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 76/0010.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/minuteMC/minuteMC_frame_0010_stop.as",
     "xflXml": "LIBRARY/Symbol 76.xml",
     "scriptOrdinal": 10,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "minuteMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 81/0001.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/TimeBombFrame/TimeBombFrame_frame_0001_define_Move.as",
     "xflXml": "LIBRARY/Symbol 81.xml",
     "scriptOrdinal": 1,
     "sha256": "a230c89194062e322b9d127789cf152ce623268219a84a16ab8d0811dd03383b",
     "originalCodeSha256": "a230c89194062e322b9d127789cf152ce623268219a84a16ab8d0811dd03383b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TimeBombFrame",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_Move",
+      "actionBasis": "function-declaration:Move"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 81/0002.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/tl/tl_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 81.xml",
     "scriptOrdinal": 2,
     "sha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
     "originalCodeSha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tl",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 81/0003.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/top/top_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 81.xml",
     "scriptOrdinal": 3,
     "sha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
     "originalCodeSha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 81/0004.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/tr/tr_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 81.xml",
     "scriptOrdinal": 4,
     "sha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
     "originalCodeSha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "tr",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 81/0005.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/right/right_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 81.xml",
     "scriptOrdinal": 5,
     "sha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
     "originalCodeSha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "right",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 81/0006.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/br/br_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 81.xml",
     "scriptOrdinal": 6,
     "sha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
     "originalCodeSha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "br",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 81/0007.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/bottom/bottom_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 81.xml",
     "scriptOrdinal": 7,
     "sha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
     "originalCodeSha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bottom",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 81/0008.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/bl/bl_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 81.xml",
     "scriptOrdinal": 8,
     "sha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
     "originalCodeSha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bl",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 81/0009.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/left/left_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 81.xml",
     "scriptOrdinal": 9,
     "sha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
     "originalCodeSha256": "b8f70d8392e34f703a3dae78d7cef96bd3dc63112a5ae26e921ed67136f4e6f4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "left",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalHUDBeaconStage/scripts/LIBRARY/Symbol 81/0010.as",
+    "path": "converted/TacticalHUDBeaconStage/scripts/center/center_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 81.xml",
     "scriptOrdinal": 10,
     "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
     "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "center",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   }
 ]

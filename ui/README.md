@@ -38,7 +38,7 @@ NewModCompiler 已内建此插件：Core 在验证阶段调用 `CompileUiFile(de
 - `import`、命名空间目录、元件的 AS2 链接类名解析目录中的类文件；支持显式导入和包通配导入。
 - AS 支持 UTF-8（有/无 BOM）和带 BOM 的 UTF-16。类可相互 import；缺失类、缺失 include、include/继承环和语法错误会中止构建。
 
-支持常用 AS1/AS2 表达式、变量、函数、成员、数组/对象、条件、循环、for-in、switch、事件处理器，以及 AS2 类、继承、实例/静态成员和 getter/setter。不是 AS3 编译器。`try/with` 源语法、外部运行时共享库和完整 AS2 接口类型系统尚未实现，会明确拒绝。
+支持常用 AS1/AS2 表达式、变量、函数、成员、数组/对象、条件、循环、for-in、switch、事件处理器，以及 AS2 类、继承、实例/静态成员和 getter/setter。空 marker `interface` 与 `class implements` 保留 AVM1 ImplementsOp 和运行时 `instanceof` 语义；接口先于实现类初始化。非空接口和接口继承仍明确拒绝。不是 AS3 编译器。`try/with` 源语法、外部运行时共享库和完整 AS2 接口类型系统尚未实现，会明确拒绝。
 
 ## 版本及能力边界
 

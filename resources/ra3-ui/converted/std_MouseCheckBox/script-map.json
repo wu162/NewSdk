@@ -1,218 +1,461 @@
 [
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 10/0001.as",
+    "path": "converted/std_MouseCheckBox/scripts/GameSetupCheckBoxContentClip/GameSetupCheckBoxContentClip_frame_0003_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 10.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "GameSetupCheckBoxContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 3,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 10/0002.as",
+    "path": "converted/std_MouseCheckBox/scripts/GameSetupCheckBoxContentClip/GameSetupCheckBoxContentClip_frame_0006_stop_label_selected.as",
     "xflXml": "LIBRARY/Symbol 10.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "GameSetupCheckBoxContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 6,
+      "frameLabel": "_selected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 10/0003.as",
+    "path": "converted/std_MouseCheckBox/scripts/GameSetupCheckBoxContentClip/GameSetupCheckBoxContentClip_frame_0009_stop_label_unselected.as",
     "xflXml": "LIBRARY/Symbol 10.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "GameSetupCheckBoxContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unselected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 10/0004.as",
+    "path": "converted/std_MouseCheckBox/scripts/GameSetupCheckBoxContentClip/GameSetupCheckBoxContentClip_frame_0012_stop_label_selectedRollover.as",
     "xflXml": "LIBRARY/Symbol 10.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "GameSetupCheckBoxContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 12,
+      "frameLabel": "_selectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 10/0005.as",
+    "path": "converted/std_MouseCheckBox/scripts/GameSetupCheckBoxContentClip/GameSetupCheckBoxContentClip_frame_0015_stop_label_unselectedRollover.as",
     "xflXml": "LIBRARY/Symbol 10.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "GameSetupCheckBoxContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 15,
+      "frameLabel": "_unselectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 10/0006.as",
+    "path": "converted/std_MouseCheckBox/scripts/GameSetupCheckBoxContentClip/GameSetupCheckBoxContentClip_frame_0018_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 10.xml",
     "scriptOrdinal": 6,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "GameSetupCheckBoxContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 18,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 10/0007.as",
+    "path": "converted/std_MouseCheckBox/scripts/GameSetupCheckBoxContentClip/GameSetupCheckBoxContentClip_frame_0021_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 10.xml",
     "scriptOrdinal": 7,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "GameSetupCheckBoxContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 21,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 17/0001.as",
+    "path": "converted/std_MouseCheckBox/scripts/checkBoxMC_Symbol/checkBoxMC_Symbol_frame_0008_stop_label_unChecked.as",
     "xflXml": "LIBRARY/Symbol 17.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxMC_Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 8,
+      "frameLabel": "_unChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 17/0002.as",
+    "path": "converted/std_MouseCheckBox/scripts/checkBoxMC_Symbol/checkBoxMC_Symbol_frame_0016_stop_label_checked.as",
     "xflXml": "LIBRARY/Symbol 17.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxMC_Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 16,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 17/0003.as",
+    "path": "converted/std_MouseCheckBox/scripts/checkBoxMC_Symbol/checkBoxMC_Symbol_frame_0024_stop_label_disabledUnChecked.as",
     "xflXml": "LIBRARY/Symbol 17.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxMC_Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 24,
+      "frameLabel": "_disabledUnChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 17/0004.as",
+    "path": "converted/std_MouseCheckBox/scripts/checkBoxMC_Symbol/checkBoxMC_Symbol_frame_0032_stop_label_disabledChecked.as",
     "xflXml": "LIBRARY/Symbol 17.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxMC_Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 32,
+      "frameLabel": "_disabledChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 22/0001.as",
+    "path": "converted/std_MouseCheckBox/scripts/checkBoxContentClipSymbol/checkBoxContentClipSymbol_frame_0003_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 3,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 22/0002.as",
+    "path": "converted/std_MouseCheckBox/scripts/checkBoxContentClipSymbol/checkBoxContentClipSymbol_frame_0006_stop_label_selected.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 6,
+      "frameLabel": "_selected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 22/0003.as",
+    "path": "converted/std_MouseCheckBox/scripts/checkBoxContentClipSymbol/checkBoxContentClipSymbol_frame_0009_stop_label_unselected.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unselected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 22/0004.as",
+    "path": "converted/std_MouseCheckBox/scripts/checkBoxContentClipSymbol/checkBoxContentClipSymbol_frame_0012_stop_label_selectedRollover.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 12,
+      "frameLabel": "_selectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 22/0005.as",
+    "path": "converted/std_MouseCheckBox/scripts/checkBoxContentClipSymbol/checkBoxContentClipSymbol_frame_0015_stop_label_unselectedRollover.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 15,
+      "frameLabel": "_unselectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 22/0006.as",
+    "path": "converted/std_MouseCheckBox/scripts/checkBoxContentClipSymbol/checkBoxContentClipSymbol_frame_0018_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 6,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 18,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 22/0007.as",
+    "path": "converted/std_MouseCheckBox/scripts/checkBoxContentClipSymbol/checkBoxContentClipSymbol_frame_0021_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 7,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 21,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 23/0001.as",
+    "path": "converted/std_MouseCheckBox/scripts/std_MouseCheckBoxSymbol/std_MouseCheckBoxSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 23.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_MouseCheckBoxSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 24/0001.as",
+    "path": "converted/std_MouseCheckBox/scripts/GameSetupcheckBoxMCDisable/GameSetupcheckBoxMCDisable_frame_0009_stop_label_unChecked.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "GameSetupcheckBoxMCDisable",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 24/0002.as",
+    "path": "converted/std_MouseCheckBox/scripts/GameSetupcheckBoxMCDisable/GameSetupcheckBoxMCDisable_frame_0019_stop_label_checked.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "GameSetupcheckBoxMCDisable",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 19,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 26/0001.as",
+    "path": "converted/std_MouseCheckBox/scripts/checkBoxMCDisable_Symbol/checkBoxMCDisable_Symbol_frame_0009_stop_label_unChecked.as",
     "xflXml": "LIBRARY/Symbol 26.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxMCDisable_Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 26/0002.as",
+    "path": "converted/std_MouseCheckBox/scripts/checkBoxMCDisable_Symbol/checkBoxMCDisable_Symbol_frame_0019_stop_label_checked.as",
     "xflXml": "LIBRARY/Symbol 26.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "checkBoxMCDisable_Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 19,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 7/0001.as",
+    "path": "converted/std_MouseCheckBox/scripts/GameSetupcheckBoxMC/GameSetupcheckBoxMC_frame_0008_stop_label_unChecked.as",
     "xflXml": "LIBRARY/Symbol 7.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "GameSetupcheckBoxMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 8,
+      "frameLabel": "_unChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 7/0002.as",
+    "path": "converted/std_MouseCheckBox/scripts/GameSetupcheckBoxMC/GameSetupcheckBoxMC_frame_0016_stop_label_checked.as",
     "xflXml": "LIBRARY/Symbol 7.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "GameSetupcheckBoxMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 16,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 7/0003.as",
+    "path": "converted/std_MouseCheckBox/scripts/GameSetupcheckBoxMC/GameSetupcheckBoxMC_frame_0024_stop_label_disabledUnChecked.as",
     "xflXml": "LIBRARY/Symbol 7.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "GameSetupcheckBoxMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 24,
+      "frameLabel": "_disabledUnChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseCheckBox/scripts/LIBRARY/Symbol 7/0004.as",
+    "path": "converted/std_MouseCheckBox/scripts/GameSetupcheckBoxMC/GameSetupcheckBoxMC_frame_0032_stop_label_disabledChecked.as",
     "xflXml": "LIBRARY/Symbol 7.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "GameSetupcheckBoxMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 32,
+      "frameLabel": "_disabledChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

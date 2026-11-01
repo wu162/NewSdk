@@ -4,4 +4,6 @@ recovery/src/Native/Texture/PublicS3/** -text
 resources/ra3-ui/original/** -text
 resources/ra3-ui/source/** -text
 resources/ra3-ui/converted/**/*.fla -text
+resources/ra3-ui/converted/**/*.as text eol=lf
+resources/ra3-ui/**/*.json text eol=lf
 resources/ra3-ui/tooling/*.zip -text

@@ -1,266 +1,573 @@
 [
   {
-    "path": "converted/feg_m_profileStats/scripts/DOMDocument/0001.as",
+    "path": "converted/feg_m_profileStats/scripts/feg_m_profileStats/feg_m_profileStats_frame_0001_feg_m_profileStats.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "bc25812b40369a1403ff243561f8c22fd3ee256ce23d597b68060ffaa6e8e3fa",
     "originalCodeSha256": "bc25812b40369a1403ff243561f8c22fd3ee256ce23d597b68060ffaa6e8e3fa",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "feg_m_profileStats",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "feg_m_profileStats",
+      "actionBasis": "function-call:feg_m_profileStats"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/DOMDocument/0002.as",
+    "path": "converted/feg_m_profileStats/scripts/btnMainMenu/btnMainMenu_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "4eba26995a2c448f8c84318a7b81e5d37c567810227fbdb61865b7555316200e",
     "originalCodeSha256": "7de32f5e4b25f3ba1cb7bf47ef17cdb7b7fc914bb3c76913cd27fe4d2abb55f6",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "btnMainMenu",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/DOMDocument/0003.as",
+    "path": "converted/feg_m_profileStats/scripts/careerStatsComponentSymbol/careerStatsComponentSymbol_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "94bba12b33f1f723e940528c62773a7fbb5d73b7828f1ac820e727381185376c",
     "originalCodeSha256": "bd01981b7c6a78af69a19b220dac081a67aa3a2c7b00e1c7cdfb1e51bb911c17",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "careerStatsComponentSymbol",
+      "ownerBasis": "instance-library-linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/DOMDocument/0004.as",
+    "path": "converted/feg_m_profileStats/scripts/ScreenTitleBarSymbol/ScreenTitleBarSymbol_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 4,
     "sha256": "ea39a88312963c577dcf2b49df7c23eb4ba42946df1fabb2082ef9e2b8960043",
     "originalCodeSha256": "8a0429fa35bcada65a2b5d7ffbecb5c90feab123a6fe280663d26b40e4a0997d",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "ScreenTitleBarSymbol",
+      "ownerBasis": "instance-library-linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/Symbol 4/0001.as",
+    "path": "converted/feg_m_profileStats/scripts/ScreenTitleBarSymbol/ScreenTitleBarSymbol_frame_0001_load_feg_m_profileStats.as",
     "xflXml": "LIBRARY/Symbol 4.xml",
     "scriptOrdinal": 1,
-    "sha256": "2de7edc6997b83f661f75e54af13ce414d58a40ba36967f18cb921898f8603df",
+    "sha256": "2202f9c6c67676565eee5f8a9cca0014aa757d6e6ac428ba5a678f8769c73c2d",
     "originalCodeSha256": "2de7edc6997b83f661f75e54af13ce414d58a40ba36967f18cb921898f8603df",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ScreenTitleBarSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "load_feg_m_profileStats",
+      "actionBasis": "class-import:feg_m_profileStats"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/Symbol 6/0001.as",
+    "path": "converted/feg_m_profileStats/scripts/radOnline/radOnline_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 6.xml",
     "scriptOrdinal": 1,
     "sha256": "602b19fb5571bdf6299be63b745cf62d8474f9ae376e1405b8e1abbc7235e065",
     "originalCodeSha256": "8e888b333269253b9efa339cccd69a6d5c9805267c8233e4873997190bb22652",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radOnline",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/Symbol 6/0002.as",
+    "path": "converted/feg_m_profileStats/scripts/radOverall/radOverall_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 6.xml",
     "scriptOrdinal": 2,
     "sha256": "6cc9bd4fcf77048491fc3ed46c45ce131f8d944bcbe4d02b4426c9b6f09b315b",
     "originalCodeSha256": "680d365ca91d72abfc0bdf209ddbc16f5f34fbb8c57c7d47677eab5f2bbc2f66",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radOverall",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/Symbol 6/0003.as",
+    "path": "converted/feg_m_profileStats/scripts/rctlTop/rctlTop_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 6.xml",
     "scriptOrdinal": 3,
     "sha256": "f7363ba9c7140fb5da035dbe6c8b2547a3306c028118cef01e0703c35eea7164",
     "originalCodeSha256": "d62e53977e08ed80992925967bd3a941f3f88aa0422da84aa8aac8710526d9e8",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "rctlTop",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/Symbol 7/0001.as",
+    "path": "converted/feg_m_profileStats/scripts/std_MousebuttonSymbol/std_MousebuttonSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 7.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_MousebuttonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 11/0001.as",
+    "path": "converted/feg_m_profileStats/scripts/radOnline/radOnline_frame_0001_stop.as",
     "xflXml": "LIBRARY/imported/Symbol 11.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "radOnline",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 13/0001.as",
+    "path": "converted/feg_m_profileStats/scripts/sbOnline/sbOnline_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 13.xml",
     "scriptOrdinal": 1,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "sbOnline",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 13/0002.as",
+    "path": "converted/feg_m_profileStats/scripts/rctlOnline/rctlOnline_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 13.xml",
     "scriptOrdinal": 2,
     "sha256": "e5652f87ce6908a057b36b8e3327ab0f5bb4967272f57194be61c903c467e666",
     "originalCodeSha256": "2c7970ceb43d578bd466540173b1c95a05ac52d77382d1908c05463926489040",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "rctlOnline",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 13/0003.as",
+    "path": "converted/feg_m_profileStats/scripts/radSummary/radSummary_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 13.xml",
     "scriptOrdinal": 3,
     "sha256": "09fbca76078478ba99fe48e2310c711038c4e3ee361db11ebdb3e4b4865a2129",
     "originalCodeSha256": "ce6b24f4b6dbe41ecc2cfabd29030a00dfb3604f93eef94df3b396cee1af9ef0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radSummary",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 13/0004.as",
+    "path": "converted/feg_m_profileStats/scripts/radClan2v2/radClan2v2_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 13.xml",
     "scriptOrdinal": 4,
     "sha256": "09fbca76078478ba99fe48e2310c711038c4e3ee361db11ebdb3e4b4865a2129",
     "originalCodeSha256": "ce6b24f4b6dbe41ecc2cfabd29030a00dfb3604f93eef94df3b396cee1af9ef0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radClan2v2",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 13/0005.as",
+    "path": "converted/feg_m_profileStats/scripts/radClan1v1/radClan1v1_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 13.xml",
     "scriptOrdinal": 5,
     "sha256": "09fbca76078478ba99fe48e2310c711038c4e3ee361db11ebdb3e4b4865a2129",
     "originalCodeSha256": "ce6b24f4b6dbe41ecc2cfabd29030a00dfb3604f93eef94df3b396cee1af9ef0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radClan1v1",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 13/0006.as",
+    "path": "converted/feg_m_profileStats/scripts/radRanked2v2/radRanked2v2_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 13.xml",
     "scriptOrdinal": 6,
     "sha256": "09fbca76078478ba99fe48e2310c711038c4e3ee361db11ebdb3e4b4865a2129",
     "originalCodeSha256": "ce6b24f4b6dbe41ecc2cfabd29030a00dfb3604f93eef94df3b396cee1af9ef0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radRanked2v2",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 13/0007.as",
+    "path": "converted/feg_m_profileStats/scripts/radRanked1v1/radRanked1v1_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 13.xml",
     "scriptOrdinal": 7,
     "sha256": "09fbca76078478ba99fe48e2310c711038c4e3ee361db11ebdb3e4b4865a2129",
     "originalCodeSha256": "ce6b24f4b6dbe41ecc2cfabd29030a00dfb3604f93eef94df3b396cee1af9ef0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radRanked1v1",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 13/0008.as",
+    "path": "converted/feg_m_profileStats/scripts/radUnranked/radUnranked_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 13.xml",
     "scriptOrdinal": 8,
     "sha256": "09fbca76078478ba99fe48e2310c711038c4e3ee361db11ebdb3e4b4865a2129",
     "originalCodeSha256": "ce6b24f4b6dbe41ecc2cfabd29030a00dfb3604f93eef94df3b396cee1af9ef0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radUnranked",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 13/0009.as",
+    "path": "converted/feg_m_profileStats/scripts/lbOnline/lbOnline_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 13.xml",
     "scriptOrdinal": 9,
     "sha256": "e09c3699641ab612e019789bc8cf13a4e83ac557833310d372f5c865745ceb95",
     "originalCodeSha256": "8cd3633ffd722e1d52195aae57f0becb787ce7c29882a3ff7ea7d752f6970358",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "lbOnline",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 14/0001.as",
+    "path": "converted/feg_m_profileStats/scripts/sbOverall/sbOverall_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 14.xml",
     "scriptOrdinal": 1,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "sbOverall",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 14/0002.as",
+    "path": "converted/feg_m_profileStats/scripts/lbOverall/lbOverall_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 14.xml",
     "scriptOrdinal": 2,
     "sha256": "697de546e2af75fe8eed530b3adb1c4aaf997689f4914dc963d66d10d59ce0d1",
     "originalCodeSha256": "6ccc2df7c317a25fd3b175ff8b99de5bd2a40ccf97fa2c779e8226ebe6fee29f",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "lbOverall",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 23/0001.as",
+    "path": "converted/feg_m_profileStats/scripts/sbOnline/sbOnline_frame_0001_stop.as",
     "xflXml": "LIBRARY/imported/Symbol 23.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "sbOnline",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 24/0001.as",
+    "path": "converted/feg_m_profileStats/scripts/thumbMC/thumbMC_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 24.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 24/0002.as",
+    "path": "converted/feg_m_profileStats/scripts/thumbMC/thumbMC_frame_0020_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 24.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 24/0003.as",
+    "path": "converted/feg_m_profileStats/scripts/thumbMC/thumbMC_frame_0030_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 24.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 25/0001.as",
+    "path": "converted/feg_m_profileStats/scripts/arrowBottomMC/arrowBottomMC_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 25.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 25/0002.as",
+    "path": "converted/feg_m_profileStats/scripts/arrowBottomMC/arrowBottomMC_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 25.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 25/0003.as",
+    "path": "converted/feg_m_profileStats/scripts/arrowBottomMC/arrowBottomMC_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 25.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 25/0004.as",
+    "path": "converted/feg_m_profileStats/scripts/arrowBottomMC/arrowBottomMC_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/imported/Symbol 25.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 26/0001.as",
+    "path": "converted/feg_m_profileStats/scripts/arrowTopMC/arrowTopMC_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 26.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 26/0002.as",
+    "path": "converted/feg_m_profileStats/scripts/arrowTopMC/arrowTopMC_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 26.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 26/0003.as",
+    "path": "converted/feg_m_profileStats/scripts/arrowTopMC/arrowTopMC_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 26.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_profileStats/scripts/LIBRARY/imported/Symbol 26/0004.as",
+    "path": "converted/feg_m_profileStats/scripts/arrowTopMC/arrowTopMC_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/imported/Symbol 26.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
+  },
+  {
+    "path": "converted/feg_m_profileStats/Cafe2_BaseUIScreen.as",
+    "kind": "recovered-AS2-class-or-interface",
+    "sha256": "bd3940e98543d159841ec5ed2e61bd353cb2e40f3a6c917acc476bf5e7f9e45a"
+  },
+  {
+    "path": "converted/feg_m_profileStats/feg_m_profileStats.as",
+    "kind": "recovered-AS2-class-or-interface",
+    "sha256": "1b38328e783f0dac63d2c872d163a39812ff21311e474854393412ba41b431d4"
   }
 ]

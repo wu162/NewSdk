@@ -1,0 +1,36 @@
+[
+  {
+    "oldPath": "converted/ig_InfoBox/scripts/DOMDocument/0001.as",
+    "newPath": "converted/ig_InfoBox/scripts/ig_InfoBox/ig_InfoBox_frame_0001_define_Move.as",
+    "relativeOldPath": "scripts/DOMDocument/0001.as",
+    "relativeNewPath": "scripts/ig_InfoBox/ig_InfoBox_frame_0001_define_Move.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "frameNumber": 1,
+    "frameLabel": "",
+    "owner": "ig_InfoBox",
+    "ownerBasis": "movie-name-fallback",
+    "event": "",
+    "action": "define_Move",
+    "actionBasis": "function-declaration:Move",
+    "occurrence": 1,
+    "sha256": "91185f7bb80025e8337f5fd220c8d5bfd18b8fa3bb889b657edab081a801c4a5"
+  },
+  {
+    "oldPath": "converted/ig_InfoBox/scripts/LIBRARY/Symbol 8/0001.as",
+    "newPath": "converted/ig_InfoBox/scripts/imageMC/imageMC_frame_0001_construct.as",
+    "relativeOldPath": "scripts/LIBRARY/Symbol 8/0001.as",
+    "relativeNewPath": "scripts/imageMC/imageMC_frame_0001_construct.as",
+    "xflXml": "LIBRARY/Symbol 8.xml",
+    "scriptOrdinal": 1,
+    "frameNumber": 1,
+    "frameLabel": "",
+    "owner": "imageMC",
+    "ownerBasis": "instance-name",
+    "event": "construct",
+    "action": "construct",
+    "actionBasis": "event-handler:onClipEvent(construct)",
+    "occurrence": 1,
+    "sha256": "45e5ff34400bd65e213076ef6439a7da595e1e51f382b554866a8f1aa9572311"
+  }
+]

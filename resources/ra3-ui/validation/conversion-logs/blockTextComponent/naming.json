@@ -1,0 +1,19 @@
+[
+  {
+    "oldPath": "converted/blockTextComponent/scripts/DOMDocument/0001.as",
+    "newPath": "converted/blockTextComponent/scripts/ScrollingBlockText_Symbol/ScrollingBlockText_Symbol_frame_0001_construct.as",
+    "relativeOldPath": "scripts/DOMDocument/0001.as",
+    "relativeNewPath": "scripts/ScrollingBlockText_Symbol/ScrollingBlockText_Symbol_frame_0001_construct.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "frameNumber": 1,
+    "frameLabel": "",
+    "owner": "ScrollingBlockText Symbol",
+    "ownerBasis": "instance-library-linkageIdentifier",
+    "event": "construct",
+    "action": "construct",
+    "actionBasis": "event-handler:onClipEvent(construct)",
+    "occurrence": 1,
+    "sha256": "087bbb7861e1f524c9c300af97c24a6116e6cc560692374ecd5281cd691349cc"
+  }
+]

@@ -1,34 +1,70 @@
 [
   {
-    "path": "converted/feg_m_disconnect/scripts/DOMDocument/0001.as",
+    "path": "converted/feg_m_disconnect/scripts/feg_m_disconnect/feg_m_disconnect_frame_0001_define_onLoad.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "f88b42273e7b11dddebc63a194a4130e6c98474a7c8a2b3f6fac5475c6d13827",
     "originalCodeSha256": "f88b42273e7b11dddebc63a194a4130e6c98474a7c8a2b3f6fac5475c6d13827",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "feg_m_disconnect",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_onLoad",
+      "actionBasis": "function-declaration:onLoad"
+    }
   },
   {
-    "path": "converted/feg_m_disconnect/scripts/LIBRARY/Symbol 28/0001.as",
+    "path": "converted/feg_m_disconnect/scripts/std_MousebuttonSymbol/std_MousebuttonSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_MousebuttonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_disconnect/scripts/LIBRARY/Symbol 29/0001.as",
+    "path": "converted/feg_m_disconnect/scripts/disconnectMC/disconnectMC_frame_0001_trace.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 1,
     "sha256": "1212809ceec3246e85969869c4c183099a1210978ab4db1d3317aa56a0a15d40",
     "originalCodeSha256": "1212809ceec3246e85969869c4c183099a1210978ab4db1d3317aa56a0a15d40",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "disconnectMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "trace",
+      "actionBasis": "function-call:trace"
+    }
   },
   {
-    "path": "converted/feg_m_disconnect/scripts/LIBRARY/Symbol 29/0002.as",
+    "path": "converted/feg_m_disconnect/scripts/quitButton/quitButton_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 2,
     "sha256": "f10ed4084e57b1b1e796d3ef0b6f2eeb25d2b517e656a32894cf0f2a32075a77",
     "originalCodeSha256": "4dffb1a8018f2e1bb30a826d1100a1961ab01dbd8ff9f47b2078c47ed19cc3d0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "quitButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   }
 ]

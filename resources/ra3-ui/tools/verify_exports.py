@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Verify committed FLA/AS files against the conversion report, without downloads."""
 import hashlib
+import argparse
 import json
 from pathlib import Path
 
@@ -11,7 +12,9 @@ def digest(path):
 
 
 def main():
-    root = Path(__file__).resolve().parents[1]
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('resource_root', nargs='?', type=Path, default=Path(__file__).resolve().parents[1])
+    root = parser.parse_args().resource_root.resolve()
     report = json.loads((root / 'conversion-report.json').read_text())
     movies = 0
     scripts = 0

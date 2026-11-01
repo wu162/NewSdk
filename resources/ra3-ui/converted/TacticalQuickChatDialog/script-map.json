@@ -1,42 +1,87 @@
 [
   {
-    "path": "converted/TacticalQuickChatDialog/scripts/DOMDocument/0001.as",
+    "path": "converted/TacticalQuickChatDialog/scripts/TacticalQuickChatDialog/TacticalQuickChatDialog_frame_0001_define_SetMenuItemCount.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "ad80b436a5522da78384a47c56a4e77381ab4c6ad87a97f6dc8060566bb7e04c",
     "originalCodeSha256": "ad80b436a5522da78384a47c56a4e77381ab4c6ad87a97f6dc8060566bb7e04c",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalQuickChatDialog",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_SetMenuItemCount",
+      "actionBasis": "function-declaration:SetMenuItemCount"
+    }
   },
   {
-    "path": "converted/TacticalQuickChatDialog/scripts/DOMDocument/0002.as",
+    "path": "converted/TacticalQuickChatDialog/scripts/TacticalQuickChatDialog/TacticalQuickChatDialog_frame_0010_stop.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalQuickChatDialog",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalQuickChatDialog/scripts/DOMDocument/0003.as",
+    "path": "converted/TacticalQuickChatDialog/scripts/TacticalQuickChatDialog/TacticalQuickChatDialog_frame_0016_fscommand_label_close.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "6e6cea10361519b47b3ac1f0ed156719196c0083b0e643fedea162b0de21d90d",
     "originalCodeSha256": "6e6cea10361519b47b3ac1f0ed156719196c0083b0e643fedea162b0de21d90d",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalQuickChatDialog",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 16,
+      "frameLabel": "_close",
+      "event": "",
+      "action": "fscommand",
+      "actionBasis": "function-call:fscommand"
+    }
   },
   {
-    "path": "converted/TacticalQuickChatDialog/scripts/LIBRARY/Symbol 4/0001.as",
+    "path": "converted/TacticalQuickChatDialog/scripts/MenuItem/MenuItem_frame_0001_OnContentLoaded.as",
     "xflXml": "LIBRARY/Symbol 4.xml",
     "scriptOrdinal": 1,
     "sha256": "641335ca6c1ab4ba92a91452043f55873fac3efec67a6deb2fc200b75ebcc719",
     "originalCodeSha256": "641335ca6c1ab4ba92a91452043f55873fac3efec67a6deb2fc200b75ebcc719",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "MenuItem",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "OnContentLoaded",
+      "actionBasis": "function-call:OnContentLoaded"
+    }
   },
   {
-    "path": "converted/TacticalQuickChatDialog/scripts/LIBRARY/Symbol 4/0002.as",
+    "path": "converted/TacticalQuickChatDialog/scripts/MenuItem/MenuItem_frame_0002_stop.as",
     "xflXml": "LIBRARY/Symbol 4.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "MenuItem",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 2,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

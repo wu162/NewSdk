@@ -1,26 +1,53 @@
 [
   {
-    "path": "converted/fem_m_load/scripts/DOMDocument/0001.as",
+    "path": "converted/fem_m_load/scripts/fem_m_load/fem_m_load_frame_0001_fem_m_load.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "1bfd68cd4f868b1d7dd74c89f91181528e9790ccd0b566a83fc29fa2f4ccaf5e",
     "originalCodeSha256": "1bfd68cd4f868b1d7dd74c89f91181528e9790ccd0b566a83fc29fa2f4ccaf5e",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "fem_m_load",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "fem_m_load",
+      "actionBasis": "function-call:fem_m_load"
+    }
   },
   {
-    "path": "converted/fem_m_load/scripts/DOMDocument/0002.as",
+    "path": "converted/fem_m_load/scripts/ScreenTitleBarSymbol/ScreenTitleBarSymbol_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "c16b10a7f756f8e06dd57d43f0d32f440dc4b6c88a25d5ca93639327ee8e97cd",
     "originalCodeSha256": "11dfb6faf4da374475482c82f58e72a4406ba6fca9c01d03834de99d2505286c",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "ScreenTitleBarSymbol",
+      "ownerBasis": "instance-library-linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_load/scripts/LIBRARY/Symbol 54/0001.as",
+    "path": "converted/fem_m_load/scripts/fem_m_load/fem_m_load_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 54.xml",
     "scriptOrdinal": 1,
     "sha256": "ab572463f051d57097557ec4987e083a0a92b8affb3c498f58a0721cdabbc31b",
     "originalCodeSha256": "1ac4fe13e9d82e2b88424fbf577cf2fb6e1592f7b04ede3ec1bd933af2c9a9ba",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "fem_m_load",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   }
 ]

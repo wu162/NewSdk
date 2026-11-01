@@ -1,18 +1,36 @@
 [
   {
-    "path": "converted/feg_m_load/scripts/DOMDocument/0001.as",
+    "path": "converted/feg_m_load/scripts/feg_m_load/feg_m_load_frame_0001_feg_m_load.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "d9bbef1c4f84ae86dc5e0638187784679b2672bf80ed9acc45d7d7be960085d4",
     "originalCodeSha256": "d9bbef1c4f84ae86dc5e0638187784679b2672bf80ed9acc45d7d7be960085d4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "feg_m_load",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "feg_m_load",
+      "actionBasis": "function-call:feg_m_load"
+    }
   },
   {
-    "path": "converted/feg_m_load/scripts/DOMDocument/0002.as",
+    "path": "converted/feg_m_load/scripts/feg_m_load/feg_m_load_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "a726e1271305c379d7a1b02dc8c2967dfb03089d947e2528417160a8ba6a07dc",
     "originalCodeSha256": "0626336e548f29e8e99a075d192175fbefafbfc82d88ded22f1dc99c509cba9b",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "feg_m_load",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   }
 ]

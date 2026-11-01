@@ -1,18 +1,36 @@
 [
   {
-    "path": "converted/igm_GadgetFlashStage/scripts/DOMDocument/0001.as",
+    "path": "converted/igm_GadgetFlashStage/scripts/igm_GadgetFlashStage/igm_GadgetFlashStage_frame_0001_igm_gadgetFlashStage.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "ba484f16a02bf2a039e4e647c0e8287748569a7f9c78e03c8246adbb756bf2c1",
     "originalCodeSha256": "ba484f16a02bf2a039e4e647c0e8287748569a7f9c78e03c8246adbb756bf2c1",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "igm_GadgetFlashStage",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "igm_gadgetFlashStage",
+      "actionBasis": "function-call:igm_gadgetFlashStage"
+    }
   },
   {
-    "path": "converted/igm_GadgetFlashStage/scripts/LIBRARY/Symbol 20/0001.as",
+    "path": "converted/igm_GadgetFlashStage/scripts/GadgetFlash/GadgetFlash_frame_0031_onEndFlashPulse.as",
     "xflXml": "LIBRARY/Symbol 20.xml",
     "scriptOrdinal": 1,
     "sha256": "28fd948bec1bd3182fb6c0016322fdfa5d019728a0be6b010afaa2987d0bf4d8",
     "originalCodeSha256": "28fd948bec1bd3182fb6c0016322fdfa5d019728a0be6b010afaa2987d0bf4d8",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "GadgetFlash",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 31,
+      "frameLabel": "",
+      "event": "",
+      "action": "onEndFlashPulse",
+      "actionBasis": "function-call:onEndFlashPulse"
+    }
   }
 ]

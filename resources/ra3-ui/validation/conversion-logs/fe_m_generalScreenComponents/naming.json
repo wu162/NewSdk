@@ -1,0 +1,19 @@
+[
+  {
+    "oldPath": "converted/fe_m_generalScreenComponents/scripts/DOMDocument/0001.as",
+    "newPath": "converted/fe_m_generalScreenComponents/scripts/ScreenTitleBarSymbol/ScreenTitleBarSymbol_frame_0001_construct.as",
+    "relativeOldPath": "scripts/DOMDocument/0001.as",
+    "relativeNewPath": "scripts/ScreenTitleBarSymbol/ScreenTitleBarSymbol_frame_0001_construct.as",
+    "xflXml": "DOMDocument.xml",
+    "scriptOrdinal": 1,
+    "frameNumber": 1,
+    "frameLabel": "",
+    "owner": "ScreenTitleBarSymbol",
+    "ownerBasis": "instance-library-linkageIdentifier",
+    "event": "construct",
+    "action": "construct",
+    "actionBasis": "event-handler:onClipEvent(construct)",
+    "occurrence": 1,
+    "sha256": "91c0e8a656d0b9ef2835b6ffb52ff93ea96a6e137d96fec208cb0415edd67db4"
+  }
+]

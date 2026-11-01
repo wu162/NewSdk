@@ -1,1106 +1,2348 @@
 [
   {
-    "path": "converted/VerticalScrollBar/scripts/DOMDocument/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VerticalScrollBar/VerticalScrollBar_frame_0001_define_OnPosChanged.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "896385c3f9b70f78fa93656200e41461bde35c927837eb18b19585b886a1361f",
     "originalCodeSha256": "896385c3f9b70f78fa93656200e41461bde35c927837eb18b19585b886a1361f",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VerticalScrollBar",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_OnPosChanged",
+      "actionBasis": "function-declaration:OnPosChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/DOMDocument/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VerticalScrollBar/VerticalScrollBar_frame_0002_OnScrollBarLoaded.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "5631d4c8eed9819f524cca5c36051eda0d569fe42443ca03f373300200814e61",
     "originalCodeSha256": "5631d4c8eed9819f524cca5c36051eda0d569fe42443ca03f373300200814e61",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VerticalScrollBar",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 2,
+      "frameLabel": "",
+      "event": "",
+      "action": "OnScrollBarLoaded",
+      "actionBasis": "function-call:OnScrollBarLoaded"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/DOMDocument/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/downButton/downButton_frame_0001_load.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "97f08861a378c4bfa76df3c12e313bc81b733f5d11cbf9eb2b733fe722672347",
     "originalCodeSha256": "97f08861a378c4bfa76df3c12e313bc81b733f5d11cbf9eb2b733fe722672347",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "downButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/DOMDocument/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/upButton/upButton_frame_0001_load.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 4,
     "sha256": "9a5ab5f3ff2ff6ba20b6defb684d6de5e2001e32107801f91e925d0a4af0cf79",
     "originalCodeSha256": "9a5ab5f3ff2ff6ba20b6defb684d6de5e2001e32107801f91e925d0a4af0cf79",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "upButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/DOMDocument/0005.as",
+    "path": "converted/VerticalScrollBar/scripts/thumb/thumb_frame_0001_load.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 5,
     "sha256": "37a798e5e8b0737c24c7ad38ad4b9bb2eb81db14684e62a76736137e561e9a91",
     "originalCodeSha256": "37a798e5e8b0737c24c7ad38ad4b9bb2eb81db14684e62a76736137e561e9a91",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumb",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/DOMDocument/0006.as",
+    "path": "converted/VerticalScrollBar/scripts/bar/bar_frame_0001_load.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 6,
     "sha256": "46ac3b1117f150b13d5962283f2c78fb6b495109489168b491317847eca90a80",
     "originalCodeSha256": "46ac3b1117f150b13d5962283f2c78fb6b495109489168b491317847eca90a80",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bar",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 103/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbEnabledMiddleDynFac/VSliderThumbEnabledMiddleDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 103.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbEnabledMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 103/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbEnabledMiddleDynFac/VSliderThumbEnabledMiddleDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 103.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbEnabledMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 103/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbEnabledMiddleDynFac/VSliderThumbEnabledMiddleDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 103.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbEnabledMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 103/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbEnabledMiddleDynFac/VSliderThumbEnabledMiddleDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 103.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbEnabledMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 111/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbEnabledBottomDynFac/VSliderThumbEnabledBottomDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 111.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbEnabledBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 111/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbEnabledBottomDynFac/VSliderThumbEnabledBottomDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 111.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbEnabledBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 111/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbEnabledBottomDynFac/VSliderThumbEnabledBottomDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 111.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbEnabledBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 111/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbEnabledBottomDynFac/VSliderThumbEnabledBottomDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 111.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbEnabledBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 119/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbDisabledTopDynFac/VSliderThumbDisabledTopDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 119.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbDisabledTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 119/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbDisabledTopDynFac/VSliderThumbDisabledTopDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 119.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbDisabledTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 119/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbDisabledTopDynFac/VSliderThumbDisabledTopDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 119.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbDisabledTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 119/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbDisabledTopDynFac/VSliderThumbDisabledTopDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 119.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbDisabledTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 127/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbDisabledMiddleDynFac/VSliderThumbDisabledMiddleDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 127.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbDisabledMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 127/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbDisabledMiddleDynFac/VSliderThumbDisabledMiddleDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 127.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbDisabledMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 127/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbDisabledMiddleDynFac/VSliderThumbDisabledMiddleDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 127.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbDisabledMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 127/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbDisabledMiddleDynFac/VSliderThumbDisabledMiddleDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 127.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbDisabledMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 135/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbDisabledBottomDynFac/VSliderThumbDisabledBottomDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 135.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbDisabledBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 135/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbDisabledBottomDynFac/VSliderThumbDisabledBottomDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 135.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbDisabledBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 135/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbDisabledBottomDynFac/VSliderThumbDisabledBottomDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 135.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbDisabledBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 135/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbDisabledBottomDynFac/VSliderThumbDisabledBottomDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 135.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbDisabledBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 143/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbPressTopDynFac/VSliderThumbPressTopDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 143.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbPressTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 143/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbPressTopDynFac/VSliderThumbPressTopDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 143.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbPressTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 143/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbPressTopDynFac/VSliderThumbPressTopDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 143.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbPressTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 143/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbPressTopDynFac/VSliderThumbPressTopDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 143.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbPressTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 15/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonPressDynFac/VSliderDownButtonPressDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 15.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonPressDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 15/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonPressDynFac/VSliderDownButtonPressDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 15.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonPressDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 15/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonPressDynFac/VSliderDownButtonPressDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 15.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonPressDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 15/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonPressDynFac/VSliderDownButtonPressDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 15.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonPressDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 151/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbPressMiddleDynFac/VSliderThumbPressMiddleDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 151.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbPressMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 151/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbPressMiddleDynFac/VSliderThumbPressMiddleDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 151.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbPressMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 151/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbPressMiddleDynFac/VSliderThumbPressMiddleDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 151.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbPressMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 151/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbPressMiddleDynFac/VSliderThumbPressMiddleDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 151.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbPressMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 159/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbPressBottomDynFac/VSliderThumbPressBottomDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 159.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbPressBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 159/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbPressBottomDynFac/VSliderThumbPressBottomDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 159.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbPressBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 159/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbPressBottomDynFac/VSliderThumbPressBottomDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 159.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbPressBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 159/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbPressBottomDynFac/VSliderThumbPressBottomDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 159.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbPressBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 166/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderBarDisabledDynFac/VSliderBarDisabledDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 166.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderBarDisabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 166/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderBarDisabledDynFac/VSliderBarDisabledDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 166.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderBarDisabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 166/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderBarDisabledDynFac/VSliderBarDisabledDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 166.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderBarDisabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 166/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderBarDisabledDynFac/VSliderBarDisabledDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 166.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderBarDisabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 168/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VerticalScrollBar/VerticalScrollBar_frame_0001_set_visible.as",
     "xflXml": "LIBRARY/Symbol 168.xml",
     "scriptOrdinal": 1,
     "sha256": "fc259c0a99117384402cc2b60c70ed0bf2a8d3f206d2a593c6019b057f4181f1",
     "originalCodeSha256": "fc259c0a99117384402cc2b60c70ed0bf2a8d3f206d2a593c6019b057f4181f1",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VerticalScrollBar",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "set_visible",
+      "actionBasis": "property-assignment:_visible"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 169/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/ImageLoader/ImageLoader_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 169.xml",
     "scriptOrdinal": 1,
     "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
     "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ImageLoader",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 173/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/dummy/dummy_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 173.xml",
     "scriptOrdinal": 1,
     "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
     "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "dummy",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 173/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/bttn/bttn_frame_0001_press.as",
     "xflXml": "LIBRARY/Symbol 173.xml",
     "scriptOrdinal": 2,
     "sha256": "3190de5c83f66756dc4d223d4637d88f0777d16e0948faa4c9dee73944fa1dad",
     "originalCodeSha256": "3190de5c83f66756dc4d223d4637d88f0777d16e0948faa4c9dee73944fa1dad",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bttn",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 174/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/bar/bar_frame_0001_define_SetHeight_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 174.xml",
     "scriptOrdinal": 1,
     "sha256": "d70d1e465d1ce4f8b855fe8ff7b70b16ac2a8e6a9af3de19fa91781f4d2ff5bc",
     "originalCodeSha256": "d70d1e465d1ce4f8b855fe8ff7b70b16ac2a8e6a9af3de19fa91781f4d2ff5bc",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bar",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "define_SetHeight",
+      "actionBasis": "function-declaration:SetHeight"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 174/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/bar/bar_frame_0010_stop_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 174.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bar",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 174/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/bar/bar_frame_0011_attachMovie_label_up.as",
     "xflXml": "LIBRARY/Symbol 174.xml",
     "scriptOrdinal": 3,
     "sha256": "521b4472f4a58ba361f61288a649f142c3d04dcbfeebf55472ec8234b97f6875",
     "originalCodeSha256": "521b4472f4a58ba361f61288a649f142c3d04dcbfeebf55472ec8234b97f6875",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bar",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 11,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "attachMovie",
+      "actionBasis": "function-call:attachMovie"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 174/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/bar/bar_frame_0020_stop_label_up.as",
     "xflXml": "LIBRARY/Symbol 174.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bar",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 174/0005.as",
+    "path": "converted/VerticalScrollBar/scripts/bar/bar_frame_0021_attachMovie_label_over.as",
     "xflXml": "LIBRARY/Symbol 174.xml",
     "scriptOrdinal": 5,
     "sha256": "358f6ef9a701722fcdb7a48556f3221073f47792020bd980c1866d7b7dd8c73e",
     "originalCodeSha256": "358f6ef9a701722fcdb7a48556f3221073f47792020bd980c1866d7b7dd8c73e",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bar",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 21,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "attachMovie",
+      "actionBasis": "function-call:attachMovie"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 174/0006.as",
+    "path": "converted/VerticalScrollBar/scripts/bar/bar_frame_0030_stop_label_over.as",
     "xflXml": "LIBRARY/Symbol 174.xml",
     "scriptOrdinal": 6,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bar",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 174/0007.as",
+    "path": "converted/VerticalScrollBar/scripts/bttn/bttn_frame_0011_load_label_up.as",
     "xflXml": "LIBRARY/Symbol 174.xml",
     "scriptOrdinal": 7,
     "sha256": "e348d44ddbbce33f040d7f68dad7801c47625920066bb15428394d15ba7fbd06",
     "originalCodeSha256": "e348d44ddbbce33f040d7f68dad7801c47625920066bb15428394d15ba7fbd06",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bttn",
+      "ownerBasis": "instance-name",
+      "frameNumber": 11,
+      "frameLabel": "_up",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 176/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/middlePiece/middlePiece_frame_0001_attachMovie_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 176.xml",
     "scriptOrdinal": 1,
     "sha256": "71c8b59cef0343ae627dc3a3833701833b69dd9414108941f67afc817874fcec",
     "originalCodeSha256": "71c8b59cef0343ae627dc3a3833701833b69dd9414108941f67afc817874fcec",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "middlePiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "attachMovie",
+      "actionBasis": "function-call:attachMovie"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 176/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/middlePiece/middlePiece_frame_0010_stop_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 176.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "middlePiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 176/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/middlePiece/middlePiece_frame_0011_attachMovie_label_up.as",
     "xflXml": "LIBRARY/Symbol 176.xml",
     "scriptOrdinal": 3,
     "sha256": "521b4472f4a58ba361f61288a649f142c3d04dcbfeebf55472ec8234b97f6875",
     "originalCodeSha256": "521b4472f4a58ba361f61288a649f142c3d04dcbfeebf55472ec8234b97f6875",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "middlePiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 11,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "attachMovie",
+      "actionBasis": "function-call:attachMovie"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 176/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/middlePiece/middlePiece_frame_0020_stop_label_up.as",
     "xflXml": "LIBRARY/Symbol 176.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "middlePiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 176/0005.as",
+    "path": "converted/VerticalScrollBar/scripts/middlePiece/middlePiece_frame_0021_attachMovie_label_over.as",
     "xflXml": "LIBRARY/Symbol 176.xml",
     "scriptOrdinal": 5,
     "sha256": "358f6ef9a701722fcdb7a48556f3221073f47792020bd980c1866d7b7dd8c73e",
     "originalCodeSha256": "358f6ef9a701722fcdb7a48556f3221073f47792020bd980c1866d7b7dd8c73e",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "middlePiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 21,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "attachMovie",
+      "actionBasis": "function-call:attachMovie"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 176/0006.as",
+    "path": "converted/VerticalScrollBar/scripts/middlePiece/middlePiece_frame_0030_stop_label_over.as",
     "xflXml": "LIBRARY/Symbol 176.xml",
     "scriptOrdinal": 6,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "middlePiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 176/0007.as",
+    "path": "converted/VerticalScrollBar/scripts/middlePiece/middlePiece_frame_0031_attachMovie_label_down.as",
     "xflXml": "LIBRARY/Symbol 176.xml",
     "scriptOrdinal": 7,
     "sha256": "903efab7e47defc513eec5c3895deeb5afacbeb33547a65a875b140b71cc384d",
     "originalCodeSha256": "903efab7e47defc513eec5c3895deeb5afacbeb33547a65a875b140b71cc384d",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "middlePiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 31,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "attachMovie",
+      "actionBasis": "function-call:attachMovie"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 176/0008.as",
+    "path": "converted/VerticalScrollBar/scripts/middlePiece/middlePiece_frame_0040_stop_label_down.as",
     "xflXml": "LIBRARY/Symbol 176.xml",
     "scriptOrdinal": 8,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "middlePiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 40,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 178/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/topPiece/topPiece_frame_0001_attachMovie_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 178.xml",
     "scriptOrdinal": 1,
     "sha256": "71c8b59cef0343ae627dc3a3833701833b69dd9414108941f67afc817874fcec",
     "originalCodeSha256": "71c8b59cef0343ae627dc3a3833701833b69dd9414108941f67afc817874fcec",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "topPiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "attachMovie",
+      "actionBasis": "function-call:attachMovie"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 178/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/topPiece/topPiece_frame_0010_stop_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 178.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "topPiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 178/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/topPiece/topPiece_frame_0011_attachMovie_label_up.as",
     "xflXml": "LIBRARY/Symbol 178.xml",
     "scriptOrdinal": 3,
     "sha256": "521b4472f4a58ba361f61288a649f142c3d04dcbfeebf55472ec8234b97f6875",
     "originalCodeSha256": "521b4472f4a58ba361f61288a649f142c3d04dcbfeebf55472ec8234b97f6875",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "topPiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 11,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "attachMovie",
+      "actionBasis": "function-call:attachMovie"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 178/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/topPiece/topPiece_frame_0020_stop_label_up.as",
     "xflXml": "LIBRARY/Symbol 178.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "topPiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 178/0005.as",
+    "path": "converted/VerticalScrollBar/scripts/topPiece/topPiece_frame_0021_attachMovie_label_over.as",
     "xflXml": "LIBRARY/Symbol 178.xml",
     "scriptOrdinal": 5,
     "sha256": "358f6ef9a701722fcdb7a48556f3221073f47792020bd980c1866d7b7dd8c73e",
     "originalCodeSha256": "358f6ef9a701722fcdb7a48556f3221073f47792020bd980c1866d7b7dd8c73e",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "topPiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 21,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "attachMovie",
+      "actionBasis": "function-call:attachMovie"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 178/0006.as",
+    "path": "converted/VerticalScrollBar/scripts/topPiece/topPiece_frame_0030_stop_label_over.as",
     "xflXml": "LIBRARY/Symbol 178.xml",
     "scriptOrdinal": 6,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "topPiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 178/0007.as",
+    "path": "converted/VerticalScrollBar/scripts/topPiece/topPiece_frame_0031_attachMovie_label_down.as",
     "xflXml": "LIBRARY/Symbol 178.xml",
     "scriptOrdinal": 7,
     "sha256": "903efab7e47defc513eec5c3895deeb5afacbeb33547a65a875b140b71cc384d",
     "originalCodeSha256": "903efab7e47defc513eec5c3895deeb5afacbeb33547a65a875b140b71cc384d",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "topPiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 31,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "attachMovie",
+      "actionBasis": "function-call:attachMovie"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 178/0008.as",
+    "path": "converted/VerticalScrollBar/scripts/topPiece/topPiece_frame_0040_stop_label_down.as",
     "xflXml": "LIBRARY/Symbol 178.xml",
     "scriptOrdinal": 8,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "topPiece",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 40,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 179/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/thumb/thumb_frame_0001_define_SetHeight_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 179.xml",
     "scriptOrdinal": 1,
     "sha256": "1954265501ac971d76adc3c94cfc6594f032af9b1963bf61c3bc566e4e375089",
     "originalCodeSha256": "1954265501ac971d76adc3c94cfc6594f032af9b1963bf61c3bc566e4e375089",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumb",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "define_SetHeight",
+      "actionBasis": "function-declaration:SetHeight"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 179/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/thumb/thumb_frame_0010_stop_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 179.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumb",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 179/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/thumb/thumb_frame_0011_gotoAndPlay_label_up.as",
     "xflXml": "LIBRARY/Symbol 179.xml",
     "scriptOrdinal": 3,
     "sha256": "c428cdb849dec57ef3c7cc8e28160534354e6dc5d6578bb7c8585b86738305d6",
     "originalCodeSha256": "c428cdb849dec57ef3c7cc8e28160534354e6dc5d6578bb7c8585b86738305d6",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumb",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 11,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "gotoAndPlay",
+      "actionBasis": "function-call:gotoAndPlay"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 179/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/thumb/thumb_frame_0020_stop_label_up.as",
     "xflXml": "LIBRARY/Symbol 179.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumb",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 179/0005.as",
+    "path": "converted/VerticalScrollBar/scripts/thumb/thumb_frame_0021_gotoAndPlay_label_over.as",
     "xflXml": "LIBRARY/Symbol 179.xml",
     "scriptOrdinal": 5,
     "sha256": "2de880d248dc70e12c31a8648104af96a695d2acaad174fa3db528a33a8820d9",
     "originalCodeSha256": "2de880d248dc70e12c31a8648104af96a695d2acaad174fa3db528a33a8820d9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumb",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 21,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "gotoAndPlay",
+      "actionBasis": "function-call:gotoAndPlay"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 179/0006.as",
+    "path": "converted/VerticalScrollBar/scripts/thumb/thumb_frame_0030_stop_label_over.as",
     "xflXml": "LIBRARY/Symbol 179.xml",
     "scriptOrdinal": 6,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumb",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 179/0007.as",
+    "path": "converted/VerticalScrollBar/scripts/thumb/thumb_frame_0031_gotoAndPlay_label_down.as",
     "xflXml": "LIBRARY/Symbol 179.xml",
     "scriptOrdinal": 7,
     "sha256": "e66ee19d7d587ab5384f0c0278debf9b9409464c4ca14e149500b991129cd103",
     "originalCodeSha256": "e66ee19d7d587ab5384f0c0278debf9b9409464c4ca14e149500b991129cd103",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumb",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 31,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "gotoAndPlay",
+      "actionBasis": "function-call:gotoAndPlay"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 179/0008.as",
+    "path": "converted/VerticalScrollBar/scripts/thumb/thumb_frame_0040_stop_label_down.as",
     "xflXml": "LIBRARY/Symbol 179.xml",
     "scriptOrdinal": 8,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumb",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 40,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 179/0009.as",
+    "path": "converted/VerticalScrollBar/scripts/topPiece/topPiece_frame_0001_load_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 179.xml",
     "scriptOrdinal": 9,
     "sha256": "b87b9ac88347017bfbf61d96c4752a5b2e04a9528cb38f9679de7ab746d5fea8",
     "originalCodeSha256": "b87b9ac88347017bfbf61d96c4752a5b2e04a9528cb38f9679de7ab746d5fea8",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "topPiece",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_disabled",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 179/0010.as",
+    "path": "converted/VerticalScrollBar/scripts/bottomPiece/bottomPiece_frame_0001_load_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 179.xml",
     "scriptOrdinal": 10,
     "sha256": "017bb3af2fef2cc23c2d174b2e9bcb4de3cf34641d1c6da3aefb2d741a15a0f4",
     "originalCodeSha256": "017bb3af2fef2cc23c2d174b2e9bcb4de3cf34641d1c6da3aefb2d741a15a0f4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bottomPiece",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_disabled",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 179/0011.as",
+    "path": "converted/VerticalScrollBar/scripts/middlePiece/middlePiece_frame_0001_load_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 179.xml",
     "scriptOrdinal": 11,
     "sha256": "ae46836136b0966377c8c4a5c28dbd8d5589a0e469612c7a79ba395e82405064",
     "originalCodeSha256": "ae46836136b0966377c8c4a5c28dbd8d5589a0e469612c7a79ba395e82405064",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "middlePiece",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_disabled",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 179/0012.as",
+    "path": "converted/VerticalScrollBar/scripts/bttn/bttn_frame_0011_load_label_up_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 179.xml",
     "scriptOrdinal": 12,
     "sha256": "e348d44ddbbce33f040d7f68dad7801c47625920066bb15428394d15ba7fbd06",
     "originalCodeSha256": "e348d44ddbbce33f040d7f68dad7801c47625920066bb15428394d15ba7fbd06",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bttn",
+      "ownerBasis": "instance-name",
+      "frameNumber": 11,
+      "frameLabel": "_up",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 182/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/upButton/upButton_frame_0001_attachMovie_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 182.xml",
     "scriptOrdinal": 1,
     "sha256": "9c2313e51e879537a2fe1c85b40b0f79137b39f2da6695ef91b0f9daec0959a7",
     "originalCodeSha256": "9c2313e51e879537a2fe1c85b40b0f79137b39f2da6695ef91b0f9daec0959a7",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "upButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "attachMovie",
+      "actionBasis": "function-call:attachMovie"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 182/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/upButton/upButton_frame_0010_stop_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 182.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "upButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 182/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/upButton/upButton_frame_0011_attachMovie_label_up.as",
     "xflXml": "LIBRARY/Symbol 182.xml",
     "scriptOrdinal": 3,
     "sha256": "521b4472f4a58ba361f61288a649f142c3d04dcbfeebf55472ec8234b97f6875",
     "originalCodeSha256": "521b4472f4a58ba361f61288a649f142c3d04dcbfeebf55472ec8234b97f6875",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "upButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 11,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "attachMovie",
+      "actionBasis": "function-call:attachMovie"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 182/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/upButton/upButton_frame_0020_stop_label_up.as",
     "xflXml": "LIBRARY/Symbol 182.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "upButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 182/0005.as",
+    "path": "converted/VerticalScrollBar/scripts/upButton/upButton_frame_0021_attachMovie_label_over.as",
     "xflXml": "LIBRARY/Symbol 182.xml",
     "scriptOrdinal": 5,
     "sha256": "358f6ef9a701722fcdb7a48556f3221073f47792020bd980c1866d7b7dd8c73e",
     "originalCodeSha256": "358f6ef9a701722fcdb7a48556f3221073f47792020bd980c1866d7b7dd8c73e",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "upButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 21,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "attachMovie",
+      "actionBasis": "function-call:attachMovie"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 182/0006.as",
+    "path": "converted/VerticalScrollBar/scripts/upButton/upButton_frame_0030_stop_label_over.as",
     "xflXml": "LIBRARY/Symbol 182.xml",
     "scriptOrdinal": 6,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "upButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 182/0007.as",
+    "path": "converted/VerticalScrollBar/scripts/upButton/upButton_frame_0031_attachMovie_label_down.as",
     "xflXml": "LIBRARY/Symbol 182.xml",
     "scriptOrdinal": 7,
     "sha256": "903efab7e47defc513eec5c3895deeb5afacbeb33547a65a875b140b71cc384d",
     "originalCodeSha256": "903efab7e47defc513eec5c3895deeb5afacbeb33547a65a875b140b71cc384d",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "upButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 31,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "attachMovie",
+      "actionBasis": "function-call:attachMovie"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 182/0008.as",
+    "path": "converted/VerticalScrollBar/scripts/upButton/upButton_frame_0040_stop_label_down.as",
     "xflXml": "LIBRARY/Symbol 182.xml",
     "scriptOrdinal": 8,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "upButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 40,
+      "frameLabel": "_down",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 182/0009.as",
+    "path": "converted/VerticalScrollBar/scripts/upButton/upButton_frame_0011_press_label_up.as",
     "xflXml": "LIBRARY/Symbol 182.xml",
     "scriptOrdinal": 9,
     "sha256": "e94ea82d3e591f1f192a8743b6c3e5dfdc4d6a6a37f776512648fe61ab2357a5",
     "originalCodeSha256": "e94ea82d3e591f1f192a8743b6c3e5dfdc4d6a6a37f776512648fe61ab2357a5",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "upButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 11,
+      "frameLabel": "_up",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 23/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonEnabledDynFac/VSliderDownButtonEnabledDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 23.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonEnabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 23/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonEnabledDynFac/VSliderDownButtonEnabledDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 23.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonEnabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 23/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonEnabledDynFac/VSliderDownButtonEnabledDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 23.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonEnabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 23/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonEnabledDynFac/VSliderDownButtonEnabledDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 23.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonEnabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 31/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonEnabledDynFac/VSliderUpButtonEnabledDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 31.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonEnabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 31/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonEnabledDynFac/VSliderUpButtonEnabledDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 31.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonEnabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 31/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonEnabledDynFac/VSliderUpButtonEnabledDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 31.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonEnabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 31/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonEnabledDynFac/VSliderUpButtonEnabledDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 31.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonEnabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 39/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonOverDynFac/VSliderDownButtonOverDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 39.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonOverDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 39/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonOverDynFac/VSliderDownButtonOverDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 39.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonOverDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 39/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonOverDynFac/VSliderDownButtonOverDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 39.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonOverDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 39/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonOverDynFac/VSliderDownButtonOverDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 39.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonOverDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 47/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonOverDynFac/VSliderUpButtonOverDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 47.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonOverDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 47/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonOverDynFac/VSliderUpButtonOverDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 47.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonOverDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 47/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonOverDynFac/VSliderUpButtonOverDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 47.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonOverDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 47/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonOverDynFac/VSliderUpButtonOverDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 47.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonOverDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 55/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonDisabledDynFac/VSliderDownButtonDisabledDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 55.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonDisabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 55/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonDisabledDynFac/VSliderDownButtonDisabledDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 55.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonDisabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 55/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonDisabledDynFac/VSliderDownButtonDisabledDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 55.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonDisabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 55/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderDownButtonDisabledDynFac/VSliderDownButtonDisabledDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 55.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderDownButtonDisabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 63/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonDisabledDynFac/VSliderUpButtonDisabledDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 63.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonDisabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 63/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonDisabledDynFac/VSliderUpButtonDisabledDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 63.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonDisabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 63/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonDisabledDynFac/VSliderUpButtonDisabledDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 63.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonDisabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 63/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonDisabledDynFac/VSliderUpButtonDisabledDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 63.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonDisabledDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 7/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonPressDynFac/VSliderUpButtonPressDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 7.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonPressDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 7/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonPressDynFac/VSliderUpButtonPressDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 7.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonPressDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 7/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonPressDynFac/VSliderUpButtonPressDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 7.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonPressDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 7/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderUpButtonPressDynFac/VSliderUpButtonPressDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 7.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderUpButtonPressDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 71/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbOverTopDynFac/VSliderThumbOverTopDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 71.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbOverTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 71/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbOverTopDynFac/VSliderThumbOverTopDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 71.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbOverTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 71/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbOverTopDynFac/VSliderThumbOverTopDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 71.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbOverTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 71/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbOverTopDynFac/VSliderThumbOverTopDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 71.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbOverTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 79/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbOverBottomDynFac/VSliderThumbOverBottomDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 79.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbOverBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 79/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbOverBottomDynFac/VSliderThumbOverBottomDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 79.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbOverBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 79/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbOverBottomDynFac/VSliderThumbOverBottomDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 79.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbOverBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 79/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbOverBottomDynFac/VSliderThumbOverBottomDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 79.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbOverBottomDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 87/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbOverMiddleDynFac/VSliderThumbOverMiddleDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 87.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbOverMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 87/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbOverMiddleDynFac/VSliderThumbOverMiddleDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 87.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbOverMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 87/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbOverMiddleDynFac/VSliderThumbOverMiddleDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 87.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbOverMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 87/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbOverMiddleDynFac/VSliderThumbOverMiddleDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 87.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbOverMiddleDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 95/0001.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbEnabledTopDynFac/VSliderThumbEnabledTopDynFac_frame_0001_define_OnCurrentFactionChanged_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 95.xml",
     "scriptOrdinal": 1,
     "sha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
     "originalCodeSha256": "0fdd90cde32a102b1a652233055820732075ee35de1716b88b606f9d565f6f13",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbEnabledTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "define_OnCurrentFactionChanged",
+      "actionBasis": "function-declaration:OnCurrentFactionChanged"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 95/0002.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbEnabledTopDynFac/VSliderThumbEnabledTopDynFac_frame_0010_stop_label_GDI.as",
     "xflXml": "LIBRARY/Symbol 95.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbEnabledTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "GDI",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 95/0003.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbEnabledTopDynFac/VSliderThumbEnabledTopDynFac_frame_0020_stop_label_NOD.as",
     "xflXml": "LIBRARY/Symbol 95.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbEnabledTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "NOD",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/VerticalScrollBar/scripts/LIBRARY/Symbol 95/0004.as",
+    "path": "converted/VerticalScrollBar/scripts/VSliderThumbEnabledTopDynFac/VSliderThumbEnabledTopDynFac_frame_0030_stop_label_Alien.as",
     "xflXml": "LIBRARY/Symbol 95.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "VSliderThumbEnabledTopDynFac",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "Alien",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

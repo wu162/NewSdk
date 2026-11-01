@@ -62,7 +62,7 @@ foreach (string file in files)
         if (movie.Equals(mutationMovie, StringComparison.OrdinalIgnoreCase))
         {
             string marker = mutationReal ? "RA3_UI_REAL_EXTERNAL_AS_MUTATION_20261101" : "RA3_UI_CONVERSION_MUTATION_PROBE_20261101";
-            string scriptRelative = mutationReal ? "scripts/DOMDocument/0001.as" : movie + ".as";
+            string scriptRelative = mutationReal ? SelectRealTimelineScript(file) : movie + ".as";
             string script = Path.Combine(stage, scriptRelative.Replace('/', Path.DirectorySeparatorChar));
             if (mutationReal && !File.Exists(script)) throw new FileNotFoundException("No first real timeline AS script for mutation proof.", scriptRelative);
             string original = File.Exists(script) ? File.ReadAllText(script) : "";
@@ -114,6 +114,27 @@ Console.WriteLine(JsonSerializer.Serialize(new { report.Total, report.Passed, re
 return report.Failed > 0 || report.Total == 0 || mutationMovie != null && !report.MutationPerformed ? 1 : 0;
 
 static string Hash(byte[] value) => Convert.ToHexString(SHA256.HashData(value)).ToLowerInvariant();
+static string SelectRealTimelineScript(string fla)
+{
+    string sourceMovieRoot = Path.GetDirectoryName(Path.GetFullPath(fla))!;
+    string movie = Path.GetFileNameWithoutExtension(fla);
+    using var map = JsonDocument.Parse(File.ReadAllText(Path.Combine(sourceMovieRoot, "script-map.json")));
+    var candidates = map.RootElement.EnumerateArray().Where(entry =>
+        entry.TryGetProperty("xflXml", out var xml) && xml.GetString()?.Replace('\\', '/') == "DOMDocument.xml" &&
+        entry.TryGetProperty("scriptOrdinal", out var ordinal) && ordinal.GetInt32() == 1).ToArray();
+    if (candidates.Length != 1) throw new InvalidDataException("Mutation proof needs exactly one DOMDocument.xml scriptOrdinal=1 in script-map.json.");
+    string mappedPath = candidates[0].GetProperty("path").GetString()?.Replace('\\', '/') ?? throw new InvalidDataException("Mapped timeline AS path is missing.");
+    string resourcePrefix = "converted/" + movie + "/";
+    string relative = mappedPath.StartsWith(resourcePrefix, StringComparison.Ordinal) ? mappedPath.Substring(resourcePrefix.Length) : mappedPath;
+    if (Path.IsPathRooted(relative) || relative.Contains(':')) throw new InvalidDataException("Mapped timeline AS must be relative to its movie.");
+    string fullPath = Path.GetFullPath(Path.Combine(sourceMovieRoot, relative.Replace('/', Path.DirectorySeparatorChar)));
+    var comparison = OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+    if (!fullPath.StartsWith(sourceMovieRoot.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, comparison) ||
+        !Path.GetExtension(fullPath).Equals(".as", StringComparison.OrdinalIgnoreCase))
+        throw new InvalidDataException("Mapped timeline AS is outside its movie or is not an AS file.");
+    if (!File.Exists(fullPath)) throw new FileNotFoundException("Mapped first timeline AS is missing.", fullPath);
+    return Path.GetRelativePath(sourceMovieRoot, fullPath).Replace('\\', '/');
+}
 static StructureResult ReadStructure(string file)
 {
     const BindingFlags flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;

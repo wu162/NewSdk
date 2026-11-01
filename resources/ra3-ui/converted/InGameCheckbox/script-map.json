@@ -1,98 +1,206 @@
 [
   {
-    "path": "converted/InGameCheckbox/scripts/DOMDocument/0001.as",
+    "path": "converted/InGameCheckbox/scripts/InGameCheckbox/InGameCheckbox_frame_0001_define_SetEnabled_label_unchecked.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "2fc61a23b9d7e6bb598c9e5d8f90c4660560f462099774d4c4e1b6d62900ce94",
     "originalCodeSha256": "2fc61a23b9d7e6bb598c9e5d8f90c4660560f462099774d4c4e1b6d62900ce94",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "InGameCheckbox",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "_unchecked",
+      "event": "",
+      "action": "define_SetEnabled",
+      "actionBasis": "function-declaration:SetEnabled"
+    }
   },
   {
-    "path": "converted/InGameCheckbox/scripts/DOMDocument/0002.as",
+    "path": "converted/InGameCheckbox/scripts/InGameCheckbox/InGameCheckbox_frame_0010_stop_label_unchecked.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "InGameCheckbox",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "_unchecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/InGameCheckbox/scripts/DOMDocument/0003.as",
+    "path": "converted/InGameCheckbox/scripts/InGameCheckbox/InGameCheckbox_frame_0020_stop_label_checked.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "InGameCheckbox",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/InGameCheckbox/scripts/DOMDocument/0004.as",
+    "path": "converted/InGameCheckbox/scripts/box/box_frame_0001_load_label_unchecked.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 4,
     "sha256": "8fb64eebcd9fc51dabac053c6d8b0d7b1b00e9bf4b1b72d702345f8b31a52fe4",
     "originalCodeSha256": "8fb64eebcd9fc51dabac053c6d8b0d7b1b00e9bf4b1b72d702345f8b31a52fe4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "box",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "_unchecked",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/InGameCheckbox/scripts/DOMDocument/0005.as",
+    "path": "converted/InGameCheckbox/scripts/box/box_frame_0011_load_label_checked.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 5,
     "sha256": "8fb64eebcd9fc51dabac053c6d8b0d7b1b00e9bf4b1b72d702345f8b31a52fe4",
     "originalCodeSha256": "8fb64eebcd9fc51dabac053c6d8b0d7b1b00e9bf4b1b72d702345f8b31a52fe4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "box",
+      "ownerBasis": "instance-name",
+      "frameNumber": 11,
+      "frameLabel": "_checked",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/InGameCheckbox/scripts/DOMDocument/0006.as",
+    "path": "converted/InGameCheckbox/scripts/InGameCheckbox/InGameCheckbox_frame_0001_release_label_unchecked.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 6,
     "sha256": "5f8a84ca0bf0fcce011a5aca594a3cea1e8f01b58f5ccde79200a48889f35a6b",
     "originalCodeSha256": "5f8a84ca0bf0fcce011a5aca594a3cea1e8f01b58f5ccde79200a48889f35a6b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "InGameCheckbox",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "_unchecked",
+      "event": "release",
+      "action": "release",
+      "actionBasis": "event-handler:on(release)"
+    }
   },
   {
-    "path": "converted/InGameCheckbox/scripts/LIBRARY/Symbol 12/0001.as",
+    "path": "converted/InGameCheckbox/scripts/box/box_frame_0010_stop_label_up.as",
     "xflXml": "LIBRARY/Symbol 12.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "box",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/InGameCheckbox/scripts/LIBRARY/Symbol 12/0002.as",
+    "path": "converted/InGameCheckbox/scripts/box/box_frame_0020_stop_label_over.as",
     "xflXml": "LIBRARY/Symbol 12.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "box",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/InGameCheckbox/scripts/LIBRARY/Symbol 12/0003.as",
+    "path": "converted/InGameCheckbox/scripts/box/box_frame_0030_stop_label_disabled.as",
     "xflXml": "LIBRARY/Symbol 12.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "box",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/InGameCheckbox/scripts/LIBRARY/Symbol 22/0001.as",
+    "path": "converted/InGameCheckbox/scripts/box/box_frame_0010_stop_label_up_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "box",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_up",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/InGameCheckbox/scripts/LIBRARY/Symbol 22/0002.as",
+    "path": "converted/InGameCheckbox/scripts/box/box_frame_0020_stop_label_over_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "box",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_over",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/InGameCheckbox/scripts/LIBRARY/Symbol 22/0003.as",
+    "path": "converted/InGameCheckbox/scripts/box/box_frame_0030_stop_label_disabled_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "box",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_disabled",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

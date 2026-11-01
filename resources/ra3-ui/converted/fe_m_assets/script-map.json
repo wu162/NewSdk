@@ -1,58 +1,121 @@
 [
   {
-    "path": "converted/fe_m_assets/scripts/LIBRARY/Symbol 11/0001.as",
+    "path": "converted/fe_m_assets/scripts/newProfileName/newProfileName_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 11.xml",
     "scriptOrdinal": 1,
     "sha256": "de039295a1eded201dcb900952867f1db2a9e86041a3c9665f93df7f51a77d35",
     "originalCodeSha256": "7b5c9eaa05dd74aebd3081325b91fbc5799412179bb6fd7673371b76ce78bf45",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "newProfileName",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_m_assets/scripts/LIBRARY/Symbol 11/0002.as",
+    "path": "converted/fe_m_assets/scripts/btnNewConfirm/btnNewConfirm_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 11.xml",
     "scriptOrdinal": 2,
     "sha256": "c0e164867a5d5600cecefdf3f472e0e84f315b715bedf41ba7bfcc403362cc40",
     "originalCodeSha256": "35d2a9c4dfd3827b39526e94a5d4a39109a426c8d19a81f9ceac6a7d6d54111f",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "btnNewConfirm",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_m_assets/scripts/LIBRARY/Symbol 11/0003.as",
+    "path": "converted/fe_m_assets/scripts/btnNewCancel/btnNewCancel_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 11.xml",
     "scriptOrdinal": 3,
     "sha256": "d3e0773324f0ab37a27e8590feca88309258ad8cdf6efaa7b1bc00b54422af3b",
     "originalCodeSha256": "3bf50f2221907ceaedc393db5828cee6f8a90c0f28273d2f24157b9653972955",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "btnNewCancel",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_m_assets/scripts/LIBRARY/Symbol 5/0001.as",
+    "path": "converted/fe_m_assets/scripts/std_MousebuttonSymbol/std_MousebuttonSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 5.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_MousebuttonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_m_assets/scripts/LIBRARY/Symbol 6/0001.as",
+    "path": "converted/fe_m_assets/scripts/std_mouseTextInputFieldSymbol/std_mouseTextInputFieldSymbol_frame_0003_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 6.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseTextInputFieldSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 3,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_m_assets/scripts/LIBRARY/Symbol 6/0002.as",
+    "path": "converted/fe_m_assets/scripts/std_mouseTextInputFieldSymbol/std_mouseTextInputFieldSymbol_frame_0006_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 6.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseTextInputFieldSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 6,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_m_assets/scripts/LIBRARY/Symbol 6/0003.as",
+    "path": "converted/fe_m_assets/scripts/std_mouseTextInputFieldSymbol/std_mouseTextInputFieldSymbol_frame_0009_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 6.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseTextInputFieldSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

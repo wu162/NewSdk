@@ -1,578 +1,1246 @@
 [
   {
-    "path": "converted/fem_m_gameSetup/scripts/DOMDocument/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/fem_m_gameSetup/fem_m_gameSetup_frame_0001_fem_m_gameSetup.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "f7e006d98f5172a4e8337e0a7b90aed1f2182c768b925a347b98614d367a3e15",
     "originalCodeSha256": "f7e006d98f5172a4e8337e0a7b90aed1f2182c768b925a347b98614d367a3e15",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "fem_m_gameSetup",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "fem_m_gameSetup",
+      "actionBasis": "function-call:fem_m_gameSetup"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/DOMDocument/0002.as",
+    "path": "converted/fem_m_gameSetup/scripts/ScreenTitleBarSymbol/ScreenTitleBarSymbol_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "e986946b3bc3a25504826391b96553398003bb85f25e45965b6a9332dd3bc98c",
     "originalCodeSha256": "a9aba9c50f3cc503eca03b505c47c1e0a60c6ff9f3203872d60143ac7f43c608",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "ScreenTitleBarSymbol",
+      "ownerBasis": "instance-library-linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/DOMDocument/0003.as",
+    "path": "converted/fem_m_gameSetup/scripts/playButton/playButton_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "b985cf305ef4ccfef64a265b0c7ad9e8c4b4f42487fee157db3ac70090bac787",
     "originalCodeSha256": "504568083faf2e87fa910fb2c5d164b8e933295f4a5b0675172192707d321c80",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "playButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/DOMDocument/0004.as",
+    "path": "converted/fem_m_gameSetup/scripts/backButton/backButton_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 4,
     "sha256": "b77c70af65281df3766ea56bdca666a9e9c8477811dc0edbda513d2a41536822",
     "originalCodeSha256": "706f87456632ac8c9b37817456a47d301558391271f5a47bad89bf5c5af3c6f7",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "backButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/DOMDocument/0005.as",
+    "path": "converted/fem_m_gameSetup/scripts/chatComponent/chatComponent_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 5,
     "sha256": "98917bfd567973e23ab197e80e9891c035081f153617e62d99bce072e384692f",
     "originalCodeSha256": "4b423fc66412fee7afccdbd58376e479bcaf3b25a9be1d52d04094e09122e159",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "chatComponent",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/DOMDocument/0006.as",
+    "path": "converted/fem_m_gameSetup/scripts/randomMap/randomMap_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 6,
     "sha256": "169365cd11ddef537d2657bfcabcd2eb5358ecb2312934d35136c3925c27970a",
     "originalCodeSha256": "8ba7c4befce9ed24e7831f7005a0c448867f8edc24503d8b27788c08898895bc",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "randomMap",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 13/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/uiScrollBar/uiScrollBar_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 1,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "uiScrollBar",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 13/0002.as",
+    "path": "converted/fem_m_gameSetup/scripts/sendButton/sendButton_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 2,
     "sha256": "9bfd5a095df828bab796abaafc0df11ea3b80ba0488339162ef233af10f79b70",
     "originalCodeSha256": "d6acf83395e7c517d6f32f23ff19a9b0f63a9e736b1a37c2d4d6d8b5f58c7ea0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "sendButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 13/0003.as",
+    "path": "converted/fem_m_gameSetup/scripts/chatInputBox/chatInputBox_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 3,
     "sha256": "a34c4d2cd62d07e0ddd6c798832d4173737e254fa5f830fdb0fbbbfd83c0ae98",
     "originalCodeSha256": "8dd5c0089f1f384628278ea6e3f2e2110c3c0edb377dd94f95a600a828dc87db",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "chatInputBox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 13/0004.as",
+    "path": "converted/fem_m_gameSetup/scripts/uiScrollingTextBox/uiScrollingTextBox_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 4,
     "sha256": "acd8989b62be7c26e38e0d22e38fc87f2d4920fca682815f80cc0250399dee36",
     "originalCodeSha256": "2b64a73191a863061cc6b9dca87ecfd2f4fc0f1f9f1eb4f2cbeda7833f25c664",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "uiScrollingTextBox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 28/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/playerSlotMC/playerSlotMC_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "playerSlotMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 28/0002.as",
+    "path": "converted/fem_m_gameSetup/scripts/voipCheckBox/voipCheckBox_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 2,
     "sha256": "612d473c03cf8770c23e1e1a66b97448d8fd713b2d4d6d6809d5161f50c892f6",
     "originalCodeSha256": "56195b7ca90296ff0d443ba9a7f39151ac4807d5ead0035f09b369c951780a37",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "voipCheckBox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 28/0003.as",
+    "path": "converted/fem_m_gameSetup/scripts/muteCheckBox/muteCheckBox_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 3,
     "sha256": "612d473c03cf8770c23e1e1a66b97448d8fd713b2d4d6d6809d5161f50c892f6",
     "originalCodeSha256": "56195b7ca90296ff0d443ba9a7f39151ac4807d5ead0035f09b369c951780a37",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "muteCheckBox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 28/0004.as",
+    "path": "converted/fem_m_gameSetup/scripts/readyCheckBox/readyCheckBox_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 4,
     "sha256": "5118aa2f3150da676673ca3700c2d1671f0802c2e405bfa2221803ef0adda231",
     "originalCodeSha256": "17ab852aae3469c8ba982a723ca159f54c37cb8c1e22f0b4e40e53789a11d35b",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "readyCheckBox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 28/0005.as",
+    "path": "converted/fem_m_gameSetup/scripts/playerSlotOptions/playerSlotOptions_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 5,
     "sha256": "1129228b341b293c07a0a78bc73b650899d903e82ccec361760789b4703159ea",
     "originalCodeSha256": "a21e4189411c85cf5e6093ff6ec320c8793586379d4d37a70d994ba45a13c56f",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "playerSlotOptions",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 28/0006.as",
+    "path": "converted/fem_m_gameSetup/scripts/factionOptions/factionOptions_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 6,
     "sha256": "d00a898b346a9d6346669c6b39e61911380607f438ec1abdbfdc080701acb5d7",
     "originalCodeSha256": "cf5de4cbb5a8db0bb001b0e6073d6f8380c61096ccfeee94d7c5a13719bb3d4c",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "factionOptions",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 28/0007.as",
+    "path": "converted/fem_m_gameSetup/scripts/personalityOptions/personalityOptions_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 7,
     "sha256": "8dcfe92b649f875d8248b9627039b15e39ab3e6b92fe1f562fc75fa8877f45e4",
     "originalCodeSha256": "996874f52b1d5f61d3b42e7e73dc810ba76543d31480da157a92fef5552aceba",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "personalityOptions",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 28/0008.as",
+    "path": "converted/fem_m_gameSetup/scripts/teamOptions/teamOptions_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 8,
     "sha256": "693aef1929765a78e2634295b988e317a8ae309085a676307659a117bbd6fadb",
     "originalCodeSha256": "3ee3ba37741e94f92f54b5abe73aec8326e8a54a3a753b0a36b4cedf56a11da4",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "teamOptions",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 28/0009.as",
+    "path": "converted/fem_m_gameSetup/scripts/colorOptions/colorOptions_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 9,
     "sha256": "919b0e668df8a2cbe0ad0a6fa4f022db2b6fc09dc8525eafc47c3007b1564275",
     "originalCodeSha256": "9fb30a1f0c98539ddbdb93c0d7c823d27ac9ae8d903af4fb0d9bcc13c7915bfb",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "colorOptions",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 4/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/std_MousebuttonSymbol/std_MousebuttonSymbol_frame_0001_load_Cafe2_BaseUIScreen.as",
     "xflXml": "LIBRARY/Symbol 4.xml",
     "scriptOrdinal": 1,
-    "sha256": "14c88af7311b617fcece1688b7648f24ac5ab0de9c56d1dbbc2063f2be2d179b",
+    "sha256": "58e7152db1649c6c6d1b037faa732aca43592e4b6954e60c6a6bdd68cede155b",
     "originalCodeSha256": "14c88af7311b617fcece1688b7648f24ac5ab0de9c56d1dbbc2063f2be2d179b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_MousebuttonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "load_Cafe2_BaseUIScreen",
+      "actionBasis": "class-import:Cafe2_BaseUIScreen"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 5/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/rulesTabButton/rulesTabButton_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 5.xml",
     "scriptOrdinal": 1,
     "sha256": "4fee5daa03154dbd67993f5ef8b4509fe4a7f857f8849a1d5d83d87f6a8a731a",
     "originalCodeSha256": "6ca295d92742f0d90e3fe74c74322571a5d93915ae30341f8aa0a98e4a6e8312",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "rulesTabButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/Symbol 5/0002.as",
+    "path": "converted/fem_m_gameSetup/scripts/mapTabButton/mapTabButton_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 5.xml",
     "scriptOrdinal": 2,
     "sha256": "dd6103cf18f5e36ebe6ac6082f0449bb69fcdf91af36272ef6bd9b62273121fe",
     "originalCodeSha256": "d5648aca4992aa6a764b896021149fa696a7c97d99e91e234f2ccd5f5a0e9e27",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "mapTabButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 16/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/defaultRules/defaultRules_frame_0001_load_Cafe2_BaseUIScreen.as",
     "xflXml": "LIBRARY/imported/Symbol 16.xml",
     "scriptOrdinal": 1,
-    "sha256": "14c88af7311b617fcece1688b7648f24ac5ab0de9c56d1dbbc2063f2be2d179b",
+    "sha256": "58e7152db1649c6c6d1b037faa732aca43592e4b6954e60c6a6bdd68cede155b",
     "originalCodeSha256": "14c88af7311b617fcece1688b7648f24ac5ab0de9c56d1dbbc2063f2be2d179b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "defaultRules",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "load_Cafe2_BaseUIScreen",
+      "actionBasis": "class-import:Cafe2_BaseUIScreen"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 17/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/mapPanel/mapPanel_frame_0001_load_IListboxEventListener.as",
     "xflXml": "LIBRARY/imported/Symbol 17.xml",
     "scriptOrdinal": 1,
-    "sha256": "b37177904e894cee06e7b0de3e7c78b01883f7fa4a364f1b331b8c605a3b19ef",
+    "sha256": "7117a5d5b929714f9c0623b5ac19138d7cf015f904f8aab827b199fd8490a6fa",
     "originalCodeSha256": "b37177904e894cee06e7b0de3e7c78b01883f7fa4a364f1b331b8c605a3b19ef",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "mapPanel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "load_IListboxEventListener",
+      "actionBasis": "class-import:IListboxEventListener"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 17/0002.as",
+    "path": "converted/fem_m_gameSetup/scripts/startPosition5/startPosition5_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 17.xml",
     "scriptOrdinal": 2,
     "sha256": "0199b11a8c779f55da4583c87425267469716a91cd3a54d560dc65e15f3dc9ef",
     "originalCodeSha256": "567caa98e43afde49fab011a4e2765646e78734bf486fbaf345645bdd03a3670",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "startPosition5",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 17/0003.as",
+    "path": "converted/fem_m_gameSetup/scripts/startPosition4/startPosition4_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 17.xml",
     "scriptOrdinal": 3,
     "sha256": "0199b11a8c779f55da4583c87425267469716a91cd3a54d560dc65e15f3dc9ef",
     "originalCodeSha256": "567caa98e43afde49fab011a4e2765646e78734bf486fbaf345645bdd03a3670",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "startPosition4",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 17/0004.as",
+    "path": "converted/fem_m_gameSetup/scripts/startPosition3/startPosition3_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 17.xml",
     "scriptOrdinal": 4,
     "sha256": "0199b11a8c779f55da4583c87425267469716a91cd3a54d560dc65e15f3dc9ef",
     "originalCodeSha256": "567caa98e43afde49fab011a4e2765646e78734bf486fbaf345645bdd03a3670",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "startPosition3",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 17/0005.as",
+    "path": "converted/fem_m_gameSetup/scripts/startPosition2/startPosition2_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 17.xml",
     "scriptOrdinal": 5,
     "sha256": "0199b11a8c779f55da4583c87425267469716a91cd3a54d560dc65e15f3dc9ef",
     "originalCodeSha256": "567caa98e43afde49fab011a4e2765646e78734bf486fbaf345645bdd03a3670",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "startPosition2",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 17/0006.as",
+    "path": "converted/fem_m_gameSetup/scripts/startPosition1/startPosition1_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 17.xml",
     "scriptOrdinal": 6,
     "sha256": "0199b11a8c779f55da4583c87425267469716a91cd3a54d560dc65e15f3dc9ef",
     "originalCodeSha256": "567caa98e43afde49fab011a4e2765646e78734bf486fbaf345645bdd03a3670",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "startPosition1",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 17/0007.as",
+    "path": "converted/fem_m_gameSetup/scripts/startPosition0/startPosition0_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 17.xml",
     "scriptOrdinal": 7,
     "sha256": "0199b11a8c779f55da4583c87425267469716a91cd3a54d560dc65e15f3dc9ef",
     "originalCodeSha256": "567caa98e43afde49fab011a4e2765646e78734bf486fbaf345645bdd03a3670",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "startPosition0",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 17/0008.as",
+    "path": "converted/fem_m_gameSetup/scripts/mapPreview/mapPreview_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 17.xml",
     "scriptOrdinal": 8,
     "sha256": "7230332de8b6d03f07578de8160f41a35e8288b5db92c83f501ea6f6ebed1b05",
     "originalCodeSha256": "2939019ddccd474498e0b6997ce7a1f3f8e6e3970625701b00452c7c7c8a4a57",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "mapPreview",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 17/0009.as",
+    "path": "converted/fem_m_gameSetup/scripts/mapListScrollbar/mapListScrollbar_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 17.xml",
     "scriptOrdinal": 9,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "mapListScrollbar",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 17/0010.as",
+    "path": "converted/fem_m_gameSetup/scripts/mapList/mapList_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 17.xml",
     "scriptOrdinal": 10,
     "sha256": "aaca498342bc56ed36b55b5737d96ac127bcad5afac8f2b1311373d2255a8b3f",
     "originalCodeSha256": "e87aa6d7a9407b9a590c5c8274871aa133b961f0388b337f27501f6d9e3cc9e1",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "mapList",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 18/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/resourcesDropdown/resourcesDropdown_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 18.xml",
     "scriptOrdinal": 1,
     "sha256": "b16a9d0b2dfdf754da3c11e7d68f228608882f83f3d3c019b6c8bf26afbece00",
     "originalCodeSha256": "b2da6d84b1c2e24f3d283811fcdae055a00a4cf3018b806164d925116514a507",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "resourcesDropdown",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 18/0002.as",
+    "path": "converted/fem_m_gameSetup/scripts/cratesCheckbox/cratesCheckbox_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 18.xml",
     "scriptOrdinal": 2,
     "sha256": "80f09fd3e85339aab56fef70b9c2e168e171ee096da14cd31f090e8d1184e04f",
     "originalCodeSha256": "8fb949a3bdba6d9f83ea4297059f1344ee3409f1b93b0eb2093aba5bae2ee132",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "cratesCheckbox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 18/0003.as",
+    "path": "converted/fem_m_gameSetup/scripts/enableVoipCheckbox/enableVoipCheckbox_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 18.xml",
     "scriptOrdinal": 3,
     "sha256": "80f09fd3e85339aab56fef70b9c2e168e171ee096da14cd31f090e8d1184e04f",
     "originalCodeSha256": "8fb949a3bdba6d9f83ea4297059f1344ee3409f1b93b0eb2093aba5bae2ee132",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "enableVoipCheckbox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 18/0004.as",
+    "path": "converted/fem_m_gameSetup/scripts/commentaryCheckbox/commentaryCheckbox_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 18.xml",
     "scriptOrdinal": 4,
     "sha256": "80f09fd3e85339aab56fef70b9c2e168e171ee096da14cd31f090e8d1184e04f",
     "originalCodeSha256": "8fb949a3bdba6d9f83ea4297059f1344ee3409f1b93b0eb2093aba5bae2ee132",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "commentaryCheckbox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 18/0005.as",
+    "path": "converted/fem_m_gameSetup/scripts/broadcastCheckbox/broadcastCheckbox_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 18.xml",
     "scriptOrdinal": 5,
     "sha256": "80f09fd3e85339aab56fef70b9c2e168e171ee096da14cd31f090e8d1184e04f",
     "originalCodeSha256": "8fb949a3bdba6d9f83ea4297059f1344ee3409f1b93b0eb2093aba5bae2ee132",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "broadcastCheckbox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 18/0006.as",
+    "path": "converted/fem_m_gameSetup/scripts/defaultRules/defaultRules_frame_0001_construct.as",
     "xflXml": "LIBRARY/imported/Symbol 18.xml",
     "scriptOrdinal": 6,
     "sha256": "cccd4614694bd8bcdebe4f8207666f9afb46f7236828c80c5e2f17e2b226cc2e",
     "originalCodeSha256": "d2571a7dc9d43f25050772437f828a58d301be727e8fbf3ce85a48c6f0f051c0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "defaultRules",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 19/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/uiScrollBar/uiScrollBar_frame_0001_stop.as",
     "xflXml": "LIBRARY/imported/Symbol 19.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "uiScrollBar",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 20/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/sendButton/sendButton_frame_0001_load_Cafe2_BaseUIScreen.as",
     "xflXml": "LIBRARY/imported/Symbol 20.xml",
     "scriptOrdinal": 1,
-    "sha256": "14c88af7311b617fcece1688b7648f24ac5ab0de9c56d1dbbc2063f2be2d179b",
+    "sha256": "58e7152db1649c6c6d1b037faa732aca43592e4b6954e60c6a6bdd68cede155b",
     "originalCodeSha256": "14c88af7311b617fcece1688b7648f24ac5ab0de9c56d1dbbc2063f2be2d179b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "sendButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "load_Cafe2_BaseUIScreen",
+      "actionBasis": "class-import:Cafe2_BaseUIScreen"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 21/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/chatInputBox/chatInputBox_frame_0003_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 21.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "chatInputBox",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 3,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 21/0002.as",
+    "path": "converted/fem_m_gameSetup/scripts/chatInputBox/chatInputBox_frame_0006_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 21.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "chatInputBox",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 6,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 21/0003.as",
+    "path": "converted/fem_m_gameSetup/scripts/chatInputBox/chatInputBox_frame_0009_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 21.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "chatInputBox",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 9,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 23/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/muteCheckBox/muteCheckBox_frame_0001_stop.as",
     "xflXml": "LIBRARY/imported/Symbol 23.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "muteCheckBox",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 38/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/mapListScrollbar/mapListScrollbar_frame_0001_stop.as",
     "xflXml": "LIBRARY/imported/Symbol 38.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "mapListScrollbar",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 39/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/thumbMC/thumbMC_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 39.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 39/0002.as",
+    "path": "converted/fem_m_gameSetup/scripts/thumbMC/thumbMC_frame_0020_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 39.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 39/0003.as",
+    "path": "converted/fem_m_gameSetup/scripts/thumbMC/thumbMC_frame_0030_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 39.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 40/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowBottomMC/arrowBottomMC_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 40.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 40/0002.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowBottomMC/arrowBottomMC_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 40.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 40/0003.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowBottomMC/arrowBottomMC_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 40.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 40/0004.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowBottomMC/arrowBottomMC_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/imported/Symbol 40.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 41/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowTopMC/arrowTopMC_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 41.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 41/0002.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowTopMC/arrowTopMC_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 41.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 41/0003.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowTopMC/arrowTopMC_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 41.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 41/0004.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowTopMC/arrowTopMC_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/imported/Symbol 41.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 43/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/TrackBottom/TrackBottom_frame_0001_load_fem_m_gameSetup.as",
     "xflXml": "LIBRARY/imported/Symbol 43.xml",
     "scriptOrdinal": 1,
-    "sha256": "d7591b7a235bb6c4e3e470622440680de0c7b2ed30def302e3438b0f15b3c05f",
+    "sha256": "7553710131b2f1b9bcdca284c9c970cd77ad45a2a680a1a113eaab146f319b56",
     "originalCodeSha256": "d7591b7a235bb6c4e3e470622440680de0c7b2ed30def302e3438b0f15b3c05f",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TrackBottom",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "load_fem_m_gameSetup",
+      "actionBasis": "class-import:fem_m_gameSetup"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 44/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/TrackTop/TrackTop_frame_0001_load_IListboxEventListener.as",
     "xflXml": "LIBRARY/imported/Symbol 44.xml",
     "scriptOrdinal": 1,
-    "sha256": "b37177904e894cee06e7b0de3e7c78b01883f7fa4a364f1b331b8c605a3b19ef",
+    "sha256": "7117a5d5b929714f9c0623b5ac19138d7cf015f904f8aab827b199fd8490a6fa",
     "originalCodeSha256": "b37177904e894cee06e7b0de3e7c78b01883f7fa4a364f1b331b8c605a3b19ef",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TrackTop",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "load_IListboxEventListener",
+      "actionBasis": "class-import:IListboxEventListener"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 77/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/thumbMC/thumbMC_frame_0010_stop_label_disable_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 77.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 77/0002.as",
+    "path": "converted/fem_m_gameSetup/scripts/thumbMC/thumbMC_frame_0020_stop_label_highlight_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 77.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 77/0003.as",
+    "path": "converted/fem_m_gameSetup/scripts/thumbMC/thumbMC_frame_0030_stop_label_unhighlight_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 77.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 78/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowBottomMC/arrowBottomMC_frame_0005_stop_label_disable_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 78.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 78/0002.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowBottomMC/arrowBottomMC_frame_0010_stop_label_highlight_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 78.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 78/0003.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowBottomMC/arrowBottomMC_frame_0015_stop_label_unhighlight_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 78.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 78/0004.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowBottomMC/arrowBottomMC_frame_0025_stop_label_toggle_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 78.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 79/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowTopMC/arrowTopMC_frame_0005_stop_label_disable_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 79.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 79/0002.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowTopMC/arrowTopMC_frame_0010_stop_label_highlight_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 79.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 79/0003.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowTopMC/arrowTopMC_frame_0015_stop_label_unhighlight_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 79.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 79/0004.as",
+    "path": "converted/fem_m_gameSetup/scripts/arrowTopMC/arrowTopMC_frame_0025_stop_label_toggle_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 79.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 81/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/TrackBottom/TrackBottom_frame_0001_load_fem_m_gameSetup_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 81.xml",
     "scriptOrdinal": 1,
-    "sha256": "d7591b7a235bb6c4e3e470622440680de0c7b2ed30def302e3438b0f15b3c05f",
+    "sha256": "7553710131b2f1b9bcdca284c9c970cd77ad45a2a680a1a113eaab146f319b56",
     "originalCodeSha256": "d7591b7a235bb6c4e3e470622440680de0c7b2ed30def302e3438b0f15b3c05f",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TrackBottom",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "load_fem_m_gameSetup",
+      "actionBasis": "class-import:fem_m_gameSetup"
+    }
   },
   {
-    "path": "converted/fem_m_gameSetup/scripts/LIBRARY/imported/Symbol 82/0001.as",
+    "path": "converted/fem_m_gameSetup/scripts/TrackTop/TrackTop_frame_0001_load_IListboxEventListener_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 82.xml",
     "scriptOrdinal": 1,
-    "sha256": "b37177904e894cee06e7b0de3e7c78b01883f7fa4a364f1b331b8c605a3b19ef",
+    "sha256": "7117a5d5b929714f9c0623b5ac19138d7cf015f904f8aab827b199fd8490a6fa",
     "originalCodeSha256": "b37177904e894cee06e7b0de3e7c78b01883f7fa4a364f1b331b8c605a3b19ef",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TrackTop",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "load_IListboxEventListener",
+      "actionBasis": "class-import:IListboxEventListener"
+    }
+  },
+  {
+    "path": "converted/fem_m_gameSetup/Cafe2_BaseUIScreen.as",
+    "kind": "recovered-AS2-class-or-interface",
+    "sha256": "bd3940e98543d159841ec5ed2e61bd353cb2e40f3a6c917acc476bf5e7f9e45a"
+  },
+  {
+    "path": "converted/fem_m_gameSetup/GameSetupBase.as",
+    "kind": "recovered-AS2-class-or-interface",
+    "sha256": "0c1dbe28477db5534694748081f408550b5ed7ac81904d96630b286d18f93b31"
+  },
+  {
+    "path": "converted/fem_m_gameSetup/IListboxEventListener.as",
+    "kind": "recovered-AS2-class-or-interface",
+    "sha256": "c3f888c2936a44b86c7014b28016ba3ba2cfe8e9b9b659ea9193f27158814822"
+  },
+  {
+    "path": "converted/fem_m_gameSetup/fem_m_gameSetup.as",
+    "kind": "recovered-AS2-class-or-interface",
+    "sha256": "319064822d3fb74b03e38011a03dc60c717fb846f1826f1d768bdc73d9b8c40b"
   }
 ]

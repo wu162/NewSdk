@@ -17,6 +17,8 @@
 
 本分支内建 [FLA/AS UI 编译插件](recovery/docs/FLA_UI_COMPILER.md)：可自动发现 `Data/AptUI/` 下的二进制 Flash MX 2004/8 FLA，与对应 AS 直接编译为 MOD 四流，也可由 `AptAptData` XML 声明与其他资产混合编译。
 
+本资源分支还保存 [RA3 原始 UI、恢复的 FLA/AS 与转换验证](resources/ra3-ui/README.md)。原始包、全部配套资产及固定转换工具已入库，转换和验证均使用本地文件。
+
 ```powershell
 ./NewModCompiler.exe doctor --sdk-root C:\NewSdk\SDK
 ./NewModCompiler.exe plan --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --mod-version 1.0

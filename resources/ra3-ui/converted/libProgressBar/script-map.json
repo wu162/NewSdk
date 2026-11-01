@@ -1,42 +1,87 @@
 [
   {
-    "path": "converted/libProgressBar/scripts/LIBRARY/Symbol 4/0001.as",
+    "path": "converted/libProgressBar/scripts/bar/bar_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 4.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bar",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/libProgressBar/scripts/LIBRARY/Symbol 5/0001.as",
+    "path": "converted/libProgressBar/scripts/loadBarProfile/loadBarProfile_frame_0001_define_SetPercent.as",
     "xflXml": "LIBRARY/Symbol 5.xml",
     "scriptOrdinal": 1,
     "sha256": "4bbf06e7ebb5ca92d0a1cb2214dfa176c30ad2cee89711d1bd756480f62c0324",
     "originalCodeSha256": "4bbf06e7ebb5ca92d0a1cb2214dfa176c30ad2cee89711d1bd756480f62c0324",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "loadBarProfile",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_SetPercent",
+      "actionBasis": "function-declaration:SetPercent"
+    }
   },
   {
-    "path": "converted/libProgressBar/scripts/LIBRARY/Symbol 5/0002.as",
+    "path": "converted/libProgressBar/scripts/loadBarProfile/loadBarProfile_frame_0004_set_barSize_label_loop.as",
     "xflXml": "LIBRARY/Symbol 5.xml",
     "scriptOrdinal": 2,
     "sha256": "339173839bc092ff9c0596db368dabbe50a24c02ee52cc5375b8690538aeee09",
     "originalCodeSha256": "339173839bc092ff9c0596db368dabbe50a24c02ee52cc5375b8690538aeee09",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "loadBarProfile",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 4,
+      "frameLabel": "loop",
+      "event": "",
+      "action": "set_barSize",
+      "actionBasis": "property-assignment:barSize"
+    }
   },
   {
-    "path": "converted/libProgressBar/scripts/LIBRARY/Symbol 5/0003.as",
+    "path": "converted/libProgressBar/scripts/loadBarProfile/loadBarProfile_frame_0005_gotoAndStop_label_loop.as",
     "xflXml": "LIBRARY/Symbol 5.xml",
     "scriptOrdinal": 3,
     "sha256": "f17feadf3783dd7e0d82c3e7ad2c7acf6bdf0d1a80dc497759303d19d8c6ed07",
     "originalCodeSha256": "f17feadf3783dd7e0d82c3e7ad2c7acf6bdf0d1a80dc497759303d19d8c6ed07",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "loadBarProfile",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 5,
+      "frameLabel": "loop",
+      "event": "",
+      "action": "gotoAndStop",
+      "actionBasis": "function-call:gotoAndStop"
+    }
   },
   {
-    "path": "converted/libProgressBar/scripts/LIBRARY/Symbol 8/0001.as",
+    "path": "converted/libProgressBar/scripts/loadBarProgress/loadBarProgress_frame_0001_define_SetPercent.as",
     "xflXml": "LIBRARY/Symbol 8.xml",
     "scriptOrdinal": 1,
     "sha256": "9b7d1d9862495290c0afd78d8d1de72f918df54e294bb37a22b02b01e961be1a",
     "originalCodeSha256": "9b7d1d9862495290c0afd78d8d1de72f918df54e294bb37a22b02b01e961be1a",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "loadBarProgress",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_SetPercent",
+      "actionBasis": "function-declaration:SetPercent"
+    }
   }
 ]

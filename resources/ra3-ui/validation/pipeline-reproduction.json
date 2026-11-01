@@ -1,0 +1,14 @@
+{
+  "movie": "fem_m_lanGameSetup",
+  "freshOfflinePipelineExport": "passed",
+  "freshOutputCompilation": "passed",
+  "recoveredClasses": 4,
+  "asFiles": 76,
+  "allFourFinalStreamsIdenticalToDeliveredProject": true,
+  "perStream": {
+    "manifest": true,
+    "bin": true,
+    "relo": true,
+    "imp": true
+  }
+}

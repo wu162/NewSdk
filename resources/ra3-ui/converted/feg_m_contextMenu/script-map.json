@@ -1,34 +1,70 @@
 [
   {
-    "path": "converted/feg_m_contextMenu/scripts/DOMDocument/0001.as",
+    "path": "converted/feg_m_contextMenu/scripts/feg_m_contextMenu/feg_m_contextMenu_frame_0001_feg_m_contextMenu.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "67b092b5ce3f3c800290bf83c6333e423274d4f4671204c7061fd900ffdd24b9",
     "originalCodeSha256": "67b092b5ce3f3c800290bf83c6333e423274d4f4671204c7061fd900ffdd24b9",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "feg_m_contextMenu",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "feg_m_contextMenu",
+      "actionBasis": "function-call:feg_m_contextMenu"
+    }
   },
   {
-    "path": "converted/feg_m_contextMenu/scripts/LIBRARY/Symbol 4/0001.as",
+    "path": "converted/feg_m_contextMenu/scripts/highlight/highlight_frame_0004_stop_label_on.as",
     "xflXml": "LIBRARY/Symbol 4.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "highlight",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 4,
+      "frameLabel": "_on",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/feg_m_contextMenu/scripts/LIBRARY/Symbol 4/0002.as",
+    "path": "converted/feg_m_contextMenu/scripts/highlight/highlight_frame_0010_gotoAndStop_label_turnon.as",
     "xflXml": "LIBRARY/Symbol 4.xml",
     "scriptOrdinal": 2,
     "sha256": "3f2e6e68a840c6e9b24eeb851f3774c97685803a4899cbddbcb3ad0bb862049c",
     "originalCodeSha256": "3f2e6e68a840c6e9b24eeb851f3774c97685803a4899cbddbcb3ad0bb862049c",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "highlight",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_turnon",
+      "event": "",
+      "action": "gotoAndStop",
+      "actionBasis": "function-call:gotoAndStop"
+    }
   },
   {
-    "path": "converted/feg_m_contextMenu/scripts/LIBRARY/Symbol 4/0003.as",
+    "path": "converted/feg_m_contextMenu/scripts/highlight/highlight_frame_0019_stop_label_off.as",
     "xflXml": "LIBRARY/Symbol 4.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "highlight",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 19,
+      "frameLabel": "_off",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

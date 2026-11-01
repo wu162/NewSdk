@@ -1,378 +1,811 @@
 [
   {
-    "path": "converted/fem_m_lanLobby/scripts/DOMDocument/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/fem_m_lanLobby/fem_m_lanLobby_frame_0001_fem_m_lanLobby.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "b631e2a2a2da22b2d98cefd364a3ea00c5d623399dd4b051fe9210ceed2ddfe5",
     "originalCodeSha256": "b631e2a2a2da22b2d98cefd364a3ea00c5d623399dd4b051fe9210ceed2ddfe5",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "fem_m_lanLobby",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "fem_m_lanLobby",
+      "actionBasis": "function-call:fem_m_lanLobby"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/DOMDocument/0002.as",
+    "path": "converted/fem_m_lanLobby/scripts/ScreenTitleBarSymbol/ScreenTitleBarSymbol_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "4d110bc6b6dca7161731e48659a5a8917e5180c6a382599e7c64ea6be7f399b4",
     "originalCodeSha256": "ebcc4e8258dbe7bf19f2f7a2f9eecf0b358550e764fd140c9deeda598ebc0b93",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "ScreenTitleBarSymbol",
+      "ownerBasis": "instance-library-linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/DOMDocument/0003.as",
+    "path": "converted/fem_m_lanLobby/scripts/backButton/backButton_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "13cbbb4212d069d62d7380f3ef0745e5a84da47b1552371229c49f1670a0268d",
     "originalCodeSha256": "22aea51b3a28799a362796acfcea36fc5ffb1c551455610e2d98f2b1734fbde6",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "backButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/DOMDocument/0004.as",
+    "path": "converted/fem_m_lanLobby/scripts/createButton/createButton_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 4,
     "sha256": "dad2e607f9ec3d4c666e9bace83b4c9c0fe8a3e1f247809b1513a3f24b554419",
     "originalCodeSha256": "f1b0b5713cd8b97f6b8216e76818d2b8a740a550ef0e14075b5ddd35d44cb4c0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "createButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/DOMDocument/0005.as",
+    "path": "converted/fem_m_lanLobby/scripts/joinButton/joinButton_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 5,
     "sha256": "fd5b071357073fc4f46e18f1b432d370ea8959a4567635d41a9e0792da76275d",
     "originalCodeSha256": "fbfb92b203c82266ff78466eb71a7feb073bd49c1c41e58b707593cf7d5c05a6",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "joinButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/DOMDocument/0006.as",
+    "path": "converted/fem_m_lanLobby/scripts/serverListScrollBar/serverListScrollBar_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 6,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "serverListScrollBar",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/DOMDocument/0007.as",
+    "path": "converted/fem_m_lanLobby/scripts/serverList/serverList_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 7,
     "sha256": "305681e14944475fee622fbbdf1a2986dcac5469a71b7dde62552181e089330c",
     "originalCodeSha256": "2c03b912c2cdf6f967d4f4d7d26506d11ab665d6dc93fb5a8afcf5859f6a6033",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "serverList",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/DOMDocument/0008.as",
+    "path": "converted/fem_m_lanLobby/scripts/playerListScrollBar/playerListScrollBar_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 8,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "playerListScrollBar",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/DOMDocument/0009.as",
+    "path": "converted/fem_m_lanLobby/scripts/playerList/playerList_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 9,
     "sha256": "4be6cfc4955becdc972de7b5b3acd7ff417880d03ed2f552bcf9df7df07459a3",
     "originalCodeSha256": "68f876229d09b508f74bcbbff8a4c232063173f4a42f4259843e1f0e0c3778cc",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "playerList",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/DOMDocument/0010.as",
+    "path": "converted/fem_m_lanLobby/scripts/chatComponent/chatComponent_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 10,
     "sha256": "d5cc2ff5cef0229004355bfd17db400f6505e981e3c3337dde199cae5b900bef",
     "originalCodeSha256": "e245f53cabf264aaadae65f254396e28e2103925600aea33f33ac9070ecd23f3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "chatComponent",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/Symbol 13/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/uiScrollBar/uiScrollBar_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 1,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "uiScrollBar",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/Symbol 13/0002.as",
+    "path": "converted/fem_m_lanLobby/scripts/sendButton/sendButton_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 2,
     "sha256": "9bfd5a095df828bab796abaafc0df11ea3b80ba0488339162ef233af10f79b70",
     "originalCodeSha256": "d6acf83395e7c517d6f32f23ff19a9b0f63a9e736b1a37c2d4d6d8b5f58c7ea0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "sendButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/Symbol 13/0003.as",
+    "path": "converted/fem_m_lanLobby/scripts/chatInputBox/chatInputBox_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 3,
     "sha256": "a34c4d2cd62d07e0ddd6c798832d4173737e254fa5f830fdb0fbbbfd83c0ae98",
     "originalCodeSha256": "8dd5c0089f1f384628278ea6e3f2e2110c3c0edb377dd94f95a600a828dc87db",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "chatInputBox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/Symbol 13/0004.as",
+    "path": "converted/fem_m_lanLobby/scripts/uiScrollingTextBox/uiScrollingTextBox_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 4,
     "sha256": "acd8989b62be7c26e38e0d22e38fc87f2d4920fca682815f80cc0250399dee36",
     "originalCodeSha256": "2b64a73191a863061cc6b9dca87ecfd2f4fc0f1f9f1eb4f2cbeda7833f25c664",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "uiScrollingTextBox",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/Symbol 14/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/std_mouseScrollingListboxSymbol/std_mouseScrollingListboxSymbol_frame_0001_load_fem_m_lanLobby.as",
     "xflXml": "LIBRARY/Symbol 14.xml",
     "scriptOrdinal": 1,
-    "sha256": "f44db03cc33526ea33d236eb6fb25471470b7bb96c9c9ff63d6503fef38cbb81",
+    "sha256": "fbb86ed0fd25b920e42624b6163d1222fde699aedfeabf356997c2444ada258d",
     "originalCodeSha256": "f44db03cc33526ea33d236eb6fb25471470b7bb96c9c9ff63d6503fef38cbb81",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseScrollingListboxSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "load_fem_m_lanLobby",
+      "actionBasis": "class-import:fem_m_lanLobby"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/Symbol 15/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/std_mouseScrollbarSymbol/std_mouseScrollbarSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 15.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseScrollbarSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/Symbol 16/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/std_MousebuttonSymbol/std_MousebuttonSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 16.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_MousebuttonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 14/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/uiScrollBar/uiScrollBar_frame_0001_stop.as",
     "xflXml": "LIBRARY/imported/Symbol 14.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "uiScrollBar",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 15/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/sendButton/sendButton_frame_0001_stop.as",
     "xflXml": "LIBRARY/imported/Symbol 15.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "sendButton",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 16/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/chatInputBox/chatInputBox_frame_0003_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 16.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "chatInputBox",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 3,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 16/0002.as",
+    "path": "converted/fem_m_lanLobby/scripts/chatInputBox/chatInputBox_frame_0006_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 16.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "chatInputBox",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 6,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 16/0003.as",
+    "path": "converted/fem_m_lanLobby/scripts/chatInputBox/chatInputBox_frame_0009_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 16.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "chatInputBox",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 9,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 17/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/uiScrollingTextBox/uiScrollingTextBox_frame_0001_load_fem_m_lanLobby.as",
     "xflXml": "LIBRARY/imported/Symbol 17.xml",
     "scriptOrdinal": 1,
-    "sha256": "f44db03cc33526ea33d236eb6fb25471470b7bb96c9c9ff63d6503fef38cbb81",
+    "sha256": "fbb86ed0fd25b920e42624b6163d1222fde699aedfeabf356997c2444ada258d",
     "originalCodeSha256": "f44db03cc33526ea33d236eb6fb25471470b7bb96c9c9ff63d6503fef38cbb81",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "uiScrollingTextBox",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "load_fem_m_lanLobby",
+      "actionBasis": "class-import:fem_m_lanLobby"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 19/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/m_clipAnchor/m_clipAnchor_frame_0001_load_Cafe2_BaseUIScreen.as",
     "xflXml": "LIBRARY/imported/Symbol 19.xml",
     "scriptOrdinal": 1,
-    "sha256": "b2faa201eb194a46668137768c6723dff25106a37e60f3d14fba7f94f75c34e4",
+    "sha256": "557ed8fbf6dea056b8e310a479754813732c81e888079935c69eb75b96e6eded",
     "originalCodeSha256": "b2faa201eb194a46668137768c6723dff25106a37e60f3d14fba7f94f75c34e4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "m_clipAnchor",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "load_Cafe2_BaseUIScreen",
+      "actionBasis": "class-import:Cafe2_BaseUIScreen"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 21/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/thumbMC/thumbMC_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 21.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 21/0002.as",
+    "path": "converted/fem_m_lanLobby/scripts/thumbMC/thumbMC_frame_0020_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 21.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 21/0003.as",
+    "path": "converted/fem_m_lanLobby/scripts/thumbMC/thumbMC_frame_0030_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 21.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 22/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowBottomMC/arrowBottomMC_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 22.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 22/0002.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowBottomMC/arrowBottomMC_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 22.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 22/0003.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowBottomMC/arrowBottomMC_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 22.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 22/0004.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowBottomMC/arrowBottomMC_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/imported/Symbol 22.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 23/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowTopMC/arrowTopMC_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 23.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 23/0002.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowTopMC/arrowTopMC_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 23.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 23/0003.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowTopMC/arrowTopMC_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 23.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 23/0004.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowTopMC/arrowTopMC_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/imported/Symbol 23.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 30/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/m_clipAnchor/m_clipAnchor_frame_0001_load_Cafe2_BaseUIScreen_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 30.xml",
     "scriptOrdinal": 1,
-    "sha256": "b2faa201eb194a46668137768c6723dff25106a37e60f3d14fba7f94f75c34e4",
+    "sha256": "557ed8fbf6dea056b8e310a479754813732c81e888079935c69eb75b96e6eded",
     "originalCodeSha256": "b2faa201eb194a46668137768c6723dff25106a37e60f3d14fba7f94f75c34e4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "m_clipAnchor",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "load_Cafe2_BaseUIScreen",
+      "actionBasis": "class-import:Cafe2_BaseUIScreen"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 45/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/thumbMC/thumbMC_frame_0010_stop_label_disable_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 45.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 45/0002.as",
+    "path": "converted/fem_m_lanLobby/scripts/thumbMC/thumbMC_frame_0020_stop_label_highlight_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 45.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 45/0003.as",
+    "path": "converted/fem_m_lanLobby/scripts/thumbMC/thumbMC_frame_0030_stop_label_unhighlight_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 45.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 46/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowBottomMC/arrowBottomMC_frame_0005_stop_label_disable_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 46.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 46/0002.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowBottomMC/arrowBottomMC_frame_0010_stop_label_highlight_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 46.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 46/0003.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowBottomMC/arrowBottomMC_frame_0015_stop_label_unhighlight_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 46.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 46/0004.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowBottomMC/arrowBottomMC_frame_0025_stop_label_toggle_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 46.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 47/0001.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowTopMC/arrowTopMC_frame_0005_stop_label_disable_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 47.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 47/0002.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowTopMC/arrowTopMC_frame_0010_stop_label_highlight_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 47.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 47/0003.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowTopMC/arrowTopMC_frame_0015_stop_label_unhighlight_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 47.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fem_m_lanLobby/scripts/LIBRARY/imported/Symbol 47/0004.as",
+    "path": "converted/fem_m_lanLobby/scripts/arrowTopMC/arrowTopMC_frame_0025_stop_label_toggle_occurrence_02.as",
     "xflXml": "LIBRARY/imported/Symbol 47.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
+  },
+  {
+    "path": "converted/fem_m_lanLobby/Cafe2_BaseUIScreen.as",
+    "kind": "recovered-AS2-class-or-interface",
+    "sha256": "bd3940e98543d159841ec5ed2e61bd353cb2e40f3a6c917acc476bf5e7f9e45a"
+  },
+  {
+    "path": "converted/fem_m_lanLobby/fem_m_lanLobby.as",
+    "kind": "recovered-AS2-class-or-interface",
+    "sha256": "6852f09abda278eb62a227d08e6e57b762a3175ccaa91ae78dff582600b01057"
   }
 ]

@@ -1,34 +1,70 @@
 [
   {
-    "path": "converted/fem_m_battleCast/scripts/DOMDocument/0001.as",
+    "path": "converted/fem_m_battleCast/scripts/fem_m_battleCast/fem_m_battleCast_frame_0001_fem_m_battleCast.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "dce14f68b32046b04bc3ca8d5626d6778dd050d3cc240c274649a2786f0b2b31",
     "originalCodeSha256": "dce14f68b32046b04bc3ca8d5626d6778dd050d3cc240c274649a2786f0b2b31",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "fem_m_battleCast",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "fem_m_battleCast",
+      "actionBasis": "function-call:fem_m_battleCast"
+    }
   },
   {
-    "path": "converted/fem_m_battleCast/scripts/DOMDocument/0002.as",
+    "path": "converted/fem_m_battleCast/scripts/acceptButton/acceptButton_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "15a32c22bcb3163e018840bb47dca3419b2506d2d739ef0c0d3d963786048fb1",
     "originalCodeSha256": "40e95bdacba3d2fcd1b2d976567a32d1e988a13960669fda014f61a83a103089",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "acceptButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_battleCast/scripts/DOMDocument/0003.as",
+    "path": "converted/fem_m_battleCast/scripts/backButton/backButton_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "75371e7e7c48f8d77fccd6362de4d72bd16b80c63cbe6d6cd0fe90a5ed8892f6",
     "originalCodeSha256": "7531679b96289b6c6c8e80bfc88b94f8d2fcc31607cbf8fa98a5898c590b52a4",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "backButton",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fem_m_battleCast/scripts/LIBRARY/Symbol 1/0001.as",
+    "path": "converted/fem_m_battleCast/scripts/std_MousebuttonSymbol/std_MousebuttonSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 1.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_MousebuttonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

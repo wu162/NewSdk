@@ -1,0 +1,869 @@
+{
+  "LoadScreenCampaign": {
+    "classCount": 4,
+    "timelineDeclarationsExternalized": 0,
+    "changes": [],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "AptApiClass",
+        "defaultCodeSha256": "f7275cc405e5fa45f8c2c4deca39ee316bc0293910b501f5ba8c1f9893bed7ce",
+        "vendorSkipFieldsSha256": "122b6e4b03b0a7879db4c03ae265ee1dab34b9dcca8218c0911093df845194e2"
+      },
+      {
+        "class": "AptZombieClass",
+        "defaultCodeSha256": "b4d4b59f3a0022967d6dcdabc77dcc3e8697b659d9b7cf7394fa9bb2e4e4c079",
+        "vendorSkipFieldsSha256": "8bc8d22175335e772ab693bc15daeffb6ecda87a677be8ed770876d2bb4f3212"
+      },
+      {
+        "class": "DebugClass",
+        "defaultCodeSha256": "8be84f7efc160d2c8b3152309365dc720e7234952b62c674987821b31c8d2710",
+        "vendorSkipFieldsSha256": "92f7a34eec1ca9fd7e0aa4d2b50e196932514b78ab251108e7ee7980d7863f1b"
+      },
+      {
+        "class": "LoadScreenCampaignClass",
+        "defaultCodeSha256": "0408d78fe94a9aaccb3c46faaaa9a8c3eb5002d6072fbcdd291061b9ffc0a348",
+        "vendorSkipFieldsSha256": "af26ad8174782f8642c2d296795752fde34223b384c3e8692b7cae987ec8baca"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "AptApiClass",
+        "path": "AptApiClass.as",
+        "sha256": "53d5e00edc70dc6693155881f27a909a2b02a6afaef589d005067133d8cd2d16"
+      },
+      {
+        "class": "AptZombieClass",
+        "path": "AptZombieClass.as",
+        "sha256": "1a21a4c4ce5b97946c11913b615329cf4b1dd98ce728b6cf27a99280d00dc9d4"
+      },
+      {
+        "class": "DebugClass",
+        "path": "DebugClass.as",
+        "sha256": "ff3d6b21030e42473188f8897f3c80dfaf34455b9d0305def508a2dff500bafa"
+      },
+      {
+        "class": "LoadScreenCampaignClass",
+        "path": "LoadScreenCampaignClass.as",
+        "sha256": "6b85ac40a53b7c3403300ac1862534032c6bb8278c453938f4f8736123af3382"
+      }
+    ]
+  },
+  "LoadScreenImage": {
+    "classCount": 4,
+    "timelineDeclarationsExternalized": 0,
+    "changes": [],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "AptApiClass",
+        "defaultCodeSha256": "f7275cc405e5fa45f8c2c4deca39ee316bc0293910b501f5ba8c1f9893bed7ce",
+        "vendorSkipFieldsSha256": "122b6e4b03b0a7879db4c03ae265ee1dab34b9dcca8218c0911093df845194e2"
+      },
+      {
+        "class": "AptZombieClass",
+        "defaultCodeSha256": "b4d4b59f3a0022967d6dcdabc77dcc3e8697b659d9b7cf7394fa9bb2e4e4c079",
+        "vendorSkipFieldsSha256": "8bc8d22175335e772ab693bc15daeffb6ecda87a677be8ed770876d2bb4f3212"
+      },
+      {
+        "class": "DebugClass",
+        "defaultCodeSha256": "8be84f7efc160d2c8b3152309365dc720e7234952b62c674987821b31c8d2710",
+        "vendorSkipFieldsSha256": "92f7a34eec1ca9fd7e0aa4d2b50e196932514b78ab251108e7ee7980d7863f1b"
+      },
+      {
+        "class": "LoadScreenImageClass",
+        "defaultCodeSha256": "988fb1a24729f8dc6fe032cf65c69ef1b4b6674c795a00288ae1a0a085ee66e4",
+        "vendorSkipFieldsSha256": "7233054e64cde209bb1f526d309c3183fe8a987fe5ebfdffea7d0aed4fd87c93"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "AptApiClass",
+        "path": "AptApiClass.as",
+        "sha256": "53d5e00edc70dc6693155881f27a909a2b02a6afaef589d005067133d8cd2d16"
+      },
+      {
+        "class": "AptZombieClass",
+        "path": "AptZombieClass.as",
+        "sha256": "1a21a4c4ce5b97946c11913b615329cf4b1dd98ce728b6cf27a99280d00dc9d4"
+      },
+      {
+        "class": "DebugClass",
+        "path": "DebugClass.as",
+        "sha256": "ff3d6b21030e42473188f8897f3c80dfaf34455b9d0305def508a2dff500bafa"
+      },
+      {
+        "class": "LoadScreenImageClass",
+        "path": "LoadScreenImageClass.as",
+        "sha256": "4d8023d6401f6529e05b99c61c9a31aa5f079d71576baca8b3b622e3366d90be"
+      }
+    ]
+  },
+  "blockTextComponent": {
+    "classCount": 1,
+    "timelineDeclarationsExternalized": 0,
+    "changes": [],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "ScrollingBlockTextClass",
+        "defaultCodeSha256": "5cd6396787c4661387b430c93d8529d08332fd83c2464bb82418cd5baaa4c637",
+        "vendorSkipFieldsSha256": "c0e53d86b3bf4bb7dbdf5bd726a94aed99c645317699c4645f20133e33054281"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "ScrollingBlockTextClass",
+        "path": "ScrollingBlockTextClass.as",
+        "sha256": "57d94477dcaeb277d22e4d9749ebdfda47a395f3e36757b803591d826ccb1413"
+      }
+    ]
+  },
+  "feg_m_profileManager": {
+    "classCount": 3,
+    "timelineDeclarationsExternalized": 2,
+    "changes": [
+      {
+        "source": "scripts/LIBRARY/Symbol 9/0001.as",
+        "class": "Cafe2_BaseUIScreen",
+        "sourceDeclarationSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 31/0001.as",
+        "class": "feg_m_profileManager",
+        "sourceDeclarationSha256": "3b2ad5e43783c2935acc6d8c3bc3f1a08c91b3cd6416a80d88f28f5fe1dfe810"
+      }
+    ],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "defaultCodeSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40",
+        "vendorSkipFieldsSha256": "42807e3cc158043320aeec74009565adc08bb146e067858cc9ce7f5870598874"
+      },
+      {
+        "class": "feg_m_profileManager",
+        "defaultCodeSha256": "3b2ad5e43783c2935acc6d8c3bc3f1a08c91b3cd6416a80d88f28f5fe1dfe810",
+        "vendorSkipFieldsSha256": "3aa0edab9c2a9bc107bdbd2a0c5127c39e42d3f9cbbf94c5e84a2920160bdafc"
+      },
+      {
+        "class": "IListboxEventListener",
+        "defaultCodeSha256": "8d37cf6c331ba1c2a35c6f18d78bf53190ecd6f32e7a372ff5e29e29979a14a5",
+        "vendorSkipFieldsSha256": "82475637fc67e272516b6e60ebe0cc31eabb1b5da542387b0ee905a2b60c9447"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "path": "Cafe2_BaseUIScreen.as",
+        "sha256": "bd3940e98543d159841ec5ed2e61bd353cb2e40f3a6c917acc476bf5e7f9e45a"
+      },
+      {
+        "class": "IListboxEventListener",
+        "path": "IListboxEventListener.as",
+        "sha256": "c3f888c2936a44b86c7014b28016ba3ba2cfe8e9b9b659ea9193f27158814822"
+      },
+      {
+        "class": "feg_m_profileManager",
+        "path": "feg_m_profileManager.as",
+        "sha256": "f49cd7e7901356a4c364a992f53b4364e5cdd3d099899c7afa5f39f9a6504c97"
+      }
+    ]
+  },
+  "feg_m_profileStats": {
+    "classCount": 2,
+    "timelineDeclarationsExternalized": 1,
+    "changes": [
+      {
+        "source": "scripts/LIBRARY/Symbol 4/0001.as",
+        "class": "feg_m_profileStats",
+        "sourceDeclarationSha256": "f723e8a2688d185a635de3c695de5a68aeb60055d627c6286ffedd8d30c1cdc3"
+      }
+    ],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "feg_m_profileStats",
+        "defaultCodeSha256": "f723e8a2688d185a635de3c695de5a68aeb60055d627c6286ffedd8d30c1cdc3",
+        "vendorSkipFieldsSha256": "7148f5aa63d2d9eaa1776c16c9f4e7b230dd0d0da49a9a6cee7b3af486e3ae9a"
+      },
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "defaultCodeSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40",
+        "vendorSkipFieldsSha256": "42807e3cc158043320aeec74009565adc08bb146e067858cc9ce7f5870598874"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "path": "Cafe2_BaseUIScreen.as",
+        "sha256": "bd3940e98543d159841ec5ed2e61bd353cb2e40f3a6c917acc476bf5e7f9e45a"
+      },
+      {
+        "class": "feg_m_profileStats",
+        "path": "feg_m_profileStats.as",
+        "sha256": "1b38328e783f0dac63d2c872d163a39812ff21311e474854393412ba41b431d4"
+      }
+    ]
+  },
+  "feg_m_recruitChooser": {
+    "classCount": 12,
+    "timelineDeclarationsExternalized": 3,
+    "changes": [
+      {
+        "source": "scripts/LIBRARY/Symbol 34/0001.as",
+        "class": "ICafe2_FocusableControl",
+        "sourceDeclarationSha256": "7539cc9e080d8352973fbd224a73df928326a85f973f951c7f365c58b3baa61d"
+      },
+      {
+        "source": "scripts/LIBRARY/Symbol 62/0001.as",
+        "class": "Cafe2_MouseBaseControl",
+        "sourceDeclarationSha256": "8b4e0610c12e8212154e342df7e692f901ff1e1932ac48693f917ab967d73359"
+      },
+      {
+        "source": "scripts/LIBRARY/Symbol 63/0001.as",
+        "class": "Cafe2_BaseUIScreen",
+        "sourceDeclarationSha256": "5413e5b53e7e6e7216e31d57f40d66deb7db45b4cc328f9338eb82511f86344d"
+      }
+    ],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "ICafe2_FocusableControl",
+        "defaultCodeSha256": "7539cc9e080d8352973fbd224a73df928326a85f973f951c7f365c58b3baa61d",
+        "vendorSkipFieldsSha256": "a28d6007cafc0cb23882e4102cf6bd58af4f4747ae70ebd6dcab027f0e6a5564"
+      },
+      {
+        "class": "Cafe2_MouseBaseControl",
+        "defaultCodeSha256": "8b4e0610c12e8212154e342df7e692f901ff1e1932ac48693f917ab967d73359",
+        "vendorSkipFieldsSha256": "df8bf4f1e3333772bc7905a05e1b86cc4feba1cf809e4be7161ea7ee1be1ce50"
+      },
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "defaultCodeSha256": "5413e5b53e7e6e7216e31d57f40d66deb7db45b4cc328f9338eb82511f86344d",
+        "vendorSkipFieldsSha256": "b916223457ee3eaec385165155c50fc3d3d0dc18088483e6ef3008d006366108"
+      },
+      {
+        "class": "Cafe2_Imp_BaseControl",
+        "defaultCodeSha256": "bbc8f43842ceb49a3074d8f053ee436654894486d2d4bf82064f1afe78f2c6d0",
+        "vendorSkipFieldsSha256": "491acaf8460e293b1a06f271827818885a1bdfddb172a6324927e9a7cede2e2c"
+      },
+      {
+        "class": "CafeFW_IndexMgr",
+        "defaultCodeSha256": "8916189ca27eca7c96a603dad34ac4b5533ba223aa51a170c10a557cbda32ee6",
+        "vendorSkipFieldsSha256": "e32b0c7ede57665b77ec7789ff68b989555316c0840a88dc9ebb6c66dafbab0a"
+      },
+      {
+        "class": "IListboxEntryEventListener",
+        "defaultCodeSha256": "95369f4793e43476b2748682d7400154b5040b08d431c1b62b91eb9fe2cb37f2",
+        "vendorSkipFieldsSha256": "88758a1378556daa854add0cc0c95ed30c89f8de65d067e26062662949854321"
+      },
+      {
+        "class": "IListboxEventListener",
+        "defaultCodeSha256": "8d37cf6c331ba1c2a35c6f18d78bf53190ecd6f32e7a372ff5e29e29979a14a5",
+        "vendorSkipFieldsSha256": "82475637fc67e272516b6e60ebe0cc31eabb1b5da542387b0ee905a2b60c9447"
+      },
+      {
+        "class": "IScrollbarEventListener",
+        "defaultCodeSha256": "85a050587416f07b9c300c69dd4d55d64327bbd6a3b52e478238280ecb99ffeb",
+        "vendorSkipFieldsSha256": "214255307cb24a361b4b8a005f53c665c751ff18a457c0a806255f1e19df369e"
+      },
+      {
+        "class": "feg_m_recruitChooser",
+        "defaultCodeSha256": "96bfd6f405b1f367ab9ed02172fff9929cc4b3a8fea23d9ae2c361c6fac4070b",
+        "vendorSkipFieldsSha256": "22dbf4a652f244862ef7d1ec2bbddd009283d84a7051f13f6e64218678f6fcf6"
+      },
+      {
+        "class": "std_mouseScrollbar_logic",
+        "defaultCodeSha256": "e5329359149dd3082a67c72c193765c0026226f8c47b60f47a91266db6ce008c",
+        "vendorSkipFieldsSha256": "d090545df04490058c4cce0525678ad7c882535f593bc91e53790a6eb094c9c0"
+      },
+      {
+        "class": "std_mouseScrollbar_visual",
+        "defaultCodeSha256": "b18b69bc306f20f074792f24b3128c62e784eec216aea313626f6d39d70b7ba5",
+        "vendorSkipFieldsSha256": "adc08cb6208d30d8ff991d9e32fb3b0f61b7e7338c7878f85c1bdaa2242021e4"
+      },
+      {
+        "class": "std_mouseScrollingListbox",
+        "defaultCodeSha256": "c046ca03156630d67bc707b4ff55cf8292b535b8da8d89902e4cb665ea2b387a",
+        "vendorSkipFieldsSha256": "e92a22fa9830fc1d908267eaf57c4505e611e1b5f06e331d9120e366b764ee13"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "path": "Cafe2_BaseUIScreen.as",
+        "sha256": "20c163da1b49ebfa5eef7922fd1ca4c3ee69c8bf11f8c6cae57e3a9240f3a74e"
+      },
+      {
+        "class": "Cafe2_Imp_BaseControl",
+        "path": "Cafe2_Imp_BaseControl.as",
+        "sha256": "7a2df954b7d4a2bf5cc8671ebf5db877f57e97857daea41e648e7422da725b41"
+      },
+      {
+        "class": "Cafe2_MouseBaseControl",
+        "path": "Cafe2_MouseBaseControl.as",
+        "sha256": "5bb6019f4fbb594c98ab39e30a4958d68944515704e10390001e4dc3fbdad9e2"
+      },
+      {
+        "class": "CafeFW_IndexMgr",
+        "path": "CafeFW_IndexMgr.as",
+        "sha256": "538f7af3ee6325e34d351a4a0492058218b107a8524416c44deb7eec3c697712"
+      },
+      {
+        "class": "ICafe2_FocusableControl",
+        "path": "ICafe2_FocusableControl.as",
+        "sha256": "1c833ac1829c818eb4176cdd36aed43b3d43bc1f24662a7e0b2fbd24136bc9b9"
+      },
+      {
+        "class": "IListboxEntryEventListener",
+        "path": "IListboxEntryEventListener.as",
+        "sha256": "49d5aa336d462eb127589b2a9ccad17c25119a4c7dd2afdfb4af8c43b38dc4a3"
+      },
+      {
+        "class": "IListboxEventListener",
+        "path": "IListboxEventListener.as",
+        "sha256": "c3f888c2936a44b86c7014b28016ba3ba2cfe8e9b9b659ea9193f27158814822"
+      },
+      {
+        "class": "IScrollbarEventListener",
+        "path": "IScrollbarEventListener.as",
+        "sha256": "8007c54074855090aef9a9cbf14587a55b0d505aa4053a53250ae20494c57b1d"
+      },
+      {
+        "class": "feg_m_recruitChooser",
+        "path": "feg_m_recruitChooser.as",
+        "sha256": "771aa7cf491f140143e24f9f46f4e5445881bf5c1617020228159252caeae6e3"
+      },
+      {
+        "class": "std_mouseScrollbar_logic",
+        "path": "std_mouseScrollbar_logic.as",
+        "sha256": "c66c0113cd7e9b1aec40b3e36f1a3221f8d1c21b5492e244cdce234ed19cad5a"
+      },
+      {
+        "class": "std_mouseScrollbar_visual",
+        "path": "std_mouseScrollbar_visual.as",
+        "sha256": "fec9dce7e37e5148d6626a3e31c0d202ee18d2e753b68128be2f9ed1d04f8479"
+      },
+      {
+        "class": "std_mouseScrollingListbox",
+        "path": "std_mouseScrollingListbox.as",
+        "sha256": "e82f518fceec81bfd6ccc324cea9c05449f6df73c7c9cf2fd2d577a0d57db30a"
+      }
+    ]
+  },
+  "feg_m_saveLoadMenu": {
+    "classCount": 3,
+    "timelineDeclarationsExternalized": 1,
+    "changes": [
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 13/0001.as",
+        "class": "Cafe2_BaseUIScreen",
+        "sourceDeclarationSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40"
+      }
+    ],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "defaultCodeSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40",
+        "vendorSkipFieldsSha256": "42807e3cc158043320aeec74009565adc08bb146e067858cc9ce7f5870598874"
+      },
+      {
+        "class": "IListboxEventListener",
+        "defaultCodeSha256": "8d37cf6c331ba1c2a35c6f18d78bf53190ecd6f32e7a372ff5e29e29979a14a5",
+        "vendorSkipFieldsSha256": "82475637fc67e272516b6e60ebe0cc31eabb1b5da542387b0ee905a2b60c9447"
+      },
+      {
+        "class": "feg_m_saveLoadMenu",
+        "defaultCodeSha256": "3ad4c918e51f7f94007ca33028e764cb6f6dcc4719fc9386774452015838a2fd",
+        "vendorSkipFieldsSha256": "e622a00901e4c34f5302c3aa9634c04b19a7d3ddb8e1fb7109605da6e21bc4d2"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "path": "Cafe2_BaseUIScreen.as",
+        "sha256": "bd3940e98543d159841ec5ed2e61bd353cb2e40f3a6c917acc476bf5e7f9e45a"
+      },
+      {
+        "class": "IListboxEventListener",
+        "path": "IListboxEventListener.as",
+        "sha256": "c3f888c2936a44b86c7014b28016ba3ba2cfe8e9b9b659ea9193f27158814822"
+      },
+      {
+        "class": "feg_m_saveLoadMenu",
+        "path": "feg_m_saveLoadMenu.as",
+        "sha256": "ef45ee91ad966dd83b5279f41c678bb85f784a88e0373827b3884f45b4e52d8f"
+      }
+    ]
+  },
+  "fem_m_coopStaging": {
+    "classCount": 2,
+    "timelineDeclarationsExternalized": 2,
+    "changes": [
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 18/0001.as",
+        "class": "fem_m_coopStaging",
+        "sourceDeclarationSha256": "ffd7d55ada2a545a190782cfc8455f8cfe88495a208f3f5fdbe34881d076913e"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 48/0001.as",
+        "class": "Cafe2_BaseUIScreen",
+        "sourceDeclarationSha256": "327d5d59e328ffbb5951667ee3ea8cf913538a0740e04975debdf30ca9a572f4"
+      }
+    ],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "fem_m_coopStaging",
+        "defaultCodeSha256": "ffd7d55ada2a545a190782cfc8455f8cfe88495a208f3f5fdbe34881d076913e",
+        "vendorSkipFieldsSha256": "4f48d57c5dc5ed0583cfbd28ad96773303c5fa259e25a44458aab94e0472a4fe"
+      },
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "defaultCodeSha256": "327d5d59e328ffbb5951667ee3ea8cf913538a0740e04975debdf30ca9a572f4",
+        "vendorSkipFieldsSha256": "243a5c97cf7c4699fe6117d9c206b187f7867e62ef709f8bcf428082bfd17372"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "path": "Cafe2_BaseUIScreen.as",
+        "sha256": "21ee8411bfed39c4910922318187218d2cbf84f623d30543e44ec965425fc6ad"
+      },
+      {
+        "class": "fem_m_coopStaging",
+        "path": "fem_m_coopStaging.as",
+        "sha256": "248a60b7cf1bba8ecdacec56e0877800a50f9567d232953979d1982ef2bbca20"
+      }
+    ]
+  },
+  "fem_m_gameSetup": {
+    "classCount": 4,
+    "timelineDeclarationsExternalized": 8,
+    "changes": [
+      {
+        "source": "scripts/LIBRARY/Symbol 4/0001.as",
+        "class": "Cafe2_BaseUIScreen",
+        "sourceDeclarationSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 16/0001.as",
+        "class": "Cafe2_BaseUIScreen",
+        "sourceDeclarationSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 17/0001.as",
+        "class": "IListboxEventListener",
+        "sourceDeclarationSha256": "8d37cf6c331ba1c2a35c6f18d78bf53190ecd6f32e7a372ff5e29e29979a14a5"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 20/0001.as",
+        "class": "Cafe2_BaseUIScreen",
+        "sourceDeclarationSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 43/0001.as",
+        "class": "fem_m_gameSetup",
+        "sourceDeclarationSha256": "1042c8ccd9fffbbcf5e6992caa2fee300b09d97a9e9e87bb88e45d7622b2c1a2"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 44/0001.as",
+        "class": "IListboxEventListener",
+        "sourceDeclarationSha256": "8d37cf6c331ba1c2a35c6f18d78bf53190ecd6f32e7a372ff5e29e29979a14a5"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 81/0001.as",
+        "class": "fem_m_gameSetup",
+        "sourceDeclarationSha256": "1042c8ccd9fffbbcf5e6992caa2fee300b09d97a9e9e87bb88e45d7622b2c1a2"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 82/0001.as",
+        "class": "IListboxEventListener",
+        "sourceDeclarationSha256": "8d37cf6c331ba1c2a35c6f18d78bf53190ecd6f32e7a372ff5e29e29979a14a5"
+      }
+    ],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "defaultCodeSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40",
+        "vendorSkipFieldsSha256": "42807e3cc158043320aeec74009565adc08bb146e067858cc9ce7f5870598874"
+      },
+      {
+        "class": "IListboxEventListener",
+        "defaultCodeSha256": "8d37cf6c331ba1c2a35c6f18d78bf53190ecd6f32e7a372ff5e29e29979a14a5",
+        "vendorSkipFieldsSha256": "82475637fc67e272516b6e60ebe0cc31eabb1b5da542387b0ee905a2b60c9447"
+      },
+      {
+        "class": "fem_m_gameSetup",
+        "defaultCodeSha256": "1042c8ccd9fffbbcf5e6992caa2fee300b09d97a9e9e87bb88e45d7622b2c1a2",
+        "vendorSkipFieldsSha256": "74d222ae4b6354a0a438b65103f97fe0bbcf083207a65ce547cb1b9e9458763b"
+      },
+      {
+        "class": "GameSetupBase",
+        "defaultCodeSha256": "aee8b2a3022893b3df9e6b274731063148d846a64c368b297391d0c5e302d45c",
+        "vendorSkipFieldsSha256": "f264500c48a842e4ce9adab6f2f582c87f8d18327b61ffdc56938fd72103fab1"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "path": "Cafe2_BaseUIScreen.as",
+        "sha256": "bd3940e98543d159841ec5ed2e61bd353cb2e40f3a6c917acc476bf5e7f9e45a"
+      },
+      {
+        "class": "GameSetupBase",
+        "path": "GameSetupBase.as",
+        "sha256": "0c1dbe28477db5534694748081f408550b5ed7ac81904d96630b286d18f93b31"
+      },
+      {
+        "class": "IListboxEventListener",
+        "path": "IListboxEventListener.as",
+        "sha256": "c3f888c2936a44b86c7014b28016ba3ba2cfe8e9b9b659ea9193f27158814822"
+      },
+      {
+        "class": "fem_m_gameSetup",
+        "path": "fem_m_gameSetup.as",
+        "sha256": "319064822d3fb74b03e38011a03dc60c717fb846f1826f1d768bdc73d9b8c40b"
+      }
+    ]
+  },
+  "fem_m_lanGameSetup": {
+    "classCount": 4,
+    "timelineDeclarationsExternalized": 8,
+    "changes": [
+      {
+        "source": "scripts/LIBRARY/Symbol 14/0001.as",
+        "class": "Cafe2_BaseUIScreen",
+        "sourceDeclarationSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 19/0001.as",
+        "class": "Cafe2_BaseUIScreen",
+        "sourceDeclarationSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 20/0001.as",
+        "class": "IListboxEventListener",
+        "sourceDeclarationSha256": "8d37cf6c331ba1c2a35c6f18d78bf53190ecd6f32e7a372ff5e29e29979a14a5"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 23/0001.as",
+        "class": "Cafe2_BaseUIScreen",
+        "sourceDeclarationSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 47/0001.as",
+        "class": "fem_m_lanGameSetup",
+        "sourceDeclarationSha256": "1913e4963d7c561cb7c9bb775ffa19a19498d90c2ffa3fa0bee7dc36d7007255"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 48/0001.as",
+        "class": "IListboxEventListener",
+        "sourceDeclarationSha256": "8d37cf6c331ba1c2a35c6f18d78bf53190ecd6f32e7a372ff5e29e29979a14a5"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 85/0001.as",
+        "class": "fem_m_lanGameSetup",
+        "sourceDeclarationSha256": "1913e4963d7c561cb7c9bb775ffa19a19498d90c2ffa3fa0bee7dc36d7007255"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 86/0001.as",
+        "class": "IListboxEventListener",
+        "sourceDeclarationSha256": "8d37cf6c331ba1c2a35c6f18d78bf53190ecd6f32e7a372ff5e29e29979a14a5"
+      }
+    ],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "defaultCodeSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40",
+        "vendorSkipFieldsSha256": "42807e3cc158043320aeec74009565adc08bb146e067858cc9ce7f5870598874"
+      },
+      {
+        "class": "IListboxEventListener",
+        "defaultCodeSha256": "8d37cf6c331ba1c2a35c6f18d78bf53190ecd6f32e7a372ff5e29e29979a14a5",
+        "vendorSkipFieldsSha256": "82475637fc67e272516b6e60ebe0cc31eabb1b5da542387b0ee905a2b60c9447"
+      },
+      {
+        "class": "fem_m_lanGameSetup",
+        "defaultCodeSha256": "1913e4963d7c561cb7c9bb775ffa19a19498d90c2ffa3fa0bee7dc36d7007255",
+        "vendorSkipFieldsSha256": "ad417655976bd82d7837d7d7827891d1235b47c67e1403adf65303ccf08e13c7"
+      },
+      {
+        "class": "GameSetupBase",
+        "defaultCodeSha256": "aee8b2a3022893b3df9e6b274731063148d846a64c368b297391d0c5e302d45c",
+        "vendorSkipFieldsSha256": "f264500c48a842e4ce9adab6f2f582c87f8d18327b61ffdc56938fd72103fab1"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "path": "Cafe2_BaseUIScreen.as",
+        "sha256": "bd3940e98543d159841ec5ed2e61bd353cb2e40f3a6c917acc476bf5e7f9e45a"
+      },
+      {
+        "class": "GameSetupBase",
+        "path": "GameSetupBase.as",
+        "sha256": "0c1dbe28477db5534694748081f408550b5ed7ac81904d96630b286d18f93b31"
+      },
+      {
+        "class": "IListboxEventListener",
+        "path": "IListboxEventListener.as",
+        "sha256": "c3f888c2936a44b86c7014b28016ba3ba2cfe8e9b9b659ea9193f27158814822"
+      },
+      {
+        "class": "fem_m_lanGameSetup",
+        "path": "fem_m_lanGameSetup.as",
+        "sha256": "2be0a426fbe4e2dcdd87855bc0f4ee711f8e15642d67c74b95abe8d25814a4f1"
+      }
+    ]
+  },
+  "fem_m_lanLobby": {
+    "classCount": 2,
+    "timelineDeclarationsExternalized": 4,
+    "changes": [
+      {
+        "source": "scripts/LIBRARY/Symbol 14/0001.as",
+        "class": "fem_m_lanLobby",
+        "sourceDeclarationSha256": "1565abdf5557f33aba125070b39d79c515a3ed31f00c019b824077f07b28d1a3"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 17/0001.as",
+        "class": "fem_m_lanLobby",
+        "sourceDeclarationSha256": "1565abdf5557f33aba125070b39d79c515a3ed31f00c019b824077f07b28d1a3"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 19/0001.as",
+        "class": "Cafe2_BaseUIScreen",
+        "sourceDeclarationSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 30/0001.as",
+        "class": "Cafe2_BaseUIScreen",
+        "sourceDeclarationSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40"
+      }
+    ],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "fem_m_lanLobby",
+        "defaultCodeSha256": "1565abdf5557f33aba125070b39d79c515a3ed31f00c019b824077f07b28d1a3",
+        "vendorSkipFieldsSha256": "5bf69aaf73383b6ab10a40459330a05102ac9ea2ee225a49891e7dff9cb4641a"
+      },
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "defaultCodeSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40",
+        "vendorSkipFieldsSha256": "42807e3cc158043320aeec74009565adc08bb146e067858cc9ce7f5870598874"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "path": "Cafe2_BaseUIScreen.as",
+        "sha256": "bd3940e98543d159841ec5ed2e61bd353cb2e40f3a6c917acc476bf5e7f9e45a"
+      },
+      {
+        "class": "fem_m_lanLobby",
+        "path": "fem_m_lanLobby.as",
+        "sha256": "6852f09abda278eb62a227d08e6e57b762a3175ccaa91ae78dff582600b01057"
+      }
+    ]
+  },
+  "fes_m_chapterSelect": {
+    "classCount": 2,
+    "timelineDeclarationsExternalized": 1,
+    "changes": [
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 17/0001.as",
+        "class": "fes_m_chapterSelect",
+        "sourceDeclarationSha256": "23f146de5e350e571fb2e33026a502d8431780047d57cc1ee7c1e3a9cab362f4"
+      }
+    ],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "fes_m_chapterSelect",
+        "defaultCodeSha256": "23f146de5e350e571fb2e33026a502d8431780047d57cc1ee7c1e3a9cab362f4",
+        "vendorSkipFieldsSha256": "667831cdb251bdedda58fa22604ba7424361a95ae739d403b4f334bd2bb50762"
+      },
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "defaultCodeSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40",
+        "vendorSkipFieldsSha256": "42807e3cc158043320aeec74009565adc08bb146e067858cc9ce7f5870598874"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "path": "Cafe2_BaseUIScreen.as",
+        "sha256": "bd3940e98543d159841ec5ed2e61bd353cb2e40f3a6c917acc476bf5e7f9e45a"
+      },
+      {
+        "class": "fes_m_chapterSelect",
+        "path": "fes_m_chapterSelect.as",
+        "sha256": "e1dd866c2d0c39ed8cea162ff57f690481ba86d6583b2e4eca24670c6b3a5bd6"
+      }
+    ]
+  },
+  "fes_m_factionMenu": {
+    "classCount": 2,
+    "timelineDeclarationsExternalized": 1,
+    "changes": [
+      {
+        "source": "scripts/LIBRARY/Symbol 27/0001.as",
+        "class": "Cafe2_BaseUIScreen",
+        "sourceDeclarationSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40"
+      }
+    ],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "defaultCodeSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40",
+        "vendorSkipFieldsSha256": "42807e3cc158043320aeec74009565adc08bb146e067858cc9ce7f5870598874"
+      },
+      {
+        "class": "fes_m_factionMenu",
+        "defaultCodeSha256": "5b0b1d3a1722f1d236046949690a4ed2ae43cd97844c267a60a939cc237090c1",
+        "vendorSkipFieldsSha256": "bde80caea1be049a68bc11872f1cb20bf2ec730600699d2b57adad0afe4a92bc"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "path": "Cafe2_BaseUIScreen.as",
+        "sha256": "bd3940e98543d159841ec5ed2e61bd353cb2e40f3a6c917acc476bf5e7f9e45a"
+      },
+      {
+        "class": "fes_m_factionMenu",
+        "path": "fes_m_factionMenu.as",
+        "sha256": "44f787c5bebad4f5c721e0e496d1fc77c36a7219a8e1ce56c66fce8299e323e9"
+      }
+    ]
+  },
+  "fes_m_skirmishGameSetup": {
+    "classCount": 4,
+    "timelineDeclarationsExternalized": 5,
+    "changes": [
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 16/0001.as",
+        "class": "fes_m_skirmishGameSetup",
+        "sourceDeclarationSha256": "3b00e7fd369d8923048c7e43d5a6d6a183a8c869b4b49d368be281c37bdb8d8e"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 26/0001.as",
+        "class": "fes_m_skirmishGameSetup",
+        "sourceDeclarationSha256": "3b00e7fd369d8923048c7e43d5a6d6a183a8c869b4b49d368be281c37bdb8d8e"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 37/0001.as",
+        "class": "GameSetupBase",
+        "sourceDeclarationSha256": "aee8b2a3022893b3df9e6b274731063148d846a64c368b297391d0c5e302d45c"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 38/0001.as",
+        "class": "fes_m_skirmishGameSetup",
+        "sourceDeclarationSha256": "3b00e7fd369d8923048c7e43d5a6d6a183a8c869b4b49d368be281c37bdb8d8e"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 55/0001.as",
+        "class": "GameSetupBase",
+        "sourceDeclarationSha256": "aee8b2a3022893b3df9e6b274731063148d846a64c368b297391d0c5e302d45c"
+      }
+    ],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "fes_m_skirmishGameSetup",
+        "defaultCodeSha256": "3b00e7fd369d8923048c7e43d5a6d6a183a8c869b4b49d368be281c37bdb8d8e",
+        "vendorSkipFieldsSha256": "4647f0c22bd366d3ce4653b03e6c56e4c0c8a1df8b03fc0911d70badd0d27563"
+      },
+      {
+        "class": "GameSetupBase",
+        "defaultCodeSha256": "aee8b2a3022893b3df9e6b274731063148d846a64c368b297391d0c5e302d45c",
+        "vendorSkipFieldsSha256": "f264500c48a842e4ce9adab6f2f582c87f8d18327b61ffdc56938fd72103fab1"
+      },
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "defaultCodeSha256": "24c72b6a7462c4343f300b4bbe1f75deb973e13c08cc34640a30d05466b47e40",
+        "vendorSkipFieldsSha256": "42807e3cc158043320aeec74009565adc08bb146e067858cc9ce7f5870598874"
+      },
+      {
+        "class": "IListboxEventListener",
+        "defaultCodeSha256": "8d37cf6c331ba1c2a35c6f18d78bf53190ecd6f32e7a372ff5e29e29979a14a5",
+        "vendorSkipFieldsSha256": "82475637fc67e272516b6e60ebe0cc31eabb1b5da542387b0ee905a2b60c9447"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "path": "Cafe2_BaseUIScreen.as",
+        "sha256": "bd3940e98543d159841ec5ed2e61bd353cb2e40f3a6c917acc476bf5e7f9e45a"
+      },
+      {
+        "class": "GameSetupBase",
+        "path": "GameSetupBase.as",
+        "sha256": "0c1dbe28477db5534694748081f408550b5ed7ac81904d96630b286d18f93b31"
+      },
+      {
+        "class": "IListboxEventListener",
+        "path": "IListboxEventListener.as",
+        "sha256": "c3f888c2936a44b86c7014b28016ba3ba2cfe8e9b9b659ea9193f27158814822"
+      },
+      {
+        "class": "fes_m_skirmishGameSetup",
+        "path": "fes_m_skirmishGameSetup.as",
+        "sha256": "1bba17669fbaf0adeecebc71d0c6ea9030e4ca701eddfca12da623750040cb83"
+      }
+    ]
+  },
+  "testCafeUI": {
+    "classCount": 4,
+    "timelineDeclarationsExternalized": 2,
+    "changes": [
+      {
+        "source": "scripts/LIBRARY/Symbol 29/0001.as",
+        "class": "testCafeUI",
+        "sourceDeclarationSha256": "b8cc633145839f15616216c5f59239addd3347bacf1152f830c978c06d64c364"
+      },
+      {
+        "source": "scripts/LIBRARY/imported/Symbol 11/0001.as",
+        "class": "Cafe2_BaseUIScreen",
+        "sourceDeclarationSha256": "17e548a52d81c1254c43e6b3050037e0a83af528e996e6ec2020e20ad04d2a04"
+      }
+    ],
+    "vendorSkipUninitializedFieldDetection": [
+      {
+        "class": "testCafeUI",
+        "defaultCodeSha256": "b8cc633145839f15616216c5f59239addd3347bacf1152f830c978c06d64c364",
+        "vendorSkipFieldsSha256": "86df06398cd0ea3d0fb2eaaafb07fe5f04dc8eaeb1b9d36605afcada4b950d9c"
+      },
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "defaultCodeSha256": "17e548a52d81c1254c43e6b3050037e0a83af528e996e6ec2020e20ad04d2a04",
+        "vendorSkipFieldsSha256": "64e9a636c3376d8f6473ca117f037e97e5097fd0550c505be708a2c1f923c286"
+      },
+      {
+        "class": "scrollColumnDefinition",
+        "defaultCodeSha256": "a5693e8f5ea43a451c27bf8a653add347cdca01f368dd11b72f827e5810240fa",
+        "vendorSkipFieldsSha256": "56c183aa734ea3356d6979dd7a8818a410a2199765782e7f994ba320167708b3"
+      },
+      {
+        "class": "scrollLineIconDef",
+        "defaultCodeSha256": "82677c281824f6269f28ceb54357caa4c9383211103c3308fee5e2f95e437061",
+        "vendorSkipFieldsSha256": "052491f6c965db7e1d4b8efe9a3f58628cdd131a676d42225267c8c121d5520c"
+      }
+    ],
+    "classFiles": [
+      {
+        "class": "Cafe2_BaseUIScreen",
+        "path": "Cafe2_BaseUIScreen.as",
+        "sha256": "4a44b7c22afa1220a10a84639c87bfe15d89cc3fbafdf30be2c83309b1fca605"
+      },
+      {
+        "class": "scrollColumnDefinition",
+        "path": "scrollColumnDefinition.as",
+        "sha256": "4e5bfe8d9ebcada0e6da72dd2698c117248c9ab0b7f32b51a107781b115eb7fd"
+      },
+      {
+        "class": "scrollLineIconDef",
+        "path": "scrollLineIconDef.as",
+        "sha256": "8b2438e8fa401978e76f6fb737b0ebae1fb45dc63b1e75461b1a8c4e1d769e56"
+      },
+      {
+        "class": "testCafeUI",
+        "path": "testCafeUI.as",
+        "sha256": "1f38c95a5362534546cd1d54dfcf3f60b849485da5de378aea585a43c3f22570"
+      }
+    ]
+  }
+}

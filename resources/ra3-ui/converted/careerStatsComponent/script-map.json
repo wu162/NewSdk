@@ -1,378 +1,801 @@
 [
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 21/0001.as",
+    "path": "converted/careerStatsComponent/scripts/top_radioButtonMC/top_radioButtonMC_frame_0001_timelineActions_label_unChecked.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 1,
     "sha256": "e608a5866fa26b3957f6849075dbbaebf69a9b46722dd387b49a1d2fbb3e8263",
     "originalCodeSha256": "e608a5866fa26b3957f6849075dbbaebf69a9b46722dd387b49a1d2fbb3e8263",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "_unChecked",
+      "event": "",
+      "action": "timelineActions",
+      "actionBasis": "timeline-actions-without-named-function"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 21/0002.as",
+    "path": "converted/careerStatsComponent/scripts/top_radioButtonMC/top_radioButtonMC_frame_0009_stop_label_unChecked.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 21/0003.as",
+    "path": "converted/careerStatsComponent/scripts/top_radioButtonMC/top_radioButtonMC_frame_0010_timelineActions_label_checked.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 3,
     "sha256": "781ca9ffc03096e075685cc2bb893f1e788443cdc139288e966d3756ac1f6a59",
     "originalCodeSha256": "781ca9ffc03096e075685cc2bb893f1e788443cdc139288e966d3756ac1f6a59",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "timelineActions",
+      "actionBasis": "timeline-actions-without-named-function"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 21/0004.as",
+    "path": "converted/careerStatsComponent/scripts/top_radioButtonMC/top_radioButtonMC_frame_0019_stop_label_checked.as",
     "xflXml": "LIBRARY/Symbol 21.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 19,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 22/0001.as",
+    "path": "converted/careerStatsComponent/scripts/top_radioButtonContentClip/top_radioButtonContentClip_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 22/0002.as",
+    "path": "converted/careerStatsComponent/scripts/top_radioButtonContentClip/top_radioButtonContentClip_frame_0020_stop_label_selected.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_selected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 22/0003.as",
+    "path": "converted/careerStatsComponent/scripts/top_radioButtonContentClip/top_radioButtonContentClip_frame_0030_stop_label_unselected.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_unselected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 22/0004.as",
+    "path": "converted/careerStatsComponent/scripts/top_radioButtonContentClip/top_radioButtonContentClip_frame_0040_stop_label_selectedRollover.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 40,
+      "frameLabel": "_selectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 22/0005.as",
+    "path": "converted/careerStatsComponent/scripts/top_radioButtonContentClip/top_radioButtonContentClip_frame_0050_stop_label_unselectedRollover.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 50,
+      "frameLabel": "_unselectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 22/0006.as",
+    "path": "converted/careerStatsComponent/scripts/top_radioButtonContentClip/top_radioButtonContentClip_frame_0060_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 6,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 60,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 22/0007.as",
+    "path": "converted/careerStatsComponent/scripts/top_radioButtonContentClip/top_radioButtonContentClip_frame_0070_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 7,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "top_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 70,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 25/0001.as",
+    "path": "converted/careerStatsComponent/scripts/online_radioButtonMC/online_radioButtonMC_frame_0009_stop_label_unChecked.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "online_radioButtonMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_unChecked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 25/0002.as",
+    "path": "converted/careerStatsComponent/scripts/online_radioButtonMC/online_radioButtonMC_frame_0019_stop_label_checked.as",
     "xflXml": "LIBRARY/Symbol 25.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "online_radioButtonMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 19,
+      "frameLabel": "_checked",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 30/0001.as",
+    "path": "converted/careerStatsComponent/scripts/online_radioButtonContentClip/online_radioButtonContentClip_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "online_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 30/0002.as",
+    "path": "converted/careerStatsComponent/scripts/online_radioButtonContentClip/online_radioButtonContentClip_frame_0020_stop_label_selected.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "online_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_selected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 30/0003.as",
+    "path": "converted/careerStatsComponent/scripts/online_radioButtonContentClip/online_radioButtonContentClip_frame_0030_stop_label_unselected.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "online_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_unselected",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 30/0004.as",
+    "path": "converted/careerStatsComponent/scripts/online_radioButtonContentClip/online_radioButtonContentClip_frame_0040_stop_label_selectedRollover.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "online_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 40,
+      "frameLabel": "_selectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 30/0005.as",
+    "path": "converted/careerStatsComponent/scripts/online_radioButtonContentClip/online_radioButtonContentClip_frame_0050_stop_label_unselectedRollover.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "online_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 50,
+      "frameLabel": "_unselectedRollover",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 30/0006.as",
+    "path": "converted/careerStatsComponent/scripts/online_radioButtonContentClip/online_radioButtonContentClip_frame_0060_introComplete_label_intro.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 6,
     "sha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
     "originalCodeSha256": "46c0205fca1a8a8e95084b77b10ec2f898c2cd9ee5d99855e16af15ef3a7de52",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "online_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 60,
+      "frameLabel": "_intro",
+      "event": "",
+      "action": "introComplete",
+      "actionBasis": "function-call:introComplete"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 30/0007.as",
+    "path": "converted/careerStatsComponent/scripts/online_radioButtonContentClip/online_radioButtonContentClip_frame_0070_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 7,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "online_radioButtonContentClip",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 70,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 41/0001.as",
+    "path": "converted/careerStatsComponent/scripts/std_mouseScrollbarSymbol/std_mouseScrollbarSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 41.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseScrollbarSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 43/0001.as",
+    "path": "converted/careerStatsComponent/scripts/sbOverall/sbOverall_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 43.xml",
     "scriptOrdinal": 1,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "sbOverall",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 43/0002.as",
+    "path": "converted/careerStatsComponent/scripts/lbOverall/lbOverall_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 43.xml",
     "scriptOrdinal": 2,
     "sha256": "697de546e2af75fe8eed530b3adb1c4aaf997689f4914dc963d66d10d59ce0d1",
     "originalCodeSha256": "6ccc2df7c317a25fd3b175ff8b99de5bd2a40ccf97fa2c779e8226ebe6fee29f",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "lbOverall",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 44/0001.as",
+    "path": "converted/careerStatsComponent/scripts/std_mouseRadioButtonSymbol/std_mouseRadioButtonSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 44.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseRadioButtonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 57/0001.as",
+    "path": "converted/careerStatsComponent/scripts/sbOnline/sbOnline_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 57.xml",
     "scriptOrdinal": 1,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "sbOnline",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 57/0002.as",
+    "path": "converted/careerStatsComponent/scripts/rctlOnline/rctlOnline_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 57.xml",
     "scriptOrdinal": 2,
     "sha256": "e5652f87ce6908a057b36b8e3327ab0f5bb4967272f57194be61c903c467e666",
     "originalCodeSha256": "2c7970ceb43d578bd466540173b1c95a05ac52d77382d1908c05463926489040",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "rctlOnline",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 57/0003.as",
+    "path": "converted/careerStatsComponent/scripts/radSummary/radSummary_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 57.xml",
     "scriptOrdinal": 3,
     "sha256": "09fbca76078478ba99fe48e2310c711038c4e3ee361db11ebdb3e4b4865a2129",
     "originalCodeSha256": "ce6b24f4b6dbe41ecc2cfabd29030a00dfb3604f93eef94df3b396cee1af9ef0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radSummary",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 57/0004.as",
+    "path": "converted/careerStatsComponent/scripts/radClan2v2/radClan2v2_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 57.xml",
     "scriptOrdinal": 4,
     "sha256": "09fbca76078478ba99fe48e2310c711038c4e3ee361db11ebdb3e4b4865a2129",
     "originalCodeSha256": "ce6b24f4b6dbe41ecc2cfabd29030a00dfb3604f93eef94df3b396cee1af9ef0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radClan2v2",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 57/0005.as",
+    "path": "converted/careerStatsComponent/scripts/radClan1v1/radClan1v1_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 57.xml",
     "scriptOrdinal": 5,
     "sha256": "09fbca76078478ba99fe48e2310c711038c4e3ee361db11ebdb3e4b4865a2129",
     "originalCodeSha256": "ce6b24f4b6dbe41ecc2cfabd29030a00dfb3604f93eef94df3b396cee1af9ef0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radClan1v1",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 57/0006.as",
+    "path": "converted/careerStatsComponent/scripts/radRanked2v2/radRanked2v2_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 57.xml",
     "scriptOrdinal": 6,
     "sha256": "09fbca76078478ba99fe48e2310c711038c4e3ee361db11ebdb3e4b4865a2129",
     "originalCodeSha256": "ce6b24f4b6dbe41ecc2cfabd29030a00dfb3604f93eef94df3b396cee1af9ef0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radRanked2v2",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 57/0007.as",
+    "path": "converted/careerStatsComponent/scripts/radRanked1v1/radRanked1v1_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 57.xml",
     "scriptOrdinal": 7,
     "sha256": "09fbca76078478ba99fe48e2310c711038c4e3ee361db11ebdb3e4b4865a2129",
     "originalCodeSha256": "ce6b24f4b6dbe41ecc2cfabd29030a00dfb3604f93eef94df3b396cee1af9ef0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radRanked1v1",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 57/0008.as",
+    "path": "converted/careerStatsComponent/scripts/radUnranked/radUnranked_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 57.xml",
     "scriptOrdinal": 8,
     "sha256": "09fbca76078478ba99fe48e2310c711038c4e3ee361db11ebdb3e4b4865a2129",
     "originalCodeSha256": "ce6b24f4b6dbe41ecc2cfabd29030a00dfb3604f93eef94df3b396cee1af9ef0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radUnranked",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 57/0009.as",
+    "path": "converted/careerStatsComponent/scripts/lbOnline/lbOnline_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 57.xml",
     "scriptOrdinal": 9,
     "sha256": "e09c3699641ab612e019789bc8cf13a4e83ac557833310d372f5c865745ceb95",
     "originalCodeSha256": "8cd3633ffd722e1d52195aae57f0becb787ce7c29882a3ff7ea7d752f6970358",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "lbOnline",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 61/0001.as",
+    "path": "converted/careerStatsComponent/scripts/radOnline/radOnline_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 61.xml",
     "scriptOrdinal": 1,
     "sha256": "602b19fb5571bdf6299be63b745cf62d8474f9ae376e1405b8e1abbc7235e065",
     "originalCodeSha256": "8e888b333269253b9efa339cccd69a6d5c9805267c8233e4873997190bb22652",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radOnline",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 61/0002.as",
+    "path": "converted/careerStatsComponent/scripts/radOverall/radOverall_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 61.xml",
     "scriptOrdinal": 2,
     "sha256": "6cc9bd4fcf77048491fc3ed46c45ce131f8d944bcbe4d02b4426c9b6f09b315b",
     "originalCodeSha256": "680d365ca91d72abfc0bdf209ddbc16f5f34fbb8c57c7d47677eab5f2bbc2f66",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "radOverall",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/Symbol 61/0003.as",
+    "path": "converted/careerStatsComponent/scripts/rctlTop/rctlTop_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 61.xml",
     "scriptOrdinal": 3,
     "sha256": "f7363ba9c7140fb5da035dbe6c8b2547a3306c028118cef01e0703c35eea7164",
     "originalCodeSha256": "d62e53977e08ed80992925967bd3a941f3f88aa0422da84aa8aac8710526d9e8",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "rctlTop",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/imported/Symbol 10/0001.as",
+    "path": "converted/careerStatsComponent/scripts/arrowBottomMC/arrowBottomMC_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 10.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/imported/Symbol 10/0002.as",
+    "path": "converted/careerStatsComponent/scripts/arrowBottomMC/arrowBottomMC_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 10.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/imported/Symbol 10/0003.as",
+    "path": "converted/careerStatsComponent/scripts/arrowBottomMC/arrowBottomMC_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 10.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/imported/Symbol 10/0004.as",
+    "path": "converted/careerStatsComponent/scripts/arrowBottomMC/arrowBottomMC_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/imported/Symbol 10.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowBottomMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/imported/Symbol 11/0001.as",
+    "path": "converted/careerStatsComponent/scripts/arrowTopMC/arrowTopMC_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 11.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/imported/Symbol 11/0002.as",
+    "path": "converted/careerStatsComponent/scripts/arrowTopMC/arrowTopMC_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 11.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/imported/Symbol 11/0003.as",
+    "path": "converted/careerStatsComponent/scripts/arrowTopMC/arrowTopMC_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 11.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/imported/Symbol 11/0004.as",
+    "path": "converted/careerStatsComponent/scripts/arrowTopMC/arrowTopMC_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/imported/Symbol 11.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "arrowTopMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/imported/Symbol 9/0001.as",
+    "path": "converted/careerStatsComponent/scripts/thumbMC/thumbMC_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/imported/Symbol 9.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/imported/Symbol 9/0002.as",
+    "path": "converted/careerStatsComponent/scripts/thumbMC/thumbMC_frame_0020_stop_label_highlight.as",
     "xflXml": "LIBRARY/imported/Symbol 9.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/careerStatsComponent/scripts/LIBRARY/imported/Symbol 9/0003.as",
+    "path": "converted/careerStatsComponent/scripts/thumbMC/thumbMC_frame_0030_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/imported/Symbol 9.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "thumbMC",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 30,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

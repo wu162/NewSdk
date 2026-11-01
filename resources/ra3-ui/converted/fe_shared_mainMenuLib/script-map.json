@@ -1,122 +1,257 @@
 [
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 105/0001.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/cityscapeMC_Symbol/cityscapeMC_Symbol_frame_0001_setBaseBombSpeed.as",
     "xflXml": "LIBRARY/Symbol 105.xml",
     "scriptOrdinal": 1,
     "sha256": "72a643bcfe114492ae6cb8cc1abceaf7c66efc2da9c1b4bc13c097131c02b1bb",
     "originalCodeSha256": "72a643bcfe114492ae6cb8cc1abceaf7c66efc2da9c1b4bc13c097131c02b1bb",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "cityscapeMC Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "setBaseBombSpeed",
+      "actionBasis": "function-call:setBaseBombSpeed"
+    }
   },
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 105/0002.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/blimpFactoryMC/blimpFactoryMC_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 105.xml",
     "scriptOrdinal": 2,
     "sha256": "dbee6d5bd388a8b7e821a5bc2ba77020d27eee8bebc60a677f308e8341ac563a",
     "originalCodeSha256": "151f99d581b3be265f6b1227c04391be5473489b9e8798788f22ba9c424a92b5",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "blimpFactoryMC",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 105/0003.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/bombFactoryMC/bombFactoryMC_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 105.xml",
     "scriptOrdinal": 3,
     "sha256": "e2d45782b38fe3cfb4b7b38d8ccc2fbc1f6b92775e0a91e24876996fdbf3de4e",
     "originalCodeSha256": "d50cc6f7f87a0798afb030270141c101add4889c371bfc3fcd0928f67c884605",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "bombFactoryMC",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 105/0004.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/midBlimps/midBlimps_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 105.xml",
     "scriptOrdinal": 4,
     "sha256": "159fa78c9ef5c773c5f2bb3ae5aa35c32029dff8e780e0a74f006557d84cf177",
     "originalCodeSha256": "c60969194877660a877ce3700069433d9e5de06b77f700cf7f8881e05a06a23a",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "midBlimps",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 105/0005.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/gameLogoImage/gameLogoImage_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 105.xml",
     "scriptOrdinal": 5,
     "sha256": "c3dd55d658001005a060f417930c7506b91164f4537c1a7f2e20de99cfc78616",
     "originalCodeSha256": "666872128510b4db2486c8b9e0077e64583a36d541ee4a03973b36e52e2477e0",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "gameLogoImage",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 105/0006.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/farBlimps/farBlimps_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 105.xml",
     "scriptOrdinal": 6,
     "sha256": "f9ddb4a361fcb717190a451b9d2996b6c176d00d74a30ea6fe7a540a68475d57",
     "originalCodeSha256": "707fa6a8645afa99e0b0e9d10b490a79e87d69d907317294095831c211dcdc33",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "farBlimps",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 105/0007.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/BackBombFactoryMC/BackBombFactoryMC_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 105.xml",
     "scriptOrdinal": 7,
     "sha256": "f554087dbdd0d0c4998803806aabbc91dd27d8fc3c9d3674b6fa16ba2d48fd9e",
     "originalCodeSha256": "516cf982aa142a340fc697e6b5e0501329582766950a7b7304fb73d82d6bbb63",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "BackBombFactoryMC",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 105/0008.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/FarBackBombFactoryMC/FarBackBombFactoryMC_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 105.xml",
     "scriptOrdinal": 8,
     "sha256": "7e574be34f9c377a6cf4603b62b7baa2a10dda231a21b01781532b317502d644",
     "originalCodeSha256": "4f0a3e99c6a0e321046a6f7a5ffc424778aeaac35c93133efb46479b00949968",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "FarBackBombFactoryMC",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 36/0001.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/floorAnimationSymbol/floorAnimationSymbol_frame_0155_gotoAndStop_label_start.as",
     "xflXml": "LIBRARY/Symbol 36.xml",
     "scriptOrdinal": 1,
     "sha256": "50e5de8e2dc335c066ef7ac7cc230341c9930226301b501c235f124e19d3e3e5",
     "originalCodeSha256": "50e5de8e2dc335c066ef7ac7cc230341c9930226301b501c235f124e19d3e3e5",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "floorAnimationSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 155,
+      "frameLabel": "_start",
+      "event": "",
+      "action": "gotoAndStop",
+      "actionBasis": "function-call:gotoAndStop"
+    }
   },
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 64/0001.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/explosion_mc_Symbol/explosion_mc_Symbol_frame_0001_bombDone_label_reload.as",
     "xflXml": "LIBRARY/Symbol 64.xml",
     "scriptOrdinal": 1,
     "sha256": "77d1a5a04b506f9a9468fc8b5a0f30f2ccd3aa2a2575dec570c30768e231e1ca",
     "originalCodeSha256": "77d1a5a04b506f9a9468fc8b5a0f30f2ccd3aa2a2575dec570c30768e231e1ca",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "explosion_mc Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "_reload",
+      "event": "",
+      "action": "bombDone",
+      "actionBasis": "function-call:bombDone"
+    }
   },
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 64/0002.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/explosion_mc_Symbol/explosion_mc_Symbol_frame_0002_stop_label_reload.as",
     "xflXml": "LIBRARY/Symbol 64.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "explosion_mc Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 2,
+      "frameLabel": "_reload",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 64/0003.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/explosion_mc_Symbol/explosion_mc_Symbol_frame_0007_reset_label_fire.as",
     "xflXml": "LIBRARY/Symbol 64.xml",
     "scriptOrdinal": 3,
     "sha256": "cdf66e4fc5d10be2fe80c1809751e0daa68238c729e296d6b691295e7f19f838",
     "originalCodeSha256": "cdf66e4fc5d10be2fe80c1809751e0daa68238c729e296d6b691295e7f19f838",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "explosion_mc Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 7,
+      "frameLabel": "_fire",
+      "event": "",
+      "action": "reset",
+      "actionBasis": "function-call:reset"
+    }
   },
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 87/0001.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/bomb_front_Symbol/bomb_front_Symbol_frame_0003_stop_label_reset.as",
     "xflXml": "LIBRARY/Symbol 87.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bomb_front Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 3,
+      "frameLabel": "_reset",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 87/0002.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/bomb_front_Symbol/bomb_front_Symbol_frame_0008_reset_label_fire.as",
     "xflXml": "LIBRARY/Symbol 87.xml",
     "scriptOrdinal": 2,
     "sha256": "782dd66337516b0d44a10bc06f31e1c53fcceac31f45ab41737fd922de514427",
     "originalCodeSha256": "782dd66337516b0d44a10bc06f31e1c53fcceac31f45ab41737fd922de514427",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bomb_front Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 8,
+      "frameLabel": "_fire",
+      "event": "",
+      "action": "reset",
+      "actionBasis": "function-call:reset"
+    }
   },
   {
-    "path": "converted/fe_shared_mainMenuLib/scripts/LIBRARY/Symbol 93/0001.as",
+    "path": "converted/fe_shared_mainMenuLib/scripts/redsun_2_mc_Symbol/redsun_2_mc_Symbol_frame_0800_gotoAndPlay.as",
     "xflXml": "LIBRARY/Symbol 93.xml",
     "scriptOrdinal": 1,
     "sha256": "b70d653d54fc71b8c4de38cf4be8d3a2960467b21356da5a2a442425564f3120",
     "originalCodeSha256": "b70d653d54fc71b8c4de38cf4be8d3a2960467b21356da5a2a442425564f3120",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "redsun 2 mc Symbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 800,
+      "frameLabel": "",
+      "event": "",
+      "action": "gotoAndPlay",
+      "actionBasis": "function-call:gotoAndPlay"
+    }
   }
 ]

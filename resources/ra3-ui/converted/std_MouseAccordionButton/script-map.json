@@ -1,122 +1,257 @@
 [
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 30/0001.as",
+    "path": "converted/std_MouseAccordionButton/scripts/submenuMC/submenuMC_frame_0009_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "submenuMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 9,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 30/0002.as",
+    "path": "converted/std_MouseAccordionButton/scripts/submenuMC/submenuMC_frame_0019_stop_label_enable.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "submenuMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 19,
+      "frameLabel": "_enable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 30/0003.as",
+    "path": "converted/std_MouseAccordionButton/scripts/submenuMC/submenuMC_frame_0029_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "submenuMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 29,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 30/0004.as",
+    "path": "converted/std_MouseAccordionButton/scripts/submenuMC/submenuMC_frame_0040_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 30.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "submenuMC",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 40,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 31/0001.as",
+    "path": "converted/std_MouseAccordionButton/scripts/menuItemContentClipSymbol/menuItemContentClipSymbol_frame_0006_stop_label_hide.as",
     "xflXml": "LIBRARY/Symbol 31.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "menuItemContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 6,
+      "frameLabel": "_hide",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 31/0002.as",
+    "path": "converted/std_MouseAccordionButton/scripts/menuItemContentClipSymbol/menuItemContentClipSymbol_frame_0012_stop_label_show.as",
     "xflXml": "LIBRARY/Symbol 31.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "menuItemContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 12,
+      "frameLabel": "_show",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 58/0001.as",
+    "path": "converted/std_MouseAccordionButton/scripts/menuButtonContentClipSymbol/menuButtonContentClipSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 58.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "menuButtonContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 58/0002.as",
+    "path": "converted/std_MouseAccordionButton/scripts/menuButtonContentClipSymbol/menuButtonContentClipSymbol_frame_0006_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 58.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "menuButtonContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 6,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 58/0003.as",
+    "path": "converted/std_MouseAccordionButton/scripts/menuButtonContentClipSymbol/menuButtonContentClipSymbol_frame_0007_gotoAndPlay_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 58.xml",
     "scriptOrdinal": 3,
     "sha256": "070b2ccf23d159af2d2e44b99639de5e0c9cae3abe05efddab3dd44100d20fde",
     "originalCodeSha256": "070b2ccf23d159af2d2e44b99639de5e0c9cae3abe05efddab3dd44100d20fde",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "menuButtonContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 7,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "gotoAndPlay",
+      "actionBasis": "function-call:gotoAndPlay"
+    }
   },
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 58/0004.as",
+    "path": "converted/std_MouseAccordionButton/scripts/menuButtonContentClipSymbol/menuButtonContentClipSymbol_frame_0011_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 58.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "menuButtonContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 11,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 58/0005.as",
+    "path": "converted/std_MouseAccordionButton/scripts/menuButtonContentClipSymbol/menuButtonContentClipSymbol_frame_0016_stop_label_open.as",
     "xflXml": "LIBRARY/Symbol 58.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "menuButtonContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 16,
+      "frameLabel": "_open",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 58/0006.as",
+    "path": "converted/std_MouseAccordionButton/scripts/menuButtonContentClipSymbol/menuButtonContentClipSymbol_frame_0020_stop_label_close.as",
     "xflXml": "LIBRARY/Symbol 58.xml",
     "scriptOrdinal": 6,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "menuButtonContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_close",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 58/0007.as",
+    "path": "converted/std_MouseAccordionButton/scripts/menuButtonContentClipSymbol/menuButtonContentClipSymbol_frame_0021_trace_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 58.xml",
     "scriptOrdinal": 7,
     "sha256": "4b1128bcdabdb60407b121b255af7b9c2162dc20c97b199e7d33bd91a329fb2f",
     "originalCodeSha256": "4b1128bcdabdb60407b121b255af7b9c2162dc20c97b199e7d33bd91a329fb2f",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "menuButtonContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 21,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "trace",
+      "actionBasis": "function-call:trace"
+    }
   },
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 58/0008.as",
+    "path": "converted/std_MouseAccordionButton/scripts/menuButtonContentClipSymbol/menuButtonContentClipSymbol_frame_0025_outtroComplete_label_outtro.as",
     "xflXml": "LIBRARY/Symbol 58.xml",
     "scriptOrdinal": 8,
     "sha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
     "originalCodeSha256": "df1af3495e6b11ca0103b602a8bfef30a989e6d06e70851d0eca54563af50a29",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "menuButtonContentClipSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 25,
+      "frameLabel": "_outtro",
+      "event": "",
+      "action": "outtroComplete",
+      "actionBasis": "function-call:outtroComplete"
+    }
   },
   {
-    "path": "converted/std_MouseAccordionButton/scripts/LIBRARY/Symbol 59/0001.as",
+    "path": "converted/std_MouseAccordionButton/scripts/std_MouseAccordionButtonSymbol/std_MouseAccordionButtonSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 59.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_MouseAccordionButtonSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

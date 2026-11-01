@@ -1,0 +1,40 @@
+{
+  "baseCommit": "52d44c6267385055df6da91ecdc6ee2b44f467a9",
+  "originalFiles": 6284,
+  "originalFileSizesAndCrcsVerified": true,
+  "originalArchiveReassemblySha256Verified": true,
+  "flaFiles": 174,
+  "asFiles": 4485,
+  "semanticTimelineScripts": 4432,
+  "actualClassOrInterfaceFiles": 53,
+  "numericAsFilenames": 0,
+  "completeStructureParses": 174,
+  "frameAndFpsMatches": 174,
+  "componentCompilationPassed": 173,
+  "componentCompilationFailed": 1,
+  "failures": [
+    {
+      "movie": "sampleMissionBriefing",
+      "reason": "System.IO.InvalidDataException: Could not compile Flash 8 FLA '/workspace/work/validation/final-semantic/sampleMissionBriefing/sampleMissionBriefing/.source/sampleMissionBriefing.fla': Embedded audio is not supported by the RA3 UI asset compiler."
+    }
+  ],
+  "sourceDependencyIncompleteMovies": 7,
+  "sourceMissingSymbols": 15,
+  "dependencyClosedMovies": 167,
+  "compilerAssemblySha256": "657e4e112cdd1cb8d2e114122741f79876c203bc958f4968824986c1ea5db81b",
+  "runtime": ".NET 8.0.33",
+  "realAsMutationPassed": true,
+  "uiComponentChecksPassed": 778,
+  "net472Build": "passed, zero warnings and errors",
+  "renameEquivalence": {
+    "comparedMovies": 157,
+    "allFourStreamsUnchanged": 157,
+    "allBinaryStreamsUnchanged": 157
+  },
+  "scope": "Local net8.0 component compilation and net472 library build. No full Windows SDK product or in-game playback acceptance. Source dependency gaps are distinct from successful component compilation.",
+  "githubActions": "No workflows added or dispatched; the resource branch had zero runs after checkpoint pushes.",
+  "compilerSourceSha256": {
+    "ui/src/Compilation/ActionScriptCompiler.cs": "2e9d6c495a7b5386aa054e1fe4de65905b17e097aa058a80a4bfb6b7b84fe960",
+    "ui/src/Compilation/SourceProject.cs": "755f8ddc52eaa6689800e9edb3138670f13beba1c77e45a772ece9556f1ecc25"
+  }
+}

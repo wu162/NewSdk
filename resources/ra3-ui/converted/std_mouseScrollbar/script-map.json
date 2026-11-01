@@ -1,162 +1,342 @@
 [
   {
-    "path": "converted/std_mouseScrollbar/scripts/DOMDocument/0001.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_mouseScrollbarSymbol/std_mouseScrollbarSymbol_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "ee68bf80e60939b92b3c8a54a3828033e2d25c8b5c0c451fd6d19568d82074dc",
     "originalCodeSha256": "51e115aae4fc9067c7661c20d2c99ced53eb17a559e4477ffea2bd8a5aa7e7d3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "std_mouseScrollbarSymbol",
+      "ownerBasis": "instance-library-linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 11/0001.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_scrollbar_arrow/std_scrollbar_arrow_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 11.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_scrollbar_arrow",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 11/0002.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_scrollbar_arrow/std_scrollbar_arrow_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 11.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_scrollbar_arrow",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 11/0003.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_scrollbar_arrow/std_scrollbar_arrow_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 11.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_scrollbar_arrow",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 11/0004.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_scrollbar_arrow/std_scrollbar_arrow_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/Symbol 11.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_scrollbar_arrow",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 14/0001.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_scrollbar_line/std_scrollbar_line_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 14.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_scrollbar_line",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 14/0002.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_scrollbar_line/std_scrollbar_line_frame_0020_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 14.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_scrollbar_line",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 14/0003.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_scrollbar_line/std_scrollbar_line_frame_0030_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 14.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_scrollbar_line",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 24/0001.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_scrollbar_thumb/std_scrollbar_thumb_frame_0010_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_scrollbar_thumb",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 24/0002.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_scrollbar_thumb/std_scrollbar_thumb_frame_0020_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_scrollbar_thumb",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 24/0003.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_scrollbar_thumb/std_scrollbar_thumb_frame_0030_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_scrollbar_thumb",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 30,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 28/0001.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_mouseScrollbar_arrowDown/std_mouseScrollbar_arrowDown_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseScrollbar_arrowDown",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 28/0002.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_mouseScrollbar_arrowDown/std_mouseScrollbar_arrowDown_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseScrollbar_arrowDown",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 28/0003.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_mouseScrollbar_arrowDown/std_mouseScrollbar_arrowDown_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseScrollbar_arrowDown",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 28/0004.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_mouseScrollbar_arrowDown/std_mouseScrollbar_arrowDown_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseScrollbar_arrowDown",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 29/0001.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_mouseScrollbar_arrowUp/std_mouseScrollbar_arrowUp_frame_0005_stop_label_disable.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseScrollbar_arrowUp",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 5,
+      "frameLabel": "_disable",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 29/0002.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_mouseScrollbar_arrowUp/std_mouseScrollbar_arrowUp_frame_0010_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseScrollbar_arrowUp",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 29/0003.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_mouseScrollbar_arrowUp/std_mouseScrollbar_arrowUp_frame_0015_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseScrollbar_arrowUp",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 15,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 29/0004.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_mouseScrollbar_arrowUp/std_mouseScrollbar_arrowUp_frame_0025_stop_label_toggle.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseScrollbar_arrowUp",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 25,
+      "frameLabel": "_toggle",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollbar/scripts/LIBRARY/Symbol 36/0001.as",
+    "path": "converted/std_mouseScrollbar/scripts/std_mouseScrollbarSymbol/std_mouseScrollbarSymbol_frame_0001_stop.as",
     "xflXml": "LIBRARY/Symbol 36.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "std_mouseScrollbarSymbol",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

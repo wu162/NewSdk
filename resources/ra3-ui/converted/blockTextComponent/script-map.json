@@ -1,10 +1,24 @@
 [
   {
-    "path": "converted/blockTextComponent/scripts/DOMDocument/0001.as",
+    "path": "converted/blockTextComponent/scripts/ScrollingBlockText_Symbol/ScrollingBlockText_Symbol_frame_0001_construct.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "087bbb7861e1f524c9c300af97c24a6116e6cc560692374ecd5281cd691349cc",
     "originalCodeSha256": "21db4894d8e6d2ea026d95e9a917f398ac3e69059eb2209d27048c1d1bf8c1c3",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "ScrollingBlockText Symbol",
+      "ownerBasis": "instance-library-linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
+  },
+  {
+    "path": "converted/blockTextComponent/ScrollingBlockTextClass.as",
+    "kind": "recovered-AS2-class-or-interface",
+    "sha256": "57d94477dcaeb277d22e4d9749ebdfda47a395f3e36757b803591d826ccb1413"
   }
 ]

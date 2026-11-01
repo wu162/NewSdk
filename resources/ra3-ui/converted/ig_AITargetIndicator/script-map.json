@@ -1,34 +1,70 @@
 [
   {
-    "path": "converted/ig_AITargetIndicator/scripts/DOMDocument/0001.as",
+    "path": "converted/ig_AITargetIndicator/scripts/ig_AITargetIndicator/ig_AITargetIndicator_frame_0001_define_Move_label_Offensive.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "a2f4559774d2201eb99856a6fb3b2c883b1dd58199bbf6f4f396264691eb55b4",
     "originalCodeSha256": "a2f4559774d2201eb99856a6fb3b2c883b1dd58199bbf6f4f396264691eb55b4",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ig_AITargetIndicator",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "Offensive",
+      "event": "",
+      "action": "define_Move",
+      "actionBasis": "function-declaration:Move"
+    }
   },
   {
-    "path": "converted/ig_AITargetIndicator/scripts/DOMDocument/0002.as",
+    "path": "converted/ig_AITargetIndicator/scripts/ig_AITargetIndicator/ig_AITargetIndicator_frame_0010_stop_label_Offensive.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ig_AITargetIndicator",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "Offensive",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_AITargetIndicator/scripts/DOMDocument/0003.as",
+    "path": "converted/ig_AITargetIndicator/scripts/ig_AITargetIndicator/ig_AITargetIndicator_frame_0020_stop_label_Defensive.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ig_AITargetIndicator",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 20,
+      "frameLabel": "Defensive",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_AITargetIndicator/scripts/DOMDocument/0004.as",
+    "path": "converted/ig_AITargetIndicator/scripts/ig_AITargetIndicator/ig_AITargetIndicator_frame_0030_stop_label_Neutral.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ig_AITargetIndicator",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 30,
+      "frameLabel": "Neutral",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   }
 ]

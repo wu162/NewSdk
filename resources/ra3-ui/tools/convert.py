@@ -15,6 +15,8 @@ from xml.sax.saxutils import escape
 import zlib
 from inline_xfl import inline_xfl
 from normalize_xfl import normalize_xfl
+from normalize_classes import normalize as normalize_classes
+from meaningful_names import rename_scripts
 
 
 def sha256(path):
@@ -129,7 +131,8 @@ def convert(source, root, destination, jar, classes, work, mappings, graph):
     try:
         cp = os.pathsep.join([str(classes), str(jar), str(jar.parent / 'lib' / '*')])
         command = ['java', '-Xmx1536m', '-Djava.awt.headless=true', '-cp', cp, 'LegacyXflExport',
-                   '-onerror', 'abort', '-importAssets', 'yes,local']
+                   '-onerror', 'abort', '-importAssets', 'yes,local',
+                   '-config', 'skipDetectionOfUninitializedClassFields=false']
         for url, target in mappings.items():
             command += ['-changeImport', url, '../' + target.relative_to(root).as_posix()]
         export_log = run(command + ['-format', 'xfl:mx2004', '-export', 'xfl', str(stage), str(source)], logs / 'xfl.log')
@@ -143,6 +146,34 @@ def convert(source, root, destination, jar, classes, work, mappings, graph):
         normalizations = normalize_xfl(xfl, source)
         (logs / 'normalization.json').write_text(json.dumps(normalizations, ensure_ascii=False, indent=2) + '\n')
         scripts = externalize_scripts(xfl, output, destination)
+        needs_classes = any('linkageClassName=' in xml.read_text(encoding='utf-8-sig') for xml in xfl.rglob('*.xml'))
+        needs_classes = needs_classes or any('#initclip' in (destination / item['path']).read_text(encoding='utf-8-sig') and
+            re.search(r'\b(?:class|interface)\s+[\w.$]+', (destination / item['path']).read_text(encoding='utf-8-sig')) for item in scripts)
+        class_report = None
+        if needs_classes:
+            packages = stage / 'raw-default'
+            skipped = stage / 'raw-skipfields'
+            run(command + ['-config', 'skipDetectionOfUninitializedClassFields=false', '-export', 'script',
+                           str(packages), str(source)], logs / 'classes-default.log')
+            run(command + ['-config', 'skipDetectionOfUninitializedClassFields=true', '-export', 'script',
+                           str(skipped), str(source)], logs / 'classes-skipfields.log')
+            class_report = normalize_classes(output, packages / 'scripts/__Packages', skipped / 'scripts/__Packages')
+            (logs / 'classes.json').write_text(json.dumps(class_report, ensure_ascii=False, indent=2) + '\n')
+            existing = {item['path'] for item in scripts}
+            for script in sorted(output.rglob('*.as')):
+                path = script.relative_to(destination).as_posix()
+                if path not in existing:
+                    scripts.append({'path': path, 'kind': 'recovered-AS2-class-or-interface', 'sha256': sha256(script)})
+            for item in scripts:
+                item['sha256'] = sha256(destination / item['path'])
+        naming = rename_scripts(xfl, output, destination)
+        (logs / 'naming.json').write_text(json.dumps(naming, ensure_ascii=False, indent=2) + '\n')
+        renamed = {item['oldPath']: item for item in naming}
+        for item in scripts:
+            if item['path'] in renamed:
+                name = renamed[item['path']]
+                item.update(path=name['newPath'], semanticName={key: name[key] for key in
+                    ('owner', 'ownerBasis', 'frameNumber', 'frameLabel', 'event', 'action', 'actionBasis')})
         fla = output / (source.stem + '.fla')
         convert_log = run(['java', '-Xmx1536m', '-jar', str(jar.parent / 'lib' / 'flacomdoc.jar'), 'convert',
                            '--format', 'MX2004', str(xfl / (source.stem + '.xfl')), str(fla)], logs / 'fla.log')
@@ -159,7 +190,8 @@ def convert(source, root, destination, jar, classes, work, mappings, graph):
                    flaBytes=fla.stat().st_size, inlinedLibraryItems=linkage['localizedCount'],
                    unresolvedLibraryItems=linkage['unresolvedCount'], scriptCount=len(scripts), scripts=scripts, warnings=warnings,
                    unresolvedImportedSymbols=missing_symbols,
-                   dependencyClosure='unresolved-source-dependencies' if missing or missing_symbols else 'closed')
+                   dependencyClosure='unresolved-source-dependencies' if missing or missing_symbols else 'closed',
+                   recoveredClassCount=class_report['classCount'] if class_report else 0)
         (output / 'script-map.json').write_text(json.dumps(scripts, ensure_ascii=False, indent=2) + '\n')
     except Exception as error:
         row.update(status='failed', error=str(error))

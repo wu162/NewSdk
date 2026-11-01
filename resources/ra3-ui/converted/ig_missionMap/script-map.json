@@ -1,210 +1,444 @@
 [
   {
-    "path": "converted/ig_missionMap/scripts/DOMDocument/0001.as",
+    "path": "converted/ig_missionMap/scripts/ig_missionMap/ig_missionMap_frame_0001_define_ResizeRenderingSurface.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "9614d7d35ebcb73855fdd4ec80d0feed1baec723ea4ff099060fb2011f75614f",
     "originalCodeSha256": "9614d7d35ebcb73855fdd4ec80d0feed1baec723ea4ff099060fb2011f75614f",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ig_missionMap",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_ResizeRenderingSurface",
+      "actionBasis": "function-declaration:ResizeRenderingSurface"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 13/0001.as",
+    "path": "converted/ig_missionMap/scripts/bonus/bonus_frame_0005_stop_label_Attack.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bonus",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "Attack",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 13/0002.as",
+    "path": "converted/ig_missionMap/scripts/bonus/bonus_frame_0010_stop_label_Protect.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bonus",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "Protect",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 13/0003.as",
+    "path": "converted/ig_missionMap/scripts/bonus/bonus_frame_0015_stop_label_Capture.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bonus",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "Capture",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 13/0004.as",
+    "path": "converted/ig_missionMap/scripts/bonus/bonus_frame_0020_stop_label_Build.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bonus",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "Build",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 13/0005.as",
+    "path": "converted/ig_missionMap/scripts/bonus/bonus_frame_0025_stop_label_Move.as",
     "xflXml": "LIBRARY/Symbol 13.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "bonus",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "Move",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 24/0001.as",
+    "path": "converted/ig_missionMap/scripts/primary/primary_frame_0005_stop_label_Attack.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "primary",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 5,
+      "frameLabel": "Attack",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 24/0002.as",
+    "path": "converted/ig_missionMap/scripts/primary/primary_frame_0010_stop_label_Protect.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "primary",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 10,
+      "frameLabel": "Protect",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 24/0003.as",
+    "path": "converted/ig_missionMap/scripts/primary/primary_frame_0015_stop_label_Capture.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "primary",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 15,
+      "frameLabel": "Capture",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 24/0004.as",
+    "path": "converted/ig_missionMap/scripts/primary/primary_frame_0020_stop_label_Build.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "primary",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 20,
+      "frameLabel": "Build",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 24/0005.as",
+    "path": "converted/ig_missionMap/scripts/primary/primary_frame_0025_stop_label_Move.as",
     "xflXml": "LIBRARY/Symbol 24.xml",
     "scriptOrdinal": 5,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "primary",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 25,
+      "frameLabel": "Move",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 28/0001.as",
+    "path": "converted/ig_missionMap/scripts/LoadMovieStage/LoadMovieStage_frame_0001_define_OnContentLoaded.as",
     "xflXml": "LIBRARY/Symbol 28.xml",
     "scriptOrdinal": 1,
     "sha256": "bbbd27ff42832a83eea610bdec54c7e26b2fe8189477d972103861e1c857126a",
     "originalCodeSha256": "bbbd27ff42832a83eea610bdec54c7e26b2fe8189477d972103861e1c857126a",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "LoadMovieStage",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_OnContentLoaded",
+      "actionBasis": "function-declaration:OnContentLoaded"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 29/0001.as",
+    "path": "converted/ig_missionMap/scripts/ObjectiveIndicator/ObjectiveIndicator_frame_0001_define_Move.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 1,
     "sha256": "97cfe8d6231d86342d5c839672221e06d4c91ebb18932e7b188d8753cbf376b2",
     "originalCodeSha256": "97cfe8d6231d86342d5c839672221e06d4c91ebb18932e7b188d8753cbf376b2",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ObjectiveIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_Move",
+      "actionBasis": "function-declaration:Move"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 29/0002.as",
+    "path": "converted/ig_missionMap/scripts/hitRegion/hitRegion_frame_0001_release.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 2,
     "sha256": "e552720f303946d4b17de05e2b6e3c1279611063fa714fd5b87a39eba2da4603",
     "originalCodeSha256": "e552720f303946d4b17de05e2b6e3c1279611063fa714fd5b87a39eba2da4603",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "hitRegion",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "release",
+      "action": "release",
+      "actionBasis": "event-handler:on(release)"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 36/0001.as",
+    "path": "converted/ig_missionMap/scripts/StructureIndicator/StructureIndicator_frame_0001_define_Move_label_ResourceNode.as",
     "xflXml": "LIBRARY/Symbol 36.xml",
     "scriptOrdinal": 1,
     "sha256": "c91372f234f167357fa0b6385ae5a522e258f4600915e9e336df873ccdcff8f5",
     "originalCodeSha256": "c91372f234f167357fa0b6385ae5a522e258f4600915e9e336df873ccdcff8f5",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "StructureIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "ResourceNode",
+      "event": "",
+      "action": "define_Move",
+      "actionBasis": "function-declaration:Move"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 36/0002.as",
+    "path": "converted/ig_missionMap/scripts/StructureIndicator/StructureIndicator_frame_0010_stop_label_ResourceNode.as",
     "xflXml": "LIBRARY/Symbol 36.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "StructureIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "ResourceNode",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 36/0003.as",
+    "path": "converted/ig_missionMap/scripts/StructureIndicator/StructureIndicator_frame_0020_stop_label_TechStructure.as",
     "xflXml": "LIBRARY/Symbol 36.xml",
     "scriptOrdinal": 3,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "StructureIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "TechStructure",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 40/0001.as",
+    "path": "converted/ig_missionMap/scripts/StartPosIndicator/StartPosIndicator_frame_0001_define_Move_label_Shrouded.as",
     "xflXml": "LIBRARY/Symbol 40.xml",
     "scriptOrdinal": 1,
     "sha256": "11b60bd17426620cbc1db176d2e7789c17ff813f0c5afa6110f39883ad9fcc5c",
     "originalCodeSha256": "11b60bd17426620cbc1db176d2e7789c17ff813f0c5afa6110f39883ad9fcc5c",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "StartPosIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 1,
+      "frameLabel": "Shrouded",
+      "event": "",
+      "action": "define_Move",
+      "actionBasis": "function-declaration:Move"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 40/0002.as",
+    "path": "converted/ig_missionMap/scripts/StartPosIndicator/StartPosIndicator_frame_0010_stop_label_Shrouded.as",
     "xflXml": "LIBRARY/Symbol 40.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "StartPosIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 10,
+      "frameLabel": "Shrouded",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 40/0003.as",
+    "path": "converted/ig_missionMap/scripts/StartPosIndicator/StartPosIndicator_frame_0011_ColorizeDot_label_Revealed.as",
     "xflXml": "LIBRARY/Symbol 40.xml",
     "scriptOrdinal": 3,
     "sha256": "2973833b2c13871f5554b467e5f30b674c3bb8151a800405764d0eca986bf601",
     "originalCodeSha256": "2973833b2c13871f5554b467e5f30b674c3bb8151a800405764d0eca986bf601",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "StartPosIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 11,
+      "frameLabel": "Revealed",
+      "event": "",
+      "action": "ColorizeDot",
+      "actionBasis": "function-call:ColorizeDot"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 40/0004.as",
+    "path": "converted/ig_missionMap/scripts/StartPosIndicator/StartPosIndicator_frame_0020_stop_label_Revealed.as",
     "xflXml": "LIBRARY/Symbol 40.xml",
     "scriptOrdinal": 4,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "StartPosIndicator",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 20,
+      "frameLabel": "Revealed",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 45/0001.as",
+    "path": "converted/ig_missionMap/scripts/shroudSurface/shroudSurface_frame_0001_define_OnDestroying.as",
     "xflXml": "LIBRARY/Symbol 45.xml",
     "scriptOrdinal": 1,
     "sha256": "1226869abfe81c9dc724fa9cdcbceb1a53ebc8c95e4555de5d3901b7925de608",
     "originalCodeSha256": "1226869abfe81c9dc724fa9cdcbceb1a53ebc8c95e4555de5d3901b7925de608",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "shroudSurface",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_OnDestroying",
+      "actionBasis": "function-declaration:OnDestroying"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 45/0002.as",
+    "path": "converted/ig_missionMap/scripts/shape/shape_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 45.xml",
     "scriptOrdinal": 2,
     "sha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
     "originalCodeSha256": "8d702f16d9ed1e3ff89ff887c65ee09a4f25bec07b4b311d9e8acaf2d0260d4b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "shape",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 47/0001.as",
+    "path": "converted/ig_missionMap/scripts/structureLayer/structureLayer_frame_0001_define_AddIndicator.as",
     "xflXml": "LIBRARY/Symbol 47.xml",
     "scriptOrdinal": 1,
     "sha256": "6136939aa096a9463909a2580b6ee5720860fbf6e16bcd751fb1178498365d0f",
     "originalCodeSha256": "6136939aa096a9463909a2580b6ee5720860fbf6e16bcd751fb1178498365d0f",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "structureLayer",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_AddIndicator",
+      "actionBasis": "function-declaration:AddIndicator"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 48/0001.as",
+    "path": "converted/ig_missionMap/scripts/startPosLayer/startPosLayer_frame_0001_define_AddIndicator.as",
     "xflXml": "LIBRARY/Symbol 48.xml",
     "scriptOrdinal": 1,
     "sha256": "ab70034b06e9000bec6b605a5b22f0c2b5a763c0bd2129f022b5cc3541699733",
     "originalCodeSha256": "ab70034b06e9000bec6b605a5b22f0c2b5a763c0bd2129f022b5cc3541699733",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "startPosLayer",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_AddIndicator",
+      "actionBasis": "function-declaration:AddIndicator"
+    }
   },
   {
-    "path": "converted/ig_missionMap/scripts/LIBRARY/Symbol 49/0001.as",
+    "path": "converted/ig_missionMap/scripts/objectiveLayer/objectiveLayer_frame_0001_define_AddIndicator.as",
     "xflXml": "LIBRARY/Symbol 49.xml",
     "scriptOrdinal": 1,
     "sha256": "d40d428dddf9a3016853d1512c4810fac2a33fe675f445390d38c8d387a077b0",
     "originalCodeSha256": "d40d428dddf9a3016853d1512c4810fac2a33fe675f445390d38c8d387a077b0",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "objectiveLayer",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_AddIndicator",
+      "actionBasis": "function-declaration:AddIndicator"
+    }
   }
 ]

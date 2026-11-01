@@ -1,50 +1,104 @@
 [
   {
-    "path": "converted/TacticalObjectiveIndicatorPopUp/scripts/DOMDocument/0001.as",
+    "path": "converted/TacticalObjectiveIndicatorPopUp/scripts/TacticalObjectiveIndicatorPopUp/TacticalObjectiveIndicatorPopUp_frame_0001_define_Close.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "c2d16420cd5385f3f3d757650046d9f26f427db0f107cb9cfa37f855c5a5bbbf",
     "originalCodeSha256": "c2d16420cd5385f3f3d757650046d9f26f427db0f107cb9cfa37f855c5a5bbbf",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalObjectiveIndicatorPopUp",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_Close",
+      "actionBasis": "function-declaration:Close"
+    }
   },
   {
-    "path": "converted/TacticalObjectiveIndicatorPopUp/scripts/DOMDocument/0002.as",
+    "path": "converted/TacticalObjectiveIndicatorPopUp/scripts/TacticalObjectiveIndicatorPopUp/TacticalObjectiveIndicatorPopUp_frame_0005_stop.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalObjectiveIndicatorPopUp",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 5,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalObjectiveIndicatorPopUp/scripts/DOMDocument/0003.as",
+    "path": "converted/TacticalObjectiveIndicatorPopUp/scripts/TacticalObjectiveIndicatorPopUp/TacticalObjectiveIndicatorPopUp_frame_0009_fscommand_label_close.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "6e6cea10361519b47b3ac1f0ed156719196c0083b0e643fedea162b0de21d90d",
     "originalCodeSha256": "6e6cea10361519b47b3ac1f0ed156719196c0083b0e643fedea162b0de21d90d",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalObjectiveIndicatorPopUp",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 9,
+      "frameLabel": "_close",
+      "event": "",
+      "action": "fscommand",
+      "actionBasis": "function-call:fscommand"
+    }
   },
   {
-    "path": "converted/TacticalObjectiveIndicatorPopUp/scripts/LIBRARY/Symbol 29/0001.as",
+    "path": "converted/TacticalObjectiveIndicatorPopUp/scripts/panel/panel_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 1,
     "sha256": "13c278eaeb5222772f33e4472ce1c256606fe24a305552b58363856479630a6d",
     "originalCodeSha256": "13c278eaeb5222772f33e4472ce1c256606fe24a305552b58363856479630a6d",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalObjectiveIndicatorPopUp/scripts/LIBRARY/Symbol 29/0002.as",
+    "path": "converted/TacticalObjectiveIndicatorPopUp/scripts/panel/panel_frame_0001_load_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 2,
     "sha256": "650e7e68019204d463af3fa461a54832756e9ad02949f6e4bdf2aed9a2b60818",
     "originalCodeSha256": "650e7e68019204d463af3fa461a54832756e9ad02949f6e4bdf2aed9a2b60818",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalObjectiveIndicatorPopUp/scripts/LIBRARY/Symbol 29/0003.as",
+    "path": "converted/TacticalObjectiveIndicatorPopUp/scripts/panel/panel_frame_0001_release.as",
     "xflXml": "LIBRARY/Symbol 29.xml",
     "scriptOrdinal": 3,
     "sha256": "a1e945ad4ee51e3e965e51643f6824d42ad3efe4f443e192e2bbc40fa616fdbb",
     "originalCodeSha256": "a1e945ad4ee51e3e965e51643f6824d42ad3efe4f443e192e2bbc40fa616fdbb",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "release",
+      "action": "release",
+      "actionBasis": "event-handler:on(release)"
+    }
   }
 ]

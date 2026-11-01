@@ -1,0 +1,2967 @@
+{
+  "total": 174,
+  "matched": 174,
+  "mismatched": 0,
+  "unverified": 0,
+  "scope": "Original SWF header frame count/FPS versus parsed FLA main scene timelines; FLA identities match conversion report.",
+  "movies": [
+    {
+      "movie": "A01_Global_Briefing",
+      "sourceSwf": "A01_Global_Briefing/A01_Global_Briefing.swf",
+      "sourceSha256": "708cbb5e030cecb0fa570ff02259c159f2419f78e37fdd779ad1a6b21a22eb00",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 639,
+        "fps": 30.0
+      },
+      "fla": "converted/A01_Global_Briefing/A01_Global_Briefing.fla",
+      "flaSha256": "d963931b11818a80a14486aeb99d843639c0e0009d4d691d483104a70ef9c133",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 639,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A01_Objective_Briefing",
+      "sourceSwf": "A01_Objective_Briefing/A01_Objective_Briefing.swf",
+      "sourceSha256": "36c1caeb76d5fb96c3a97e29ce929b62753016921ba4b570916c483b093d64de",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 690,
+        "fps": 30.0
+      },
+      "fla": "converted/A01_Objective_Briefing/A01_Objective_Briefing.fla",
+      "flaSha256": "ca4fb246f36fb90d8824a84a56de3e4b7375702db64b6c94810338726665600f",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 690,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A02_Global_Briefing",
+      "sourceSwf": "A02_Global_Briefing/A02_Global_Briefing.swf",
+      "sourceSha256": "f9c84e6e9dbfe4cde8c52612fdabbf9f272105aa1498e5a19de9433ffb6b9169",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 564,
+        "fps": 30.0
+      },
+      "fla": "converted/A02_Global_Briefing/A02_Global_Briefing.fla",
+      "flaSha256": "a0683e0349230647cb4efc351720f8af8d1040be98d815eadc73e6654ed6de5a",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 564,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A02_Objective_Briefing",
+      "sourceSwf": "A02_Objective_Briefing/A02_Objective_Briefing.swf",
+      "sourceSha256": "e9998a6d6e7c54ddc786e6b63b68078f3f137ee722cfae63c67157c4b4dacd0f",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1200,
+        "fps": 30.0
+      },
+      "fla": "converted/A02_Objective_Briefing/A02_Objective_Briefing.fla",
+      "flaSha256": "2211ec4e06ca45dbf2cd764a1c43e031d2d784b881fc0abd5556bc5adde96577",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1200,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A03_Global_Briefing",
+      "sourceSwf": "A03_Global_Briefing/A03_Global_Briefing.swf",
+      "sourceSha256": "8d1b277b13fbeb455fc1289a8f1a297a539c6134197586e033a184ebc213c4bf",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 645,
+        "fps": 30.0
+      },
+      "fla": "converted/A03_Global_Briefing/A03_Global_Briefing.fla",
+      "flaSha256": "0c7c029719daad30997848095aa4b44f7490f4d8f6d768a2d59061e2d2949f8e",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 645,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A03_Objective_Briefing",
+      "sourceSwf": "A03_Objective_Briefing/A03_Objective_Briefing.swf",
+      "sourceSha256": "c893abd2ecdca69526d94b9e7e9abbb0174cf6c6497a3f90a1f8a39002239b8d",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 480,
+        "fps": 30.0
+      },
+      "fla": "converted/A03_Objective_Briefing/A03_Objective_Briefing.fla",
+      "flaSha256": "4acf47c7ed1a10e856a1638828f6c3b45fbbc630e5ba8dd7d76af68c6797036c",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 480,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A04_Global_Briefing",
+      "sourceSwf": "A04_Global_Briefing/A04_Global_Briefing.swf",
+      "sourceSha256": "5f04dad47e0d9a1568f982745e3feb21218b7227298a40fe1a577335c24ddcd3",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 708,
+        "fps": 30.0
+      },
+      "fla": "converted/A04_Global_Briefing/A04_Global_Briefing.fla",
+      "flaSha256": "60ed1c6726683e90a1bbafc017892498813549254e27b36fc7bbe48e3f5fd468",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 708,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A04_Objective_Briefing",
+      "sourceSwf": "A04_Objective_Briefing/A04_Objective_Briefing.swf",
+      "sourceSha256": "a65a065a90b4a83203388ee038efc6680e5fe5cc3e93ecc6026712e4db39438e",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1140,
+        "fps": 30.0
+      },
+      "fla": "converted/A04_Objective_Briefing/A04_Objective_Briefing.fla",
+      "flaSha256": "76d3b6928b56ba542483ef5b0c04ddb079fa3c7ac3f9adb0a9738971142a1354",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1140,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A05_Global_Briefing",
+      "sourceSwf": "A05_Global_Briefing/A05_Global_Briefing.swf",
+      "sourceSha256": "98c04e35c39fc9a98a8595362d47813461abf1470a6892a384ceca5f9137c7c3",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 771,
+        "fps": 30.0
+      },
+      "fla": "converted/A05_Global_Briefing/A05_Global_Briefing.fla",
+      "flaSha256": "a40f6337c703376663c01113b1ae3c9f87fa84cd8b322ee9d2d1cab297dae030",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 771,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A05_Objective_Briefing",
+      "sourceSwf": "A05_Objective_Briefing/A05_Objective_Briefing.swf",
+      "sourceSha256": "054fe8b4d2ef7fde272cda8a62309edfeba64b0f1022da045054137d567b756a",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 900,
+        "fps": 30.0
+      },
+      "fla": "converted/A05_Objective_Briefing/A05_Objective_Briefing.fla",
+      "flaSha256": "2b459d12ab2038744f6a8fd274c095fc16c1171214b0fedbdc5b710a7e756904",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 900,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A06_Global_Briefing",
+      "sourceSwf": "A06_Global_Briefing/A06_Global_Briefing.swf",
+      "sourceSha256": "a1d8352bb924db9d68c9e75b94856e2ea82f702c41794bdec33810ad66798dad",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 699,
+        "fps": 30.0
+      },
+      "fla": "converted/A06_Global_Briefing/A06_Global_Briefing.fla",
+      "flaSha256": "a5d956315c603dbbd4a8b56d292ce16038ccce62da10ad7e45fccb8ceb26ff37",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 699,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A06_Objective_Briefing",
+      "sourceSwf": "A06_Objective_Briefing/A06_Objective_Briefing.swf",
+      "sourceSha256": "f391e1bdd4e79095847a103a99fcf1aa36690036bd1d4287bf038c21379692d7",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 840,
+        "fps": 30.0
+      },
+      "fla": "converted/A06_Objective_Briefing/A06_Objective_Briefing.fla",
+      "flaSha256": "d77f3f0d3fccaf1c5f04a7c7cd371d7ef33121880c095e9d1e44b31e7daa8a1f",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 840,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A07_Global_Briefing",
+      "sourceSwf": "A07_Global_Briefing/A07_Global_Briefing.swf",
+      "sourceSha256": "5649e474bb8d266e968ff866f81c73807bc515737793927bfa8034ac99bdce9f",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 741,
+        "fps": 30.0
+      },
+      "fla": "converted/A07_Global_Briefing/A07_Global_Briefing.fla",
+      "flaSha256": "3d66d5e617ed0adcdb3214d6f7de1460afa2c50f2ed75c4aba02927401d41702",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 741,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A07_Objective_Briefing",
+      "sourceSwf": "A07_Objective_Briefing/A07_Objective_Briefing.swf",
+      "sourceSha256": "436280dba5dbc2fd10695dd0e266329a385758277bac63086d7eec6b6b7ab6d6",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 720,
+        "fps": 30.0
+      },
+      "fla": "converted/A07_Objective_Briefing/A07_Objective_Briefing.fla",
+      "flaSha256": "53dc51729f53b689ac8df2169484feca69159df8044147d08f53ba570ffe54b7",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 720,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A08_Global_Briefing",
+      "sourceSwf": "A08_Global_Briefing/A08_Global_Briefing.swf",
+      "sourceSha256": "b376c0f658d65cc5b5bdb5b5f25b4a05900aef4e1d6ed71a994deb16b257cf2e",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 684,
+        "fps": 30.0
+      },
+      "fla": "converted/A08_Global_Briefing/A08_Global_Briefing.fla",
+      "flaSha256": "a9154066cd532ae8498b116c0d88d3fdff60271afefe27471cd57d6082196011",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 684,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A08_Objective_Briefing",
+      "sourceSwf": "A08_Objective_Briefing/A08_Objective_Briefing.swf",
+      "sourceSha256": "917dba757b96d18e2dd4669abbb6c9bd4e377904980538bfc3d81074d80560a7",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 660,
+        "fps": 30.0
+      },
+      "fla": "converted/A08_Objective_Briefing/A08_Objective_Briefing.fla",
+      "flaSha256": "8e3a52429e46c434cb2cd5dffd722feac6a3be0beb42d281f5e8e31bd1f39ba6",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 660,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A09_Global_Briefing",
+      "sourceSwf": "A09_Global_Briefing/A09_Global_Briefing.swf",
+      "sourceSha256": "78cdc523d64f1d1e0f4ddea183e79a78bc4debbb93a520900bf10849e508377f",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 756,
+        "fps": 30.0
+      },
+      "fla": "converted/A09_Global_Briefing/A09_Global_Briefing.fla",
+      "flaSha256": "3d2ed0da90de861ef4450a42321bd947cf0fb16e1afe65e298d8a991fb5f3fd1",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 756,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "A09_Objective_Briefing",
+      "sourceSwf": "A09_Objective_Briefing/A09_Objective_Briefing.swf",
+      "sourceSha256": "8cb8dbfe9c2b51bf9e692677ccb4e19e02186ad7420109096ab421ee5eed3176",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 960,
+        "fps": 30.0
+      },
+      "fla": "converted/A09_Objective_Briefing/A09_Objective_Briefing.fla",
+      "flaSha256": "a4d4634a47c29c00f2d0ec1433a4a11274b38c6cbca19ceb62056a38a2d17f0e",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 960,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "GlobalClasses",
+      "sourceSwf": "GlobalClasses/GlobalClasses.swf",
+      "sourceSha256": "8482f50962c964a119879902f331703985dd5f884cffef13b96c882823c87b51",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 12.0
+      },
+      "fla": "converted/GlobalClasses/GlobalClasses.fla",
+      "flaSha256": "49d7c13faf8d6f2a8081fbde876517a5c04431ba88ec5c2cb6fae18abbb960a7",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 12,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "HUDTickerPanel",
+      "sourceSwf": "HUDTickerPanel/HUDTickerPanel.swf",
+      "sourceSha256": "3f7351cf24184e9e4252bad2e706f7d220bf3b1d966cb0044e7c5d8cd30969d4",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/HUDTickerPanel/HUDTickerPanel.fla",
+      "flaSha256": "14e0cc831892c9a6b7ffe691e77f0c0422f583d93e9d45398f9d04f94999898a",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "HUDVoiceChatControlPanel",
+      "sourceSwf": "HUDVoiceChatControlPanel/HUDVoiceChatControlPanel.swf",
+      "sourceSha256": "8265e55810bc450cad84f75466be1f38e6bfd11b4f843bd0e829c27e30eec05f",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/HUDVoiceChatControlPanel/HUDVoiceChatControlPanel.fla",
+      "flaSha256": "d23f4c986d3a3be386e767c295c0f09a1fd254c046ca6a13b81199b60cb6c0d7",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "HelpBox",
+      "sourceSwf": "HelpBox/HelpBox.swf",
+      "sourceSha256": "1899c8ab970dfdd818b6168c2bff8c9c9ec36f64621a0b6e53c406ff60c138fa",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/HelpBox/HelpBox.fla",
+      "flaSha256": "40c276aa9b9a092e1e14ca7785856c7d9d4b93dce5672ee2c29e2894c3d808f0",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "InGameChat",
+      "sourceSwf": "InGameChat/InGameChat.swf",
+      "sourceSha256": "f0a11c1d5717945bd1a11d1ec0c46e4ec900a196d48a37210c20094dacd1e054",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/InGameChat/InGameChat.fla",
+      "flaSha256": "adef24164099d62da9483ebab68c4f86c38df45987821def2de4d18d27cb7880",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "InGameCheckbox",
+      "sourceSwf": "InGameCheckbox/InGameCheckbox.swf",
+      "sourceSha256": "dfd3998f77eb5bd9df97e31203e2ab6bcb09742c1a9c9a9d86270dfa1750ccd8",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 20,
+        "fps": 30.0
+      },
+      "fla": "converted/InGameCheckbox/InGameCheckbox.fla",
+      "flaSha256": "e30a45413b3754c0f02afd7d08f83f254be1bdf920cc502a2ff228689fefab17",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 20,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J01_Global_Briefing",
+      "sourceSwf": "J01_Global_Briefing/J01_Global_Briefing.swf",
+      "sourceSha256": "0af2f10e374061c82b456a3e05e18fe95a65ff7efafbaa4571d969c1c30b7863",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 813,
+        "fps": 30.0
+      },
+      "fla": "converted/J01_Global_Briefing/J01_Global_Briefing.fla",
+      "flaSha256": "012cf5ca9f55a8746fe788d276cf8691c90eb8cf9b16e2e6a8a305ea5baf45f9",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 813,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J01_Objective_Briefing",
+      "sourceSwf": "J01_Objective_Briefing/J01_Objective_Briefing.swf",
+      "sourceSha256": "d15d831635d3f638550f68a936a3adb02e16e97f25474d3c6811587973d6de16",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 690,
+        "fps": 30.0
+      },
+      "fla": "converted/J01_Objective_Briefing/J01_Objective_Briefing.fla",
+      "flaSha256": "9fd8208be05597ecd2d67839de426971d3d1237e5934310431f7e0562a34feb9",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 690,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J02_Global_Briefing",
+      "sourceSwf": "J02_Global_Briefing/J02_Global_Briefing.swf",
+      "sourceSha256": "b478f98d1a3c75ec60bbf9f27067daec49e19829eb0bbea0afe184d35c3720c0",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 633,
+        "fps": 30.0
+      },
+      "fla": "converted/J02_Global_Briefing/J02_Global_Briefing.fla",
+      "flaSha256": "de0b3b2b1b44c1622cf86b1ef115b4147667a124b3fd6c71ce0957be0c2db1bc",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 633,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J02_Objective_Briefing",
+      "sourceSwf": "J02_Objective_Briefing/J02_Objective_Briefing.swf",
+      "sourceSha256": "49b1792cd33b276769aa2971256a175e2f934856f19ff04b4d05e6f747c59a1b",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 690,
+        "fps": 30.0
+      },
+      "fla": "converted/J02_Objective_Briefing/J02_Objective_Briefing.fla",
+      "flaSha256": "c5cb4e4e8bc0637a9c9dae1b11f17540fbd3c4e5e6e93e4af0b6c36360e71ff1",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 690,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J03_Global_Briefing",
+      "sourceSwf": "J03_Global_Briefing/J03_Global_Briefing.swf",
+      "sourceSha256": "fb8152bcb109e595e706530694e32cc8ed6d21691894658257844dab3dd24d47",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 771,
+        "fps": 30.0
+      },
+      "fla": "converted/J03_Global_Briefing/J03_Global_Briefing.fla",
+      "flaSha256": "42fc5c4c321437d107ba442872d43af572c9d667fd8752a8abac3b90bd116b64",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 771,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J03_Objective_Briefing",
+      "sourceSwf": "J03_Objective_Briefing/J03_Objective_Briefing.swf",
+      "sourceSha256": "ae1fd6cff09c1b01034558762718f32d5fe223e28fa765349aeaee2e259c2abf",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 750,
+        "fps": 30.0
+      },
+      "fla": "converted/J03_Objective_Briefing/J03_Objective_Briefing.fla",
+      "flaSha256": "4020c74cccda8dc4351cb0c12b251f0d8b3ab6153d4f9740f1d921c436327a1e",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 750,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J04_Global_Briefing",
+      "sourceSwf": "J04_Global_Briefing/J04_Global_Briefing.swf",
+      "sourceSha256": "326c135e7b7c1e3ae8ecfb6823a806b007ef70e472d00c0fc2146e2064ce2775",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 756,
+        "fps": 30.0
+      },
+      "fla": "converted/J04_Global_Briefing/J04_Global_Briefing.fla",
+      "flaSha256": "23da1402c8488dcc872e97f031f505fc1249002a857f12b72aeed73cabcc82eb",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 756,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J04_Objective_Briefing",
+      "sourceSwf": "J04_Objective_Briefing/J04_Objective_Briefing.swf",
+      "sourceSha256": "459cce0f93ae025f2e8a70c7f79d99b848fa233e55492c1b3645b4e765018564",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 780,
+        "fps": 30.0
+      },
+      "fla": "converted/J04_Objective_Briefing/J04_Objective_Briefing.fla",
+      "flaSha256": "a1b31f02d6a7ac81bf264e998630bf4a41236f0dc754ef5e60baeb7d2e16711a",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 780,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J05_Global_Briefing",
+      "sourceSwf": "J05_Global_Briefing/J05_Global_Briefing.swf",
+      "sourceSha256": "58c0e41572514423a8b8ed83d2ab8cc26187e17296a5794c8dd230c00117a3fc",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 714,
+        "fps": 30.0
+      },
+      "fla": "converted/J05_Global_Briefing/J05_Global_Briefing.fla",
+      "flaSha256": "5bfea645c9a684bad1609c1312debfd3d2a4f40409f4fbf4fd05036dea3babd6",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 714,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J05_Objective_Briefing",
+      "sourceSwf": "J05_Objective_Briefing/J05_Objective_Briefing.swf",
+      "sourceSha256": "2f0d8b5dc704fd9bc9395b5ae2e9b7cc89bbdecc1db8aaf0057b194e9726f95b",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 360,
+        "fps": 30.0
+      },
+      "fla": "converted/J05_Objective_Briefing/J05_Objective_Briefing.fla",
+      "flaSha256": "cbf95ba30476da0424c038f2c44dc23d81c5be9a0c8d56023f1f21b92d67e4af",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 360,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J06_Global_Briefing",
+      "sourceSwf": "J06_Global_Briefing/J06_Global_Briefing.swf",
+      "sourceSha256": "1479679a9a4ab5f524988eae1f951cf80a71d34f70146de54c4486b9a180842b",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 861,
+        "fps": 30.0
+      },
+      "fla": "converted/J06_Global_Briefing/J06_Global_Briefing.fla",
+      "flaSha256": "3b30452de0a398223cdc641b7a8053bb12c10ef3039db35bd59bc8aee5445ce3",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 861,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J06_Objective_Briefing",
+      "sourceSwf": "J06_Objective_Briefing/J06_Objective_Briefing.swf",
+      "sourceSha256": "be09a85e6168605a6ae148b4176726f6c20e4b50e41bf20aa925e34062dd168d",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 750,
+        "fps": 30.0
+      },
+      "fla": "converted/J06_Objective_Briefing/J06_Objective_Briefing.fla",
+      "flaSha256": "711b9463180673eb16ee739ed8c6f04ee1391922ecc7585c046ada71a82a75bf",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 750,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J07_Global_Briefing",
+      "sourceSwf": "J07_Global_Briefing/J07_Global_Briefing.swf",
+      "sourceSha256": "8981897696ec6342f71cfd3196348ff91c80b6155c9f386e8bb00ae7eaeb0602",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 551,
+        "fps": 30.0
+      },
+      "fla": "converted/J07_Global_Briefing/J07_Global_Briefing.fla",
+      "flaSha256": "3381da5ff8fe9ea4fd58b5761adc2f22f65307d099e63861f3a2b73448df3459",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 551,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J07_Objective_Briefing",
+      "sourceSwf": "J07_Objective_Briefing/J07_Objective_Briefing.swf",
+      "sourceSha256": "f18fb02d74431d2f45e9c92c3c19318a416c99d8950a42707b7bf703fd5833d6",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 720,
+        "fps": 30.0
+      },
+      "fla": "converted/J07_Objective_Briefing/J07_Objective_Briefing.fla",
+      "flaSha256": "94a75f1e0b306eefe57c64171449166e57a02a405c9221a61b9a743c1669c905",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 720,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J08_Global_Briefing",
+      "sourceSwf": "J08_Global_Briefing/J08_Global_Briefing.swf",
+      "sourceSha256": "e75a49efd92c40d6214c6d39874b19cc507e5701692a28d498023540e651edf9",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 554,
+        "fps": 30.0
+      },
+      "fla": "converted/J08_Global_Briefing/J08_Global_Briefing.fla",
+      "flaSha256": "0708afe8be0373bfb4808e846f4c6edc14737ddb8a519cb5d8b0fcb7e668e208",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 554,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J08_Objective_Briefing",
+      "sourceSwf": "J08_Objective_Briefing/J08_Objective_Briefing.swf",
+      "sourceSha256": "97b4e584e1894a68a7020e14f749f6dfa86f45a681854673f81a993a7432da6f",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 720,
+        "fps": 30.0
+      },
+      "fla": "converted/J08_Objective_Briefing/J08_Objective_Briefing.fla",
+      "flaSha256": "651b8b95b7e4408232d103cabf6813293f45d6cfad66bfe777ce9d6ecff18fe7",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 720,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J09_Global_Briefing",
+      "sourceSwf": "J09_Global_Briefing/J09_Global_Briefing.swf",
+      "sourceSha256": "5f8f8781097ab553ac22aa8f4cd78df89b16670b763a65118e50e1f9415374b7",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 663,
+        "fps": 30.0
+      },
+      "fla": "converted/J09_Global_Briefing/J09_Global_Briefing.fla",
+      "flaSha256": "321aa2ec974ec17073e0d07f9ef15ce8bf8796dbc583f7d1cb5420b95c5106f7",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 663,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "J09_Objective_Briefing",
+      "sourceSwf": "J09_Objective_Briefing/J09_Objective_Briefing.swf",
+      "sourceSha256": "85d735056f14e3a7bde5723aef30b39f454959b38d6508812e89a1342e38e50b",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1050,
+        "fps": 30.0
+      },
+      "fla": "converted/J09_Objective_Briefing/J09_Objective_Briefing.fla",
+      "flaSha256": "aed9ba27593eb7b84542464208ee2b9a534a7a3acfa18276ee19a1ba7cd51c1a",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1050,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "LoadScreen",
+      "sourceSwf": "LoadScreen/LoadScreen.swf",
+      "sourceSha256": "068d9858f2f37dd04552d71e95069563fa4d49617a04f3552bdf951538c7a56a",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 11,
+        "fps": 30.0
+      },
+      "fla": "converted/LoadScreen/LoadScreen.fla",
+      "flaSha256": "b85d6fb3baafda74a8ffade0c6081943bd4b970bdd6771088fb2deee52ac0462",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 11,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "LoadScreenCampaign",
+      "sourceSwf": "LoadScreenCampaign/LoadScreenCampaign.swf",
+      "sourceSha256": "823bf14968efcb505fa19d457ec6319a31c4603160963c8a2448bd47f43ee445",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/LoadScreenCampaign/LoadScreenCampaign.fla",
+      "flaSha256": "f0e4354f5f9bfca3452ed9ad22f7469e3d907c57d86175798f3572c7d5b6b70c",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "LoadScreenImage",
+      "sourceSwf": "LoadScreenImage/LoadScreenImage.swf",
+      "sourceSha256": "a8a4652195ff859f6756b5dfadbc430b21bae1524d0342f9e111f18769ca16ba",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/LoadScreenImage/LoadScreenImage.fla",
+      "flaSha256": "ae5a0441b072a3815611bb087392a75ef13d74c82d02101efc83a221e6a6524d",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "NotificationPopUp",
+      "sourceSwf": "NotificationPopUp/NotificationPopUp.swf",
+      "sourceSha256": "11d6812b849fd3fecf133858b659d1db3274768a3ec8ead0299dc5ddbc734279",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 12,
+        "fps": 30.0
+      },
+      "fla": "converted/NotificationPopUp/NotificationPopUp.fla",
+      "flaSha256": "8c329bb80039d2f22635bb24cecbb0d3921ef0059e36708c96beb38c8c6b99bd",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 12,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "PopUpFactionLogo",
+      "sourceSwf": "PopUpFactionLogo/PopUpFactionLogo.swf",
+      "sourceSha256": "68a833d874719ab550a31076bf5ff74359db392c29e0a3d0a277749edb0df2ca",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 30,
+        "fps": 30.0
+      },
+      "fla": "converted/PopUpFactionLogo/PopUpFactionLogo.fla",
+      "flaSha256": "01102c1c78d71735fbe8b6c0c914512c02f21b32d40e33ae5cff47e532825c0c",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 30,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S01_Global_Briefing",
+      "sourceSwf": "S01_Global_Briefing/S01_Global_Briefing.swf",
+      "sourceSha256": "2ad0acc65cdc18ef454696677df3c90216634fbb5b433149270437ef8e932632",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 669,
+        "fps": 30.0
+      },
+      "fla": "converted/S01_Global_Briefing/S01_Global_Briefing.fla",
+      "flaSha256": "f44fd85149df4bd3fac83c6b5c7b8fc509296b448b05ecf14d3a4597c5b75020",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 669,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S01_Objective_Briefing",
+      "sourceSwf": "S01_Objective_Briefing/S01_Objective_Briefing.swf",
+      "sourceSha256": "005f7355ee6e0edebec9d25e90ea1125d8a2e18e46845bdc8d75cf0158fdd5e0",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 690,
+        "fps": 30.0
+      },
+      "fla": "converted/S01_Objective_Briefing/S01_Objective_Briefing.fla",
+      "flaSha256": "0287175aa6adeb615a00f732426e98de29a9ddd59c06501017982e457a23eeb4",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 690,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S02_Global_Briefing",
+      "sourceSwf": "S02_Global_Briefing/S02_Global_Briefing.swf",
+      "sourceSha256": "b4c34a5231ff4246b980ba95fe94c224215a69b7b74d6bc4c6970b657e38e567",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 641,
+        "fps": 30.0
+      },
+      "fla": "converted/S02_Global_Briefing/S02_Global_Briefing.fla",
+      "flaSha256": "fb5f36ca9540caac8d5a04fb0a9cfd744234c2a4c50c4c5393adeb8ae598a0d0",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 641,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S02_Objective_Briefing",
+      "sourceSwf": "S02_Objective_Briefing/S02_Objective_Briefing.swf",
+      "sourceSha256": "b3ce66ebf0e13ff56b4ed86acdf2d335b4efe4422b048c26b204abb8bcc2f0e9",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 630,
+        "fps": 30.0
+      },
+      "fla": "converted/S02_Objective_Briefing/S02_Objective_Briefing.fla",
+      "flaSha256": "5f78418711158631886054554895fd138f4c66636939c77968af0457ca314385",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 630,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S03_Global_Briefing",
+      "sourceSwf": "S03_Global_Briefing/S03_Global_Briefing.swf",
+      "sourceSha256": "c4fd16725b0275e0118405b30aba9633f65f1ae015781cfefac5640141914a87",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 717,
+        "fps": 30.0
+      },
+      "fla": "converted/S03_Global_Briefing/S03_Global_Briefing.fla",
+      "flaSha256": "da0fa074362dc5d89efc92f3640760320a255024fb0589cb00f21aa0a1ed7251",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 717,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S03_Objective_Briefing",
+      "sourceSwf": "S03_Objective_Briefing/S03_Objective_Briefing.swf",
+      "sourceSha256": "91a04ed2ecea801f580e0a6b445fd942cd9ff6fe90a9ae1febd56bab19892723",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 690,
+        "fps": 30.0
+      },
+      "fla": "converted/S03_Objective_Briefing/S03_Objective_Briefing.fla",
+      "flaSha256": "4944432ec40ef1e3c7a16c55de75b4c32545754ce137fce1cfecf38b349247ea",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 690,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S04_Global_Briefing",
+      "sourceSwf": "S04_Global_Briefing/S04_Global_Briefing.swf",
+      "sourceSha256": "047049bc9aaeb738cae5988d704ec17dae17506d2fa3332b3f10e215f8d67bd3",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 570,
+        "fps": 30.0
+      },
+      "fla": "converted/S04_Global_Briefing/S04_Global_Briefing.fla",
+      "flaSha256": "6051c642ea596a1beadfe3c63b7d0ab61d600e7a4a5334790a782ce7a28b8f1b",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 570,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S04_Objective_Briefing",
+      "sourceSwf": "S04_Objective_Briefing/S04_Objective_Briefing.swf",
+      "sourceSha256": "5da1f2ca3339892a5d75ff6cc0c7a12a7bc08058bf8e2463f4211d485fe258ef",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 990,
+        "fps": 30.0
+      },
+      "fla": "converted/S04_Objective_Briefing/S04_Objective_Briefing.fla",
+      "flaSha256": "6290d96a7ac4756ab024cf4ab66f7250f0ed1e01656cdc817befadc63a7cb444",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 990,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S05_Global_Briefing",
+      "sourceSwf": "S05_Global_Briefing/S05_Global_Briefing.swf",
+      "sourceSha256": "ed052de0687973dbe50a542db3334ad2221bbf72581e828a2c985edb22af2d54",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 930,
+        "fps": 30.0
+      },
+      "fla": "converted/S05_Global_Briefing/S05_Global_Briefing.fla",
+      "flaSha256": "e670c5e351ea177f44183115bd0abd6ce961e5da463d891246f16af7091788b6",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 930,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S05_Objective_Briefing",
+      "sourceSwf": "S05_Objective_Briefing/S05_Objective_Briefing.swf",
+      "sourceSha256": "313fcd275b47291e5e4dcb065f4377d7510425c7d26dcfd352c2b0c7197ca143",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 720,
+        "fps": 30.0
+      },
+      "fla": "converted/S05_Objective_Briefing/S05_Objective_Briefing.fla",
+      "flaSha256": "d50ff6fe7a5c2162d1bfead0676e1cd3bccea668f3eeba8bd117897ef63a85e1",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 720,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S06_Global_Briefing",
+      "sourceSwf": "S06_Global_Briefing/S06_Global_Briefing.swf",
+      "sourceSha256": "6ea6d024895c6e57fe71c3dd2348970191ec858a15c88af58ee8e7535794e3a0",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 729,
+        "fps": 30.0
+      },
+      "fla": "converted/S06_Global_Briefing/S06_Global_Briefing.fla",
+      "flaSha256": "d0e4b4ebd53870662b6ad4fee5e29b704aa8c597ad1bf157fc0fd5cd2cb4ec19",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 729,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S06_Objective_Briefing",
+      "sourceSwf": "S06_Objective_Briefing/S06_Objective_Briefing.swf",
+      "sourceSha256": "cbc7332d116ea575b4267815fb8eda2321ca3c331c7d4be10a7b58f439959964",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 840,
+        "fps": 30.0
+      },
+      "fla": "converted/S06_Objective_Briefing/S06_Objective_Briefing.fla",
+      "flaSha256": "c6f16e32810a21fffaa9aef313349f7d9ba746f8ec5b41afb0543b4d1585ebe5",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 840,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S07_Global_Briefing",
+      "sourceSwf": "S07_Global_Briefing/S07_Global_Briefing.swf",
+      "sourceSha256": "07e1385aac7e0f3c5a545398fc5394757179b82ac5e231afce1cb5e3c08bdd8f",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 657,
+        "fps": 30.0
+      },
+      "fla": "converted/S07_Global_Briefing/S07_Global_Briefing.fla",
+      "flaSha256": "ce91a24d1d901eb324527ba613c0b1e1b8724d60f86be0b1bf4ee15a25d07273",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 657,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S07_Objective_Briefing",
+      "sourceSwf": "S07_Objective_Briefing/S07_Objective_Briefing.swf",
+      "sourceSha256": "cf08e2bdd9fd7c2a8c4c54bd9ff19c01ef4c6e230aabfa7273ab9b8f5cb782b9",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 690,
+        "fps": 30.0
+      },
+      "fla": "converted/S07_Objective_Briefing/S07_Objective_Briefing.fla",
+      "flaSha256": "be91a30deb8d3dfdbc09bf2391fb9266730fb21dcdbc4082214a8887952a6e49",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 690,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S08_Global_Briefing",
+      "sourceSwf": "S08_Global_Briefing/S08_Global_Briefing.swf",
+      "sourceSha256": "5ac5bc49741317bec0dc4c9f421ef2afd61969a84416fe0adebd72626f928061",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 597,
+        "fps": 30.0
+      },
+      "fla": "converted/S08_Global_Briefing/S08_Global_Briefing.fla",
+      "flaSha256": "f7d9a654cee7601bc64fa90293f368c05dc4a1944fd216091ccb273c2f4a1667",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 597,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S08_Objective_Briefing",
+      "sourceSwf": "S08_Objective_Briefing/S08_Objective_Briefing.swf",
+      "sourceSha256": "9387bfb136f84d64f15d54ed05b8e0f4e66d1292f2b66f0a7af0cf1b155c7c4c",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 870,
+        "fps": 30.0
+      },
+      "fla": "converted/S08_Objective_Briefing/S08_Objective_Briefing.fla",
+      "flaSha256": "943b6bc7cbe5781951f5157bc7440758d7f6160a5701a992b6b65140ed4c3687",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 870,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S09_Global_Briefing",
+      "sourceSwf": "S09_Global_Briefing/S09_Global_Briefing.swf",
+      "sourceSha256": "1fea77ec5f8c6b558f3a7b4d2c3d2561a92f50d6accb5db736d5d3521368dbd0",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 672,
+        "fps": 30.0
+      },
+      "fla": "converted/S09_Global_Briefing/S09_Global_Briefing.fla",
+      "flaSha256": "66a529a24d85a302346fed63b2e72ce22ed003a82354bb0fccce507943db6e4b",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 672,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "S09_Objective_Briefing",
+      "sourceSwf": "S09_Objective_Briefing/S09_Objective_Briefing.swf",
+      "sourceSha256": "d464e36975b0488f97267ea6a664f05376a8f7a6c05710e0d91aa045ffe2dbd8",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 900,
+        "fps": 30.0
+      },
+      "fla": "converted/S09_Objective_Briefing/S09_Objective_Briefing.fla",
+      "flaSha256": "52b25a5cf5fdb87a4b987915d9248f9ba3c9702e4517f9a9aad45f0752594865",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 900,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "StandardCommandButton",
+      "sourceSwf": "StandardCommandButton/StandardCommandButton.swf",
+      "sourceSha256": "f07e0f9a848b2f66bfea7a084e13903997b6f97502996da99529744e1a4cd369",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 50,
+        "fps": 30.0
+      },
+      "fla": "converted/StandardCommandButton/StandardCommandButton.fla",
+      "flaSha256": "e1e0b0d60a60f1113fa9b3412599642a3bfdbd030fd69710661c5f93838268a1",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 50,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalEndGameDialog",
+      "sourceSwf": "TacticalEndGameDialog/TacticalEndGameDialog.swf",
+      "sourceSha256": "f9e290d3a9fa60c496d3246dd1102677c7e1d7ce7f06a1ed26f0d21e794d62f1",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 43,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalEndGameDialog/TacticalEndGameDialog.fla",
+      "flaSha256": "8625647881e2c7ad6668cbfca16e14cb5b667c49c909a476467bf7043dce5718",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 43,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUD",
+      "sourceSwf": "TacticalHUD/TacticalHUD.swf",
+      "sourceSha256": "fa7ffd31adcf2a6080488ae9a7c41748ddc76184b3d8141e6198ec1edba9b8a0",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 21,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUD/TacticalHUD.fla",
+      "flaSha256": "e2db4984e2e1af37accd6d366a1cba7183431614752dbddafcfb92be0f2a15b5",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 21,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDBeaconStage",
+      "sourceSwf": "TacticalHUDBeaconStage/TacticalHUDBeaconStage.swf",
+      "sourceSha256": "acb6097732e2aa1066b200db99b20cf5fdb096e3f544a4747db3940755aad9e3",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDBeaconStage/TacticalHUDBeaconStage.fla",
+      "flaSha256": "4d82035b68628ac1d9f9deccb9e5285a92b03c408cc4dc473323bac098cee55d",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDBuildQueuePage",
+      "sourceSwf": "TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage.swf",
+      "sourceSha256": "480a95fd48cd52df0726fad3386cdcb7693b0600d47b57328d8aee983f9d427a",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDBuildQueuePage/TacticalHUDBuildQueuePage.fla",
+      "flaSha256": "197b2820c3fa6100b542da38c3b5100b45a51ffba6874023744d0b7cb2a4275f",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDCoOpAIOrderPanel",
+      "sourceSwf": "TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel.swf",
+      "sourceSha256": "0a925eb4fd45dc0e5367d0ec65010d9f145baa97b94d1a7aadf95a759a5472ad",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 25,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDCoOpAIOrderPanel/TacticalHUDCoOpAIOrderPanel.fla",
+      "flaSha256": "a6b5134060dd762100ff17d506ab5bcd2719ed476902b571abd77aa572f4c625",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 25,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDCommandListBox",
+      "sourceSwf": "TacticalHUDCommandListBox/TacticalHUDCommandListBox.swf",
+      "sourceSha256": "482b09a4d4bf415683e629fed113f3dd67df048649e387973b850497e64a7c83",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDCommandListBox/TacticalHUDCommandListBox.fla",
+      "flaSha256": "10e6bfa5f55ac886d5fe8f7069db1df9dcc2d5fb2321458b146f9aff250c7baf",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDCommandModeBar",
+      "sourceSwf": "TacticalHUDCommandModeBar/TacticalHUDCommandModeBar.swf",
+      "sourceSha256": "f1baae1f261bf2c621ea02c0944681a87e457f9d49fe78d9bd7e3fc6c4a3558d",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar.fla",
+      "flaSha256": "c3ea0d94360d211650051a047d53e4e522736b8e2ce571cc31121cbde45b5f61",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDEnergyMeter",
+      "sourceSwf": "TacticalHUDEnergyMeter/TacticalHUDEnergyMeter.swf",
+      "sourceSha256": "88267bc6c0655c8b8de527c3085f68d73da780f9df1105c129f00ad10dd297d3",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDEnergyMeter/TacticalHUDEnergyMeter.fla",
+      "flaSha256": "051dfb0cd9d563791bfc1e7a0690fd8829347d5ecf3821b37690de34ccd59c3d",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDExperiencePanel",
+      "sourceSwf": "TacticalHUDExperiencePanel/TacticalHUDExperiencePanel.swf",
+      "sourceSha256": "5736654ca6241c11725f16983e99ab697e9acf7ec26b9d345b03c63b9b578757",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDExperiencePanel/TacticalHUDExperiencePanel.fla",
+      "flaSha256": "2064ee46dc12d5845604ef8f7571e64363e362949521c79144607ff58ed60b92",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDMainCommandBar",
+      "sourceSwf": "TacticalHUDMainCommandBar/TacticalHUDMainCommandBar.swf",
+      "sourceSha256": "89ef10ee464b74c9a5fd220d00d5ac77bef03a6292a4efde796262220a0782ec",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDMainCommandBar/TacticalHUDMainCommandBar.fla",
+      "flaSha256": "943aea182ef8ccb314a28b97a96311dbe2a06f6074a47704fc599ce5b8698561",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDObjectiveIndicatorStage",
+      "sourceSwf": "TacticalHUDObjectiveIndicatorStage/TacticalHUDObjectiveIndicatorStage.swf",
+      "sourceSha256": "3ab0cb80c7b5ef21c61eace5c11303006cd94b7d549a7f1324c09308f6221dc7",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDObjectiveIndicatorStage/TacticalHUDObjectiveIndicatorStage.fla",
+      "flaSha256": "af333cca9c44f66e3a4ae46a6579fd1435fe2c6094c4d359d2b71a97ab3decc0",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDObserverControlPanel",
+      "sourceSwf": "TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel.swf",
+      "sourceSha256": "e73469b73421eb8fac5764572ec1dec5a84ff58ec9b589962be88ef8c514f471",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDObserverControlPanel/TacticalHUDObserverControlPanel.fla",
+      "flaSha256": "bf74ef6f2e11236922cce38cbc87d911e6386ee3360baeb5ed606abb3b1e9a17",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDPlayerPowersBar",
+      "sourceSwf": "TacticalHUDPlayerPowersBar/TacticalHUDPlayerPowersBar.swf",
+      "sourceSha256": "3edb5af38845f07c014d8c731b97ef365fa685bb0c0a3686e4373d956eac5618",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDPlayerPowersBar/TacticalHUDPlayerPowersBar.fla",
+      "flaSha256": "42db6ddce63ccd51dd07220ed2d4387b3432acda9d47fc056e5a71ce448c03d8",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDRadar",
+      "sourceSwf": "TacticalHUDRadar/TacticalHUDRadar.swf",
+      "sourceSha256": "6e478919b914cb5b7d4dbf72385de8b60c96ad6dfbf1255c257a0562d27b2470",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDRadar/TacticalHUDRadar.fla",
+      "flaSha256": "6a6206a69e485fe6e3ccb18ce3a87bce75a2baab09f81c7ebc6a0634078914b7",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDSelectionDetails",
+      "sourceSwf": "TacticalHUDSelectionDetails/TacticalHUDSelectionDetails.swf",
+      "sourceSha256": "b83602d908de430795f9dff0c027bfd81099a03e897c1bf15176ab4223664caa",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 40,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails.fla",
+      "flaSha256": "70b41e5eb49ce64422169085fbc263be271caf7798f0d010a6cd512d232782bb",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 40,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDSelectionRefinementPage",
+      "sourceSwf": "TacticalHUDSelectionRefinementPage/TacticalHUDSelectionRefinementPage.swf",
+      "sourceSha256": "0e1e39aad95f7442c47f880ee51d01dc620489071bccbfaa1c2bf17a9aa8e910",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDSelectionRefinementPage/TacticalHUDSelectionRefinementPage.fla",
+      "flaSha256": "7e4995b0967897275ac0388b1eaa317052d5cc348cbac19b7da18ec598411d23",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDSpecialPowerTimers",
+      "sourceSwf": "TacticalHUDSpecialPowerTimers/TacticalHUDSpecialPowerTimers.swf",
+      "sourceSha256": "9af5fdd68a254fb667fa9c796ca6eaddef853b6436345326179e20f27db8e1ad",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDSpecialPowerTimers/TacticalHUDSpecialPowerTimers.fla",
+      "flaSha256": "a17b6d511ba7eed8edbb750ed6ce96c6c0f2f5d762c8b108c5ec6195bb771d8c",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalHUDTelestratorControlPanel",
+      "sourceSwf": "TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPanel.swf",
+      "sourceSha256": "1dcfc178f6a557a7fb751c2e2e5e2a8b7c98d592cc49e870b961e479febfb399",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalHUDTelestratorControlPanel/TacticalHUDTelestratorControlPanel.fla",
+      "flaSha256": "efd51f619ddd4855e15e66381ad6782582f955281df861f93cc26accc87a5ed5",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalMissionHotSpotPopUp",
+      "sourceSwf": "TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp.swf",
+      "sourceSha256": "7ef462834917f9c17ae862d780e11d5e10a7af07ebe069c9b2a375f0d953ba13",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 10,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalMissionHotSpotPopUp/TacticalMissionHotSpotPopUp.fla",
+      "flaSha256": "c9d5b35d37d58e74ec950c3fae2f58f5d9e8e79f6f5298fb4907d6e38ca955ae",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 10,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalMpBeaconDialog",
+      "sourceSwf": "TacticalMpBeaconDialog/TacticalMpBeaconDialog.swf",
+      "sourceSha256": "c8124a09f548d079ef3139595c3ba7b3625220bed8ef385ebe9ef93484057491",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 16,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalMpBeaconDialog/TacticalMpBeaconDialog.fla",
+      "flaSha256": "dce8037e973573c0235d5a68a64d5ba60f6867d330ad0e289702f6a5d36df255",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 16,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalObjectiveIcon",
+      "sourceSwf": "TacticalObjectiveIcon/TacticalObjectiveIcon.swf",
+      "sourceSha256": "ed3edd5187396a3306543dbc2b7681fe7aca1fb30e0510eb42115c977d46a145",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalObjectiveIcon/TacticalObjectiveIcon.fla",
+      "flaSha256": "d6e6f434585a2f9049b23d7c760f51282123e5efa870fa1a98bc031322656fa6",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalObjectiveIndicatorPopUp",
+      "sourceSwf": "TacticalObjectiveIndicatorPopUp/TacticalObjectiveIndicatorPopUp.swf",
+      "sourceSha256": "8d1f90c40e34864f498a4834a760b25fc3b96b6338306a389e197f4f15c52547",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 9,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalObjectiveIndicatorPopUp/TacticalObjectiveIndicatorPopUp.fla",
+      "flaSha256": "80be9b4d5c2269421167aff971176a6dfae4fd63c89b76b9bd0375f16b5332d9",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 9,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalObjectiveIntroPopUp",
+      "sourceSwf": "TacticalObjectiveIntroPopUp/TacticalObjectiveIntroPopUp.swf",
+      "sourceSha256": "5a2ac4a1bfc9d4b3086053621e1413a755066341026e014bb7aace1d2f5d29e4",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 136,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalObjectiveIntroPopUp/TacticalObjectiveIntroPopUp.fla",
+      "flaSha256": "c2ec7969d3d080c9178008be025a97d8228057329e64f955706aa6d55e387fdc",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 136,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalPlayerPowerCommandButton",
+      "sourceSwf": "TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton.swf",
+      "sourceSha256": "42191c23db35ae6d0f8b62d3ca1986ab7f02c42d8a70dbc325a9b063081b095f",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 10,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalPlayerPowerCommandButton/TacticalPlayerPowerCommandButton.fla",
+      "flaSha256": "3d2118bfbf6c459a32c535b09420c547d4e5f776677c7d47de4c4f457cfbe14a",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 10,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalPlayerStatusDialog",
+      "sourceSwf": "TacticalPlayerStatusDialog/TacticalPlayerStatusDialog.swf",
+      "sourceSha256": "94c8b47bc1b1b39cebfb7ad8f8a98afb32fa9e14b5ec6499ce9dd90fcda26b1f",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 15,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalPlayerStatusDialog/TacticalPlayerStatusDialog.fla",
+      "flaSha256": "b35d0b85491d64601ef4ae47d4681b399ccab9ecdd9298d244902436c13c2f57",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 15,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalQuickChatDialog",
+      "sourceSwf": "TacticalQuickChatDialog/TacticalQuickChatDialog.swf",
+      "sourceSha256": "5109062ec40a0a4b3717346fc6f66e1e108f24f29850edba0f67a570d0a733b2",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 16,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalQuickChatDialog/TacticalQuickChatDialog.fla",
+      "flaSha256": "7301bfa22f3a55d04698587af1b1679ede6be9ed4d648979ce3d906abb65c779",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 16,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "TacticalTextChatDialog",
+      "sourceSwf": "TacticalTextChatDialog/TacticalTextChatDialog.swf",
+      "sourceSha256": "36fe08acfeec3bd17e1dbb1fc4edb8027fbafc1c88a010c27c7bee7514331ab8",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 16,
+        "fps": 30.0
+      },
+      "fla": "converted/TacticalTextChatDialog/TacticalTextChatDialog.fla",
+      "flaSha256": "56457e936317ad29e8c921b8f0a46a503a798b4bd67861c2c77253b11b19cc53",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 16,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "VerticalScrollBar",
+      "sourceSwf": "VerticalScrollBar/VerticalScrollBar.swf",
+      "sourceSha256": "bb691155ac60ec778c5c59f0e4df69ed8a41a0389fed776718d03367605d2768",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 2,
+        "fps": 30.0
+      },
+      "fla": "converted/VerticalScrollBar/VerticalScrollBar.fla",
+      "flaSha256": "ae3acc00199ce8eecb6d66559e1e9881c8a42d80abdf117b69e5d919d0953b3d",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 2,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "YesNoDialog",
+      "sourceSwf": "YesNoDialog/YesNoDialog.swf",
+      "sourceSha256": "2a6fd8057e4bbe33bcac8f7835518b4d41ce903d436ac5747a75389fdc3fb011",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/YesNoDialog/YesNoDialog.fla",
+      "flaSha256": "de2b506b2f14f615cd73d8d2c9beb800098c7aad9a43dfda4ea4158738c946db",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "blockTextComponent",
+      "sourceSwf": "blockTextComponent/blockTextComponent.swf",
+      "sourceSha256": "67c597554f38362c0e7c6660cbaf6c79c8f97f8eb9199ec258d0fe356de15ed0",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/blockTextComponent/blockTextComponent.fla",
+      "flaSha256": "4e89f10320da27fd77235063866dbc33d3f0d0686bd5bd9412bf90c91c7cccea",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "careerStatsComponent",
+      "sourceSwf": "careerStatsComponent/careerStatsComponent.swf",
+      "sourceSha256": "ac690739ee77490edabd61f64d03b985bb023126d7c2464057f336e2bf32f7f7",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/careerStatsComponent/careerStatsComponent.fla",
+      "flaSha256": "97e2b56c71cbd0d78b558d167790a5d8fd6aeeddd463702d7b341fbe509178f4",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "chapterSelectComponent",
+      "sourceSwf": "chapterSelectComponent/chapterSelectComponent.swf",
+      "sourceSha256": "8e5ab6e7cff08e3260624921a095e8257b24e418848f8dc888341edd3d28da56",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/chapterSelectComponent/chapterSelectComponent.fla",
+      "flaSha256": "96ed3de3d57906ead120707651c477d66b0f31eb9291b1d5f3956137a9d21781",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "chatComponent",
+      "sourceSwf": "chatComponent/chatComponent.swf",
+      "sourceSha256": "29fd42989cad9a7f8fea77a6fef1f7d51578142ce519f78f24e1692eb7cdf673",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/chatComponent/chatComponent.fla",
+      "flaSha256": "948f556bda131e0b40def3b4cb491d9cd876462cbaa76bf9192bdfb9368fb76f",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fe_components",
+      "sourceSwf": "fe_components/fe_components.swf",
+      "sourceSha256": "334d36aaca6bce72ae48b8f4c2adaa3b980521806d6908293add289119b5f837",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fe_components/fe_components.fla",
+      "flaSha256": "9ca274cfd7ac90f8f6a20a874701c79aa0614f2deb58a9a88bded69613652636",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fe_m_assets",
+      "sourceSwf": "fe_m_assets/fe_m_assets.swf",
+      "sourceSha256": "a1ebfc59e2048d6cf38f6143ad71229d173eba438046adbd8412cc2bdfa0d9f3",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fe_m_assets/fe_m_assets.fla",
+      "flaSha256": "1670cd0c05a53abc4fbe5bff2781a44af3444ee3540af585a9e71dc11eef873a",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fe_m_assetsGameSetup",
+      "sourceSwf": "fe_m_assetsGameSetup/fe_m_assetsGameSetup.swf",
+      "sourceSha256": "1e533690e27e998ed515547a28cde55508513a650d51b7ca8b1fdf5e41dd3266",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fe_m_assetsGameSetup/fe_m_assetsGameSetup.fla",
+      "flaSha256": "67d21d11291ebc48394e971d967608376a4b51b07a7b1b0148e839b05f75a75d",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fe_m_generalScreenComponents",
+      "sourceSwf": "fe_m_generalScreenComponents/fe_m_generalScreenComponents.swf",
+      "sourceSha256": "56d37a8f3694b38dc99ec75d2e4b463a5c55a163d30b04ada3e1e1460817507a",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fe_m_generalScreenComponents/fe_m_generalScreenComponents.fla",
+      "flaSha256": "0718747e77f2156455fc78136e2451fdc74211e7656d05ce22da229972527950",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fe_missionBriefingAssets",
+      "sourceSwf": "fe_missionBriefingAssets/fe_missionBriefingAssets.swf",
+      "sourceSha256": "ddef04cf8a60dc66369e4eedf939c65294c386ad922d7c88bd36cf59fc5add77",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 12.0
+      },
+      "fla": "converted/fe_missionBriefingAssets/fe_missionBriefingAssets.fla",
+      "flaSha256": "11de79601707e92e398f01447699b0fb3015a93a32fb3b1f204305d3cc16e206",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 12,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fe_objectiveBriefingsAssets",
+      "sourceSwf": "fe_objectiveBriefingsAssets/fe_objectiveBriefingsAssets.swf",
+      "sourceSha256": "7bbe22112a00625735cb4c2ba5924a0287397de2e6570354379cbd747b82311d",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 12.0
+      },
+      "fla": "converted/fe_objectiveBriefingsAssets/fe_objectiveBriefingsAssets.fla",
+      "flaSha256": "b38aa6510edb1ecb5ca8d31c76cb13bc1cd8643de925e818d4f2c3066ad887ed",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 12,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fe_onlineComponents",
+      "sourceSwf": "fe_onlineComponents/fe_onlineComponents.swf",
+      "sourceSha256": "02a493acfa9fde086a4a92d54b882c9f4e12b7b937a72d3e3127a1bc8c2f2221",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fe_onlineComponents/fe_onlineComponents.fla",
+      "flaSha256": "bba6958ba0e1375d7f2861904c24317ae7b4f9b7fb35108d4a5d5e53514ab1c9",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fe_shared_mainMenuLib",
+      "sourceSwf": "fe_shared_mainMenuLib/fe_shared_mainMenuLib.swf",
+      "sourceSha256": "d2588e7a1dd06e85e057096710a21982634f74c84a8bcf859e9ab031776f7d0d",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fe_shared_mainMenuLib/fe_shared_mainMenuLib.fla",
+      "flaSha256": "24a8e8f8399bb077b4bf3693e9f9a3df2227c7959b73202020bd6ff9b69c8b7e",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_background",
+      "sourceSwf": "feg_m_background/feg_m_background.swf",
+      "sourceSha256": "a93e383394af98b8f1791b21b927588857356c83cec20c7dfa0b18c1179836b0",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_background/feg_m_background.fla",
+      "flaSha256": "87cd5028984d214dda0ab678386197517f7d35e08a89a27578107845072a3c37",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_comLink",
+      "sourceSwf": "feg_m_comLink/feg_m_comLink.swf",
+      "sourceSha256": "6063bb34f3aabaa903cb5967c7bc4b470f60794eea848da5711ea12f82279ce2",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 31,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_comLink/feg_m_comLink.fla",
+      "flaSha256": "afae8e7284f2fa5e88777493f64b17fe99c9ce9cc9d1e4d9adade213d0ad50dd",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 31,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_contextMenu",
+      "sourceSwf": "feg_m_contextMenu/feg_m_contextMenu.swf",
+      "sourceSha256": "06e4eadd81f4fb08741c9e8124a6d656f3dcd0878399584848a20327ddc8af9b",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_contextMenu/feg_m_contextMenu.fla",
+      "flaSha256": "1fd2156dd1ca9f94f225ea697e8cffedc5f6624f6df47dc23062726816594888",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_credits",
+      "sourceSwf": "feg_m_credits/feg_m_credits.swf",
+      "sourceSha256": "3f01662005e5e131b2b174335869e427569b117fbb18b148755dbc36ab956679",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_credits/feg_m_credits.fla",
+      "flaSha256": "2dbfa3421b214c4b3877f096e1df14acec7bdac681827bdabc3543e43f2b0cb6",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_disconnect",
+      "sourceSwf": "feg_m_disconnect/feg_m_disconnect.swf",
+      "sourceSha256": "6415a77c2728adfa3cd00730df9ba43fbf97e76921a4dc686f96bc7004fdb2e5",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_disconnect/feg_m_disconnect.fla",
+      "flaSha256": "87b58bcb9a1b2653a23f326db981cc3b2b2b1293a1e188dfbc9687a2e76ca4d3",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_filmArchiveTheatre",
+      "sourceSwf": "feg_m_filmArchiveTheatre/feg_m_filmArchiveTheatre.swf",
+      "sourceSha256": "45e1bc88fee874da1d6289cd21d94845eae4b99015754919139c9bf34d846fae",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_filmArchiveTheatre/feg_m_filmArchiveTheatre.fla",
+      "flaSha256": "0c35f150620e8208efee0ec20a41eaf42a3ebe79a16102917e0e0da1d794d714",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_load",
+      "sourceSwf": "feg_m_load/feg_m_load.swf",
+      "sourceSha256": "a624c820614d3c7fd45bf6ac61e5532629282f9eb0d746968a67b0b102949d3b",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_load/feg_m_load.fla",
+      "flaSha256": "ac7e1a4ee2387d1578c996fe77aa16d9cedfbc7e72c1dcaafc565f7d9771fe3b",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_main",
+      "sourceSwf": "feg_m_main/feg_m_main.swf",
+      "sourceSha256": "e1142b6ac3df693ec779694d65f478e40cb36f412b64b037c1f107e6e17535d5",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_main/feg_m_main.fla",
+      "flaSha256": "2b8832ed432412ee07c7ea1afcce051add732899a29127e656ab6e137f5492dc",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_mainMenu",
+      "sourceSwf": "feg_m_mainMenu/feg_m_mainMenu.swf",
+      "sourceSha256": "77b40123e3c7864ed8a497ef49d4535f5a9877e28587fbc24f786a976a3de600",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_mainMenu/feg_m_mainMenu.fla",
+      "flaSha256": "1379051801b85e096ed513b36cba52e56f163dfa59c4c14b6d06c92661e0d80e",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_mainMenu3D",
+      "sourceSwf": "feg_m_mainMenu3D/feg_m_mainMenu3D.swf",
+      "sourceSha256": "a73bfe17366c6bcfb709df5c27e259a31d579f0b75d513346b93966b686586d0",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_mainMenu3D/feg_m_mainMenu3D.fla",
+      "flaSha256": "b78f35f5a491c27664f4116083633747b0e24070d302b388bb7a265fde08342b",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_messageBox",
+      "sourceSwf": "feg_m_messageBox/feg_m_messageBox.swf",
+      "sourceSha256": "9a31c4ccc7a777fa8dcf276a91cd488e6fd8fb2a0355ad5b86cc86da9ac21a6c",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_messageBox/feg_m_messageBox.fla",
+      "flaSha256": "7a5bd029efc01a201a6c27b9b347ea1c7ccf45bc504549cfe1da5fb906affa96",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_newLoadContinue",
+      "sourceSwf": "feg_m_newLoadContinue/feg_m_newLoadContinue.swf",
+      "sourceSha256": "02efe7201f8d1acdcfd6225b53e93e4693e8547c152c70029b0240c7ef455fbe",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_newLoadContinue/feg_m_newLoadContinue.fla",
+      "flaSha256": "dd89de6a0d5fd17db6facf2de78bfce56a311a0fa1ba1e8184a1e5c13c5a6544",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_optionsSettings",
+      "sourceSwf": "feg_m_optionsSettings/feg_m_optionsSettings.swf",
+      "sourceSha256": "607ccc549f58d6dc7788257fa3287761ecaf91c30aa3cc14bff55ad6ef881faf",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_optionsSettings/feg_m_optionsSettings.fla",
+      "flaSha256": "0b29dd5aa41f61d0028d15715965f243ec7615ff7e337fe6fa862bb91e42d7a8",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_profileManager",
+      "sourceSwf": "feg_m_profileManager/feg_m_profileManager.swf",
+      "sourceSha256": "3c77380319c586668408a4c4236e0f5ec1feb32df881b569b701d265ab5fb83f",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_profileManager/feg_m_profileManager.fla",
+      "flaSha256": "fecd286eb985ac19734fd6a2aa912530641103556f1cdfdee3b97d4ff51ff74f",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_profileStats",
+      "sourceSwf": "feg_m_profileStats/feg_m_profileStats.swf",
+      "sourceSha256": "80b78262ff6db68ae1bd0d661e60e4b8dfd6fe8bef0d6e2f524881b4a8581967",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_profileStats/feg_m_profileStats.fla",
+      "flaSha256": "355e47ff0e1ad9160d888f1c4767dc7d81db147a11e4522379d2caf5cfe7a676",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_recruitChooser",
+      "sourceSwf": "feg_m_recruitChooser/feg_m_recruitChooser.swf",
+      "sourceSha256": "fe168ba90675113befbb0810b844a6d1edfe45036d12c59ca61e1188a90d047d",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_recruitChooser/feg_m_recruitChooser.fla",
+      "flaSha256": "c7d7b42acf46f35e45eb3611be360ff3ff952d764beb3eedbe2a176a448ac28c",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_saveLoadMenu",
+      "sourceSwf": "feg_m_saveLoadMenu/feg_m_saveLoadMenu.swf",
+      "sourceSha256": "cb25d30dd3b6a3a70443428548a2facbd6685d1a8dbd3fe993e7938ce296fe92",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_saveLoadMenu/feg_m_saveLoadMenu.fla",
+      "flaSha256": "b0566844d9436fa84796db31c2a157565f816293146bd74a321cfb61470edb88",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "feg_m_tutorialMenu",
+      "sourceSwf": "feg_m_tutorialMenu/feg_m_tutorialMenu.swf",
+      "sourceSha256": "7f5c2d30a57208c5b29db4219ec6b75678e1db0a367193df01e898889d6e7ea3",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/feg_m_tutorialMenu/feg_m_tutorialMenu.fla",
+      "flaSha256": "62cbf67ff84cb3d20762d33c4a2fb92f677e7ab3345617aa24015f6348f83d91",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fem_m_autoMatchSearch",
+      "sourceSwf": "fem_m_autoMatchSearch/fem_m_autoMatchSearch.swf",
+      "sourceSha256": "e55cc7c08f72dc33c737dfc02e26beba0086a5e2e81571418da99f459f1b4b95",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 60,
+        "fps": 30.0
+      },
+      "fla": "converted/fem_m_autoMatchSearch/fem_m_autoMatchSearch.fla",
+      "flaSha256": "15ab686a64a057bf7a2a8b3dfd757be7e881fe377fd03fa3f760612069318e77",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 60,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fem_m_autoMatchSetup",
+      "sourceSwf": "fem_m_autoMatchSetup/fem_m_autoMatchSetup.swf",
+      "sourceSha256": "a6dadb47e633b0b98ae64c6532b5dddaffd03141e80872c46351af31bb2fbcb5",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fem_m_autoMatchSetup/fem_m_autoMatchSetup.fla",
+      "flaSha256": "127e18fd86dbbe6ee6e887f48bb7e6db433b26f6f0c5c62d9363eb534dbee485",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fem_m_battleCast",
+      "sourceSwf": "fem_m_battleCast/fem_m_battleCast.swf",
+      "sourceSha256": "e616af555e47bc8113adac059edc208dd98397e3e2c50dd02aafc0d6212b993d",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fem_m_battleCast/fem_m_battleCast.fla",
+      "flaSha256": "e60617c86a206435bb34682a634b50ac6b0e83d177e1ed489ab3d5102c9de51c",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fem_m_coopStaging",
+      "sourceSwf": "fem_m_coopStaging/fem_m_coopStaging.swf",
+      "sourceSha256": "243e12aeb8c503cd86e8e85ed166848126f36f045cf6ee84cebb6c75b3c5b7ea",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fem_m_coopStaging/fem_m_coopStaging.fla",
+      "flaSha256": "fd16e7126ad8a17e91d536c0ee8f480cbf0f0a8d208852cc878aa724f701ce2d",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fem_m_gameSetup",
+      "sourceSwf": "fem_m_gameSetup/fem_m_gameSetup.swf",
+      "sourceSha256": "782098ccd6cfdb8414b9d82b8d5d698d56136217a4b57dae1fdb17b999f81baa",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fem_m_gameSetup/fem_m_gameSetup.fla",
+      "flaSha256": "9f01e4fa95c30d39a70452652147754c8ff52fb2af5a3511b532e07572c4f93a",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fem_m_lanGameSetup",
+      "sourceSwf": "fem_m_lanGameSetup/fem_m_lanGameSetup.swf",
+      "sourceSha256": "4a4f7121148a889ac4c8771462ec3bdbcd1317470adc72907e60fad1fb7535c6",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fem_m_lanGameSetup/fem_m_lanGameSetup.fla",
+      "flaSha256": "12148d49ae38a21ca0b06fc3f489140fc93f913beedbf21308ab6f78883a3579",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fem_m_lanLobby",
+      "sourceSwf": "fem_m_lanLobby/fem_m_lanLobby.swf",
+      "sourceSha256": "34746b703528f02f6f02664aac6fd1cc6d212ec1260c1dd62816b24df9df4b65",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fem_m_lanLobby/fem_m_lanLobby.fla",
+      "flaSha256": "2cb2e6911fc08fc92b0aa1f824dfd8c44cb0cd1273b91102f4651a889937da7d",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fem_m_load",
+      "sourceSwf": "fem_m_load/fem_m_load.swf",
+      "sourceSha256": "af054031ef847a7e786bd7aed628b9089c0ea4a0c36624754040d1a89fda91ce",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fem_m_load/fem_m_load.fla",
+      "flaSha256": "5ecf36ea89d08cb2f1150e8f29e7031d613c4ebf82071f884f10e49664971f92",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fem_m_onlineMultiplayer",
+      "sourceSwf": "fem_m_onlineMultiplayer/fem_m_onlineMultiplayer.swf",
+      "sourceSha256": "3af67c6f579d28146c3e525ed15516cab778fe85718c9c6cd866d0df05f3c579",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 12.0
+      },
+      "fla": "converted/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer.fla",
+      "flaSha256": "728fb04d110acd0b010d766cf220f17d07569ad9dd2a08eb799d4b680651a051",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 12,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fem_m_postgameRoundup",
+      "sourceSwf": "fem_m_postgameRoundup/fem_m_postgameRoundup.swf",
+      "sourceSha256": "71cc51dfc5250e176fd5f6870e1046a732b09b46a85d6bd76bd3a2cc2f331ba0",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fem_m_postgameRoundup/fem_m_postgameRoundup.fla",
+      "flaSha256": "76adb2896c84efe438aa7d1e78844c2fadfeeb367cbabe36c5a94344454b628b",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fes_m_chapterSelect",
+      "sourceSwf": "fes_m_chapterSelect/fes_m_chapterSelect.swf",
+      "sourceSha256": "7445f13a9b44c5ff95cc0fd20b3d2a55132b567957b9845878da6f9feaf8bf76",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fes_m_chapterSelect/fes_m_chapterSelect.fla",
+      "flaSha256": "75bf6094702f661df216cea46cde217546094e0c9c1f3d902be16798a2cf4623",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fes_m_factionMenu",
+      "sourceSwf": "fes_m_factionMenu/fes_m_factionMenu.swf",
+      "sourceSha256": "99aca4c22f027e3241a2191706570e922402db098cdcebaa5b92c05eeced7a1a",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fes_m_factionMenu/fes_m_factionMenu.fla",
+      "flaSha256": "1f682ddd03ea325257db09c6f634185799f854725f3c1b16095a40c21f5338be",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fes_m_missionBriefing",
+      "sourceSwf": "fes_m_missionBriefing/fes_m_missionBriefing.swf",
+      "sourceSha256": "9717ac86b32a7b887d5ca2389f222fc327630941e88290861372e373c4610371",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fes_m_missionBriefing/fes_m_missionBriefing.fla",
+      "flaSha256": "da0befe38310280a8dabb82d06f654e70044c1a8ced0990b6f3f622fcfe430fd",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fes_m_objectivesBriefing",
+      "sourceSwf": "fes_m_objectivesBriefing/fes_m_objectivesBriefing.swf",
+      "sourceSha256": "a640245109b28004fd79e82e445232f2f59311068e1188da40f45417c2461776",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fes_m_objectivesBriefing/fes_m_objectivesBriefing.fla",
+      "flaSha256": "1992826290b5778c275fae5407c782a4fa776858edb86184594c35b4d339ca2d",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fes_m_postgameRoundup",
+      "sourceSwf": "fes_m_postgameRoundup/fes_m_postgameRoundup.swf",
+      "sourceSha256": "0bd2453882259318d1d86921e919bb18e4ad0ef3810b6cb0ab869958625b131d",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fes_m_postgameRoundup/fes_m_postgameRoundup.fla",
+      "flaSha256": "ce72d99c7aa0c101ac3fdbbf505c80ae33ac4e034d09bf0ae89d8b6094c98d03",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fes_m_singleplayerMenu",
+      "sourceSwf": "fes_m_singleplayerMenu/fes_m_singleplayerMenu.swf",
+      "sourceSha256": "676e94a1af544b0ff2c225538ef136f1b18eabb3d815874934e29d619f7d1e28",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fes_m_singleplayerMenu/fes_m_singleplayerMenu.fla",
+      "flaSha256": "30aabcd6494e09a788c48354159894d4a9ec8eae001696b3e21bcc698c25c7c5",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "fes_m_skirmishGameSetup",
+      "sourceSwf": "fes_m_skirmishGameSetup/fes_m_skirmishGameSetup.swf",
+      "sourceSha256": "92868bfae4a43d183275fcefd9fd4d2093c44213aae3e5e617453252d00700c8",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/fes_m_skirmishGameSetup/fes_m_skirmishGameSetup.fla",
+      "flaSha256": "4722f902e64e253dbed816f58026cc556987dc481235a955359aa04651d0c7cb",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "ig_AITargetIndicator",
+      "sourceSwf": "ig_AITargetIndicator/ig_AITargetIndicator.swf",
+      "sourceSha256": "e150cb2a574913680cddc26837c351f583a0b6e34178fa509173f299e51475b1",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 30,
+        "fps": 30.0
+      },
+      "fla": "converted/ig_AITargetIndicator/ig_AITargetIndicator.fla",
+      "flaSha256": "b0aaa96d3b2a70e2923cb8f6c1808a60821ba04fa6cb503b17f6cc5dcccc4783",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 30,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "ig_DrawableOverlayStage",
+      "sourceSwf": "ig_DrawableOverlayStage/ig_DrawableOverlayStage.swf",
+      "sourceSha256": "d3bdf6593acc9f8964ab71bfdc3a2c045ece5efa6715a172edf97d89e952b61b",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/ig_DrawableOverlayStage/ig_DrawableOverlayStage.fla",
+      "flaSha256": "7180ef379f5b7190a77b8f85c7bc1a26739f154fc14a4ba682c268c832119747",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "ig_HUD",
+      "sourceSwf": "ig_HUD/ig_HUD.swf",
+      "sourceSha256": "f8886d0c13c92e747e7e67587d19f7c847bb4521a473ba8969f37f106cf398fd",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/ig_HUD/ig_HUD.fla",
+      "flaSha256": "ec24333648c8d5b17337a55445061dd83dabf252adfa874e53ed2a211e4a2382",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "ig_InfoBox",
+      "sourceSwf": "ig_InfoBox/ig_InfoBox.swf",
+      "sourceSha256": "0371187282e5428cc8a792c0760376dfecc425b29bd655afce5c5c35962ab2d6",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/ig_InfoBox/ig_InfoBox.fla",
+      "flaSha256": "9dccce2e9f95beff2101690dc7adf43d6016f5fd902980b0b088b5259cae4e72",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "ig_RadarBridgeLayer",
+      "sourceSwf": "ig_RadarBridgeLayer/ig_RadarBridgeLayer.swf",
+      "sourceSha256": "4b955f5079ce93ad030afd67167238f1c8ee6605a94adbff51751bc20edf4670",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/ig_RadarBridgeLayer/ig_RadarBridgeLayer.fla",
+      "flaSha256": "9ecae62b5e4325e02e8173875ee6b72e580bc80902bcb0801bba5f2aaaa71c3a",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "ig_RadarCoOpAITargetLayer",
+      "sourceSwf": "ig_RadarCoOpAITargetLayer/ig_RadarCoOpAITargetLayer.swf",
+      "sourceSha256": "d649360a88b20e1f4b74f6c14d902bafa007f5aabc13c274dbad8c58508e882a",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/ig_RadarCoOpAITargetLayer/ig_RadarCoOpAITargetLayer.fla",
+      "flaSha256": "2f9a348b0d1c902b04094e874d5c4af90cd2f7e8ed7375d5763dd80c5cbd96a6",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "ig_RadarObjectivesLayer",
+      "sourceSwf": "ig_RadarObjectivesLayer/ig_RadarObjectivesLayer.swf",
+      "sourceSha256": "743bfa4e51c64f6384606c56140367359e17f7402978cb7d9d22267de18e5b9d",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/ig_RadarObjectivesLayer/ig_RadarObjectivesLayer.fla",
+      "flaSha256": "ef33779a4fa7c776c00d04465347e37793268545fabdfb8e85df7cc92099fbd5",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "ig_libHUD",
+      "sourceSwf": "ig_libHUD/ig_libHUD.swf",
+      "sourceSha256": "03061b8d78cb5de67f4838da0eedc536d36b62916829a7213ea84de66177e067",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/ig_libHUD/ig_libHUD.fla",
+      "flaSha256": "97d6dab4de82afbf238b9feca36c038276ad63ec43ac0a44817de07d73aa5ddb",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "ig_missionMap",
+      "sourceSwf": "ig_missionMap/ig_missionMap.swf",
+      "sourceSha256": "9cd9cdc27be87617dc11f8e1031ddce0515cfeb4f1c19ed5a32bc7771393fd11",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/ig_missionMap/ig_missionMap.fla",
+      "flaSha256": "6d676375441d911eda74ec72f7d2bf515ef04a0c22d608b85d0f273eed0f8f9a",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "ig_missionMapHotSpotLayer",
+      "sourceSwf": "ig_missionMapHotSpotLayer/ig_missionMapHotSpotLayer.swf",
+      "sourceSha256": "6229862e89245221597cd2a784d8d71fe66b79a015136e9be68befbbf700a9d4",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/ig_missionMapHotSpotLayer/ig_missionMapHotSpotLayer.fla",
+      "flaSha256": "a9f423fd9edb3eb158a4a353daaa18920a52308b00fd99542c0edb5b1d7a7825",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "igm_GadgetFlashStage",
+      "sourceSwf": "igm_GadgetFlashStage/igm_GadgetFlashStage.swf",
+      "sourceSha256": "cfc2c7cfb5abacfa95ddb7ee1197f904299c1ee2c4c58b23763b236b57cdfbc3",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/igm_GadgetFlashStage/igm_GadgetFlashStage.fla",
+      "flaSha256": "86c630df2826b60874ef4a7443f455d0f2a0c75e5685b121edfd5aae3c0326b9",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "igm_PlayerTechStoreDialog",
+      "sourceSwf": "igm_PlayerTechStoreDialog/igm_PlayerTechStoreDialog.swf",
+      "sourceSha256": "fc2095f4b0543016a3c655ff0beb317b7c960fc02015a8383e57ea9195222891",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 15,
+        "fps": 30.0
+      },
+      "fla": "converted/igm_PlayerTechStoreDialog/igm_PlayerTechStoreDialog.fla",
+      "flaSha256": "d106866590203c28dd23e5b3e66fdf433b6dc3ea10573b54e493d2025e021ae6",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 15,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "igm_UnitIntroDialog",
+      "sourceSwf": "igm_UnitIntroDialog/igm_UnitIntroDialog.swf",
+      "sourceSha256": "df9f262322999fef1f0132afb0e25443f10a17d9f93e81fd5a5d9d9b63c7c152",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 15,
+        "fps": 30.0
+      },
+      "fla": "converted/igm_UnitIntroDialog/igm_UnitIntroDialog.fla",
+      "flaSha256": "f5b9208ad9d748de930154615abdedfa7423f2763b67cbf1cd969e5465671e55",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 15,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "igm_pauseMenu",
+      "sourceSwf": "igm_pauseMenu/igm_pauseMenu.swf",
+      "sourceSha256": "301e3241900264a6c209aeb6842475454d4267198003e297052acf24da14ed02",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/igm_pauseMenu/igm_pauseMenu.fla",
+      "flaSha256": "26e2d1829da75ee834d733c72c6fe06e15fb7f74ca18943849e2333b42dc6d5a",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "igm_replayControlPanel",
+      "sourceSwf": "igm_replayControlPanel/igm_replayControlPanel.swf",
+      "sourceSha256": "80f9bb0570b08103a291f9b318c5d0ee2655afc42a31953f06a1aea57e4e8387",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/igm_replayControlPanel/igm_replayControlPanel.fla",
+      "flaSha256": "f9ece2537957f95475c5770e69bd1f08522f54e0fa8769bf2c54dd5bf4dd773e",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "igm_shellRoot",
+      "sourceSwf": "igm_shellRoot/igm_shellRoot.swf",
+      "sourceSha256": "6f6501d7afd1e956706acac374863887e0d3d6742e6e1d5688aa327374e93cda",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/igm_shellRoot/igm_shellRoot.fla",
+      "flaSha256": "ca20e6c5fe40e2b5251f772f25ce9f10094740d28bfe9c54a1648b31ced3cd4c",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "libProgressBar",
+      "sourceSwf": "libProgressBar/libProgressBar.swf",
+      "sourceSha256": "08d03bea8fa7102c12364f1aa4e8f30002658a35dceaa6f7bc579495ddd60f08",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 2,
+        "fps": 30.0
+      },
+      "fla": "converted/libProgressBar/libProgressBar.fla",
+      "flaSha256": "c9a80aba581c78742797d1f4fde9ede59f5dd7e57c4779467a2f13a9a68c2b6a",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 2,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "main_mouse",
+      "sourceSwf": "main_mouse/main_mouse.swf",
+      "sourceSha256": "95507a8450cdd5afdd7a95f6df319bd6c901a3454b8effaac6f33be7207f1f91",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/main_mouse/main_mouse.fla",
+      "flaSha256": "01e2c5f9cea367ec6b144705d4d47c283ba8665dae7e9935936a1035c83175be",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "mouse_chapterSelectComponent",
+      "sourceSwf": "mouse_chapterSelectComponent/mouse_chapterSelectComponent.swf",
+      "sourceSha256": "5e180d512689f563b2e108ec4d286f97183fef4b6bd6dc4fb9df34571596ca9d",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/mouse_chapterSelectComponent/mouse_chapterSelectComponent.fla",
+      "flaSha256": "2c878801b55594e697838da940507ee86a3cadfe69079256b9b9f14767fc5486",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "sampleMissionBriefing",
+      "sourceSwf": "sampleMissionBriefing/sampleMissionBriefing.swf",
+      "sourceSha256": "315e15fa6381930e17c60b20d1be9bd94be218b3202cb9cbfcc16d5c8406118f",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 378,
+        "fps": 30.0
+      },
+      "fla": "converted/sampleMissionBriefing/sampleMissionBriefing.fla",
+      "flaSha256": "e52fadc38fccca1d5ab3d8fe0490221ad89e7713f21682e7377c8b464d73caaa",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 378,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "failed"
+    },
+    {
+      "movie": "sampleObjectiveBriefing",
+      "sourceSwf": "sampleObjectiveBriefing/sampleObjectiveBriefing.swf",
+      "sourceSha256": "e990c33eaada5f63994cf3702ae964728e54d4bd9b3342010559da878fb8c047",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 15.0
+      },
+      "fla": "converted/sampleObjectiveBriefing/sampleObjectiveBriefing.fla",
+      "flaSha256": "4dacc7253b69c6d5ea80feec76ba93aaf1d92bae6527c19e3407becd05b56c4a",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 15,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "skins",
+      "sourceSwf": "skins/skins.swf",
+      "sourceSha256": "6692abd37f12ae7d7ac16217f0aed174cabfb5cc7a6a6a59428aaf04812b23ec",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/skins/skins.fla",
+      "flaSha256": "727660998637296116bff3be9beb70b3b0a312685bc59a6bbc8000f58e905255",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "std_MouseAccordionButton",
+      "sourceSwf": "std_MouseAccordionButton/std_MouseAccordionButton.swf",
+      "sourceSha256": "d78875852bfdd81db0bbfc3a18f48245457e157c6a613a7beb48ac101b5a2eba",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/std_MouseAccordionButton/std_MouseAccordionButton.fla",
+      "flaSha256": "df836571b16a95c4cf83320d2ec20697a837bd2479689d86f4a70b05117a39f7",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "std_MouseButton",
+      "sourceSwf": "std_MouseButton/std_MouseButton.swf",
+      "sourceSha256": "35e3d48b5d93c95c2cd994d09d120a1d1dc384d08a0390f89dfd32da858148bb",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 12.0
+      },
+      "fla": "converted/std_MouseButton/std_MouseButton.fla",
+      "flaSha256": "a8c5b64059d950b60f1a0452b113c0c53e7f31e5e1942cbe1de991377621808e",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 12,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "std_MouseCheckBox",
+      "sourceSwf": "std_MouseCheckBox/std_MouseCheckBox.swf",
+      "sourceSha256": "b345a171717e96565ff7e7ceb72f9e56608a0994abe3e9e6d4e3e7564be35f55",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 12.0
+      },
+      "fla": "converted/std_MouseCheckBox/std_MouseCheckBox.fla",
+      "flaSha256": "12ea6e0a946d48fb2b6662d867555d97b9157d5d3434e9a6397d8d311c213a9a",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 12,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "std_mouseDropDownMenu",
+      "sourceSwf": "std_mouseDropDownMenu/std_mouseDropDownMenu.swf",
+      "sourceSha256": "4832e612a3bf1019f362b6bca2100d0a006550d5e9db303383bec2566983f8de",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/std_mouseDropDownMenu/std_mouseDropDownMenu.fla",
+      "flaSha256": "8715b4694089f0f2fd9f08c8accd29cdd3ed63eb1c79e6449356888259e9a7c3",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "std_mouseRadioButton",
+      "sourceSwf": "std_mouseRadioButton/std_mouseRadioButton.swf",
+      "sourceSha256": "479a900cf44eaba34aa98fa82fdd37004508b16d4c65b0aba9fa586eed499183",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 12.0
+      },
+      "fla": "converted/std_mouseRadioButton/std_mouseRadioButton.fla",
+      "flaSha256": "1da94da96d47f394572670bbd005f5dddde2fe21f2a257c535373ba598f8244e",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 12,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "std_mouseScrollbar",
+      "sourceSwf": "std_mouseScrollbar/std_mouseScrollbar.swf",
+      "sourceSha256": "e9af7097cfcd17ed6cdbec10d281d589633a99e902f59a163081004a3d761e86",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 12.0
+      },
+      "fla": "converted/std_mouseScrollbar/std_mouseScrollbar.fla",
+      "flaSha256": "c536decc9c90877306b430fc9473f77bbb153c9f792f3e7d886f3e2b6ca5b338",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 12,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "std_mouseScrollingListbox",
+      "sourceSwf": "std_mouseScrollingListbox/std_mouseScrollingListbox.swf",
+      "sourceSha256": "90aa36a12422e576c2828716175729616cb3690b69f7337c2130fae2d98e4f65",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/std_mouseScrollingListbox/std_mouseScrollingListbox.fla",
+      "flaSha256": "5f0850d990ab9a81a65c287f934c274d3f32f6ff8184486b44d4bcd4f61e9f42",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "std_mouseSlider",
+      "sourceSwf": "std_mouseSlider/std_mouseSlider.swf",
+      "sourceSha256": "a95f58454e5e699e5cb460d46d1328603ef88861d62beabdc507c5fb15cfd681",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 12.0
+      },
+      "fla": "converted/std_mouseSlider/std_mouseSlider.fla",
+      "flaSha256": "e826ff08ccc9e4311307963743fd496e76eef2ae99466174d989b6a5f2045941",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 12,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "std_mouseTextInputField",
+      "sourceSwf": "std_mouseTextInputField/std_mouseTextInputField.swf",
+      "sourceSha256": "4c93301259ae7a9b9d31f43d5a92e8b5e18397b8a1378740614fd4a517cc2d78",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 12.0
+      },
+      "fla": "converted/std_mouseTextInputField/std_mouseTextInputField.fla",
+      "flaSha256": "b6dbf9c881579d5f863f367ec3c45cc276ec14b47dface4213fd277bc3a6cd47",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 12,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    },
+    {
+      "movie": "testCafeUI",
+      "sourceSwf": "testCafeUI/testCafeUI.swf",
+      "sourceSha256": "933daeb82d688f9bbc5e5873573f0a53bbaad9b68fe91ecd48d256b392ffd073",
+      "sourceHeader": {
+        "version": 7,
+        "frames": 1,
+        "fps": 30.0
+      },
+      "fla": "converted/testCafeUI/testCafeUI.fla",
+      "flaSha256": "c92e14083feab9dce837fd441916b52b060a738fe9244ce41f8e7621228fa739",
+      "validatedFlaIdentityMatches": true,
+      "flaFrames": 1,
+      "flaFps": 30,
+      "status": "matched",
+      "productionCompilationStatus": "passed"
+    }
+  ]
+}

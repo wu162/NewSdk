@@ -1,66 +1,138 @@
 [
   {
-    "path": "converted/TacticalTextChatDialog/scripts/DOMDocument/0001.as",
+    "path": "converted/TacticalTextChatDialog/scripts/TacticalTextChatDialog/TacticalTextChatDialog_frame_0001_define_Close.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 1,
     "sha256": "a43392e39e492cf87f55882be33f8212b004f51cc6b7f6cfbbbc577c8654ab42",
     "originalCodeSha256": "a43392e39e492cf87f55882be33f8212b004f51cc6b7f6cfbbbc577c8654ab42",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalTextChatDialog",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_Close",
+      "actionBasis": "function-declaration:Close"
+    }
   },
   {
-    "path": "converted/TacticalTextChatDialog/scripts/DOMDocument/0002.as",
+    "path": "converted/TacticalTextChatDialog/scripts/TacticalTextChatDialog/TacticalTextChatDialog_frame_0010_stop.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalTextChatDialog",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 10,
+      "frameLabel": "",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/TacticalTextChatDialog/scripts/DOMDocument/0003.as",
+    "path": "converted/TacticalTextChatDialog/scripts/TacticalTextChatDialog/TacticalTextChatDialog_frame_0016_fscommand_label_close.as",
     "xflXml": "DOMDocument.xml",
     "scriptOrdinal": 3,
     "sha256": "6e6cea10361519b47b3ac1f0ed156719196c0083b0e643fedea162b0de21d90d",
     "originalCodeSha256": "6e6cea10361519b47b3ac1f0ed156719196c0083b0e643fedea162b0de21d90d",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "TacticalTextChatDialog",
+      "ownerBasis": "movie-name-fallback",
+      "frameNumber": 16,
+      "frameLabel": "_close",
+      "event": "",
+      "action": "fscommand",
+      "actionBasis": "function-call:fscommand"
+    }
   },
   {
-    "path": "converted/TacticalTextChatDialog/scripts/LIBRARY/Symbol 10/0001.as",
+    "path": "converted/TacticalTextChatDialog/scripts/panel/panel_frame_0001_define_GetMousePosString.as",
     "xflXml": "LIBRARY/Symbol 10.xml",
     "scriptOrdinal": 1,
     "sha256": "5ba9e1661b186f565801b5f51393c339f88719c9a9a6f70a2621aebaaa8284c2",
     "originalCodeSha256": "5ba9e1661b186f565801b5f51393c339f88719c9a9a6f70a2621aebaaa8284c2",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "",
+      "action": "define_GetMousePosString",
+      "actionBasis": "function-declaration:GetMousePosString"
+    }
   },
   {
-    "path": "converted/TacticalTextChatDialog/scripts/LIBRARY/Symbol 10/0002.as",
+    "path": "converted/TacticalTextChatDialog/scripts/messageText/messageText_frame_0001_load.as",
     "xflXml": "LIBRARY/Symbol 10.xml",
     "scriptOrdinal": 2,
     "sha256": "ae47a38d300d63f25168339a9df4ab05c35542160109d2b95686ae2328235794",
     "originalCodeSha256": "ae47a38d300d63f25168339a9df4ab05c35542160109d2b95686ae2328235794",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "messageText",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "load",
+      "action": "load",
+      "actionBasis": "event-handler:onClipEvent(load)"
+    }
   },
   {
-    "path": "converted/TacticalTextChatDialog/scripts/LIBRARY/Symbol 10/0003.as",
+    "path": "converted/TacticalTextChatDialog/scripts/panel/panel_frame_0001_press.as",
     "xflXml": "LIBRARY/Symbol 10.xml",
     "scriptOrdinal": 3,
     "sha256": "22c4c5e684ee1d1acd8408098d432bb2761dcf227493ee50a48ac0cf59e99c0a",
     "originalCodeSha256": "22c4c5e684ee1d1acd8408098d432bb2761dcf227493ee50a48ac0cf59e99c0a",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   },
   {
-    "path": "converted/TacticalTextChatDialog/scripts/LIBRARY/Symbol 10/0004.as",
+    "path": "converted/TacticalTextChatDialog/scripts/panel/panel_frame_0001_press_occurrence_02.as",
     "xflXml": "LIBRARY/Symbol 10.xml",
     "scriptOrdinal": 4,
     "sha256": "19ddaadaf63eaf882f71cce43dfea005a0e679b40ed43e9d300316af3685817b",
     "originalCodeSha256": "19ddaadaf63eaf882f71cce43dfea005a0e679b40ed43e9d300316af3685817b",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   },
   {
-    "path": "converted/TacticalTextChatDialog/scripts/LIBRARY/Symbol 10/0005.as",
+    "path": "converted/TacticalTextChatDialog/scripts/panel/panel_frame_0001_press_occurrence_03.as",
     "xflXml": "LIBRARY/Symbol 10.xml",
     "scriptOrdinal": 5,
     "sha256": "6536167fb443d2c8991dac67583761e2dffdb4afe5813fecf9aad343110d1883",
     "originalCodeSha256": "6536167fb443d2c8991dac67583761e2dffdb4afe5813fecf9aad343110d1883",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "panel",
+      "ownerBasis": "referencing-instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "press",
+      "action": "press",
+      "actionBasis": "event-handler:on(press)"
+    }
   }
 ]

@@ -1,50 +1,104 @@
 [
   {
-    "path": "converted/std_mouseScrollingListbox/scripts/LIBRARY/Symbol 12/0001.as",
+    "path": "converted/std_mouseScrollingListbox/scripts/ListboxEntryHighlighter/ListboxEntryHighlighter_frame_0008_stop_label_highlight.as",
     "xflXml": "LIBRARY/Symbol 12.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ListboxEntryHighlighter",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 8,
+      "frameLabel": "_highlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollingListbox/scripts/LIBRARY/Symbol 12/0002.as",
+    "path": "converted/std_mouseScrollingListbox/scripts/ListboxEntryHighlighter/ListboxEntryHighlighter_frame_0016_stop_label_unhighlight.as",
     "xflXml": "LIBRARY/Symbol 12.xml",
     "scriptOrdinal": 2,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ListboxEntryHighlighter",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 16,
+      "frameLabel": "_unhighlight",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollingListbox/scripts/LIBRARY/Symbol 2/0001.as",
+    "path": "converted/std_mouseScrollingListbox/scripts/RenderImageCustomRenderComponent/RenderImageCustomRenderComponent_frame_0002_stop_label_reset.as",
     "xflXml": "LIBRARY/Symbol 2.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "RenderImageCustomRenderComponent",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 2,
+      "frameLabel": "_reset",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollingListbox/scripts/LIBRARY/Symbol 22/0001.as",
+    "path": "converted/std_mouseScrollingListbox/scripts/ColorSwatchCustomRenderComponent/ColorSwatchCustomRenderComponent_frame_0002_stop_label_reset.as",
     "xflXml": "LIBRARY/Symbol 22.xml",
     "scriptOrdinal": 1,
     "sha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
     "originalCodeSha256": "c71f185593d153c467266a494ebee471c04c9b64044e6cf491e0d91d739e92fd",
-    "normalizedConstructEvents": 0
+    "normalizedConstructEvents": 0,
+    "semanticName": {
+      "owner": "ColorSwatchCustomRenderComponent",
+      "ownerBasis": "linkageIdentifier",
+      "frameNumber": 2,
+      "frameLabel": "_reset",
+      "event": "",
+      "action": "stop",
+      "actionBasis": "function-call:stop"
+    }
   },
   {
-    "path": "converted/std_mouseScrollingListbox/scripts/LIBRARY/Symbol 23/0001.as",
+    "path": "converted/std_mouseScrollingListbox/scripts/colorSwatchCustomRender/colorSwatchCustomRender_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 23.xml",
     "scriptOrdinal": 1,
     "sha256": "bc7e2dec94b105395c7130204f9bb674dd578a07ddaad7310a9053cf8e4e3513",
     "originalCodeSha256": "c9dfe45bd72d519a22cc8e55e4c02e4b96a1ba9a8f7330fe0c3573d54bd20035",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "colorSwatchCustomRender",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   },
   {
-    "path": "converted/std_mouseScrollingListbox/scripts/LIBRARY/Symbol 5/0001.as",
+    "path": "converted/std_mouseScrollingListbox/scripts/renderImageCustomRender/renderImageCustomRender_frame_0001_construct.as",
     "xflXml": "LIBRARY/Symbol 5.xml",
     "scriptOrdinal": 1,
     "sha256": "d9dc4a7b7fdd379b9d63df61014f0c058729f7b9a2d76a5fe0c7ce62364331bf",
     "originalCodeSha256": "90b1672ece545a77b6bfe7230f200debf98610d66f1da3bc242121c5fa85a004",
-    "normalizedConstructEvents": 1
+    "normalizedConstructEvents": 1,
+    "semanticName": {
+      "owner": "renderImageCustomRender",
+      "ownerBasis": "instance-name",
+      "frameNumber": 1,
+      "frameLabel": "",
+      "event": "construct",
+      "action": "construct",
+      "actionBasis": "event-handler:onClipEvent(construct)"
+    }
   }
 ]
